@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 import {CombinedTheme} from './theme';
 import {PaperProvider} from 'react-native-paper';
 import AppNavigation from './navigation/AppNavigation';
+import 'react-native-gesture-handler'
 
 export default function App() {
   return (
