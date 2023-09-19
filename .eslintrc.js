@@ -7,5 +7,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'react-native/no-inline-styles': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
   },
 };
