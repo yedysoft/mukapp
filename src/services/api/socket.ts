@@ -1,0 +1,85 @@
+import * as StompJs from '@stomp/stompjs';
+import {StompSubscription} from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import {restUrl} from '../../../config';
+import {messageCallbackType} from '@stomp/stompjs/src/types';
+import {stores} from '../../stores';
+
+export class SocketApi {
+  public onConnected: PureFunc;
+  public onDisconnected: PureFunc;
+  public subscribes: {[key: string]: StompSubscription};
+  public client: StompJs.Client;
+
+  constructor() {
+    const noOp = () => {};
+    this.onConnected = noOp;
+    this.onDisconnected = noOp;
+    this.subscribes = {};
+    this.client = new StompJs.Client({
+      reconnectDelay: 4000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      webSocketFactory: () => new SockJS(restUrl + '/ws'),
+      debug: (str: string): void => {
+        console.log(str);
+      },
+      beforeConnect: () => {
+        console.log(stores.auth.authToken);
+        this.client.connectHeaders = {
+          Authorization: `Bearer ${stores.auth.authToken}`,
+          Host: '',
+        };
+      },
+      onConnect: () => this.onConnected,
+      onDisconnect: () => this.onDisconnected,
+    });
+  }
+
+  public connect = (): void => {
+    this.client.activate();
+  };
+
+  public disconnect = (): void => {
+    this.client.deactivate().then(() => (this.subscribes = {}));
+  };
+
+  public subscribe = (destination: string, callback: messageCallbackType): StompSubscription | undefined => {
+    if (!(destination in this.subscribes)) {
+      this.checkConnect();
+      if (this.client.connected) {
+        const sub: StompSubscription = this.client.subscribe(destination, callback);
+        this.subscribes[destination] = sub;
+        return sub;
+      }
+    }
+    return undefined;
+  };
+
+  public unsubscribe = (sub: StompSubscription): void => {
+    this.checkConnect();
+    if (this.client.connected) {
+      sub.unsubscribe();
+      const key = Object.keys(this.subscribes).find(k => this.subscribes[k].id === sub.id);
+      if (key) {
+        delete this.subscribes[key];
+      }
+    }
+  };
+
+  public sendMessage = (destination: string, msg?: any): void => {
+    this.checkConnect();
+    if (this.client.connected) {
+      this.client.publish({
+        destination: destination,
+        body: JSON.stringify(msg),
+      });
+    }
+  };
+
+  private checkConnect = (): void => {
+    if (!this.client.connected) {
+      this.connect();
+    }
+  };
+}
