@@ -1,5 +1,6 @@
 import {adaptNavigationTheme, MD3DarkTheme, MD3LightTheme} from 'react-native-paper';
 import {DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationLightTheme} from '@react-navigation/native';
+import {YedyPalette} from "./YedyPalette";
 
 const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationLightTheme,

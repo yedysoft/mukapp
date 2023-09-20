@@ -6,5 +6,5 @@ import {observer} from 'mobx-react';
 import {stores} from '../stores';
 
 export const AppNavigation = observer(() => {
-  return <NavigationContainer theme={CombinedTheme}>{stores.auth.isLoggedIn ? <WrapDrawer /> : <AuthStack />}</NavigationContainer>;
+  return <NavigationContainer theme={CombinedTheme}>{!stores.auth.isLoggedIn ? <WrapDrawer /> : <AuthStack />}</NavigationContainer>;
 });

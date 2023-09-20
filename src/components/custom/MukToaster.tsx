@@ -1,3 +1,3 @@
-export default function MukModal() {
+export default function MukToaster() {
   return <></>;
 }

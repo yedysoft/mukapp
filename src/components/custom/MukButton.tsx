@@ -1,14 +1,29 @@
-import {Pressable} from 'react-native';
-import {Text} from 'react-native-paper';
+import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
+import {Text, useTheme} from 'react-native-paper';
+import {responsiveSize, responsiveWidth} from "../../utils/Responsive";
+import {ReactNode} from "react";
 
 type Props = {
-  text: string;
+  buttonStyle?: StyleProp<ViewStyle>
+  onPress?: () => void
+  label?: string;
+  children?: ReactNode
 };
 
-export default function MukButton({text}: Props) {
+export default function MukButton({buttonStyle, onPress, label, children}: Props) {
+  const theme = useTheme()
+
   return (
-    <Pressable>
-      <Text>DENEME</Text>
-    </Pressable>
+    <TouchableOpacity onPress={onPress} style={[{
+      backgroundColor: theme.colors.primary,
+      flex: 1,
+      padding: responsiveWidth(16),
+      borderRadius: 16,
+      justifyContent: 'center',
+      alignItems: 'center'
+    }, buttonStyle]}>
+      {children}
+      <Text style={{fontSize: responsiveSize(16), fontWeight: 'bold', color: theme.colors.onBackground}}>{label}</Text>
+    </TouchableOpacity>
   );
 }
