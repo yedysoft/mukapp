@@ -5,7 +5,8 @@ import MainStack from './MainStack';
 import MainHeader from '../components/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
 import ProfileScreen from '../screens/main/ProfileScreen';
-import {ChatScreen} from "../screens/main/social/ChatScreen";
+import {ChatScreen} from '../screens/main/social/ChatScreen';
+import {responsiveHeight} from '../utils/Responsive';
 
 const Bottom = createBottomTabNavigator();
 export default function BottomTab() {
@@ -17,7 +18,9 @@ export default function BottomTab() {
       screenOptions={() => ({
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: 100,
+          height: responsiveHeight(80),
+          backgroundColor: theme.colors.background,
+          borderTopWidth: 0,
         },
         headerShown: true,
         header: () => <MainHeader />,
