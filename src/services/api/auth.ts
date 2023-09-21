@@ -27,7 +27,8 @@ export class AuthApi {
         stat = true;
       }
     } catch (e: any) {
-      e.response.status && console.log(e.response.status);
+      //e.response.status && console.log(e.response.status);
+      console.log(e);
     } finally {
       stores.auth.set('loggedIn', stat);
     }

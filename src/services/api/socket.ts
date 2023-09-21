@@ -21,14 +21,14 @@ export class SocketApi {
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       webSocketFactory: () => new SockJS(restUrl + '/ws'),
-      debug: (str: string): void => {
-        console.log(str);
-      },
+      debug: str => console.log(str),
+      onWebSocketError: () => console.log('onWebSocketError'),
+      onStompError: () => console.log('onStompError'),
+      onWebSocketClose: event => console.log(event),
       beforeConnect: () => {
-        console.log(stores.auth.authToken);
         this.client.connectHeaders = {
           Authorization: `Bearer ${stores.auth.authToken}`,
-          Host: '',
+          Host: '192.168.1.126:8002',
         };
       },
       onConnect: () => this.onConnected,
@@ -52,6 +52,8 @@ export class SocketApi {
         this.subscribes[destination] = sub;
         return sub;
       }
+    } else {
+      return this.subscribes[destination];
     }
     return undefined;
   };

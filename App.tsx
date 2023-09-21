@@ -15,16 +15,16 @@ import SplashScreen from './src/screens/auth/SplashScreen';
 export default observer(() => {
   const [ready, setReady] = useState(false);
 
-  const onLaunch = useCallback(async () => {
+  const initializeApp = useCallback(async () => {
     await hydrateStores();
     await initServices();
+    await services.api.helper.sleep(1000);
     await services.api.auth.checkToken();
-    setReady(true);
   }, []);
 
   useEffect(() => {
-    onLaunch();
-  }, [onLaunch]);
+    initializeApp().then(() => setReady(true));
+  }, []);
 
   const NotReady = useMemo(() => <SplashScreen />, [ready]);
 
