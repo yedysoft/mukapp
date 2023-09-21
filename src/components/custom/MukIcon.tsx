@@ -7,13 +7,14 @@ type Props = {
   badge?: number,
   icon: IconSource,
   iconStyle?: StyleProp<ViewStyle>
+  scale?: number
 }
 
-export default function MukIcon({badge, icon, iconStyle}: Props) {
+export default function MukIcon({badge, icon, iconStyle, scale}: Props) {
   return (
-    <View>
+    <>
       {badge && <Badge style={{position: 'absolute', top: 0, right: 0, color: 'white', width: responsiveWidth(16), fontWeight: 'bold', aspectRatio: 1, zIndex: 1400}}>{badge}</Badge>}
-      <Avatar.Icon icon={icon} size={responsiveSize(64)} style={[{backgroundColor: 'transparent'}, iconStyle]} />
-    </View>
+      <Avatar.Icon icon={icon} size={responsiveSize(scale ? 64*scale : 64)} style={[{backgroundColor: 'transparent', marginLeft: responsiveWidth(-5)}, iconStyle]} />
+    </>
   );
 }

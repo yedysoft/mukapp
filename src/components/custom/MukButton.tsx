@@ -19,8 +19,7 @@ export default function MukButton({buttonStyle, onPress, label, children}: Props
       style={[
         {
           backgroundColor: theme.colors.primary,
-          flex: 1,
-          padding: responsiveWidth(16),
+          padding: responsiveWidth(20),
           borderRadius: 16,
           justifyContent: 'center',
           alignItems: 'center',

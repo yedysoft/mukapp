@@ -1,4 +1,4 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MainLayout from '../../components/layouts/MainLayout';
 
 export default function HomeScreen() {
@@ -6,7 +6,7 @@ export default function HomeScreen() {
 
   return (
     <MainLayout>
-      <Text>Home</Text>
+
     </MainLayout>
   );
 }
