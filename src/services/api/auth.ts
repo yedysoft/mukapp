@@ -1,6 +1,7 @@
 import {ILogin} from '../../types/auth';
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
+import {services} from '../index';
 
 export class AuthApi {
   login = async (form: ILogin): PVoid => {
@@ -24,6 +25,7 @@ export class AuthApi {
     try {
       const opt = await axiosIns.options('/auth/checkToken');
       if (opt.status && opt.status === 200) {
+        await services.api.user.setUserInfo();
         stat = true;
       }
     } catch (e: any) {

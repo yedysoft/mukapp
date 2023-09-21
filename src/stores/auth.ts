@@ -1,12 +1,22 @@
 import {makeAutoObservable} from 'mobx';
 import {hydrateStore, makePersistable} from 'mobx-persist-store';
+import {IUserInfo} from '../types/auth';
 
 export class AuthStore implements IStore {
-  authToken: string | null = null;
   loggedIn = false;
+  authToken: string | null = null;
+  user: IUserInfo = {id: '-1', coin: 0};
 
   get isLoggedIn() {
     return this.loggedIn;
+  }
+
+  get getAuthToken() {
+    return this.authToken;
+  }
+
+  get getUser() {
+    return this.user;
   }
 
   constructor() {

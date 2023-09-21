@@ -3,7 +3,6 @@ import {StompSubscription} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import {restUrl} from '../../../config';
 import {messageCallbackType} from '@stomp/stompjs/src/types';
-import {stores} from '../../stores';
 
 export class SocketApi {
   public onConnected: PureFunc;
@@ -25,11 +24,6 @@ export class SocketApi {
       onWebSocketError: () => console.log('onWebSocketError'),
       onStompError: () => console.log('onStompError'),
       onWebSocketClose: event => console.log(event),
-      beforeConnect: () => {
-        this.client.connectHeaders = {
-          Authorization: `Bearer ${stores.auth.authToken}`,
-        };
-      },
       onConnect: () => this.onConnected,
       onDisconnect: () => this.onDisconnected,
     });

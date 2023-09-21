@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {TranslateService} from './translate';
 import {ApiService} from './api';
 
