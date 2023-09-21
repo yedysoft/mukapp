@@ -28,7 +28,7 @@ export default function MukButton({buttonStyle, onPress, label, children}: Props
       ]}
     >
       {children}
-      <Text style={{fontSize: responsiveSize(16), fontWeight: 'bold', color: theme.colors.onBackground}}>{label}</Text>
+      <Text style={{fontSize: responsiveSize(16), fontWeight: 'bold', color: theme.colors.background}}>{label}</Text>
     </TouchableOpacity>
   );
 }

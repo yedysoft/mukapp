@@ -21,8 +21,8 @@ const CombinedDarkTheme = {
   colors: {
     ...MD3DarkTheme.colors,
     ...DarkTheme.colors,
-    background: 'rgba(0, 0, 0, 1)',
-    primary: 'rgba(28, 48, 139, 1)',
+    background: '#041014',
+    primary: '#6FEE71',
     button: 'rgba(51, 48, 228, 1)',
     secondary: 'rgba(75, 61, 96, 1)',
     text: 'rgba(255, 255, 255, 1)',

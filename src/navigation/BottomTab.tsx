@@ -30,7 +30,7 @@ export default function BottomTab() {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => <AntDesign name="home" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
+          tabBarIcon: ({focused}) => <AntDesign name="shoppingcart" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
         }}
         listeners={({navigation}) => ({
           tabPress: e => {
@@ -43,7 +43,7 @@ export default function BottomTab() {
         name="Main"
         component={MainStack}
         options={{
-          tabBarIcon: ({focused}) => <AntDesign name="home" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
+          tabBarIcon: ({focused}) => <AntDesign name="appstore-o" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
         }}
         listeners={({navigation}) => ({
           tabPress: e => {
@@ -56,20 +56,7 @@ export default function BottomTab() {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({focused}) => <AntDesign name="home" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
-        }}
-        listeners={({navigation}) => ({
-          tabPress: e => {
-            //e.preventDefault();
-            navigation.navigate('Home');
-          },
-        })}
-      />
-      <Bottom.Screen
-        name="Chat"
-        component={ChatScreen}
-        options={{
-          tabBarIcon: ({focused}) => <AntDesign name="home" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
+          tabBarIcon: ({focused}) => <AntDesign name="user" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
         }}
         listeners={({navigation}) => ({
           tabPress: e => {
