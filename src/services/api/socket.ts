@@ -28,7 +28,6 @@ export class SocketApi {
       beforeConnect: () => {
         this.client.connectHeaders = {
           Authorization: `Bearer ${stores.auth.authToken}`,
-          Host: '192.168.1.126:8002',
         };
       },
       onConnect: () => this.onConnected,
