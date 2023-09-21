@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {SafeAreaView} from "react-native-safe-area-context";
+import {View} from "react-native";
 
 type Props = {
   children: ReactNode;
@@ -9,5 +9,5 @@ type Props = {
 export default function MainLayout({children}: Props) {
   const {colors} = useTheme();
 
-  return <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>{children}</SafeAreaView>;
+  return <View style={{flex: 1, flexDirection: 'column'}}>{children}</View>;
 }

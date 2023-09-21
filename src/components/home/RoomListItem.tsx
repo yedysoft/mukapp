@@ -6,10 +6,14 @@ import MukIcon from "../../components/custom/MukIcon";
 import MukIconButton from "../../components/custom/MukIconButton";
 
 type Props = {
-  onPress?: () => void
+  onPress?: () => void,
+  room?: {
+    name?: string,
+    username?: string
+  }
 }
 
-export default function RoomListItem({onPress}: Props) {
+export default function RoomListItem({onPress, room}: Props) {
   const {colors} = useTheme();
 
   return (
@@ -21,8 +25,8 @@ export default function RoomListItem({onPress}: Props) {
     }} onPress={onPress}>
       <MukImage scale={2} image={require('../../../assets/adaptive-icon.png')}/>
       <View style={{justifyContent: 'space-between', paddingTop: responsiveHeight(16), flex: 1}}>
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>Oda Adı</Text>
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400'}}>Kullanıcı Adı</Text>
+        <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>{room?.name}</Text>
+        <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400'}}>{room?.username}</Text>
         <View style={{
           flexDirection: 'row',
           alignItems: 'center',
