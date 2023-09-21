@@ -20,7 +20,7 @@ export default function MukTabs({tabs}: Props) {
         <Tabs showTextLabel={false} theme={theme}>
           {tabs.map((tab, i) => {
             return(
-              <TabScreen icon={tab.icon ? tab.icon : 'blank'} label={tab.label ? tab.label : i.toString()}>
+              <TabScreen key={i} icon={tab.icon ? tab.icon : 'blank'} label={tab.label ? tab.label : i.toString()}>
                 {tab.children}
               </TabScreen>
             )

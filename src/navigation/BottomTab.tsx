@@ -5,7 +5,7 @@ import MainStack from './MainStack';
 import MainHeader from '../components/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
 import ProfileScreen from '../screens/main/ProfileScreen';
-import ChatScreen from "../screens/main/social/ChatScreen";
+import {ChatScreen} from "../screens/main/social/ChatScreen";
 
 const Bottom = createBottomTabNavigator();
 export default function BottomTab() {
