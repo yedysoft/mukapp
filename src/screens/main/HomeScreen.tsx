@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../components/layouts/MainLayout';
-import RoomTabs from '../../components/home/RoomTabs';
+import HomeTabs from '../../components/home/HomeTabs';
 import CreateRoom from '../../components/home/CreateRoom';
 
 export default function HomeScreen() {
@@ -8,7 +8,7 @@ export default function HomeScreen() {
 
   return (
     <MainLayout>
-      <RoomTabs />
+      <HomeTabs />
       <CreateRoom />
     </MainLayout>
   );

@@ -29,7 +29,7 @@ const roomsData = [
   },
 ];
 
-export default function RoomTabs() {
+export default function HomeTabs() {
   const theme = useTheme();
 
   return (
