@@ -9,5 +9,13 @@ type Props = {
   onPress?: () => void;
 };
 export default function MukIconButton({icon, color, scale, onPress}: Props) {
-  return <IconButton icon={icon ? icon : 'blank'} iconColor={color ? color : 'white'} style={{margin: 0}} size={responsiveSize(scale ? 64 * scale : 64)} onPress={onPress} />;
+  return (
+    <IconButton
+      icon={icon ? icon : 'blank'}
+      iconColor={color ? color : 'white'}
+      style={{margin: 0}}
+      size={responsiveSize(scale ? 64 * scale : 64)}
+      onPress={onPress}
+    />
+  );
 }
