@@ -44,7 +44,6 @@ export class AuthApi {
       authToken: '',
       loggedIn: false,
     });
-    stores.user.set('userInfo', {id: '-1', coin: 0});
   };
 }
 
