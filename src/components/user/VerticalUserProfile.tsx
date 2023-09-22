@@ -115,11 +115,10 @@ export default function HorizontalUser() {
           horizontal
           data={chipData}
           renderItem={item => (
-            <Card style={{marginLeft: 15, marginTop: 10}}>
-              <Card.Cover source={{uri: 'https://picsum.photos/1557'}} />
-              <Card.Content>
-                <Text variant="bodySmall">Card content</Text>
-                <Text variant="displaySmall">Card content</Text>
+            <Card mode={'elevated'} style={{marginLeft: 15, marginTop: 10}}>
+              <Card.Cover style={{height: responsiveHeight(180)}} source={{uri: 'https://picsum.photos/1557'}} />
+              <Card.Content style={{width: responsiveWidth(180)}}>
+                <Text variant="bodySmall">Card</Text>
               </Card.Content>
             </Card>
           )}
