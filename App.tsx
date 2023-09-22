@@ -3,7 +3,7 @@ import {PaperProvider} from 'react-native-paper';
 import 'react-native-gesture-handler';
 import 'text-encoding';
 import './src/services/xhrInterceptors';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import {CombinedTheme} from './src/theme';
 import {AppNavigation} from './src/navigation/AppNavigation';
@@ -27,10 +27,8 @@ export default observer(() => {
     initializeApp().then(() => setReady(true));
   }, []);
 
-  const NotReady = useMemo(() => <SplashScreen />, [ready]);
-
   if (!ready) {
-    return NotReady;
+    return <SplashScreen />;
   }
 
   return (

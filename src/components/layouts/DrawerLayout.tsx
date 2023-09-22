@@ -4,7 +4,7 @@ import {ReactNode} from 'react';
 import {responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export default function DrawerLayout({children}: Props) {

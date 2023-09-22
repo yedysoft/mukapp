@@ -19,6 +19,7 @@ export class AuthApi {
   logout = async (): PVoid => {
     this.clearAuth();
     await this.checkToken();
+    await socket.disconnect();
   };
 
   checkToken = async (): PVoid => {

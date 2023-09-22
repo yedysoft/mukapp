@@ -1,16 +1,16 @@
-import {Text, Dialog} from "react-native-paper";
-import {ReactNode} from "react";
-import MukButton from "./MukButton";
-import {responsiveSize, responsiveWidth} from "../../utils/Responsive";
+import {Dialog, Text} from 'react-native-paper';
+import {ReactNode} from 'react';
+import MukButton from './MukButton';
+import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
-  title?: string,
-  content?: string,
-  children?: ReactNode,
-  visible: boolean,
-  onReject?: () => void,
-  onAccept?: () => void,
-}
+  title?: string;
+  content?: string;
+  children?: ReactNode;
+  visible: boolean;
+  onReject?: () => void;
+  onAccept?: () => void;
+};
 
 export default function MukDialog({title, content, children, visible, onReject, onAccept}: Props) {
   return (
@@ -21,8 +21,8 @@ export default function MukDialog({title, content, children, visible, onReject, 
         {children}
       </Dialog.Content>
       <Dialog.Actions style={{gap: responsiveWidth(16)}}>
-        <MukButton onPress={onReject} label={'Geri Dön'} buttonStyle={{backgroundColor: 'red'}}/>
-        <MukButton onPress={onAccept} label={'Onayla'} buttonStyle={{backgroundColor: 'green'}}/>
+        <MukButton onPress={onReject} label={'Geri Dön'} buttonStyle={{backgroundColor: 'red'}} />
+        <MukButton onPress={onAccept} label={'Onayla'} buttonStyle={{backgroundColor: 'green'}} />
       </Dialog.Actions>
     </Dialog>
   );

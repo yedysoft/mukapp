@@ -4,7 +4,6 @@ import {useTheme} from 'react-native-paper';
 import MainStack from './MainStack';
 import MainHeader from '../components/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
-import ProfileScreen from '../screens/main/ProfileScreen';
 import {ChatScreen} from '../screens/main/social/ChatScreen';
 import {responsiveHeight} from '../utils/Responsive';
 
@@ -54,7 +53,7 @@ export default function BottomTab() {
       />
       <Bottom.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ChatScreen}
         options={{
           tabBarIcon: ({focused}) => <AntDesign name="user" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
         }}

@@ -5,6 +5,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import {useStores} from '../../../stores';
 import {useServices} from '../../../services';
+import {Message} from '@stomp/stompjs';
 
 export const ChatScreen = observer(() => {
   const {colors} = useTheme();
@@ -21,8 +22,8 @@ export const ChatScreen = observer(() => {
     return () => chatId && api.socket.unsubscribe(chatId);
   }, []);
 
-  const listenPublicChat = (r: {body: string}) => {
-    readMessages(JSON.parse(r.body));
+  const listenPublicChat = (message: Message) => {
+    readMessages(JSON.parse(message.body));
   };
 
   const sendPublicMessage = (m: any) => {

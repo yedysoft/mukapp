@@ -6,5 +6,5 @@ import {stores} from '../stores';
 import StartDrawer from './StartDrawer';
 
 export const AppNavigation = observer(() => {
-  return <NavigationContainer theme={CombinedTheme}>{!stores.auth.isLoggedIn ? <StartDrawer /> : <AuthStack />}</NavigationContainer>;
+  return <NavigationContainer theme={CombinedTheme}>{stores.auth.isLoggedIn ? <StartDrawer /> : <AuthStack />}</NavigationContainer>;
 });
