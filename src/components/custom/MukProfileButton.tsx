@@ -20,7 +20,7 @@ export default function MukProfileButton({buttonStyle, onPress, label, labelData
       style={[
         {
           backgroundColor: theme.colors.primary,
-          padding: responsiveWidth(20),
+          padding: responsiveWidth(18),
           borderRadius: 16,
           justifyContent: 'center',
           alignItems: 'center',

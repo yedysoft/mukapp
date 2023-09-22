@@ -1,6 +1,6 @@
 import {FlatList, View} from 'react-native';
 import MukImage from '../custom/MukImage';
-import {Chip, SegmentedButtons, Surface, Text, useTheme} from 'react-native-paper';
+import {Card, Chip, Divider, FAB, SegmentedButtons, Surface, Text, useTheme} from 'react-native-paper';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import MukProfileButton from '../custom/MukProfileButton';
 import MukButton from '../custom/MukButton';
@@ -95,7 +95,7 @@ export default function HorizontalUser() {
           horizontal
           data={profileData}
           renderItem={item => (
-            <View style={{justifyContent: 'space-around', display: 'flex', margin: responsiveWidth(20)}}>
+            <View style={{justifyContent: 'center', display: 'flex', margin: responsiveWidth(20)}}>
               <View>
                 <MukProfileButton
                   label={item.item.title}
@@ -110,33 +110,23 @@ export default function HorizontalUser() {
       <View style={{flexDirection: 'row'}}>
         <FlatList horizontal data={chipData} renderItem={item => <MukChip mode={'outlined'} icon={item.item.icon} label={item.item.categories} />} />
       </View>
-      <SegmentedButtons
-        theme={{colors: {secondaryContainer: colors.outlineVariant}}}
-        density={'regular'}
-        value={value}
-        onValueChange={setValue}
-        buttons={[
-          {
-            icon: 'star',
-            value: 'Mekan',
-            label: 'Mekan',
-            checkedColor: colors.primary,
-          },
-          {
-            icon: 'playlist-music',
-            value: 'Playlist',
-            label: 'Playlist',
-            checkedColor: colors.primary,
-          },
-          {
-            icon: 'music-note',
-            value: 'Müzik',
-            label: 'Müzik',
-            checkedColor: colors.primary,
-          },
-        ]}
-      />
-      <View style={{flexDirection: 'row', width: '100%'}} />
+      <Divider style={{height: 0.2, width: '100%', backgroundColor: 'white'}} />
+      <View style={{flexDirection: 'column', paddingHorizontal: 10, width: '100%', marginTop: responsiveWidth(10)}}>
+        <Text style={{fontSize: responsiveSize(12), fontWeight: 'bold', color: colors.onSurfaceVariant}}>Favori Mekanlar</Text>
+        <FlatList
+          horizontal
+          data={chipData}
+          renderItem={item => (
+            <Card style={{marginLeft: 15, marginTop: 10}}>
+              <Card.Cover source={{uri: 'https://picsum.photos/1557'}} />
+              <Card.Content>
+                <Text variant="bodySmall">Card content</Text>
+                <Text variant="displaySmall">Card content</Text>
+              </Card.Content>
+            </Card>
+          )}
+        />
+      </View>
     </View>
   );
 }
