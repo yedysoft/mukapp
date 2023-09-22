@@ -26,15 +26,11 @@ export default observer(() => {
     initializeApp().then(() => setReady(true));
   }, []);
 
-  if (!ready) {
-    return <SplashScreen />;
-  }
-
   return (
     <AppProvider>
       <PaperProvider theme={CombinedTheme}>
         <StatusBar style="auto" />
-        <AppNavigation />
+        {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>
     </AppProvider>
   );
