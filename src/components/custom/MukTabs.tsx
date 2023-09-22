@@ -17,7 +17,7 @@ export default function MukTabs({tabs, defaultIndex}: Props) {
 
   return (
     <TabsProvider defaultIndex={defaultIndex ? defaultIndex : 0}>
-      <Tabs showTextLabel={false} theme={theme} style={{backgroundColor: theme.colors.background}}>
+      <Tabs iconPosition={'top'} showTextLabel={false} theme={theme} style={{backgroundColor: theme.colors.background}}>
         {tabs.map((tab, i) => {
           return (
             <TabScreen key={i} icon={tab.icon ? tab.icon : 'blank'} label={tab.label ? tab.label : i.toString()}>

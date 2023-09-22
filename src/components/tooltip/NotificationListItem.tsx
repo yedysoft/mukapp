@@ -1,7 +1,7 @@
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveWidth} from '../../../utils/Responsive';
-import MukListItem from '../../custom/MukListItem';
-import MukImage from '../../custom/MukImage';
+import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import MukListItem from '../custom/MukListItem';
+import MukImage from '../custom/MukImage';
 
 type Props = {
   notification: {
@@ -16,20 +16,19 @@ export default function NotificationListItem({notification}: Props) {
   return (
     <MukListItem
       style={{
-        backgroundColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: 'transparent',
         gap: responsiveWidth(8),
         alignItems: 'center',
         marginVertical: responsiveHeight(2),
-        borderRadius: 16,
-        paddingHorizontal: responsiveWidth(8),
+        paddingHorizontal: responsiveWidth(16),
       }}
     >
       <MukImage
         scale={0.6}
-        source={require('../../../../assets/adaptive-icon.png')}
+        source={require('../../../assets/adaptive-icon.png')}
         style={{backgroundColor: 'white', borderWidth: 0.5, borderRadius: 100, borderColor: colors.background}}
       />
-      <Text numberOfLines={2} style={{color: 'white', maxWidth: responsiveWidth(160)}}>
+      <Text numberOfLines={2} style={{color: 'white', maxWidth: responsiveWidth(120)}}>
         {notification.context}
       </Text>
     </MukListItem>

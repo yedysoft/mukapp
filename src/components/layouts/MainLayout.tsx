@@ -2,7 +2,6 @@ import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {View} from 'react-native';
 import {observer} from 'mobx-react';
-import PlayingTrack from '../room/PlayingTrack';
 
 type Props = {
   children: ReactNode;
