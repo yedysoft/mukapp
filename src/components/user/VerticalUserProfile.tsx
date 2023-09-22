@@ -110,7 +110,6 @@ export default function HorizontalUser() {
       <View style={{flexDirection: 'row'}}>
         <FlatList horizontal data={chipData} renderItem={item => <MukChip mode={'outlined'} icon={item.item.icon} label={item.item.categories} />} />
       </View>
-      <Divider style={{height: 0.2, width: '100%', backgroundColor: 'white'}} />
       <View style={{flexDirection: 'column', paddingHorizontal: 10, width: '100%', marginTop: responsiveWidth(10)}}>
         <Text style={{fontSize: responsiveSize(12), fontWeight: 'bold', color: colors.onSurfaceVariant}}>Favori Mekanlar</Text>
         <FlatList
