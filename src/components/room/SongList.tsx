@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import {FlatList, StyleProp, ViewStyle} from 'react-native';
+import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import SongListItem from './SongListItem';
 
@@ -9,16 +9,15 @@ type Props = {
     name?: string;
     artist?: string;
   }[];
-  itemStyle?: StyleProp<ViewStyle>;
 };
 
-export default function SongList({songs, itemStyle}: Props) {
+export default function SongList({songs}: Props) {
   const {colors} = useTheme();
 
   return (
     <FlatList
       data={songs}
-      renderItem={({item, index}) => <SongListItem style={itemStyle} key={index} song={item} />}
+      renderItem={({item, index}) => <SongListItem key={index} song={item} />}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
     />

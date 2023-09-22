@@ -41,9 +41,8 @@ export class AuthApi {
 
   private clearAuth = () => {
     stores.auth.setMany({
-      authToken: null,
+      authToken: '',
       loggedIn: false,
-      user: {id: '-1', coin: 0},
     });
   };
 }

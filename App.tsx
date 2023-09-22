@@ -19,7 +19,6 @@ export default observer(() => {
   const initializeApp = useCallback(async () => {
     await hydrateStores();
     await initServices();
-    await services.api.helper.sleep(1000);
     await services.api.auth.checkToken();
   }, []);
 

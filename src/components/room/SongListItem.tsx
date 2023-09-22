@@ -1,5 +1,5 @@
 import {Text, useTheme} from 'react-native-paper';
-import {StyleProp, View, ViewStyle} from 'react-native';
+import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import MukListItem from '../custom/MukListItem';
@@ -11,14 +11,13 @@ type Props = {
     name?: string;
     artist?: string;
   };
-  style?: StyleProp<ViewStyle>;
 };
 
-export default function SongListItem({song, style}: Props) {
+export default function SongListItem({song}: Props) {
   const {colors} = useTheme();
 
   return (
-    <MukListItem onPress={() => console.log('song')} style={[{alignItems: 'center'}, style]}>
+    <MukListItem onPress={() => console.log('song')} style={{alignItems: 'center'}}>
       <MukImage scale={1.3} source={require('../../../assets/adaptive-icon.png')} />
       <View style={{justifyContent: 'center', gap: responsiveWidth(8)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>

@@ -1,20 +1,16 @@
-import StompJs, {StompSubscription} from '@stomp/stompjs';
+import * as StompJs from '@stomp/stompjs';
+import {StompSubscription} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import {wsUrl} from '../../../config';
 import {messageCallbackType} from '@stomp/stompjs/src/types';
 
 export class SocketApi {
-  public onConnected: PureFunc;
   public connected: PureFunc;
-  public onDisconnected: PureFunc;
   public subscribes: {[key: string]: StompSubscription};
   public client: StompJs.Client;
 
   constructor() {
-    const noOp = () => {};
-    this.connected = noOp;
-    this.onConnected = noOp;
-    this.onDisconnected = noOp;
+    this.connected = () => {};
     this.subscribes = {};
     this.client = new StompJs.Client({
       reconnectDelay: 4000,
@@ -27,9 +23,7 @@ export class SocketApi {
       onWebSocketClose: event => console.log(event),
       onConnect: () => {
         this.connected();
-        this.onConnected();
       },
-      onDisconnect: () => this.onDisconnected,
     });
   }
 
@@ -50,12 +44,13 @@ export class SocketApi {
 
   public subscribe = (destination: string, callback: messageCallbackType): StompSubscription | undefined => {
     if (!(destination in this.subscribes)) {
-      this.checkConnect();
-      if (this.client.connected) {
-        const sub: StompSubscription = this.client.subscribe(destination, callback);
-        this.subscribes[destination] = sub;
-        return sub;
-      }
+      this.checkConnect().then(() => {
+        if (this.client.connected) {
+          const sub: StompSubscription = this.client.subscribe(destination, callback);
+          this.subscribes[destination] = sub;
+          return sub;
+        }
+      });
     } else {
       return this.subscribes[destination];
     }
@@ -63,24 +58,26 @@ export class SocketApi {
   };
 
   public unsubscribe = (sub: StompSubscription): void => {
-    this.checkConnect();
-    if (this.client.connected) {
-      sub.unsubscribe();
-      const key = Object.keys(this.subscribes).find(k => this.subscribes[k].id === sub.id);
-      if (key) {
-        delete this.subscribes[key];
+    this.checkConnect().then(() => {
+      if (this.client.connected) {
+        sub.unsubscribe();
+        const key = Object.keys(this.subscribes).find(k => this.subscribes[k].id === sub.id);
+        if (key) {
+          delete this.subscribes[key];
+        }
       }
-    }
+    });
   };
 
   public sendMessage = (destination: string, msg?: any): void => {
-    this.checkConnect();
-    if (this.client.connected) {
-      this.client.publish({
-        destination: destination,
-        body: JSON.stringify(msg),
-      });
-    }
+    this.checkConnect().then(() => {
+      if (this.client.connected) {
+        this.client.publish({
+          destination: destination,
+          body: JSON.stringify(msg),
+        });
+      }
+    });
   };
 
   private checkConnect = async (): PVoid => {

@@ -2,7 +2,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useTheme} from 'react-native-paper';
 import {screenWidth} from '../utils/Responsive';
 import Notifications from '../screens/main/side/Notifications';
-import BottomTabs from './BottomTabs';
+import MainStack from './MainStack';
 
 const Main = createDrawerNavigator();
 export default function MainDrawer() {
@@ -22,7 +22,7 @@ export default function MainDrawer() {
       }}
       drawerContent={() => <Notifications />}
     >
-      <Main.Screen name="DrawerMain" component={BottomTabs} options={{headerShown: false}} />
+      <Main.Screen name="DrawerMain" component={MainStack} options={{headerShown: false}} />
     </Main.Navigator>
   );
 }
