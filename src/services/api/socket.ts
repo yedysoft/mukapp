@@ -1,6 +1,6 @@
 import StompJs, {StompSubscription} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import {restUrl} from '../../../config';
+import {wsUrl} from '../../../config';
 import {messageCallbackType} from '@stomp/stompjs/src/types';
 
 export class SocketApi {
@@ -20,7 +20,7 @@ export class SocketApi {
       reconnectDelay: 4000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
-      webSocketFactory: () => new SockJS(restUrl + '/ws'),
+      webSocketFactory: () => new SockJS(wsUrl),
       debug: str => console.log(str),
       onWebSocketError: () => console.log('onWebSocketError'),
       onStompError: () => console.log('onStompError'),
@@ -36,7 +36,6 @@ export class SocketApi {
   public connect = async (): PVoid => {
     return new Promise<void>(resolve => {
       this.client.onConnect = () => {
-        console.log('connected');
         resolve();
       };
       this.client.activate();

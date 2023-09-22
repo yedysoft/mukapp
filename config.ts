@@ -1,3 +1,5 @@
-export const restUrl = 'http://181.215.68.158:8002'; //server
+const live = true;
 
-// const restUrl = 'http://192.168.1.126:8002';
+export const restUrl = live ? 'http://181.215.68.158:8002' : 'http://192.168.1.126:8002';
+
+export const wsUrl = restUrl + '/ws';
