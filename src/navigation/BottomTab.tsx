@@ -4,7 +4,6 @@ import {useTheme} from 'react-native-paper';
 import MainStack from './MainStack';
 import {MainHeader} from '../components/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
-import {ChatScreen} from '../screens/main/social/ChatScreen';
 import {responsiveHeight} from '../utils/Responsive';
 import ProfileScreen from '../screens/main/ProfileScreen';
 
