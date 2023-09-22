@@ -8,7 +8,7 @@ import {responsiveHeight} from '../utils/Responsive';
 import ProfileScreen from '../screens/main/ProfileScreen';
 
 const Bottom = createBottomTabNavigator();
-export default function BottomTab() {
+export default function BottomTabs() {
   const theme = useTheme();
 
   return (
@@ -52,10 +52,10 @@ export default function BottomTab() {
         })}
       />
       <Bottom.Screen
-        name="Profile"
+        name="Messages"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({focused}) => <AntDesign name="user" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
+          tabBarIcon: ({focused}) => <AntDesign name="message1" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
         }}
         listeners={({navigation}) => ({
           tabPress: e => {

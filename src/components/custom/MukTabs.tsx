@@ -4,6 +4,7 @@ import {Tabs, TabScreen, TabsProvider} from 'react-native-paper-tabs';
 import {ReactNode} from 'react';
 
 type Props = {
+  defaultIndex?: number;
   tabs: {
     icon?: string;
     label?: string;
@@ -11,12 +12,12 @@ type Props = {
   }[];
 };
 
-export default function MukTabs({tabs}: Props) {
+export default function MukTabs({tabs, defaultIndex}: Props) {
   const theme = useTheme();
 
   return (
     <MainLayout>
-      <TabsProvider defaultIndex={0}>
+      <TabsProvider defaultIndex={defaultIndex ? defaultIndex : 0}>
         <Tabs showTextLabel={false} theme={theme} style={{backgroundColor: theme.colors.background}}>
           {tabs.map((tab, i) => {
             return (

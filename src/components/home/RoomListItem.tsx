@@ -5,20 +5,21 @@ import {responsiveHeight, responsiveSize} from '../../utils/Responsive';
 import MukIcon from '../../components/custom/MukIcon';
 import MukIconButton from '../../components/custom/MukIconButton';
 import MukListItem from '../custom/MukListItem';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = {
-  onPress?: () => void;
   room?: {
     name?: string;
     username?: string;
   };
 };
 
-export default function RoomListItem({onPress, room}: Props) {
+export default function RoomListItem({room}: Props) {
   const {colors} = useTheme();
+  const navigation = useNavigation();
 
   return (
-    <MukListItem onPress={onPress}>
+    <MukListItem onPress={() => navigation.navigate('Room')}>
       <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
       <View style={{justifyContent: 'space-between', paddingTop: responsiveHeight(16), flex: 1}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>
