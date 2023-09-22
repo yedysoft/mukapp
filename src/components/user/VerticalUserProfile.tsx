@@ -1,9 +1,8 @@
 import {FlatList, View} from 'react-native';
 import MukImage from '../custom/MukImage';
-import {Card, Chip, Divider, FAB, SegmentedButtons, Surface, Text, useTheme} from 'react-native-paper';
+import {Card, Text, useTheme} from 'react-native-paper';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import MukProfileButton from '../custom/MukProfileButton';
-import MukButton from '../custom/MukButton';
 import MukChip from '../custom/MukChip';
 import {useState} from 'react';
 import MukIcon from '../custom/MukIcon';
