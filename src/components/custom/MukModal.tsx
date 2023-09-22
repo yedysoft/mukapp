@@ -1,12 +1,12 @@
-import {ReactNode} from "react";
-import {Modal} from "react-native-paper";
-import {responsiveWidth} from "../../utils/Responsive";
+import {ReactNode} from 'react';
+import {Modal} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
-  children?: ReactNode,
-  visible: boolean,
-  onDismiss?: () => void,
-}
+  children?: ReactNode;
+  visible: boolean;
+  onDismiss?: () => void;
+};
 
 export default function MukModal({children, visible, onDismiss}: Props) {
   return (

@@ -13,5 +13,12 @@ type Props = {
 export default function RoomList({rooms}: Props) {
   const {colors} = useTheme();
 
-  return <FlatList data={rooms} renderItem={({item, index}) => <RoomListItem key={index} room={item} />} scrollEnabled contentContainerStyle={{paddingVertical: responsiveWidth(8)}} />;
+  return (
+    <FlatList
+      data={rooms}
+      renderItem={({item, index}) => <RoomListItem key={index} room={item} />}
+      scrollEnabled
+      contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
+    />
+  );
 }

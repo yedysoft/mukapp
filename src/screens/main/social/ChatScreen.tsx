@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import MainLayout from '../../../components/layouts/MainLayout';
+import {MainLayout} from '../../../components/layouts/MainLayout';
 import {GiftedChat, IMessage} from 'react-native-gifted-chat';
 import {useCallback, useEffect, useState} from 'react';
 import {observer} from 'mobx-react';

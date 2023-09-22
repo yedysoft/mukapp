@@ -1,12 +1,12 @@
 import {Text, useTheme} from 'react-native-paper';
-import MainLayout from '../../../components/layouts/MainLayout';
+import RoomLayout from '../../../components/layouts/RoomLayout';
 
 export default function RoomScreen() {
   const {colors} = useTheme();
 
   return (
-    <MainLayout>
+    <RoomLayout>
       <Text>Room</Text>
-    </MainLayout>
+    </RoomLayout>
   );
 }

@@ -6,8 +6,10 @@ import MukLogo from './custom/MukLogo';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {View} from 'react-native';
 import {ReactNode} from 'react';
+import {stores} from '../stores';
+import {observer} from 'mobx-react';
 
-export default function MainHeader() {
+export const MainHeader = observer(() => {
   const {colors} = useTheme();
   const navigation = useNavigation();
 
@@ -32,8 +34,8 @@ export default function MainHeader() {
       </NavButton>
       <MukLogo />
       <NavButton>
-        <MukIconButton icon={'bell-outline'} scale={0.4} onPress={() => console.log('messages')} />
+        <MukIconButton icon={'bell-outline'} scale={0.4} onPress={() => stores.ui.set('tooltip', !stores.ui.tooltip)} />
       </NavButton>
     </SafeAreaView>
   );
-}
+});

@@ -5,6 +5,7 @@ import {Appearance, Language} from '../types/enums';
 export class UIStore implements IStore {
   appearance: Appearance = 'system';
   language: Language = 'system';
+  tooltip = false;
 
   get isAppearanceSystem() {
     return this.appearance === 'system';
