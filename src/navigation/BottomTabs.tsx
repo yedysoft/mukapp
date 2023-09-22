@@ -1,11 +1,11 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {AntDesign} from '@expo/vector-icons';
 import {useTheme} from 'react-native-paper';
-import MainStack from './MainStack';
 import {MainHeader} from '../components/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
 import {responsiveHeight} from '../utils/Responsive';
 import ProfileScreen from '../screens/main/ProfileScreen';
+import HomeScreen from '../screens/main/HomeScreen';
 
 const Bottom = createBottomTabNavigator();
 export default function BottomTabs() {
@@ -13,7 +13,7 @@ export default function BottomTabs() {
 
   return (
     <Bottom.Navigator
-      initialRouteName="Main"
+      initialRouteName="Home"
       screenOptions={() => ({
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -39,8 +39,8 @@ export default function BottomTabs() {
         })}
       />
       <Bottom.Screen
-        name="Main"
-        component={MainStack}
+        name="Home"
+        component={HomeScreen}
         options={{
           tabBarIcon: ({focused}) => <AntDesign name="appstore-o" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
         }}

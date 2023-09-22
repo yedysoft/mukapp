@@ -79,12 +79,12 @@ const playlistData = [
     playlist: [
       {
         image: '',
-        name: 'Şarkı Adı 1',
+        name: 'Şarkı Adı 12',
         artist: 'artist1',
       },
       {
         image: '',
-        name: 'Şarkı Adı 2',
+        name: 'Şarkı Adı 22',
         artist: 'artist2',
       },
       {
@@ -115,12 +115,12 @@ const playlistData = [
     playlist: [
       {
         image: '',
-        name: 'Şarkı Adı 1',
+        name: 'Şarkı Adı 13',
         artist: 'artist1',
       },
       {
         image: '',
-        name: 'Şarkı Adı 2',
+        name: 'Şarkı Adı 23',
         artist: 'artist2',
       },
       {
