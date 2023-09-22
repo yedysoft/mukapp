@@ -12,3 +12,6 @@ export class UserApi {
     }
   };
 }
+
+const user = new UserApi();
+export default user;

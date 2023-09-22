@@ -1,7 +1,8 @@
 import {ILogin} from '../../types/auth';
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
-import {services} from '../index';
+import socket from './socket';
+import user from './user';
 
 export class AuthApi {
   login = async (form: ILogin): PVoid => {
@@ -25,7 +26,8 @@ export class AuthApi {
     try {
       const opt = await axiosIns.options('/auth/checkToken');
       if (opt.status && opt.status === 200) {
-        await services.api.user.setUserInfo();
+        await user.setUserInfo();
+        await socket.connect();
         stat = true;
       }
     } catch (e: any) {
@@ -40,6 +42,10 @@ export class AuthApi {
     stores.auth.setMany({
       authToken: null,
       loggedIn: false,
+      user: {id: '-1', coin: 0},
     });
   };
 }
+
+const auth = new AuthApi();
+export default auth;

@@ -33,7 +33,8 @@ export class SocketApi {
     this.client.activate();
   };
 
-  public disconnect = (): void => {
+  public disconnect = async (): PVoid => {
+    await this.client.deactivate();
     this.client.deactivate().then(() => (this.subscribes = {}));
   };
 
@@ -78,3 +79,6 @@ export class SocketApi {
     }
   };
 }
+
+const socket = new SocketApi();
+export default socket;

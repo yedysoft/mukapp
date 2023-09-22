@@ -41,3 +41,6 @@ export class HelperApi {
     return artists.map(a => a.name).join(', ');
   };
 }
+
+const helper = new HelperApi();
+export default helper;
