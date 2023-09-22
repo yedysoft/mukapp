@@ -1,6 +1,6 @@
 import {MD3Theme, Text, useTheme} from 'react-native-paper';
 import {ImageBackground, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
 import MukImage from '../../components/custom/MukImage';
 import MukProgressBar from '../../components/custom/MukProgressBar';
 
@@ -16,7 +16,7 @@ export default function PlayingTrack({compact}: Props) {
     <ImageBackground
       resizeMode={'cover'}
       style={{
-        width: '100%',
+        width: screenWidth,
         height: responsiveHeight(compact ? 88 : 280),
         justifyContent: 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),

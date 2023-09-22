@@ -28,7 +28,12 @@ export default function PlaylistList({playlists}: Props) {
         renderItem={({item, index}) => <PlaylistItem key={index} onPress={() => setPlaylistIndex(index)} playlist={item} />}
         scrollEnabled
         horizontal
-        contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
+        style={{height: responsiveWidth(280)}}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          padding: responsiveWidth(16),
+          gap: responsiveWidth(24),
+        }}
       />
       <SongList songs={playlists[playlistIndex].playlist} />
     </>
