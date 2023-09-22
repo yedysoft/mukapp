@@ -17,5 +17,12 @@ const data = [
 export default function NotificationList() {
   const {colors} = useTheme();
 
-  return <FlatList style={{marginTop: responsiveWidth(16)}} scrollEnabled data={data} renderItem={({item}) => <NotificationListItem notification={item} />} />;
+  return (
+    <FlatList
+      style={{marginTop: responsiveWidth(16)}}
+      scrollEnabled
+      data={data}
+      renderItem={({item}) => <NotificationListItem notification={item} />}
+    />
+  );
 }

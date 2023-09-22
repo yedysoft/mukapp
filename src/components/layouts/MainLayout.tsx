@@ -2,6 +2,7 @@ import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {View} from 'react-native';
 import {observer} from 'mobx-react';
+import PlayingTrack from '../room/PlayingTrack';
 
 type Props = {
   children: ReactNode;
@@ -10,5 +11,10 @@ type Props = {
 export const MainLayout = observer(({children}: Props) => {
   const {colors} = useTheme();
 
-  return <View style={{flex: 1, flexDirection: 'column'}}>{children}</View>;
+  return (
+    <View style={{flex: 1, flexDirection: 'column'}}>
+      {children}
+      {/*<PlayingTrack compact />*/}
+    </View>
+  );
 });

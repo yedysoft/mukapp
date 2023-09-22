@@ -14,6 +14,7 @@ export default function MukImage({source, style, scale}: Props) {
   return (
     <Image
       source={source}
+      resizeMode={'contain'}
       style={[
         {
           backgroundColor: 'transparent',

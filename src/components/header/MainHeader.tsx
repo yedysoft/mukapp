@@ -1,12 +1,12 @@
 import {useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveWidth} from '../utils/Responsive';
-import MukIconButton from './custom/MukIconButton';
+import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import MukIconButton from '../custom/MukIconButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import MukLogo from './custom/MukLogo';
+import MukLogo from '../custom/MukLogo';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {View} from 'react-native';
 import {ReactNode} from 'react';
-import {stores} from '../stores';
+import {stores} from '../../stores';
 import {observer} from 'mobx-react';
 
 export const MainHeader = observer(() => {
