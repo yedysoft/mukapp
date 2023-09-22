@@ -6,7 +6,7 @@ export class UserApi {
     try {
       const response = await axiosIns.get('/user/getUserInfo');
       console.log(response.data);
-      stores.auth.set('user', response.data);
+      stores.user.set('user', response.data);
     } catch (e) {
       console.log(e);
     }

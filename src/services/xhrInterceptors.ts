@@ -6,8 +6,8 @@ const interceptXMLHttpRequest = () => {
 
   XMLHttpRequest.prototype.open = function (method, url, async, user, password) {
     open.call(this, method, url, async, user, password);
-    if (url.startsWith(wsUrl) && stores.auth.authToken) {
-      this.setRequestHeader('Authorization', `Bearer ${stores.auth.authToken}`);
+    if (url.startsWith(wsUrl) && stores.auth.getAuthToken) {
+      this.setRequestHeader('Authorization', `Bearer ${stores.auth.getAuthToken}`);
     }
   };
 };

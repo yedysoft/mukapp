@@ -1,11 +1,3 @@
-// `stores` layer
-interface IStore {
-  hydrate?: () => PVoid;
-}
-
-type StoreDefaultKeys = 'set' | 'setMany' | 'hydrate';
-type StoreKeysOf<S> = keyof Omit<S, StoreDefaultKeys>;
-
 // `services` layer
 interface IService {
   init: () => PVoid;
