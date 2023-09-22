@@ -13,7 +13,7 @@ type Props = {
 
 export const MukChat = observer(({subDestination, sendDestination}: Props) => {
   const {colors} = useTheme();
-  const {auth} = useStores();
+  const {user} = useStores();
   const {api} = useServices();
   const [messages, setMessages] = useState<IMessage[]>([]);
 
@@ -39,7 +39,7 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
       messages={messages}
       onSend={newMessages => sendPublicMessage(newMessages)}
       user={{
-        _id: auth.user.id,
+        _id: user.getUserInfo.id,
       }}
     />
   );
