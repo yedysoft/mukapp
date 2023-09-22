@@ -10,5 +10,5 @@ type Props = {
 export default function DrawerLayout({children}: Props) {
   const {colors} = useTheme();
 
-  return <SafeAreaView style={{flex: 1, backgroundColor: colors.primary, paddingHorizontal: responsiveWidth(20)}}>{children}</SafeAreaView>;
+  return <SafeAreaView style={{flex: 1, backgroundColor: colors.background, paddingHorizontal: responsiveWidth(20)}}>{children}</SafeAreaView>;
 }

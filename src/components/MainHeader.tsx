@@ -3,11 +3,17 @@ import {responsiveHeight, responsiveWidth} from '../utils/Responsive';
 import MukIconButton from './custom/MukIconButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MukLogo from './custom/MukLogo';
-import {useNavigation} from '@react-navigation/native';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
+import {View} from 'react-native';
+import {ReactNode} from 'react';
 
 export default function MainHeader() {
   const {colors} = useTheme();
   const navigation = useNavigation();
+
+  const NavButton = ({children}: {children: ReactNode}) => {
+    return <View style={{width: responsiveWidth(44), aspectRatio: 1, justifyContent: 'center', alignItems: 'center'}}>{children}</View>;
+  };
 
   return (
     <SafeAreaView
@@ -21,9 +27,13 @@ export default function MainHeader() {
         alignItems: 'center',
       }}
     >
-      <MukIconButton icon={'bell-outline'} scale={0.4} onPress={() => navigation.getParent('StartDrawer').openDrawer()} />
+      <NavButton>
+        <MukIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
+      </NavButton>
       <MukLogo />
-      <MukIconButton icon={'message-outline'} scale={0.4} onPress={() => navigation.getParent('EndDrawer').openDrawer()} />
+      <NavButton>
+        <MukIconButton icon={'bell-outline'} scale={0.4} onPress={() => console.log('messages')} />
+      </NavButton>
     </SafeAreaView>
   );
 }

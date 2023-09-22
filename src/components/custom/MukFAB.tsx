@@ -13,7 +13,7 @@ export default function MukFAB({onPress}: Props) {
       icon="plus"
       color={colors.background}
       customSize={responsiveSize(64)}
-      style={{position: 'absolute', backgroundColor: colors.primary, bottom: responsiveWidth(16), right: responsiveWidth(16), borderRadius: 100, zIndex: 1400}}
+      style={{position: 'absolute', backgroundColor: colors.primary, bottom: responsiveWidth(16), right: responsiveWidth(16), borderRadius: 100}}
       onPress={onPress}
     />
   );

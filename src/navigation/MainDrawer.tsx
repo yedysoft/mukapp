@@ -1,29 +1,28 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useTheme} from 'react-native-paper';
-import EndDrawer from './EndDrawer';
 import {screenWidth} from '../utils/Responsive';
 import Notifications from '../screens/main/side/Notifications';
+import BottomTab from './BottomTab';
 
-const Start = createDrawerNavigator();
-export default function StartDrawer() {
+const Main = createDrawerNavigator();
+export default function MainDrawer() {
   const {colors} = useTheme();
 
   return (
-    <Start.Navigator
-      id={'StartDrawer'}
+    <Main.Navigator
+      id={'MainDrawer'}
       backBehavior="none"
-      initialRouteName="EndDrawer"
+      initialRouteName="DrawerMain"
       screenOptions={{
         drawerType: 'slide',
         drawerStyle: {},
         drawerContentContainerStyle: {},
-        sceneContainerStyle: {backgroundColor: colors.primary},
         drawerPosition: 'left',
-        swipeEdgeWidth: screenWidth / 2,
+        swipeEdgeWidth: screenWidth,
       }}
       drawerContent={() => <Notifications />}
     >
-      <Start.Screen name="EndDrawer" component={EndDrawer} options={{headerShown: false}} />
-    </Start.Navigator>
+      <Main.Screen name="DrawerMain" component={BottomTab} options={{headerShown: false}} />
+    </Main.Navigator>
   );
 }
