@@ -1,20 +1,20 @@
 import {MD3Theme, Text, useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
-import MukListItem from '../custom/MukListItem';
+import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
 type Props = {
   onPress?: () => void;
+  active?: boolean;
   playlist?: {
     image?: string;
     name?: string;
   };
 };
 
-export default function PlaylistItem({onPress, playlist}: Props) {
+export default function PlaylistItem({onPress, active, playlist}: Props) {
   const theme = useTheme();
-  const styles = makeStyles(theme);
+  const styles = makeStyles({theme, active});
 
   return (
     <TouchableOpacity
@@ -39,16 +39,21 @@ export default function PlaylistItem({onPress, playlist}: Props) {
   );
 }
 
-const makeStyles = (theme: MD3Theme) =>
+type SProps = {
+  theme: MD3Theme;
+  active?: boolean;
+};
+
+const makeStyles = ({theme, active}: SProps) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: theme.colors.primary,
+      shadowColor: active ? theme.colors.primary : 'rgb(138,138,138)',
       shadowOffset: {
         width: 0,
-        height: 4,
+        height: active ? 4 : 3,
       },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
+      shadowOpacity: active ? 0.4 : 0.2,
+      shadowRadius: 3,
       elevation: 0,
     },
   });

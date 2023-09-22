@@ -25,7 +25,9 @@ export default function PlaylistList({playlists}: Props) {
     <>
       <FlatList
         data={playlists}
-        renderItem={({item, index}) => <PlaylistItem key={index} onPress={() => setPlaylistIndex(index)} playlist={item} />}
+        renderItem={({item, index}) => (
+          <PlaylistItem key={index} active={playlistIndex === index} onPress={() => setPlaylistIndex(index)} playlist={item} />
+        )}
         scrollEnabled
         horizontal
         style={{height: responsiveWidth(280)}}
