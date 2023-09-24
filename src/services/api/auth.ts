@@ -23,19 +23,15 @@ export class AuthApi {
   };
 
   checkToken = async (): PVoid => {
-    let stat = false;
     try {
       const opt = await axiosIns.options('/auth/checkToken');
       if (opt.status && opt.status === 200) {
         await user.setUserInfo();
         await socket.connect();
-        stat = true;
+        stores.auth.set('loggedIn', true);
       }
     } catch (e: any) {
-      //e.response.status && console.log(e.response.status);
       console.log(e);
-    } finally {
-      stores.auth.set('loggedIn', stat);
     }
   };
 
