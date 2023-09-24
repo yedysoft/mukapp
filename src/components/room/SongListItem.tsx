@@ -17,7 +17,7 @@ export default function SongListItem({song}: Props) {
   const {colors} = useTheme();
 
   return (
-    <MukListItem onPress={() => console.log('song')} style={{alignItems: 'center'}}>
+    <MukListItem onPress={() => console.log('song')} style={{alignItems: 'center'}} disabled={true}>
       <MukImage scale={1.3} source={require('../../../assets/adaptive-icon.png')} />
       <View style={{justifyContent: 'center', gap: responsiveWidth(8)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>
@@ -32,6 +32,7 @@ export default function SongListItem({song}: Props) {
         scale={0.4}
         icon={'cards-heart-outline'}
         color={'rgba(255, 55, 95, 1)'}
+        onPress={() => console.log('oyla')}
       />
     </MukListItem>
   );

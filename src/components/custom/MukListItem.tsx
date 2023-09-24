@@ -7,9 +7,10 @@ type Props = {
   onPress?: () => void;
   children?: ReactNode;
   style?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 };
 
-export default function MukListItem({onPress, children, style}: Props) {
+export default function MukListItem({onPress, children, style, disabled}: Props) {
   const {colors} = useTheme();
 
   return (
@@ -24,6 +25,7 @@ export default function MukListItem({onPress, children, style}: Props) {
         },
         style,
       ]}
+      disabled={disabled}
       onPress={onPress}
     >
       {children}
