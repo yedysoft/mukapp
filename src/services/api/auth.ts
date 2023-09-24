@@ -17,9 +17,9 @@ export class AuthApi {
   };
 
   logout = async (): PVoid => {
+    await socket.disconnect();
     this.clearAuth();
     await this.checkToken();
-    await socket.disconnect();
   };
 
   checkToken = async (): PVoid => {
@@ -40,10 +40,7 @@ export class AuthApi {
   };
 
   private clearAuth = () => {
-    stores.auth.setMany({
-      authToken: '',
-      loggedIn: false,
-    });
+    stores.auth.set('authToken', '');
   };
 }
 

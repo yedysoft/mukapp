@@ -6,11 +6,12 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 type Props = {
   badge?: number;
   icon: IconSource;
+  color?: string;
   iconStyle?: StyleProp<ViewStyle>;
   scale?: number;
 };
 
-export default function MukIcon({badge, icon, iconStyle, scale}: Props) {
+export default function MukIcon({badge, icon, color, iconStyle, scale}: Props) {
   return (
     <>
       {badge && (
@@ -31,6 +32,7 @@ export default function MukIcon({badge, icon, iconStyle, scale}: Props) {
       )}
       <Avatar.Icon
         icon={icon}
+        color={color}
         size={responsiveSize(scale ? 64 * scale : 64)}
         style={[{backgroundColor: 'transparent', marginLeft: responsiveWidth(-5)}, iconStyle]}
       />

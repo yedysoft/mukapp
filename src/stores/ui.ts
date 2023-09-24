@@ -1,10 +1,10 @@
 import {Appearance, Language} from '../types/enums';
 import {BaseStore} from './base';
+import {StatusBarStyle} from 'expo-status-bar';
 
 export class UIStore extends BaseStore<UIStore> {
   appearance: Appearance = 'system';
   language: Language = 'system';
-  tooltip = false;
 
   constructor() {
     super();
@@ -17,5 +17,9 @@ export class UIStore extends BaseStore<UIStore> {
 
   get isLanguageSystem() {
     return this.language === 'system';
+  }
+
+  get getStatusBarStyle(): StatusBarStyle {
+    return 'light';
   }
 }

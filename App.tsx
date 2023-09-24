@@ -8,7 +8,7 @@ import {observer} from 'mobx-react';
 import {CombinedTheme} from './src/theme';
 import {AppNavigation} from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
-import {hydrateStores} from './src/stores';
+import {hydrateStores, stores} from './src/stores';
 import {initServices, services} from './src/services';
 import SplashScreen from './src/screens/auth/SplashScreen';
 
@@ -22,14 +22,21 @@ export default observer(() => {
     await services.api.auth.checkToken();
   }, []);
 
+  const deinitializeApp = useCallback(async () => {
+    await services.api.socket.disconnect();
+  }, []);
+
   useEffect(() => {
     initializeApp().then(() => setReady(true));
+    return () => {
+      deinitializeApp().then(() => console.log('deinitializeApp'));
+    };
   }, []);
 
   return (
     <AppProvider>
       <PaperProvider theme={CombinedTheme}>
-        <StatusBar style="auto" />
+        <StatusBar style={stores.ui.getStatusBarStyle} />
         {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>
     </AppProvider>

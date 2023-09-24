@@ -1,5 +1,5 @@
 import {hydrateStore, makePersistable} from 'mobx-persist-store';
-import {makeObservable, observable} from 'mobx';
+import {makeObservable, observable, runInAction} from 'mobx';
 
 export class BaseStore<T extends Record<string, any>> {
   protected makeObservableAndPersistable(o: any, name: string, persistProps: (keyof T)[]) {
@@ -23,7 +23,9 @@ export class BaseStore<T extends Record<string, any>> {
   }
 
   set<K extends keyof T>(what: K, value: T[K]) {
-    (this as unknown as T)[what] = value;
+    runInAction(() => {
+      (this as unknown as T)[what] = value;
+    });
   }
 
   setMany(obj: Partial<T>) {

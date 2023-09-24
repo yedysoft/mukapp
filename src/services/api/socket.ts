@@ -5,25 +5,20 @@ import {wsUrl} from '../../../config';
 import {messageCallbackType} from '@stomp/stompjs/src/types';
 
 export class SocketApi {
-  public connected: PureFunc;
   public subscribes: {[key: string]: StompSubscription};
   public client: StompJs.Client;
 
   constructor() {
-    this.connected = () => {};
     this.subscribes = {};
     this.client = new StompJs.Client({
       reconnectDelay: 4000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       webSocketFactory: () => new SockJS(wsUrl),
-      debug: str => console.log(str),
-      onWebSocketError: () => console.log('onWebSocketError'),
-      onStompError: () => console.log('onStompError'),
-      onWebSocketClose: event => console.log(event),
-      onConnect: () => {
-        this.connected();
-      },
+      debug: str => console.debug('Socket Debug:', str),
+      onWebSocketError: event => console.log('onWebSocketError:', event),
+      onStompError: event => console.log('onStompError:', event),
+      onWebSocketClose: event => console.log('onWebSocketClose:', event),
     });
   }
 
