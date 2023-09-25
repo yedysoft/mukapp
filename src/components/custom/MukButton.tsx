@@ -1,16 +1,17 @@
-import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
+import {ActivityIndicator, StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {ReactNode} from 'react';
 
 type Props = {
   buttonStyle?: StyleProp<ViewStyle>;
+  loading?: boolean;
   onPress?: PureFunc;
   label?: string;
   children?: ReactNode;
 };
 
-export default function MukButton({buttonStyle, onPress, label, children}: Props) {
+export default function MukButton({buttonStyle, loading, onPress, label, children}: Props) {
   const theme = useTheme();
 
   return (
@@ -28,6 +29,7 @@ export default function MukButton({buttonStyle, onPress, label, children}: Props
       ]}
     >
       {children}
+      {loading ? <ActivityIndicator color="white" style={{marginRight: 5}} /> : null}
       <Text style={{fontSize: responsiveSize(16), fontWeight: 'bold', color: theme.colors.background}}>{label}</Text>
     </TouchableOpacity>
   );
