@@ -25,7 +25,6 @@ export default function MukFallowerButtons() {
         maxHeight: responsiveHeight(80),
         width: '100%',
         display: 'flex',
-        alignItems: 'flex-start',
       }}
     >
       <FlatList
@@ -33,13 +32,11 @@ export default function MukFallowerButtons() {
         data={profileData}
         renderItem={item => (
           <View style={{justifyContent: 'center', display: 'flex', margin: responsiveWidth(20)}}>
-            <View>
-              <MukProfileButton
-                label={item.item.title}
-                labelData={item.item.count}
-                buttonStyle={{height: responsiveHeight(80), backgroundColor: 'transparent', display: 'flex', justifyContent: 'center'}}
-              />
-            </View>
+            <MukProfileButton
+              label={item.item.title}
+              labelData={item.item.count}
+              buttonStyle={{height: responsiveHeight(80), backgroundColor: 'transparent', display: 'flex', justifyContent: 'center'}}
+            />
           </View>
         )}
       />
