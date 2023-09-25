@@ -11,7 +11,7 @@ export default function RoomScreen() {
   const {api} = useServices();
 
   useEffect(() => {
-    const listenId = api.socket.subscribe('/room/9651ca84-f93a-41a3-ab85-592d6ccdfbf4/playingTrack', listenPlayingTrack);
+    const listenId = api.socket.subscribe('/room/52ecc310-a0f4-41a0-89fc-84faf638b1ae/playingTrack', listenPlayingTrack);
     const liveId = api.socket.subscribe('/live/room/admin');
     return () => {
       listenId && api.socket.unsubscribe(listenId);

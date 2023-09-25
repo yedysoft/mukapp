@@ -1,5 +1,5 @@
 import {MD3Theme, Text, useTheme} from 'react-native-paper';
-import {ImageBackground, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
 import MukImage from '../../components/custom/MukImage';
 import MukProgressBar from '../../components/custom/MukProgressBar';
@@ -18,20 +18,16 @@ const PlayingTrack = observer(({compact}: Props) => {
   const {api} = useServices();
 
   return (
-    <ImageBackground
-      resizeMode={'cover'}
+    <View
       style={{
         width: screenWidth,
         height: responsiveHeight(compact ? 88 : 280),
         justifyContent: 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),
-        backgroundColor: theme.colors.background,
-        borderColor: media.playingTrack.dominantColor,
+        backgroundColor: media.playingTrack.dominantColor,
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
       }}
-      imageStyle={{opacity: 0.5, borderRadius: compact ? 16 : 0}}
-      source={{uri: `${api.helper.getImageUrl(media.playingTrack.images, 0)}`}}
     >
       <TouchableOpacity
         disabled={!compact}
@@ -49,7 +45,7 @@ const PlayingTrack = observer(({compact}: Props) => {
       <View style={styles.shadow}>
         <MukProgressBar progress={api.helper.getPercent(media.playingTrack.progress ?? 0, media.playingTrack.duration)} />
       </View>
-    </ImageBackground>
+    </View>
   );
 });
 
