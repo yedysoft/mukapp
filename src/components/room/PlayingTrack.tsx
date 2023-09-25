@@ -3,14 +3,19 @@ import {ImageBackground, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
 import MukImage from '../../components/custom/MukImage';
 import MukProgressBar from '../../components/custom/MukProgressBar';
+import {observer} from 'mobx-react';
+import {useStores} from '../../stores';
+import {useServices} from '../../services';
 
 type Props = {
   compact?: boolean;
 };
 
-export default function PlayingTrack({compact}: Props) {
+const PlayingTrack = observer(({compact}: Props) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const {media} = useStores();
+  const {api} = useServices();
 
   return (
     <ImageBackground
@@ -21,31 +26,32 @@ export default function PlayingTrack({compact}: Props) {
         justifyContent: 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),
         backgroundColor: theme.colors.background,
+        borderColor: media.playingTrack.dominantColor,
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
       }}
       imageStyle={{opacity: 0.5, borderRadius: compact ? 16 : 0}}
-      source={require('../../../assets/logo.png')}
+      source={{uri: `${api.helper.getImageUrl(media.playingTrack.images, 0)}`}}
     >
       <TouchableOpacity
         disabled={!compact}
         onPress={() => console.log('Odaya Dön')}
         style={{flexDirection: 'row', gap: responsiveWidth(16), marginBottom: responsiveHeight(compact ? 8 : 16)}}
       >
-        <MukImage scale={compact ? 1 : 2} source={require('../../../assets/adaptive-icon.png')} />
+        <MukImage scale={compact ? 1 : 2} source={{uri: `${api.helper.getImageUrl(media.playingTrack.images, 0)}`}} />
         <View
           style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4), paddingBottom: responsiveWidth(compact ? 8 : 16)}}
         >
-          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500'}}>Şarkı Adı</Text>
-          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300'}}>Sanatçı</Text>
+          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500'}}>{media.playingTrack.name}</Text>
+          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300'}}>{api.helper.getArtist(media.playingTrack.artists)}</Text>
         </View>
       </TouchableOpacity>
       <View style={styles.shadow}>
-        <MukProgressBar progress={1} />
+        <MukProgressBar progress={api.helper.getPercent(media.playingTrack.progress ?? 0, media.playingTrack.duration)} />
       </View>
     </ImageBackground>
   );
-}
+});
 
 const makeStyles = (theme: MD3Theme) =>
   StyleSheet.create({
@@ -57,6 +63,8 @@ const makeStyles = (theme: MD3Theme) =>
       },
       shadowOpacity: 1,
       shadowRadius: 8,
-      elevation: 0,
+      elevation: 5,
     },
   });
+
+export default PlayingTrack;

@@ -17,7 +17,6 @@ const interceptXMLHttpRequest = () => {
 
       this.addEventListener('load', () => {
         if (this.status === 401) {
-          console.error('Yetkilendirme hatası (401):', url, this.status, this.statusText);
           stores.auth.setMany({loggedIn: false, authToken: ''});
         } else if (this.status >= 400) {
           console.error('Başarısız XMLHttpRequest:', this.status, this.statusText);

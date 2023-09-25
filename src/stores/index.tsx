@@ -5,11 +5,13 @@ import {UIStore} from './ui';
 import {AuthStore} from './auth';
 import {BaseStore} from './base';
 import {UserStore} from './user';
+import {MediaStore} from './media';
 
 class Stores {
   ui = new UIStore();
   auth = new AuthStore();
   user = new UserStore();
+  media = new MediaStore();
 }
 export const stores = new Stores();
 

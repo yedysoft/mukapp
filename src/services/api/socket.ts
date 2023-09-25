@@ -3,6 +3,7 @@ import {StompSubscription} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import {wsUrl} from '../../../config';
 import {messageCallbackType} from '@stomp/stompjs/src/types';
+import {Message} from '@stomp/stompjs/esm6';
 
 export class SocketApi {
   public subscribes: {[key: string]: StompSubscription};
@@ -37,11 +38,11 @@ export class SocketApi {
     this.subscribes = {};
   };
 
-  public subscribe = (destination: string, callback: messageCallbackType): StompSubscription | undefined => {
+  public subscribe = (destination: string, callback?: messageCallbackType): StompSubscription | undefined => {
     if (!(destination in this.subscribes)) {
       this.checkConnect().then(() => {
         if (this.client.connected) {
-          const sub: StompSubscription = this.client.subscribe(destination, callback);
+          const sub: StompSubscription = this.client.subscribe(destination, <(message: Message) => void>callback);
           this.subscribes[destination] = sub;
           return sub;
         }
