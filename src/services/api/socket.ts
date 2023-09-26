@@ -38,42 +38,39 @@ export class SocketApi {
     this.subscribes = {};
   }
 
-  subscribe(destination: string, callback?: messageCallbackType): StompSubscription | undefined {
+  async subscribe(destination: string, callback?: messageCallbackType): Promise<StompSubscription | undefined> {
     if (!(destination in this.subscribes)) {
-      this.checkConnect().then(() => {
-        if (this.client.connected) {
-          const sub: StompSubscription = this.client.subscribe(destination, <(message: Message) => void>callback);
-          this.subscribes[destination] = sub;
-          return sub;
-        }
-      });
+      await this.checkConnect();
+      if (this.client.connected) {
+        const sub: StompSubscription = this.client.subscribe(destination, <(message: Message) => void>callback);
+        this.subscribes[destination] = sub;
+        return sub;
+      }
     } else {
       return this.subscribes[destination];
     }
     return undefined;
   }
 
-  unsubscribe(sub: StompSubscription): void {
-    this.checkConnect().then(() => {
-      if (this.client.connected) {
-        sub.unsubscribe();
-        const key = Object.keys(this.subscribes).find(k => this.subscribes[k].id === sub.id);
-        if (key) {
-          delete this.subscribes[key];
-        }
+  async unsubscribe(sub: StompSubscription): PVoid {
+    await this.checkConnect();
+    if (this.client.connected) {
+      sub.unsubscribe();
+      const key = Object.keys(this.subscribes).find(k => this.subscribes[k].id === sub.id);
+      if (key) {
+        delete this.subscribes[key];
       }
-    });
+    }
   }
 
-  sendMessage(destination: string, msg?: any): void {
-    this.checkConnect().then(() => {
-      if (this.client.connected) {
-        this.client.publish({
-          destination: destination,
-          body: JSON.stringify(msg),
-        });
-      }
-    });
+  async sendMessage(destination: string, msg?: any): PVoid {
+    await this.checkConnect();
+    if (this.client.connected) {
+      this.client.publish({
+        destination: destination,
+        body: JSON.stringify(msg),
+      });
+    }
   }
 
   private async checkConnect(): PVoid {
