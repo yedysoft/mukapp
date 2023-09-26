@@ -1,12 +1,14 @@
 import {Pressable, View} from 'react-native';
 import MukImage from '../custom/MukImage';
-import {Text, useTheme} from 'react-native-paper';
+import {Portal, Text, useTheme} from 'react-native-paper';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {useState} from 'react';
 import MukIcon from '../custom/MukIcon';
-import ImagePicker from 'react-native-image-picker';
-import {MediaType} from '../../types/MediaType';
-
+import * as ImagePicker from 'expo-image-picker';
+import MukModal from '../custom/MukModal';
+import MukButton from '../custom/MukButton';
+import MukIconButton from '../custom/MukIconButton';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 const profileInfo = [
   {
     data: 'İstanbul,Turkey',
@@ -18,27 +20,61 @@ export default function HorizontalUser() {
   const [value, setValue] = useState('');
   const {colors} = useTheme();
   const isActive = true;
-  const [selectedImage, setSelectedImage] = useState('');
-  const mediaType: MediaType = 'photo';
-  const [response, setResponse] = useState<any>(null);
+  const [isVisible, setVisible] = useState(false);
+  const [image, setImage] = useState(
+    'https://static.wikia.nocookie.net/sungerbob-karepantolon/images/8/86/Patrick-star-yildiz-sunger-bob-izle.png/revision/latest?cb=20140905123018&path-prefix=tr',
+  );
 
-  const openImagePicker = () => {
-    const options = {
-      mediaType: mediaType,
-    };
+  const pickImage = async () => {
+    setVisible(false);
 
-    ImagePicker.launchImageLibrary(options, response => console.log(response))
-      .then(r => console.log(r))
-      .catch(err => console.log(err));
-    //launchImageLibrary(options, setResponse).then(r => console.log(r));
+    // No permissions request is necessary for launching the image library
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+      setVisible(false);
+    }
   };
+
+  const takePhoto = async () => {
+    setVisible(false);
+
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [6, 8],
+      quality: 1,
+    });
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+      setVisible(false);
+    }
+  };
+
+  const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
 
   return (
     <View style={{flexDirection: 'column', alignItems: 'center', paddingTop: responsiveHeight(20), gap: responsiveWidth(5)}}>
-      <Pressable onPress={openImagePicker}>
+      <Portal>
+        <MukModal backgroundColor={colors.backdrop} visible={isVisible} onDismiss={hideModal}>
+          <View style={{width: responsiveWidth(300), flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+            <MukIconButton onPress={() => takePhoto()} icon={'camera'} />
+            <MukIconButton onPress={() => pickImage()} icon={'folder-search'} />
+          </View>
+        </MukModal>
+      </Portal>
+
+      <Pressable onPress={showModal}>
         <MukImage
           scale={2.8}
-          source={require('../../../assets/eth.jpg')}
+          source={{uri: image}}
           style={{
             borderWidth: 2,
             borderRadius: 100,
