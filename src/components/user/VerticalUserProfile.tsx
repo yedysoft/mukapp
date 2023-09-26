@@ -6,9 +6,8 @@ import {useState} from 'react';
 import MukIcon from '../custom/MukIcon';
 import * as ImagePicker from 'expo-image-picker';
 import MukModal from '../custom/MukModal';
-import MukButton from '../custom/MukButton';
 import MukIconButton from '../custom/MukIconButton';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+
 const profileInfo = [
   {
     data: 'İstanbul,Turkey',
