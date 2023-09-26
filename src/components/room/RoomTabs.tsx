@@ -158,8 +158,8 @@ export default function RoomTabs() {
           icon: 'message-outline',
           children: (
             <MukChat
-              subDestination={'/room/52ecc310-a0f4-41a0-89fc-84faf638b1ae/publicChat'}
-              sendDestination={'/app/room/52ecc310-a0f4-41a0-89fc-84faf638b1ae/sendPublicMessage'}
+              subDestination={'/room/3c7c9b06-c3a5-450c-91f5-5da61cb2f4b8/publicChat'}
+              sendDestination={'/app/room/3c7c9b06-c3a5-450c-91f5-5da61cb2f4b8/sendPublicMessage'}
             />
           ),
         },

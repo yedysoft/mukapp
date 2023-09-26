@@ -7,7 +7,7 @@ import {Message} from '@stomp/stompjs/esm6';
 
 export class SocketApi {
   public subscribes: {[key: string]: StompSubscription};
-  public client: StompJs.Client;
+  private client: StompJs.Client;
 
   constructor() {
     this.subscribes = {};
@@ -23,22 +23,22 @@ export class SocketApi {
     });
   }
 
-  public connect = async (): PVoid => {
+  async connect(): PVoid {
     return new Promise<void>(resolve => {
       this.client.onConnect = () => {
         resolve();
       };
       this.client.activate();
     });
-  };
+  }
 
-  public disconnect = async (): PVoid => {
+  async disconnect(): PVoid {
     Object.keys(this.subscribes).forEach(k => this.subscribes[k].unsubscribe());
     await this.client.deactivate({force: true});
     this.subscribes = {};
-  };
+  }
 
-  public subscribe = (destination: string, callback?: messageCallbackType): StompSubscription | undefined => {
+  subscribe(destination: string, callback?: messageCallbackType): StompSubscription | undefined {
     if (!(destination in this.subscribes)) {
       this.checkConnect().then(() => {
         if (this.client.connected) {
@@ -51,9 +51,9 @@ export class SocketApi {
       return this.subscribes[destination];
     }
     return undefined;
-  };
+  }
 
-  public unsubscribe = (sub: StompSubscription): void => {
+  unsubscribe(sub: StompSubscription): void {
     this.checkConnect().then(() => {
       if (this.client.connected) {
         sub.unsubscribe();
@@ -63,9 +63,9 @@ export class SocketApi {
         }
       }
     });
-  };
+  }
 
-  public sendMessage = (destination: string, msg?: any): void => {
+  sendMessage(destination: string, msg?: any): void {
     this.checkConnect().then(() => {
       if (this.client.connected) {
         this.client.publish({
@@ -74,13 +74,13 @@ export class SocketApi {
         });
       }
     });
-  };
+  }
 
-  private checkConnect = async (): PVoid => {
+  private async checkConnect(): PVoid {
     if (!this.client.connected) {
       await this.connect();
     }
-  };
+  }
 }
 
 const socket = new SocketApi();

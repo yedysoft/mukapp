@@ -6,6 +6,7 @@ import MukProgressBar from '../../components/custom/MukProgressBar';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
+import {LinearGradient} from 'expo-linear-gradient';
 
 type Props = {
   compact?: boolean;
@@ -18,13 +19,13 @@ const PlayingTrack = observer(({compact}: Props) => {
   const {api} = useServices();
 
   return (
-    <View
+    <LinearGradient
+      colors={[theme.colors.background, theme.colors.background, ...api.helper.getSafeArray(media.playingTrack.palette)]}
       style={{
         width: screenWidth,
         height: responsiveHeight(compact ? 88 : 280),
         justifyContent: 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),
-        backgroundColor: media.playingTrack.dominantColor,
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
       }}
@@ -45,7 +46,7 @@ const PlayingTrack = observer(({compact}: Props) => {
       <View style={styles.shadow}>
         <MukProgressBar progress={api.helper.getPercent(media.playingTrack.progress ?? 0, media.playingTrack.duration)} />
       </View>
-    </View>
+    </LinearGradient>
   );
 });
 

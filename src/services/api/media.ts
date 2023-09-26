@@ -2,13 +2,13 @@ import {stores} from '../../stores';
 import {IArtist, IImage, IPlayingTrack, IPlaylist, IQueueTrack, ITrack} from '../../types/media';
 
 export class MediaApi {
-  async setPlayingTrack(data: any): Promise<void> {
+  async setPlayingTrack(data: any): PVoid {
     try {
       if (data !== '') {
         const track: IPlayingTrack = this.getTrack(data.item);
         track.isPlaying = data.is_playing;
         track.progress = data.progress_ms;
-        track.dominantColor = data.dominantColor;
+        track.palette = data.palette;
         stores.media.set('playingTrack', track);
       }
     } catch (e: any) {

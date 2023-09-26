@@ -5,7 +5,7 @@ import socket from './socket';
 import user from './user';
 
 export class AuthApi {
-  login = async (form: ILogin): PVoid => {
+  async login(form: ILogin): PVoid {
     try {
       this.clearAuth();
       const response = await axiosIns.post('/auth/login', form);
@@ -14,15 +14,15 @@ export class AuthApi {
     } catch (e) {
       console.log(e);
     }
-  };
+  }
 
-  logout = async (): PVoid => {
+  async logout(): PVoid {
     await socket.disconnect();
     this.clearAuth();
     await this.checkToken();
-  };
+  }
 
-  checkToken = async (): PVoid => {
+  async checkToken(): PVoid {
     try {
       const opt = await axiosIns.options('/auth/checkToken');
       if (opt.status && opt.status === 200) {
@@ -33,11 +33,11 @@ export class AuthApi {
     } catch (e: any) {
       console.log(e);
     }
-  };
+  }
 
-  private clearAuth = () => {
+  private clearAuth() {
     stores.auth.set('authToken', '');
-  };
+  }
 }
 
 const auth = new AuthApi();

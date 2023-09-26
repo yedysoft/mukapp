@@ -1,4 +1,4 @@
-import {IUserInfo} from '../types/auth';
+import {IUserInfo} from '../types/user';
 import {BaseStore} from './base';
 
 export class UserStore extends BaseStore<UserStore> {

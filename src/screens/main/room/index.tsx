@@ -5,13 +5,15 @@ import PlayingTrack from '../../../components/room/PlayingTrack';
 import {useEffect} from 'react';
 import {useServices} from '../../../services';
 import {Message} from '@stomp/stompjs/esm6';
+import {useStores} from '../../../stores';
 
 export default function RoomScreen() {
   const theme = useTheme();
   const {api} = useServices();
+  const {user} = useStores();
 
   useEffect(() => {
-    const listenId = api.socket.subscribe('/room/52ecc310-a0f4-41a0-89fc-84faf638b1ae/playingTrack', listenPlayingTrack);
+    const listenId = api.socket.subscribe(`/room/${user.userInfo.id}/playingTrack`, listenPlayingTrack);
     const liveId = api.socket.subscribe('/live/room/admin');
     return () => {
       listenId && api.socket.unsubscribe(listenId);
