@@ -11,7 +11,7 @@ export default function FavoritesCardList({dataList, size = 180}: Props) {
   const {colors} = useTheme();
 
   return (
-    <View style={{flexDirection: 'column', alignItems: 'flex-start', marginTop: responsiveWidth(10)}}>
+    <View style={{flexDirection: 'column', alignItems: 'flex-start'}}>
       <Text style={{fontSize: responsiveSize(12), fontWeight: 'bold', color: colors.onSurfaceVariant}}>Favori Mekanlar</Text>
       <FlatList
         horizontal

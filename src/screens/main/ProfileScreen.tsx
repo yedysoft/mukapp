@@ -1,8 +1,11 @@
 import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../components/layouts/MainLayout';
-import VerticalUserProfile from '../../components/user/VerticalUserProfile';
-import MukFallowerButtons from '../../components/profile/MukFallowerButtons';
+import VerticalProfile from '../../components/user/VerticalProfile';
+import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import EditImage from '../../components/profile/EditImage';
+import {useState} from 'react';
 import FavoritesCardList from '../../components/profile/FavoritesCardList';
+import ProfileStats from '../../components/profile/ProfileStats';
 
 const chipData = [
   {
@@ -67,13 +70,18 @@ const placeList = [
 ];
 export default function ProfileScreen() {
   const {colors} = useTheme();
+  const [image, setImage] = useState(
+    'https://static.wikia.nocookie.net/sungerbob-karepantolon/images/8/86/Patrick-star-yildiz-sunger-bob-izle.png/revision/latest?cb=20140905123018&path-prefix=tr',
+  );
+  const [isVisible, setVisible] = useState(false);
 
   return (
-    <MainLayout>
-      <VerticalUserProfile/>
-      <MukFallowerButtons/>
-      <FavoritesCardList dataList={placeList} size={150}/>
-      {/*   <View style={{flexDirection: 'row'}}>
+    <MainLayout style={{paddingTop: responsiveWidth(100), gap: responsiveHeight(32)}}>
+      <VerticalProfile image={image} onPress={() => setVisible(true)}/>
+      <EditImage setImage={setImage} isVisible={isVisible} setVisible={setVisible}/>
+      <ProfileStats/>
+      <FavoritesCardList dataList={placeList}/>
+      {/*<View style={{flexDirection: 'row'}}>
         <FlatList horizontal data={chipData} renderItem={item => <MukChip mode={'outlined'} icon={item.item.icon} label={item.item.categories} />} />
       </View>*/}
     </MainLayout>
