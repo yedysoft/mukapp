@@ -7,7 +7,7 @@ import MukIcon from '../custom/MukIcon';
 import * as ImagePicker from 'expo-image-picker';
 import MukModal from '../custom/MukModal';
 import MukIconButton from '../custom/MukIconButton';
-
+import {useServices} from "../../services";
 const profileInfo = [
   {
     data: 'İstanbul,Turkey',
@@ -23,6 +23,8 @@ export default function HorizontalUser() {
   const [image, setImage] = useState(
     'https://static.wikia.nocookie.net/sungerbob-karepantolon/images/8/86/Patrick-star-yildiz-sunger-bob-izle.png/revision/latest?cb=20140905123018&path-prefix=tr',
   );
+  const {api, t} = useServices();
+
 
   const pickImage = async () => {
     setVisible(false);
@@ -34,6 +36,11 @@ export default function HorizontalUser() {
       aspect: [4, 3],
       quality: 1,
     });
+    if(result){
+      const form = new FormData();
+      form.append("Files",result.assets[0].uri);
+      const resp = await api.image.save(form);
+    }
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);

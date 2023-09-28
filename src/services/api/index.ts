@@ -4,7 +4,8 @@ import helper, {HelperApi} from './helper';
 import user, {UserApi} from './user';
 import media, {MediaApi} from './media';
 import subscription, {SubscriptionApi} from './subscription';
-
+import image,{ImageApi} from "./image";
+import Image from "./image";
 export class ApiService implements IService {
   private inited = false;
 
@@ -14,7 +15,7 @@ export class ApiService implements IService {
   user: UserApi;
   media: MediaApi;
   subscription: SubscriptionApi;
-
+  image:ImageApi;
   constructor() {
     this.socket = socket;
     this.helper = helper;
@@ -22,6 +23,7 @@ export class ApiService implements IService {
     this.user = user;
     this.media = media;
     this.subscription = subscription;
+    this.image=image;
   }
 
   async init(): PVoid {

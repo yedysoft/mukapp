@@ -3,7 +3,10 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "lib": ["es2017"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "allowJs": true,
     "jsx": "react-native",
     "noEmit": true,
@@ -14,6 +17,6 @@
     "esModuleInterop": true,
     "skipLibCheck": false,
     "resolveJsonModule": true,
-    "baseUrl": ".",
+    "baseUrl": "."
   }
 }
