@@ -1,10 +1,15 @@
 import axiosIns from '../axiosIns';
 
 export class ImageApi {
-  async save(file: FormData): PVoid {
+  async save(imageUri: string, fileName: string | null | undefined): PVoid {
     try {
-      console.log(file);
-      await axiosIns.post('/image/upload', file, {
+      const form = new FormData();
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+      console.log(response);
+      console.log(blob);
+      form.append('file', blob, fileName || 'test.jpg');
+      await axiosIns.post('/image/upload', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

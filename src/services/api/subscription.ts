@@ -1,22 +1,25 @@
 import socket from './socket';
 import {Message} from '@stomp/stompjs/esm6';
+import {stores} from '../../stores';
 
 export class SubscriptionApi {
   async globalSubscribes(): PVoid {
     try {
-      await socket.subscribe('/info/coin', this.coinCallback);
-      await socket.subscribe('/error', this.errorCallback);
+      const coinCallback = (message: Message) => {
+        const coin = JSON.parse(message.body);
+        stores.user.set('info', {...stores.user.getInfo, coin: coin});
+        console.log('coinCallback', coin);
+      };
+
+      const errorCallback = (message: Message) => {
+        console.log('errorCallback', message.body);
+      };
+
+      await socket.subscribe('/info/coin', coinCallback);
+      await socket.subscribe('/error', errorCallback);
     } catch (e) {
       console.log(e);
     }
-  }
-
-  private coinCallback(message: Message) {
-    console.log('coinCallback', message.body);
-  }
-
-  private errorCallback(message: Message) {
-    console.log('errorCallback', message.body);
   }
 }
 

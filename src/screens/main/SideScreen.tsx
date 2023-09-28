@@ -1,11 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import DrawerLayout from '../../components/layouts/DrawerLayout';
 import HorizontalUser from '../../components/user/HorizontalUser';
-import {useServices} from '../../services';
-import MukIconButton from '../../components/custom/MukIconButton';
-import {responsiveWidth} from '../../utils/Responsive';
 import MenuList from '../../components/menu/MenuList';
-import {View} from 'react-native';
 import MenuFooter from '../../components/menu/MenuFooter';
 
 const menu = [
@@ -41,7 +37,7 @@ export default function SideScreen() {
 
   return (
     <DrawerLayout>
-      <HorizontalUser/>
+      <HorizontalUser />
       <MenuList menu={menu} />
       <MenuFooter />
     </DrawerLayout>

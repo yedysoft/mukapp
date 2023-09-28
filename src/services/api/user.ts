@@ -2,10 +2,10 @@ import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 
 export class UserApi {
-  async getUserInfo(): PVoid {
+  async getInfo(): PVoid {
     try {
-      const response = await axiosIns.get('/user/getUserInfo');
-      stores.user.set('userInfo', response.data);
+      const response = await axiosIns.get('/user/getInfo');
+      stores.user.set('info', response.data);
     } catch (e) {
       console.log(e);
     }

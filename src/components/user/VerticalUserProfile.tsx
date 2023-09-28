@@ -37,14 +37,8 @@ export default function HorizontalUser() {
       quality: 1,
     });
     if (result && result.assets) {
-      const form = new FormData();
       const img = result.assets[0];
-      const response = await fetch(img.uri);
-      const blob = await response.blob();
-      console.log(response);
-      console.log(blob);
-      form.append('file', blob, img.fileName || 'test.jpg');
-      await api.image.save(form);
+      await api.image.save(img.uri, img.fileName);
     }
 
     if (!result.canceled) {

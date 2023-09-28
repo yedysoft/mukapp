@@ -27,7 +27,7 @@ export class AuthApi {
     try {
       const opt = await axiosIns.options('/auth/checkToken');
       if (opt.status && opt.status === 200) {
-        await user.getUserInfo();
+        await user.getInfo();
         await socket.connect();
         await subscription.globalSubscribes();
         stores.auth.set('loggedIn', true);
