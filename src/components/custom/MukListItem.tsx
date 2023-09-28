@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth, screenWidth} from '../../utils/Responsive';
 import {ReactNode} from 'react';
 
 type Props = {
@@ -17,6 +17,7 @@ export default function MukListItem({onPress, children, style, disabled}: Props)
     <TouchableOpacity
       style={[
         {
+          width: '100%',
           flexDirection: 'row',
           gap: responsiveWidth(16),
           paddingHorizontal: responsiveWidth(16),

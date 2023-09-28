@@ -6,8 +6,13 @@ import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import Coin from '../user/Coin';
 import {NavButton} from './NavButton';
+import {ReactNode} from 'react';
 
-export const SubHeader = observer(() => {
+type Props = {
+  type?: string
+}
+
+export const SubHeader = observer(({type}: Props) => {
   const {colors} = useTheme();
   const navigation = useNavigation();
 
@@ -26,7 +31,7 @@ export const SubHeader = observer(() => {
       <NavButton>
         <MukIconButton icon={'chevron-left'} scale={0.7} onPress={() => navigation.goBack()} />
       </NavButton>
-      <Coin />
+      {type ? null : <Coin />}
     </SafeAreaView>
   );
 });

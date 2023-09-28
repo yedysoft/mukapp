@@ -8,7 +8,7 @@ export default function HorizontalUser() {
   const {colors} = useTheme();
 
   return (
-    <View style={{flexDirection: 'row', gap: responsiveWidth(8)}}>
+    <View style={{flexDirection: 'row', gap: responsiveWidth(8), padding: responsiveWidth(16)}}>
       <MukImage
         scale={1.2}
         source={require('../../../assets/adaptive-icon.png')}

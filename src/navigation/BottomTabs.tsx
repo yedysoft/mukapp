@@ -6,6 +6,8 @@ import ShopScreen from '../screens/main/ShopScreen';
 import {responsiveHeight} from '../utils/Responsive';
 import ProfileScreen from '../screens/main/ProfileScreen';
 import HomeScreen from '../screens/main/HomeScreen';
+import {ChatScreen} from '../screens/main/social/ChatScreen';
+import {MessagesScreen} from '../screens/main/social/MessagesScreen';
 
 const Bottom = createBottomTabNavigator();
 export default function BottomTabs() {
@@ -53,7 +55,7 @@ export default function BottomTabs() {
       />
       <Bottom.Screen
         name="Messages"
-        component={ProfileScreen}
+        component={MessagesScreen}
         options={{
           tabBarIcon: ({focused}) => <AntDesign name="message1" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
         }}

@@ -3,7 +3,6 @@ import {MainLayout} from '../../components/layouts/MainLayout';
 import VerticalUserProfile from '../../components/user/VerticalUserProfile';
 import MukFallowerButtons from '../../components/profile/MukFallowerButtons';
 import FavoritesCardList from '../../components/profile/FavoritesCardList';
-import {View} from 'react-native';
 
 const chipData = [
   {
@@ -71,13 +70,9 @@ export default function ProfileScreen() {
 
   return (
     <MainLayout>
-      <View style={{flexDirection: 'column'}}>
-        <VerticalUserProfile />
-        <MukFallowerButtons />
-
-        <FavoritesCardList dataList={placeList} size={150} />
-      </View>
-
+      <VerticalUserProfile/>
+      <MukFallowerButtons/>
+      <FavoritesCardList dataList={placeList} size={150}/>
       {/*   <View style={{flexDirection: 'row'}}>
         <FlatList horizontal data={chipData} renderItem={item => <MukChip mode={'outlined'} icon={item.item.icon} label={item.item.categories} />} />
       </View>*/}
