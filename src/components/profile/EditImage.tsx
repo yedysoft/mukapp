@@ -25,10 +25,9 @@ export default function EditImage({setImage, setVisible, isVisible}: Props) {
       aspect: [4, 3],
       quality: 1,
     });
-    if (result) {
-      const form = new FormData();
-      form.append('Files', result.assets[0].uri);
-      const resp = await api.image.save(form);
+    if (result && result.assets) {
+      const img = result.assets[0];
+      await api.image.save(img.uri, img.fileName);
     }
     if (!result.canceled) {
       setImage(result.assets[0].uri);
