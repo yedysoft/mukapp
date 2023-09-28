@@ -7,7 +7,8 @@ import MukIcon from '../custom/MukIcon';
 import * as ImagePicker from 'expo-image-picker';
 import MukModal from '../custom/MukModal';
 import MukIconButton from '../custom/MukIconButton';
-import {useServices} from "../../services";
+import {useServices} from '../../services';
+
 const profileInfo = [
   {
     data: 'İstanbul,Turkey',
@@ -25,7 +26,6 @@ export default function HorizontalUser() {
   );
   const {api, t} = useServices();
 
-
   const pickImage = async () => {
     setVisible(false);
 
@@ -36,10 +36,15 @@ export default function HorizontalUser() {
       aspect: [4, 3],
       quality: 1,
     });
-    if(result){
+    if (result && result.assets) {
       const form = new FormData();
-      form.append("Files",result.assets[0].uri);
-      const resp = await api.image.save(form);
+      const img = result.assets[0];
+      const response = await fetch(img.uri);
+      const blob = await response.blob();
+      console.log(response);
+      console.log(blob);
+      form.append('file', blob, img.fileName || 'test.jpg');
+      await api.image.save(form);
     }
 
     if (!result.canceled) {

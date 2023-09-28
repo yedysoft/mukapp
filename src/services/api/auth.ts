@@ -3,6 +3,7 @@ import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import socket from './socket';
 import user from './user';
+import subscription from './subscription';
 
 export class AuthApi {
   async login(form: ILogin): PVoid {
@@ -26,8 +27,9 @@ export class AuthApi {
     try {
       const opt = await axiosIns.options('/auth/checkToken');
       if (opt.status && opt.status === 200) {
-        await user.setUserInfo();
+        await user.getUserInfo();
         await socket.connect();
+        await subscription.globalSubscribes();
         stores.auth.set('loggedIn', true);
       }
     } catch (e: any) {

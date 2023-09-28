@@ -1,15 +1,15 @@
-import {IUserInfo} from '../types/user';
 import {BaseStore} from './base';
+import {IInfo} from '../types/user';
 
 export class UserStore extends BaseStore<UserStore> {
-  userInfo: IUserInfo = {id: '-1', coin: 0};
+  info: IInfo = {id: '-1', coin: 0, image: ''};
 
   constructor() {
     super();
     this.makeObservableAndPersistable(this, UserStore.name, []);
   }
 
-  get getUserInfo() {
-    return this.userInfo;
+  get getInfo() {
+    return this.info;
   }
 }

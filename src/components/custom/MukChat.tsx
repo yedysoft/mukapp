@@ -23,7 +23,9 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
 
   useEffect(() => {
     const chatId = api.socket.subscribe(subDestination, listenPublicChat);
-    return () => chatId && api.socket.unsubscribe(chatId);
+    return () => {
+      chatId ?? api.socket.unsubscribe(chatId);
+    };
   }, []);
 
   const listenPublicChat = (message: Message) => {
@@ -39,7 +41,7 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
       messages={messages}
       onSend={newMessages => sendPublicMessage(newMessages)}
       user={{
-        _id: user.getUserInfo.id,
+        _id: user.getInfo.id,
       }}
     />
   );

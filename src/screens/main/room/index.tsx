@@ -13,11 +13,11 @@ export default function RoomScreen() {
   const {user} = useStores();
 
   useEffect(() => {
-    const listenId = api.socket.subscribe(`/room/${user.userInfo.id}/playingTrack`, listenPlayingTrack);
+    const listenId = api.socket.subscribe(`/room/${user.getInfo.id}/playingTrack`, listenPlayingTrack);
     const liveId = api.socket.subscribe('/live/room/admin');
     return () => {
-      listenId && api.socket.unsubscribe(listenId);
-      liveId && api.socket.unsubscribe(liveId);
+      listenId ?? api.socket.unsubscribe(listenId);
+      liveId ?? api.socket.unsubscribe(liveId);
     };
   }, []);
 
