@@ -1,24 +1,15 @@
-import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import PlaylistListItem from './PlaylistListItem';
 import SongList from './SongList';
 import {useState} from 'react';
+import {IPlaylist} from '../../types/media';
 
 type Props = {
-  playlists: {
-    image?: string;
-    name?: string;
-    playlist?: {
-      image?: string;
-      name?: string;
-      artist?: string;
-    }[];
-  }[];
+  playlists: IPlaylist[];
 };
 
 export default function PlaylistList({playlists}: Props) {
-  const {colors} = useTheme();
   const [playlistIndex, setPlaylistIndex] = useState(0);
 
   return (
@@ -37,7 +28,7 @@ export default function PlaylistList({playlists}: Props) {
           gap: responsiveWidth(24),
         }}
       />
-      <SongList songs={playlists[playlistIndex].playlist} />
+      <SongList songs={playlists[playlistIndex].tracks} />
     </>
   );
 }

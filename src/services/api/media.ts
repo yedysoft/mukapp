@@ -14,6 +14,17 @@ export class MediaApi {
     }
   }
 
+  async getPlaylistTracks(playlistId: string, limit: number, offset: number): PVoid {
+    try {
+      const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=${limit}&offset=${offset}`);
+      const tracks = this.getTracks(response.data.items.map((d: any) => d.track));
+      const playlists = stores.media.getPlaylists.map(p => (p.id === playlistId ? {...p, tracks: tracks} : p));
+      stores.media.set('playlists', playlists);
+    } catch (e: any) {
+      console.log(e);
+    }
+  }
+
   async setPlayingTrack(data: any): PVoid {
     try {
       if (data !== '') {

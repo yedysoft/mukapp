@@ -1,4 +1,3 @@
-import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import SongListItem from './SongListItem';
@@ -9,8 +8,6 @@ type Props = {
 };
 
 export default function SongList({songs}: Props) {
-  const {colors} = useTheme();
-
   return (
     <FlatList
       data={songs}

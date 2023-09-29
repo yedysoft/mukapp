@@ -4,9 +4,17 @@ import PlaylistList from './PlaylistList';
 import {MukChat} from '../custom/MukChat';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
+import {useState} from 'react';
+import {useServices} from '../../services';
 
 const RoomTabs = observer(() => {
   const {media} = useStores();
+  const [playlistLoading, setPlaylistLoading] = useState(false);
+  const {api} = useServices();
+
+  if (!playlistLoading) {
+    api.media.getCurrentUserPlaylists().then(() => setPlaylistLoading(true));
+  }
 
   return (
     <MukTabs

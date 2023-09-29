@@ -2,19 +2,19 @@ import {MD3Theme, Text, useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleSheet, TouchableOpacity} from 'react-native';
+import {IPlaylist} from '../../types/media';
+import {useServices} from '../../services';
 
 type Props = {
   onPress?: () => void;
   active?: boolean;
-  playlist?: {
-    image?: string;
-    name?: string;
-  };
+  playlist: IPlaylist;
 };
 
 export default function PlaylistListItem({onPress, active, playlist}: Props) {
   const theme = useTheme();
   const styles = makeStyles({theme, active});
+  const {api} = useServices();
 
   return (
     <TouchableOpacity
@@ -31,9 +31,9 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
         styles.shadow,
       ]}
     >
-      <MukImage scale={1.8} source={require('../../../assets/adaptive-icon.png')} />
+      <MukImage scale={1.8} source={{uri: `${api.helper.getImageUrl(playlist.images, 1)}`}} />
       <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400'}}>
-        {playlist?.name}
+        {playlist.name}
       </Text>
     </TouchableOpacity>
   );
