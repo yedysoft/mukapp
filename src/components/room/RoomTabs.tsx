@@ -1,154 +1,12 @@
-import {useTheme} from 'react-native-paper';
 import MukTabs from '../../components/custom/MukTabs';
 import SongList from './SongList';
 import PlaylistList from './PlaylistList';
 import {MukChat} from '../custom/MukChat';
+import {observer} from 'mobx-react';
+import {useStores} from '../../stores';
 
-const songsData = [
-  {
-    image: '',
-    name: 'Şarkı Adı 1',
-    artist: 'artist1',
-  },
-  {
-    image: '',
-    name: 'Şarkı Adı 2',
-    artist: 'artist2',
-  },
-  {
-    image: '',
-    name: 'Şarkı Adı 1',
-    artist: 'artist1',
-  },
-  {
-    image: '',
-    name: 'Şarkı Adı 2',
-    artist: 'artist2',
-  },
-  {
-    image: '',
-    name: 'Şarkı Adı 1',
-    artist: 'artist1',
-  },
-  {
-    image: '',
-    name: 'Şarkı Adı 2',
-    artist: 'artist2',
-  },
-];
-const playlistData = [
-  {
-    image: '',
-    name: 'playlist1',
-    playlist: [
-      {
-        image: '',
-        name: 'Şarkı Adı 1',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 2',
-        artist: 'artist2',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 1',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 2',
-        artist: 'artist2',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 1',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 2',
-        artist: 'artist2',
-      },
-    ],
-  },
-  {
-    image: '',
-    name: 'playlist2',
-    playlist: [
-      {
-        image: '',
-        name: 'Şarkı Adı 12',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 22',
-        artist: 'artist2',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 1',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 2',
-        artist: 'artist2',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 1',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 2',
-        artist: 'artist2',
-      },
-    ],
-  },
-  {
-    image: '',
-    name: 'playlist2',
-    playlist: [
-      {
-        image: '',
-        name: 'Şarkı Adı 13',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 23',
-        artist: 'artist2',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 1',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 2',
-        artist: 'artist2',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 1',
-        artist: 'artist1',
-      },
-      {
-        image: '',
-        name: 'Şarkı Adı 2',
-        artist: 'artist2',
-      },
-    ],
-  },
-];
-
-export default function RoomTabs() {
-  const theme = useTheme();
+const RoomTabs = observer(() => {
+  const {media} = useStores();
 
   return (
     <MukTabs
@@ -165,13 +23,15 @@ export default function RoomTabs() {
         },
         {
           icon: 'earth',
-          children: <SongList songs={songsData} />,
+          children: <SongList songs={media.getQueue} />,
         },
         {
           icon: 'account-group-outline',
-          children: <PlaylistList playlists={playlistData} />,
+          children: <PlaylistList playlists={media.getPlaylists} />,
         },
       ]}
     />
   );
-}
+});
+
+export default RoomTabs;

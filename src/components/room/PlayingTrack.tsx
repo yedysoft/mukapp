@@ -7,6 +7,7 @@ import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import {LinearGradient} from 'expo-linear-gradient';
+import {transparent} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 type Props = {
   compact?: boolean;
@@ -20,7 +21,7 @@ const PlayingTrack = observer(({compact}: Props) => {
 
   return (
     <LinearGradient
-      colors={[theme.colors.background, theme.colors.background, ...api.helper.getSafeArray(media.playingTrack.palette)]}
+      colors={[theme.colors.background, transparent, ...api.helper.getSafeArray(media.getPlayingTrack.palette)]}
       style={{
         width: screenWidth,
         height: responsiveHeight(compact ? 88 : 280),
@@ -35,16 +36,16 @@ const PlayingTrack = observer(({compact}: Props) => {
         onPress={() => console.log('Odaya Dön')}
         style={{flexDirection: 'row', gap: responsiveWidth(16), marginBottom: responsiveHeight(compact ? 8 : 16)}}
       >
-        <MukImage scale={compact ? 1 : 2} source={{uri: `${api.helper.getImageUrl(media.playingTrack.images, 0)}`}} />
+        <MukImage scale={compact ? 1 : 2} source={{uri: `${api.helper.getImageUrl(media.getPlayingTrack.images, 0)}`}} />
         <View
           style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4), paddingBottom: responsiveWidth(compact ? 8 : 16)}}
         >
-          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500'}}>{media.playingTrack.name}</Text>
-          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300'}}>{api.helper.getArtist(media.playingTrack.artists)}</Text>
+          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500'}}>{media.getPlayingTrack.name}</Text>
+          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300'}}>{api.helper.getArtist(media.getPlayingTrack.artists)}</Text>
         </View>
       </TouchableOpacity>
       <View style={styles.shadow}>
-        <MukProgressBar progress={api.helper.getPercent(media.playingTrack.progress ?? 0, media.playingTrack.duration)} />
+        <MukProgressBar progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)} />
       </View>
     </LinearGradient>
   );

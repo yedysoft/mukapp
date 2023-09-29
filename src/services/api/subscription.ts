@@ -2,6 +2,9 @@ import socket from './socket';
 import {Message} from '@stomp/stompjs/esm6';
 import {stores} from '../../stores';
 import {StompSubscription} from '@stomp/stompjs';
+import media from './media';
+import {IVote} from '../../types/media';
+import {IMessage} from 'react-native-gifted-chat';
 
 export class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
@@ -22,10 +25,10 @@ export class SubscriptionApi {
       if (streamerId) {
         this.roomSubs = [];
         this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/publicChat`, this.publicChatCallback));
-        await socket.subscribe(`/room/${streamerId}/playingTrack`, this.playingTrackCallback);
-        await socket.subscribe(`/room/${streamerId}/queue`, this.queueCallback);
-        await socket.subscribe(`/room/${streamerId}/voteResult`, this.voteResultCallback);
-        await socket.subscribe('/live/room/admin');
+        this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/playingTrack`, this.playingTrackCallback));
+        this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/queue`, this.queueCallback));
+        this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/voteResult`, this.voteResultCallback));
+        this.roomSubs.push(await socket.subscribe('/live/room/admin'));
         stores.room.set('live', true);
       }
     } catch (e) {
@@ -35,16 +38,47 @@ export class SubscriptionApi {
 
   async roomUnsubscribes(): PVoid {
     try {
+      for (const sub of this.roomSubs) {
+        await socket.unsubscribe(sub);
+      }
       stores.room.set('live', false);
     } catch (e) {
       console.log(e);
     }
   }
 
+  // Send Messages
+  async getQueue(): PVoid {
+    try {
+      const streamerId = stores.room.getStreamerId;
+      streamerId && (await socket.sendMessage(`/app/room/${streamerId}/getQueue`));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async voteMusic(data: IVote): PVoid {
+    try {
+      const streamerId = stores.room.getStreamerId;
+      streamerId && (await socket.sendMessage(`/app/room/${streamerId}/voteMusic`, data));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async sendPublicMessage(data: IMessage): PVoid {
+    try {
+      const streamerId = stores.room.getStreamerId;
+      streamerId && (await socket.sendMessage(`/app/room/${streamerId}/sendPublicMessage`, data));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // Callbacks
   private coinCallback(message: Message) {
     const coin = JSON.parse(message.body);
     stores.user.set('info', {...stores.user.getInfo, coin: coin});
-    console.log('coinCallback', coin);
   }
 
   private errorCallback(message: Message) {
@@ -56,15 +90,15 @@ export class SubscriptionApi {
   }
 
   private playingTrackCallback(message: Message) {
-    console.log('playingTrackCallback', message.body);
+    media.setPlayingTrack(JSON.parse(message.body));
   }
 
   private queueCallback(message: Message) {
-    console.log('queueCallback', message.body);
+    media.setQueue(JSON.parse(message.body));
   }
 
   private voteResultCallback(message: Message) {
-    console.log('voteResultCallback', message.body);
+    media.setVoteResult(JSON.parse(message.body));
   }
 }
 

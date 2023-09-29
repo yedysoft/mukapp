@@ -36,7 +36,7 @@ export class SocketApi {
     this.subscribes = {};
   }
 
-  async subscribe(destination: string, callback?: messageCallbackType, subId?: string): Promise<StompSubscription | undefined> {
+  async subscribe(destination: string, callback?: messageCallbackType, subId?: string) {
     if (!(destination in this.subscribes)) {
       await this.checkConnect();
       if (this.client.connected) {
@@ -48,10 +48,8 @@ export class SocketApi {
         this.subscribes[destination] = sub;
         return sub;
       }
-    } else {
-      return this.subscribes[destination];
     }
-    return undefined;
+    return this.subscribes[destination];
   }
 
   async unsubscribe(sub: StompSubscription): PVoid {

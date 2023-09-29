@@ -20,13 +20,13 @@ export type ITrack = {
 };
 
 export type IQueueTrack = ITrack & {
-  voteCount?: number;
+  voteCount: number;
 };
 
 export type IPlayingTrack = ITrack & {
-  progress?: number;
-  isPlaying?: boolean;
-  palette?: string[];
+  progress: number;
+  isPlaying: boolean;
+  palette: string[];
 };
 
 export type IPlaylist = {
@@ -37,6 +37,11 @@ export type IPlaylist = {
 };
 
 export type IVote = {
-  userId: string;
+  userId: string | null;
   musicId: string;
+};
+
+export type IVoteResult = {
+  musicId: string;
+  voteCount: number;
 };

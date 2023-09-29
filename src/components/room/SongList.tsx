@@ -2,13 +2,10 @@ import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import SongListItem from './SongListItem';
+import {IQueueTrack, ITrack} from '../../types/media';
 
 type Props = {
-  songs?: {
-    image?: string;
-    name?: string;
-    artist?: string;
-  }[];
+  songs: IQueueTrack[] | ITrack[];
 };
 
 export default function SongList({songs}: Props) {
