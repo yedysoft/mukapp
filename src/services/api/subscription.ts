@@ -1,9 +1,10 @@
 import socket from './socket';
 import {Message} from '@stomp/stompjs/esm6';
 import {stores} from '../../stores';
+import {StompSubscription} from '@stomp/stompjs';
 
 export class SubscriptionApi {
-  private roomSubs = {};
+  private roomSubs: StompSubscription[] = [];
 
   async globalSubscribes(): PVoid {
     try {
@@ -19,7 +20,8 @@ export class SubscriptionApi {
     try {
       const streamerId = stores.room.getStreamerId;
       if (streamerId) {
-        await socket.subscribe(`/room/${streamerId}/publicChat`, this.publicChatCallback);
+        this.roomSubs = [];
+        this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/publicChat`, this.publicChatCallback));
         await socket.subscribe(`/room/${streamerId}/playingTrack`, this.playingTrackCallback);
         await socket.subscribe(`/room/${streamerId}/queue`, this.queueCallback);
         await socket.subscribe(`/room/${streamerId}/voteResult`, this.voteResultCallback);
