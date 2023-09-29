@@ -12,7 +12,7 @@ type Props = {
   };
 };
 
-export default function PlaylistItem({onPress, active, playlist}: Props) {
+export default function PlaylistListItem({onPress, active, playlist}: Props) {
   const theme = useTheme();
   const styles = makeStyles({theme, active});
 

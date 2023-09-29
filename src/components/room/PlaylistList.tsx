@@ -1,7 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
-import PlaylistItem from './PlaylistItem';
+import PlaylistListItem from './PlaylistListItem';
 import SongList from './SongList';
 import {useState} from 'react';
 
@@ -26,7 +26,7 @@ export default function PlaylistList({playlists}: Props) {
       <FlatList
         data={playlists}
         renderItem={({item, index}) => (
-          <PlaylistItem key={index} active={playlistIndex === index} onPress={() => setPlaylistIndex(index)} playlist={item} />
+          <PlaylistListItem key={index} active={playlistIndex === index} onPress={() => setPlaylistIndex(index)} playlist={item} />
         )}
         scrollEnabled
         horizontal
