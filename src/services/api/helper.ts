@@ -2,6 +2,20 @@ import {Buffer} from 'buffer';
 import {IArtist, IImage} from '../../types/media';
 
 export class HelperApi {
+  nummer(num: number): string{
+    if (num > 1e3 - 1 && num < 1e6) {
+      return (num / 1e3) + "K";
+    } else if (num > 1e6 - 1 && num < 1e9) {
+      return (num / 1e6) + "M";
+    } else if (num > 1e9 - 1 && num < 1e12) {
+      return (num / 1e9) + "B";
+    } else if (num > 1e12) {
+      return (num / 1e12) + "T";
+    } else if (num < 9e2) {
+      return num.toString();
+    } else return num.toString()
+  };
+
   msToMinSec(ms: number): string {
     const minutes: number = Math.floor(ms / 60000);
     const seconds: string = ((ms % 60000) / 1000).toFixed(0);

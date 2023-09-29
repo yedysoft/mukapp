@@ -3,14 +3,16 @@ import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
 import MukIconButton from '../custom/MukIconButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MukLogo from '../custom/MukLogo';
-import {DrawerActions, useNavigation} from '@react-navigation/native';
+import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import {NotificationsTooltip} from '../notification/NotificationsTooltip';
 import {NavButton} from './NavButton';
+import Coin from '../user/Coin';
 
 export const MainHeader = observer(() => {
   const {colors} = useTheme();
   const navigation = useNavigation();
+  const route = useRoute();
 
   return (
     <SafeAreaView
@@ -25,11 +27,12 @@ export const MainHeader = observer(() => {
       }}
     >
       <NavButton>
-        <MukIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
+        <MukIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
       </NavButton>
-      <MukLogo />
+      <MukLogo/>
       <NavButton>
-        <MukIconButton icon={'bell-outline'} scale={0.4} tooltip={NotificationsTooltip} />
+        {route.name == 'Shop' ? <Coin style={{marginRight: responsiveWidth(16)}} /> :
+          <MukIconButton icon={'bell-outline'} scale={0.4} tooltip={NotificationsTooltip}/>}
       </NavButton>
     </SafeAreaView>
   );

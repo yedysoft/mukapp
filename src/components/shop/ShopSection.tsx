@@ -1,7 +1,7 @@
 import {Text, useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
-import {responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
 
 type Props = {
   title?: string;
@@ -13,12 +13,13 @@ export default function ShopSection({title, children, style}: Props) {
   const {colors} = useTheme();
 
   return (
-    <View style={[{flexDirection: 'column', width: screenWidth, paddingHorizontal: responsiveWidth(20)}, style]}>
+    <View style={[{flexDirection: 'column', width: screenWidth, gap: responsiveHeight(4)}, style]}>
       <Text
         style={{
-          fontSize: responsiveSize(24),
+          fontSize: responsiveSize(20),
           color: 'white',
-          fontWeight: 'bold',
+          fontWeight: '500',
+          paddingLeft: responsiveWidth(20)
         }}
       >
         {title}

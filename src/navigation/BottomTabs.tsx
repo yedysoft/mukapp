@@ -36,7 +36,7 @@ export default function BottomTabs() {
         listeners={({navigation}) => ({
           tabPress: e => {
             //e.preventDefault();
-            navigation.navigate('Home');
+            //navigation.navigate('Home');
           },
         })}
       />
@@ -49,7 +49,7 @@ export default function BottomTabs() {
         listeners={({navigation}) => ({
           tabPress: e => {
             //e.preventDefault();
-            navigation.navigate('Home');
+            //navigation.navigate('Home');
           },
         })}
       />
@@ -62,7 +62,7 @@ export default function BottomTabs() {
         listeners={({navigation}) => ({
           tabPress: e => {
             //e.preventDefault();
-            navigation.navigate('Home');
+            //navigation.navigate('Home');
           },
         })}
       />

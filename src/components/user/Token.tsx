@@ -10,16 +10,16 @@ type Props = {
   style?: StyleProp<ViewStyle>
 }
 
-const Coin = observer(({style}: Props) => {
+const Token = observer(({style}: Props) => {
   const {user} = useStores();
   const {api} = useServices();
 
   return (
     <View style={[{flexDirection: 'row', alignItems: 'center'}, style]}>
-      <MukImage scale={0.32} style={{marginRight: responsiveWidth(9)}} source={require('../../../assets/new-coin.png')}/>
+      <MukImage scale={0.46} style={{marginLeft: responsiveWidth(-5), marginRight: responsiveWidth(4)}} source={require('../../../assets/coin.png')}/>
       <Text numberOfLines={1} style={{color: 'white', fontSize: responsiveSize(18), fontWeight: '600', textAlign: 'left'}}>{api.helper.nummer(user.getInfo.coin)}</Text>
     </View>
   );
 });
 
-export default Coin;
+export default Token;

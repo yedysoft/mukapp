@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import CoinList from '../../components/shop/CoinList';
+import CoinList from './CoinList';
 import ShopSection from './ShopSection';
 
 const coins = [

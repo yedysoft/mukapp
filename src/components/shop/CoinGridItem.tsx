@@ -11,7 +11,7 @@ type Props = {
   };
 };
 
-export default function CoinListItem({onPress, coin}: Props) {
+export default function CoinGridItem({onPress, coin}: Props) {
   const theme = useTheme();
   const styles = makeStyles({theme});
 
@@ -31,16 +31,16 @@ export default function CoinListItem({onPress, coin}: Props) {
         styles.shadow,
       ]}
     >
-      <MukImage scale={1.2} source={require('../../../assets/new-coin.png')} />
+      <MukImage scale={1} source={require('../../../assets/new-coin.png')} />
       <Text
         numberOfLines={1}
         style={{
-          fontSize: responsiveSize(32),
+          fontSize: responsiveSize(28),
           fontWeight: '900',
           position: 'absolute',
           color: 'white',
-          right: responsiveWidth(24),
-          bottom: responsiveWidth(24),
+          right: responsiveWidth(28),
+          bottom: responsiveWidth(28),
           textAlign: 'right',
         }}
       >
