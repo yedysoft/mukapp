@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import MukLogo from '../custom/MukLogo';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import {NotificationsTooltip} from '../tooltip/NotificationsTooltip';
+import {NotificationsTooltip} from '../notification/NotificationsTooltip';
 import {NavButton} from './NavButton';
 
 export const MainHeader = observer(() => {
@@ -28,7 +28,9 @@ export const MainHeader = observer(() => {
         <MukIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       </NavButton>
       <MukLogo />
-      <NotificationsTooltip />
+      <NavButton>
+        <MukIconButton icon={'bell-outline'} scale={0.4} tooltip={NotificationsTooltip} />
+      </NavButton>
     </SafeAreaView>
   );
 });

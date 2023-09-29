@@ -2,7 +2,7 @@ import {BaseStore} from './base';
 import {IInfo} from '../types/user';
 
 export class UserStore extends BaseStore<UserStore> {
-  info: IInfo = {id: '-1', coin: 0, image: ''};
+  info: IInfo = {id: null, coin: 0, image: ''};
 
   constructor() {
     super();

@@ -1,4 +1,5 @@
 // `services` layer
+
 interface IService {
   init: () => PVoid;
 }
@@ -32,4 +33,9 @@ type ThemeColors = {
   textColor: string;
   bgColor: string;
   bg2Color: string;
+};
+
+type TooltipScreenProps = {
+  visible: boolean;
+  changeVisible: (open: boolean) => void;
 };

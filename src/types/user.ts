@@ -1,5 +1,5 @@
 export type IInfo = {
-  id: string;
+  id: string | null;
   coin: number;
   image: string;
 };

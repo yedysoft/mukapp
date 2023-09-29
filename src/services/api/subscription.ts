@@ -3,19 +3,37 @@ import {Message} from '@stomp/stompjs/esm6';
 import {stores} from '../../stores';
 
 export class SubscriptionApi {
+  private roomSubs = {};
+
   async globalSubscribes(): PVoid {
     try {
       await socket.subscribe('/info/coin', this.coinCallback);
       await socket.subscribe('/error', this.errorCallback);
+      await socket.subscribe('/live/session');
     } catch (e) {
       console.log(e);
     }
   }
 
-  async roomSubscribes(streamerId: string): PVoid {
+  async roomSubscribes(): PVoid {
     try {
-      await socket.subscribe(`/room/${streamerId}/playingTrack`, this.playingTrackCallback);
-      await socket.subscribe('/live/room/admin');
+      const streamerId = stores.room.getStreamerId;
+      if (streamerId) {
+        await socket.subscribe(`/room/${streamerId}/publicChat`, this.publicChatCallback);
+        await socket.subscribe(`/room/${streamerId}/playingTrack`, this.playingTrackCallback);
+        await socket.subscribe(`/room/${streamerId}/queue`, this.queueCallback);
+        await socket.subscribe(`/room/${streamerId}/voteResult`, this.voteResultCallback);
+        await socket.subscribe('/live/room/admin');
+        stores.room.set('live', true);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async roomUnsubscribes(): PVoid {
+    try {
+      stores.room.set('live', false);
     } catch (e) {
       console.log(e);
     }
@@ -31,8 +49,20 @@ export class SubscriptionApi {
     console.log('errorCallback', message.body);
   }
 
+  private publicChatCallback(message: Message) {
+    console.log('publicChatCallback', message.body);
+  }
+
   private playingTrackCallback(message: Message) {
     console.log('playingTrackCallback', message.body);
+  }
+
+  private queueCallback(message: Message) {
+    console.log('queueCallback', message.body);
+  }
+
+  private voteResultCallback(message: Message) {
+    console.log('voteResultCallback', message.body);
   }
 }
 

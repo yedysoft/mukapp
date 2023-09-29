@@ -2,6 +2,7 @@ import {IconButton} from 'react-native-paper';
 import {responsiveSize} from '../../utils/Responsive';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {StyleProp, ViewStyle} from 'react-native';
+import {ReactNode} from 'react';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -9,6 +10,7 @@ type Props = {
   color?: string;
   scale?: number;
   onPress?: () => void;
+  tooltip?: (props: TooltipScreenProps) => ReactNode;
 };
 export default function MukIconButton({style, icon, color, scale, onPress}: Props) {
   return (

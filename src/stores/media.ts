@@ -8,4 +8,8 @@ export class MediaStore extends BaseStore<MediaStore> {
     super();
     this.makeObservableAndPersistable(this, MediaStore.name, []);
   }
+
+  get getPlayingTrack() {
+    return this.playingTrack;
+  }
 }

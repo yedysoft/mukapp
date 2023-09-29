@@ -20,5 +20,5 @@ export class ImageApi {
   }
 }
 
-const imageApi = new ImageApi();
-export default imageApi;
+const image = new ImageApi();
+export default image;

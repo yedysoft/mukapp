@@ -1,13 +1,13 @@
-import {useTheme} from 'react-native-paper';
 import MukFAB from '../../components/custom/MukFAB';
 import MukSheet from '../../components/custom/MukSheet';
 import {useRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import MukButton from '../custom/MukButton';
+import {useServices} from '../../services';
 
 export default function CreateRoom() {
-  const theme = useTheme();
   const sheetRef = useRef<BottomSheet>(null);
+  const {api} = useServices();
 
   const handleSheet = () => {
     sheetRef.current?.expand();
@@ -17,7 +17,7 @@ export default function CreateRoom() {
     <>
       <MukFAB onPress={handleSheet} />
       <MukSheet sheetRef={sheetRef}>
-        <MukButton label={'Oda Oluştur'} onPress={() => console.log('hadi')} />
+        <MukButton label={'Oda Oluştur'} onPress={() => api.room.openRoom()} />
       </MukSheet>
     </>
   );

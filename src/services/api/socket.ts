@@ -1,9 +1,7 @@
 import * as StompJs from '@stomp/stompjs';
-import {StompSubscription} from '@stomp/stompjs';
+import {messageCallbackType, StompHeaders, StompSubscription} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import {wsUrl} from '../../../config';
-import {messageCallbackType} from '@stomp/stompjs/src/types';
-import {Message} from '@stomp/stompjs/esm6';
 
 export class SocketApi {
   public subscribes: {[key: string]: StompSubscription};
@@ -38,11 +36,15 @@ export class SocketApi {
     this.subscribes = {};
   }
 
-  async subscribe(destination: string, callback?: messageCallbackType): Promise<StompSubscription | undefined> {
+  async subscribe(destination: string, callback?: messageCallbackType, subId?: string): Promise<StompSubscription | undefined> {
     if (!(destination in this.subscribes)) {
       await this.checkConnect();
       if (this.client.connected) {
-        const sub: StompSubscription = this.client.subscribe(destination, <(message: Message) => void>callback);
+        const headers: StompHeaders = {};
+        if (subId) {
+          headers.id = subId;
+        }
+        const sub: StompSubscription = this.client.subscribe(destination, <messageCallbackType>callback, headers);
         this.subscribes[destination] = sub;
         return sub;
       }
