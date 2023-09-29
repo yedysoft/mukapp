@@ -36,11 +36,11 @@ export default function HomeTabs() {
     <MukTabs
       tabs={[
         {
-          icon: 'earth',
+          icon: 'home-group',
           children: <RoomList rooms={roomsData} />,
         },
         {
-          icon: 'account-group-outline',
+          icon: 'account-group',
           children: <RoomList rooms={roomsData} />,
         },
       ]}

@@ -26,7 +26,7 @@ const menu = [
     route: 'Settings',
   },
   {
-    icon: 'help',
+    icon: 'help-circle-outline',
     label: 'Yardım',
     route: 'Help',
   },

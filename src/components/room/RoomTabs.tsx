@@ -22,11 +22,11 @@ const RoomTabs = observer(() => {
           ),
         },
         {
-          icon: 'earth',
+          icon: 'playlist-music-outline',
           children: <SongList songs={media.getQueue} />,
         },
         {
-          icon: 'account-group-outline',
+          icon: 'playlist-plus',
           children: <PlaylistList playlists={media.getPlaylists} />,
         },
       ]}

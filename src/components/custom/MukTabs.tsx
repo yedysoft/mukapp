@@ -1,5 +1,4 @@
 import {useTheme} from 'react-native-paper';
-import {MainLayout} from '../../components/layouts/MainLayout';
 import {Tabs, TabScreen, TabsProvider} from 'react-native-paper-tabs';
 import {ReactNode} from 'react';
 

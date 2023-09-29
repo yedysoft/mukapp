@@ -7,7 +7,6 @@ import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import {LinearGradient} from 'expo-linear-gradient';
-import {transparent} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 type Props = {
   compact?: boolean;
@@ -21,7 +20,7 @@ const PlayingTrack = observer(({compact}: Props) => {
 
   return (
     <LinearGradient
-      colors={[theme.colors.background, transparent, ...api.helper.getSafeArray(media.getPlayingTrack.palette)]}
+      colors={[theme.colors.background, 'transparent', ...api.helper.getSafeArray(media.getPlayingTrack.palette)]}
       style={{
         width: screenWidth,
         height: responsiveHeight(compact ? 88 : 280),
