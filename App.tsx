@@ -27,9 +27,9 @@ export default observer(() => {
   }, []);
 
   useEffect(() => {
-    //initializeApp().then(() => setReady(true));
+    initializeApp().then(() => setReady(true));
     return () => {
-      //deinitializeApp().then(() => console.log('deinitializeApp'));
+      deinitializeApp().then(() => console.log('deinitializeApp'));
     };
   }, []);
 
@@ -37,7 +37,7 @@ export default observer(() => {
     <AppProvider>
       <PaperProvider theme={CombinedTheme}>
         <StatusBar style={stores.ui.getStatusBarStyle} />
-        {ready ? <SplashScreen /> : <AppNavigation />}
+        {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>
     </AppProvider>
   );
