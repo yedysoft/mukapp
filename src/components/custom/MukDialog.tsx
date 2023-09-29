@@ -1,4 +1,4 @@
-import {Dialog, Text} from 'react-native-paper';
+import {Dialog, Text, useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import MukButton from './MukButton';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
@@ -13,11 +13,13 @@ type Props = {
 };
 
 export default function MukDialog({title, content, children, visible, onReject, onAccept}: Props) {
+  const {colors} = useTheme();
+
   return (
     <Dialog visible={visible} onDismiss={onReject}>
-      <Dialog.Title style={{color: 'white', fontSize: responsiveSize(24), fontWeight: 'bold'}}>{title}</Dialog.Title>
+      <Dialog.Title style={{color: colors.secondary, fontSize: responsiveSize(24), fontWeight: 'bold'}}>{title}</Dialog.Title>
       <Dialog.Content>
-        <Text style={{color: 'white', fontSize: responsiveSize(16)}}>{content}</Text>
+        <Text style={{color: colors.secondary, fontSize: responsiveSize(16)}}>{content}</Text>
         {children}
       </Dialog.Content>
       <Dialog.Actions style={{gap: responsiveWidth(16)}}>

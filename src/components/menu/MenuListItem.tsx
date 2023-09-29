@@ -19,7 +19,7 @@ export default function MenuListItem({item}: Props) {
 
   return (
     <MukListItem onPress={() => navigation.navigate(item.route)} style={{alignItems: 'center', paddingVertical: responsiveWidth(2)}}>
-      <MukIcon scale={.8} icon={item.icon}/>
+      <MukIcon scale={.8} icon={item.icon} />
       <Text numberOfLines={1} style={{fontSize: responsiveSize(20), fontWeight: '600', marginLeft: responsiveWidth(-8)}}>
         {item.label}
       </Text>

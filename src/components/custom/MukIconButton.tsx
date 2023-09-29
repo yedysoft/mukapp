@@ -1,4 +1,4 @@
-import {Badge, IconButton} from 'react-native-paper';
+import {Badge, IconButton, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {StyleProp, ViewStyle} from 'react-native';
@@ -14,6 +14,8 @@ type Props = {
   tooltip?: (props: TooltipScreenProps) => ReactNode;
 };
 export default function MukIconButton({style, icon, color, scale, badge, onPress}: Props) {
+  const {colors} = useTheme();
+
   return (
     <>
       {badge && (
@@ -22,7 +24,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
             position: 'absolute',
             top: 0,
             right: 0,
-            color: 'white',
+            color: colors.secondary,
             width: responsiveWidth(16),
             fontWeight: 'bold',
             aspectRatio: 1,
@@ -34,7 +36,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
       )}
       <IconButton
         icon={icon ? icon : 'blank'}
-        iconColor={color ? color : 'white'}
+        iconColor={color ? color : colors.secondary}
         style={[{margin: 0}, style]}
         size={responsiveSize(scale ? 64 * scale : 64)}
         onPress={onPress}

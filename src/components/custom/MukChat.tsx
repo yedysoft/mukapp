@@ -51,9 +51,9 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
       {...props}
       textInputAutoFocus
       textInputStyle={{
-        color: 'white',
+        color: colors.secondary,
       }}
-      placeholderTextColor={'white'}
+      placeholderTextColor={colors.secondary}
       placeholder=""
     />
   )
@@ -67,7 +67,7 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
         justifyContent: 'center',
       }}
     >
-      <MukIcon icon="send" scale={.6} color="white"/>
+      <MukIcon icon="send" scale={.6} />
     </Send>
   )
 

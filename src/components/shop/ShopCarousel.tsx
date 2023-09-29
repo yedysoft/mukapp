@@ -11,7 +11,6 @@ export default function ShopCarousel() {
         <View
           style={{
             flex: 1,
-            borderWidth: 1,
             justifyContent: 'center',
             backgroundColor: colors.primary,
           }}

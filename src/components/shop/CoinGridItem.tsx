@@ -12,6 +12,7 @@ type Props = {
 };
 
 export default function CoinGridItem({onPress, coin}: Props) {
+  const {colors} = useTheme();
   const theme = useTheme();
   const styles = makeStyles({theme});
 
@@ -38,7 +39,7 @@ export default function CoinGridItem({onPress, coin}: Props) {
           fontSize: responsiveSize(28),
           fontWeight: '900',
           position: 'absolute',
-          color: 'white',
+          color: colors.secondary,
           right: responsiveWidth(28),
           bottom: responsiveWidth(28),
           textAlign: 'right',

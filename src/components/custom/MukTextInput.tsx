@@ -1,4 +1,4 @@
-import {TextInput} from 'react-native-paper';
+import {TextInput, useTheme} from 'react-native-paper';
 import {StyleProp, Text, View, ViewStyle} from 'react-native';
 import {useState} from 'react';
 
@@ -16,6 +16,7 @@ type Props = {
 };
 
 export default function MukTextInput({name, label, value, hideText, autoCapitalize, onChange, style, outlineStyle, validate, validationMessage}: Props) {
+  const {colors} = useTheme();
   const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = (text: string) => {
@@ -48,7 +49,7 @@ export default function MukTextInput({name, label, value, hideText, autoCapitali
         autoCapitalize={autoCapitalize ?? 'none'}
         onChangeText={handleInputChange}
         outlineStyle={[{borderRadius: 16}, outlineStyle]}
-        style={[{width: '100%', color: 'white', backgroundColor: 'transparent'}, style]}
+        style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}, style]}
       />
       {error ? <Text style={{color: 'red'}}>{error}</Text> : null}
     </View>

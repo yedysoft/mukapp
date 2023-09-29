@@ -1,5 +1,5 @@
 import {ReactNode} from 'react';
-import {Modal, Portal} from 'react-native-paper';
+import {Modal, Portal, useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
@@ -9,13 +9,15 @@ type Props = {
   backgroundColor?: string;
 };
 
-export default function MukModal({children, visible, onDismiss, backgroundColor = 'white'}: Props) {
+export default function MukModal({children, visible, onDismiss, backgroundColor}: Props) {
+  const {colors} = useTheme();
+
   return (
     <Portal>
       <Modal
         visible={visible}
         onDismiss={onDismiss}
-        contentContainerStyle={{backgroundColor: backgroundColor, padding: responsiveWidth(16), borderRadius: 16, alignSelf: 'center'}}
+        contentContainerStyle={{backgroundColor: backgroundColor ? backgroundColor : colors.secondary, padding: responsiveWidth(16), borderRadius: 16, alignSelf: 'center'}}
       >
         {children}
       </Modal>

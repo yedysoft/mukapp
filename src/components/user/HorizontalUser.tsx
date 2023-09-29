@@ -13,10 +13,10 @@ export default function HorizontalUser() {
       <MukImage
         scale={1.5}
         source={require('../../../assets/adaptive-icon.png')}
-        style={{borderWidth: 2, borderRadius: 24, borderColor: colors.primary, backgroundColor: 'white'}}
+        style={{borderWidth: 2, borderRadius: 24, borderColor: colors.primary, backgroundColor: colors.secondary}}
       />
       <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(8), gap: responsiveWidth(12)}}>
-        <Text style={{color: 'white', fontSize: responsiveSize(20)}}>@etcas</Text>
+        <Text style={{color: colors.secondary, fontSize: responsiveSize(20)}}>@etcas</Text>
         <View style={{flexDirection: 'column', justifyContent: 'flex-end'}}>
           <Coin/>
           <Token/>

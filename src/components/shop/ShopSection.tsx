@@ -17,7 +17,7 @@ export default function ShopSection({title, children, style}: Props) {
       <Text
         style={{
           fontSize: responsiveSize(20),
-          color: 'white',
+          color: colors.secondary,
           fontWeight: '500',
           paddingLeft: responsiveWidth(20)
         }}

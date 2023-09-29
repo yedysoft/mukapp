@@ -9,5 +9,5 @@ type Props = {
 export default function RoomLayout({children}: Props) {
   const {colors} = useTheme();
 
-  return <View style={{flex: 1, flexDirection: 'column'}}>{children}</View>;
+  return <View style={{flex: 1, flexDirection: 'column', backgroundColor: colors.background}}>{children}</View>;
 }

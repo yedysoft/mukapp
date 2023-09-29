@@ -13,7 +13,7 @@ export const MainLayout = observer(({children, style}: Props) => {
   const {colors} = useTheme();
 
   return (
-    <View style={[{flex: 1, flexDirection: 'column', width: screenWidth}, style]}>
+    <View style={[{flex: 1, flexDirection: 'column', width: screenWidth, backgroundColor: colors.background}, style]}>
       {children}
       {/*<PlayingTrack compact />*/}
     </View>

@@ -21,7 +21,7 @@ export default function MessagesList({chats}: Props) {
       data={chats}
       renderItem={({item, index}) => <MessagesListItem key={index} chats={item} onPress={() => navigation.navigate('Chat')} />}
       scrollEnabled
-      contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
+      contentContainerStyle={{paddingVertical: responsiveWidth(8), backgroundColor: colors.background}}
     />
   );
 }

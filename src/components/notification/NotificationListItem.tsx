@@ -26,9 +26,9 @@ export default function NotificationListItem({notification}: Props) {
       <MukImage
         scale={0.6}
         source={require('../../../assets/adaptive-icon.png')}
-        style={{backgroundColor: 'white', borderWidth: 0.5, borderRadius: 100, borderColor: colors.background}}
+        style={{backgroundColor: colors.secondary, borderWidth: 0.5, borderRadius: 100, borderColor: colors.background}}
       />
-      <Text numberOfLines={2} style={{color: 'white', maxWidth: responsiveWidth(120)}}>
+      <Text numberOfLines={2} style={{color: colors.secondary, maxWidth: responsiveWidth(120)}}>
         {notification.context}
       </Text>
     </MukListItem>

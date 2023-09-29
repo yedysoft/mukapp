@@ -5,7 +5,7 @@ import 'text-encoding';
 import './src/services/xhrInterceptors';
 import React, {useCallback, useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import {CombinedTheme} from './src/theme';
+import {CombinedDarkTheme, CombinedLightTheme} from './src/theme';
 import {AppNavigation} from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stores} from './src/stores';
@@ -32,6 +32,8 @@ export default observer(() => {
       deinitializeApp().then(() => console.log('deinitializeApp'));
     };
   }, []);
+
+  const CombinedTheme = stores.ui.appearance == 'light' ? CombinedLightTheme : CombinedDarkTheme
 
   return (
     <AppProvider>

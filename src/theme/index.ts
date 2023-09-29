@@ -6,37 +6,38 @@ const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationDark: NavigationDarkTheme,
 });
 
-const CombinedLightTheme = {
+export const CombinedLightTheme = {
   ...MD3LightTheme,
   ...LightTheme,
   colors: {
     ...MD3LightTheme.colors,
     ...LightTheme.colors,
+    primary: '#6FEE71',
+    secondary: '#041014',
+    tertiary: 'rgba(255, 55, 95, 1)',
+    background: '#ffffff',
+    error: 'rgba(255, 69, 58, 1)',
+    outline: 'rgba(209, 209, 214, 1)',
+    outlineVariant: 'rgba(174, 174, 178, 1)',
+    shadow: 'rgba(142, 142, 147, 1)',
+    backdrop: 'rgba(44, 44, 46, 1)',
   },
 };
 
-const CombinedDarkTheme = {
+export const CombinedDarkTheme = {
   ...MD3DarkTheme,
   ...DarkTheme,
   colors: {
     ...MD3DarkTheme.colors,
     ...DarkTheme.colors,
-    background: '#041014',
     primary: '#6FEE71',
-    button: 'rgba(51, 48, 228, 1)',
-    secondary: 'rgba(75, 61, 96, 1)',
-    text: 'rgba(255, 255, 255, 1)',
-    black: 'rgba(0, 0, 0, 1)',
-    white: 'rgba(255, 255, 255, 1)',
-    grey: 'rgba(255, 255, 255, .2)',
-    red: 'rgba(255, 30, 30, 1)',
-    orange: 'rgba(253, 94, 83, 1)',
-    yellow: 'rgba(255, 227, 115, 1)',
-    light: {
-      grey: 'rgba(204, 206, 213, 1)',
-      orange: 'rgba(252, 156, 84, 1)',
-    },
+    secondary: '#ffffff',
+    tertiary: 'rgba(255, 55, 95, 1)',
+    background: '#041014',
+    error: 'rgba(255, 69, 58, 1)',
+    outline: 'rgba(209, 209, 214, 1)',
+    outlineVariant: 'rgba(174, 174, 178, 1)',
+    shadow: 'rgba(142, 142, 147, 1)',
+    backdrop: 'rgba(44, 44, 46, 1)',
   },
 };
-
-export const CombinedTheme = CombinedDarkTheme;

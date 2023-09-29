@@ -18,7 +18,7 @@ export default function RoomList({rooms}: Props) {
       data={rooms}
       renderItem={({item, index}) => <RoomListItem key={index} room={item} />}
       scrollEnabled
-      contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
+      contentContainerStyle={{paddingVertical: responsiveWidth(8), backgroundColor: colors.background}}
     />
   );
 }
