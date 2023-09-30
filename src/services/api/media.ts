@@ -7,7 +7,7 @@ export class MediaApi {
   async getCurrentUserPlaylists(): PVoid {
     try {
       const response = await axiosIns.get('/media/getCurrentUserPlaylists');
-      const playlists = this.getPlaylists(response.data);
+      const playlists = this.getPlaylists(response.data.items);
       stores.media.set('playlists', playlists);
     } catch (e: any) {
       console.log(e);

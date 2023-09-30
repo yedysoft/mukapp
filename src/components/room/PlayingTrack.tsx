@@ -35,7 +35,7 @@ const PlayingTrack = observer(({compact}: Props) => {
         onPress={() => console.log('Odaya Dön')}
         style={{flexDirection: 'row', gap: responsiveWidth(16), marginBottom: responsiveHeight(compact ? 8 : 16)}}
       >
-        <MukImage scale={compact ? 1 : 2} source={{uri: `${api.helper.getImageUrl(media.getPlayingTrack.images, 0)}`}} />
+        <MukImage scale={compact ? 1 : 2} source={{uri: `${api.helper.getImageUrl(media.getPlayingTrack.images)}`}} />
         <View
           style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4), paddingBottom: responsiveWidth(compact ? 8 : 16)}}
         >

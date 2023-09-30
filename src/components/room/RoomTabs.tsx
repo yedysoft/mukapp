@@ -22,12 +22,7 @@ const RoomTabs = observer(() => {
       tabs={[
         {
           icon: 'message-outline',
-          children: (
-            <MukChat
-              subDestination={'/room/3c7c9b06-c3a5-450c-91f5-5da61cb2f4b8/publicChat'}
-              sendDestination={'/app/room/3c7c9b06-c3a5-450c-91f5-5da61cb2f4b8/sendPublicMessage'}
-            />
-          ),
+          children: <MukChat />,
         },
         {
           icon: 'playlist-music-outline',

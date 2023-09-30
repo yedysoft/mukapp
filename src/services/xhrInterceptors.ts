@@ -11,8 +11,8 @@ const interceptXMLHttpRequest = () => {
         this.setRequestHeader('Authorization', `Bearer ${stores.auth.getAuthToken}`);
       }
 
-      this.addEventListener('error', event => {
-        console.error('XMLHttpRequest hatası:', event);
+      this.addEventListener('error', () => {
+        console.error('XMLHttpRequest hatası:', url);
       });
 
       this.addEventListener('load', () => {

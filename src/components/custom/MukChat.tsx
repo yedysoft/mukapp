@@ -6,14 +6,9 @@ import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import {Message} from '@stomp/stompjs';
 import MukIcon from './MukIcon';
-import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/Responsive';
 
-type Props = {
-  subDestination: string;
-  sendDestination: string;
-};
-
-export const MukChat = observer(({subDestination, sendDestination}: Props) => {
+export const MukChat = observer(() => {
   const {colors} = useTheme();
   const {user} = useStores();
   const {api} = useServices();
@@ -28,10 +23,10 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
   };
 
   const sendPublicMessage = (m: any) => {
-    api.socket.sendMessage(sendDestination, m);
+    api.socket.sendMessage('sendDestination', m);
   };
 
-  const renderInputToolbar = (props) => (
+  const renderInputToolbar = props => (
     <InputToolbar
       {...props}
       containerStyle={{
@@ -40,13 +35,13 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
         borderTopWidth: 1,
         paddingTop: responsiveWidth(4),
         paddingBottom: responsiveWidth(16),
-        paddingHorizontal: responsiveWidth(8)
+        paddingHorizontal: responsiveWidth(8),
       }}
       primaryStyle={{}}
     />
-  )
+  );
 
-  const renderComposer = (props) => (
+  const renderComposer = props => (
     <Composer
       {...props}
       textInputAutoFocus
@@ -56,9 +51,9 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
       placeholderTextColor={colors.secondary}
       placeholder=""
     />
-  )
+  );
 
-  const renderSend = (props) => (
+  const renderSend = props => (
     <Send
       {...props}
       disabled={!props.text}
@@ -67,9 +62,9 @@ export const MukChat = observer(({subDestination, sendDestination}: Props) => {
         justifyContent: 'center',
       }}
     >
-      <MukIcon icon="send" scale={.6} />
+      <MukIcon icon="send" scale={0.6} />
     </Send>
-  )
+  );
 
   return (
     <GiftedChat

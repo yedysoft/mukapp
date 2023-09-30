@@ -2,19 +2,21 @@ import {Buffer} from 'buffer';
 import {IArtist, IImage} from '../../types/media';
 
 export class HelperApi {
-  nummer(num: number): string{
+  nummer(num: number): string {
     if (num > 1e3 - 1 && num < 1e6) {
-      return (num / 1e3) + "K";
+      return num / 1e3 + 'K';
     } else if (num > 1e6 - 1 && num < 1e9) {
-      return (num / 1e6) + "M";
+      return num / 1e6 + 'M';
     } else if (num > 1e9 - 1 && num < 1e12) {
-      return (num / 1e9) + "B";
+      return num / 1e9 + 'B';
     } else if (num > 1e12) {
-      return (num / 1e12) + "T";
+      return num / 1e12 + 'T';
     } else if (num < 9e2) {
       return num.toString();
-    } else return num.toString()
-  };
+    } else {
+      return num.toString();
+    }
+  }
 
   msToMinSec(ms: number): string {
     const minutes: number = Math.floor(ms / 60000);
@@ -41,11 +43,11 @@ export class HelperApi {
     return max === 0 ? 1 : min / max;
   }
 
-  getImageUrl(images: Array<IImage>, index?: number): string {
+  getImageUrl(images: Array<IImage>): string {
     if (images === undefined || images === null || images.length === 0) {
-      return '/src/assets/muk1.png';
+      return '/assets/logo.png';
     }
-    return images[index ?? 0].url;
+    return images[0].url;
   }
 
   getArtist(artists: Array<IArtist>): string {

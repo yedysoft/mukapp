@@ -4,6 +4,7 @@ import PlaylistListItem from './PlaylistListItem';
 import SongList from './SongList';
 import {useState} from 'react';
 import {IPlaylist} from '../../types/media';
+import {useServices} from '../../services';
 
 type Props = {
   playlists: IPlaylist[];
@@ -11,13 +12,18 @@ type Props = {
 
 export default function PlaylistList({playlists}: Props) {
   const [playlistIndex, setPlaylistIndex] = useState(0);
+  const {api} = useServices();
 
+  const changePlaylist = (item: IPlaylist, index: number) => {
+    api.media.getPlaylistTracks(item.id, 100, 0);
+    setPlaylistIndex(index);
+  };
   return (
     <>
       <FlatList
         data={playlists}
         renderItem={({item, index}) => (
-          <PlaylistListItem key={index} active={playlistIndex === index} onPress={() => setPlaylistIndex(index)} playlist={item} />
+          <PlaylistListItem key={index} active={playlistIndex === index} onPress={() => changePlaylist(item, index)} playlist={item} />
         )}
         scrollEnabled
         horizontal
@@ -28,7 +34,7 @@ export default function PlaylistList({playlists}: Props) {
           gap: responsiveWidth(24),
         }}
       />
-      <SongList songs={playlists[playlistIndex].tracks} />
+      <SongList songs={playlists[playlistIndex] ? playlists[playlistIndex].tracks : []} />
     </>
   );
 }

@@ -20,7 +20,7 @@ const SongListItem = observer(({song}: Props) => {
 
   return (
     <MukListItem style={{alignItems: 'center'}} disabled={true}>
-      <MukImage scale={1.3} source={{uri: `${api.helper.getImageUrl(song.images, 1)}`}} />
+      <MukImage scale={1.3} source={{uri: `${api.helper.getImageUrl(song.images)}`}} />
       <View style={{justifyContent: 'center', gap: responsiveWidth(8)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>
           {song.name}
