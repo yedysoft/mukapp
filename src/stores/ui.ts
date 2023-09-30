@@ -23,3 +23,6 @@ export class UIStore extends BaseStore<UIStore> {
     return 'light';
   }
 }
+
+const ui = new UIStore();
+export default ui;

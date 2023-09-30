@@ -20,6 +20,7 @@ export default observer(() => {
     await hydrateStores();
     await initServices();
     await services.api.auth.checkToken();
+    await services.api.helper.sleep(5000);
   }, []);
 
   const deinitializeApp = useCallback(async () => {
@@ -33,7 +34,7 @@ export default observer(() => {
     };
   }, []);
 
-  const CombinedTheme = stores.ui.appearance == 'light' ? CombinedLightTheme : CombinedDarkTheme
+  const CombinedTheme = stores.ui.appearance == 'light' ? CombinedLightTheme : CombinedDarkTheme;
 
   return (
     <AppProvider>

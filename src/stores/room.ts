@@ -1,5 +1,5 @@
 import {BaseStore} from './base';
-import {stores} from './index';
+import user from './user';
 
 export class RoomStore extends BaseStore<RoomStore> {
   streamerId: string | null = null;
@@ -11,7 +11,7 @@ export class RoomStore extends BaseStore<RoomStore> {
   }
 
   get isAdmin() {
-    return this.streamerId && stores.user.info.id && this.streamerId === stores.user.info.id;
+    return this.streamerId && user.getInfo.id && this.streamerId === user.getInfo.id;
   }
 
   get getStreamerId() {
@@ -22,3 +22,6 @@ export class RoomStore extends BaseStore<RoomStore> {
     return this.live;
   }
 }
+
+const room = new RoomStore();
+export default room;

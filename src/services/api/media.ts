@@ -1,6 +1,5 @@
 import {stores} from '../../stores';
 import {IArtist, IImage, IPlayingTrack, IPlaylist, IQueueTrack, ITrack, IVoteResult} from '../../types/media';
-import subscription from './subscription';
 import axiosIns from '../axiosIns';
 
 export class MediaApi {
@@ -32,9 +31,6 @@ export class MediaApi {
         track.isPlaying = data.is_playing;
         track.progress = data.progress_ms;
         track.palette = data.palette;
-        if (track.id !== stores.media.getPlayingTrack.id) {
-          await subscription.getQueue();
-        }
         stores.media.set('playingTrack', track);
       }
     } catch (e: any) {
@@ -44,6 +40,7 @@ export class MediaApi {
 
   async setQueue(data: any): PVoid {
     try {
+      console.log(data);
       const queue: IQueueTrack[] = this.getQueueTracks(data);
       queue.sort((a, b) => b.voteCount - a.voteCount);
       stores.media.set('queue', queue);

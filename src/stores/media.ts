@@ -23,3 +23,6 @@ export class MediaStore extends BaseStore<MediaStore> {
     return this.playlists;
   }
 }
+
+const media = new MediaStore();
+export default media;

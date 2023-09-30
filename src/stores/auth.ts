@@ -17,3 +17,6 @@ export class AuthStore extends BaseStore<AuthStore> {
     return this.authToken;
   }
 }
+
+const auth = new AuthStore();
+export default auth;

@@ -1,18 +1,18 @@
 import './_hydration';
 import React from 'react';
-import {UIStore} from './ui';
-import {AuthStore} from './auth';
 import {BaseStore} from './base';
-import {UserStore} from './user';
-import {MediaStore} from './media';
-import {RoomStore} from './room';
+import ui from './ui';
+import auth from './auth';
+import user from './user';
+import media from './media';
+import room from './room';
 
 class Stores {
-  ui = new UIStore();
-  auth = new AuthStore();
-  user = new UserStore();
-  media = new MediaStore();
-  room = new RoomStore();
+  ui = ui;
+  auth = auth;
+  user = user;
+  media = media;
+  room = room;
 }
 export const stores = new Stores();
 

@@ -48,6 +48,7 @@ export class SubscriptionApi {
   }
 
   // Send Messages
+
   async getQueue(): PVoid {
     try {
       const streamerId = stores.room.getStreamerId;
@@ -76,6 +77,7 @@ export class SubscriptionApi {
   }
 
   // Callbacks
+
   private coinCallback(message: Message) {
     const coin = JSON.parse(message.body);
     stores.user.set('info', {...stores.user.getInfo, coin: coin});
@@ -90,7 +92,12 @@ export class SubscriptionApi {
   }
 
   private playingTrackCallback(message: Message) {
-    media.setPlayingTrack(JSON.parse(message.body));
+    const oldId = stores.media.getPlayingTrack.id;
+    media.setPlayingTrack(JSON.parse(message.body)).then(async () => {
+      if (oldId !== stores.media.getPlayingTrack.id) {
+        await subscription.getQueue();
+      }
+    });
   }
 
   private queueCallback(message: Message) {

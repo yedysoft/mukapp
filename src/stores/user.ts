@@ -13,3 +13,6 @@ export class UserStore extends BaseStore<UserStore> {
     return this.info;
   }
 }
+
+const user = new UserStore();
+export default user;
