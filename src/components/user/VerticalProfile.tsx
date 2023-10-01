@@ -15,7 +15,7 @@ export default function VerticalProfile({image, onPress}: Props) {
     <View style={{flexDirection: 'column', alignItems: 'center', gap: responsiveWidth(16)}}>
       <Pressable onPress={onPress}>
         <MukImage
-          scale={2.8}
+          scale={2.4}
           source={{uri: image}}
           style={{
             borderWidth: responsiveSize(4),
