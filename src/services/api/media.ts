@@ -3,6 +3,16 @@ import {IArtist, IImage, IPlayingTrack, IPlaylist, IQueueTrack, ITrack, IVoteRes
 import axiosIns from '../axiosIns';
 
 export class MediaApi {
+  async getAuthUrl(): Promise<string> {
+    try {
+      const response = await axiosIns.get('/media/getAuthUrl');
+      return response.data;
+    } catch (e: any) {
+      console.log(e);
+    }
+    return ''
+  }
+
   async getCurrentUserPlaylists(): PVoid {
     try {
       const response = await axiosIns.get('/media/getCurrentUserPlaylists');

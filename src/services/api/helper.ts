@@ -1,10 +1,23 @@
 import {Buffer} from 'buffer';
 import {IArtist, IImage, IPlaylist, ITrack} from '../../types/media';
 import {responsiveScale} from '../../utils/Responsive';
+import {Linking} from 'react-native';
 
 export class HelperApi {
+  openURL = async (url: string) => {
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        console.error(`Açılamayan URL: ${url}`);
+      }
+    } catch (error) {
+      console.error('URL açma hatası:', error);
+    }
+  };
 
-  isColorLight(hexColor:any) {
+  isColorLight(hexColor: any) {
     const r = parseInt(hexColor.slice(1, 3), 16);
     const g = parseInt(hexColor.slice(3, 5), 16);
     const b = parseInt(hexColor.slice(5, 7), 16);
