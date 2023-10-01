@@ -8,5 +8,5 @@ type Props = {
 export default function MukProgressBar({progress}: Props) {
   const {colors} = useTheme();
 
-  return <ProgressBar progress={progress} color={colors.primary} style={{height: responsiveHeight(4), borderRadius: 100, width: '100%'}} />;
+  return <ProgressBar progress={progress} color={colors.primary} style={{height: responsiveHeight(4), borderRadius: 100, width: '100%', backgroundColor: colors.backdrop}} />;
 }

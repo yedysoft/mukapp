@@ -17,10 +17,11 @@ const PlayingTrack = observer(({compact}: Props) => {
   const styles = makeStyles(theme);
   const {media} = useStores();
   const {api} = useServices();
+  const dominantColor = media.getPlayingTrack.palette[0]
+  const textColor = api.helper.isColorLight(dominantColor) ? theme.colors.background : theme.colors.secondary
 
   return (
-    <LinearGradient
-      colors={[theme.colors.background, 'transparent', ...api.helper.getSafeArray(media.getPlayingTrack.palette)]}
+    <View
       style={{
         width: screenWidth,
         height: responsiveHeight(compact ? 88 : 280),
@@ -28,6 +29,7 @@ const PlayingTrack = observer(({compact}: Props) => {
         padding: responsiveWidth(compact ? 8 : 16),
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
+        backgroundColor: dominantColor ?? theme.colors.background,
       }}
     >
       <TouchableOpacity
@@ -39,14 +41,14 @@ const PlayingTrack = observer(({compact}: Props) => {
         <View
           style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4), paddingBottom: responsiveWidth(compact ? 8 : 16)}}
         >
-          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500'}}>{media.getPlayingTrack.name}</Text>
-          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300'}}>{api.helper.getArtist(media.getPlayingTrack.artists)}</Text>
+          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500', color: textColor}}>{media.getPlayingTrack.name}</Text>
+          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300', color: textColor}}>{api.helper.getArtist(media.getPlayingTrack.artists)}</Text>
         </View>
       </TouchableOpacity>
       <View style={styles.shadow}>
         <MukProgressBar progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)} />
       </View>
-    </LinearGradient>
+    </View>
   );
 });
 
