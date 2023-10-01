@@ -2,32 +2,19 @@ import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
 import RoomListItem from './RoomListItem';
 import {responsiveWidth} from '../../utils/Responsive';
-import {useStores} from '../../stores';
-import {useServices} from '../../services';
-import {useEffect} from 'react';
 import {observer} from 'mobx-react';
+import {IRoom} from '../../types/room';
 
 type Props = {
-  role: string;
+  rooms: IRoom[];
 };
 
-const RoomList = observer(({role}: Props) => {
+const RoomList = observer(({rooms}: Props) => {
   const {colors} = useTheme();
-  const {rooms} = useStores();
-  const {api} = useServices();
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      api.rooms.getRooms(role);
-    }, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
 
   return (
     <FlatList
-      data={role == 'PLACE' ? rooms.getPlaces : (role == 'USER' ? rooms.getUsers : [])}
+      data={rooms}
       renderItem={({item, index}) => <RoomListItem key={index} room={item}/>}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8), backgroundColor: colors.background}}

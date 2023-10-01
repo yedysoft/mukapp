@@ -4,6 +4,7 @@ import {ReactNode} from 'react';
 
 type Props = {
   defaultIndex?: number;
+  onChangeIndex?: () => void;
   tabs: {
     icon?: string;
     label?: string;
@@ -11,11 +12,11 @@ type Props = {
   }[];
 };
 
-export default function MukTabs({tabs, defaultIndex}: Props) {
+export default function MukTabs({tabs, defaultIndex, onChangeIndex}: Props) {
   const theme = useTheme();
 
   return (
-    <TabsProvider defaultIndex={defaultIndex ? defaultIndex : 0}>
+    <TabsProvider onChangeIndex={onChangeIndex} defaultIndex={defaultIndex ?? 0}>
       <Tabs iconPosition={'top'} showTextLabel={false} theme={theme} style={{backgroundColor: theme.colors.background}}>
         {tabs.map((tab, i) => {
           return (
