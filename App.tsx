@@ -34,11 +34,10 @@ export default observer(() => {
     };
   }, []);
 
-  const CombinedTheme = stores.ui.appearance == 'light' ? CombinedLightTheme : CombinedDarkTheme;
 
   return (
     <AppProvider>
-      <PaperProvider theme={CombinedTheme}>
+      <PaperProvider theme={stores.ui.getTheme}>
         <StatusBar style={stores.ui.getStatusBarStyle} />
         {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>

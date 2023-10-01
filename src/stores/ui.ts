@@ -1,6 +1,8 @@
 import {Appearance, Language} from '../types/enums';
 import {BaseStore} from './base';
 import {StatusBarStyle} from 'expo-status-bar';
+import {stores} from './index';
+import {CombinedDarkTheme, CombinedLightTheme} from '../theme';
 
 export class UIStore extends BaseStore<UIStore> {
   appearance: Appearance = 'system';
@@ -20,7 +22,11 @@ export class UIStore extends BaseStore<UIStore> {
   }
 
   get getStatusBarStyle(): StatusBarStyle {
-    return 'light';
+    return this.appearance == 'light' ? 'dark' : 'light';
+  }
+
+  get getTheme() {
+    return this.appearance == 'light' ? CombinedLightTheme : CombinedDarkTheme;
   }
 }
 
