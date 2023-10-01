@@ -21,14 +21,14 @@ export default function MukDialog({title, content, children, visible, onReject, 
 
   return (
     <Dialog visible={visible} onDismiss={onReject} style={[{backgroundColor: theme.colors.background}, styles.shadow]}>
-      <Dialog.Title style={{color: theme.colors.secondary, fontSize: responsiveSize(24), fontWeight: 'bold'}}>{title}</Dialog.Title>
-      <Dialog.Content>
-        <Text style={{color: theme.colors.secondary, fontSize: responsiveSize(16)}}>{content}</Text>
+      <Dialog.Title style={{color: theme.colors.secondary, fontSize: responsiveSize(20), fontWeight: 'bold'}}>{title}</Dialog.Title>
+      <Dialog.Content style={{paddingBottom: responsiveWidth(24)}}>
+        <Text style={{color: theme.colors.secondary, fontSize: responsiveSize(14)}}>{content}</Text>
         {children}
       </Dialog.Content>
       <Dialog.Actions style={{gap: responsiveWidth(16)}}>
-        <MukButton onPress={onReject} label={labelReject ?? 'Geri Dön'} buttonStyle={{backgroundColor: theme.colors.error}} scale={.8} />
-        <MukButton onPress={onAccept} label={labelAccept ?? 'Onayla'} buttonStyle={{backgroundColor: theme.colors.primary}} scale={.8} />
+        <MukButton onPress={onReject} label={labelReject ?? 'Geri Dön'} buttonStyle={{backgroundColor: theme.colors.error}} scale={.8} textStyle={{color: theme.colors.secondary, fontSize: responsiveSize(14), fontWeight: '600'}} />
+        <MukButton onPress={onAccept} label={labelAccept ?? 'Onayla'} buttonStyle={{backgroundColor: theme.colors.primary}} scale={.8} textStyle={{color: theme.colors.secondary, fontSize: responsiveSize(14), fontWeight: '600'}} />
       </Dialog.Actions>
     </Dialog>
   );
