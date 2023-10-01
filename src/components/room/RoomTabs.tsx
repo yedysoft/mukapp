@@ -8,8 +8,8 @@ import {useServices} from '../../services';
 import SongList from './SongList';
 
 const RoomTabs = observer(() => {
-  const {media} = useStores();
   const [playlistLoading, setPlaylistLoading] = useState(false);
+  const {media} = useStores();
   const {api} = useServices();
 
   if (!playlistLoading) {
@@ -22,15 +22,20 @@ const RoomTabs = observer(() => {
       tabs={[
         {
           icon: 'message-outline',
-          children: <MukChat/>,
+          children: <MukChat />,
         },
         {
           icon: 'playlist-music-outline',
-          children: <SongList songs={media.getQueue}/>,
+          children: <SongList songs={media.getQueue} />,
         },
         {
           icon: 'playlist-plus',
-          children: <SongList header={<PlaylistList playlists={media.getPlaylists}/>} songs={media.getQueue}/>,
+          children: (
+            <SongList
+              header={<PlaylistList playlists={media.getPlaylists} />}
+              songs={api.helper.getSelectedPlaylistTracks(media.getPlaylists)}
+            />
+          ),
         },
       ]}
     />

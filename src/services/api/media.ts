@@ -6,6 +6,7 @@ export class MediaApi {
   async getCurrentUserPlaylists(): PVoid {
     try {
       const response = await axiosIns.get('/media/getCurrentUserPlaylists');
+      console.log(response.data.items);
       const playlists = this.getPlaylists(response.data.items);
       stores.media.set('playlists', playlists);
     } catch (e: any) {
@@ -17,7 +18,9 @@ export class MediaApi {
     try {
       const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=${limit}&offset=${offset}`);
       const tracks = this.getTracks(response.data.items.map((d: any) => d.track));
-      const playlists = stores.media.getPlaylists.map(p => (p.id === playlistId ? {...p, tracks: tracks} : p));
+      const playlists = stores.media.getPlaylists.map(p =>
+        p.id === playlistId ? {...p, tracks: tracks, selected: true} : {...p, selected: false},
+      );
       stores.media.set('playlists', playlists);
     } catch (e: any) {
       console.log(e);
@@ -52,7 +55,9 @@ export class MediaApi {
   async setVoteResult(data: IVoteResult): PVoid {
     try {
       if (stores.media.queue.length > 0) {
-        const updatedItems = stores.media.queue.map(t => (t.id === data.musicId ? {...t, voteCount: data.voteCount} : t));
+        const updatedItems = stores.media.queue.map(t =>
+          t.id === data.musicId ? {...t, voteCount: data.voteCount} : t,
+        );
         updatedItems.sort((a, b) => b.voteCount - a.voteCount);
         stores.media.set('queue', updatedItems);
       }
@@ -62,19 +67,41 @@ export class MediaApi {
   }
 
   private getArtists(state: any): IArtist[] {
-    return state.map((artist: any) => ({
-      id: artist.id,
-      uri: artist.uri,
-      name: artist.name,
-    }));
+    return state
+      ? state.map((artist: any) => ({
+          id: artist.id,
+          uri: artist.uri,
+          name: artist.name,
+        }))
+      : [];
   }
 
   private getImages(state: any): IImage[] {
-    return state.map((image: any) => ({
-      url: image.url,
-      height: image.height,
-      width: image.width,
-    }));
+    return state
+      ? state.map((image: any) => ({
+          url: image.url,
+          height: image.height,
+          width: image.width,
+        }))
+      : [];
+  }
+
+  private getTracks(state: any): ITrack[] {
+    return state ? state.map((data: any) => this.getTrack(data)) : [];
+  }
+
+  private getQueueTracks(state: any): IQueueTrack[] {
+    return state
+      ? state.map((data: any) => {
+          const track: IQueueTrack = this.getTrack(data.track) as IQueueTrack;
+          track.voteCount = data.voteCount;
+          return track;
+        })
+      : [];
+  }
+
+  private getPlaylists(state: any): IPlaylist[] {
+    return state ? state.map((data: any) => this.getPlaylist(data)) : [];
   }
 
   private getTrack(state: any): ITrack {
@@ -93,24 +120,9 @@ export class MediaApi {
       id: state.id,
       name: state.name,
       images: this.getImages(state.images),
-      tracks: [],
+      tracks: this.getTracks(state.tracks),
+      selected: false,
     };
-  }
-
-  private getTracks(state: any): ITrack[] {
-    return state.map((data: any) => this.getTrack(data));
-  }
-
-  private getQueueTracks(state: any): IQueueTrack[] {
-    return state.map((data: any) => {
-      const track: IQueueTrack = this.getTrack(data.track) as IQueueTrack;
-      track.voteCount = data.voteCount;
-      return track;
-    });
-  }
-
-  private getPlaylists(state: any): IPlaylist[] {
-    return state.map((data: any) => this.getPlaylist(data));
   }
 }
 

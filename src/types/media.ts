@@ -34,6 +34,7 @@ export type IPlaylist = {
   name: string;
   images: IImage[];
   tracks: ITrack[];
+  selected: boolean;
 };
 
 export type IVote = {

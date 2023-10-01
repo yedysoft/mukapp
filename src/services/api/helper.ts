@@ -1,5 +1,5 @@
 import {Buffer} from 'buffer';
-import {IArtist, IImage} from '../../types/media';
+import {IArtist, IImage, IPlaylist, ITrack} from '../../types/media';
 import {responsiveScale} from '../../utils/Responsive';
 
 export class HelperApi {
@@ -44,7 +44,7 @@ export class HelperApi {
     return max === 0 ? 1 : min / max;
   }
 
-  getImageUrl(images: Array<IImage>, scale: number): string {
+  getImageUrl(images: IImage[], scale: number): string {
     if (images === undefined || images === null || images.length === 0) {
       return '/assets/logo.png';
     }
@@ -64,11 +64,19 @@ export class HelperApi {
     return closestImage.url;
   }
 
-  getArtist(artists: Array<IArtist>): string {
+  getArtist(artists: IArtist[]): string {
     if (artists === undefined || artists === null || artists.length === 0) {
       return '';
     }
     return artists.map(a => a.name).join(', ');
+  }
+
+  getSelectedPlaylistTracks(playlists: IPlaylist[]): ITrack[] {
+    if (playlists === undefined || playlists === null || playlists.length === 0) {
+      return [];
+    }
+    const playlist = playlists.find(p => p.selected);
+    return playlist ? playlist.tracks : [];
   }
 }
 

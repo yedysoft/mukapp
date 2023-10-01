@@ -10,19 +10,24 @@ type Props = {
 };
 
 export default function PlaylistList({playlists}: Props) {
-  const [playlistIndex, setPlaylistIndex] = useState(0);
+  const [playlistIndex, setPlaylistIndex] = useState(-1);
   const {api} = useServices();
 
   const changePlaylist = (item: IPlaylist, index: number) => {
     api.media.getPlaylistTracks(item.id, 100, 0);
     setPlaylistIndex(index);
   };
-  
+
   return (
     <FlatList
       data={playlists}
       renderItem={({item, index}) => (
-        <PlaylistListItem key={index} active={playlistIndex === index} onPress={() => changePlaylist(item, index)} playlist={item}/>
+        <PlaylistListItem
+          key={index}
+          active={playlistIndex === index}
+          onPress={() => changePlaylist(item, index)}
+          playlist={item}
+        />
       )}
       scrollEnabled
       horizontal
