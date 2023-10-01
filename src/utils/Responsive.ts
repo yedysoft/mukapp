@@ -13,6 +13,10 @@ function normalize(size: number, based: 'width' | 'height' = 'width'): number {
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 }
 
+export const responsiveScale = (scale: number | undefined): number => {
+  return responsiveWidth(scale ? 64 * scale : 64);
+};
+
 export const responsiveWidth = (size: number): number => {
   return normalize(size, 'width');
 };

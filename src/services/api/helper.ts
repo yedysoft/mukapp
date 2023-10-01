@@ -1,5 +1,6 @@
 import {Buffer} from 'buffer';
 import {IArtist, IImage} from '../../types/media';
+import {responsiveScale} from '../../utils/Responsive';
 
 export class HelperApi {
   nummer(num: number): string {
@@ -43,11 +44,24 @@ export class HelperApi {
     return max === 0 ? 1 : min / max;
   }
 
-  getImageUrl(images: Array<IImage>): string {
+  getImageUrl(images: Array<IImage>, scale: number): string {
     if (images === undefined || images === null || images.length === 0) {
       return '/assets/logo.png';
     }
-    return images[0].url;
+    const width = responsiveScale(scale);
+    const height = responsiveScale(scale);
+    let closestImage = images[0];
+    let closestDistance = Math.abs(images[0].width - width) + Math.abs(images[0].height - height);
+    for (let i = 1; i < images.length; i++) {
+      const image = images[i];
+      const distance = Math.abs(image.width - width) + Math.abs(image.height - height);
+      if (distance < closestDistance) {
+        closestImage = image;
+        closestDistance = distance;
+      }
+    }
+
+    return closestImage.url;
   }
 
   getArtist(artists: Array<IArtist>): string {

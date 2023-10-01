@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {Image, ImageSourcePropType, ImageStyle} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveScale, responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
   source: ImageSourcePropType;
@@ -19,8 +19,8 @@ export default function MukImage({source, style, scale}: Props) {
         {
           backgroundColor: 'transparent',
           borderRadius: responsiveWidth(16),
-          width: responsiveWidth(scale ? 64 * scale : 64),
-          height: responsiveWidth(scale ? 64 * scale : 64),
+          width: responsiveScale(scale),
+          height: responsiveScale(scale),
           aspectRatio: 1,
         },
         style,
