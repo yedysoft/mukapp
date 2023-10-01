@@ -6,7 +6,6 @@ export class MediaApi {
   async getCurrentUserPlaylists(): PVoid {
     try {
       const response = await axiosIns.get('/media/getCurrentUserPlaylists');
-      console.log(response.data.items);
       const playlists = this.getPlaylists(response.data.items);
       stores.media.set('playlists', playlists);
     } catch (e: any) {
@@ -14,12 +13,20 @@ export class MediaApi {
     }
   }
 
-  async getPlaylistTracks(playlistId: string, limit: number, offset: number): PVoid {
+  async getPlaylistTracks(playlistId: string): PVoid {
     try {
-      const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=${limit}&offset=${offset}`);
-      const tracks = this.getTracks(response.data.items.map((d: any) => d.track));
+      const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
+      if (playlist && playlist.tracks.count < playlist.tracks.total) {
+        const offset = playlist.tracks.count;
+        const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
+        const tracks = this.getTracks(response.data.items.map((d: any) => d.track));
+        playlist.tracks.items.push(...tracks);
+      }
+
       const playlists = stores.media.getPlaylists.map(p =>
-        p.id === playlistId ? {...p, tracks: tracks, selected: true} : {...p, selected: false},
+        p.id === playlistId
+          ? {...p, selected: true, tracks: {...p.tracks, count: p.tracks.items.length}}
+          : {...p, selected: false},
       );
       stores.media.set('playlists', playlists);
     } catch (e: any) {
@@ -120,7 +127,7 @@ export class MediaApi {
       id: state.id,
       name: state.name,
       images: this.getImages(state.images),
-      tracks: this.getTracks(state.tracks),
+      tracks: {items: [], total: state.tracks.total, count: 0},
       selected: false,
     };
   }

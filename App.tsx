@@ -19,7 +19,7 @@ export default observer(() => {
     await hydrateStores();
     await initServices();
     await services.api.auth.checkToken();
-    await services.api.helper.sleep(5000);
+    await services.api.helper.sleep(1500);
   }, []);
 
   const deinitializeApp = useCallback(async () => {
@@ -33,12 +33,11 @@ export default observer(() => {
     };
   }, []);
 
-
   return (
     <AppProvider>
       <PaperProvider theme={stores.ui.getTheme}>
-        <StatusBar style={stores.ui.getStatusBarStyle}/>
-        {!ready ? <SplashScreen/> : <AppNavigation/>}
+        <StatusBar style={stores.ui.getStatusBarStyle} />
+        {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>
     </AppProvider>
   );

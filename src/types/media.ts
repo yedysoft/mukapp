@@ -33,8 +33,14 @@ export type IPlaylist = {
   id: string;
   name: string;
   images: IImage[];
-  tracks: ITrack[];
+  tracks: IPlaylistTracks;
   selected: boolean;
+};
+
+export type IPlaylistTracks = {
+  items: ITrack[];
+  total: number;
+  count: number;
 };
 
 export type IVote = {
