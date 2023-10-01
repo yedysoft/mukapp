@@ -6,6 +6,7 @@ import auth from './auth';
 import user from './user';
 import media from './media';
 import room from './room';
+import rooms from './rooms';
 
 class Stores {
   ui = ui;
@@ -13,6 +14,7 @@ class Stores {
   user = user;
   media = media;
   room = room;
+  rooms = rooms;
 }
 export const stores = new Stores();
 

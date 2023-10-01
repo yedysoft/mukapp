@@ -6,6 +6,7 @@ import media, {MediaApi} from './media';
 import subscription, {SubscriptionApi} from './subscription';
 import image, {ImageApi} from './image';
 import room, {RoomApi} from './room';
+import rooms, {RoomsApi} from './rooms';
 
 export class ApiService implements IService {
   private inited = false;
@@ -18,6 +19,7 @@ export class ApiService implements IService {
   subscription: SubscriptionApi;
   image: ImageApi;
   room: RoomApi;
+  rooms: RoomsApi;
 
   constructor() {
     this.socket = socket;
@@ -28,6 +30,7 @@ export class ApiService implements IService {
     this.subscription = subscription;
     this.image = image;
     this.room = room;
+    this.rooms = rooms;
   }
 
   async init(): PVoid {

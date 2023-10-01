@@ -1,49 +1,22 @@
-import {useTheme} from 'react-native-paper';
 import MukTabs from '../../components/custom/MukTabs';
 import RoomList from '../../components/home/RoomList';
+import {observer} from 'mobx-react';
 
-const roomsData = [
-  {
-    name: 'Oda Adı 1',
-    username: 'user1',
-  },
-  {
-    name: 'Oda Adı 2',
-    username: 'user2',
-  },
-  {
-    name: 'Oda Adı 1',
-    username: 'user1',
-  },
-  {
-    name: 'Oda Adı 2',
-    username: 'user2',
-  },
-  {
-    name: 'Oda Adı 1',
-    username: 'user1',
-  },
-  {
-    name: 'Oda Adı 2',
-    username: 'user2',
-  },
-];
-
-export default function HomeTabs() {
-  const theme = useTheme();
-
+const HomeTabs = observer(() => {
   return (
     <MukTabs
       tabs={[
         {
           icon: 'home-group',
-          children: <RoomList rooms={roomsData} />,
+          children: <RoomList role={'PLACE'}/>,
         },
         {
           icon: 'account-group',
-          children: <RoomList rooms={roomsData} />,
+          children: <RoomList role={'USER'}/>,
         },
       ]}
     />
   );
-}
+});
+
+export default HomeTabs;
