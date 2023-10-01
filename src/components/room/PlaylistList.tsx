@@ -1,7 +1,6 @@
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import PlaylistListItem from './PlaylistListItem';
-import SongList from './SongList';
 import {useState} from 'react';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
@@ -18,23 +17,21 @@ export default function PlaylistList({playlists}: Props) {
     api.media.getPlaylistTracks(item.id, 100, 0);
     setPlaylistIndex(index);
   };
+  
   return (
-    <>
-      <FlatList
-        data={playlists}
-        renderItem={({item, index}) => (
-          <PlaylistListItem key={index} active={playlistIndex === index} onPress={() => changePlaylist(item, index)} playlist={item} />
-        )}
-        scrollEnabled
-        horizontal
-        style={{height: responsiveWidth(280)}}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          padding: responsiveWidth(16),
-          gap: responsiveWidth(24),
-        }}
-      />
-      <SongList songs={playlists[playlistIndex] ? playlists[playlistIndex].tracks : []} />
-    </>
+    <FlatList
+      data={playlists}
+      renderItem={({item, index}) => (
+        <PlaylistListItem key={index} active={playlistIndex === index} onPress={() => changePlaylist(item, index)} playlist={item}/>
+      )}
+      scrollEnabled
+      horizontal
+      style={{height: responsiveWidth(280)}}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{
+        padding: responsiveWidth(16),
+        gap: responsiveWidth(24),
+      }}
+    />
   );
 }

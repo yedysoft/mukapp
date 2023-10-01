@@ -1,11 +1,11 @@
 import MukTabs from '../../components/custom/MukTabs';
-import SongList from './SongList';
 import PlaylistList from './PlaylistList';
 import {MukChat} from '../custom/MukChat';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useState} from 'react';
 import {useServices} from '../../services';
+import SongList from './SongList';
 
 const RoomTabs = observer(() => {
   const {media} = useStores();
@@ -22,15 +22,15 @@ const RoomTabs = observer(() => {
       tabs={[
         {
           icon: 'message-outline',
-          children: <MukChat />,
+          children: <MukChat/>,
         },
         {
           icon: 'playlist-music-outline',
-          children: <SongList songs={media.getQueue} />,
+          children: <SongList songs={media.getQueue}/>,
         },
         {
           icon: 'playlist-plus',
-          children: <PlaylistList playlists={media.getPlaylists} />,
+          children: <SongList header={<PlaylistList playlists={media.getPlaylists}/>} songs={media.getQueue}/>,
         },
       ]}
     />
