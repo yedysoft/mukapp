@@ -15,8 +15,8 @@ export default function MenuFooter() {
   return (
     <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: responsiveWidth(16)}}>
       <MukIconButton icon={'logout'} onPress={() => api.auth.logout()} scale={.5} style={{}}
-                     color={'rgba(255, 55, 95, 1)'}/>
-      <MukIconButton icon={'theme-light-dark'} onPress={() => ui.set('appearance', toggleTheme)} scale={.5}/>
+                     color={colors.error}/>
+      <MukIconButton icon={'theme-light-dark'} color={colors.secondary} onPress={() => ui.set('appearance', toggleTheme)} scale={.5}/>
     </View>
   );
 }

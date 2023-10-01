@@ -5,7 +5,6 @@ import 'text-encoding';
 import './src/services/xhrInterceptors';
 import React, {useCallback, useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import {CombinedDarkTheme, CombinedLightTheme} from './src/theme';
 import {AppNavigation} from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stores} from './src/stores';
@@ -38,8 +37,8 @@ export default observer(() => {
   return (
     <AppProvider>
       <PaperProvider theme={stores.ui.getTheme}>
-        <StatusBar style={stores.ui.getStatusBarStyle} />
-        {!ready ? <SplashScreen /> : <AppNavigation />}
+        <StatusBar style={stores.ui.getStatusBarStyle}/>
+        {!ready ? <SplashScreen/> : <AppNavigation/>}
       </PaperProvider>
     </AppProvider>
   );

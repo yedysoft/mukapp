@@ -43,7 +43,7 @@ export default function RoomListItem({room}: Props) {
             <MukIcon icon={'account-group'} scale={0.5} />
             <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
           </View>
-          <MukIconButton scale={0.3} icon={'cards-heart-outline'} color={'rgba(255, 55, 95, 1)'} />
+          <MukIconButton scale={0.3} icon={'cards-heart-outline'} color={colors.tertiary} />
         </View>
       </View>
     </MukListItem>

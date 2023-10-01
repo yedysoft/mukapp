@@ -4,10 +4,8 @@ import MukTooltip from '../custom/MukTooltip';
 
 export const NotificationsTooltip = observer(({visible, changeVisible}: TooltipScreenProps) => {
   return (
-    <>
-      <MukTooltip visible={visible} changeVisible={changeVisible}>
-        <NotificationList />
-      </MukTooltip>
-    </>
+    <MukTooltip visible={visible} changeVisible={changeVisible}>
+      <NotificationList/>
+    </MukTooltip>
   );
 });

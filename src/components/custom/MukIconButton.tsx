@@ -13,7 +13,7 @@ type Props = {
   onPress?: () => void;
   tooltip?: (props: TooltipScreenProps) => ReactNode;
 };
-export default function MukIconButton({style, icon, color, scale, badge, onPress}: Props) {
+export default function MukIconButton({style, icon, color, scale, badge, onPress, tooltip}: Props) {
   const {colors} = useTheme();
 
   return (

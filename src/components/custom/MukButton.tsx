@@ -9,18 +9,18 @@ type Props = {
   onPress?: PureFunc;
   label?: string;
   children?: ReactNode;
+  scale?: number;
 };
 
-export default function MukButton({buttonStyle, loading, onPress, label, children}: Props) {
+export default function MukButton({buttonStyle, loading, onPress, label, children, scale}: Props) {
   const theme = useTheme();
-
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
         {
           backgroundColor: theme.colors.primary,
-          padding: responsiveWidth(20),
+          padding: responsiveWidth(20 * (scale ?? 1)),
           borderRadius: 16,
           justifyContent: 'center',
           alignItems: 'center',
