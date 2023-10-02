@@ -15,7 +15,7 @@ const RoomList = observer(({rooms}: Props) => {
   return (
     <FlatList
       data={rooms}
-      renderItem={({item, index}) => <RoomListItem key={index} room={item} />}
+      renderItem={({item, index}) => <RoomListItem key={index} roomData={item} />}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8), backgroundColor: colors.background}}
     />

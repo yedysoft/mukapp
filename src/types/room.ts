@@ -9,3 +9,8 @@ export type IRoom = {
   population: number;
   isLive: boolean;
 };
+
+export type IRoomConfig = {
+  id: string;
+  name: string;
+};
