@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
-import {responsiveWidth, screenWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/Responsive';
 import {ReactNode} from 'react';
 
 type Props = {

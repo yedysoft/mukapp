@@ -13,7 +13,7 @@ export class SubscriptionApi {
     try {
       await socket.subscribe('/info/coin', this.coinCallback);
       await socket.subscribe('/error', this.errorCallback);
-      await socket.subscribe('/live/session');
+      await socket.subscribe('/live/user');
     } catch (e) {
       console.log(e);
     }
@@ -21,14 +21,17 @@ export class SubscriptionApi {
 
   async roomSubscribes(): PVoid {
     try {
-      const streamerId = stores.room.getStreamerId;
-      if (streamerId) {
+      const sessionId = stores.room.getSessionId;
+      if (sessionId) {
         this.roomSubs = [];
-        this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/publicChat`, this.publicChatCallback));
-        this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/playingTrack`, this.playingTrackCallback));
-        this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/queue`, this.queueCallback));
-        this.roomSubs.push(await socket.subscribe(`/room/${streamerId}/voteResult`, this.voteResultCallback));
-        this.roomSubs.push(await socket.subscribe('/live/room/admin'));
+        this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/publicChat`, this.publicChatCallback));
+        this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/playingTrack`, this.playingTrackCallback));
+        this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/queue`, this.queueCallback));
+        this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/voteResult`, this.voteResultCallback));
+        this.roomSubs.push(await socket.subscribe(`/live/room/user/${stores.user.info.id}`));
+        if (stores.room.isAdmin) {
+          this.roomSubs.push(await socket.subscribe('/live/room/admin'));
+        }
         stores.room.set('live', true);
       }
     } catch (e) {
@@ -51,8 +54,8 @@ export class SubscriptionApi {
 
   async getQueue(): PVoid {
     try {
-      const streamerId = stores.room.getStreamerId;
-      streamerId && (await socket.sendMessage(`/app/room/${streamerId}/getQueue`));
+      const sessionId = stores.room.getSessionId;
+      sessionId && (await socket.sendMessage(`/app/room/${sessionId}/getQueue`));
     } catch (e) {
       console.log(e);
     }
@@ -60,8 +63,8 @@ export class SubscriptionApi {
 
   async voteMusic(data: IVote): PVoid {
     try {
-      const streamerId = stores.room.getStreamerId;
-      streamerId && (await socket.sendMessage(`/app/room/${streamerId}/voteMusic`, data));
+      const sessionId = stores.room.getSessionId;
+      sessionId && (await socket.sendMessage(`/app/room/${sessionId}/voteMusic`, data));
     } catch (e) {
       console.log(e);
     }
@@ -69,8 +72,8 @@ export class SubscriptionApi {
 
   async sendPublicMessage(data: IMessage): PVoid {
     try {
-      const streamerId = stores.room.getStreamerId;
-      streamerId && (await socket.sendMessage(`/app/room/${streamerId}/sendPublicMessage`, data));
+      const sessionId = stores.room.getSessionId;
+      sessionId && (await socket.sendMessage(`/app/room/${sessionId}/sendPublicMessage`, data));
     } catch (e) {
       console.log(e);
     }

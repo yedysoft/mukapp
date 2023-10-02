@@ -2,9 +2,17 @@ import subscription from './subscription';
 import {stores} from '../../stores';
 
 export class RoomApi {
-  async openRoom(): PVoid {
+  async createRoom(): PVoid {
     try {
-      stores.room.set('streamerId', stores.user.getInfo.id);
+      await this.openRoom('', '');
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async openRoom(sessionId: string, streamerId: string): PVoid {
+    try {
+      stores.room.setMany({sessionId: sessionId, streamerId: streamerId});
       await subscription.roomSubscribes();
     } catch (e) {
       console.log(e);
@@ -13,8 +21,9 @@ export class RoomApi {
 
   async closeRoom(): PVoid {
     try {
+      stores.room.setMany({sessionId: null, streamerId: null});
+      await subscription.roomUnsubscribes();
       stores.room.set('streamerId', null);
-      await subscription.roomSubscribes();
     } catch (e) {
       console.log(e);
     }

@@ -7,25 +7,37 @@ import MukIconButton from '../../components/custom/MukIconButton';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {IRoom} from '../../types/room';
+import {useServices} from '../../services';
+import {observer} from 'mobx-react';
+import {useStores} from '../../stores';
 
 type Props = {
-  room: IRoom;
+  roomData: IRoom;
 };
 
-export default function RoomListItem({room}: Props) {
+const RoomListItem = observer(({roomData}: Props) => {
   const {colors} = useTheme();
   const navigation = useNavigation();
+  const {api} = useServices();
+  const {room} = useStores();
+
+  const openRoom = async () => {
+    await api.room.openRoom(roomData.sessionId, roomData.streamerId);
+    if (room.isLive) {
+      navigation.navigate('Room');
+    }
+  };
 
   return (
-    <MukListItem onPress={() => navigation.navigate('Room')}>
-      <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')}/>
+    <MukListItem disabled={!roomData.isLive} onPress={() => openRoom()}>
+      <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
       <View style={{justifyContent: 'space-between', paddingTop: responsiveHeight(16), flex: 1}}>
         <View style={{gap: responsiveWidth(8)}}>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>
-            {room.roomName}
+            {roomData.roomName}
           </Text>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400'}}>
-            @{room.userName}
+            @{roomData.streamerName}
           </Text>
         </View>
         <View
@@ -36,16 +48,18 @@ export default function RoomListItem({room}: Props) {
           }}
         >
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <MukIcon icon={'chart-bar'} scale={0.5}/>
+            <MukIcon icon={'chart-bar'} scale={0.5} />
             <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <MukIcon icon={'account-group'} scale={0.5}/>
+            <MukIcon icon={'account-group'} scale={0.5} />
             <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
           </View>
-          <MukIconButton scale={0.3} icon={'cards-heart-outline'} color={colors.tertiary}/>
+          <MukIconButton scale={0.3} icon={'cards-heart-outline'} color={colors.tertiary} />
         </View>
       </View>
     </MukListItem>
   );
-}
+});
+
+export default RoomListItem;

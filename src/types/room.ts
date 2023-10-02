@@ -1,10 +1,11 @@
 import {IPlayingTrack} from './media';
 
 export type IRoom = {
-  id: string;
+  streamerId: string;
+  sessionId: string;
   roomName: string;
-  userName: string;
+  streamerName: string;
   liveSong: IPlayingTrack;
   population: number;
-  isLive: boolean
+  isLive: boolean;
 };
