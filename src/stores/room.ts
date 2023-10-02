@@ -3,6 +3,7 @@ import user from './user';
 
 export class RoomStore extends BaseStore<RoomStore> {
   streamerId: string | null = null;
+  sessionId: string | null = null;
   live = false;
 
   constructor() {
@@ -16,6 +17,10 @@ export class RoomStore extends BaseStore<RoomStore> {
 
   get getStreamerId() {
     return this.streamerId;
+  }
+
+  get getSessionId() {
+    return this.sessionId;
   }
 
   get isLive() {

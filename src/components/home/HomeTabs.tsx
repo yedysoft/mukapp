@@ -3,19 +3,16 @@ import RoomList from '../../components/home/RoomList';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
-type Props = {
-  tabIndex: number;
-};
-
-const HomeTabs = observer(({tabIndex}: Props) => {
+const HomeTabs = observer(() => {
+  const [tabIndex, setTabIndex] = useState(0);
   const {rooms} = useStores();
   const {api} = useServices();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      api.rooms.getRooms(tabIndex == 0 ? 'PLACE' : 'ADMIN');
+      api.rooms.getRooms(tabIndex === 0 ? 'PLACE' : 'ADMIN');
     }, 1000);
     return () => {
       clearInterval(intervalId);
@@ -23,16 +20,19 @@ const HomeTabs = observer(({tabIndex}: Props) => {
   }, []);
 
   return (
-    <MukTabs tabs={[
-      {
-        icon: 'home-group',
-        children: <RoomList rooms={rooms.getPlaces}/>,
-      },
-      {
-        icon: 'account-group',
-        children: <RoomList rooms={rooms.getUsers}/>,
-      },
-    ]}/>
+    <MukTabs
+      onChangeIndex={(index: number) => setTabIndex(index)}
+      tabs={[
+        {
+          icon: 'home-group',
+          children: <RoomList rooms={rooms.getPlaces} />,
+        },
+        {
+          icon: 'account-group',
+          children: <RoomList rooms={rooms.getUsers} />,
+        },
+      ]}
+    />
   );
 });
 

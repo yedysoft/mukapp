@@ -5,7 +5,7 @@ export class RoomsApi {
   async getRooms(role: string): PVoid {
     try {
       const response = await axiosIns.get(`/user/getPlaces/${role}`);
-      stores.rooms.set(role == 'PLACE' ? 'places' : 'users', response.data);
+      stores.rooms.set(role === 'PLACE' ? 'places' : 'users', response.data);
     } catch (e: any) {
       console.log(e);
     }

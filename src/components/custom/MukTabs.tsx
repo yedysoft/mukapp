@@ -4,7 +4,7 @@ import {ReactNode} from 'react';
 
 type Props = {
   defaultIndex?: number;
-  onChangeIndex?: () => void;
+  onChangeIndex?: (index: number) => void;
   tabs: {
     icon?: string;
     label?: string;
