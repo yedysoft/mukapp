@@ -21,7 +21,14 @@ export const AuthLoginForm = observer(() => {
     <View style={{gap: responsiveHeight(64)}}>
       <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.title')}</Text>
       <View style={{gap: responsiveHeight(16)}}>
-        <MukTextInput name={'name'} label={t.do('auth.user')} value={form.name} onChange={handleOnChange} validate={[value => value.length > 0]} validationMessage={['Boş bırakmayın']} />
+        <MukTextInput
+          name={'name'}
+          label={t.do('auth.user')}
+          value={form.name}
+          onChange={handleOnChange}
+          validate={[value => value.length > 0]}
+          validationMessage={[t.do('error.notEmpty')]}
+        />
         <MukTextInput
           name={'pass'}
           label={t.do('auth.pass')}
@@ -29,7 +36,7 @@ export const AuthLoginForm = observer(() => {
           hideText={true}
           onChange={handleOnChange}
           validate={[value => value.length > 0, value => value.length >= 3 && value.length <= 32]}
-          validationMessage={['Boş bırakmayın', 'Şifre 3 ile 32 karakter arasında olmalıdır.']}
+          validationMessage={[t.do('error.notEmpty'), 'Şifre 3 ile 32 karakter arasında olmalıdır.']}
         />
       </View>
       <MukButton label={t.do('auth.login')} onPress={() => api.auth.login(form)} />

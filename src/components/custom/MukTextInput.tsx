@@ -11,11 +11,25 @@ type Props = {
   onChange?: (name: string, value: string) => void;
   style?: StyleProp<ViewStyle>;
   outlineStyle?: StyleProp<ViewStyle>;
-  validate?: ((value: string) => boolean)[];
+
+  validate?: Validation | ((value: string) => boolean)[];
   validationMessage?: string[];
 };
+const _validations = ['required'];
+type Validation = typeof _validations;
 
-export default function MukTextInput({name, label, value, hideText, autoCapitalize, onChange, style, outlineStyle, validate, validationMessage}: Props) {
+export default function MukTextInput({
+  name,
+  label,
+  value,
+  hideText,
+  autoCapitalize,
+  onChange,
+  style,
+  outlineStyle,
+  validate,
+  validationMessage,
+}: Props) {
   const {colors} = useTheme();
   const [error, setError] = useState<string | null>(null);
 

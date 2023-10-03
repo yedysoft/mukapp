@@ -12,5 +12,6 @@ export type IRoom = {
 
 export type IRoomConfig = {
   id: string;
+  roomId: string;
   name: string;
 };

@@ -1,4 +1,7 @@
 export const tr: MukLang = {
+  error: {
+    notEmpty: 'Boş bırakmayın',
+  },
   auth: {
     title: 'Giriş yap',
     subTitle: 'Giriş bilgilerinizi girin',
@@ -10,8 +13,15 @@ export const tr: MukLang = {
     places: 'Mekanlar',
     streamers: 'Yayıncılar',
   },
+  roomConfig: {
+    name: 'Oda adı',
+    createRoom: 'Oda Oluştur',
+  },
 };
 export const en: MukLang = {
+  error: {
+    notEmpty: 'Do not leave blank',
+  },
   auth: {
     title: 'Login',
     subTitle: 'Enter your login information',
@@ -22,5 +32,9 @@ export const en: MukLang = {
   home: {
     places: 'Places',
     streamers: 'Streamers',
+  },
+  roomConfig: {
+    name: 'Room name',
+    createRoom: 'Create Room',
   },
 };

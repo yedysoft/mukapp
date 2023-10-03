@@ -6,7 +6,6 @@ import auth from './auth';
 import user from './user';
 import media from './media';
 import room from './room';
-import rooms from './rooms';
 
 class Stores {
   ui = ui;
@@ -14,12 +13,13 @@ class Stores {
   user = user;
   media = media;
   room = room;
-  rooms = rooms;
 }
 export const stores = new Stores();
 
 const StoresContext = React.createContext<Stores>(stores);
-export const StoresProvider = ({children}: any) => <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>;
+export const StoresProvider = ({children}: any) => (
+  <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>
+);
 export const useStores = (): Stores => React.useContext(StoresContext);
 
 export const hydrateStores = async (): PVoid => {

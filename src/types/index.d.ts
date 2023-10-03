@@ -1,10 +1,12 @@
 // `services` layer
-
 interface IService {
   init: () => PVoid;
 }
 
 // Language
+type LangError = {
+  notEmpty: string;
+};
 type LangAuth = {
   title: string;
   subTitle: string;
@@ -16,9 +18,15 @@ type LangHome = {
   places: string;
   streamers: string;
 };
+type LangRoomConfig = {
+  name: string;
+  createRoom: string;
+};
 type MukLang = {
+  error: LangError;
   auth: LangAuth;
   home: LangHome;
+  roomConfig: LangRoomConfig;
 };
 
 // System

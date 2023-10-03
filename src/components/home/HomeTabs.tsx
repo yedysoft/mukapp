@@ -7,12 +7,12 @@ import {useEffect, useState} from 'react';
 
 const HomeTabs = observer(() => {
   const [tabIndex, setTabIndex] = useState(0);
-  const {rooms} = useStores();
+  const {room} = useStores();
   const {api} = useServices();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      api.rooms.getRooms(tabIndex === 0 ? 'PLACE' : 'STREAMER');
+      api.room.getRooms(tabIndex === 0 ? 'PLACE' : 'STREAMER');
     }, 1000);
     return () => {
       clearInterval(intervalId);
@@ -25,11 +25,11 @@ const HomeTabs = observer(() => {
       tabs={[
         {
           icon: 'home-group',
-          children: <RoomList rooms={rooms.getPlaces} />,
+          children: <RoomList rooms={room.getPlaces} />,
         },
         {
           icon: 'account-group',
-          children: <RoomList rooms={rooms.getUsers} />,
+          children: <RoomList rooms={room.getUsers} />,
         },
       ]}
     />

@@ -1,10 +1,14 @@
 import {BaseStore} from './base';
 import user from './user';
+import {IRoom, IRoomConfig} from '../types/room';
 
 export class RoomStore extends BaseStore<RoomStore> {
   streamerId: string | null = null;
   sessionId: string | null = null;
   live = false;
+  config: IRoomConfig | null = null;
+  places: IRoom[] = [];
+  users: IRoom[] = [];
 
   constructor() {
     super();
@@ -15,16 +19,24 @@ export class RoomStore extends BaseStore<RoomStore> {
     return this.streamerId && user.getInfo.id && this.streamerId === user.getInfo.id;
   }
 
-  get getStreamerId() {
-    return this.streamerId;
-  }
-
   get getSessionId() {
     return this.sessionId;
   }
 
   get isLive() {
     return this.live;
+  }
+
+  get getConfig() {
+    return this.config;
+  }
+
+  get getPlaces() {
+    return this.places;
+  }
+
+  get getUsers() {
+    return this.users;
   }
 }
 
