@@ -3,6 +3,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {services} from '../../services';
+import {Pressable} from 'react-native';
 
 type Props = {
   error: ErrorMessage;
@@ -42,7 +43,9 @@ export default function MukToaster({error, interval}: Props) {
             maxHeight: responsiveWidth(96),
           }}
         >
-          <Text numberOfLines={2} style={{color: colors.secondary, fontSize: responsiveSize(16)}}>{error.error.message}</Text>
+          <Pressable onPress={() => setIsToasterDisplayed(false)}>
+            <Text numberOfLines={2} style={{color: colors.secondary, fontSize: responsiveSize(16)}}>{error.error.message}</Text>
+          </Pressable>
         </Animated.View>
       )}
     </>
