@@ -1,6 +1,6 @@
 import MukFAB from '../../components/custom/MukFAB';
 import MukSheet from '../../components/custom/MukSheet';
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
@@ -17,10 +17,6 @@ const CreateRoom = observer(() => {
   const {room} = useStores();
   const [form, setForm] = useState<IRoomConfig | null>(room.getConfig);
 
-  if (room.getConfig === null) {
-    api.room.setConfig();
-  }
-
   const handleSheet = () => {
     sheetRef.current?.expand();
   };
@@ -30,6 +26,10 @@ const CreateRoom = observer(() => {
       setForm({...form, [name]: value});
     }
   };
+
+  useEffect(() => {
+    api.room.setConfig();
+  }, []);
 
   const createRoom = async () => {
     if (form) {

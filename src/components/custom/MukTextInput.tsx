@@ -42,12 +42,14 @@ export default function MukTextInput({
   };
 
   const validateInput = (text: string) => {
-    if (validate && validationMessage && validate.length === validationMessage.length) {
-      setError(null);
+    setError(null);
+    if (preValidate) {
       if (preValidate === 'required' && text.length === 0) {
         setError(t.do('error.notEmpty'));
         return;
       }
+    }
+    if (validate && validationMessage && validate.length === validationMessage.length) {
       for (let i = 0; i < validate.length; i++) {
         const validationFunction = validate[i];
         if (!validationFunction(text)) {
