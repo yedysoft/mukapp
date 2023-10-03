@@ -18,7 +18,7 @@ const CreateRoom = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation();
   const {api, t} = useServices();
-  const {room} = useStores();
+  const {room, user} = useStores();
   const [form, setForm] = useState<IRoomConfig | null>(room.getConfig);
   const {colors} = useTheme();
 
@@ -48,24 +48,27 @@ const CreateRoom = observer(() => {
 
   return (
     <>
-      <MukFAB onPress={handleSheet}/>
-      <MukSheet sheetRef={sheetRef} contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}>
+      <MukFAB onPress={handleSheet} />
+      <MukSheet
+        sheetRef={sheetRef}
+        contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
+      >
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
-          <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')}/>
+          <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
           <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(8), justifyContent: 'center'}}>
             <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>
-              @username
+              @{user.getInfo.userName}
             </Text>
             <MukTextInput
               name={'name'}
               label={t.do('roomConfig.name')}
-              value={form?.name}
+              value={room.getConfig?.name}
               onChange={handleOnChange}
               preValidate={'required'}
             />
           </View>
         </View>
-        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createRoom()}/>
+        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createRoom()} />
       </MukSheet>
     </>
   );
