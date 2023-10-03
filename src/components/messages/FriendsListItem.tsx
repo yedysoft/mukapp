@@ -15,7 +15,7 @@ export default function FriendsListItem({onPress, friend}: Props) {
   const {colors} = useTheme();
 
   return (
-    <MukListItem onPress={onPress}>
+    <MukListItem onPress={onPress} style={{alignItems: 'center'}}>
       <MukImage scale={1} style={{borderRadius: 100}} source={require('../../../assets/adaptive-icon.png')}/>
       <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>
         @{friend?.username}
