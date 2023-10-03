@@ -2,6 +2,7 @@ import {TextInput, useTheme} from 'react-native-paper';
 import {StyleProp, Text, View, ViewStyle} from 'react-native';
 import {useState} from 'react';
 import {useServices} from '../../services';
+import {responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
   name: string;
@@ -61,7 +62,7 @@ export default function MukTextInput({
   };
 
   return (
-    <View>
+    <View style={{flexDirection: 'column', gap: responsiveWidth(8)}}>
       <TextInput
         label={label}
         mode={'outlined'}
@@ -72,7 +73,7 @@ export default function MukTextInput({
         outlineStyle={[{borderRadius: 16}, outlineStyle]}
         style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}, style]}
       />
-      {error ? <Text style={{color: 'red'}}>{error}</Text> : null}
+      {error ? <Text style={{color: colors.error}}>* {error}</Text> : null}
     </View>
   );
 }

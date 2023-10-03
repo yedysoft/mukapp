@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {StyleProp, View, ViewStyle} from 'react-native';
 import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 import React, {ReactNode, useCallback, useMemo} from 'react';
 import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
@@ -8,15 +8,16 @@ import {useTheme} from 'react-native-paper';
 type Props = {
   sheetRef: React.RefObject<BottomSheetMethods>;
   children: ReactNode;
+  contentStyle?: StyleProp<ViewStyle>;
 };
 
-export default function MukSheet({sheetRef, children}: Props) {
+export default function MukSheet({sheetRef, children, contentStyle}: Props) {
   const {colors} = useTheme();
-  const snapPoints = useMemo(() => ['75%'], []);
+  const snapPoints = useMemo(() => ['40%'], []);
   const handleSheetChanges = useCallback((index: number) => {
     //console.log('handleSheetChanges', index);
   }, []);
-  const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />, []);
+  const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0}/>, []);
 
   return (
     <BottomSheet
@@ -30,11 +31,11 @@ export default function MukSheet({sheetRef, children}: Props) {
       backgroundStyle={{backgroundColor: colors.background}}
     >
       <View
-        style={{
+        style={[{
           flex: 1,
           paddingHorizontal: responsiveWidth(20),
           paddingVertical: responsiveHeight(8),
-        }}
+        }, contentStyle]}
       >
         {children}
       </View>

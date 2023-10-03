@@ -52,7 +52,7 @@ export default function EditImage({setImage, setVisible, isVisible}: Props) {
   const hideModal = () => setVisible(false);
 
   return (
-    <MukModal backgroundColor={colors.backdrop} visible={isVisible} onDismiss={hideModal}>
+    <MukModal visible={isVisible} onDismiss={hideModal}>
       <View style={{width: responsiveWidth(300), flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
         <MukIconButton onPress={() => takePhoto()} icon={'camera'}/>
         <MukIconButton onPress={() => pickImage()} icon={'folder-search'}/>

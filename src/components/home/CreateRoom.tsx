@@ -9,6 +9,10 @@ import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import MukTextInput from '../custom/MukTextInput';
 import {IRoomConfig} from '../../types/room';
+import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {View} from 'react-native';
+import MukImage from '../custom/MukImage';
+import {Text, useTheme} from 'react-native-paper';
 
 const CreateRoom = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -16,6 +20,7 @@ const CreateRoom = observer(() => {
   const {api, t} = useServices();
   const {room} = useStores();
   const [form, setForm] = useState<IRoomConfig | null>(room.getConfig);
+  const {colors} = useTheme();
 
   const handleSheet = () => {
     sheetRef.current?.expand();
@@ -43,16 +48,24 @@ const CreateRoom = observer(() => {
 
   return (
     <>
-      <MukFAB onPress={handleSheet} />
-      <MukSheet sheetRef={sheetRef}>
-        <MukTextInput
-          name={'name'}
-          label={t.do('roomConfig.name')}
-          value={form?.name}
-          onChange={handleOnChange}
-          preValidate={'required'}
-        />
-        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createRoom()} />
+      <MukFAB onPress={handleSheet}/>
+      <MukSheet sheetRef={sheetRef} contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}>
+        <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
+          <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')}/>
+          <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(8), justifyContent: 'center'}}>
+            <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>
+              @username
+            </Text>
+            <MukTextInput
+              name={'name'}
+              label={t.do('roomConfig.name')}
+              value={form?.name}
+              onChange={handleOnChange}
+              preValidate={'required'}
+            />
+          </View>
+        </View>
+        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createRoom()}/>
       </MukSheet>
     </>
   );
