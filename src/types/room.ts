@@ -10,6 +10,11 @@ export type IRoom = {
   isLive: boolean;
 };
 
+export type IRoomSession = {
+  id: string;
+  streamerId: string;
+};
+
 export type IRoomConfig = {
   id: string;
   roomId: string;

@@ -1,7 +1,7 @@
 import subscription from './subscription';
 import {stores} from '../../stores';
 import axiosIns from '../axiosIns';
-import {IRoomConfig} from '../../types/room';
+import {IRoomConfig, IRoomSession} from '../../types/room';
 
 export class RoomApi {
   async createRoom(config: IRoomConfig): PVoid {
@@ -9,6 +9,8 @@ export class RoomApi {
       stores.user.getInfo.id && (config.roomId = stores.user.getInfo.id);
       await this.saveConfig(config);
       const response = await axiosIns.get(`/room-session/start/${stores.user.getInfo.id}`);
+      const session: IRoomSession = response.data;
+      await this.openRoom(session.id, session.streamerId);
     } catch (e) {
       console.log(e);
     }
