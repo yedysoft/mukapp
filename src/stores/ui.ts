@@ -6,6 +6,7 @@ import {CombinedDarkTheme, CombinedLightTheme} from '../theme';
 export class UIStore extends BaseStore<UIStore> {
   appearance: Appearance = 'system';
   language: Language = 'system';
+  errors: ErrorMessage[] = [];
 
   constructor() {
     super();
@@ -26,6 +27,14 @@ export class UIStore extends BaseStore<UIStore> {
 
   get getTheme() {
     return this.appearance === 'light' ? CombinedLightTheme : CombinedDarkTheme;
+  }
+
+  get getErrors() {
+    return this.errors;
+  }
+
+  get getNotShowingErrors() {
+    return this.errors.filter(e => !e.show);
   }
 }
 

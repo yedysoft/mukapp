@@ -1,4 +1,4 @@
-// `services` layer
+// Services
 interface IService {
   init: () => PVoid;
 }
@@ -43,7 +43,18 @@ type ThemeColors = {
   bg2Color: string;
 };
 
+// Components
 type TooltipScreenProps = {
   visible: boolean;
   changeVisible: (open: boolean) => void;
+};
+
+// Error
+type ErrorMessage = {
+  error: ErrorBody;
+  show: boolean;
+};
+type ErrorBody = {
+  code: number;
+  message: string;
 };
