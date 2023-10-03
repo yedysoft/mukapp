@@ -50,8 +50,7 @@ const CreateRoom = observer(() => {
           label={t.do('roomConfig.name')}
           value={form?.name}
           onChange={handleOnChange}
-          validate={['required']}
-          validationMessage={[t.do('error.notEmpty')]}
+          preValidate={'required'}
         />
         <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createRoom()} />
       </MukSheet>

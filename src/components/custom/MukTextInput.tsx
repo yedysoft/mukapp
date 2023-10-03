@@ -1,6 +1,7 @@
 import {TextInput, useTheme} from 'react-native-paper';
 import {StyleProp, Text, View, ViewStyle} from 'react-native';
 import {useState} from 'react';
+import {useServices} from '../../services';
 
 type Props = {
   name: string;
@@ -11,12 +12,10 @@ type Props = {
   onChange?: (name: string, value: string) => void;
   style?: StyleProp<ViewStyle>;
   outlineStyle?: StyleProp<ViewStyle>;
-
-  validate?: Validation | ((value: string) => boolean)[];
+  preValidate?: 'required';
+  validate?: ((value: string) => boolean)[];
   validationMessage?: string[];
 };
-const _validations = ['required'];
-type Validation = typeof _validations;
 
 export default function MukTextInput({
   name,
@@ -27,10 +26,12 @@ export default function MukTextInput({
   onChange,
   style,
   outlineStyle,
+  preValidate,
   validate,
   validationMessage,
 }: Props) {
   const {colors} = useTheme();
+  const {t} = useServices();
   const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = (text: string) => {
@@ -43,6 +44,10 @@ export default function MukTextInput({
   const validateInput = (text: string) => {
     if (validate && validationMessage && validate.length === validationMessage.length) {
       setError(null);
+      if (preValidate === 'required' && text.length === 0) {
+        setError(t.do('error.notEmpty'));
+        return;
+      }
       for (let i = 0; i < validate.length; i++) {
         const validationFunction = validate[i];
         if (!validationFunction(text)) {

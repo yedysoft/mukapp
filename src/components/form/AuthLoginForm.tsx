@@ -26,8 +26,7 @@ export const AuthLoginForm = observer(() => {
           label={t.do('auth.user')}
           value={form.name}
           onChange={handleOnChange}
-          validate={[value => value.length > 0]}
-          validationMessage={[t.do('error.notEmpty')]}
+          preValidate={'required'}
         />
         <MukTextInput
           name={'pass'}
@@ -35,8 +34,9 @@ export const AuthLoginForm = observer(() => {
           value={form.pass}
           hideText={true}
           onChange={handleOnChange}
-          validate={[value => value.length > 0, value => value.length >= 3 && value.length <= 32]}
-          validationMessage={[t.do('error.notEmpty'), 'Şifre 3 ile 32 karakter arasında olmalıdır.']}
+          preValidate={'required'}
+          validate={[value => value.length >= 3 && value.length <= 32]}
+          validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
         />
       </View>
       <MukButton label={t.do('auth.login')} onPress={() => api.auth.login(form)} />
