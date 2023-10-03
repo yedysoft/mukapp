@@ -1,7 +1,7 @@
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
 import {useCallback, useEffect, useState} from 'react';
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {services} from '../../services';
 
 type Props = {
@@ -31,18 +31,18 @@ export default function MukToaster({error, interval}: Props) {
           exiting={FadeOutUp}
           style={{
             width: '90%',
-            backgroundColor: '#c41c1c',
-            position: 'absolute',
-            padding: 20,
+            backgroundColor: colors.error,
+            padding: responsiveWidth(16),
+            justifyContent: 'center',
             alignItems: 'center',
-            top: 50,
-            left: 20,
-            right: 20,
+            alignSelf: 'center',
             borderRadius: 8,
             zIndex: 1400,
+            minHeight: responsiveWidth(60),
+            maxHeight: responsiveWidth(96),
           }}
         >
-          <Text style={{color: 'white', fontSize: responsiveSize(16)}}>{error.error.message}</Text>
+          <Text numberOfLines={2} style={{color: colors.secondary, fontSize: responsiveSize(16)}}>{error.error.message}</Text>
         </Animated.View>
       )}
     </>

@@ -29,7 +29,7 @@ const RoomListItem = observer(({roomData}: Props) => {
   };
 
   return (
-    <MukListItem disabled={!roomData.isLive} onPress={() => openRoom()}>
+    <MukListItem disabled={!roomData.isLive} style={{opacity: roomData.isLive ? 1 : 0.5}} onPress={() => openRoom()}>
       <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
       <View style={{justifyContent: 'space-between', paddingTop: responsiveHeight(16), flex: 1}}>
         <View style={{gap: responsiveWidth(8)}}>
