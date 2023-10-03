@@ -8,6 +8,7 @@ export class RoomApi {
     try {
       stores.user.getInfo.id && (config.roomId = stores.user.getInfo.id);
       await this.saveConfig(config);
+      const response = await axiosIns.get(`/room-session/start/${stores.user.getInfo.id}`);
     } catch (e) {
       console.log(e);
     }
@@ -15,6 +16,7 @@ export class RoomApi {
 
   async openRoom(sessionId: string, streamerId: string): PVoid {
     try {
+      await this.closeRoom();
       stores.room.setMany({sessionId: sessionId, streamerId: streamerId});
       await subscription.roomSubscribes();
     } catch (e) {
@@ -24,9 +26,11 @@ export class RoomApi {
 
   async closeRoom(): PVoid {
     try {
+      if (stores.room.isAdmin) {
+        await axiosIns.get(`/room-session/stop/${stores.room.getSessionId}`);
+      }
       stores.room.setMany({sessionId: null, streamerId: null});
       await subscription.roomUnsubscribes();
-      stores.room.set('streamerId', null);
     } catch (e) {
       console.log(e);
     }
@@ -34,7 +38,7 @@ export class RoomApi {
 
   async getRooms(role: string): PVoid {
     try {
-      const response = await axiosIns.get(`/user/getPlaces/${role}`);
+      const response = await axiosIns.get(`/custom/getPlaces/${role}`);
       stores.room.set(role === 'PLACE' ? 'places' : 'users', response.data);
     } catch (e: any) {
       console.log(e);
