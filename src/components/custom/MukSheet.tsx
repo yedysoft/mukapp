@@ -9,11 +9,12 @@ type Props = {
   sheetRef: React.RefObject<BottomSheetMethods>;
   children: ReactNode;
   contentStyle?: StyleProp<ViewStyle>;
+  snaps: string[];
 };
 
-export default function MukSheet({sheetRef, children, contentStyle}: Props) {
+export default function MukSheet({sheetRef, children, contentStyle, snaps}: Props) {
   const {colors} = useTheme();
-  const snapPoints = useMemo(() => ['40%'], []);
+  const snapPoints = useMemo(() => snaps, []);
   const handleSheetChanges = useCallback((index: number) => {
     //console.log('handleSheetChanges', index);
   }, []);

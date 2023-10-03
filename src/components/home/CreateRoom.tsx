@@ -50,6 +50,7 @@ const CreateRoom = observer(() => {
     <>
       <MukFAB onPress={handleSheet} />
       <MukSheet
+        snaps={['40%']}
         sheetRef={sheetRef}
         contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
       >

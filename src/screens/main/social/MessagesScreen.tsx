@@ -2,6 +2,7 @@ import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../../components/layouts/MainLayout';
 import {observer} from 'mobx-react';
 import MessagesList from '../../../components/messages/MessagesList';
+import CreateChat from '../../../components/messages/CreateChat';
 
 const chatsData = [
   {
@@ -22,6 +23,7 @@ export const MessagesScreen = observer(() => {
   return (
     <MainLayout>
       <MessagesList chats={chatsData}/>
+      <CreateChat />
     </MainLayout>
   );
 });
