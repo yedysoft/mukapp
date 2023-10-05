@@ -33,9 +33,11 @@ export class UIStore extends BaseStore<UIStore> {
     return this.errors;
   }
 
-  get getNotShowingErrors() {
-    return this.errors.filter(e => !e.show);
+  addErrors(error: ErrorBody) {
+    this.errors.push({id: 0, error: error});
   }
+
+  delError(id: number) {}
 }
 
 const ui = new UIStore();

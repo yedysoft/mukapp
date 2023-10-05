@@ -37,9 +37,9 @@ export default observer(() => {
   return (
     <AppProvider>
       <PaperProvider theme={stores.ui.getTheme}>
-        <StatusBar style={stores.ui.getStatusBarStyle}/>
-        <ErrorStack/>
-        {!ready ? <SplashScreen/> : <AppNavigation/>}
+        <StatusBar style={stores.ui.getStatusBarStyle} />
+        <ErrorStack />
+        {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>
     </AppProvider>
   );

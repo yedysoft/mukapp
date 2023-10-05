@@ -2,8 +2,9 @@ import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
 import {useCallback, useEffect, useState} from 'react';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
-import {services} from '../../services';
+import {useServices} from '../../services';
 import {Pressable} from 'react-native';
+import {useStores} from '../../stores';
 
 type Props = {
   error: ErrorMessage;
@@ -12,21 +13,26 @@ type Props = {
 
 export default function MukToaster({error, interval}: Props) {
   const {colors} = useTheme();
-  const [isToasterDisplayed, setIsToasterDisplayed] = useState(true);
+  const [visible, setVisible] = useState(true);
+  const {api} = useServices();
+  const {ui} = useStores();
 
   const showError = useCallback(async () => {
-    setIsToasterDisplayed(true);
-    await services.api.helper.sleep(interval);
-    error.show = true;
+    await api.helper.sleep(interval);
   }, []);
 
+  const close = () => {
+    setVisible(false);
+    ui.delError(error.id);
+  };
+
   useEffect(() => {
-    showError().then(() => setIsToasterDisplayed(false));
+    showError().then(close);
   }, []);
 
   return (
     <>
-      {isToasterDisplayed && (
+      {visible && (
         <Animated.View
           entering={FadeInUp}
           exiting={FadeOutUp}
@@ -43,8 +49,10 @@ export default function MukToaster({error, interval}: Props) {
             maxHeight: responsiveWidth(96),
           }}
         >
-          <Pressable onPress={() => setIsToasterDisplayed(false)}>
-            <Text numberOfLines={2} style={{color: colors.secondary, fontSize: responsiveSize(16)}}>{error.error.message}</Text>
+          <Pressable onPress={close}>
+            <Text numberOfLines={2} style={{color: colors.secondary, fontSize: responsiveSize(16)}}>
+              {error.error.message}
+            </Text>
           </Pressable>
         </Animated.View>
       )}

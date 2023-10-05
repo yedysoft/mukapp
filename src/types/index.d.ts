@@ -51,8 +51,8 @@ type TooltipScreenProps = {
 
 // Error
 type ErrorMessage = {
+  id: number;
   error: ErrorBody;
-  show: boolean;
 };
 type ErrorBody = {
   code: number;

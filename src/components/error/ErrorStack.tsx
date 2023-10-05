@@ -8,19 +8,21 @@ const ErrorStack = observer(() => {
   const {ui} = useStores();
 
   return (
-    <View style={{
-      flex: 1,
-      flexDirection: 'column',
-      position: 'absolute',
-      zIndex: 1400,
-      gap: responsiveWidth(8),
-      width: '100%',
-      marginTop: responsiveWidth(64),
-      maxHeight: responsiveWidth(200),
-      overflow: 'hidden',
-    }}>
-      {ui.getNotShowingErrors.map((e, i) => (
-        <MukToaster key={i} error={e} interval={5000}/>
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        position: 'absolute',
+        zIndex: 1400,
+        gap: responsiveWidth(8),
+        width: '100%',
+        marginTop: responsiveWidth(64),
+        maxHeight: responsiveWidth(200),
+        overflow: 'hidden',
+      }}
+    >
+      {ui.getErrors.map(e => (
+        <MukToaster key={e.id} error={e} interval={5000} />
       ))}
     </View>
   );

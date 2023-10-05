@@ -33,8 +33,10 @@ const CreateRoom = observer(() => {
   };
 
   useEffect(() => {
-    api.room.setConfig();
-  }, []);
+    if (!room.getConfig) {
+      api.room.setConfig();
+    }
+  }, [room.getConfig]);
 
   const createRoom = async () => {
     if (form) {

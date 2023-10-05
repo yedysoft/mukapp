@@ -17,11 +17,15 @@ const interceptXMLHttpRequest = () => {
         this.setRequestHeader('Authorization', `Bearer ${stores.auth.getAuthToken}`);
       }
 
+      this.addEventListener('error', () => {
+        stores.ui.addErrors({code: this.status, message: this.responseText});
+      });
+
       this.addEventListener('load', () => {
         if (this.status === 401) {
           stores.auth.setMany({loggedIn: false, authToken: ''});
         } else if (this.status === 500) {
-          stores.ui.set('errors', [...stores.ui.getErrors, {error: JSON.parse(this.response), show: false}]);
+          stores.ui.addErrors(JSON.parse(this.response));
         } else if (this.status >= 400) {
           console.error(url, this.status, this.statusText, this.response);
         }
