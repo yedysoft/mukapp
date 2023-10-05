@@ -4,7 +4,13 @@ import {responsiveScale} from '../../utils/Responsive';
 import {Linking} from 'react-native';
 
 export class HelperApi {
-  openURL = async (url: string) => {
+  private id = 0;
+
+  generateId() {
+    return this.id++;
+  }
+
+  async openURL(url: string) {
     try {
       const supported = await Linking.canOpenURL(url);
       if (supported) {
@@ -15,7 +21,7 @@ export class HelperApi {
     } catch (error) {
       console.error('URL açma hatası:', error);
     }
-  };
+  }
 
   isColorLight(hexColor: any) {
     const r = parseInt(hexColor.slice(1, 3), 16);
@@ -98,7 +104,7 @@ export class HelperApi {
       return [];
     }
     const playlist = playlists.find(p => p.selected);
-    return playlist ? playlist.tracks : [];
+    return playlist ? playlist.tracks.items : [];
   }
 }
 

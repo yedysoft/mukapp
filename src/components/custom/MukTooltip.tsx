@@ -17,7 +17,15 @@ export default function MukTooltip({children, visible, changeVisible}: Props) {
       {visible && (
         <Pressable
           onPress={() => changeVisible(false)}
-          style={{position: 'absolute', top: 0, left: 0, height: screenHeight, width: screenWidth, backgroundColor: colors.background, opacity: 0.5}}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: screenHeight,
+            width: screenWidth,
+            backgroundColor: colors.background,
+            opacity: 0.5,
+          }}
         />
       )}
       <View

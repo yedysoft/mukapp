@@ -2,6 +2,7 @@ import {Appearance, Language} from '../types/enums';
 import {BaseStore} from './base';
 import {StatusBarStyle} from 'expo-status-bar';
 import {CombinedDarkTheme, CombinedLightTheme} from '../theme';
+import helper from '../services/api/helper';
 
 export class UIStore extends BaseStore<UIStore> {
   appearance: Appearance = 'system';
@@ -34,10 +35,15 @@ export class UIStore extends BaseStore<UIStore> {
   }
 
   addErrors(error: ErrorBody) {
-    this.errors.push({id: 0, error: error});
+    this.set('errors', [...this.errors, {id: helper.generateId(), error: error}]);
   }
 
-  delError(id: number) {}
+  delError(id: number) {
+    this.set(
+      'errors',
+      this.errors.filter(e => e.id !== id),
+    );
+  }
 }
 
 const ui = new UIStore();

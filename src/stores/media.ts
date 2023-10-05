@@ -22,6 +22,10 @@ export class MediaStore extends BaseStore<MediaStore> {
     this.makeObservableAndPersistable(this, MediaStore.name, []);
   }
 
+  get getAuthenticated() {
+    return this.authenticated;
+  }
+
   get getPlayingTrack() {
     return this.playingTrack;
   }
@@ -32,10 +36,6 @@ export class MediaStore extends BaseStore<MediaStore> {
 
   get getPlaylists() {
     return this.playlists;
-  }
-
-  get getAuthenticated() {
-    return this.authenticated;
   }
 }
 

@@ -6,6 +6,7 @@ import auth from './auth';
 import user from './user';
 import media from './media';
 import room from './room';
+import loading from './loading';
 
 class Stores {
   ui = ui;
@@ -13,6 +14,7 @@ class Stores {
   user = user;
   media = media;
   room = room;
+  loading = loading;
 }
 export const stores = new Stores();
 

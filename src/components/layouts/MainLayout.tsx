@@ -22,9 +22,9 @@ export const MainLayout = observer(({children, style}: Props) => {
   const handleAuth = async () => {
     setLoading(true);
     const authUrl = await api.media.getAuthUrl();
-    authUrl && await api.helper.openURL(authUrl);
+    authUrl && (await api.helper.openURL(authUrl));
     setLoading(false);
-    media.set('authenticated', true)
+    media.set('authenticated', true);
   };
 
   return (

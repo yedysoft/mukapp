@@ -31,9 +31,11 @@ export default function MukButton({buttonStyle, loading, onPress, label, childre
         buttonStyle,
       ]}
     >
-      {loading ? <ActivityIndicator color="white" style={{marginRight: 5}}/> : null}
+      {loading ? <ActivityIndicator color="white" style={{marginRight: 5}} /> : null}
       {children}
-      <Text style={[{fontSize: responsiveSize(16), fontWeight: 'bold', color: theme.colors.background}, textStyle]}>{label}</Text>
+      <Text style={[{fontSize: responsiveSize(16), fontWeight: 'bold', color: theme.colors.background}, textStyle]}>
+        {label}
+      </Text>
     </TouchableOpacity>
   );
 }

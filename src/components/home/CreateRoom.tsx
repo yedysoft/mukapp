@@ -22,6 +22,14 @@ const CreateRoom = observer(() => {
   const [form, setForm] = useState<IRoomConfig | null>(room.getConfig);
   const {colors} = useTheme();
 
+  useEffect(() => {
+    if (!room.getConfig) {
+      api.room.setConfig();
+    } else {
+      setForm(room.getConfig);
+    }
+  }, [room.getConfig]);
+
   const handleSheet = () => {
     sheetRef.current?.expand();
   };
@@ -31,12 +39,6 @@ const CreateRoom = observer(() => {
       setForm({...form, [name]: value});
     }
   };
-
-  useEffect(() => {
-    if (!room.getConfig) {
-      api.room.setConfig();
-    }
-  }, [room.getConfig]);
 
   const createRoom = async () => {
     if (form) {

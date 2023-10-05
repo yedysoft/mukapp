@@ -25,7 +25,14 @@ const interceptXMLHttpRequest = () => {
         if (this.status === 401) {
           stores.auth.setMany({loggedIn: false, authToken: ''});
         } else if (this.status === 500) {
-          stores.ui.addErrors(JSON.parse(this.response));
+          const err: ErrorBody = JSON.parse(this.response);
+          if (err) {
+            if (err.code === 1000) {
+              stores.media.set('authenticated', false);
+            } else {
+              stores.ui.addErrors(err);
+            }
+          }
         } else if (this.status >= 400) {
           console.error(url, this.status, this.statusText, this.response);
         }

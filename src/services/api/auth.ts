@@ -8,12 +8,15 @@ import subscription from './subscription';
 export class AuthApi {
   async login(form: ILogin): PVoid {
     try {
+      stores.loading.set('login', true);
       this.clearAuth();
       const response = await axiosIns.post('/auth/login', form);
       stores.auth.set('authToken', response.data);
       await this.checkToken();
     } catch (e) {
       console.log(e);
+    } finally {
+      stores.loading.set('login', false);
     }
   }
 
