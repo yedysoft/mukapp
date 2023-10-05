@@ -10,7 +10,8 @@ import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stores} from './src/stores';
 import {initServices, services} from './src/services';
 import SplashScreen from './src/screens/auth/SplashScreen';
-import ErrorStack from './src/components/error/ErrorStack';
+import ErrorStack from './src/components/stacks/ErrorStack';
+import DialogStack from './src/components/stacks/DialogStack';
 
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
@@ -38,6 +39,7 @@ export default observer(() => {
       <PaperProvider theme={stores.ui.getTheme}>
         <StatusBar style={stores.ui.getStatusBarStyle} />
         <ErrorStack />
+        <DialogStack />
         {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>
     </AppProvider>

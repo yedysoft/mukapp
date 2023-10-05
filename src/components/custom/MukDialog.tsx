@@ -13,7 +13,7 @@ type Props = {
   onAccept?: () => void;
   labelReject?: string;
   labelAccept?: string;
-  isLoading?: boolean;
+  loading?: boolean;
 };
 
 export default function MukDialog({
@@ -25,11 +25,11 @@ export default function MukDialog({
   onAccept,
   labelReject,
   labelAccept,
-  isLoading,
+  loading,
 }: Props) {
   const theme = useTheme();
   const styles = makeStyles({theme});
-  const onDismiss = isLoading ? () => {} : onReject;
+  const onDismiss = loading ? () => {} : onReject;
 
   return (
     <Dialog visible={visible} onDismiss={onDismiss} style={[{backgroundColor: theme.colors.background}, styles.shadow]}>
@@ -49,7 +49,7 @@ export default function MukDialog({
           textStyle={{color: theme.colors.secondary, fontSize: responsiveSize(14), fontWeight: '600'}}
         />
         <MukButton
-          loading={isLoading}
+          loading={loading}
           onPress={onAccept}
           label={labelAccept ?? 'Onayla'}
           buttonStyle={{backgroundColor: theme.colors.primary}}

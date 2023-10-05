@@ -12,7 +12,7 @@ export class SubscriptionApi {
   async globalSubscribes(): PVoid {
     try {
       await socket.subscribe('/info/coin', this.coinCallback);
-      await socket.subscribe('/error', this.errorCallback);
+      await socket.subscribe('/stacks', this.errorCallback);
       await socket.subscribe('/live/user');
     } catch (e) {
       console.log(e);

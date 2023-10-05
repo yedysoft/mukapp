@@ -18,7 +18,6 @@ const RoomTabs = observer(() => {
 
   return (
     <MukTabs
-      defaultIndex={1}
       tabs={[
         {
           icon: 'message-outline',

@@ -46,7 +46,7 @@ export default function MukTextInput({
     setError(null);
     if (preValidate) {
       if (preValidate === 'required' && text.length === 0) {
-        setError(t.do('error.notEmpty'));
+        setError(t.do('stacks.notEmpty'));
         return;
       }
     }

@@ -21,13 +21,18 @@ const interceptXMLHttpRequest = () => {
         stores.ui.addErrors({code: this.status, message: this.responseText});
       });
 
+      this.addEventListener('timeout', () => {
+        stores.ui.addErrors({code: this.status, message: this.responseText});
+      });
+
       this.addEventListener('load', () => {
         if (this.status === 401) {
           stores.auth.setMany({loggedIn: false, authToken: ''});
         } else if (this.status === 500) {
           const err: ErrorBody = JSON.parse(this.response);
           if (err) {
-            if (err.code === 1000) {
+            // Spotify yetkilendirmesi gerekiyor
+            if ([1012, 1013, 1014].includes(err.code)) {
               stores.media.set('authenticated', false);
             } else {
               stores.ui.addErrors(err);

@@ -16,7 +16,7 @@ const PlayingTrack = observer(({compact}: Props) => {
   const styles = makeStyles(theme);
   const {media} = useStores();
   const {api} = useServices();
-  const dominantColor = media.getPlayingTrack.palette[0] ?? theme.colors.background;
+  const dominantColor = media.getPlayingTrack.dominantColor ?? theme.colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? theme.colors.background : theme.colors.secondary;
 
   return (
@@ -33,19 +33,33 @@ const PlayingTrack = observer(({compact}: Props) => {
     >
       <TouchableOpacity
         disabled={!compact}
-        onPress={() => console.log('Odaya Dön')}
+        onPress={api.room.closeRoom}
         style={{flexDirection: 'row', gap: responsiveWidth(16), marginBottom: responsiveHeight(compact ? 8 : 16)}}
       >
-        <MukImage scale={compact ? 1 : 2} source={{uri: `${api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}`}}/>
+        <MukImage
+          scale={compact ? 1 : 2}
+          source={{uri: `${api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}`}}
+        />
         <View
-          style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4), paddingBottom: responsiveWidth(compact ? 8 : 16)}}
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            gap: responsiveWidth(4),
+            paddingBottom: responsiveWidth(compact ? 8 : 16),
+          }}
         >
-          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500', color: textColor}}>{media.getPlayingTrack.name}</Text>
-          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300', color: textColor}}>{api.helper.getArtist(media.getPlayingTrack.artists)}</Text>
+          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500', color: textColor}}>
+            {media.getPlayingTrack.name}
+          </Text>
+          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300', color: textColor}}>
+            {api.helper.getArtist(media.getPlayingTrack.artists)}
+          </Text>
         </View>
       </TouchableOpacity>
       <View style={styles.shadow}>
-        <MukProgressBar progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)}/>
+        <MukProgressBar
+          progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)}
+        />
       </View>
     </View>
   );
