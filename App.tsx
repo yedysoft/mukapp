@@ -20,7 +20,7 @@ export default observer(() => {
   const initializeApp = useCallback(async () => {
     await hydrateStores();
     await initServices();
-    //await services.api.auth.checkToken();
+    await services.api.auth.checkToken();
   }, []);
 
   const deinitializeApp = useCallback(async () => {
