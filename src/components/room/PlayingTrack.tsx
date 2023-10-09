@@ -60,7 +60,7 @@ const PlayingTrack = observer(({compact}: Props) => {
             {api.helper.getArtist(media.getPlayingTrack.artists)}
           </Text>
         </View>
-        {compact && <MukIconButton onPress={api.room.closeRoom} icon={'window-close'} scale={.5} style={{position: 'absolute', right: 0, top: responsiveWidth(8)}}/>}
+        {compact && <MukIconButton onPress={api.room.closeRoom} icon={'window-close'} scale={.5} color={textColor ?? theme.colors.secondary} style={{position: 'absolute', right: 0, top: responsiveWidth(8)}}/>}
       </TouchableOpacity>
       <View style={styles.shadow}>
         <MukProgressBar
