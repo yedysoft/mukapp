@@ -26,6 +26,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
           flex: 1,
           flexDirection: 'row',
           backgroundColor: colors.tertiary,
+          minWidth: responsiveWidth(16),
           display: badge ? 'flex' : 'none',
           paddingHorizontal: responsiveWidth(8),
           paddingVertical: responsiveWidth(3),

@@ -16,7 +16,7 @@ const Coin = observer(({style}: Props) => {
   const {api} = useServices();
 
   return (
-    <View style={[{flexDirection: 'row', alignItems: 'center', minWidth: responsiveWidth(60), justifyContent: 'flex-end'}, style]}>
+    <View style={[{flexDirection: 'row', alignItems: 'center', minWidth: responsiveWidth(60)}, style]}>
       <MukImage
         scale={0.32}
         style={{marginRight: responsiveWidth(9)}}
