@@ -3,6 +3,7 @@ import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import {useState} from 'react';
 import CoinGridItem from './CoinGridItem';
+import {useServices} from '../../services';
 
 type Props = {
   coins: {
@@ -14,11 +15,12 @@ type Props = {
 export default function CoinList({coins}: Props) {
   const {colors} = useTheme();
   const [playlistIndex, setPlaylistIndex] = useState(0);
+  const {api} = useServices();
 
   return (
     <FlatList
       data={coins}
-      renderItem={({item, index}) => <CoinGridItem key={index} onPress={() => setPlaylistIndex(index)} coin={item} />}
+      renderItem={({item, index}) => <CoinGridItem key={index} onPress={() => api.user.addCoin(item.value)} coin={item}/>}
       scrollEnabled
       horizontal
       style={{height: responsiveWidth(280)}}

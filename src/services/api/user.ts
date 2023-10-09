@@ -19,6 +19,14 @@ export class UserApi {
       console.log(e);
     }
   }
+
+  async addCoin(quantity: number): PVoid {
+    try {
+      await axiosIns.get(`/test/addCoin/${stores.user.getInfo.id}/${quantity}`);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 const user = new UserApi();

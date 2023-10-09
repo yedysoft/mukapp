@@ -3,8 +3,6 @@ import {MainLayout} from '../../components/layouts/MainLayout';
 import {responsiveHeight} from '../../utils/Responsive';
 import ShopCarousel from '../../components/shop/ShopCarousel';
 import ShopCoins from '../../components/shop/ShopCoins';
-import MukTabs from '../../components/custom/MukTabs';
-import RoomList from '../../components/home/RoomList';
 
 export default function ShopScreen() {
   const {colors} = useTheme();
