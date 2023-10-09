@@ -84,7 +84,6 @@ export class HelperApi {
         closestDistance = distance;
       }
     }
-
     return closestImage.url;
   }
 
