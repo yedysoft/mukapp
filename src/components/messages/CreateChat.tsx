@@ -45,14 +45,14 @@ const CreateChat = observer(() => {
 
   return (
     <>
-      <MukFAB onPress={handleSheet} />
+      <MukFAB onPress={handleSheet}/>
       <MukSheet
         snaps={['70%']}
         sheetRef={sheetRef}
         contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
       >
-        <FriendsList friends={friendsData} />
-        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createChat()} />
+        <FriendsList friends={friendsData}/>
+        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createChat()}/>
       </MukSheet>
     </>
   );

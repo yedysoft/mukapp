@@ -6,6 +6,8 @@ import MukProgressBar from '../../components/custom/MukProgressBar';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
+import MukIconButton from '../custom/MukIconButton';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = {
   compact?: boolean;
@@ -18,6 +20,7 @@ const PlayingTrack = observer(({compact}: Props) => {
   const {api} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? theme.colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? theme.colors.background : theme.colors.secondary;
+  const navigation = useNavigation();
 
   return (
     <View
@@ -28,13 +31,13 @@ const PlayingTrack = observer(({compact}: Props) => {
         padding: responsiveWidth(compact ? 8 : 16),
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
-        backgroundColor: dominantColor,
-        zIndex: 1400,
+        backgroundColor: dominantColor ?? theme.colors.background,
+        zIndex: 1400
       }}
     >
       <TouchableOpacity
         disabled={!compact}
-        onPress={api.room.closeRoom}
+        onPress={() => navigation.navigate('Room')}
         style={{flexDirection: 'row', gap: responsiveWidth(16), marginBottom: responsiveHeight(compact ? 8 : 16)}}
       >
         <MukImage
@@ -47,15 +50,17 @@ const PlayingTrack = observer(({compact}: Props) => {
             justifyContent: 'flex-end',
             gap: responsiveWidth(4),
             paddingBottom: responsiveWidth(compact ? 8 : 16),
+            maxWidth: responsiveWidth(compact ? 264 : 236)
           }}
         >
-          <Text style={{fontSize: responsiveSize(compact ? 16 : 20), fontWeight: '500', color: textColor}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(compact ? 18 : 20), fontWeight: '500', color: textColor ?? theme.colors.secondary}}>
             {media.getPlayingTrack.name}
           </Text>
-          <Text style={{fontSize: responsiveSize(compact ? 12 : 16), fontWeight: '300', color: textColor}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(compact ? 14 : 16), fontWeight: '300', color: textColor ?? theme.colors.secondary}}>
             {api.helper.getArtist(media.getPlayingTrack.artists)}
           </Text>
         </View>
+        {compact && <MukIconButton onPress={api.room.closeRoom} icon={'window-close'} scale={.5} style={{position: 'absolute', right: 0, top: responsiveWidth(8)}}/>}
       </TouchableOpacity>
       <View style={styles.shadow}>
         <MukProgressBar

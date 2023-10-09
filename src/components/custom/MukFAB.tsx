@@ -1,14 +1,17 @@
 import {FAB, MD3Theme, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
-import {StyleSheet} from 'react-native';
+import {StyleProp, StyleSheet, ViewStyle} from 'react-native';
+import {useStores} from '../../stores';
 
 type Props = {
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
-export default function MukFAB({onPress}: Props) {
+export default function MukFAB({onPress, style}: Props) {
   const theme = useTheme();
   const styles = makeStyles({theme});
+  const {room} = useStores();
 
   return (
     <FAB
@@ -19,11 +22,13 @@ export default function MukFAB({onPress}: Props) {
         {
           position: 'absolute',
           backgroundColor: theme.colors.primary,
-          bottom: responsiveWidth(16),
+          bottom: room.isLive ? responsiveWidth(110) : responsiveWidth(16),
           right: responsiveWidth(16),
           borderRadius: 100,
+          zIndex: 1400,
         },
         styles.shadow,
+        style,
       ]}
       onPress={onPress}
     />

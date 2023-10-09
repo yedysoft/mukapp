@@ -14,7 +14,7 @@ export default function PlaylistList({playlists}: Props) {
   const {api} = useServices();
 
   const changePlaylist = (item: IPlaylist, index: number) => {
-    api.media.getPlaylistTracks(item.id, 100, 0);
+    api.media.getPlaylistTracks(item.id);
     setPlaylistIndex(index);
   };
 
@@ -31,10 +31,11 @@ export default function PlaylistList({playlists}: Props) {
       )}
       scrollEnabled
       horizontal
-      style={{height: responsiveWidth(280)}}
+      style={{height: responsiveWidth(180)}}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
-        padding: responsiveWidth(16),
+        paddingHorizontal: responsiveWidth(16),
+        paddingVertical: responsiveWidth(4),
         gap: responsiveWidth(24),
       }}
     />

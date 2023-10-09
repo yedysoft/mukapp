@@ -1,10 +1,9 @@
-import {View} from 'react-native';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import MukDialog from '../custom/MukDialog';
 import React, {useEffect} from 'react';
 import {useServices} from '../../services';
-import {screenWidth} from '../../utils/Responsive';
+import {Portal} from 'react-native-paper';
 
 const DialogStack = observer(() => {
   const {api} = useServices();
@@ -21,15 +20,7 @@ const DialogStack = observer(() => {
   }, []);
 
   return (
-    <View
-      style={{
-        position: 'absolute',
-        zIndex: 1400,
-        width: screenWidth,
-        top: screenWidth / 2,
-        left: 0,
-      }}
-    >
+    <Portal>
       <MukDialog
         visible={!media.getAuthenticated}
         onReject={() => media.set('authenticated', true)}
@@ -39,7 +30,7 @@ const DialogStack = observer(() => {
         labelReject={'Hatırlat'}
         labelAccept={'Yetkilendir'}
       />
-    </View>
+    </Portal>
   );
 });
 
