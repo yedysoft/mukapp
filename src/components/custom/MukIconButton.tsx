@@ -38,7 +38,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
           fontWeight: 'bold',
           fontSize: responsiveSize(14),
         }}>
-          1
+          {badge}
         </Text>
       </View>
       <IconButton
