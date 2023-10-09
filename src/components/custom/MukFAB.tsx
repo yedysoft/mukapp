@@ -15,7 +15,16 @@ export default function MukFAB({onPress}: Props) {
       icon="plus"
       color={theme.colors.background}
       customSize={responsiveSize(64)}
-      style={[{position: 'absolute', backgroundColor: theme.colors.primary, bottom: responsiveWidth(16), right: responsiveWidth(16), borderRadius: 100}, styles.shadow]}
+      style={[
+        {
+          position: 'absolute',
+          backgroundColor: theme.colors.primary,
+          bottom: responsiveWidth(16),
+          right: responsiveWidth(16),
+          borderRadius: 100,
+        },
+        styles.shadow,
+      ]}
       onPress={onPress}
     />
   );
@@ -33,7 +42,7 @@ const makeStyles = ({theme}: SProps) =>
         width: 0,
         height: 0,
       },
-      shadowOpacity: .5,
+      shadowOpacity: 0.5,
       shadowRadius: 8,
       elevation: 0,
     },

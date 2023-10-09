@@ -9,7 +9,7 @@ import SongList from './SongList';
 
 const RoomTabs = observer(() => {
   const [playlistLoading, setPlaylistLoading] = useState(false);
-  const {media} = useStores();
+  const {media, room} = useStores();
   const {api} = useServices();
 
   if (!playlistLoading) {
@@ -18,10 +18,11 @@ const RoomTabs = observer(() => {
 
   return (
     <MukTabs
+      defaultIndex={1}
       tabs={[
         {
           icon: 'message-outline',
-          children: <MukChat />,
+          children: <MukChat sendMessage={api.subscription.sendPublicMessage} messages={room.chat} />,
         },
         {
           icon: 'playlist-music-outline',

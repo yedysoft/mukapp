@@ -6,10 +6,8 @@ import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
-import {View} from 'react-native';
-import MukImage from '../custom/MukImage';
-import {Text, useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/Responsive';
+import {useTheme} from 'react-native-paper';
 import FriendsList from './FriendsList';
 
 const friendsData = [
@@ -29,7 +27,7 @@ const friendsData = [
     username: 'lobostaff',
     image: 'blank',
   },
-]
+];
 
 const CreateChat = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -47,10 +45,14 @@ const CreateChat = observer(() => {
 
   return (
     <>
-      <MukFAB onPress={handleSheet}/>
-      <MukSheet snaps={['70%']} sheetRef={sheetRef} contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}>
+      <MukFAB onPress={handleSheet} />
+      <MukSheet
+        snaps={['70%']}
+        sheetRef={sheetRef}
+        contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
+      >
         <FriendsList friends={friendsData} />
-        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createChat()}/>
+        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createChat()} />
       </MukSheet>
     </>
   );

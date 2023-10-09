@@ -7,8 +7,8 @@ import {useStores} from '../../stores';
 import {useServices} from '../../services';
 
 type Props = {
-  style?: StyleProp<ViewStyle>
-}
+  style?: StyleProp<ViewStyle>;
+};
 
 const Coin = observer(({style}: Props) => {
   const {colors} = useTheme();
@@ -17,8 +17,17 @@ const Coin = observer(({style}: Props) => {
 
   return (
     <View style={[{flexDirection: 'row', alignItems: 'center'}, style]}>
-      <MukImage scale={0.32} style={{marginRight: responsiveWidth(9)}} source={require('../../../assets/new-coin.png')}/>
-      <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '600', textAlign: 'left'}}>{api.helper.nummer(user.getInfo.coin)}</Text>
+      <MukImage
+        scale={0.32}
+        style={{marginRight: responsiveWidth(9)}}
+        source={require('../../../assets/new-coin.png')}
+      />
+      <Text
+        numberOfLines={1}
+        style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '600', textAlign: 'left'}}
+      >
+        {api.helper.nummer(user.getInfo.coin)}
+      </Text>
     </View>
   );
 });

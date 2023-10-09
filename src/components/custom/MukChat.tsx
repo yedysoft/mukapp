@@ -1,32 +1,20 @@
 import {useTheme} from 'react-native-paper';
 import {Composer, GiftedChat, IMessage, InputToolbar, Send} from 'react-native-gifted-chat';
-import {useCallback, useState} from 'react';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {useServices} from '../../services';
-import {Message} from '@stomp/stompjs';
 import MukIcon from './MukIcon';
 import {responsiveWidth} from '../../utils/Responsive';
 
-export const MukChat = observer(() => {
+type Props = {
+  sendMessage: (data: IMessage[]) => PVoid;
+  messages: IMessage[];
+};
+
+export const MukChat = observer(({sendMessage, messages}: Props) => {
   const {colors} = useTheme();
   const {user} = useStores();
-  const {api} = useServices();
-  const [messages, setMessages] = useState<IMessage[]>([]);
 
-  const readMessages = useCallback((newMessages: IMessage[] = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages));
-  }, []);
-
-  const listenPublicChat = (message: Message) => {
-    readMessages(JSON.parse(message.body));
-  };
-
-  const sendPublicMessage = (m: any) => {
-    api.socket.sendMessage('sendDestination', m);
-  };
-
-  const renderInputToolbar = props => (
+  const renderInputToolbar = (props: any) => (
     <InputToolbar
       {...props}
       containerStyle={{
@@ -41,7 +29,7 @@ export const MukChat = observer(() => {
     />
   );
 
-  const renderComposer = props => (
+  const renderComposer = (props: any) => (
     <Composer
       {...props}
       textInputAutoFocus
@@ -53,7 +41,7 @@ export const MukChat = observer(() => {
     />
   );
 
-  const renderSend = props => (
+  const renderSend = (props: any) => (
     <Send
       {...props}
       disabled={!props.text}
@@ -69,7 +57,7 @@ export const MukChat = observer(() => {
   return (
     <GiftedChat
       messages={messages}
-      onSend={newMessages => sendPublicMessage(newMessages)}
+      onSend={newMessages => sendMessage(newMessages)}
       user={{
         _id: user.getInfo.id || '-1',
       }}

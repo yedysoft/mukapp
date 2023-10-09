@@ -4,7 +4,8 @@ import {stores} from '../../stores';
 import {StompSubscription} from '@stomp/stompjs';
 import media from './media';
 import {IVote} from '../../types/media';
-import {IMessage} from 'react-native-gifted-chat';
+import {GiftedChat, IMessage} from 'react-native-gifted-chat';
+import {MessageType} from '../../types/enums';
 
 export class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
@@ -12,6 +13,7 @@ export class SubscriptionApi {
   async globalSubscribes(): PVoid {
     try {
       await socket.subscribe('/info/coin', this.coinCallback);
+      await socket.subscribe('/info/token', this.tokenCallback);
       await socket.subscribe('/error', this.errorCallback);
       await socket.subscribe('/live/user');
     } catch (e) {
@@ -55,7 +57,7 @@ export class SubscriptionApi {
   async getQueue(): PVoid {
     try {
       const sessionId = stores.room.getSessionId;
-      sessionId && (await socket.sendMessage(`/app/room/${sessionId}/getQueue`));
+      sessionId && (await socket.sendMessage(`/send/room/${sessionId}/getQueue`));
     } catch (e) {
       console.log(e);
     }
@@ -64,16 +66,34 @@ export class SubscriptionApi {
   async voteMusic(data: IVote): PVoid {
     try {
       const sessionId = stores.room.getSessionId;
-      sessionId && (await socket.sendMessage(`/app/room/${sessionId}/voteMusic`, data));
+      sessionId && (await socket.sendMessage(`/send/room/${sessionId}/voteMusic`, data));
     } catch (e) {
       console.log(e);
     }
   }
 
-  async sendPublicMessage(data: IMessage): PVoid {
+  async sendPublicMessage(data: IMessage[]): PVoid {
     try {
       const sessionId = stores.room.getSessionId;
-      sessionId && (await socket.sendMessage(`/app/room/${sessionId}/sendPublicMessage`, data));
+      sessionId && (await socket.sendMessage(`/send/room/${sessionId}/publicMessage`, data));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async sendPrivateMessage(data: IMessage[]): PVoid {
+    try {
+      const userId = stores.user.getInfo.id;
+      userId && (await socket.sendMessage(`/send/message/${userId}/private`, data));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async sendGroupMessage(data: IMessage[]): PVoid {
+    try {
+      const groupId = stores.user.getInfo.id;
+      groupId && (await socket.sendMessage(`/send/room/${groupId}/group`, data));
     } catch (e) {
       console.log(e);
     }
@@ -86,17 +106,31 @@ export class SubscriptionApi {
     stores.user.set('info', {...stores.user.getInfo, coin: coin});
   }
 
+  private tokenCallback(message: Message) {
+    const token = JSON.parse(message.body);
+    stores.user.set('info', {...stores.user.getInfo, token: token});
+  }
+
   private errorCallback(message: Message) {
     const err: ErrorBody = JSON.parse(message.body);
     stores.ui.addErrors(err);
   }
 
+  private privateChatCallback(message: Message) {
+    const newMessage: IMessage[] = JSON.parse(message.body);
+    const messages: IMessage[] = GiftedChat.append(stores.room.getChat, newMessage);
+    stores.user.set('chats', [
+      ...stores.user.getChats,
+      {id: '', name: '', type: MessageType.Private, messages: messages},
+    ]);
+  }
+
   private publicChatCallback(message: Message) {
-    console.log('publicChatCallback', message.body);
+    const newMessage: IMessage[] = JSON.parse(message.body);
+    stores.room.set('chat', GiftedChat.append(stores.room.getChat, newMessage));
   }
 
   private playingTrackCallback(message: Message) {
-    console.log(JSON.parse(message.body));
     const oldId = stores.media.getPlayingTrack.id;
     media.setPlayingTrack(JSON.parse(message.body)).then(async () => {
       if (oldId !== stores.media.getPlayingTrack.id) {

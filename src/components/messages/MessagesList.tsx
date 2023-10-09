@@ -2,24 +2,19 @@ import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import MessagesListItem from './MessagesListItem';
-import {useNavigation} from '@react-navigation/native';
+import {IChat} from '../../types/user';
 
 type Props = {
-  chats?: {
-    username?: string;
-    date?: string;
-    message?: string;
-  }[];
+  chats: IChat[];
 };
 
 export default function MessagesList({chats}: Props) {
   const {colors} = useTheme();
-  const navigation = useNavigation();
 
   return (
     <FlatList
       data={chats}
-      renderItem={({item, index}) => <MessagesListItem key={index} chats={item} onPress={() => navigation.navigate('Chat')} />}
+      renderItem={({item, index}) => <MessagesListItem key={index} chat={item} />}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8), backgroundColor: colors.background}}
     />

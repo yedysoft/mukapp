@@ -1,28 +1,15 @@
-import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../../components/layouts/MainLayout';
 import {observer} from 'mobx-react';
 import MessagesList from '../../../components/messages/MessagesList';
 import CreateChat from '../../../components/messages/CreateChat';
-
-const chatsData = [
-  {
-    username: 'username1',
-    date: '12:34',
-    message: 'message1',
-  },
-  {
-    username: 'username2',
-    date: '12:34',
-    message: 'message2',
-  },
-];
+import {useStores} from '../../../stores';
 
 export const MessagesScreen = observer(() => {
-  const {colors} = useTheme();
+  const {user} = useStores();
 
   return (
     <MainLayout>
-      <MessagesList chats={chatsData}/>
+      <MessagesList chats={user.getChats} />
       <CreateChat />
     </MainLayout>
   );

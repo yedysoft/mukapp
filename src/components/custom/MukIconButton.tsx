@@ -18,22 +18,21 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
 
   return (
     <>
-      {badge && (
-        <Badge
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            color: colors.secondary,
-            width: responsiveWidth(16),
-            fontWeight: 'bold',
-            aspectRatio: 1,
-            zIndex: 1400,
-          }}
-        >
-          {badge}
-        </Badge>
-      )}
+      <Badge
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          color: colors.secondary,
+          width: responsiveWidth(16),
+          fontWeight: 'bold',
+          aspectRatio: 1,
+          zIndex: 1400,
+          display: badge ? 'flex' : 'none',
+        }}
+      >
+        {badge}
+      </Badge>
       <IconButton
         icon={icon ? icon : 'blank'}
         iconColor={color ? color : colors.secondary}

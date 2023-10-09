@@ -11,3 +11,9 @@ const _appearances = {
   dark: 'Dark',
 } as const;
 export type Appearance = keyof typeof _appearances;
+
+export enum MessageType {
+  Public = 0,
+  Private = 1,
+  Group = 2,
+}

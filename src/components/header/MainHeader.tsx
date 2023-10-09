@@ -27,12 +27,15 @@ export const MainHeader = observer(() => {
       }}
     >
       <NavButton>
-        <MukIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
+        <MukIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       </NavButton>
-      <MukLogo/>
+      <MukLogo />
       <NavButton>
-        {route.name == 'Shop' ? <Coin style={{marginRight: responsiveWidth(16)}} /> :
-          <MukIconButton icon={'bell-outline'} scale={0.4} tooltip={NotificationsTooltip}/>}
+        {route.name == 'Shop' ? (
+          <Coin style={{marginRight: responsiveWidth(16)}} />
+        ) : (
+          <MukIconButton icon={'bell-outline'} scale={0.4} tooltip={NotificationsTooltip} />
+        )}
       </NavButton>
     </SafeAreaView>
   );

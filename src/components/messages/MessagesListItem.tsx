@@ -3,33 +3,41 @@ import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {View} from 'react-native';
 import MukListItem from '../custom/MukListItem';
+import {useNavigation} from '@react-navigation/native';
+import {IChat, ILastMessage} from '../../types/user';
+import {useServices} from '../../services';
 
 type Props = {
-  onPress?: () => void;
-  chats?: {
-    username?: string,
-    date?: string,
-    message?: string
-  }
+  chat: IChat;
 };
 
-export default function MessagesListItem({onPress, chats}: Props) {
+export default function MessagesListItem({chat}: Props) {
   const {colors} = useTheme();
+  const navigation = useNavigation();
+  const {api} = useServices();
+  const lastMessage: ILastMessage = api.helper.getLastMessage(chat.messages);
 
   return (
-    <MukListItem onPress={onPress}>
-      <MukImage scale={1.3} style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}} source={require('../../../assets/adaptive-icon.png')}/>
+    <MukListItem onPress={() => navigation.navigate('Chat', {chat: chat})}>
+      <MukImage
+        scale={1.3}
+        style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}}
+        source={require('../../../assets/adaptive-icon.png')}
+      />
       <View style={{flex: 1, justifyContent: 'flex-start', gap: responsiveWidth(8), paddingTop: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500'}}>
-            {chats?.username}
+            {chat.name}
           </Text>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(15), fontWeight: '400', position: 'absolute', right: 0}}>
-            {chats?.date}
+          <Text
+            numberOfLines={1}
+            style={{fontSize: responsiveSize(15), fontWeight: '400', position: 'absolute', right: 0}}
+          >
+            {lastMessage.date instanceof Date ? lastMessage.date.getTime() : lastMessage.date}
           </Text>
         </View>
         <Text numberOfLines={2} style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400'}}>
-          {chats?.message}
+          {lastMessage.message}
         </Text>
       </View>
     </MukListItem>

@@ -10,7 +10,7 @@ export class MediaApi {
     } catch (e: any) {
       console.log(e);
     }
-    return ''
+    return '';
   }
 
   async getCurrentUserPlaylists(): PVoid {
@@ -50,7 +50,7 @@ export class MediaApi {
         const track: IPlayingTrack = this.getTrack(data.item) as IPlayingTrack;
         track.isPlaying = data.is_playing;
         track.progress = data.progress_ms;
-        track.palette = data.palette;
+        track.dominantColor = data.dominantColor;
         stores.media.set('playingTrack', track);
       }
     } catch (e: any) {
@@ -60,7 +60,6 @@ export class MediaApi {
 
   async setQueue(data: any): PVoid {
     try {
-      console.log(data);
       const queue: IQueueTrack[] = this.getQueueTracks(data);
       queue.sort((a, b) => b.voteCount - a.voteCount);
       stores.media.set('queue', queue);

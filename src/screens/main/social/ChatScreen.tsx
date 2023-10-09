@@ -1,17 +1,23 @@
-import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../../components/layouts/MainLayout';
 import {observer} from 'mobx-react';
 import {MukChat} from '../../../components/custom/MukChat';
+import {useServices} from '../../../services';
+import {MessageType} from '../../../types/enums';
 
-export const ChatScreen = observer(() => {
-  const {colors} = useTheme();
+const ChatScreen = observer(({route}: any) => {
+  const {api} = useServices();
+  const {chat} = route.params;
 
   return (
     <MainLayout>
       <MukChat
-        subDestination={'/room/9651ca84-f93a-41a3-ab85-592d6ccdfbf4/publicChat'}
-        sendDestination={'/app/room/9651ca84-f93a-41a3-ab85-592d6ccdfbf4/sendPublicMessage'}
+        sendMessage={
+          chat.type === MessageType.Group ? api.subscription.sendGroupMessage : api.subscription.sendPrivateMessage
+        }
+        messages={chat.messages}
       />
     </MainLayout>
   );
 });
+
+export default ChatScreen;

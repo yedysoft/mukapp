@@ -14,7 +14,7 @@ export default function SongList({songs, header}: Props) {
     <FlatList
       data={songs}
       ListHeaderComponent={header}
-      renderItem={({item, index}) => <SongListItem key={index} song={item}/>}
+      renderItem={({item, index}) => <SongListItem key={index} song={item} />}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
     />

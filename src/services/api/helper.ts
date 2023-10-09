@@ -2,6 +2,8 @@ import {Buffer} from 'buffer';
 import {IArtist, IImage, IPlaylist, ITrack} from '../../types/media';
 import {responsiveScale} from '../../utils/Responsive';
 import {Linking} from 'react-native';
+import {IMessage} from 'react-native-gifted-chat';
+import {ILastMessage} from '../../types/user';
 
 export class HelperApi {
   async openURL(url: string) {
@@ -99,6 +101,19 @@ export class HelperApi {
     }
     const playlist = playlists.find(p => p.selected);
     return playlist ? playlist.tracks.items : [];
+  }
+
+  getLastMessage(messages: IMessage[]): ILastMessage {
+    let message: IMessage | null = null;
+    if (messages && messages.length > 0) {
+      messages.sort((a, b) => {
+        const createdAtA = a.createdAt instanceof Date ? a.createdAt.getTime() : a.createdAt;
+        const createdAtB = b.createdAt instanceof Date ? b.createdAt.getTime() : b.createdAt;
+        return createdAtB - createdAtA;
+      });
+      message = messages[0];
+    }
+    return message ? {date: message.createdAt, message: message.text} : {date: 0, message: ''};
   }
 }
 

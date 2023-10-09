@@ -1,8 +1,9 @@
 import {BaseStore} from './base';
-import {IInfo} from '../types/user';
+import {IChat, IInfo} from '../types/user';
 
 export class UserStore extends BaseStore<UserStore> {
-  info: IInfo = {id: null, userName: '', coin: 0, image: ''};
+  info: IInfo = {id: null, userName: '', image: '', name: '', surname: '', coin: 0, token: 0};
+  chats: IChat[] = [];
 
   constructor() {
     super();
@@ -11,6 +12,10 @@ export class UserStore extends BaseStore<UserStore> {
 
   get getInfo() {
     return this.info;
+  }
+
+  get getChats() {
+    return this.chats;
   }
 }
 

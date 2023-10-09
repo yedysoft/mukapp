@@ -6,11 +6,10 @@ import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import Coin from '../user/Coin';
 import {NavButton} from './NavButton';
-import {ReactNode} from 'react';
 
 type Props = {
-  type?: string
-}
+  type?: string;
+};
 
 export const SubHeader = observer(({type}: Props) => {
   const {colors} = useTheme();

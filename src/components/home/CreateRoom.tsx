@@ -52,7 +52,7 @@ const CreateRoom = observer(() => {
 
   return (
     <>
-      <MukFAB onPress={handleSheet} />
+      {!room.isLive ? <MukFAB onPress={handleSheet} /> : null}
       <MukSheet
         snaps={['40%']}
         sheetRef={sheetRef}

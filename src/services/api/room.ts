@@ -31,7 +31,7 @@ export class RoomApi {
       if (stores.room.isAdmin) {
         await axiosIns.get(`/room-session/stop/${stores.room.getSessionId}`);
       }
-      stores.room.setMany({sessionId: null, streamerId: null});
+      stores.room.setMany({sessionId: null, streamerId: null, chat: []});
       await subscription.roomUnsubscribes();
     } catch (e) {
       console.log(e);
