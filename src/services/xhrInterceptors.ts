@@ -30,6 +30,7 @@ const interceptXMLHttpRequest = () => {
           stores.auth.setMany({loggedIn: false, authToken: ''});
         } else if (this.status === 500) {
           const err: ErrorBody = JSON.parse(this.response);
+          console.log(url, err);
           if (err) {
             // Spotify yetkilendirmesi gerekiyor
             if ([1012, 1013, 1014].includes(err.code)) {

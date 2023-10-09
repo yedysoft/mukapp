@@ -1,7 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ReactNode} from 'react';
-import {responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
   children?: ReactNode;
@@ -10,5 +9,11 @@ type Props = {
 export default function DrawerLayout({children}: Props) {
   const {colors} = useTheme();
 
-  return <SafeAreaView style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', backgroundColor: colors.background}}>{children}</SafeAreaView>;
+  return (
+    <SafeAreaView
+      style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', backgroundColor: colors.background}}
+    >
+      {children}
+    </SafeAreaView>
+  );
 }

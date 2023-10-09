@@ -10,11 +10,17 @@ type Props = {
 export default function AuthLayout({children}: Props) {
   const {colors} = useTheme();
 
-  return <SafeAreaView style={{
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    paddingHorizontal: responsiveWidth(20),
-    backgroundColor: colors.background,
-  }}>{children}</SafeAreaView>;
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        paddingHorizontal: responsiveWidth(20),
+        backgroundColor: colors.background,
+      }}
+    >
+      {children}
+    </SafeAreaView>
+  );
 }

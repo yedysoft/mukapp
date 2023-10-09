@@ -5,5 +5,9 @@ import {stores} from '../stores';
 import MainDrawer from './MainDrawer';
 
 export const AppNavigation = observer(() => {
-  return <NavigationContainer theme={stores.ui.getTheme}>{stores.auth.isLoggedIn ? <MainDrawer/> : <AuthStack/>}</NavigationContainer>;
+  return (
+    <NavigationContainer theme={stores.ui.getTheme}>
+      {stores.auth.isLoggedIn ? <MainDrawer /> : <AuthStack />}
+    </NavigationContainer>
+  );
 });

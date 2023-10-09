@@ -1,5 +1,5 @@
 import {Dialog, MD3Theme, Text, useTheme} from 'react-native-paper';
-import {ReactNode} from 'react';
+import {ReactNode, useState} from 'react';
 import MukButton from './MukButton';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleSheet} from 'react-native';
@@ -10,10 +10,9 @@ type Props = {
   children?: ReactNode;
   visible: boolean;
   onReject?: () => void;
-  onAccept?: () => void;
+  onAccept: () => PVoid;
   labelReject?: string;
   labelAccept?: string;
-  loading?: boolean;
 };
 
 export default function MukDialog({
@@ -25,10 +24,10 @@ export default function MukDialog({
   onAccept,
   labelReject,
   labelAccept,
-  loading,
 }: Props) {
   const theme = useTheme();
   const styles = makeStyles({theme});
+  const [loading, setLoading] = useState(false);
   const onDismiss = loading ? () => {} : onReject;
 
   return (
@@ -50,7 +49,10 @@ export default function MukDialog({
         />
         <MukButton
           loading={loading}
-          onPress={onAccept}
+          onPress={() => {
+            setLoading(true);
+            onAccept().then(() => setLoading(false));
+          }}
           label={labelAccept ?? 'Onayla'}
           buttonStyle={{backgroundColor: theme.colors.primary}}
           scale={0.8}

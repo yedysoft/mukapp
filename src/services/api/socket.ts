@@ -14,7 +14,11 @@ export class SocketApi {
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       webSocketFactory: () => new SockJS(wsUrl),
-      debug: str => str.indexOf('Received data') === -1 && str.indexOf('playingTrack') === -1 && console.debug('Socket Debug:', str),
+      /*debug: str =>
+        str.indexOf('Received data') === -1 &&
+        str.indexOf('playingTrack') === -1 &&
+        console.debug('Socket Debug:', str),*/
+      debug: str => console.debug('Socket Debug:', str),
       onWebSocketError: event => console.log('onWebSocketError:', event),
       onStompError: event => console.log('onStompError:', event),
       onWebSocketClose: event => console.log('onWebSocketClose:', event),

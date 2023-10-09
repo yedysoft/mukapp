@@ -10,15 +10,15 @@ const Main = createStackNavigator();
 export default function MainStack() {
   return (
     <Main.Navigator initialRouteName={'Main'}>
-      <Main.Screen name="Main" component={BottomTabs} options={{headerShown: false}}/>
-      <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader/>}}>
-        <Main.Screen name="Room" component={RoomScreen}/>
+      <Main.Screen name="Main" component={BottomTabs} options={{headerShown: false}} />
+      <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader />}}>
+        <Main.Screen name="Room" component={RoomScreen} />
       </Main.Group>
-      <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader type={'chat'}/>}}>
-        <Main.Screen name="Chat" component={ChatScreen}/>
+      <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader type={'chat'} />}}>
+        <Main.Screen name="Chat" component={ChatScreen} />
       </Main.Group>
-      <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader type={'profile'}/>}}>
-        <Main.Screen name="Profile" component={ProfileScreen}/>
+      <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader type={'profile'} />}}>
+        <Main.Screen name="Profile" component={ProfileScreen} />
       </Main.Group>
     </Main.Navigator>
   );

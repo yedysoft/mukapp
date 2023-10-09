@@ -4,9 +4,7 @@ import {useTheme} from 'react-native-paper';
 import {MainHeader} from '../components/header/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
 import {responsiveHeight} from '../utils/Responsive';
-import ProfileScreen from '../screens/main/ProfileScreen';
 import HomeScreen from '../screens/main/HomeScreen';
-import {ChatScreen} from '../screens/main/social/ChatScreen';
 import {MessagesScreen} from '../screens/main/social/MessagesScreen';
 
 const Bottom = createBottomTabNavigator();
@@ -31,7 +29,13 @@ export default function BottomTabs() {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => <AntDesign name="shoppingcart" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
+          tabBarIcon: ({focused}) => (
+            <AntDesign
+              name="shoppingcart"
+              size={30}
+              color={focused ? theme.colors.primary : theme.colors.outlineVariant}
+            />
+          ),
         }}
         listeners={({navigation}) => ({
           tabPress: e => {
@@ -44,7 +48,13 @@ export default function BottomTabs() {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => <AntDesign name="appstore-o" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
+          tabBarIcon: ({focused}) => (
+            <AntDesign
+              name="appstore-o"
+              size={30}
+              color={focused ? theme.colors.primary : theme.colors.outlineVariant}
+            />
+          ),
         }}
         listeners={({navigation}) => ({
           tabPress: e => {
@@ -57,7 +67,9 @@ export default function BottomTabs() {
         name="Messages"
         component={MessagesScreen}
         options={{
-          tabBarIcon: ({focused}) => <AntDesign name="message1" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />,
+          tabBarIcon: ({focused}) => (
+            <AntDesign name="message1" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />
+          ),
         }}
         listeners={({navigation}) => ({
           tabPress: e => {

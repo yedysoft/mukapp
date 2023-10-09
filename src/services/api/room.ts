@@ -10,7 +10,7 @@ export class RoomApi {
       await this.saveConfig(config);
       const response = await axiosIns.get(`/room-session/start/${stores.user.getInfo.id}`);
       const session: IRoomSession = response.data;
-      await this.openRoom(session.id, session.streamerId);
+      await this.openRoom(session.sessionId, session.id);
     } catch (e) {
       console.log(e);
     }

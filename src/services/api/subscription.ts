@@ -12,7 +12,7 @@ export class SubscriptionApi {
   async globalSubscribes(): PVoid {
     try {
       await socket.subscribe('/info/coin', this.coinCallback);
-      await socket.subscribe('/stacks', this.errorCallback);
+      await socket.subscribe('/error', this.errorCallback);
       await socket.subscribe('/live/user');
     } catch (e) {
       console.log(e);
@@ -87,7 +87,8 @@ export class SubscriptionApi {
   }
 
   private errorCallback(message: Message) {
-    console.log('errorCallback', message.body);
+    const err: ErrorBody = JSON.parse(message.body);
+    stores.ui.addErrors(err);
   }
 
   private publicChatCallback(message: Message) {
@@ -95,6 +96,7 @@ export class SubscriptionApi {
   }
 
   private playingTrackCallback(message: Message) {
+    console.log(JSON.parse(message.body));
     const oldId = stores.media.getPlayingTrack.id;
     media.setPlayingTrack(JSON.parse(message.body)).then(async () => {
       if (oldId !== stores.media.getPlayingTrack.id) {

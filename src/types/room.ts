@@ -12,7 +12,7 @@ export type IRoom = {
 
 export type IRoomSession = {
   id: string;
-  streamerId: string;
+  sessionId: string;
 };
 
 export type IRoomConfig = {

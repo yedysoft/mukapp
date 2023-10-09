@@ -4,12 +4,6 @@ import {responsiveScale} from '../../utils/Responsive';
 import {Linking} from 'react-native';
 
 export class HelperApi {
-  private id = 0;
-
-  generateId() {
-    return this.id++;
-  }
-
   async openURL(url: string) {
     try {
       const supported = await Linking.canOpenURL(url);

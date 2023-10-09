@@ -19,7 +19,7 @@ const CreateRoom = observer(() => {
   const navigation = useNavigation();
   const {api, t} = useServices();
   const {room, user} = useStores();
-  const [form, setForm] = useState<IRoomConfig | null>(room.getConfig);
+  const [form, setForm] = useState<IRoomConfig | null>();
   const {colors} = useTheme();
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const CreateRoom = observer(() => {
             <MukTextInput
               name={'name'}
               label={t.do('roomConfig.name')}
-              value={room.getConfig?.name}
+              value={form?.name}
               onChange={handleOnChange}
               preValidate={'required'}
             />

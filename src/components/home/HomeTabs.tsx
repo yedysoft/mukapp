@@ -17,7 +17,7 @@ const HomeTabs = observer(() => {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [tabIndex]);
 
   return (
     <MukTabs
