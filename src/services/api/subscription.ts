@@ -15,7 +15,7 @@ export class SubscriptionApi {
       await socket.subscribe('/user/info/coin', this.coinCallback);
       await socket.subscribe('/user/info/token', this.tokenCallback);
       await socket.subscribe('/user/error', this.errorCallback);
-      await socket.subscribe('/user/live');
+      await socket.subscribe('/live/user');
     } catch (e) {
       console.log(e);
     }
