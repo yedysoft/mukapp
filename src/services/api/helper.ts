@@ -1,5 +1,5 @@
 import {Buffer} from 'buffer';
-import {IArtist, IImage, IPlaylist, ITrack} from '../../types/media';
+import {IArtist, IImage, IPlaylist} from '../../types/media';
 import {responsiveScale} from '../../utils/Responsive';
 import {ImageSourcePropType, Linking} from 'react-native';
 import {IMessage} from 'react-native-gifted-chat';
@@ -101,12 +101,11 @@ export class HelperApi {
     return artists.map(a => a.name).join(', ');
   }
 
-  getSelectedPlaylistTracks(playlists: IPlaylist[]): ITrack[] {
+  getSelectedPlaylist(playlists: IPlaylist[]): IPlaylist | undefined {
     if (!playlists || playlists.length === 0) {
-      return [];
+      return undefined;
     }
-    const playlist = playlists.find(p => p.selected);
-    return playlist ? playlist.tracks.items : [];
+    return playlists.find(p => p.selected);
   }
 
   getLastMessage(messages: IMessage[]): ILastMessage {

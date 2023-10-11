@@ -18,7 +18,7 @@ export default function MukImage({source, style, scale}: Props) {
       style={[
         {
           backgroundColor: 'transparent',
-          borderRadius: responsiveWidth(16),
+          borderRadius: 16,
           width: responsiveScale(scale),
           height: responsiveScale(scale),
           aspectRatio: 1,

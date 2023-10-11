@@ -13,12 +13,12 @@ type Props = {
 
 export default function PlaylistList({playlists}: Props) {
   const {colors} = useTheme();
-  const [playlistIndex, setPlaylistIndex] = useState(0);
+  const [playlistId, setPlaylistId] = useState('search');
   const {api} = useServices();
 
-  const changePlaylist = (item: IPlaylist, index: number) => {
-    api.media.getPlaylistTracks(item.id);
-    setPlaylistIndex(index);
+  const changePlaylist = (item: IPlaylist) => {
+    item.tracks.count === 0 && api.media.getPlaylistTracks(item.id);
+    setPlaylistId(item.id);
   };
 
   return (
@@ -28,8 +28,8 @@ export default function PlaylistList({playlists}: Props) {
         renderItem={({item, index}) => (
           <PlaylistListItem
             key={index}
-            active={playlistIndex === index}
-            onPress={() => changePlaylist(item, index)}
+            active={playlistId === item.id}
+            onPress={() => changePlaylist(item)}
             playlist={item}
           />
         )}
@@ -43,7 +43,7 @@ export default function PlaylistList({playlists}: Props) {
           gap: responsiveWidth(24),
         }}
       />
-      {playlistIndex === 0 && <MukTextInput name={'search'} outlineStyle={{borderColor: colors.primary}} style={{alignSelf: 'center', width: '92%', marginVertical: responsiveWidth(8)}}/>}
+      {playlistId === 'search' && <MukTextInput name={'search'} outlineStyle={{borderColor: colors.primary}} style={{alignSelf: 'center', width: '92%', marginVertical: responsiveWidth(8)}}/>}
     </>
   );
 }

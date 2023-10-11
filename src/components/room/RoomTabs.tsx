@@ -9,6 +9,7 @@ import SongList from './SongList';
 import MukTextInput from '../custom/MukTextInput';
 import {responsiveWidth} from '../../utils/Responsive';
 import {useTheme} from 'react-native-paper';
+import MukImage from '../custom/MukImage';
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme();
@@ -19,6 +20,8 @@ const RoomTabs = observer(() => {
   if (!playlistLoading) {
     api.media.getCurrentUserPlaylists().then(() => setPlaylistLoading(true));
   }
+
+  const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists)
 
   return (
     <MukTabs
@@ -36,7 +39,9 @@ const RoomTabs = observer(() => {
           icon: 'playlist-plus',
           children: (
             <SongList header={<PlaylistList playlists={media.getPlaylists} />}
-              songs={api.helper.getSelectedPlaylistTracks(media.getPlaylists)}
+                      footer={playlistLoading ? <MukImage scale={.5} style={{alignSelf: 'center'}} source={require('../../../assets/loader.gif')} /> : <></>}
+              songs={selectedPlaylist ? selectedPlaylist?.tracks.items : []}
+                      onEndReached={() => selectedPlaylist && api.media.getPlaylistTracks(selectedPlaylist?.id)}
             />
           ),
         },
