@@ -3,10 +3,11 @@ import {responsiveHeight} from '../../utils/Responsive';
 
 type Props = {
   progress?: number;
+  color?: string;
 };
 
-export default function MukProgressBar({progress}: Props) {
+export default function MukProgressBar({progress, color}: Props) {
   const {colors} = useTheme();
 
-  return <ProgressBar progress={progress} color={colors.primary} style={{height: responsiveHeight(4), borderRadius: 100, width: '100%', backgroundColor: colors.backdrop}} />;
+  return <ProgressBar progress={progress} color={color} style={{height: responsiveHeight(4), borderRadius: 100, width: '100%', backgroundColor: colors.backdrop}} />;
 }

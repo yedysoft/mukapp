@@ -31,8 +31,7 @@ const PlayingTrack = observer(({compact}: Props) => {
         padding: responsiveWidth(compact ? 8 : 16),
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
-        backgroundColor: dominantColor ?? theme.colors.background,
-        zIndex: -1
+        backgroundColor: dominantColor ?? theme.colors.background
       }}
     >
       <TouchableOpacity
@@ -86,6 +85,7 @@ const PlayingTrack = observer(({compact}: Props) => {
       </TouchableOpacity>
       <View style={styles.shadow}>
         <MukProgressBar
+          color={textColor ?? theme.colors.primary}
           progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)}
         />
       </View>
@@ -96,7 +96,7 @@ const PlayingTrack = observer(({compact}: Props) => {
 const makeStyles = (theme: MD3Theme) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: theme.colors.primary,
+      shadowColor: theme.colors.tertiary,
       shadowOffset: {
         width: 0,
         height: 0,
