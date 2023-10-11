@@ -26,6 +26,7 @@ export class MediaApi {
 
   async getCurrentUserPlaylists(): PVoid {
     try {
+      stores.loading.set('userPlaylist', true);
       const response = await axiosIns.get('/media/getCurrentUserPlaylists');
       const playlists = this.getPlaylists(response.data.items);
       playlists.unshift({
@@ -38,11 +39,14 @@ export class MediaApi {
       stores.media.set('playlists', playlists);
     } catch (e: any) {
       console.log(e);
+    } finally {
+      stores.loading.set('userPlaylist', false);
     }
   }
 
   async getPlaylistTracks(playlistId: string, q?: string): PVoid {
     try {
+      stores.loading.set('playlistTracks', true);
       const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
       if (
         playlist &&
@@ -67,6 +71,8 @@ export class MediaApi {
       stores.media.set('playlists', playlists);
     } catch (e: any) {
       console.log(e);
+    } finally {
+      stores.loading.set('userPlaylist', false);
     }
   }
 

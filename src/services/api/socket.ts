@@ -25,6 +25,7 @@ export class SocketApi {
   }
 
   async connect(): PVoid {
+    await this.disconnect();
     return new Promise<void>(resolve => {
       this.client.onConnect = () => {
         resolve();

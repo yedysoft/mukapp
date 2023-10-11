@@ -2,6 +2,8 @@ import {BaseStore} from './base';
 
 export class LoadingStore extends BaseStore<LoadingStore> {
   login = false;
+  userPlaylist = false;
+  playlistTracks = false;
 
   constructor() {
     super();
@@ -10,6 +12,14 @@ export class LoadingStore extends BaseStore<LoadingStore> {
 
   get getLogin() {
     return this.login;
+  }
+
+  get getUserPlaylist() {
+    return this.playlistTracks;
+  }
+
+  get getPlaylistTracks() {
+    return this.playlistTracks;
   }
 }
 
