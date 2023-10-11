@@ -13,14 +13,15 @@ export class MediaApi {
     return '';
   }
 
-  async search(q: string, offset = 0, limit = 10): PVoid {
+  async searchTracks(q: string, offset = 0, limit = 10): Promise<ITrack[]> {
+    let tracks: ITrack[] = [];
     try {
       const response = await axiosIns.get(`/media/searchTracks?q=${q}&offset=${offset}&limit=${limit}`);
-      const playlists = this.getPlaylists(response.data.items);
-      stores.media.set('playlists', playlists);
+      tracks = response.data;
     } catch (e: any) {
       console.log(e);
     }
+    return tracks;
   }
 
   async getCurrentUserPlaylists(): PVoid {
@@ -40,7 +41,7 @@ export class MediaApi {
     }
   }
 
-  async getPlaylistTracks(playlistId: string): PVoid {
+  async getPlaylistTracks(playlistId: string, q?: string): PVoid {
     try {
       const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
       if (
@@ -49,11 +50,15 @@ export class MediaApi {
           (playlist.id === 'search' && (playlist.tracks.total === 0 || playlist.tracks.count < playlist.tracks.total)))
       ) {
         const offset = playlist.tracks.count;
-        const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
-        const tracks = this.getTracks(response.data.items.map((d: any) => d.track));
-        playlist.tracks.items.push(...tracks);
+        if (playlist.id === 'search' && q) {
+          const tracks = await this.searchTracks(q, offset);
+          playlist.tracks.items.push(...tracks);
+        } else if (playlist.id !== 'search') {
+          const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
+          const tracks = this.getTracks(response.data.items.map((d: any) => d.track));
+          playlist.tracks.items.push(...tracks);
+        }
       }
-
       const playlists = stores.media.getPlaylists.map(p =>
         p.id === playlistId
           ? {...p, selected: true, tracks: {...p.tracks, count: p.tracks.items.length}}

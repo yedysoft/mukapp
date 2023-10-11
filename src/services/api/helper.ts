@@ -43,14 +43,14 @@ export class HelperApi {
     }
   }
 
+  sleep(ms: number): PVoid {
+    return new Promise<void>(resolver => setTimeout(resolver, ms));
+  }
+
   msToMinSec(ms: number): string {
     const minutes: number = Math.floor(ms / 60000);
     const seconds: string = ((ms % 60000) / 1000).toFixed(0);
     return minutes + ':' + (seconds < '10' ? '0' : '') + seconds;
-  }
-
-  sleep(ms: number): PVoid {
-    return new Promise<void>(resolver => setTimeout(resolver, ms));
   }
 
   toBase64(text: string): string {
@@ -64,18 +64,18 @@ export class HelperApi {
     return [];
   }
 
-  getPercent(min: number, max: number): number {
-    return max === 0 ? 1 : min / max;
-  }
-
   isUrl(url: string) {
     const urlRegex = /^(https?|ftp|file):\/\/[^\s/$.?#].\S*$/;
     return urlRegex.test(url);
   }
 
+  getPercent(min: number, max: number): number {
+    return max === 0 ? 1 : min / max;
+  }
+
   getImageUrl(images: IImage[], scale: number): ImageSourcePropType {
     if (!images || images.length === 0) {
-      return require('../../../assets/logo.png');
+      return require('../../../assets/noimage.png');
     }
     let closestImage = images[0];
     if (images.length > 1) {

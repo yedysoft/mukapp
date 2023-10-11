@@ -41,7 +41,7 @@ export const AuthLoginForm = observer(() => {
           validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
         />
       </View>
-      <MukButton loading={loading.login} label={t.do('auth.login')} onPress={() => api.auth.login(form)} />
+      <MukButton loading={loading.getLogin} label={t.do('auth.login')} onPress={() => api.auth.login(form)} />
     </View>
   );
 });
