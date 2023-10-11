@@ -74,7 +74,7 @@ export class HelperApi {
   }
 
   getImageUrl(images: IImage[], scale: number): ImageSourcePropType {
-    if (images === undefined || images === null || images.length === 0) {
+    if (!images || images.length === 0) {
       return require('../../../assets/logo.png');
     }
     let closestImage = images[0];
@@ -95,14 +95,14 @@ export class HelperApi {
   }
 
   getArtist(artists: IArtist[]): string {
-    if (artists === undefined || artists === null || artists.length === 0) {
+    if (!artists || artists.length === 0) {
       return '';
     }
     return artists.map(a => a.name).join(', ');
   }
 
   getSelectedPlaylistTracks(playlists: IPlaylist[]): ITrack[] {
-    if (playlists === undefined || playlists === null || playlists.length === 0) {
+    if (!playlists || playlists.length === 0) {
       return [];
     }
     const playlist = playlists.find(p => p.selected);
