@@ -91,7 +91,7 @@ export class HelperApi {
         }
       }
     }
-    return this.isUrl(closestImage.url) ? {uri: closestImage.url} : require(closestImage.url);
+    return typeof closestImage.url === 'string' ? {uri: closestImage.url} : closestImage.url;
   }
 
   getArtist(artists: IArtist[]): string {

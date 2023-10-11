@@ -1,3 +1,5 @@
+import {ImageRequireSource} from 'react-native/Libraries/Image/ImageSource';
+
 export type IArtist = {
   id: string;
   uri: string;
@@ -5,7 +7,7 @@ export type IArtist = {
 };
 
 export type IImage = {
-  url: string;
+  url: string | ImageRequireSource;
   height: number;
   width: number;
 };
