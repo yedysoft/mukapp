@@ -30,7 +30,7 @@ export const SubHeader = observer(({type}: Props) => {
       <NavButton>
         <MukIconButton icon={'chevron-left'} scale={0.7} onPress={() => navigation.goBack()} />
       </NavButton>
-      {type ? null : <Coin />}
+      {type ? null : <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />}
     </SafeAreaView>
   );
 });

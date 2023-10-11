@@ -32,7 +32,7 @@ export const MainHeader = observer(() => {
       <MukLogo />
       <NavButton>
         {route.name == 'Shop' ? (
-          <Coin style={{marginRight: responsiveWidth(16)}} />
+          <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(16)}} />
         ) : (
           <MukIconButton icon={'bell-outline'} scale={0.4} tooltip={NotificationsTooltip} />
         )}
