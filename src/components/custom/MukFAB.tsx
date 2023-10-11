@@ -2,13 +2,14 @@ import {FAB, MD3Theme, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 };
 
-export default function MukFAB({onPress, style}: Props) {
+const MukFAB = observer(({onPress, style}: Props) => {
   const theme = useTheme();
   const styles = makeStyles({theme});
   const {room} = useStores();
@@ -25,7 +26,6 @@ export default function MukFAB({onPress, style}: Props) {
           bottom: room.isLive ? responsiveWidth(110) : responsiveWidth(16),
           right: responsiveWidth(16),
           borderRadius: 100,
-          zIndex: 1400,
         },
         styles.shadow,
         style,
@@ -33,7 +33,7 @@ export default function MukFAB({onPress, style}: Props) {
       onPress={onPress}
     />
   );
-}
+});
 
 type SProps = {
   theme: MD3Theme;
@@ -52,3 +52,5 @@ const makeStyles = ({theme}: SProps) =>
       elevation: 0,
     },
   });
+
+export default MukFAB;

@@ -6,8 +6,12 @@ import {useStores} from '../../stores';
 import {useState} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
+import MukTextInput from '../custom/MukTextInput';
+import {responsiveWidth} from '../../utils/Responsive';
+import {useTheme} from 'react-native-paper';
 
 const RoomTabs = observer(() => {
+  const {colors} = useTheme();
   const [playlistLoading, setPlaylistLoading] = useState(false);
   const {media, room} = useStores();
   const {api} = useServices();
@@ -31,8 +35,7 @@ const RoomTabs = observer(() => {
         {
           icon: 'playlist-plus',
           children: (
-            <SongList
-              header={<PlaylistList playlists={media.getPlaylists} />}
+            <SongList header={<PlaylistList playlists={media.getPlaylists} />}
               songs={api.helper.getSelectedPlaylistTracks(media.getPlaylists)}
             />
           ),
