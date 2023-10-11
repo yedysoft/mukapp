@@ -32,7 +32,7 @@ const PlayingTrack = observer(({compact}: Props) => {
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
         backgroundColor: dominantColor ?? theme.colors.background,
-        zIndex: 1400
+        zIndex: 1400,
       }}
     >
       <TouchableOpacity
@@ -42,7 +42,7 @@ const PlayingTrack = observer(({compact}: Props) => {
       >
         <MukImage
           scale={compact ? 1 : 2}
-          source={{uri: `${api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}`}}
+          source={api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}
         />
         <View
           style={{
@@ -50,17 +50,39 @@ const PlayingTrack = observer(({compact}: Props) => {
             justifyContent: 'flex-end',
             gap: responsiveWidth(4),
             paddingBottom: responsiveWidth(compact ? 8 : 16),
-            maxWidth: responsiveWidth(compact ? 264 : 236)
+            maxWidth: responsiveWidth(compact ? 264 : 236),
           }}
         >
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(compact ? 18 : 20), fontWeight: '500', color: textColor ?? theme.colors.secondary}}>
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: responsiveSize(compact ? 18 : 20),
+              fontWeight: '500',
+              color: textColor ?? theme.colors.secondary,
+            }}
+          >
             {media.getPlayingTrack.name}
           </Text>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(compact ? 14 : 16), fontWeight: '300', color: textColor ?? theme.colors.secondary}}>
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: responsiveSize(compact ? 14 : 16),
+              fontWeight: '300',
+              color: textColor ?? theme.colors.secondary,
+            }}
+          >
             {api.helper.getArtist(media.getPlayingTrack.artists)}
           </Text>
         </View>
-        {compact && <MukIconButton onPress={api.room.closeRoom} icon={'window-close'} scale={.5} color={textColor ?? theme.colors.secondary} style={{position: 'absolute', right: 0, top: responsiveWidth(8)}}/>}
+        {compact && (
+          <MukIconButton
+            onPress={api.room.closeRoom}
+            icon={'window-close'}
+            scale={0.5}
+            color={textColor ?? theme.colors.secondary}
+            style={{position: 'absolute', right: 0, top: responsiveWidth(8)}}
+          />
+        )}
       </TouchableOpacity>
       <View style={styles.shadow}>
         <MukProgressBar

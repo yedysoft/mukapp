@@ -13,10 +13,27 @@ export class MediaApi {
     return '';
   }
 
+  async search(q: string, offset = 0, limit = 10): PVoid {
+    try {
+      const response = await axiosIns.get(`/media/searchTracks?q=${q}&offset=${offset}&limit=${limit}`);
+      const playlists = this.getPlaylists(response.data.items);
+      stores.media.set('playlists', playlists);
+    } catch (e: any) {
+      console.log(e);
+    }
+  }
+
   async getCurrentUserPlaylists(): PVoid {
     try {
       const response = await axiosIns.get('/media/getCurrentUserPlaylists');
       const playlists = this.getPlaylists(response.data.items);
+      playlists.unshift({
+        id: 'search',
+        name: 'Arama',
+        selected: true,
+        images: [{url: require('../../../assets/search.png'), width: 128, height: 128}],
+        tracks: {items: [], total: 0, count: 0},
+      });
       stores.media.set('playlists', playlists);
     } catch (e: any) {
       console.log(e);

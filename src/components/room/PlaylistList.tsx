@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function PlaylistList({playlists}: Props) {
-  const [playlistIndex, setPlaylistIndex] = useState(-1);
+  const [playlistIndex, setPlaylistIndex] = useState(0);
   const {api} = useServices();
 
   const changePlaylist = (item: IPlaylist, index: number) => {

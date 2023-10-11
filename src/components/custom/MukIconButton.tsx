@@ -1,4 +1,4 @@
-import {Badge, IconButton, Text, useTheme} from 'react-native-paper';
+import {IconButton, Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {StyleProp, View, ViewStyle} from 'react-native';
@@ -31,14 +31,17 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
           paddingHorizontal: responsiveWidth(8),
           paddingVertical: responsiveWidth(3),
           borderRadius: 100,
-          zIndex: 1400
+          zIndex: 1400,
         }}
       >
-        <Text numberOfLines={1} style={{
-          color: colors.secondary,
-          fontWeight: 'bold',
-          fontSize: responsiveSize(14),
-        }}>
+        <Text
+          numberOfLines={1}
+          style={{
+            color: colors.secondary,
+            fontWeight: 'bold',
+            fontSize: responsiveSize(14),
+          }}
+        >
           {badge}
         </Text>
       </View>

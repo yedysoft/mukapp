@@ -1,7 +1,7 @@
 import {Buffer} from 'buffer';
 import {IArtist, IImage, IPlaylist, ITrack} from '../../types/media';
 import {responsiveScale} from '../../utils/Responsive';
-import {Linking} from 'react-native';
+import {ImageSourcePropType, Linking} from 'react-native';
 import {IMessage} from 'react-native-gifted-chat';
 import {ILastMessage} from '../../types/user';
 
@@ -68,23 +68,30 @@ export class HelperApi {
     return max === 0 ? 1 : min / max;
   }
 
-  getImageUrl(images: IImage[], scale: number): string {
+  isUrl(url: string) {
+    const urlRegex = /^(https?|ftp|file):\/\/[^\s/$.?#].\S*$/;
+    return urlRegex.test(url);
+  }
+
+  getImageUrl(images: IImage[], scale: number): ImageSourcePropType {
     if (images === undefined || images === null || images.length === 0) {
-      return '/assets/logo.png';
+      return require('../../../assets/logo.png');
     }
-    const width = responsiveScale(scale);
-    const height = responsiveScale(scale);
     let closestImage = images[0];
-    let closestDistance = Math.abs(images[0].width - width) + Math.abs(images[0].height - height);
-    for (let i = 1; i < images.length; i++) {
-      const image = images[i];
-      const distance = Math.abs(image.width - width) + Math.abs(image.height - height);
-      if (distance < closestDistance) {
-        closestImage = image;
-        closestDistance = distance;
+    if (images.length > 1) {
+      const width = responsiveScale(scale);
+      const height = responsiveScale(scale);
+      let closestDistance = Math.abs(images[0].width - width) + Math.abs(images[0].height - height);
+      for (let i = 1; i < images.length; i++) {
+        const image = images[i];
+        const distance = Math.abs(image.width - width) + Math.abs(image.height - height);
+        if (distance < closestDistance) {
+          closestImage = image;
+          closestDistance = distance;
+        }
       }
     }
-    return closestImage.url;
+    return this.isUrl(closestImage.url) ? {uri: closestImage.url} : require(closestImage.url);
   }
 
   getArtist(artists: IArtist[]): string {

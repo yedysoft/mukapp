@@ -18,7 +18,6 @@ export class SocketApi {
         str.indexOf('Received data') === -1 &&
         str.indexOf('playingTrack') === -1 &&
         console.debug('Socket Debug:', str),
-      //debug: str => console.debug('Socket Debug:', str),
       onWebSocketError: event => console.log('onWebSocketError:', event),
       onStompError: event => console.log('onStompError:', event),
       onWebSocketClose: event => console.log('onWebSocketClose:', event),

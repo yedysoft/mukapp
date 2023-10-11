@@ -52,3 +52,7 @@ export type IVoteResult = {
   musicId: string;
   voteCount: number;
 };
+
+export type ISearchResult = {
+  tracks: ITrack[];
+};
