@@ -18,7 +18,7 @@ export default function HorizontalUser() {
       />
       <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(8), gap: responsiveWidth(12)}}>
         <Text style={{color: colors.secondary, fontSize: responsiveSize(20)}}>@{user.getInfo.userName}</Text>
-        <View style={{flexDirection: 'column', justifyContent: 'flex-end'}}>
+        <View style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4)}}>
           <Coin />
           <Token />
         </View>

@@ -8,13 +8,13 @@ import {useServices} from '../../services';
 type Props = {
   coins: {
     value: number;
+    source: number;
     price: number;
   }[];
 };
 
 export default function CoinList({coins}: Props) {
   const {colors} = useTheme();
-  const [playlistIndex, setPlaylistIndex] = useState(0);
   const {api} = useServices();
 
   return (

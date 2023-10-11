@@ -19,8 +19,8 @@ const Coin = observer(({style}: Props) => {
     <View style={[{flexDirection: 'row', alignItems: 'center', minWidth: responsiveWidth(60)}, style]}>
       <MukImage
         scale={0.32}
-        style={{marginRight: responsiveWidth(9)}}
-        source={require('../../../assets/new-coin.png')}
+        style={{marginRight: responsiveWidth(8)}}
+        source={require('../../../assets/wallet/coin.png')}
       />
       <Text
         numberOfLines={1}

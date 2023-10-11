@@ -12,7 +12,7 @@ export const CombinedLightTheme = {
   colors: {
     ...MD3LightTheme.colors,
     ...LightTheme.colors,
-    primary: '#6FEE71',
+    primary: '#1ABC4C',
     secondary: '#041014',
     tertiary: 'rgba(255, 55, 95, 1)',
     background: '#ffffff',
@@ -30,7 +30,7 @@ export const CombinedDarkTheme = {
   colors: {
     ...MD3DarkTheme.colors,
     ...DarkTheme.colors,
-    primary: '#6FEE71',
+    primary: '#1ABC4C',
     secondary: '#ffffff',
     tertiary: 'rgba(255, 55, 95, 1)',
     background: '#041014',

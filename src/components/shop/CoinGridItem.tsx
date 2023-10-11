@@ -5,9 +5,10 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 
 type Props = {
   onPress?: () => void;
-  coin?: {
-    value?: number;
-    price?: number;
+  coin: {
+    value: number;
+    source: number;
+    price: number;
   };
 };
 
@@ -32,7 +33,7 @@ export default function CoinGridItem({onPress, coin}: Props) {
         styles.shadow,
       ]}
     >
-      <MukImage scale={1} source={require('../../../assets/new-coin.png')} />
+      <MukImage scale={1} source={coin.source} />
       <Text
         numberOfLines={1}
         style={{

@@ -16,11 +16,11 @@ const Token = observer(({style}: Props) => {
   const {api} = useServices();
 
   return (
-    <View style={[{flexDirection: 'row', alignItems: 'center'}, style]}>
+    <View style={[{flexDirection: 'row', alignItems: 'center', minWidth: responsiveWidth(60)}, style]}>
       <MukImage
-        scale={0.46}
-        style={{marginLeft: responsiveWidth(-5), marginRight: responsiveWidth(4)}}
-        source={require('../../../assets/coin.png')}
+        scale={0.32}
+        style={{marginRight: responsiveWidth(8)}}
+        source={require('../../../assets/wallet/token.png')}
       />
       <Text
         numberOfLines={1}
