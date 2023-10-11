@@ -43,7 +43,11 @@ export class MediaApi {
   async getPlaylistTracks(playlistId: string): PVoid {
     try {
       const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
-      if (playlist && playlist.tracks.count < playlist.tracks.total) {
+      if (
+        playlist &&
+        (playlist.tracks.count < playlist.tracks.total ||
+          (playlist.id === 'search' && (playlist.tracks.total === 0 || playlist.tracks.count < playlist.tracks.total)))
+      ) {
         const offset = playlist.tracks.count;
         const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
         const tracks = this.getTracks(response.data.items.map((d: any) => d.track));
