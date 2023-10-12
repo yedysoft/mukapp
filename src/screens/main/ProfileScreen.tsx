@@ -15,12 +15,12 @@ export default function ProfileScreen() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <MainLayout style={{paddingTop: responsiveWidth(100), gap: responsiveHeight(16)}}>
-      <VerticalProfile image={image} onPress={() => setVisible(true)}/>
-      <EditImage setImage={setImage} isVisible={isVisible} setVisible={setVisible}/>
+    <MainLayout style={{gap: responsiveHeight(16)}}>
+      <VerticalProfile image={image} onPress={() => setVisible(true)} />
+      <EditImage setImage={setImage} isVisible={isVisible} setVisible={setVisible} />
       <View style={{gap: responsiveWidth(4)}}>
-        <ProfileStats activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
-        <ProfileList items={[...Array(6)]}/>
+        <ProfileStats activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+        <ProfileList items={[...Array(6)]} />
       </View>
     </MainLayout>
   );

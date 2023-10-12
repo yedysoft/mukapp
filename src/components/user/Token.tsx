@@ -8,9 +8,10 @@ import {useServices} from '../../services';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
+  customValue?: string;
 };
 
-const Token = observer(({style}: Props) => {
+const Token = observer(({style, customValue}: Props) => {
   const {colors} = useTheme();
   const {user} = useStores();
   const {api} = useServices();
@@ -26,7 +27,7 @@ const Token = observer(({style}: Props) => {
         numberOfLines={1}
         style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '600', textAlign: 'left'}}
       >
-        {api.helper.nummer(user.getInfo.token)}
+        {customValue ?? user.getInfo.token}
       </Text>
     </View>
   );

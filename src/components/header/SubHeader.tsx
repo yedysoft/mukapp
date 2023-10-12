@@ -2,18 +2,15 @@ import {useTheme} from 'react-native-paper';
 import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
 import MukIconButton from '../custom/MukIconButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import Coin from '../user/Coin';
 import {NavButton} from './NavButton';
+import Token from '../user/Token';
 
-type Props = {
-  type?: string;
-};
-
-export const SubHeader = observer(({type}: Props) => {
+export const SubHeader = observer(() => {
   const {colors} = useTheme();
   const navigation = useNavigation();
+  const route = useRoute();
 
   return (
     <SafeAreaView
@@ -21,6 +18,7 @@ export const SubHeader = observer(({type}: Props) => {
         backgroundColor: 'transparent',
         paddingHorizontal: responsiveWidth(8),
         paddingRight: responsiveWidth(24),
+        paddingTop: responsiveHeight(16),
         paddingBottom: responsiveHeight(-16),
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -30,9 +28,9 @@ export const SubHeader = observer(({type}: Props) => {
       <NavButton>
         <MukIconButton icon={'chevron-left'} scale={0.7} onPress={() => navigation.goBack()} />
       </NavButton>
-      {type ? null : (
-        <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
-      )}
+      {route.name == 'Task' ? (
+        <Token style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
+      ) : null}
     </SafeAreaView>
   );
 });

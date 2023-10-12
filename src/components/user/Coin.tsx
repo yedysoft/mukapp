@@ -26,7 +26,7 @@ const Coin = observer(({style}: Props) => {
         numberOfLines={1}
         style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '600', textAlign: 'left'}}
       >
-        {api.helper.nummer(user.getInfo.coin)}
+        {user.getInfo.coin}
       </Text>
     </View>
   );

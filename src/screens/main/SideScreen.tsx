@@ -16,6 +16,11 @@ const menu = [
     route: 'Premium',
   },
   {
+    icon: 'view-list-outline',
+    label: 'Görevler',
+    route: 'Task',
+  },
+  {
     icon: 'bookmark-outline',
     label: 'Favoriler',
     route: 'Bookmarks',

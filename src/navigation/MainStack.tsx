@@ -4,6 +4,7 @@ import BottomTabs from './BottomTabs';
 import {SubHeader} from '../components/header/SubHeader';
 import ChatScreen from '../screens/main/social/ChatScreen';
 import ProfileScreen from '../screens/main/ProfileScreen';
+import TaskScreen from '../screens/main/TaskScreen';
 
 const Main = createStackNavigator();
 
@@ -14,11 +15,10 @@ export default function MainStack() {
       <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader />}}>
         <Main.Screen name="Room" component={RoomScreen} />
       </Main.Group>
-      <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader type={'chat'} />}}>
+      <Main.Group screenOptions={{header: () => <SubHeader />}}>
         <Main.Screen name="Chat" component={ChatScreen} />
-      </Main.Group>
-      <Main.Group screenOptions={{headerTransparent: true, header: () => <SubHeader type={'profile'} />}}>
         <Main.Screen name="Profile" component={ProfileScreen} />
+        <Main.Screen name="Task" component={TaskScreen} />
       </Main.Group>
     </Main.Navigator>
   );
