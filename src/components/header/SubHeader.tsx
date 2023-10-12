@@ -6,6 +6,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import {NavButton} from './NavButton';
 import Token from '../user/Token';
+import Coin from '../user/Coin';
 
 export const SubHeader = observer(() => {
   const {colors} = useTheme();
@@ -30,6 +31,8 @@ export const SubHeader = observer(() => {
       </NavButton>
       {route.name == 'Task' ? (
         <Token style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
+      ) : route.name == 'Room' ? (
+        <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
       ) : null}
     </SafeAreaView>
   );
