@@ -6,10 +6,9 @@ import {useStores} from '../../stores';
 import {useState} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
-import MukTextInput from '../custom/MukTextInput';
-import {responsiveWidth} from '../../utils/Responsive';
 import {useTheme} from 'react-native-paper';
 import MukImage from '../custom/MukImage';
+import LeaderboardList from './LeaderboardList';
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme();
@@ -21,7 +20,7 @@ const RoomTabs = observer(() => {
     api.media.getCurrentUserPlaylists().then(() => setPlaylistLoading(true));
   }
 
-  const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists)
+  const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists);
 
   return (
     <MukTabs
@@ -38,12 +37,27 @@ const RoomTabs = observer(() => {
         {
           icon: 'playlist-plus',
           children: (
-            <SongList header={<PlaylistList playlists={media.getPlaylists} />}
-                      footer={playlistLoading ? <MukImage scale={.5} style={{alignSelf: 'center'}} source={require('../../../assets/loader.gif')} /> : <></>}
+            <SongList
+              header={<PlaylistList playlists={media.getPlaylists} />}
+              footer={
+                playlistLoading ? (
+                  <MukImage scale={0.5} style={{alignSelf: 'center'}} source={require('../../../assets/loader.gif')} />
+                ) : (
+                  <></>
+                )
+              }
               songs={selectedPlaylist ? selectedPlaylist?.tracks.items : []}
-                      onEndReached={() => selectedPlaylist && api.media.getPlaylistTracks(selectedPlaylist?.id)}
+              onEndReached={() => selectedPlaylist && api.media.getPlaylistTracks(selectedPlaylist?.id)}
             />
           ),
+        },
+        {
+          icon: 'crown-outline',
+          children: <LeaderboardList leaderboard={[...Array(10)]} />,
+        },
+        {
+          icon: 'cog-outline',
+          children: <SongList songs={media.getQueue} />,
         },
       ]}
     />
