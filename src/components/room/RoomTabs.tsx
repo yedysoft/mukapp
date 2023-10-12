@@ -7,8 +7,10 @@ import {useState} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
 import {useTheme} from 'react-native-paper';
-import MukImage from '../custom/MukImage';
 import LeaderboardList from './LeaderboardList';
+import RoomSettingsList from './RoomSettingsList';
+import LeaderboardListItem from './LeaderboardListItem';
+import MukLoader from '../custom/MukLoader';
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme();
@@ -39,13 +41,7 @@ const RoomTabs = observer(() => {
           children: (
             <SongList
               header={<PlaylistList playlists={media.getPlaylists} />}
-              footer={
-                playlistLoading ? (
-                  <MukImage scale={0.5} style={{alignSelf: 'center'}} source={require('../../../assets/loader.gif')} />
-                ) : (
-                  <></>
-                )
-              }
+              footer={<MukLoader isLoading={playlistLoading} />}
               songs={selectedPlaylist ? selectedPlaylist?.tracks.items : []}
               onEndReached={() => selectedPlaylist && api.media.getPlaylistTracks(selectedPlaylist?.id)}
             />
@@ -53,11 +49,13 @@ const RoomTabs = observer(() => {
         },
         {
           icon: 'crown-outline',
-          children: <LeaderboardList leaderboard={[...Array(10)]} />,
+          children: (
+            <LeaderboardList header={<LeaderboardListItem index={31} leader={'any'} />} leaderboard={[...Array(10)]} />
+          ),
         },
         {
           icon: 'cog-outline',
-          children: <SongList songs={media.getQueue} />,
+          children: <RoomSettingsList settings={[...Array(3)]} />,
         },
       ]}
     />

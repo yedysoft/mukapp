@@ -1,7 +1,7 @@
 import {Chip, useTheme} from 'react-native-paper';
 
 type Props = {
-  mode?: string | undefined;
+  mode?: 'flat' | 'outlined' | undefined;
   icon?: string;
   label?: string;
 };

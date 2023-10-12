@@ -32,7 +32,7 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
   }
 
   return (
-    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled={true}>
+    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}}>
       <View
         style={{
           justifyContent: 'center',
@@ -44,7 +44,13 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
       >
         <Text
           numberOfLines={1}
-          style={{fontSize: responsiveSize(24), fontWeight: '900', color: rankColor, minWidth: responsiveWidth(32)}}
+          style={{
+            fontSize: responsiveSize(24),
+            fontWeight: '900',
+            color: rankColor,
+            minWidth: responsiveWidth(40),
+            textAlign: 'center',
+          }}
         >
           {rank}
         </Text>
