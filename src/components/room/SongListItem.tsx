@@ -3,11 +3,11 @@ import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import MukListItem from '../custom/MukListItem';
-import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
 import {IQueueTrack, ITrack} from '../../types/media';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import VoteButton from './VoteButton';
 
 type Props = {
   song: IQueueTrack | ITrack;
@@ -29,12 +29,9 @@ const SongListItem = observer(({song}: Props) => {
           {api.helper.getArtist(song.artists)}
         </Text>
       </View>
-      <MukIconButton
+      <VoteButton
         badge={'voteCount' in song ? song.voteCount : undefined}
         style={{position: 'absolute', right: responsiveWidth(16)}}
-        scale={0.4}
-        icon={'cards-heart-outline'}
-        color={'rgba(255, 55, 95, 1)'}
         onPress={() => api.subscription.voteMusic({musicId: song.id, userId: user.getInfo.id})}
       />
     </MukListItem>

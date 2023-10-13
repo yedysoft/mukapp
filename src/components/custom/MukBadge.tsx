@@ -13,7 +13,7 @@ export default function MukBadge({style, badge}: Props) {
     <View
       style={[
         {
-          backgroundColor: colors.tertiary,
+          backgroundColor: colors.secondary,
           minWidth: responsiveWidth(16),
           display: badge ? 'flex' : 'none',
           paddingHorizontal: responsiveWidth(8),
@@ -27,7 +27,7 @@ export default function MukBadge({style, badge}: Props) {
       <Text
         numberOfLines={1}
         style={{
-          color: colors.secondary,
+          color: colors.tertiary,
           fontWeight: 'bold',
           fontSize: responsiveSize(14),
         }}
