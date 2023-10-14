@@ -26,7 +26,7 @@ const PlayingTrack = observer(({compact}: Props) => {
     <View
       style={{
         width: screenWidth,
-        height: responsiveHeight(compact ? 88 : 280),
+        height: responsiveHeight(compact ? 88 : 300),
         justifyContent: 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),
         position: compact ? 'absolute' : 'relative',

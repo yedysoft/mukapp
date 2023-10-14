@@ -4,15 +4,18 @@ import React, {ReactNode, useCallback, useMemo} from 'react';
 import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
 import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {useTheme} from 'react-native-paper';
+import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   sheetRef: React.RefObject<BottomSheetMethods>;
   children: ReactNode;
   contentStyle?: StyleProp<ViewStyle>;
   snaps: string[];
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
-export default function MukSheet({sheetRef, children, contentStyle, snaps}: Props) {
+const MukSheet = observer(({sheetRef, children, contentStyle, snaps, containerStyle}: Props) => {
   const {colors} = useTheme();
   const snapPoints = useMemo(() => snaps, []);
   const handleSheetChanges = useCallback((index: number) => {
@@ -24,6 +27,7 @@ export default function MukSheet({sheetRef, children, contentStyle, snaps}: Prop
     <BottomSheet
       backdropComponent={renderBackdrop}
       ref={sheetRef}
+      containerStyle={containerStyle}
       index={-1}
       snapPoints={snapPoints}
       enablePanDownToClose
@@ -42,4 +46,6 @@ export default function MukSheet({sheetRef, children, contentStyle, snaps}: Prop
       </View>
     </BottomSheet>
   );
-}
+});
+
+export default MukSheet;

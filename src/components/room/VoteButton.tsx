@@ -19,18 +19,15 @@ export default function VoteButton({onPress, badge, style}: Props) {
       <MukBadge
         badge={badge}
         style={{
-          width: responsiveWidth(32),
-          aspectRatio: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          top: responsiveWidth(28),
-          left: responsiveWidth(36),
+          position: 'absolute',
+          left: responsiveWidth(24),
+          bottom: responsiveWidth(24)
         }}
       />
       <MukMask
         progress={'100%'}
-        mask={<MukImage source={require('../../../assets/vote/vote-filled.png')} />}
-        masked={<MukImage source={require('../../../assets/vote/vote-outlined.png')} />}
+        mask={<MukImage scale={.6} source={require('../../../assets/vote/vote-filled.png')} />}
+        masked={<MukImage scale={.6} source={require('../../../assets/vote/vote-outlined.png')} />}
       />
     </TouchableOpacity>
   );

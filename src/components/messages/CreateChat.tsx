@@ -9,6 +9,7 @@ import {observer} from 'mobx-react';
 import {responsiveWidth} from '../../utils/Responsive';
 import {useTheme} from 'react-native-paper';
 import FriendsList from './FriendsList';
+import {useStores} from '../../stores';
 
 const friendsData = [
   {
@@ -40,8 +41,11 @@ const CreateChat = observer(() => {
   };
 
   const createChat = async () => {
-    navigation.navigate('Room');
+    sheetRef.current?.close();
+    navigation.navigate('Chat');
   };
+
+  const {room} = useStores();
 
   return (
     <>
@@ -49,6 +53,7 @@ const CreateChat = observer(() => {
       <MukSheet
         snaps={['70%']}
         sheetRef={sheetRef}
+        containerStyle={{marginBottom: room.isLive ? 88 : 0}}
         contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
       >
         <FriendsList friends={friendsData}/>
