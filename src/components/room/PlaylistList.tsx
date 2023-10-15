@@ -43,7 +43,13 @@ export default function PlaylistList({playlists}: Props) {
           gap: responsiveWidth(24),
         }}
       />
-      {playlistId === 'search' && <MukTextInput name={'search'} outlineStyle={{borderColor: colors.primary}} style={{alignSelf: 'center', width: '92%', marginVertical: responsiveWidth(8)}}/>}
+      {playlistId === 'search' && (
+        <MukTextInput
+          name={'search'}
+          outlineStyle={{borderColor: colors.primary}}
+          style={{alignSelf: 'center', width: '92%', marginVertical: responsiveWidth(8)}}
+        />
+      )}
     </>
   );
 }

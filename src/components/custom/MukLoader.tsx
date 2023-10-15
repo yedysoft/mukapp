@@ -2,13 +2,13 @@ import {useTheme} from 'react-native-paper';
 import MukImage from './MukImage';
 
 type Props = {
-  isLoading?: boolean;
+  loading: boolean;
 };
 
-export default function MukLoader({isLoading}: Props) {
+export default function MukLoader({loading}: Props) {
   const {colors} = useTheme();
 
-  return isLoading ? (
+  return loading ? (
     <MukImage scale={0.5} style={{alignSelf: 'center'}} source={require('../../../assets/loader.gif')} />
   ) : (
     <></>

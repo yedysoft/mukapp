@@ -17,7 +17,7 @@ export default function SongList({songs, header, onEndReached, footer}: Props) {
       data={songs}
       ListHeaderComponent={header}
       ListFooterComponent={footer}
-      renderItem={({item, index}) => <SongListItem key={index} song={item}/>}
+      renderItem={({item, index}) => <SongListItem key={index} song={item} />}
       scrollEnabled
       onEndReached={onEndReached}
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}

@@ -28,7 +28,7 @@ export class MediaApi {
     try {
       stores.loading.set('userPlaylist', true);
       const response = await axiosIns.get('/media/getCurrentUserPlaylists');
-      const playlists = this.getPlaylists(response.data.items);
+      const playlists: IPlaylist[] = response.data;
       playlists.unshift({
         id: 'search',
         name: 'Arama',
@@ -48,18 +48,14 @@ export class MediaApi {
     try {
       stores.loading.set('playlistTracks', true);
       const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
-      if (
-        playlist &&
-        (playlist.tracks.count < playlist.tracks.total ||
-          (playlist.id === 'search' && (playlist.tracks.total === 0 || playlist.tracks.count < playlist.tracks.total)))
-      ) {
+      if (playlist && playlist.tracks.count < playlist.tracks.total) {
         const offset = playlist.tracks.count;
         if (playlist.id === 'search' && q) {
           const tracks = await this.searchTracks(q, offset);
           playlist.tracks.items.push(...tracks);
         } else if (playlist.id !== 'search') {
           const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
-          const tracks = this.getTracks(response.data.items.map((d: any) => d.track));
+          const tracks = this.getTracks(response.data.map((d: any) => d.track));
           playlist.tracks.items.push(...tracks);
         }
       }
@@ -72,7 +68,7 @@ export class MediaApi {
     } catch (e: any) {
       console.log(e);
     } finally {
-      stores.loading.set('userPlaylist', false);
+      stores.loading.set('playlistTracks', false);
     }
   }
 
@@ -148,10 +144,6 @@ export class MediaApi {
       : [];
   }
 
-  private getPlaylists(state: any): IPlaylist[] {
-    return state ? state.map((data: any) => this.getPlaylist(data)) : [];
-  }
-
   private getTrack(state: any): ITrack {
     return {
       id: state.id,
@@ -160,16 +152,6 @@ export class MediaApi {
       artists: this.getArtists(state.artists),
       images: this.getImages(state.album.images),
       duration: state.durationMs,
-    };
-  }
-
-  private getPlaylist(state: any): IPlaylist {
-    return {
-      id: state.id,
-      name: state.name,
-      images: this.getImages(state.images),
-      tracks: {items: [], total: state.tracks.total, count: 0},
-      selected: false,
     };
   }
 }

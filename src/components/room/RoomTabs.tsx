@@ -3,7 +3,7 @@ import PlaylistList from './PlaylistList';
 import {MukChat} from '../custom/MukChat';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {useState} from 'react';
+import {useEffect} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
 import {useTheme} from 'react-native-paper';
@@ -14,15 +14,13 @@ import MukLoader from '../custom/MukLoader';
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme();
-  const [playlistLoading, setPlaylistLoading] = useState(false);
-  const {media, room} = useStores();
   const {api} = useServices();
-
-  if (!playlistLoading) {
-    api.media.getCurrentUserPlaylists().then(() => setPlaylistLoading(true));
-  }
-
+  const {media, room, loading} = useStores();
   const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists);
+
+  useEffect(() => {
+    api.media.getCurrentUserPlaylists();
+  }, []);
 
   return (
     <MukTabs
@@ -41,8 +39,8 @@ const RoomTabs = observer(() => {
           children: (
             <SongList
               header={<PlaylistList playlists={media.getPlaylists} />}
-              footer={<MukLoader isLoading={playlistLoading} />}
-              songs={selectedPlaylist ? selectedPlaylist?.tracks.items : []}
+              footer={<MukLoader loading={loading.getUserPlaylist} />}
+              songs={selectedPlaylist ? selectedPlaylist.tracks.items : []}
               onEndReached={() => selectedPlaylist && api.media.getPlaylistTracks(selectedPlaylist?.id)}
             />
           ),
