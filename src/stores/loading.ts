@@ -15,7 +15,7 @@ export class LoadingStore extends BaseStore<LoadingStore> {
   }
 
   get getUserPlaylist() {
-    return this.playlistTracks;
+    return this.userPlaylist;
   }
 
   get getPlaylistTracks() {

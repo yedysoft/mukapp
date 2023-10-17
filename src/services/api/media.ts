@@ -68,7 +68,7 @@ export class MediaApi {
             helper.clearArray(playlist.tracks.items);
           }
           total = result.total;
-          playlist.tracks.items.push(...result.tracks);
+          playlist.tracks.items.push(...this.getTracks(result.tracks));
         } else if (playlist.id !== 'search') {
           const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
           const tracks = this.getTracks(response.data.map((d: any) => d.track));

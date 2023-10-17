@@ -10,7 +10,7 @@ import {useTheme} from 'react-native-paper';
 import LeaderboardList from './LeaderboardList';
 import RoomSettingsList from './RoomSettingsList';
 import LeaderboardListItem from './LeaderboardListItem';
-import MukLoader from '../custom/MukLoader';
+import MukLoader from '../loading/MukLoader';
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme();
@@ -19,6 +19,7 @@ const RoomTabs = observer(() => {
   const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists);
 
   useEffect(() => {
+    console.log('test');
     api.media.getCurrentUserPlaylists();
   }, []);
 
@@ -38,16 +39,16 @@ const RoomTabs = observer(() => {
           icon: 'playlist-plus',
           children: (
             <SongList
+              loading={loading.getUserPlaylist}
               header={<PlaylistList playlists={media.getPlaylists} />}
-              footer={<MukLoader loading={loading.getUserPlaylist} />}
+              footer={<MukLoader loading={loading.getPlaylistTracks} />}
               songs={selectedPlaylist ? selectedPlaylist.tracks.items : []}
-              onEndReached={() => {
-                console.log('selectedPlaylist', selectedPlaylist);
+              onEndReached={() =>
                 !loading.getUserPlaylist &&
-                  !loading.getPlaylistTracks &&
-                  selectedPlaylist &&
-                  api.media.getPlaylistTracks(selectedPlaylist?.id, false, media.getSearchValue);
-              }}
+                !loading.getPlaylistTracks &&
+                selectedPlaylist &&
+                api.media.getPlaylistTracks(selectedPlaylist?.id, false, media.getSearchValue)
+              }
             />
           ),
         },

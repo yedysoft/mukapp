@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import MukImage from '../../components/custom/MukImage';
+import MukLoader from '../../components/loading/MukLoader';
 
 export default function SplashScreen() {
   const {colors} = useTheme();
@@ -15,7 +15,7 @@ export default function SplashScreen() {
         alignItems: 'center',
       }}
     >
-      <MukImage scale={2} source={require('../../../assets/loader.gif')} />
+      <MukLoader loading={true} scale={2} />
     </View>
   );
 }
