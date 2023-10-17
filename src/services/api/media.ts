@@ -1,6 +1,16 @@
 import {stores} from '../../stores';
-import {IArtist, IImage, IPlayingTrack, IPlaylist, IQueueTrack, ITrack, IVoteResult} from '../../types/media';
+import {
+  IArtist,
+  IImage,
+  IPlayingTrack,
+  IPlaylist,
+  IQueueTrack,
+  ISearchResult,
+  ITrack,
+  IVoteResult,
+} from '../../types/media';
 import axiosIns from '../axiosIns';
+import helper from './helper';
 
 export class MediaApi {
   async getAuthUrl(): Promise<string> {
@@ -13,15 +23,16 @@ export class MediaApi {
     return '';
   }
 
-  async searchTracks(q: string, offset = 0, limit = 10): Promise<ITrack[]> {
-    let tracks: ITrack[] = [];
+  private async searchTracks(q: string, offset = 0, limit = 10): Promise<ISearchResult> {
+    let result: ISearchResult = {tracks: [], total: 0};
     try {
+      stores.media.set('searchValue', q);
       const response = await axiosIns.get(`/media/searchTracks?q=${q}&offset=${offset}&limit=${limit}`);
-      tracks = response.data;
+      result = response.data;
     } catch (e: any) {
       console.log(e);
     }
-    return tracks;
+    return result;
   }
 
   async getCurrentUserPlaylists(): PVoid {
@@ -44,15 +55,20 @@ export class MediaApi {
     }
   }
 
-  async getPlaylistTracks(playlistId: string, q?: string): PVoid {
+  async getPlaylistTracks(playlistId: string, isSelect?: boolean, q?: string, searching?: boolean): PVoid {
     try {
       stores.loading.set('playlistTracks', true);
       const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
-      if (playlist && playlist.tracks.count < playlist.tracks.total) {
+      let total: number;
+      if (!isSelect && playlist && (playlist.tracks.count < playlist.tracks.total || (playlist.id === 'search' && q))) {
         const offset = playlist.tracks.count;
         if (playlist.id === 'search' && q) {
-          const tracks = await this.searchTracks(q, offset);
-          playlist.tracks.items.push(...tracks);
+          const result = await this.searchTracks(q, searching ? 0 : offset);
+          if (searching) {
+            helper.clearArray(playlist.tracks.items);
+          }
+          total = result.total;
+          playlist.tracks.items.push(...result.tracks);
         } else if (playlist.id !== 'search') {
           const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
           const tracks = this.getTracks(response.data.map((d: any) => d.track));
@@ -61,7 +77,7 @@ export class MediaApi {
       }
       const playlists = stores.media.getPlaylists.map(p =>
         p.id === playlistId
-          ? {...p, selected: true, tracks: {...p.tracks, count: p.tracks.items.length}}
+          ? {...p, selected: true, tracks: {...p.tracks, total: total ?? p.tracks.total, count: p.tracks.items.length}}
           : {...p, selected: false},
       );
       stores.media.set('playlists', playlists);

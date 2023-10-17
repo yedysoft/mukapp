@@ -45,6 +45,11 @@ export type IPlaylistTracks = {
   count: number;
 };
 
+export type ISearchResult = {
+  tracks: ITrack[];
+  total: number;
+};
+
 export type IVote = {
   userId: string | null;
   musicId: string;
@@ -53,8 +58,4 @@ export type IVote = {
 export type IVoteResult = {
   musicId: string;
   voteCount: number;
-};
-
-export type ISearchResult = {
-  tracks: ITrack[];
 };

@@ -6,6 +6,8 @@ import {IMessage} from 'react-native-gifted-chat';
 import {ILastMessage} from '../../types/user';
 
 export class HelperApi {
+  timeoutId: NodeJS.Timeout | undefined;
+
   async openURL(url: string) {
     try {
       const supported = await Linking.canOpenURL(url);
@@ -44,7 +46,8 @@ export class HelperApi {
   }
 
   sleep(ms: number): PVoid {
-    return new Promise<void>(resolver => setTimeout(resolver, ms));
+    this.timeoutId && clearTimeout(this.timeoutId);
+    return new Promise<void>(resolver => (this.timeoutId = setTimeout(resolver, ms)));
   }
 
   msToMinSec(ms: number): string {
@@ -62,6 +65,12 @@ export class HelperApi {
       return array;
     }
     return [];
+  }
+
+  clearArray(array: any[]) {
+    while (array.length > 0) {
+      array.pop();
+    }
   }
 
   isUrl(url: string) {

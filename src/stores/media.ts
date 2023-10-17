@@ -16,6 +16,7 @@ export class MediaStore extends BaseStore<MediaStore> {
   };
   queue: IQueueTrack[] = [];
   playlists: IPlaylist[] = [];
+  searchValue = '';
 
   constructor() {
     super();
@@ -36,6 +37,10 @@ export class MediaStore extends BaseStore<MediaStore> {
 
   get getPlaylists() {
     return this.playlists;
+  }
+
+  get getSearchValue() {
+    return this.searchValue;
   }
 }
 

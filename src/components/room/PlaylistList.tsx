@@ -6,19 +6,31 @@ import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
 import MukTextInput from '../custom/MukTextInput';
 import {useTheme} from 'react-native-paper';
+import {observer} from 'mobx-react';
+import {useStores} from '../../stores';
 
 type Props = {
   playlists: IPlaylist[];
 };
 
-export default function PlaylistList({playlists}: Props) {
+const PlaylistList = observer(({playlists}: Props) => {
   const {colors} = useTheme();
   const [playlistId, setPlaylistId] = useState('search');
   const {api} = useServices();
+  const {loading, media} = useStores();
 
   const changePlaylist = (item: IPlaylist) => {
-    item.tracks.count === 0 && api.media.getPlaylistTracks(item.id);
+    !loading.getPlaylistTracks && api.media.getPlaylistTracks(item.id, item.tracks.count === 0);
     setPlaylistId(item.id);
+  };
+
+  const handleSearch = (name: string, value: string) => {
+    api.helper.sleep(500).then(() => {
+      if (media.getSearchValue !== value) {
+        !loading.getPlaylistTracks &&
+          api.media.getPlaylistTracks('search', false, value, media.getSearchValue !== value);
+      }
+    });
   };
 
   return (
@@ -47,9 +59,12 @@ export default function PlaylistList({playlists}: Props) {
         <MukTextInput
           name={'search'}
           outlineStyle={{borderColor: colors.primary}}
+          onChange={handleSearch}
           style={{alignSelf: 'center', width: '92%', marginVertical: responsiveWidth(8)}}
         />
       )}
     </>
   );
-}
+});
+
+export default PlaylistList;

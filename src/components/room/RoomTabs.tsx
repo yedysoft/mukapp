@@ -41,7 +41,13 @@ const RoomTabs = observer(() => {
               header={<PlaylistList playlists={media.getPlaylists} />}
               footer={<MukLoader loading={loading.getUserPlaylist} />}
               songs={selectedPlaylist ? selectedPlaylist.tracks.items : []}
-              onEndReached={() => selectedPlaylist && api.media.getPlaylistTracks(selectedPlaylist?.id)}
+              onEndReached={() => {
+                console.log('selectedPlaylist', selectedPlaylist);
+                !loading.getUserPlaylist &&
+                  !loading.getPlaylistTracks &&
+                  selectedPlaylist &&
+                  api.media.getPlaylistTracks(selectedPlaylist?.id, false, media.getSearchValue);
+              }}
             />
           ),
         },
