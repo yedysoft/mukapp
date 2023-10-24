@@ -1,9 +1,14 @@
 import {BaseStore} from './base';
-import {IChat, IInfo} from '../types/user';
+import {IBlockedUser, IChat, IFollowRequest, IFollowUser, IInfo} from '../types/user';
 
 export class UserStore extends BaseStore<UserStore> {
   info: IInfo = {id: null, userName: '', image: '', name: '', surname: '', coin: 0, token: 0};
   chats: IChat[] = [];
+  searched: IInfo[] = []
+  follows: IFollowUser[] = []
+  followers: IFollowUser[] = []
+  followRequests: IFollowRequest[] = []
+  blockedUsers: IBlockedUser[] = []
 
   constructor() {
     super();
@@ -16,6 +21,26 @@ export class UserStore extends BaseStore<UserStore> {
 
   get getChats() {
     return this.chats;
+  }
+
+  get getSearched() {
+    return this.searched
+  }
+
+  get getFollows() {
+    return this.follows
+  }
+
+  get getFollowers() {
+    return this.followers
+  }
+
+  get getFollowRequests() {
+    return this.followRequests
+  }
+
+  get getBlockedUsers() {
+    return this.blockedUsers
   }
 }
 

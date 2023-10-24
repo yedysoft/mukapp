@@ -11,6 +11,11 @@ const menu = [
     route: 'Profile',
   },
   {
+    icon: 'account-search-outline',
+    label: 'Arama',
+    route: 'Search',
+  },
+  {
     icon: 'star-outline',
     label: 'Premium',
     route: 'Premium',
@@ -23,7 +28,7 @@ const menu = [
   {
     icon: 'bookmark-outline',
     label: 'Favoriler',
-    route: 'Bookmarks',
+    route: 'Favorite',
   },
   {
     icon: 'cog-outline',

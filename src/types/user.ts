@@ -22,3 +22,20 @@ export type ILastMessage = {
   message: string;
   date: Date | number;
 };
+
+export type IFollowUser = {
+  userName: string;
+  imagePath: string;
+};
+
+export type IFollowRequest = {
+  requestId: string;
+  userName: string;
+};
+
+export type IBlockedUser = {
+  blockId: string;
+  blockedUserId: string;
+  userName: string;
+  imgPath: string;
+}
