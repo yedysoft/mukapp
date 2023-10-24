@@ -29,6 +29,7 @@ export type IPlayingTrack = ITrack & {
   progress: number;
   isPlaying: boolean;
   dominantColor: string;
+  voteable: boolean;
 };
 
 export type IPlaylist = {

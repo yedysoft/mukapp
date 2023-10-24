@@ -95,6 +95,7 @@ export class MediaApi {
         track.isPlaying = data.is_playing;
         track.progress = data.progress_ms;
         track.dominantColor = data.dominantColor;
+        track.voteable = data.voteable;
         stores.media.set('playingTrack', track);
       }
     } catch (e: any) {
