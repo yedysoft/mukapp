@@ -11,6 +11,11 @@ const menu = [
     route: 'Profile',
   },
   {
+    icon: 'bell-outline',
+    label: 'Bildirimler',
+    route: 'Notifications',
+  },
+  {
     icon: 'account-search-outline',
     label: 'Arama',
     route: 'Search',

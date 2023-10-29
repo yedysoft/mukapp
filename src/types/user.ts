@@ -39,3 +39,11 @@ export type IBlockedUser = {
   userName: string;
   imgPath: string;
 }
+
+export type ISearchUser = {
+  id: string,
+  image: string,
+  name: string,
+  surname: string,
+  userName: string,
+}

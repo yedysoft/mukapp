@@ -7,6 +7,7 @@ import ProfileScreen from '../screens/main/ProfileScreen';
 import TaskScreen from '../screens/main/TaskScreen';
 import PremiumScreen from '../screens/main/PremiumScreen';
 import {SearchScreen} from '../screens/main/social/SearchScreen';
+import {NotificationsScreen} from '../screens/main/NotificationsScreen';
 
 const Main = createStackNavigator();
 
@@ -21,6 +22,7 @@ export default function MainStack() {
         <Main.Screen name="Chat" component={ChatScreen} />
         <Main.Screen name="Profile" component={ProfileScreen} />
         <Main.Screen name="Search" component={SearchScreen} />
+        <Main.Screen name="Notifications" component={NotificationsScreen} />
         <Main.Screen name="Task" component={TaskScreen} />
         <Main.Screen name="Premium" component={PremiumScreen} />
       </Main.Group>
