@@ -3,27 +3,16 @@ import ProfileStatsItem from './ProfileStatsItem';
 import {responsiveWidth} from '../../utils/Responsive';
 import {Dispatch, SetStateAction} from 'react';
 
-const stats = [
-  {
-    value: '140k',
-    label: 'Oylama',
-  },
-  {
-    value: '31k',
-    label: 'Takipçi',
-  },
-  {
-    value: '62k',
-    label: 'Takip edilen',
-  },
-];
-
 type Props = {
+  stats: {
+    value: string,
+    label: string
+  }[],
   activeIndex: number,
   setActiveIndex: Dispatch<SetStateAction<number>>,
 };
 
-export default function ProfileStats({activeIndex, setActiveIndex}: Props) {
+export default function ProfileStats({stats, activeIndex, setActiveIndex}: Props) {
   return (
     <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: responsiveWidth(8)}}>
       {stats.map((stat, index) => {

@@ -20,6 +20,21 @@ export default function ProfileScreen() {
   const [follows, setFollows] = useState<any[]>([]);
   const [followers, setFollowers] = useState<any[]>([]);
 
+  const stats = [
+    {
+      value: '140k',
+      label: 'Oylama',
+    },
+    {
+      value: followers.length.toString() ?? '0',
+      label: 'Takipçi',
+    },
+    {
+      value: follows.length.toString() ?? '0',
+      label: 'Takip edilen',
+    },
+  ];
+
   const fillProfile = async (id: string) => {
     await api.user.getFollows(id);
     setFollows(user.getFollows);
@@ -36,8 +51,8 @@ export default function ProfileScreen() {
       <VerticalProfile image={image} onPress={() => setVisible(true)}/>
       <EditImage setImage={setImage} isVisible={isVisible} setVisible={setVisible}/>
       <View style={{gap: responsiveWidth(4)}}>
-        <ProfileStats activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
-        <ProfileList items={[...Array(6)]}/>
+        <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+        <ProfileList items={activeIndex === 0 ? [] : activeIndex === 1 ? followers : activeIndex === 2 ? follows : []}/>
       </View>
     </MainLayout>
   );
