@@ -13,6 +13,7 @@ export class MediaStore extends BaseStore<MediaStore> {
     progress: 0,
     isPlaying: false,
     dominantColor: '',
+    voteable: false,
   };
   queue: IQueueTrack[] = [];
   playlists: IPlaylist[] = [];

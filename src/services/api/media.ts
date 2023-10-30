@@ -60,15 +60,22 @@ export class MediaApi {
       stores.loading.set('playlistTracks', true);
       const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
       let total: number;
-      if (!isSelect && playlist && (playlist.tracks.count < playlist.tracks.total || (playlist.id === 'search' && q))) {
+      if (
+        !isSelect &&
+        playlist &&
+        (playlist.tracks.count < playlist.tracks.total || (playlist.id === 'search' && (q || q === '')))
+      ) {
         const offset = playlist.tracks.count;
-        if (playlist.id === 'search' && q) {
-          const result = await this.searchTracks(q, searching ? 0 : offset);
-          if (searching) {
+        if (playlist.id === 'search' && (q || q === '')) {
+          stores.media.set('searchValue', q);
+          if (searching || q === '') {
             helper.clearArray(playlist.tracks.items);
           }
-          total = result.total;
-          playlist.tracks.items.push(...this.getTracks(result.tracks));
+          if (q) {
+            const result = await this.searchTracks(q, searching ? 0 : offset);
+            total = result.total;
+            playlist.tracks.items.push(...this.getTracks(result.tracks));
+          }
         } else if (playlist.id !== 'search') {
           const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
           const tracks = this.getTracks(response.data.map((d: any) => d.track));
