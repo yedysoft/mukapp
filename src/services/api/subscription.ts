@@ -54,15 +54,6 @@ export class SubscriptionApi {
 
   // Send Messages
 
-  async getQueue(): PVoid {
-    try {
-      const sessionId = stores.room.getSessionId;
-      sessionId && (await socket.sendMessage(`/send/room/${sessionId}/getQueue`));
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   async voteMusic(data: IVote): PVoid {
     try {
       const sessionId = stores.room.getSessionId;
@@ -131,12 +122,7 @@ export class SubscriptionApi {
   }
 
   private playingTrackCallback(message: Message) {
-    const oldId = stores.media.getPlayingTrack.id;
-    media.setPlayingTrack(JSON.parse(message.body)).then(async () => {
-      if (oldId !== stores.media.getPlayingTrack.id) {
-        await subscription.getQueue();
-      }
-    });
+    media.setPlayingTrack(JSON.parse(message.body));
   }
 
   private queueCallback(message: Message) {
