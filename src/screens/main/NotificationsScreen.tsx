@@ -12,12 +12,8 @@ export const NotificationsScreen = observer(() => {
   const {user} = useStores();
 
   useEffect(() => {
-    getFollowRequests();
+    api.user.getFollowRequests();
   }, []);
-
-  const getFollowRequests = async () => {
-    await api.user.getFollowRequests();
-  };
 
   return (
     <MainLayout>

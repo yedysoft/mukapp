@@ -32,7 +32,7 @@ export default function NotificationsListItem({icon, notification, buttons}: Pro
       <Text style={{fontSize: responsiveSize(14), color: colors.secondary, fontWeight: '400', width: buttons ? responsiveWidth(180) : '80%'}}>{notification?.userName} seni takip etmek istiyor</Text>
       <View style={{flexDirection: 'row', display: buttons ? 'flex' : 'none'}}>
         <MukIconButton color={colors.primary} scale={.5} icon={'check-circle-outline'} onPress={() => notification && acceptFollowRequest(notification?.requestId)}/>
-        <MukIconButton color={colors.tertiary} scale={.5} icon={'cancel'} onPress={() => notification && rejectFollowRequest(notification?.requestId)}/>
+        <MukIconButton color={colors.tertiary} scale={.5} icon={'close-circle-outline'} onPress={() => notification && rejectFollowRequest(notification?.requestId)}/>
       </View>
     </MukListItem>
   );

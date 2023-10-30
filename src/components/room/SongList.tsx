@@ -11,16 +11,17 @@ type Props = {
   onEndReached?: () => void;
   footer?: ReactElement;
   loading?: boolean;
+  itemType: 'vote' | 'add';
 };
 
-export default function SongList({songs, header, onEndReached, footer, loading}: Props) {
+export default function SongList({songs, header, onEndReached, footer, loading, itemType}: Props) {
   return (
     <>
       <FlatList
         data={songs}
         ListHeaderComponent={header}
         ListFooterComponent={footer}
-        renderItem={({item, index}) => <SongListItem key={index} song={item} />}
+        renderItem={({item, index}) => <SongListItem key={index} song={item} itemType={itemType} />}
         scrollEnabled
         onEndReached={onEndReached}
         style={{display: loading ? 'none' : 'flex'}}

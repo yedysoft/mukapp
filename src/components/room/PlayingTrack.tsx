@@ -96,7 +96,7 @@ const PlayingTrack = observer(({compact}: Props) => {
 const makeStyles = (theme: MD3Theme) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: theme.colors.tertiary,
+      shadowColor: theme.colors.primary,
       shadowOffset: {
         width: 0,
         height: 0,

@@ -33,12 +33,13 @@ const RoomTabs = observer(() => {
         },
         {
           icon: 'playlist-music-outline',
-          children: <SongList songs={media.getQueue} />,
+          children: <SongList itemType={'vote'} songs={media.getQueue} />,
         },
         {
           icon: 'playlist-plus',
           children: (
             <SongList
+              itemType={'add'}
               loading={loading.getUserPlaylist}
               header={<PlaylistList playlists={media.getPlaylists} />}
               footer={<MukLoader loading={loading.getPlaylistTracks} />}

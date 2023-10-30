@@ -2,13 +2,14 @@ import {Pressable, View} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {IInfo, ISearchUser} from '../../types/user';
 
 type Props = {
-  image: string;
+  user: IInfo | ISearchUser;
   onPress: () => void;
 }
 
-export default function VerticalProfile({image, onPress}: Props) {
+export default function VerticalProfile({user, onPress}: Props) {
   const {colors} = useTheme();
 
   return (
@@ -16,7 +17,7 @@ export default function VerticalProfile({image, onPress}: Props) {
       <Pressable onPress={onPress}>
         <MukImage
           scale={2.4}
-          source={{uri: image}}
+          source={{uri: user.image}}
           style={{
             borderWidth: responsiveSize(4),
             borderRadius: 100,
@@ -27,8 +28,8 @@ export default function VerticalProfile({image, onPress}: Props) {
         />
       </Pressable>
       <View style={{justifyContent: 'center', alignItems: 'center', gap: responsiveWidth(8)}}>
-        <Text style={{fontSize: responsiveSize(24), fontWeight: 'bold'}}>Ethem Can Aslan</Text>
-        <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>@etcas</Text>
+        <Text style={{fontSize: responsiveSize(24), fontWeight: 'bold'}}>{user.name} {user.surname}</Text>
+        <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>@{user.userName}</Text>
       </View>
     </View>
   );

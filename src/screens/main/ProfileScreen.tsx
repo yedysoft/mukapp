@@ -9,8 +9,10 @@ import ProfileList from '../../components/profile/ProfileList';
 import {View} from 'react-native';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
+import {IInfo, ISearchUser} from '../../types/user';
 
-export default function ProfileScreen() {
+export default function ProfileScreen(props?: any) {
+  const otherUser = props.route.params.otherUser ?? undefined;
   const {colors} = useTheme();
   const {api} = useServices();
   const {user} = useStores();
@@ -43,12 +45,17 @@ export default function ProfileScreen() {
   };
 
   useEffect(() => {
-    fillProfile('98155e4b-781d-4d00-b3eb-238bf1ddd57c');
+    console.log(props.route.params.otherUser)
+    if (otherUser) {
+      fillProfile(otherUser.id);
+    } else {
+      user.getInfo.id && fillProfile(user.getInfo.id);
+    }
   }, []);
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
-      <VerticalProfile image={image} onPress={() => setVisible(true)}/>
+      <VerticalProfile user={otherUser ?? user.getInfo} onPress={() => setVisible(true)}/>
       <EditImage setImage={setImage} isVisible={isVisible} setVisible={setVisible}/>
       <View style={{gap: responsiveWidth(4)}}>
         <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>

@@ -9,9 +9,10 @@ type Props = {
   onPress?: () => void;
   badge?: number;
   style?: StyleProp<ViewStyle>;
+  isLoading?: boolean;
 };
 
-export default function VoteButton({onPress, badge, style}: Props) {
+export default function VoteButton({onPress, badge, style, isLoading}: Props) {
   const theme = useTheme();
 
   return (
@@ -24,11 +25,12 @@ export default function VoteButton({onPress, badge, style}: Props) {
           bottom: responsiveWidth(24)
         }}
       />
-      <MukMask
+      <MukImage scale={.6} source={!isLoading ? require('../../../assets/vote/vote-filled.png') : require('../../../assets/loader.gif')} />
+      {/*<MukMask
         progress={'100%'}
         mask={<MukImage scale={.6} source={require('../../../assets/vote/vote-filled.png')} />}
         masked={<MukImage scale={.6} source={require('../../../assets/vote/vote-outlined.png')} />}
-      />
+      />*/}
     </TouchableOpacity>
   );
 }

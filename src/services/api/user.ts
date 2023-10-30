@@ -80,6 +80,7 @@ export class UserApi {
     try {
       const response = await axiosIns.get(`/follow-request/accept/${requestId}`);
       console.log('Accept: ', response.data)
+      await this.getFollowRequests()
     } catch (e) {
       console.log(e);
     }
@@ -89,6 +90,7 @@ export class UserApi {
     try {
       const response = await axiosIns.delete(`/follow-request/reject/${requestId}`);
       console.log('Reject: ', response.data)
+      await this.getFollowRequests()
     } catch (e) {
       console.log(e);
     }
