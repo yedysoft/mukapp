@@ -22,7 +22,7 @@ export default function SearchListItem({user}: Props) {
   };
 
   return (
-    <MukListItem style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}} onPress={() => navigation.navigate('Profile', user)}>
+    <MukListItem style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}} onPress={() => navigation.navigate('Profile', {otherUser: user})}>
       <MukIcon scale={.8} icon={user?.image ?? 'account'}/>
       <View style={{flexDirection: 'column', width: '66%', gap: responsiveWidth(4)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(15), color: colors.secondary, fontWeight: '600'}}>{user?.name} {user?.surname}</Text>

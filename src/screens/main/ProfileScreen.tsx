@@ -12,7 +12,7 @@ import {useStores} from '../../stores';
 import {IInfo, ISearchUser} from '../../types/user';
 
 export default function ProfileScreen(props?: any) {
-  const otherUser = props.route.params.otherUser ?? undefined;
+  const otherUser = props.route.params?.otherUser;
   const {colors} = useTheme();
   const {api} = useServices();
   const {user} = useStores();
@@ -24,7 +24,7 @@ export default function ProfileScreen(props?: any) {
 
   const stats = [
     {
-      value: '140k',
+      value: '0',
       label: 'Oylama',
     },
     {
@@ -45,7 +45,6 @@ export default function ProfileScreen(props?: any) {
   };
 
   useEffect(() => {
-    console.log(props.route.params.otherUser)
     if (otherUser) {
       fillProfile(otherUser.id);
     } else {
