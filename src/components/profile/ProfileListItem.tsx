@@ -5,19 +5,18 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import MukListItem from '../custom/MukListItem';
 import MukIconButton from '../custom/MukIconButton';
 import {observer} from 'mobx-react';
+import {ISearchUser} from '../../types/user';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = {
-  item: {
-    image: string,
-    userName: string,
-  };
+  item: ISearchUser;
 };
 
 const ProfileListItem = observer(({item}: Props) => {
   const {colors} = useTheme();
-
+  const navigation = useNavigation();
   return (
-    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled={true}>
+    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} onPress={() => navigation.navigate('Profile', {otherUser: item})}>
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')}/>
         <View style={{justifyContent: 'center', gap: responsiveWidth(8)}}>

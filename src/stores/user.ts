@@ -3,6 +3,7 @@ import {IBlockedUser, IChat, IFollowRequest, IFollowUser, IInfo, ISearchUser} fr
 
 export class UserStore extends BaseStore<UserStore> {
   info: IInfo = {id: null, userName: '', image: '', name: '', surname: '', coin: 0, token: 0};
+  otherUser: IInfo = {id: null, userName: '', image: '', name: '', surname: '', coin: 0, token: 0};
   chats: IChat[] = [];
   searched: ISearchUser[] = [];
   follows: IFollowUser[] = [];
@@ -41,6 +42,10 @@ export class UserStore extends BaseStore<UserStore> {
 
   get getBlockedUsers() {
     return this.blockedUsers;
+  }
+
+  get getOtherUser() {
+    return this.otherUser;
   }
 }
 

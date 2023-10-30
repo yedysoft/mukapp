@@ -11,6 +11,15 @@ export class UserApi {
     }
   }
 
+  async getInfoById(id: string): PVoid {
+    try {
+      const response = await axiosIns.get(`/user-info/getInfoById/${id}`);
+      stores.user.set('otherUser', response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   async getChats(): PVoid {
     try {
       const response = await axiosIns.get('/message/getChats');

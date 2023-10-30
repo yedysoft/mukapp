@@ -46,11 +46,11 @@ export default function ProfileScreen(props?: any) {
 
   useEffect(() => {
     if (otherUser) {
-      fillProfile(otherUser.id);
+      fillProfile(otherUser.userId);
     } else {
       user.getInfo.id && fillProfile(user.getInfo.id);
     }
-  }, []);
+  }, [otherUser]);
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
