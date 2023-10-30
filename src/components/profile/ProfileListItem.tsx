@@ -16,7 +16,7 @@ const ProfileListItem = observer(({item}: Props) => {
   const {colors} = useTheme();
   const navigation = useNavigation();
   return (
-    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} onPress={() => navigation.navigate('Profile', {otherUser: item})}>
+    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} onPress={() => navigation.navigate('Profile', {id: item.userId})}>
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')}/>
         <View style={{justifyContent: 'center', gap: responsiveWidth(8)}}>

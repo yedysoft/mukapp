@@ -2,25 +2,20 @@ import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../components/layouts/MainLayout';
 import VerticalProfile from '../../components/user/VerticalProfile';
 import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
-import EditImage from '../../components/profile/EditImage';
 import {useEffect, useState} from 'react';
 import ProfileStats from '../../components/profile/ProfileStats';
 import ProfileList from '../../components/profile/ProfileList';
 import {View} from 'react-native';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
-import {IInfo, ISearchUser} from '../../types/user';
 
 export default function ProfileScreen(props?: any) {
-  const otherUser = props.route.params?.otherUser;
+  const userId = props.route.params?.id;
   const {colors} = useTheme();
   const {api} = useServices();
   const {user} = useStores();
-  const [image, setImage] = useState(require('../../../assets/adaptive-icon.png').uri);
-  const [isVisible, setVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [follows, setFollows] = useState<any[]>([]);
-  const [followers, setFollowers] = useState<any[]>([]);
+  const info = userId ? user.getOtherUser : user.getInfo;
 
   const stats = [
     {
@@ -28,37 +23,34 @@ export default function ProfileScreen(props?: any) {
       label: 'Oylama',
     },
     {
-      value: followers.length.toString() ?? '0',
+      value: user.getFollowers.length.toString() ?? '0',
       label: 'Takipçi',
     },
     {
-      value: follows.length.toString() ?? '0',
+      value: user.getFollows.length.toString() ?? '0',
       label: 'Takip edilen',
     },
   ];
 
   const fillProfile = async (id: string) => {
     await api.user.getFollows(id);
-    setFollows(user.getFollows);
     await api.user.getFollowers(id);
-    setFollowers(user.getFollowers);
   };
 
+  if (userId)
+    api.user.getInfoById(userId);
+
   useEffect(() => {
-    if (otherUser) {
-      fillProfile(otherUser.userId);
-    } else {
-      user.getInfo.id && fillProfile(user.getInfo.id);
-    }
-  }, [otherUser]);
+    console.log(userId);
+    fillProfile(userId ?? info.id);
+  }, [userId]);
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
-      <VerticalProfile user={otherUser ?? user.getInfo} onPress={() => setVisible(true)}/>
-      <EditImage setImage={setImage} isVisible={isVisible} setVisible={setVisible}/>
+      <VerticalProfile user={info} onPress={() => console.log(true)}/>
       <View style={{gap: responsiveWidth(4)}}>
         <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
-        <ProfileList items={activeIndex === 0 ? [] : activeIndex === 1 ? followers : activeIndex === 2 ? follows : []}/>
+        <ProfileList items={activeIndex === 0 ? [] : activeIndex === 1 ? user.getFollowers : activeIndex === 2 ? user.getFollows : []}/>
       </View>
     </MainLayout>
   );

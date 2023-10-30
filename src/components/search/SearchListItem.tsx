@@ -5,7 +5,7 @@ import MukIcon from '../custom/MukIcon';
 import {View} from 'react-native';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
-import {ISearchUser} from '../../types/user';
+import {IInfo, ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
 
 type Props = {
@@ -22,7 +22,7 @@ export default function SearchListItem({user}: Props) {
   };
 
   return (
-    <MukListItem style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}} onPress={() => navigation.navigate('Profile', {otherUser: user})}>
+    <MukListItem style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}} onPress={() => navigation.navigate('Profile', {id: user?.id})}>
       <MukIcon scale={.8} icon={user?.image ?? 'account'}/>
       <View style={{flexDirection: 'column', width: '66%', gap: responsiveWidth(4)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(15), color: colors.secondary, fontWeight: '600'}}>{user?.name} {user?.surname}</Text>
