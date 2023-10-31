@@ -6,9 +6,13 @@ export class ImageApi {
       const form = new FormData();
       const response = await fetch(imageUri);
       const blob = await response.blob();
-      console.log(response);
-      console.log(blob);
-      form.append('file', blob, fileName || 'test.jpg');
+      form.append('file', {
+        uri: imageUri,
+        type: 'image/jpeg',
+        name: 'image.jpg',
+      } as any);
+      console.log(form);
+
       await axiosIns.post('/image/upload', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
