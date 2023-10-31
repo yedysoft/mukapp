@@ -20,10 +20,6 @@ export default function VerticalProfile({profile}: Props) {
 
   const [visible, setVisible] = useState(false);
 
-  const sendFollowRequest = async (id: string) => {
-    await api.user.sendFollowRequest(id);
-  };
-
   return (
     <View style={{flexDirection: 'column', alignItems: 'center', gap: responsiveWidth(16)}}>
       <Pressable onPress={() => setVisible(true)}>
@@ -42,12 +38,12 @@ export default function VerticalProfile({profile}: Props) {
       <View style={{justifyContent: 'center', alignItems: 'center', gap: responsiveWidth(8)}}>
         <Text style={{fontSize: responsiveSize(24), fontWeight: 'bold'}}>{profile.name} {profile.surname}</Text>
         <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>@{profile.userName}</Text>
-        <View style={{flexDirection: 'row', display: profile.id === user.info.id ? 'none' : 'flex'}}>
-          <MukIconButton color={colors.secondary} scale={.4} icon={'account-plus-outline'} onPress={() => profile && sendFollowRequest(profile.id)}/>
-          <MukIconButton scale={0.4} icon={'cancel'} color={'rgba(255, 55, 95, 1)'} onPress={() => console.log('block')}/>
-        </View>
       </View>
       <EditImage setVisible={setVisible} isVisible={visible}/>
+      <View style={{flexDirection: 'row', display: profile.id === user.info.id ? 'none' : 'flex'}}>
+        <MukIconButton color={colors.secondary} scale={.4} icon={profile.isFollows ? 'account-minus-outline' : 'account-plus-outline'} onPress={() => profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id)}/>
+        <MukIconButton scale={0.4} icon={'cancel'} color={'rgba(255, 55, 95, 1)'} onPress={() => api.user.blockUser(profile.id)}/>
+      </View>
     </View>
   );
 }

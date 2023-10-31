@@ -5,7 +5,7 @@ import MukIcon from '../custom/MukIcon';
 import {View} from 'react-native';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
-import {IInfo, ISearchUser} from '../../types/user';
+import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
 
 type Props = {
@@ -17,10 +17,6 @@ export default function SearchListItem({user}: Props) {
   const {api} = useServices();
   const navigation = useNavigation();
 
-  const sendFollowRequest = async (id: string) => {
-    await api.user.sendFollowRequest(id);
-  };
-
   return (
     <MukListItem style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}} onPress={() => navigation.navigate('Profile', {id: user?.id})}>
       <MukIcon scale={.8} icon={user?.image ?? 'account'}/>
@@ -29,7 +25,8 @@ export default function SearchListItem({user}: Props) {
         <Text numberOfLines={1} style={{fontSize: responsiveSize(14), color: colors.outline, fontWeight: '400'}}>@{user?.userName}</Text>
         <Text numberOfLines={1} style={{display: user?.isFollower ? 'flex' : 'none', fontSize: responsiveSize(12), marginTop: responsiveWidth(4)}}>Seni takip ediyor</Text>
       </View>
-      <MukIconButton color={colors.secondary} scale={.4} disabled={user?.isFollows} icon={user?.isFollows ? 'account-check-outline' : 'account-plus-outline'} onPress={() => user && sendFollowRequest(user?.id)}/>
+      <MukIconButton color={colors.secondary} scale={.4} icon={user?.isFollows ? 'account-minus-outline' : 'account-plus-outline'}
+                     onPress={() => user?.isFollows ? api.user.unFollow(user?.id) : api.user.sendFollowRequest(user?.id)}/>
     </MukListItem>
   );
 }

@@ -42,7 +42,7 @@ const ProfileScreen = observer((props?: any) => {
     api.user.getInfoById(userId);
 
   useEffect(() => {
-    console.log(userId);
+    setActiveIndex(0);
     fillProfile(userId ?? info.id);
   }, [userId]);
 

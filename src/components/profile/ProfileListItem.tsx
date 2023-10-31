@@ -20,7 +20,7 @@ const ProfileListItem = observer(({item, activeIndex}: Props) => {
   const {api} = useServices();
 
   return (
-    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} onPress={() => navigation.navigate('Profile', {id: item.id})}>
+    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} onPress={() => navigation.navigate('Profile', {id: item.userId})}>
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')}/>
         <View style={{justifyContent: 'center', gap: responsiveWidth(8)}}>
