@@ -16,21 +16,23 @@ type Props = {
   preValidate?: 'required';
   validate?: ((value: string) => boolean)[];
   validationMessage?: string[];
+  placeholder?: string;
 };
 
 export default function MukTextInput({
-  name,
-  label,
-  value,
-  hideText,
-  autoCapitalize,
-  onChange,
-  style,
-  outlineStyle,
-  preValidate,
-  validate,
-  validationMessage,
-}: Props) {
+                                       name,
+                                       label,
+                                       value,
+                                       hideText,
+                                       autoCapitalize,
+                                       onChange,
+                                       style,
+                                       outlineStyle,
+                                       preValidate,
+                                       validate,
+                                       validationMessage,
+                                       placeholder,
+                                     }: Props) {
   const {colors} = useTheme();
   const {t} = useServices();
   const [error, setError] = useState<string | null>(null);
@@ -68,6 +70,8 @@ export default function MukTextInput({
         mode={'outlined'}
         secureTextEntry={hideText ?? false}
         value={value}
+        placeholder={placeholder}
+        placeholderTextColor={colors.outlineVariant}
         autoCapitalize={autoCapitalize ?? 'none'}
         onChangeText={handleInputChange}
         outlineStyle={[{borderRadius: 16}, outlineStyle]}

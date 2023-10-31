@@ -41,9 +41,11 @@ export type IBlockedUser = {
 }
 
 export type ISearchUser = {
-  userId: string,
+  id: string,
   image: string,
   name: string,
   surname: string,
   userName: string,
+  isFollower: boolean,
+  isFollows: boolean,
 }

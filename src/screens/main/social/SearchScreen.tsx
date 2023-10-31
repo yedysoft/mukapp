@@ -16,6 +16,8 @@ export const SearchScreen = observer(() => {
     api.helper.sleep(500).then(() => {
       if (value !== '') {
         api.user.searchUser(value);
+      } else {
+        user.set('searched', [])
       }
     });
   };
@@ -26,6 +28,7 @@ export const SearchScreen = observer(() => {
         list={user.getSearched}
         header={
           <MukTextInput
+            placeholder={'Kimi aramıştın?'}
             name={'search'}
             outlineStyle={{borderColor: colors.primary}}
             onChange={handleSearch}

@@ -5,15 +5,20 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {IInfo, ISearchUser} from '../../types/user';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
+import {useStores} from '../../stores';
+import EditImage from '../profile/EditImage';
+import {useState} from 'react';
 
 type Props = {
-  user: IInfo | ISearchUser;
-  onPress: () => void;
+  profile: IInfo | ISearchUser;
 }
 
-export default function VerticalProfile({user, onPress}: Props) {
+export default function VerticalProfile({profile}: Props) {
   const {colors} = useTheme();
   const {api} = useServices();
+  const {user} = useStores();
+
+  const [visible, setVisible] = useState(false);
 
   const sendFollowRequest = async (id: string) => {
     await api.user.sendFollowRequest(id);
@@ -21,10 +26,10 @@ export default function VerticalProfile({user, onPress}: Props) {
 
   return (
     <View style={{flexDirection: 'column', alignItems: 'center', gap: responsiveWidth(16)}}>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={() => setVisible(true)}>
         <MukImage
           scale={2.4}
-          source={{uri: user.image}}
+          source={{uri: profile.image}}
           style={{
             borderWidth: responsiveSize(4),
             borderRadius: 100,
@@ -35,13 +40,14 @@ export default function VerticalProfile({user, onPress}: Props) {
         />
       </Pressable>
       <View style={{justifyContent: 'center', alignItems: 'center', gap: responsiveWidth(8)}}>
-        <Text style={{fontSize: responsiveSize(24), fontWeight: 'bold'}}>{user.name} {user.surname}</Text>
-        <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>@{user.userName}</Text>
-        <View style={{flexDirection: 'row'}}>
-          <MukIconButton color={colors.secondary} scale={.4} icon={'account-plus-outline'} onPress={() => user && sendFollowRequest(user.id)}/>
+        <Text style={{fontSize: responsiveSize(24), fontWeight: 'bold'}}>{profile.name} {profile.surname}</Text>
+        <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>@{profile.userName}</Text>
+        <View style={{flexDirection: 'row', display: profile.id === user.info.id ? 'none' : 'flex'}}>
+          <MukIconButton color={colors.secondary} scale={.4} icon={'account-plus-outline'} onPress={() => profile && sendFollowRequest(profile.id)}/>
           <MukIconButton scale={0.4} icon={'cancel'} color={'rgba(255, 55, 95, 1)'} onPress={() => console.log('block')}/>
         </View>
       </View>
+      <EditImage setVisible={setVisible} isVisible={visible}/>
     </View>
   );
 }

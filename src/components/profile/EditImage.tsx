@@ -8,7 +8,7 @@ import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
 
 type Props = {
-  setImage: Dispatch<SetStateAction<string>>;
+  setImage?: Dispatch<SetStateAction<string>>;
   setVisible: Dispatch<SetStateAction<boolean>>;
   isVisible: boolean
 }
@@ -30,7 +30,7 @@ export default function EditImage({setImage, setVisible, isVisible}: Props) {
       await api.image.save(img.uri, img.fileName);
     }
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImage && setImage(result.assets[0].uri);
       setVisible(false);
     }
   };
@@ -44,7 +44,7 @@ export default function EditImage({setImage, setVisible, isVisible}: Props) {
       quality: 1,
     });
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImage && setImage(result.assets[0].uri);
       setVisible(false);
     }
   };

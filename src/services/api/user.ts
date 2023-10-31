@@ -41,6 +41,7 @@ export class UserApi {
     try {
       const response = await axiosIns.get(`/user-info/search/${keyword}?page=${page}&size=${size}&sort=ui.name`);
       stores.user.set('searched', response.data.content);
+      console.log(response.data.content);
     } catch (e) {
       console.log(e);
     }
@@ -49,7 +50,7 @@ export class UserApi {
   async getFollows(userId: string): PVoid {
     try {
       const response = await axiosIns.get(`/user-follower/getFollows/${userId}`);
-      console.log('Follows: ', response.data)
+      console.log('Follows: ', response.data);
       stores.user.set('follows', response.data);
     } catch (e) {
       console.log(e);
@@ -59,7 +60,7 @@ export class UserApi {
   async getFollowers(userId: string): PVoid {
     try {
       const response = await axiosIns.get(`/user-follower/getFollowers/${userId}`);
-      console.log('Followers: ', response.data)
+      console.log('Followers: ', response.data);
       stores.user.set('followers', response.data);
     } catch (e) {
       console.log(e);
@@ -69,7 +70,7 @@ export class UserApi {
   async sendFollowRequest(userId: string): PVoid {
     try {
       const response = await axiosIns.get(`/follow-request/${userId}`);
-      console.log('Request: ', response.data)
+      console.log('Request: ', response.data);
     } catch (e) {
       console.log(e);
     }
@@ -78,7 +79,7 @@ export class UserApi {
   async getFollowRequests(): PVoid {
     try {
       const response = await axiosIns.get(`/follow-request/getIncomingFollowRequests`);
-      console.log('Requests: ', response.data)
+      console.log('Requests: ', response.data);
       stores.user.set('followRequests', response.data);
     } catch (e) {
       console.log(e);
@@ -88,8 +89,8 @@ export class UserApi {
   async acceptFollowRequest(requestId: string): PVoid {
     try {
       const response = await axiosIns.get(`/follow-request/accept/${requestId}`);
-      console.log('Accept: ', response.data)
-      await this.getFollowRequests()
+      console.log('Accept: ', response.data);
+      await this.getFollowRequests();
     } catch (e) {
       console.log(e);
     }
@@ -98,8 +99,8 @@ export class UserApi {
   async rejectFollowRequest(requestId: string): PVoid {
     try {
       const response = await axiosIns.delete(`/follow-request/reject/${requestId}`);
-      console.log('Reject: ', response.data)
-      await this.getFollowRequests()
+      console.log('Reject: ', response.data);
+      await this.getFollowRequests();
     } catch (e) {
       console.log(e);
     }
@@ -108,7 +109,7 @@ export class UserApi {
   async blockUser(userId: string): PVoid {
     try {
       const response = await axiosIns.get(`/user-blocked/block/${userId}`);
-      console.log('Block: ', response.data)
+      console.log('Block: ', response.data);
     } catch (e) {
       console.log(e);
     }
@@ -117,7 +118,7 @@ export class UserApi {
   async unblockUser(blockId: string): PVoid {
     try {
       const response = await axiosIns.get(`/user-blocked/unblock/${blockId}`);
-      console.log('Unblock: ', response.data)
+      console.log('Unblock: ', response.data);
     } catch (e) {
       console.log(e);
     }
@@ -126,8 +127,28 @@ export class UserApi {
   async getBlockedUsers(): PVoid {
     try {
       const response = await axiosIns.get(`/user-blocked/getBlockedUsers`);
-      console.log('BlockedUsers: ', response.data)
+      console.log('BlockedUsers: ', response.data);
       stores.user.set('blockedUsers', response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async unFollow(userId: string): PVoid {
+    try {
+      const response = await axiosIns.delete(`/user-follower/unFollow/${userId}`);
+      console.log('Unfollow: ', response.data);
+      this.getFollows(userId);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async takeOutMyFollowers(userId: string): PVoid {
+    try {
+      const response = await axiosIns.delete(`/user-follower/takeOutMyFollowers/${userId}`);
+      console.log('takeOutMyFollowers: ', response.data);
+      this.getFollowers(userId);
     } catch (e) {
       console.log(e);
     }

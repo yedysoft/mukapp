@@ -27,8 +27,9 @@ export default function SearchListItem({user}: Props) {
       <View style={{flexDirection: 'column', width: '66%', gap: responsiveWidth(4)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(15), color: colors.secondary, fontWeight: '600'}}>{user?.name} {user?.surname}</Text>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(14), color: colors.outline, fontWeight: '400'}}>@{user?.userName}</Text>
+        <Text numberOfLines={1} style={{display: user?.isFollower ? 'flex' : 'none', fontSize: responsiveSize(12), marginTop: responsiveWidth(4)}}>Seni takip ediyor</Text>
       </View>
-      <MukIconButton color={colors.secondary} scale={.4} icon={'account-plus-outline'} onPress={() => user && sendFollowRequest(user?.id)}/>
+      <MukIconButton color={colors.secondary} scale={.4} disabled={user?.isFollows} icon={user?.isFollows ? 'account-check-outline' : 'account-plus-outline'} onPress={() => user && sendFollowRequest(user?.id)}/>
     </MukListItem>
   );
 }

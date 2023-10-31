@@ -19,7 +19,6 @@ const RoomTabs = observer(() => {
   const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists);
 
   useEffect(() => {
-    console.log('test');
     api.media.getCurrentUserPlaylists();
   }, []);
 

@@ -6,14 +6,15 @@ import ProfileListItem from './ProfileListItem';
 type Props = {
   items: any[];
   header?: ReactElement;
+  activeIndex?: number;
 };
 
-export default function ProfileList({items, header}: Props) {
+export default function ProfileList({items, header, activeIndex}: Props) {
   return (
     <FlatList
       data={items}
       ListHeaderComponent={header}
-      renderItem={({item, index}) => <ProfileListItem key={index} item={item}/>}
+      renderItem={({item, index}) => <ProfileListItem activeIndex={activeIndex} key={index} item={item}/>}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8), paddingBottom: responsiveHeight(360)}}
     />
