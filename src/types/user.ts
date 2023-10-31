@@ -26,6 +26,9 @@ export type ILastMessage = {
 export type IFollowUser = {
   userName: string;
   imagePath: string;
+  name: string;
+  surname: string;
+  userId: string;
 };
 
 export type IFollowRequest = {

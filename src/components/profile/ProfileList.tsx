@@ -6,15 +6,16 @@ import ProfileListItem from './ProfileListItem';
 type Props = {
   items: any[];
   header?: ReactElement;
-  activeIndex?: number;
+  onIconPress: (id: string) => void;
+  otherUser?: boolean;
 };
 
-export default function ProfileList({items, header, activeIndex}: Props) {
+export default function ProfileList({items, header, onIconPress, otherUser}: Props) {
   return (
     <FlatList
       data={items}
       ListHeaderComponent={header}
-      renderItem={({item, index}) => <ProfileListItem activeIndex={activeIndex} key={index} item={item}/>}
+      renderItem={({item, index}) => <ProfileListItem onIconPress={onIconPress} key={index} item={item} otherUser={otherUser}/>}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8), paddingBottom: responsiveHeight(360)}}
     />

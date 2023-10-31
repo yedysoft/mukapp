@@ -35,6 +35,7 @@ const CreateChat = observer(() => {
   const navigation = useNavigation();
   const {t} = useServices();
   const {colors} = useTheme();
+  const {user} = useStores();
 
   const handleSheet = () => {
     sheetRef.current?.expand();
@@ -56,7 +57,7 @@ const CreateChat = observer(() => {
         containerStyle={{marginBottom: room.isLive ? 88 : 0}}
         contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
       >
-        <FriendsList friends={friendsData}/>
+        <FriendsList friends={user.getFollows}/>
         <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createChat()}/>
       </MukSheet>
     </>

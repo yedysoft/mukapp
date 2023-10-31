@@ -5,18 +5,17 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {IInfo, ISearchUser} from '../../types/user';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
-import {useStores} from '../../stores';
 import EditImage from '../profile/EditImage';
 import {useState} from 'react';
 
 type Props = {
   profile: IInfo | ISearchUser;
+  otherUser?: boolean;
 }
 
-export default function VerticalProfile({profile}: Props) {
+export default function VerticalProfile({profile, otherUser}: Props) {
   const {colors} = useTheme();
   const {api} = useServices();
-  const {user} = useStores();
 
   const [visible, setVisible] = useState(false);
 
@@ -40,8 +39,9 @@ export default function VerticalProfile({profile}: Props) {
         <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>@{profile.userName}</Text>
       </View>
       <EditImage setVisible={setVisible} isVisible={visible}/>
-      <View style={{flexDirection: 'row', display: profile.id === user.info.id ? 'none' : 'flex'}}>
-        <MukIconButton color={colors.secondary} scale={.4} icon={profile.isFollows ? 'account-minus-outline' : 'account-plus-outline'} onPress={() => profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id)}/>
+      <View style={{flexDirection: 'row', display: otherUser ? 'flex' : 'none'}}>
+        <MukIconButton color={colors.secondary} scale={.4} icon={profile.isFollows ? 'account-minus-outline' : 'account-plus-outline'}
+                       onPress={() => profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id)}/>
         <MukIconButton scale={0.4} icon={'cancel'} color={'rgba(255, 55, 95, 1)'} onPress={() => api.user.blockUser(profile.id)}/>
       </View>
     </View>

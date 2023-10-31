@@ -7,17 +7,16 @@ import MukIconButton from '../custom/MukIconButton';
 import {observer} from 'mobx-react';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
-import {useServices} from '../../services';
 
 type Props = {
   item: ISearchUser;
-  activeIndex?: number
+  onIconPress: (id: string) => void;
+  otherUser?: boolean;
 };
 
-const ProfileListItem = observer(({item, activeIndex}: Props) => {
+const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
   const {colors} = useTheme();
   const navigation = useNavigation();
-  const {api} = useServices();
 
   return (
     <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} onPress={() => navigation.navigate('Profile', {id: item.userId})}>
@@ -36,9 +35,8 @@ const ProfileListItem = observer(({item, activeIndex}: Props) => {
         scale={0.4}
         icon={'account-minus-outline'}
         color={colors.secondary}
-        onPress={() => {
-          activeIndex === 1 ? api.user.takeOutMyFollowers(item.userId) : activeIndex === 2 ? api.user.unFollow(item.userId) : undefined
-        }}
+        style={{display: otherUser ? 'none' : 'flex'}}
+        onPress={() => onIconPress(item.userId)}
       />
     </MukListItem>
   );

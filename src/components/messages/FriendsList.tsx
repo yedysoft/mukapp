@@ -3,12 +3,10 @@ import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import {useNavigation} from '@react-navigation/native';
 import FriendsListItem from './FriendsListItem';
+import {IFollowUser, ISearchUser} from '../../types/user';
 
 type Props = {
-  friends?: {
-    username?: string;
-    image?: string;
-  }[];
+  friends?: IFollowUser[];
 };
 
 export default function FriendsList({friends}: Props) {
