@@ -53,7 +53,7 @@ export type ISearchResult = {
 
 export type IVote = {
   userId: string | null;
-  musicId: string;
+  musicUri: string;
 };
 
 export type IVoteResult = {

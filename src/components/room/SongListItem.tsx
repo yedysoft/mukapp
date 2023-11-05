@@ -12,7 +12,7 @@ import AddButton from './AddButton';
 
 type Props = {
   song: IQueueTrack | ITrack;
-  itemType: 'add' | 'vote'
+  itemType: 'add' | 'vote';
 };
 
 const SongListItem = observer(({song, itemType}: Props) => {
@@ -22,7 +22,7 @@ const SongListItem = observer(({song, itemType}: Props) => {
 
   return (
     <MukListItem style={{alignItems: 'center'}} disabled={true}>
-      <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)}/>
+      <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)} />
       <View style={{justifyContent: 'center', gap: responsiveWidth(8), maxWidth: responsiveWidth(240)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>
           {song.name}
@@ -31,18 +31,23 @@ const SongListItem = observer(({song, itemType}: Props) => {
           {api.helper.getArtist(song.artists)}
         </Text>
       </View>
-      {itemType === 'vote' ?
+      {itemType === 'vote' ? (
         <VoteButton
           isLoading={!media.getPlayingTrack.voteable}
           badge={'voteCount' in song ? song.voteCount : undefined}
           style={{position: 'absolute', right: responsiveWidth(16)}}
-          onPress={() => media.getPlayingTrack.voteable ? api.subscription.voteMusic({musicId: song.id, userId: user.getInfo.id}) : ui.addErrors({
-            code: 1021,
-            message: 'Oylamak için sıradaki şarkının çalmasını bekle',
-          })}
-        /> : itemType === 'add' ?
-          <AddButton onPress={() => console.log('AddSong')} style={{position: 'absolute', right: responsiveWidth(0)}}/> : null
-      }
+          onPress={() =>
+            media.getPlayingTrack.voteable
+              ? api.subscription.voteMusic({musicUri: song.uri, userId: user.getInfo.id})
+              : ui.addErrors({
+                  code: 1021,
+                  message: 'Oylamak için sıradaki şarkının çalmasını bekle',
+                })
+          }
+        />
+      ) : itemType === 'add' ? (
+        <AddButton onPress={() => console.log('AddSong')} style={{position: 'absolute', right: responsiveWidth(0)}} />
+      ) : null}
     </MukListItem>
   );
 });
