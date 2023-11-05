@@ -20,7 +20,6 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
 
   return (
     <>
-      {tooltip}
       <MukBadge
         badge={badge}
         style={{
