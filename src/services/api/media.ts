@@ -124,7 +124,7 @@ export class MediaApi {
     try {
       if (stores.media.queue.length > 0) {
         const updatedItems = stores.media.queue.map(t =>
-          t.id === data.musicId ? {...t, voteCount: data.voteCount} : t,
+          t.uri === data.musicUri ? {...t, voteCount: data.voteCount} : t,
         );
         updatedItems.sort((a, b) => b.voteCount - a.voteCount);
         stores.media.set('queue', updatedItems);

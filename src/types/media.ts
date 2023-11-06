@@ -57,6 +57,6 @@ export type IVote = {
 };
 
 export type IVoteResult = {
-  musicId: string;
+  musicUri: string;
   voteCount: number;
 };
