@@ -49,7 +49,7 @@ export default function MukToaster({error, interval}: Props) {
             maxHeight: responsiveWidth(96),
           }}
         >
-          <Pressable onPress={close}>
+          <Pressable onPress={close} style={{width: '100%', flex: 1}}>
             <Text numberOfLines={2} style={{color: colors.secondary, fontSize: responsiveSize(16)}}>
               {error.error.message}
             </Text>
