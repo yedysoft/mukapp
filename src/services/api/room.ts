@@ -2,6 +2,7 @@ import subscription from './subscription';
 import {stores} from '../../stores';
 import axiosIns from '../axiosIns';
 import {IRoomConfig, IRoomSession} from '../../types/room';
+import defaults from '../../utils/defaults';
 
 export class RoomApi {
   async createRoom(config: IRoomConfig): PVoid {
@@ -32,6 +33,7 @@ export class RoomApi {
         await axiosIns.get(`/room-session/stop/${stores.room.getSessionId}`);
       }
       stores.room.setMany({sessionId: null, streamerId: null, chat: []});
+      stores.media.setMany({playingTrack: defaults.playingTrack, queue: []});
       await subscription.roomUnsubscribes();
     } catch (e) {
       console.log(e);
