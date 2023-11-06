@@ -1,9 +1,10 @@
 import {BaseStore} from './base';
 import {IBlockedUser, IChat, IFollowRequest, IFollowUser, IInfo, ISearchUser} from '../types/user';
+import defaults from '../utils/defaults';
 
 export class UserStore extends BaseStore<UserStore> {
-  info: IInfo = {id: null, userName: '', image: '', name: '', surname: '', coin: 0, token: 0};
-  otherUser: IInfo = {id: null, userName: '', image: '', name: '', surname: '', coin: 0, token: 0};
+  info: IInfo = defaults.info;
+  otherUser: IInfo = defaults.info;
   chats: IChat[] = [];
   searched: ISearchUser[] = [];
   follows: IFollowUser[] = [];
