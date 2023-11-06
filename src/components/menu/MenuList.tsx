@@ -9,6 +9,7 @@ type Props = {
     icon: IconSource;
     label: string;
     route: string;
+    disabled?: boolean;
   }[];
 };
 

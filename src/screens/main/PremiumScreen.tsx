@@ -35,24 +35,7 @@ export default function PremiumScreen() {
 
   return (
     <MainLayout style={{gap: responsiveHeight(16), padding: responsiveWidth(16)}}>
-      <Text>Premium</Text>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingVertical: responsiveWidth(8),
-        }}
-      >
-        {[...Array(3)].map((_, i) => {
-          return <PremiumCard key={i} active={selection == i} onPress={() => setSelection(i)} />;
-        })}
-      </View>
-      <View style={{flexDirection: 'column', gap: responsiveWidth(8)}}>
-        <Text>Test1</Text>
-        <Text>Test2</Text>
-        <Text>Test3</Text>
-      </View>
+      <></>
     </MainLayout>
   );
 }

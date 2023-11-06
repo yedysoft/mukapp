@@ -21,19 +21,21 @@ const menu = [
     route: 'Search',
   },
   {
+    icon: 'bookmark-outline',
+    label: 'Favoriler',
+    route: 'Favorite',
+  },
+  {
     icon: 'star-outline',
     label: 'Premium',
     route: 'Premium',
+    disabled: true
   },
   {
     icon: 'view-list-outline',
     label: 'Görevler',
     route: 'Task',
-  },
-  {
-    icon: 'bookmark-outline',
-    label: 'Favoriler',
-    route: 'Favorite',
+    disabled: true
   },
   {
     icon: 'cog-outline',
