@@ -7,11 +7,11 @@ import {ILogin} from '../../types/auth';
 import {useServices} from '../../services';
 import {View} from 'react-native';
 import {responsiveHeight, responsiveSize} from '../../utils/Responsive';
-import {useStores} from '../../stores';
+import {stores, useStores} from '../../stores';
 
 export const AuthLoginForm = observer(() => {
   const {colors} = useTheme();
-  const [form, setForm] = useState<ILogin>({name: 'admin', pass: '123'});
+  const [form, setForm] = useState<ILogin>({name: 'admin', pass: '123', expoToken: stores.ui.getExpoToken});
   const {api, t} = useServices();
   const {loading} = useStores();
 
@@ -41,7 +41,7 @@ export const AuthLoginForm = observer(() => {
           validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
         />
       </View>
-      <MukButton loading={loading.getLogin} label={t.do('auth.login')} onPress={() => api.auth.login(form)} />
+      <MukButton loading={loading.getLogin} label={t.do('auth.login')} onPress={() => api.auth.login(form)}/>
     </View>
   );
 });

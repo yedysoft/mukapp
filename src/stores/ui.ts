@@ -8,10 +8,11 @@ export class UIStore extends BaseStore<UIStore> {
   appearance: Appearance = 'system';
   language: Language = 'system';
   errors: ErrorMessage[] = [];
+  expoToken: string = '';
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language']);
+    this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language', 'expoToken']);
   }
 
   get isAppearanceSystem() {
@@ -32,6 +33,10 @@ export class UIStore extends BaseStore<UIStore> {
 
   get getErrors() {
     return this.errors;
+  }
+
+  get getExpoToken() {
+    return this.expoToken;
   }
 
   addErrors(error: ErrorBody) {

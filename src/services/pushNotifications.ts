@@ -3,6 +3,7 @@ import * as Device from 'expo-device';
 import {useEffect, useRef, useState} from 'react';
 import Constants from 'expo-constants';
 import {Platform} from 'react-native';
+import {useStores} from '../stores';
 
 type IPushNotification = {
   expoPushToken?: Notifications.ExpoPushToken;
@@ -10,6 +11,8 @@ type IPushNotification = {
 }
 
 export const usePushNotifications = (): IPushNotification => {
+  const {ui} = useStores();
+
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldPlaySound: false,
@@ -58,6 +61,8 @@ export const usePushNotifications = (): IPushNotification => {
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
+      console.log('expo-push-token: ', token);
+      ui.set('expoToken', token!.data);
       setExpoPushToken(token);
     });
     notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {

@@ -5,8 +5,8 @@ import CreateRoom from '../../components/home/CreateRoom';
 export default function HomeScreen() {
   return (
     <MainLayout>
-      <HomeTabs />
-      <CreateRoom />
+      <HomeTabs/>
+      <CreateRoom/>
     </MainLayout>
   );
 }
