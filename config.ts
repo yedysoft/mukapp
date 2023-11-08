@@ -1,4 +1,4 @@
-const live = true;
+const live = false;
 
 export const restUrl = live ? 'http://181.215.68.158:8002' : 'http://172.16.44.12:8002';
 

@@ -41,14 +41,14 @@ export type IBlockedUser = {
   blockedUserId: string;
   userName: string;
   imgPath: string;
-}
+};
 
 export type ISearchUser = {
-  id: string,
-  image: string,
-  name: string,
-  surname: string,
-  userName: string,
-  isFollower: boolean,
-  isFollows: boolean,
-}
+  id: string;
+  image: string;
+  name: string;
+  surname: string;
+  userName: string;
+  isFollower: boolean;
+  isFollows: boolean;
+};
