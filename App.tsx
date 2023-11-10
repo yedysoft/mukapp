@@ -19,11 +19,12 @@ import * as Device from 'expo-device';
 export default observer(() => {
   const [ready, setReady] = useState(false);
 
+  Device.isDevice && usePushNotifications();
+
   const initializeApp = useCallback(async () => {
     await hydrateStores();
     await initServices();
     await services.api.auth.checkToken();
-    Device.isDevice && usePushNotifications();
   }, []);
 
   const deinitializeApp = useCallback(async () => {
@@ -41,10 +42,10 @@ export default observer(() => {
   return (
     <AppProvider>
       <PaperProvider theme={stores.ui.getTheme}>
-        <StatusBar style={stores.ui.getStatusBarStyle}/>
-        <ErrorStack/>
-        <DialogStack/>
-        {!ready ? <SplashScreen/> : <AppNavigation/>}
+        <StatusBar style={stores.ui.getStatusBarStyle} />
+        <ErrorStack />
+        <DialogStack />
+        {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>
     </AppProvider>
   );
