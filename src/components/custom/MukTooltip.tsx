@@ -16,26 +16,23 @@ export default function MukTooltip({children, positions = defaults.positions, vi
   const {colors} = useTheme();
 
   return (
-    <View>
-      <Pressable
-        onPress={() => changeVisible(false)}
-        style={{
-          display: visible ? undefined : 'none',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          height: screenHeight,
-          width: screenWidth,
-          backgroundColor: colors.background,
-          opacity: 0.5,
-        }}
-      />
+    <Pressable
+      onPress={() => changeVisible(false)}
+      style={{
+        display: visible ? undefined : 'none',
+        position: 'absolute',
+        top: -positions.pageY,
+        right: 0,
+        backgroundColor: colors.backdrop,
+        width: screenWidth,
+        height: screenHeight,
+      }}
+    >
       <View
         style={{
-          display: visible ? undefined : 'none',
-          position: 'absolute',
+          alignSelf: 'flex-end',
+          right: screenWidth - (positions.pageX + positions.width),
           top: positions.pageY + positions.height,
-          left: positions.pageX,
           borderRadius: 16,
           backgroundColor: colors.background,
           borderWidth: 0.5,
@@ -44,24 +41,8 @@ export default function MukTooltip({children, positions = defaults.positions, vi
           height: responsiveWidth(320),
         }}
       >
-        <View
-          style={{
-            position: 'relative',
-            top: responsiveWidth(-9),
-            right: responsiveWidth(21),
-            borderTopLeftRadius: 4,
-            alignSelf: 'flex-end',
-            backgroundColor: colors.background,
-            width: responsiveWidth(16),
-            aspectRatio: 1,
-            transform: [{rotateZ: '45deg'}],
-            borderColor: colors.primary,
-            borderTopWidth: 0.5,
-            borderLeftWidth: 0.5,
-          }}
-        />
         {children}
       </View>
-    </View>
+    </Pressable>
   );
 }

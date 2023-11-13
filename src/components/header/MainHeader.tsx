@@ -18,7 +18,7 @@ export const MainHeader = observer(() => {
     <SafeAreaView
       style={{
         backgroundColor: colors.background,
-        paddingHorizontal: responsiveWidth(8),
+        paddingHorizontal: responsiveWidth(0),
         paddingTop: responsiveHeight(16),
         paddingBottom: responsiveHeight(-16),
         flexDirection: 'row',
