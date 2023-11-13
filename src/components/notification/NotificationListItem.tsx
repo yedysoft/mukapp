@@ -2,6 +2,7 @@ import {Text, useTheme} from 'react-native-paper';
 import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
 import MukListItem from '../custom/MukListItem';
 import MukImage from '../custom/MukImage';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = {
   notification: {
@@ -12,6 +13,7 @@ type Props = {
 
 export default function NotificationListItem({notification}: Props) {
   const {colors} = useTheme();
+  const navigation = useNavigation();
 
   return (
     <MukListItem
@@ -22,13 +24,14 @@ export default function NotificationListItem({notification}: Props) {
         marginVertical: responsiveHeight(2),
         paddingHorizontal: responsiveWidth(16),
       }}
+      onPress={() => navigation.navigate('Notifications')}
     >
       <MukImage
         scale={0.6}
         source={require('../../../assets/adaptive-icon.png')}
-        style={{backgroundColor: colors.secondary, borderWidth: 0.5, borderRadius: 100, borderColor: colors.background}}
+        style={{backgroundColor: colors.background, borderWidth: 0.2, borderRadius: 100, borderColor: colors.secondary}}
       />
-      <Text numberOfLines={2} style={{color: colors.secondary, maxWidth: responsiveWidth(120)}}>
+      <Text numberOfLines={2} style={{color: colors.secondary, maxWidth: responsiveWidth(124)}}>
         {notification.context}
       </Text>
     </MukListItem>

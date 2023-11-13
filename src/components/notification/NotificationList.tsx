@@ -1,6 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import NotificationListItem from './NotificationListItem';
 import {FlatList} from 'react-native';
+import {responsiveWidth} from '../../utils/Responsive';
 
 const data = [
   {
@@ -35,6 +36,8 @@ export default function NotificationList() {
   return (
     <FlatList
       style={{}}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
       scrollEnabled
       data={data}
       renderItem={({item}) => <NotificationListItem notification={item} />}

@@ -7,6 +7,7 @@ import {responsiveWidth} from '../../utils/Responsive';
 type Props = {
   name: string;
   label?: string;
+  mode?: 'flat' | 'outlined';
   value?: string;
   hideText?: boolean;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
@@ -21,6 +22,7 @@ type Props = {
 
 export default function MukTextInput({
   name,
+  mode,
   label,
   value,
   hideText,
@@ -67,7 +69,7 @@ export default function MukTextInput({
     <View style={{flexDirection: 'column', gap: responsiveWidth(8)}}>
       <TextInput
         label={label}
-        mode={'outlined'}
+        mode={mode ?? 'flat'}
         secureTextEntry={hideText ?? false}
         value={value}
         placeholder={placeholder}
@@ -75,7 +77,7 @@ export default function MukTextInput({
         autoCapitalize={autoCapitalize ?? 'none'}
         onChangeText={handleInputChange}
         outlineStyle={[{borderRadius: 16}, outlineStyle]}
-        style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}, style]}
+        style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent', marginBottom: responsiveWidth(24)}, style]}
       />
       {error ? <Text style={{color: colors.error}}>* {error}</Text> : null}
     </View>
