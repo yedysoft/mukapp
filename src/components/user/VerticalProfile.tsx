@@ -11,7 +11,7 @@ import {useState} from 'react';
 type Props = {
   profile: IInfo | ISearchUser;
   otherUser?: boolean;
-}
+};
 
 export default function VerticalProfile({profile, otherUser}: Props) {
   const {colors} = useTheme();
@@ -35,14 +35,27 @@ export default function VerticalProfile({profile, otherUser}: Props) {
         />
       </Pressable>
       <View style={{justifyContent: 'center', alignItems: 'center', gap: responsiveWidth(8)}}>
-        <Text style={{fontSize: responsiveSize(24), fontWeight: 'bold'}}>{profile.name} {profile.surname}</Text>
-        <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>@{profile.userName}</Text>
+        <Text style={{fontSize: responsiveSize(24), fontWeight: 'bold'}}>
+          {profile.name} {profile.surname}
+        </Text>
+        <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>
+          @{profile.userName}
+        </Text>
       </View>
-      <EditImage setVisible={setVisible} isVisible={visible}/>
+      <EditImage setVisible={setVisible} isVisible={visible} />
       <View style={{flexDirection: 'row', display: otherUser ? 'flex' : 'none'}}>
-        <MukIconButton color={colors.secondary} scale={.4} icon={profile.isFollows ? 'account-minus-outline' : 'account-plus-outline'}
-                       onPress={() => profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id)}/>
-        <MukIconButton scale={0.4} icon={'cancel'} color={'rgba(255, 55, 95, 1)'} onPress={() => api.user.blockUser(profile.id)}/>
+        <MukIconButton
+          color={colors.secondary}
+          scale={0.4}
+          icon={profile.isFollows ? 'account-minus-outline' : 'account-plus-outline'}
+          onPress={() => (profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id))}
+        />
+        <MukIconButton
+          scale={0.4}
+          icon={'cancel'}
+          color={'rgba(255, 55, 95, 1)'}
+          onPress={() => api.user.blockUser(profile.id)}
+        />
       </View>
     </View>
   );

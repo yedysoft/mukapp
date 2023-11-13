@@ -19,7 +19,7 @@ export default function ShopSection({title, children, style}: Props) {
           fontSize: responsiveSize(20),
           color: colors.secondary,
           fontWeight: '500',
-          paddingLeft: responsiveWidth(20)
+          paddingLeft: responsiveWidth(20),
         }}
       >
         {title}

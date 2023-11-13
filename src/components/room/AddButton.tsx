@@ -12,7 +12,7 @@ export default function AddButton({onPress, style}: Props) {
 
   return (
     <TouchableOpacity onPress={onPress} style={style}>
-      <MukIcon icon={'plus'}/>
+      <MukIcon icon={'plus'} />
     </TouchableOpacity>
   );
 }

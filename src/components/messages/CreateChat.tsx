@@ -11,25 +11,6 @@ import {useTheme} from 'react-native-paper';
 import FriendsList from './FriendsList';
 import {useStores} from '../../stores';
 
-const friendsData = [
-  {
-    username: 'etcas',
-    image: 'blank',
-  },
-  {
-    username: 'dyuksel',
-    image: 'blank',
-  },
-  {
-    username: 'ysensoy',
-    image: 'blank',
-  },
-  {
-    username: 'lobostaff',
-    image: 'blank',
-  },
-];
-
 const CreateChat = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation();
@@ -50,15 +31,15 @@ const CreateChat = observer(() => {
 
   return (
     <>
-      <MukFAB onPress={handleSheet}/>
+      <MukFAB onPress={handleSheet} />
       <MukSheet
         snaps={['70%']}
         sheetRef={sheetRef}
         containerStyle={{marginBottom: room.isLive ? 88 : 0}}
         contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
       >
-        <FriendsList friends={user.getFollows}/>
-        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createChat()}/>
+        <FriendsList friends={user.getFollows} />
+        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createChat()} />
       </MukSheet>
     </>
   );

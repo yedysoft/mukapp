@@ -10,12 +10,12 @@ import {useServices} from '../../services';
 type Props = {
   setImage?: Dispatch<SetStateAction<string>>;
   setVisible: Dispatch<SetStateAction<boolean>>;
-  isVisible: boolean
-}
+  isVisible: boolean;
+};
 
 export default function EditImage({setImage, setVisible, isVisible}: Props) {
   const {colors} = useTheme();
-  const {api, t} = useServices();
+  const {api} = useServices();
 
   const pickImage = async () => {
     setVisible(false);
@@ -53,9 +53,16 @@ export default function EditImage({setImage, setVisible, isVisible}: Props) {
 
   return (
     <MukModal visible={isVisible} onDismiss={hideModal}>
-      <View style={{width: responsiveWidth(300), flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
-        <MukIconButton onPress={() => takePhoto()} icon={'camera'}/>
-        <MukIconButton onPress={() => pickImage()} icon={'folder-search'}/>
+      <View
+        style={{
+          width: responsiveWidth(300),
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+        }}
+      >
+        <MukIconButton onPress={() => takePhoto()} icon={'camera'} />
+        <MukIconButton onPress={() => pickImage()} icon={'folder-search'} />
       </View>
     </MukModal>
   );

@@ -1,5 +1,6 @@
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
+import {PVoid} from '../../types';
 
 export class UserApi {
   async getInfo(): PVoid {
@@ -78,7 +79,7 @@ export class UserApi {
 
   async getFollowRequests(): PVoid {
     try {
-      const response = await axiosIns.get(`/follow-request/getIncomingFollowRequests`);
+      const response = await axiosIns.get('/follow-request/getIncomingFollowRequests');
       console.log('Requests: ', response.data);
       stores.user.set('followRequests', response.data);
     } catch (e) {
@@ -126,7 +127,7 @@ export class UserApi {
 
   async getBlockedUsers(): PVoid {
     try {
-      const response = await axiosIns.get(`/user-blocked/getBlockedUsers`);
+      const response = await axiosIns.get('/user-blocked/getBlockedUsers');
       console.log('BlockedUsers: ', response.data);
       stores.user.set('blockedUsers', response.data);
     } catch (e) {

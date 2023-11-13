@@ -1,9 +1,11 @@
 import {IconButton, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
-import {StyleProp, ViewStyle} from 'react-native';
-import {ReactNode, useState} from 'react';
+import {StyleProp, View, ViewStyle} from 'react-native';
+import React, {ReactNode, useRef, useState} from 'react';
 import MukBadge from './MukBadge';
+import defaults from '../../utils/defaults';
+import {Positions, TooltipScreenProps} from '../../types';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -12,15 +14,27 @@ type Props = {
   scale?: number;
   badge?: number;
   onPress?: () => void;
-  tooltip?: (props: TooltipScreenProps) => ReactNode;
+  tooltip?: ({positions, visible, changeVisible}: TooltipScreenProps) => ReactNode;
   disabled?: boolean;
 };
 export default function MukIconButton({style, icon, color, scale, badge, onPress, tooltip, disabled}: Props) {
   const {colors} = useTheme();
 
+  // Tooltip için gerekenler
+  const ref = useRef<View>(null);
+  const [positions, setPositions] = useState<Positions>(defaults.positions);
   const [tooltipVisible, setTooltipVisible] = useState(false);
+
   const tooltipChangeVisible = (open: boolean) => {
     setTooltipVisible(open);
+  };
+
+  const onLayout = () => {
+    if (tooltip && ref.current) {
+      ref.current.measure((x, y, width, height, pageX, pageY) => {
+        setPositions({x: x, y: y, width: width, height: height, pageX: pageX, pageY: pageY});
+      });
+    }
   };
 
   const onPressHandle = () => {
@@ -29,7 +43,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
   };
 
   return (
-    <>
+    <View ref={ref} onLayout={onLayout}>
       <MukBadge
         badge={badge}
         style={{
@@ -48,7 +62,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
         size={responsiveSize(scale ? 64 * scale : 64)}
         onPress={onPressHandle}
       />
-      {tooltip && tooltip({visible: tooltipVisible, changeVisible: tooltipChangeVisible})}
-    </>
+      {tooltip && tooltip({positions: positions, visible: tooltipVisible, changeVisible: tooltipChangeVisible})}
+    </View>
   );
 }

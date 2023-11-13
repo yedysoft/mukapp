@@ -29,13 +29,13 @@ const menu = [
     icon: 'star-outline',
     label: 'Premium',
     route: 'Premium',
-    disabled: true
+    disabled: true,
   },
   {
     icon: 'view-list-outline',
     label: 'Görevler',
     route: 'Task',
-    disabled: true
+    disabled: true,
   },
   {
     icon: 'cog-outline',

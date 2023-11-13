@@ -1,5 +1,6 @@
 import {stores} from '../stores';
 import {restUrl} from '../../config';
+import {ErrorBody} from '../types';
 
 const interceptXMLHttpRequest = () => {
   const open = XMLHttpRequest.prototype.open;

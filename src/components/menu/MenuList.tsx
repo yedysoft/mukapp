@@ -20,7 +20,7 @@ export default function MenuList({menu}: Props) {
     <FlatList
       data={menu}
       style={{paddingVertical: responsiveWidth(16)}}
-      renderItem={({item, index}) => <MenuListItem key={index} item={item}/>}
+      renderItem={({item, index}) => <MenuListItem key={index} item={item} />}
       scrollEnabled={false}
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
     />

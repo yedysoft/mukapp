@@ -4,6 +4,7 @@ import {responsiveScale} from '../../utils/Responsive';
 import {ImageSourcePropType, Linking} from 'react-native';
 import {IMessage} from 'react-native-gifted-chat';
 import {ILastMessage} from '../../types/user';
+import {PVoid} from '../../types';
 
 export class HelperApi {
   timeoutId: NodeJS.Timeout | undefined;

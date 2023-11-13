@@ -1,28 +1,28 @@
 // Services
-interface IService {
+export interface IService {
   init: () => PVoid;
 }
 
 // Language
-type LangError = {
+export type LangError = {
   notEmpty: string;
 };
-type LangAuth = {
+export type LangAuth = {
   title: string;
   subTitle: string;
   user: string;
   pass: string;
   login: string;
 };
-type LangHome = {
+export type LangHome = {
   places: string;
   streamers: string;
 };
-type LangRoomConfig = {
+export type LangRoomConfig = {
   name: string;
   createRoom: string;
 };
-type MukLang = {
+export type MukLang = {
   error: LangError;
   auth: LangAuth;
   home: LangHome;
@@ -30,31 +30,30 @@ type MukLang = {
 };
 
 // System
-type PVoid = Promise<void>;
-type PureFunc = () => void;
-
-// Design system
-type ThemeColors = {
-  primaryColor: string;
-  secondaryColor: string;
-  accentColor: string;
-  textColor: string;
-  bgColor: string;
-  bg2Color: string;
-};
+export type PVoid = Promise<void>;
+export type PureFunc = () => void;
 
 // Components
-type TooltipScreenProps = {
+export type Positions = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  pageX: number;
+  pageY: number;
+};
+export type TooltipScreenProps = {
+  positions: Positions;
   visible: boolean;
   changeVisible: (open: boolean) => void;
 };
 
 // Error
-type ErrorMessage = {
+export type ErrorMessage = {
   id: number;
   error: ErrorBody;
 };
-type ErrorBody = {
+export type ErrorBody = {
   code: number;
   message: string;
 };

@@ -3,6 +3,7 @@ import {ReactNode, useState} from 'react';
 import MukButton from './MukButton';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleSheet} from 'react-native';
+import {PVoid} from '../../types';
 
 type Props = {
   title?: string;

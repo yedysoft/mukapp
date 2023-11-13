@@ -15,7 +15,9 @@ export default function ProfileList({items, header, onIconPress, otherUser}: Pro
     <FlatList
       data={items}
       ListHeaderComponent={header}
-      renderItem={({item, index}) => <ProfileListItem onIconPress={onIconPress} key={index} item={item} otherUser={otherUser}/>}
+      renderItem={({item, index}) => (
+        <ProfileListItem onIconPress={onIconPress} key={index} item={item} otherUser={otherUser} />
+      )}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8), paddingBottom: responsiveHeight(360)}}
     />

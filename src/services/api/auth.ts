@@ -4,6 +4,7 @@ import {stores} from '../../stores';
 import socket from './socket';
 import user from './user';
 import subscription from './subscription';
+import {PVoid} from '../../types';
 
 export class AuthApi {
   async login(form: ILogin): PVoid {

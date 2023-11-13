@@ -6,6 +6,7 @@ import media, {MediaApi} from './media';
 import subscription, {SubscriptionApi} from './subscription';
 import image, {ImageApi} from './image';
 import room, {RoomApi} from './room';
+import {IService, PVoid} from '../../types';
 
 export class ApiService implements IService {
   private inited = false;

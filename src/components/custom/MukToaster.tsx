@@ -5,6 +5,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {useServices} from '../../services';
 import {Pressable} from 'react-native';
 import {useStores} from '../../stores';
+import {ErrorMessage} from '../../types';
 
 type Props = {
   error: ErrorMessage;

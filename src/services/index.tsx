@@ -1,6 +1,7 @@
 import React from 'react';
 import {TranslateService} from './translate';
 import {ApiService} from './api';
+import {IService, PVoid} from '../types';
 
 class Services {
   t = new TranslateService();
@@ -9,7 +10,9 @@ class Services {
 export const services = new Services();
 
 const ServicesContext = React.createContext<Services>(services);
-export const ServicesProvider = ({children}: any) => <ServicesContext.Provider value={services}>{children}</ServicesContext.Provider>;
+export const ServicesProvider = ({children}: any) => (
+  <ServicesContext.Provider value={services}>{children}</ServicesContext.Provider>
+);
 export const useServices = (): Services => React.useContext(ServicesContext);
 
 export const initServices = async (): PVoid => {

@@ -2,13 +2,14 @@ import {Appearance, Language} from '../types/enums';
 import {BaseStore} from './base';
 import {StatusBarStyle} from 'expo-status-bar';
 import {CombinedDarkTheme, CombinedLightTheme} from '../theme';
+import {ErrorBody, ErrorMessage} from '../types';
 
 export class UIStore extends BaseStore<UIStore> {
   id = 0;
   appearance: Appearance = 'system';
   language: Language = 'system';
   errors: ErrorMessage[] = [];
-  expoToken: string = '';
+  expoToken = '';
 
   constructor() {
     super();

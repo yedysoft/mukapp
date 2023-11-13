@@ -2,6 +2,7 @@ import {ActivityIndicator, StyleProp, TextStyle, TouchableOpacity, ViewStyle} fr
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {ReactNode} from 'react';
+import {PureFunc} from '../../types';
 
 type Props = {
   buttonStyle?: StyleProp<ViewStyle>;

@@ -5,8 +5,8 @@ import {responsiveWidth} from '../../utils/Responsive';
 import {IFollowRequest} from '../../types/user';
 
 type Props = {
-  list: IFollowRequest[]
-}
+  list: IFollowRequest[];
+};
 
 export default function NotificationsList({list}: Props) {
   const {colors} = useTheme();
@@ -16,7 +16,7 @@ export default function NotificationsList({list}: Props) {
       contentContainerStyle={{paddingHorizontal: responsiveWidth(16), gap: responsiveWidth(8)}}
       scrollEnabled
       data={list}
-      renderItem={({item}) => <NotificationsListItem notification={item} buttons={true}/>}
+      renderItem={({item}) => <NotificationsListItem notification={item} buttons={true} />}
     />
   );
 }

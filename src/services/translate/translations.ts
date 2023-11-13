@@ -1,3 +1,5 @@
+import {MukLang} from '../../types';
+
 export const tr: MukLang = {
   error: {
     notEmpty: 'Boş bırakmayın',

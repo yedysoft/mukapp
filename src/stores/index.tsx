@@ -7,6 +7,7 @@ import user from './user';
 import media from './media';
 import room from './room';
 import loading from './loading';
+import {PVoid} from '../types';
 
 class Stores {
   ui = ui;

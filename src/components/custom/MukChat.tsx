@@ -4,6 +4,7 @@ import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import MukIcon from './MukIcon';
 import {responsiveWidth} from '../../utils/Responsive';
+import {PVoid} from '../../types';
 
 type Props = {
   sendMessage: (data: IMessage[]) => PVoid;

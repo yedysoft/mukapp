@@ -29,9 +29,9 @@ export const SubHeader = observer(() => {
       <NavButton>
         <MukIconButton icon={'chevron-left'} scale={0.7} onPress={() => navigation.goBack()} />
       </NavButton>
-      {route.name == 'Task' ? (
+      {route.name === 'Task' ? (
         <Token style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
-      ) : route.name == 'Room' ? (
+      ) : route.name === 'Room' ? (
         <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
       ) : null}
     </SafeAreaView>

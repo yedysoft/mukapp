@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 import {Modal, Portal, useTheme} from 'react-native-paper';
-import {responsiveWidth, screenHeight} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
   children?: ReactNode;
@@ -17,7 +17,14 @@ export default function MukModal({children, visible, onDismiss, backgroundColor}
       <Modal
         visible={visible}
         onDismiss={onDismiss}
-        contentContainerStyle={{backgroundColor: backgroundColor ?? colors.background, borderWidth: 3, borderColor: colors.secondary, padding: responsiveWidth(16), borderRadius: 16, alignSelf: 'center'}}
+        contentContainerStyle={{
+          backgroundColor: backgroundColor ?? colors.background,
+          borderWidth: 3,
+          borderColor: colors.secondary,
+          padding: responsiveWidth(16),
+          borderRadius: 16,
+          alignSelf: 'center',
+        }}
       >
         {children}
       </Modal>

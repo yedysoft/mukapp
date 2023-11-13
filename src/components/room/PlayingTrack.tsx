@@ -31,7 +31,7 @@ const PlayingTrack = observer(({compact}: Props) => {
         padding: responsiveWidth(compact ? 8 : 16),
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
-        backgroundColor: dominantColor ?? theme.colors.background
+        backgroundColor: dominantColor ?? theme.colors.background,
       }}
     >
       <TouchableOpacity

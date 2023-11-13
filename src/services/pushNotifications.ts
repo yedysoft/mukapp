@@ -8,7 +8,7 @@ import {useStores} from '../stores';
 type IPushNotification = {
   expoPushToken?: Notifications.ExpoPushToken;
   notification?: Notifications.Notification;
-}
+};
 
 export const usePushNotifications = (): IPushNotification => {
   const {ui} = useStores();
@@ -60,22 +60,21 @@ export const usePushNotifications = (): IPushNotification => {
   }
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then((token) => {
+    registerForPushNotificationsAsync().then(token => {
       console.log('expo-push-token: ', token);
       ui.set('expoToken', token!.data);
       setExpoPushToken(token);
     });
-    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
     });
-    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
     });
-    return (() => {
+    return () => {
       Notifications.removeNotificationSubscription(notificationListener.current!);
       Notifications.removeNotificationSubscription(responseListener.current!);
-    });
-
+    };
   }, []);
 
   return {

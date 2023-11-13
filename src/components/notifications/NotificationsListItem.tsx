@@ -9,10 +9,10 @@ import {IFollowRequest} from '../../types/user';
 import {useServices} from '../../services';
 
 type Props = {
-  icon?: IconSource,
-  notification?: IFollowRequest,
-  buttons?: boolean
-}
+  icon?: IconSource;
+  notification?: IFollowRequest;
+  buttons?: boolean;
+};
 
 export default function NotificationsListItem({icon, notification, buttons}: Props) {
   const {colors} = useTheme();
@@ -28,11 +28,30 @@ export default function NotificationsListItem({icon, notification, buttons}: Pro
 
   return (
     <MukListItem disabled={true} style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}}>
-      <MukIcon scale={.8} icon={icon ?? 'bell-badge-outline'}/>
-      <Text style={{fontSize: responsiveSize(14), color: colors.secondary, fontWeight: '400', width: buttons ? responsiveWidth(180) : '80%'}}>{notification?.userName} seni takip etmek istiyor</Text>
+      <MukIcon scale={0.8} icon={icon ?? 'bell-badge-outline'} />
+      <Text
+        style={{
+          fontSize: responsiveSize(14),
+          color: colors.secondary,
+          fontWeight: '400',
+          width: buttons ? responsiveWidth(180) : '80%',
+        }}
+      >
+        {notification?.userName} seni takip etmek istiyor
+      </Text>
       <View style={{flexDirection: 'row', display: buttons ? 'flex' : 'none'}}>
-        <MukIconButton color={colors.primary} scale={.5} icon={'check-circle-outline'} onPress={() => notification && acceptFollowRequest(notification?.requestId)}/>
-        <MukIconButton color={colors.tertiary} scale={.5} icon={'close-circle-outline'} onPress={() => notification && rejectFollowRequest(notification?.requestId)}/>
+        <MukIconButton
+          color={colors.primary}
+          scale={0.5}
+          icon={'check-circle-outline'}
+          onPress={() => notification && acceptFollowRequest(notification?.requestId)}
+        />
+        <MukIconButton
+          color={colors.tertiary}
+          scale={0.5}
+          icon={'close-circle-outline'}
+          onPress={() => notification && rejectFollowRequest(notification?.requestId)}
+        />
       </View>
     </MukListItem>
   );

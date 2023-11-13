@@ -3,7 +3,6 @@ import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/Responsive';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import MukBadge from '../custom/MukBadge';
-import MukMask from '../custom/MukMask';
 
 type Props = {
   onPress?: () => void;
@@ -22,10 +21,13 @@ export default function VoteButton({onPress, badge, style, isLoading}: Props) {
         style={{
           position: 'absolute',
           left: responsiveWidth(24),
-          bottom: responsiveWidth(24)
+          bottom: responsiveWidth(24),
         }}
       />
-      <MukImage scale={.6} source={!isLoading ? require('../../../assets/vote/vote-filled.png') : require('../../../assets/loader.gif')} />
+      <MukImage
+        scale={0.6}
+        source={!isLoading ? require('../../../assets/vote/vote-filled.png') : require('../../../assets/loader.gif')}
+      />
       {/*<MukMask
         progress={'100%'}
         mask={<MukImage scale={.6} source={require('../../../assets/vote/vote-filled.png')} />}

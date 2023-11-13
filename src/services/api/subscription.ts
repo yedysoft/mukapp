@@ -6,6 +6,7 @@ import media from './media';
 import {IVote} from '../../types/media';
 import {GiftedChat, IMessage} from 'react-native-gifted-chat';
 import {MessageType} from '../../types/enums';
+import {ErrorBody, PVoid} from '../../types';
 
 export class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];

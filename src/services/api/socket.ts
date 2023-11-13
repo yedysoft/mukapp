@@ -2,6 +2,7 @@ import * as StompJs from '@stomp/stompjs';
 import {messageCallbackType, StompHeaders, StompSubscription} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import {wsUrl} from '../../../config';
+import {PVoid} from '../../types';
 
 export class SocketApi {
   public subscribes: {[key: string]: StompSubscription};

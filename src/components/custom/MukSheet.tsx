@@ -4,7 +4,6 @@ import React, {ReactNode, useCallback, useMemo} from 'react';
 import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
 import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {useTheme} from 'react-native-paper';
-import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 
 type Props = {
@@ -21,7 +20,10 @@ const MukSheet = observer(({sheetRef, children, contentStyle, snaps, containerSt
   const handleSheetChanges = useCallback((index: number) => {
     //console.log('handleSheetChanges', index);
   }, []);
-  const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0}/>, []);
+  const renderBackdrop = useCallback(
+    (props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />,
+    [],
+  );
 
   return (
     <BottomSheet
@@ -36,11 +38,14 @@ const MukSheet = observer(({sheetRef, children, contentStyle, snaps, containerSt
       backgroundStyle={{backgroundColor: colors.background}}
     >
       <View
-        style={[{
-          flex: 1,
-          paddingHorizontal: responsiveWidth(20),
-          paddingVertical: responsiveHeight(8),
-        }, contentStyle]}
+        style={[
+          {
+            flex: 1,
+            paddingHorizontal: responsiveWidth(20),
+            paddingVertical: responsiveHeight(8),
+          },
+          contentStyle,
+        ]}
       >
         {children}
       </View>

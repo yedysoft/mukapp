@@ -20,19 +20,19 @@ type Props = {
 };
 
 export default function MukTextInput({
-                                       name,
-                                       label,
-                                       value,
-                                       hideText,
-                                       autoCapitalize,
-                                       onChange,
-                                       style,
-                                       outlineStyle,
-                                       preValidate,
-                                       validate,
-                                       validationMessage,
-                                       placeholder,
-                                     }: Props) {
+  name,
+  label,
+  value,
+  hideText,
+  autoCapitalize,
+  onChange,
+  style,
+  outlineStyle,
+  preValidate,
+  validate,
+  validationMessage,
+  placeholder,
+}: Props) {
   const {colors} = useTheme();
   const {t} = useServices();
   const [error, setError] = useState<string | null>(null);

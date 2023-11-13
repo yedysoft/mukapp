@@ -17,7 +17,7 @@ export const SearchScreen = observer(() => {
       if (value !== '') {
         api.user.searchUser(value);
       } else {
-        user.set('searched', [])
+        user.set('searched', []);
       }
     });
   };

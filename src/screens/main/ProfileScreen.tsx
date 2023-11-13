@@ -39,8 +39,9 @@ const ProfileScreen = observer((props?: any) => {
     await api.user.getFollowers(id);
   };
 
-  if (userId)
+  if (userId) {
     api.user.getInfoById(userId);
+  }
 
   useEffect(() => {
     setActiveIndex(0);
@@ -49,11 +50,18 @@ const ProfileScreen = observer((props?: any) => {
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
-      <VerticalProfile profile={info} otherUser={otherUser}/>
+      <VerticalProfile profile={info} otherUser={otherUser} />
       <View style={{gap: responsiveWidth(4)}}>
-        <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
-        <ProfileList otherUser={otherUser} onIconPress={(id: string) => activeIndex === 1 ? api.user.takeOutMyFollowers(id) : activeIndex === 2 ? api.user.unFollow(id) : undefined}
-                     items={activeIndex === 0 ? [] : activeIndex === 1 ? user.getFollowers : activeIndex === 2 ? user.getFollows : []}/>
+        <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+        <ProfileList
+          otherUser={otherUser}
+          onIconPress={(id: string) =>
+            activeIndex === 1 ? api.user.takeOutMyFollowers(id) : activeIndex === 2 ? api.user.unFollow(id) : undefined
+          }
+          items={
+            activeIndex === 0 ? [] : activeIndex === 1 ? user.getFollowers : activeIndex === 2 ? user.getFollows : []
+          }
+        />
       </View>
     </MainLayout>
   );

@@ -19,9 +19,12 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
   const navigation = useNavigation();
 
   return (
-    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} onPress={() => navigation.navigate('Profile', {id: item.userId})}>
+    <MukListItem
+      style={{alignItems: 'center', justifyContent: 'space-between'}}
+      onPress={() => navigation.navigate('Profile', {id: item.userId})}
+    >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
-        <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')}/>
+        <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')} />
         <View style={{justifyContent: 'center', gap: responsiveWidth(8)}}>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400'}}>
             {item.name} {item.surname}
@@ -36,7 +39,7 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
         icon={'account-minus-outline'}
         color={colors.secondary}
         style={{display: otherUser ? 'none' : 'flex'}}
-        onPress={() => onIconPress(item.userId)}
+        onPress={() => onIconPress(item.id)}
       />
     </MukListItem>
   );

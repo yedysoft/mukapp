@@ -4,10 +4,9 @@ import {responsiveWidth} from '../../utils/Responsive';
 
 type Props = {
   imageStyle?: ImageStyle;
-  scale?: number;
 };
 
-export default function MukLogo({imageStyle, scale}: Props) {
+export default function MukLogo({imageStyle}: Props) {
   const theme = useTheme();
 
   return (

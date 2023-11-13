@@ -1,11 +1,11 @@
-import {observer} from 'mobx-react';
 import NotificationList from './/NotificationList';
 import MukTooltip from '../custom/MukTooltip';
+import {TooltipScreenProps} from '../../types';
 
-export const NotificationsTooltip = observer(({visible, changeVisible}: TooltipScreenProps) => {
+export default function NotificationsTooltip({positions, visible, changeVisible}: TooltipScreenProps) {
   return (
-    <MukTooltip visible={visible} changeVisible={changeVisible}>
+    <MukTooltip positions={positions} visible={visible} changeVisible={changeVisible}>
       <NotificationList />
     </MukTooltip>
   );
-});
+}

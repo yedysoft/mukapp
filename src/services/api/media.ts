@@ -11,6 +11,7 @@ import {
 } from '../../types/media';
 import axiosIns from '../axiosIns';
 import helper from './helper';
+import {PVoid} from '../../types';
 
 export class MediaApi {
   async getAuthUrl(): Promise<string> {

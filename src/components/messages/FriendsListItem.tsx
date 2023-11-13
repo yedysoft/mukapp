@@ -7,7 +7,7 @@ import {View} from 'react-native';
 
 type Props = {
   onPress?: () => void;
-  friend?: IFollowUser
+  friend?: IFollowUser;
 };
 
 export default function FriendsListItem({onPress, friend}: Props) {
@@ -15,7 +15,7 @@ export default function FriendsListItem({onPress, friend}: Props) {
 
   return (
     <MukListItem onPress={onPress} style={{alignItems: 'center', backgroundColor: colors.backdrop, borderRadius: 16}}>
-      <MukImage scale={1} style={{borderRadius: 100}} source={require('../../../assets/adaptive-icon.png')}/>
+      <MukImage scale={1} style={{borderRadius: 100}} source={require('../../../assets/adaptive-icon.png')} />
       <View style={{gap: responsiveWidth(4)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>
           {friend?.name} {friend?.surname}

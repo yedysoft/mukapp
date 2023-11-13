@@ -3,6 +3,7 @@ import {stores} from '../../stores';
 import axiosIns from '../axiosIns';
 import {IRoomConfig, IRoomSession} from '../../types/room';
 import defaults from '../../utils/defaults';
+import {PVoid} from '../../types';
 
 export class RoomApi {
   async createRoom(config: IRoomConfig): PVoid {

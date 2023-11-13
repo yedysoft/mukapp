@@ -9,8 +9,8 @@ export default function ShopScreen() {
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
-      <ShopCarousel/>
-      <ShopCoins/>
+      <ShopCarousel />
+      <ShopCoins />
     </MainLayout>
   );
 }

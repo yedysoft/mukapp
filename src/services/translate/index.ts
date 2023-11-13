@@ -2,6 +2,7 @@ import * as Localization from 'expo-localization';
 import {I18n, Scope, TranslateOptions} from 'i18n-js';
 import * as translations from './translations';
 import {stores} from '../../stores';
+import {IService, PVoid} from '../../types';
 
 export class TranslateService implements IService {
   private inited = false;

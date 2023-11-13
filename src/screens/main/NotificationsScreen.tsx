@@ -17,7 +17,7 @@ export const NotificationsScreen = observer(() => {
 
   return (
     <MainLayout>
-      <NotificationsList list={user.getFollowRequests}/>
+      <NotificationsList list={user.getFollowRequests} />
     </MainLayout>
   );
 });

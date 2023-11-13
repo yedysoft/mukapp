@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import MukLogo from '../custom/MukLogo';
 import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import {NotificationsTooltip} from '../notification/NotificationsTooltip';
+import NotificationsTooltip from '../notification/NotificationsTooltip';
 import {NavButton} from './NavButton';
 import Coin from '../user/Coin';
 
@@ -31,7 +31,7 @@ export const MainHeader = observer(() => {
       </NavButton>
       <MukLogo />
       <NavButton>
-        {route.name == 'Shop' ? (
+        {route.name === 'Shop' ? (
           <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(16)}} />
         ) : (
           <MukIconButton icon={'bell-outline'} scale={0.4} tooltip={NotificationsTooltip} />

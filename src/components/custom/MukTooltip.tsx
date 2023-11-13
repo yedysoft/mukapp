@@ -2,38 +2,40 @@ import {ReactNode} from 'react';
 import {useTheme} from 'react-native-paper';
 import {responsiveWidth, screenHeight, screenWidth} from '../../utils/Responsive';
 import {Pressable, View} from 'react-native';
+import defaults from '../../utils/defaults';
+import {Positions} from '../../types';
 
 type Props = {
   children: ReactNode;
+  positions: Positions;
   visible: boolean;
   changeVisible: (open: boolean) => void;
 };
 
-export default function MukTooltip({children, visible, changeVisible}: Props) {
+export default function MukTooltip({children, positions = defaults.positions, visible, changeVisible}: Props) {
   const {colors} = useTheme();
 
   return (
-    <>
-      {visible && (
-        <Pressable
-          onPress={() => changeVisible(false)}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: screenHeight,
-            width: screenWidth,
-            backgroundColor: colors.background,
-            opacity: 0.5,
-          }}
-        />
-      )}
+    <View>
+      <Pressable
+        onPress={() => changeVisible(false)}
+        style={{
+          display: visible ? undefined : 'none',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: screenHeight,
+          width: screenWidth,
+          backgroundColor: colors.background,
+          opacity: 0.5,
+        }}
+      />
       <View
         style={{
           display: visible ? undefined : 'none',
           position: 'absolute',
-          top: responsiveWidth(136),
-          right: 0,
+          top: positions.pageY + positions.height,
+          left: positions.pageX,
           borderRadius: 16,
           backgroundColor: colors.background,
           borderWidth: 0.5,
@@ -60,6 +62,6 @@ export default function MukTooltip({children, visible, changeVisible}: Props) {
         />
         {children}
       </View>
-    </>
+    </View>
   );
 }
