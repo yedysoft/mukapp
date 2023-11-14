@@ -32,7 +32,7 @@ export const AuthForgotForm = observer(() => {
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>Şifremi Sıfırla</Text>
         <MukForm ref={formRef}>
           <MukTextInput
-            name={'email'}
+            name={'name'}
             label={'Email'}
             value={form.name}
             onChange={handleOnChange}
