@@ -7,9 +7,22 @@ import {ILastMessage} from '../../types/user';
 import {PVoid} from '../../types';
 
 export class HelperApi {
-  timeoutId: NodeJS.Timeout | undefined;
+  timeoutIds: {[key: number | string]: NodeJS.Timeout} = {};
 
-  async openURL(url: string) {
+  sleep(ms: number, key?: string | number): PVoid {
+    if (key && this.timeoutIds[key]) {
+      clearTimeout(this.timeoutIds[key]);
+    }
+    return new Promise<void>(resolver => {
+      const timeoutId: NodeJS.Timeout = setTimeout(() => {
+        resolver();
+        key && delete this.timeoutIds[key];
+      }, ms);
+      key && (this.timeoutIds[key] = timeoutId);
+    });
+  }
+
+  async openURL(url: string): PVoid {
     try {
       const supported = await Linking.canOpenURL(url);
       if (supported) {
@@ -22,7 +35,7 @@ export class HelperApi {
     }
   }
 
-  isColorLight(hexColor: any) {
+  isColorLight(hexColor: any): boolean {
     const r = parseInt(hexColor.slice(1, 3), 16);
     const g = parseInt(hexColor.slice(3, 5), 16);
     const b = parseInt(hexColor.slice(5, 7), 16);
@@ -44,11 +57,6 @@ export class HelperApi {
     } else {
       return num.toString();
     }
-  }
-
-  sleep(ms: number): PVoid {
-    this.timeoutId && clearTimeout(this.timeoutId);
-    return new Promise<void>(resolver => (this.timeoutId = setTimeout(resolver, ms)));
   }
 
   msToMinSec(ms: number): string {

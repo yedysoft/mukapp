@@ -1,5 +1,5 @@
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {useServices} from '../../services';
@@ -18,45 +18,54 @@ export default function MukToaster({error, interval}: Props) {
   const {api} = useServices();
   const {ui} = useStores();
 
-  const showError = useCallback(async () => {
-    await api.helper.sleep(interval);
-  }, []);
-
   const close = () => {
     setVisible(false);
     ui.delError(error.id);
   };
 
   useEffect(() => {
-    showError().then(close);
+    api.helper.sleep(interval, ui.id).then(close);
   }, []);
 
   return (
-    <>
-      {visible && (
-        <Animated.View
-          entering={FadeInUp}
-          exiting={FadeOutUp}
+    <Animated.View
+      entering={FadeInUp}
+      exiting={FadeOutUp}
+      style={{
+        display: visible ? undefined : 'none',
+        width: '90%',
+        backgroundColor: colors.error,
+        borderRadius: 16,
+        zIndex: 1400,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        minHeight: responsiveWidth(60),
+        maxHeight: responsiveWidth(96),
+      }}
+    >
+      <Pressable
+        onPress={close}
+        style={{
+          flex: 1,
+          padding: responsiveWidth(8),
+          borderRadius: 16,
+          flexDirection: 'column',
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Text
+          numberOfLines={2}
           style={{
-            width: '90%',
-            backgroundColor: colors.error,
-            padding: responsiveWidth(16),
-            justifyContent: 'center',
-            alignItems: 'center',
-            alignSelf: 'center',
-            borderRadius: 8,
-            zIndex: 1400,
-            minHeight: responsiveWidth(60),
-            maxHeight: responsiveWidth(96),
+            color: colors.secondary,
+            fontSize: responsiveSize(16),
           }}
         >
-          <Pressable onPress={close} style={{width: '100%', flex: 1}}>
-            <Text numberOfLines={2} style={{color: colors.secondary, fontSize: responsiveSize(16)}}>
-              {error.error.message}
-            </Text>
-          </Pressable>
-        </Animated.View>
-      )}
-    </>
+          {error.error.message}
+        </Text>
+      </Pressable>
+    </Animated.View>
   );
 }

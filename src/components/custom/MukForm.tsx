@@ -12,52 +12,54 @@ export type MukFormRef = {
   validateInputs: () => boolean;
 };
 
+const generateChildsWithRefs = (children: ReactNode) => {
+  return Children.map(children, (child: any) => {
+    const childRef = useRef<MukTextInputRef>(null);
+    return cloneElement(child, {...child.props, ref: childRef});
+  });
+};
+
 const MukForm = forwardRef<MukFormRef, Props>(({children, style}: Props, ref) => {
   const {t} = useServices();
 
-  const validateInput = (child: any): string | null => {
-    const text: string = child.value;
+  const validateInput = (child: any): boolean => {
+    let text: string | undefined = child.value;
+    if (!text) {
+      text = '';
+    }
     if (child.preValidate) {
       if (child.preValidate === 'required' && text.length === 0) {
-        return t.do('error.notEmpty');
+        return false;
       }
     }
     if (child.validate && child.validationMessage && child.validate.length === child.validationMessage.length) {
       for (let i = 0; i < child.validate.length; i++) {
         const validationFunction = child.validate[i];
         if (!validationFunction(text)) {
-          return child.validationMessage[i];
+          return false;
         }
       }
     }
-    return null;
+    return true;
   };
 
   const validateInputs = () => {
-    const errors: string[] = [];
+    let isValid = true;
     Children.forEach(children, (child: any) => {
-      child.ref?.current.test();
       const error = validateInput(child.props);
-      if (error) {
-        errors.push(error);
+      if (!error) {
+        isValid = false;
       }
     });
-    console.log(errors);
-    return errors.length === 0;
+    console.log('isValid', isValid);
+    return isValid;
   };
 
   useImperativeHandle(ref, () => ({
     validateInputs,
   }));
 
-  return (
-    <View style={style}>
-      {Children.map(children, (child: any) => {
-        const childRef = useRef<MukTextInputRef>(null);
-        return cloneElement(child, {ref: childRef});
-      })}
-    </View>
-  );
+  return <View style={style}>{generateChildsWithRefs(children)}</View>;
 });
 
 export default MukForm;

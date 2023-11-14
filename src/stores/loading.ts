@@ -1,7 +1,12 @@
 import {BaseStore} from './base';
 
 export class LoadingStore extends BaseStore<LoadingStore> {
+  // Auth
   login = false;
+  register = false;
+  forgotPass = false;
+
+  // Media
   userPlaylist = false;
   playlistTracks = false;
 
@@ -12,6 +17,14 @@ export class LoadingStore extends BaseStore<LoadingStore> {
 
   get getLogin() {
     return this.login;
+  }
+
+  get getRegister() {
+    return this.register;
+  }
+
+  get getForgotPass() {
+    return this.forgotPass;
   }
 
   get getUserPlaylist() {

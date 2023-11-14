@@ -1,6 +1,5 @@
 import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {responsiveWidth} from '../../utils/Responsive';
 import {KeyboardAvoidingView, Platform, StyleProp, ViewStyle} from 'react-native';
 
@@ -15,12 +14,16 @@ export default function AuthLayout({children, style}: Props) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={[{
-        flex: 1,
-        flexDirection: 'column',
-        paddingHorizontal: responsiveWidth(20),
-        backgroundColor: colors.background,
-      }, style]}
+      style={[
+        {
+          flex: 1,
+          flexDirection: 'column',
+          paddingHorizontal: responsiveWidth(20),
+          backgroundColor: colors.background,
+          paddingBottom: Platform.OS === 'ios' ? 0 : responsiveWidth(16),
+        },
+        style,
+      ]}
     >
       {children}
     </KeyboardAvoidingView>

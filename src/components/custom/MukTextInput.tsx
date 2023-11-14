@@ -51,20 +51,27 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
     const [error, setError] = useState<string | null>(null);
 
     const handleInputChange = (text: string) => {
+      if (!value) {
+        value = text;
+      }
       if (onChange) {
         onChange(name, text);
       }
       validateInput(text);
     };
 
-    const validateInput = (text: string) => {
+    const validateInput = (text: string | undefined) => {
       setError(null);
+      if (!text) {
+        text = '';
+      }
       if (preValidate) {
         if (preValidate === 'required' && text.length === 0) {
           setError(t.do('error.notEmpty'));
           return;
         }
       }
+
       if (validate && validationMessage && validate.length === validationMessage.length) {
         for (let i = 0; i < validate.length; i++) {
           const validationFunction = validate[i];
@@ -96,13 +103,14 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
           placeholderTextColor={colors.outlineVariant}
           autoCapitalize={autoCapitalize ?? 'none'}
           onChangeText={handleInputChange}
+          onFocus={() => validateInput(value)}
           outlineStyle={[{borderRadius: 16}, outlineStyle]}
           style={[
             {width: '100%', color: colors.secondary, backgroundColor: 'transparent', marginBottom: responsiveWidth(24)},
             style,
           ]}
         />
-        {error ? <Text style={{color: colors.error}}>* {error}</Text> : null}
+        <Text style={{display: error ? undefined : 'none', color: colors.error}}>* {error}</Text>
       </View>
     );
   },

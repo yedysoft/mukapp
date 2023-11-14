@@ -1,4 +1,4 @@
-import {ILogin} from '../../types/auth';
+import {IForgot, ILogin, IRegister} from '../../types/auth';
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import socket from './socket';
@@ -7,6 +7,28 @@ import subscription from './subscription';
 import {PVoid} from '../../types';
 
 export class AuthApi {
+  async forgotPass(form: IForgot): PVoid {
+    try {
+      stores.loading.set('forgotPass', true);
+      await axiosIns.post('/auth/forgotPass', form);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      stores.loading.set('forgotPass', false);
+    }
+  }
+
+  async register(form: IRegister): PVoid {
+    try {
+      stores.loading.set('register', true);
+      await axiosIns.post('/auth/register', form);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      stores.loading.set('register', false);
+    }
+  }
+
   async login(form: ILogin): PVoid {
     try {
       stores.loading.set('login', true);

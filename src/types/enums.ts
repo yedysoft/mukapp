@@ -17,3 +17,9 @@ export enum MessageType {
   Private = 1,
   Group = 2,
 }
+
+export enum Gender {
+  Male = 0,
+  Female = 1,
+  Other = 2,
+}

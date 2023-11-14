@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react';
 import {Text, useTheme} from 'react-native-paper';
-import MukTextInput, {MukTextInputRef} from '../custom/MukTextInput';
+import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef, useState} from 'react';
 import {ILogin} from '../../types/auth';
@@ -19,7 +19,6 @@ export const AuthLoginForm = observer(() => {
   const {api, t} = useServices();
   const {loading} = useStores();
   const formRef = useRef<MukFormRef>(null);
-  const a = useRef<MukTextInputRef>(null);
 
   const handleOnChange = (name: string, value: string) => {
     setForm({...form, [name]: value});
@@ -34,7 +33,6 @@ export const AuthLoginForm = observer(() => {
         <View style={{}}>
           <MukForm ref={formRef}>
             <MukTextInput
-              ref={a}
               name={'name'}
               label={t.do('auth.user')}
               value={form.name}
@@ -70,7 +68,7 @@ export const AuthLoginForm = observer(() => {
         <MukButton
           buttonStyle={{backgroundColor: 'transparent', padding: 0}}
           textStyle={{color: colors.outlineVariant, fontWeight: '400'}}
-          loading={loading.getLogin}
+          disabled={loading.getLogin}
           label={'Hesabım Yok'}
           onPress={() => navigation.navigate('Register')}
         />

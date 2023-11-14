@@ -22,7 +22,7 @@ const ErrorStack = observer(() => {
       }}
     >
       {ui.getErrors.map(e => (
-        <MukToaster key={e.id} error={e} interval={5000} />
+        <MukToaster key={e.id} error={e} interval={3000} />
       ))}
     </View>
   );

@@ -6,6 +6,7 @@ import {PureFunc} from '../../types';
 
 type Props = {
   buttonStyle?: StyleProp<ViewStyle>;
+  disabled?: boolean;
   loading?: boolean;
   onPress?: PureFunc;
   label?: string;
@@ -14,11 +15,11 @@ type Props = {
   textStyle?: StyleProp<TextStyle>;
 };
 
-export default function MukButton({buttonStyle, loading, onPress, label, children, scale, textStyle}: Props) {
+export default function MukButton({buttonStyle, disabled, loading, onPress, label, children, scale, textStyle}: Props) {
   const theme = useTheme();
   return (
     <TouchableOpacity
-      disabled={loading}
+      disabled={loading ?? disabled}
       onPress={loading ? () => {} : onPress}
       style={[
         {
@@ -32,7 +33,12 @@ export default function MukButton({buttonStyle, loading, onPress, label, childre
         buttonStyle,
       ]}
     >
-      {loading ? <ActivityIndicator color={theme.colors.background} style={{marginRight: 5}} /> : null}
+      {loading ? (
+        <ActivityIndicator
+          color={theme.colors.background}
+          style={{display: loading ? undefined : 'none', marginRight: 5}}
+        />
+      ) : null}
       {children}
       <Text style={[{fontSize: responsiveSize(16), fontWeight: 'bold', color: theme.colors.background}, textStyle]}>
         {label}

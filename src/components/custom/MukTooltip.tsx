@@ -30,17 +30,20 @@ export default function MukTooltip({children, positions = defaults.positions, vi
       }}
     >
       <View
-        style={[{
-          alignSelf: 'flex-end',
-          right: screenWidth - (positions.pageX + positions.width - responsiveWidth(8)),
-          top: positions.pageY + positions.height,
-          borderRadius: 16,
-          backgroundColor: theme.colors.background,
-          borderWidth: 0.5,
-          borderColor: theme.colors.backdrop,
-          width: screenWidth / 2,
-          height: responsiveWidth(320),
-        }, styles.shadow]}
+        style={[
+          {
+            alignSelf: 'flex-end',
+            right: screenWidth - (positions.pageX + positions.width - responsiveWidth(8)),
+            top: positions.pageY + positions.height,
+            borderRadius: 16,
+            backgroundColor: theme.colors.background,
+            borderWidth: 0.5,
+            borderColor: theme.colors.backdrop,
+            width: screenWidth / 2,
+            height: responsiveWidth(320),
+          },
+          styles.shadow,
+        ]}
       >
         {children}
       </View>
