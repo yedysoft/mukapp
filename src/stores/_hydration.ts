@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {configurePersistable} from 'mobx-persist-store';
 
 configurePersistable({
-  debugMode: __DEV__,
+  debugMode: false,
   storage: {
     setItem: async (key, value) => {
       await AsyncStorage.setItem(key, value);

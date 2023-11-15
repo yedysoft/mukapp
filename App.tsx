@@ -14,9 +14,11 @@ import ErrorStack from './src/components/stacks/ErrorStack';
 import DialogStack from './src/components/stacks/DialogStack';
 import {usePushNotifications} from './src/services/pushNotifications';
 import * as Device from 'expo-device';
+import {Appearance, useColorScheme} from 'react-native';
 
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
+  const colorScheme = useColorScheme();
   const [ready, setReady] = useState(false);
 
   Device.isDevice && usePushNotifications();
@@ -33,8 +35,17 @@ export default observer(() => {
   }, []);
 
   useEffect(() => {
+    console.log('colorScheme', colorScheme);
+  }, [colorScheme]);
+
+  useEffect(() => {
+    console.log('getColorScheme', Appearance.getColorScheme());
+    const subscription = Appearance.addChangeListener(({colorScheme}) => {
+      console.log('Appearance.addChangeListener', colorScheme);
+    });
     initializeApp().then(() => setReady(true));
     return () => {
+      subscription.remove();
       deinitializeApp().then(() => console.log('deinitializeApp'));
     };
   }, []);
