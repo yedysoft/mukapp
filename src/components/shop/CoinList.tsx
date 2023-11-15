@@ -3,6 +3,7 @@ import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import CoinGridItem from './CoinGridItem';
 import {useServices} from '../../services';
+import {MukTheme} from '../../types';
 
 type Props = {
   coins: {
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export default function CoinList({coins}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
 
   return (

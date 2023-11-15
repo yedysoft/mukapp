@@ -1,9 +1,9 @@
 import {ReactNode} from 'react';
-import {MD3Theme, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {responsiveWidth, screenHeight, screenWidth} from '../../utils/Responsive';
 import {Pressable, StyleSheet, View} from 'react-native';
 import defaults from '../../utils/defaults';
-import {Positions} from '../../types';
+import {MukColors, MukTheme, Positions} from '../../types';
 
 type Props = {
   children: ReactNode;
@@ -13,8 +13,8 @@ type Props = {
 };
 
 export default function MukTooltip({children, positions = defaults.positions, visible, changeVisible}: Props) {
-  const theme = useTheme();
-  const styles = makeStyles({theme});
+  const {colors} = useTheme<MukTheme>();
+  const styles = makeStyles(colors);
 
   return (
     <Pressable
@@ -24,7 +24,7 @@ export default function MukTooltip({children, positions = defaults.positions, vi
         position: 'absolute',
         top: -positions.pageY,
         right: -responsiveWidth(8),
-        backgroundColor: theme.colors.backdrop,
+        backgroundColor: colors.backdrop,
         width: screenWidth,
         height: screenHeight,
       }}
@@ -36,9 +36,9 @@ export default function MukTooltip({children, positions = defaults.positions, vi
             right: screenWidth - (positions.pageX + positions.width - responsiveWidth(8)),
             top: positions.pageY + positions.height,
             borderRadius: 16,
-            backgroundColor: theme.colors.background,
+            backgroundColor: colors.background,
             borderWidth: 0.5,
-            borderColor: theme.colors.backdrop,
+            borderColor: colors.backdrop,
             width: screenWidth / 2,
             height: responsiveWidth(320),
           },
@@ -51,14 +51,10 @@ export default function MukTooltip({children, positions = defaults.positions, vi
   );
 }
 
-type SProps = {
-  theme: MD3Theme;
-};
-
-const makeStyles = ({theme}: SProps) =>
+const makeStyles = (colors: MukColors) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: theme.colors.primary,
+      shadowColor: colors.primary,
       shadowOffset: {
         width: 0,
         height: 0,

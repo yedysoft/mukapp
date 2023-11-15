@@ -1,9 +1,10 @@
-import {MD3Theme, Text, useTheme} from 'react-native-paper';
+import {Text, useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
+import {MukColors, MukTheme} from '../../types';
 
 type Props = {
   onPress?: () => void;
@@ -12,8 +13,8 @@ type Props = {
 };
 
 export default function PlaylistListItem({onPress, active, playlist}: Props) {
-  const theme = useTheme();
-  const styles = makeStyles({theme, active});
+  const {colors} = useTheme<MukTheme>();
+  const styles = makeStyles(colors, active);
   const {api} = useServices();
 
   return (
@@ -22,7 +23,7 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
       style={[
         {
           flexDirection: 'column',
-          backgroundColor: theme.colors.background,
+          backgroundColor: colors.background,
           height: responsiveWidth(160),
           borderRadius: 16,
           justifyContent: 'space-between',
@@ -39,15 +40,10 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
   );
 }
 
-type SProps = {
-  theme: MD3Theme;
-  active?: boolean;
-};
-
-const makeStyles = ({theme, active}: SProps) =>
+const makeStyles = (colors: MukColors, active: boolean | undefined) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: active ? theme.colors.primary : 'rgb(138,138,138)',
+      shadowColor: active ? colors.primary : 'rgb(138,138,138)',
       shadowOffset: {
         width: 0,
         height: active ? 4 : 3,

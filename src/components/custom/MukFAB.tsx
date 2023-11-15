@@ -1,8 +1,9 @@
-import {FAB, MD3Theme, useTheme} from 'react-native-paper';
+import {FAB, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import {MukColors, MukTheme} from '../../types';
 
 type Props = {
   onPress?: () => void;
@@ -10,19 +11,19 @@ type Props = {
 };
 
 const MukFAB = observer(({onPress, style}: Props) => {
-  const theme = useTheme();
-  const styles = makeStyles({theme});
+  const {colors} = useTheme<MukTheme>();
+  const styles = makeStyles(colors);
   const {room} = useStores();
 
   return (
     <FAB
       icon="plus"
-      color={theme.colors.background}
+      color={colors.background}
       customSize={responsiveSize(64)}
       style={[
         {
           position: 'absolute',
-          backgroundColor: theme.colors.primary,
+          backgroundColor: colors.primary,
           bottom: room.isLive ? responsiveWidth(110) : responsiveWidth(16),
           right: responsiveWidth(16),
           borderRadius: 100,
@@ -35,14 +36,10 @@ const MukFAB = observer(({onPress, style}: Props) => {
   );
 });
 
-type SProps = {
-  theme: MD3Theme;
-};
-
-const makeStyles = ({theme}: SProps) =>
+const makeStyles = (colors: MukColors) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: theme.colors.primary,
+      shadowColor: colors.primary,
       shadowOffset: {
         width: 0,
         height: 0,

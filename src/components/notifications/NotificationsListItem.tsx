@@ -7,6 +7,7 @@ import MukIconButton from '../custom/MukIconButton';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {IFollowRequest} from '../../types/user';
 import {useServices} from '../../services';
+import {MukTheme} from '../../types';
 
 type Props = {
   icon?: IconSource;
@@ -15,7 +16,7 @@ type Props = {
 };
 
 export default function NotificationsListItem({icon, notification, buttons}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
 
   const acceptFollowRequest = async (id: string) => {

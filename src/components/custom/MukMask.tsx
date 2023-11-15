@@ -2,6 +2,7 @@ import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import MaskedView from '@react-native-masked-view/masked-view';
 import {DimensionValue, View} from 'react-native';
+import {MukTheme} from '../../types';
 
 type Props = {
   masked?: ReactNode;
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export default function MukMask({masked, mask, progress}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <MaskedView

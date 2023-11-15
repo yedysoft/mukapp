@@ -3,6 +3,7 @@ import {InputModeOptions, StyleProp, Text, View, ViewStyle} from 'react-native';
 import {forwardRef, useImperativeHandle, useState} from 'react';
 import {useServices} from '../../services';
 import {responsiveWidth} from '../../utils/Responsive';
+import {MukTheme} from '../../types';
 
 type Props = {
   name: string;
@@ -23,7 +24,7 @@ type Props = {
 
 export type MukTextInputRef = {
   validateInput: (text: string) => void;
-  test: () => void;
+  inputValue: string;
 };
 
 const MukTextInput = forwardRef<MukTextInputRef, Props>(
@@ -46,21 +47,20 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
     }: Props,
     ref,
   ) => {
-    const {colors} = useTheme();
+    const {colors} = useTheme<MukTheme>();
     const {t} = useServices();
     const [error, setError] = useState<string | null>(null);
+    const [inputValue, setInputValue] = useState<string>('');
 
     const handleInputChange = (text: string) => {
-      if (!value) {
-        value = text;
-      }
+      setInputValue(text);
       if (onChange) {
         onChange(name, text);
       }
       validateInput(text);
     };
 
-    const validateInput = (text: string | undefined) => {
+    const validateInput = (text: string | undefined): boolean => {
       setError(null);
       if (!text) {
         text = '';
@@ -68,30 +68,28 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
       if (preValidate) {
         if (preValidate === 'required' && text.length === 0) {
           setError(t.do('error.notEmpty'));
-          return;
+          return false;
         }
       }
-
       if (validate && validationMessage && validate.length === validationMessage.length) {
         for (let i = 0; i < validate.length; i++) {
           const validationFunction = validate[i];
           if (!validationFunction(text)) {
             setError(validationMessage[i]);
-            return;
+            return false;
           }
         }
       }
+      return true;
     };
-
-    const test = () => console.log('test');
 
     useImperativeHandle(ref, () => ({
       validateInput,
-      test,
+      inputValue,
     }));
 
     return (
-      <View style={{flexDirection: 'column', gap: responsiveWidth(8)}}>
+      <View style={{flexDirection: 'column', gap: responsiveWidth(8), marginBottom: responsiveWidth(16)}}>
         <TextInput
           label={label}
           inputMode={inputMode}
@@ -103,12 +101,9 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
           placeholderTextColor={colors.outlineVariant}
           autoCapitalize={autoCapitalize ?? 'none'}
           onChangeText={handleInputChange}
-          onFocus={() => validateInput(value)}
+          onFocus={() => validateInput(value ?? inputValue)}
           outlineStyle={[{borderRadius: 16}, outlineStyle]}
-          style={[
-            {width: '100%', color: colors.secondary, backgroundColor: 'transparent', marginBottom: responsiveWidth(24)},
-            style,
-          ]}
+          style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}, style]}
         />
         <Text style={{display: error ? undefined : 'none', color: colors.error}}>* {error}</Text>
       </View>

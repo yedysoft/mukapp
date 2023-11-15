@@ -6,9 +6,10 @@ import {useServices} from '../../../services';
 import SearchList from '../../../components/search/SearchList';
 import {responsiveWidth} from '../../../utils/Responsive';
 import MukTextInput from '../../../components/custom/MukTextInput';
+import {MukTheme} from '../../../types';
 
 export const SearchScreen = observer(() => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {user} = useStores();
 

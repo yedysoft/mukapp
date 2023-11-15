@@ -3,13 +3,14 @@ import {responsiveSize} from '../../utils/Responsive';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import MukSwitch from '../custom/MukSwitch';
+import {MukTheme} from 'src/types';
 
 type Props = {
   setting?: any;
 };
 
 const RoomSettingsListItem = observer(({setting}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled={true}>

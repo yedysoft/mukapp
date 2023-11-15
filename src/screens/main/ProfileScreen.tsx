@@ -9,10 +9,11 @@ import {View} from 'react-native';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import {MukTheme} from '../../types';
 
 const ProfileScreen = observer((props?: any) => {
   const userId = props.route.params?.id;
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);

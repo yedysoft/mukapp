@@ -6,10 +6,11 @@ import ShopScreen from '../screens/main/ShopScreen';
 import {responsiveHeight} from '../utils/Responsive';
 import HomeScreen from '../screens/main/HomeScreen';
 import {MessagesScreen} from '../screens/main/social/MessagesScreen';
+import {MukTheme} from '../types';
 
 const Bottom = createBottomTabNavigator();
 export default function BottomTabs() {
-  const theme = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <Bottom.Navigator
@@ -18,7 +19,7 @@ export default function BottomTabs() {
         tabBarShowLabel: false,
         tabBarStyle: {
           height: responsiveHeight(80),
-          backgroundColor: theme.colors.background,
+          backgroundColor: colors.background,
           borderTopWidth: 0,
         },
         headerShown: true,
@@ -30,11 +31,7 @@ export default function BottomTabs() {
         component={ShopScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <AntDesign
-              name="shoppingcart"
-              size={30}
-              color={focused ? theme.colors.primary : theme.colors.outlineVariant}
-            />
+            <AntDesign name="shoppingcart" size={30} color={focused ? colors.primary : colors.outlineVariant} />
           ),
         }}
         listeners={({navigation}) => ({
@@ -49,11 +46,7 @@ export default function BottomTabs() {
         component={HomeScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <AntDesign
-              name="appstore-o"
-              size={30}
-              color={focused ? theme.colors.primary : theme.colors.outlineVariant}
-            />
+            <AntDesign name="appstore-o" size={30} color={focused ? colors.primary : colors.outlineVariant} />
           ),
         }}
         listeners={({navigation}) => ({
@@ -68,7 +61,7 @@ export default function BottomTabs() {
         component={MessagesScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <AntDesign name="message1" size={30} color={focused ? theme.colors.primary : theme.colors.outlineVariant} />
+            <AntDesign name="message1" size={30} color={focused ? colors.primary : colors.outlineVariant} />
           ),
         }}
         listeners={({navigation}) => ({

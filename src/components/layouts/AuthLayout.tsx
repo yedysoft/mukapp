@@ -2,6 +2,7 @@ import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {responsiveWidth} from '../../utils/Responsive';
 import {KeyboardAvoidingView, Platform, StyleProp, ViewStyle} from 'react-native';
+import {MukTheme} from '../../types';
 
 type Props = {
   children: ReactNode;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export default function AuthLayout({children, style}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <KeyboardAvoidingView

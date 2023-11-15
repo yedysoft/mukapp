@@ -6,6 +6,7 @@ import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import MukBadge from '../custom/MukBadge';
 import {YedyPalette} from '../../theme/YedyPalette';
+import {MukTheme} from '../../types';
 
 type Props = {
   leader: any;
@@ -13,7 +14,7 @@ type Props = {
 };
 
 const LeaderboardListItem = observer(({leader, index}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const rank = index + 1;
   let rankColor;
 

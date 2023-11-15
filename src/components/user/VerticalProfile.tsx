@@ -7,6 +7,7 @@ import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
 import EditImage from '../profile/EditImage';
 import {useState} from 'react';
+import {MukTheme} from '../../types';
 
 type Props = {
   profile: IInfo | ISearchUser;
@@ -14,9 +15,8 @@ type Props = {
 };
 
 export default function VerticalProfile({profile, otherUser}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
-
   const [visible, setVisible] = useState(false);
 
   return (

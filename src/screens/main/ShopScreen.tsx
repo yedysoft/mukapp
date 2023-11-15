@@ -3,9 +3,10 @@ import {MainLayout} from '../../components/layouts/MainLayout';
 import {responsiveHeight} from '../../utils/Responsive';
 import ShopCarousel from '../../components/shop/ShopCarousel';
 import ShopCoins from '../../components/shop/ShopCoins';
+import {MukTheme} from '../../types';
 
 export default function ShopScreen() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>

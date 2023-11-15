@@ -5,6 +5,7 @@ import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
 import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {useTheme} from 'react-native-paper';
 import {observer} from 'mobx-react';
+import {MukTheme} from '../../types';
 
 type Props = {
   sheetRef: React.RefObject<BottomSheetMethods>;
@@ -15,7 +16,7 @@ type Props = {
 };
 
 const MukSheet = observer(({sheetRef, children, contentStyle, snaps, containerStyle}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const snapPoints = useMemo(() => snaps, []);
   const handleSheetChanges = useCallback((index: number) => {
     //console.log('handleSheetChanges', index);

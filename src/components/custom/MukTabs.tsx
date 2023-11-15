@@ -1,6 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import {Tabs, TabScreen, TabsProvider} from 'react-native-paper-tabs';
 import {ReactNode} from 'react';
+import {MukTheme} from '../../types';
 
 type Props = {
   defaultIndex?: number;
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export default function MukTabs({tabs, defaultIndex, onChangeIndex}: Props) {
-  const theme = useTheme();
+  const theme = useTheme<MukTheme>();
 
   return (
     <TabsProvider onChangeIndex={onChangeIndex} defaultIndex={defaultIndex ?? 0}>

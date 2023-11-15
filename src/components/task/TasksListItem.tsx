@@ -6,9 +6,10 @@ import Token from '../user/Token';
 import MukProgressBar from '../custom/MukProgressBar';
 import MukButton from '../custom/MukButton';
 import {useState} from 'react';
+import {MukTheme} from '../../types';
 
 export default function TasksListItem() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const [isCompleted, setIsCompleted] = useState(false);
 
   return (

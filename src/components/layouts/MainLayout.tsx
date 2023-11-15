@@ -5,6 +5,7 @@ import {observer} from 'mobx-react';
 import {screenWidth} from '../../utils/Responsive';
 import PlayingTrack from '../room/PlayingTrack';
 import {useStores} from '../../stores';
+import {MukTheme} from '../../types';
 
 type Props = {
   children: ReactNode;
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export const MainLayout = observer(({children, style}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {room} = useStores();
 
   return (

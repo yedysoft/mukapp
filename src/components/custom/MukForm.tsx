@@ -1,6 +1,7 @@
-import {Children, cloneElement, forwardRef, ReactNode, useImperativeHandle, useRef} from 'react';
-import {useServices} from '../../services';
+import {forwardRef, ReactNode, useImperativeHandle} from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
+import {stores} from '../../stores';
+import {useServices} from '../../services';
 import {MukTextInputRef} from './MukTextInput';
 
 type Props = {
@@ -12,46 +13,22 @@ export type MukFormRef = {
   validateInputs: () => boolean;
 };
 
-const generateChildsWithRefs = (children: ReactNode) => {
-  return Children.map(children, (child: any) => {
-    const childRef = useRef<MukTextInputRef>(null);
-    return cloneElement(child, {...child.props, ref: childRef});
-  });
-};
-
 const MukForm = forwardRef<MukFormRef, Props>(({children, style}: Props, ref) => {
-  const {t} = useServices();
-
-  const validateInput = (child: any): boolean => {
-    let text: string | undefined = child.value;
-    if (!text) {
-      text = '';
-    }
-    if (child.preValidate) {
-      if (child.preValidate === 'required' && text.length === 0) {
-        return false;
-      }
-    }
-    if (child.validate && child.validationMessage && child.validate.length === child.validationMessage.length) {
-      for (let i = 0; i < child.validate.length; i++) {
-        const validationFunction = child.validate[i];
-        if (!validationFunction(text)) {
-          return false;
-        }
-      }
-    }
-    return true;
-  };
+  const {api, t} = useServices();
+  const refChildrens = api.helper.generateChildsWithRefs<MukTextInputRef>(children);
 
   const validateInputs = () => {
     let isValid = true;
-    Children.forEach(children, (child: any) => {
-      const error = validateInput(child.props);
+    refChildrens.forEach((child: any) => {
+      const cur = child.ref.current;
+      const error = cur.validateInput(child.props.value ?? cur.inputValue);
       if (!error) {
         isValid = false;
       }
     });
-    console.log('isValid', isValid);
+    if (!isValid) {
+      stores.ui.addErrors({type: 'warning', code: 0, message: t.do('error.notValidInputs')});
+    }
     return isValid;
   };
 
@@ -59,7 +36,7 @@ const MukForm = forwardRef<MukFormRef, Props>(({children, style}: Props, ref) =>
     validateInputs,
   }));
 
-  return <View style={style}>{generateChildsWithRefs(children)}</View>;
+  return <View style={style}>{refChildrens}</View>;
 });
 
 export default MukForm;

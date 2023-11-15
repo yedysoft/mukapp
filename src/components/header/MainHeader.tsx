@@ -8,9 +8,10 @@ import {observer} from 'mobx-react';
 import NotificationsTooltip from '../notification/NotificationsTooltip';
 import {NavButton} from './NavButton';
 import Coin from '../user/Coin';
+import {MukTheme} from '../../types';
 
 export const MainHeader = observer(() => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
   const route = useRoute();
 

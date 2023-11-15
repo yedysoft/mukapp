@@ -1,4 +1,4 @@
-import {MD3Theme, Text, useTheme} from 'react-native-paper';
+import {Text, useTheme} from 'react-native-paper';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
 import MukImage from '../../components/custom/MukImage';
@@ -8,18 +8,19 @@ import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import MukIconButton from '../custom/MukIconButton';
 import {useNavigation} from '@react-navigation/native';
+import {MukColors, MukTheme} from '../../types';
 
 type Props = {
   compact?: boolean;
 };
 
 const PlayingTrack = observer(({compact}: Props) => {
-  const theme = useTheme();
-  const styles = makeStyles(theme);
+  const {colors} = useTheme<MukTheme>();
+  const styles = makeStyles(colors);
   const {media} = useStores();
   const {api} = useServices();
-  const dominantColor = media.getPlayingTrack.dominantColor ?? theme.colors.background;
-  const textColor = api.helper.isColorLight(dominantColor) ? theme.colors.background : theme.colors.secondary;
+  const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
+  const textColor = api.helper.isColorLight(dominantColor) ? colors.background : colors.secondary;
   const navigation = useNavigation();
 
   return (
@@ -31,7 +32,7 @@ const PlayingTrack = observer(({compact}: Props) => {
         padding: responsiveWidth(compact ? 8 : 16),
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
-        backgroundColor: dominantColor ?? theme.colors.background,
+        backgroundColor: dominantColor ?? colors.background,
       }}
     >
       <TouchableOpacity
@@ -57,7 +58,7 @@ const PlayingTrack = observer(({compact}: Props) => {
             style={{
               fontSize: responsiveSize(compact ? 18 : 20),
               fontWeight: '500',
-              color: textColor ?? theme.colors.secondary,
+              color: textColor ?? colors.secondary,
             }}
           >
             {media.getPlayingTrack.name}
@@ -67,7 +68,7 @@ const PlayingTrack = observer(({compact}: Props) => {
             style={{
               fontSize: responsiveSize(compact ? 14 : 16),
               fontWeight: '300',
-              color: textColor ?? theme.colors.secondary,
+              color: textColor ?? colors.secondary,
             }}
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}
@@ -78,14 +79,14 @@ const PlayingTrack = observer(({compact}: Props) => {
             onPress={api.room.closeRoom}
             icon={'window-close'}
             scale={0.5}
-            color={textColor ?? theme.colors.secondary}
+            color={textColor ?? colors.secondary}
             style={{position: 'absolute', right: 0, top: responsiveWidth(8)}}
           />
         )}
       </TouchableOpacity>
       <View style={styles.shadow}>
         <MukProgressBar
-          color={textColor ?? theme.colors.primary}
+          color={textColor ?? colors.primary}
           progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)}
         />
       </View>
@@ -93,10 +94,10 @@ const PlayingTrack = observer(({compact}: Props) => {
   );
 });
 
-const makeStyles = (theme: MD3Theme) =>
+const makeStyles = (colors: MukColors) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: theme.colors.primary,
+      shadowColor: colors.primary,
       shadowOffset: {
         width: 0,
         height: 0,

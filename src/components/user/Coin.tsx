@@ -4,16 +4,15 @@ import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {useServices} from '../../services';
+import {MukTheme} from '../../types';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
 const Coin = observer(({style}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
-  const {api} = useServices();
 
   return (
     <View style={[{flexDirection: 'row', alignItems: 'center'}, style]}>

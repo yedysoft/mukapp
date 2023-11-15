@@ -3,6 +3,7 @@ import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
 import MukListItem from '../custom/MukListItem';
 import MukImage from '../custom/MukImage';
 import {useNavigation} from '@react-navigation/native';
+import {MukTheme} from '../../types';
 
 type Props = {
   notification: {
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export default function NotificationListItem({notification}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
 
   return (

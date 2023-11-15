@@ -5,9 +5,10 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import Coin from './Coin';
 import Token from './Token';
 import {useStores} from '../../stores';
+import {MukTheme} from '../../types';
 
 export default function HorizontalUser() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
   return (
     <View style={{flexDirection: 'row', gap: responsiveWidth(12), padding: responsiveWidth(16)}}>

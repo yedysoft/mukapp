@@ -4,6 +4,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import MukListItem from '../custom/MukListItem';
 import {IFollowUser} from '../../types/user';
 import {View} from 'react-native';
+import {MukTheme} from '../../types';
 
 type Props = {
   onPress?: () => void;
@@ -11,7 +12,7 @@ type Props = {
 };
 
 export default function FriendsListItem({onPress, friend}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <MukListItem onPress={onPress} style={{alignItems: 'center', backgroundColor: colors.backdrop, borderRadius: 16}}>

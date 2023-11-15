@@ -10,13 +10,14 @@ import {IRoom} from '../../types/room';
 import {useServices} from '../../services';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
+import {MukTheme} from '../../types';
 
 type Props = {
   roomData: IRoom;
 };
 
 const RoomListItem = observer(({roomData}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
   const {api} = useServices();
   const {room} = useStores();

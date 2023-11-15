@@ -1,3 +1,5 @@
+import {MD3Typescale, ThemeBase} from 'react-native-paper/lib/typescript/types';
+
 // Services
 export interface IService {
   init: () => PVoid;
@@ -6,6 +8,7 @@ export interface IService {
 // Language
 export type LangError = {
   notEmpty: string;
+  notValidInputs: string;
 };
 export type LangAuth = {
   title: string;
@@ -30,6 +33,25 @@ export type MukLang = {
 };
 
 // System
+export type MukColors = {
+  primary: string;
+  secondary: string;
+  tertiary: string;
+  background: string;
+  error: string;
+  warning: string;
+  info: string;
+  outline: string;
+  outlineVariant: string;
+  shadow: string;
+  backdrop: string;
+};
+export type MukTheme = ThemeBase & {
+  version: 3;
+  isV3: true;
+  colors: MukColors;
+  fonts: MD3Typescale;
+};
 export type PVoid = Promise<void>;
 export type PureFunc = () => void;
 
@@ -56,4 +78,5 @@ export type ErrorMessage = {
 export type ErrorBody = {
   code: number;
   message: string;
+  type?: 'error' | 'warning' | 'info';
 };

@@ -2,6 +2,7 @@ import {Avatar, Badge, useTheme} from 'react-native-paper';
 import {StyleProp, ViewStyle} from 'react-native';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {MukTheme} from 'src/types';
 
 type Props = {
   badge?: number;
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export default function MukIcon({badge, icon, color, iconStyle, scale}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <>

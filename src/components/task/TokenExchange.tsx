@@ -4,9 +4,10 @@ import {View} from 'react-native';
 import Token from '../user/Token';
 import MukIconButton from '../custom/MukIconButton';
 import Coin from '../user/Coin';
+import {MukTheme} from '../../types';
 
 export default function TokenExchange() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <View

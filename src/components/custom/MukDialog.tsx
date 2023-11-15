@@ -1,9 +1,9 @@
-import {Dialog, MD3Theme, Text, useTheme} from 'react-native-paper';
+import {Dialog, Text, useTheme} from 'react-native-paper';
 import {ReactNode, useState} from 'react';
 import MukButton from './MukButton';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleSheet} from 'react-native';
-import {PVoid} from '../../types';
+import {MukColors, MukTheme, PVoid} from '../../types';
 
 type Props = {
   title?: string;
@@ -26,27 +26,27 @@ export default function MukDialog({
   labelReject,
   labelAccept,
 }: Props) {
-  const theme = useTheme();
-  const styles = makeStyles({theme});
+  const {colors} = useTheme<MukTheme>();
+  const styles = makeStyles(colors);
   const [loading, setLoading] = useState(false);
   const onDismiss = loading ? () => {} : onReject;
 
   return (
-    <Dialog visible={visible} onDismiss={onDismiss} style={[{backgroundColor: theme.colors.background}, styles.shadow]}>
-      <Dialog.Title style={{color: theme.colors.secondary, fontSize: responsiveSize(20), fontWeight: 'bold'}}>
+    <Dialog visible={visible} onDismiss={onDismiss} style={[{backgroundColor: colors.background}, styles.shadow]}>
+      <Dialog.Title style={{color: colors.secondary, fontSize: responsiveSize(20), fontWeight: 'bold'}}>
         {title}
       </Dialog.Title>
       <Dialog.Content style={{paddingBottom: responsiveWidth(24)}}>
-        <Text style={{color: theme.colors.secondary, fontSize: responsiveSize(14)}}>{content}</Text>
+        <Text style={{color: colors.secondary, fontSize: responsiveSize(14)}}>{content}</Text>
         {children}
       </Dialog.Content>
       <Dialog.Actions style={{gap: responsiveWidth(16)}}>
         <MukButton
           onPress={onDismiss}
           label={labelReject ?? 'Geri Dön'}
-          buttonStyle={{backgroundColor: theme.colors.error}}
+          buttonStyle={{backgroundColor: colors.error}}
           scale={0.8}
-          textStyle={{color: theme.colors.secondary, fontSize: responsiveSize(14), fontWeight: '600'}}
+          textStyle={{color: colors.secondary, fontSize: responsiveSize(14), fontWeight: '600'}}
         />
         <MukButton
           loading={loading}
@@ -55,23 +55,19 @@ export default function MukDialog({
             onAccept().then(() => setLoading(false));
           }}
           label={labelAccept ?? 'Onayla'}
-          buttonStyle={{backgroundColor: theme.colors.primary}}
+          buttonStyle={{backgroundColor: colors.primary}}
           scale={0.8}
-          textStyle={{color: theme.colors.secondary, fontSize: responsiveSize(14), fontWeight: '600'}}
+          textStyle={{color: colors.secondary, fontSize: responsiveSize(14), fontWeight: '600'}}
         />
       </Dialog.Actions>
     </Dialog>
   );
 }
 
-type SProps = {
-  theme: MD3Theme;
-};
-
-const makeStyles = ({theme}: SProps) =>
+const makeStyles = (colors: MukColors) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: theme.colors.primary,
+      shadowColor: colors.primary,
       shadowOffset: {
         width: 0,
         height: 0,

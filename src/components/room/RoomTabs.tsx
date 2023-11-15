@@ -11,9 +11,10 @@ import LeaderboardList from './LeaderboardList';
 import RoomSettingsList from './RoomSettingsList';
 import LeaderboardListItem from './LeaderboardListItem';
 import MukLoader from '../loading/MukLoader';
+import {MukTheme} from '../../types';
 
 const RoomTabs = observer(() => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {media, room, loading} = useStores();
   const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists);

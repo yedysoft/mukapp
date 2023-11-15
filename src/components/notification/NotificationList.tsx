@@ -2,6 +2,7 @@ import {useTheme} from 'react-native-paper';
 import NotificationListItem from './NotificationListItem';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
+import {MukTheme} from '../../types';
 
 const data = [
   {
@@ -31,7 +32,7 @@ const data = [
 ];
 
 export default function NotificationList() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <FlatList

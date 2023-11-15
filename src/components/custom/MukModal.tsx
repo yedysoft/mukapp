@@ -1,6 +1,7 @@
 import {ReactNode} from 'react';
 import {Modal, Portal, useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../utils/Responsive';
+import {MukTheme} from '../../types';
 
 type Props = {
   children?: ReactNode;
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export default function MukModal({children, visible, onDismiss, backgroundColor}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <Portal>

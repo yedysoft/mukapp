@@ -1,6 +1,7 @@
 import {ProgressBar, useTheme} from 'react-native-paper';
 import {responsiveHeight} from '../../utils/Responsive';
 import {StyleProp, ViewStyle} from 'react-native';
+import {MukTheme} from '../../types';
 
 type Props = {
   progress?: number;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export default function MukProgressBar({progress, color, style}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <ProgressBar

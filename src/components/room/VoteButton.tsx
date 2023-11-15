@@ -3,6 +3,7 @@ import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/Responsive';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import MukBadge from '../custom/MukBadge';
+import {MukTheme} from '../../types';
 
 type Props = {
   onPress?: () => void;
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export default function VoteButton({onPress, badge, style, isLoading}: Props) {
-  const theme = useTheme();
+  const theme = useTheme<MukTheme>();
 
   return (
     <TouchableOpacity onPress={onPress} style={style}>

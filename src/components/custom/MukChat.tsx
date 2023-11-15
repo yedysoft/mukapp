@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import MukIcon from './MukIcon';
 import {responsiveWidth} from '../../utils/Responsive';
-import {PVoid} from '../../types';
+import {MukTheme, PVoid} from '../../types';
 
 type Props = {
   sendMessage: (data: IMessage[]) => PVoid;
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const MukChat = observer(({sendMessage, messages}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
 
   const renderInputToolbar = (props: any) => (

@@ -1,7 +1,8 @@
-import {MD3Theme, Text, useTheme} from 'react-native-paper';
+import {Text, useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleSheet, TouchableOpacity} from 'react-native';
+import {MukTheme} from '../../types';
 
 type Props = {
   onPress?: () => void;
@@ -13,16 +14,15 @@ type Props = {
 };
 
 export default function CoinGridItem({onPress, coin}: Props) {
-  const {colors} = useTheme();
-  const theme = useTheme();
-  const styles = makeStyles({theme});
+  const {colors} = useTheme<MukTheme>();
+  const styles = makeStyles();
 
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
         {
-          backgroundColor: theme.colors.background,
+          backgroundColor: colors.background,
           height: responsiveWidth(140),
           aspectRatio: 1,
           alignItems: 'center',
@@ -52,11 +52,7 @@ export default function CoinGridItem({onPress, coin}: Props) {
   );
 }
 
-type SProps = {
-  theme: MD3Theme;
-};
-
-const makeStyles = ({theme}: SProps) =>
+const makeStyles = () =>
   StyleSheet.create({
     shadow: {
       shadowColor: 'rgba(255, 159, 10, 1)',

@@ -1,12 +1,13 @@
-import {MD3Theme, Text, useTheme} from 'react-native-paper';
+import {Text, useTheme} from 'react-native-paper';
 import {MainLayout} from '../../components/layouts/MainLayout';
 import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useState} from 'react';
+import {MukColors, MukTheme} from '../../types';
 
 const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) => {
-  const theme = useTheme();
-  const styles = makeStyles({theme, active});
+  const {colors} = useTheme<MukTheme>();
+  const styles = makeStyles(colors, active);
 
   return (
     <TouchableOpacity
@@ -18,7 +19,7 @@ const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) 
           alignItems: 'center',
           padding: responsiveWidth(8),
           borderRadius: 16,
-          backgroundColor: theme.colors.backdrop,
+          backgroundColor: colors.backdrop,
         },
         styles.shadow,
       ]}
@@ -30,7 +31,7 @@ const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) 
 };
 
 export default function PremiumScreen() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const [selection, setSelection] = useState(1);
 
   return (
@@ -40,15 +41,10 @@ export default function PremiumScreen() {
   );
 }
 
-type SProps = {
-  theme: MD3Theme;
-  active?: boolean;
-};
-
-const makeStyles = ({theme, active}: SProps) =>
+const makeStyles = (colors: MukColors, active: boolean) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: active ? theme.colors.primary : 'rgb(138,138,138)',
+      shadowColor: active ? colors.primary : 'rgb(138,138,138)',
       shadowOffset: {
         width: 0,
         height: active ? 4 : 3,

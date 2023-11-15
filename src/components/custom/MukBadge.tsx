@@ -1,13 +1,14 @@
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {StyleProp, View, ViewStyle} from 'react-native';
+import {MukTheme} from '../../types';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
   badge?: number;
 };
 export default function MukBadge({style, badge}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <View

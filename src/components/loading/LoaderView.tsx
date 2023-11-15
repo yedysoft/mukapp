@@ -2,12 +2,13 @@ import {StyleProp, View, ViewStyle} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import MukLoader from './MukLoader';
 import {responsiveWidth} from '../../utils/Responsive';
+import {MukTheme} from '../../types';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
 };
 export default function LoaderView({style}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <View

@@ -2,7 +2,7 @@ import {Appearance, Language} from '../types/enums';
 import {BaseStore} from './base';
 import {StatusBarStyle} from 'expo-status-bar';
 import {CombinedDarkTheme, CombinedLightTheme} from '../theme';
-import {ErrorBody, ErrorMessage} from '../types';
+import {ErrorBody, ErrorMessage, MukTheme} from '../types';
 
 export class UIStore extends BaseStore<UIStore> {
   id = 0;
@@ -28,7 +28,7 @@ export class UIStore extends BaseStore<UIStore> {
     return this.appearance === 'light' ? 'dark' : 'light';
   }
 
-  get getTheme() {
+  get getTheme(): MukTheme {
     return this.appearance === 'light' ? CombinedLightTheme : CombinedDarkTheme;
   }
 

@@ -3,6 +3,7 @@ import {MukLang} from '../../types';
 export const tr: MukLang = {
   error: {
     notEmpty: 'Boş bırakmayın',
+    notValidInputs: 'Gerekli alanları doldurun',
   },
   auth: {
     title: 'Giriş yap',
@@ -23,6 +24,7 @@ export const tr: MukLang = {
 export const en: MukLang = {
   error: {
     notEmpty: 'Do not leave blank',
+    notValidInputs: 'Fill in the required fields',
   },
   auth: {
     title: 'Login',

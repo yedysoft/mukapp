@@ -3,6 +3,7 @@ import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import MenuListItem from './MenuListItem';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
+import {MukTheme} from '../../types';
 
 type Props = {
   menu: {
@@ -14,7 +15,7 @@ type Props = {
 };
 
 export default function MenuList({menu}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <FlatList

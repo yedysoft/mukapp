@@ -4,13 +4,14 @@ import {responsiveWidth} from '../../utils/Responsive';
 import {useNavigation} from '@react-navigation/native';
 import FriendsListItem from './FriendsListItem';
 import {IFollowUser} from '../../types/user';
+import {MukTheme} from '../../types';
 
 type Props = {
   friends?: IFollowUser[];
 };
 
 export default function FriendsList({friends}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
 
   return (

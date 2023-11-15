@@ -1,9 +1,10 @@
 import {useTheme} from 'react-native-paper';
 import MukCarousel from '../../components/custom/MukCarousel';
 import {View} from 'react-native';
+import {MukTheme} from '../../types';
 
 export default function ShopCarousel() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <MukCarousel

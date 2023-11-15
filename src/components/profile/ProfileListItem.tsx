@@ -7,6 +7,7 @@ import MukIconButton from '../custom/MukIconButton';
 import {observer} from 'mobx-react';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
+import {MukTheme} from '../../types';
 
 type Props = {
   item: ISearchUser;
@@ -15,13 +16,13 @@ type Props = {
 };
 
 const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
 
   return (
     <MukListItem
       style={{alignItems: 'center', justifyContent: 'space-between'}}
-      onPress={() => navigation.navigate('Profile', {id: item.userId})}
+      onPress={() => navigation.navigate('Profile', {id: item.id})}
     >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')} />

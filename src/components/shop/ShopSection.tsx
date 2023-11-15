@@ -2,6 +2,7 @@ import {Text, useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
+import {MukTheme} from '../../types';
 
 type Props = {
   title?: string;
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export default function ShopSection({title, children, style}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <View style={[{flexDirection: 'column', width: screenWidth, gap: responsiveHeight(4)}, style]}>

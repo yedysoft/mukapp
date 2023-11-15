@@ -2,6 +2,7 @@ import {useTheme} from 'react-native-paper';
 import {screenWidth} from '../../utils/Responsive';
 import {ReactNode} from 'react';
 import Carousel from 'react-native-reanimated-carousel';
+import {MukTheme} from '../../types';
 
 type Props = {
   data: any[];
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export default function MukCarousel({data, carousel}: Props) {
-  const theme = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <Carousel

@@ -5,7 +5,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {useServices} from '../../services';
 import {Pressable} from 'react-native';
 import {useStores} from '../../stores';
-import {ErrorMessage} from '../../types';
+import {ErrorMessage, MukTheme} from '../../types';
 
 type Props = {
   error: ErrorMessage;
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function MukToaster({error, interval}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const [visible, setVisible] = useState(true);
   const {api} = useServices();
   const {ui} = useStores();
@@ -34,7 +34,7 @@ export default function MukToaster({error, interval}: Props) {
       style={{
         display: visible ? undefined : 'none',
         width: '90%',
-        backgroundColor: colors.error,
+        backgroundColor: colors[error.error.type ?? 'error'],
         borderRadius: 16,
         zIndex: 1400,
         justifyContent: 'center',

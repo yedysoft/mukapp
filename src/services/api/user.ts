@@ -139,7 +139,7 @@ export class UserApi {
     try {
       const response = await axiosIns.delete(`/user-follower/unFollow/${userId}`);
       console.log('Unfollow: ', response.data);
-      this.getFollows(userId);
+      await this.getFollows(userId);
     } catch (e) {
       console.log(e);
     }
@@ -149,7 +149,7 @@ export class UserApi {
     try {
       const response = await axiosIns.delete(`/user-follower/takeOutMyFollowers/${userId}`);
       console.log('takeOutMyFollowers: ', response.data);
-      this.getFollowers(userId);
+      await this.getFollowers(userId);
     } catch (e) {
       console.log(e);
     }

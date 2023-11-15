@@ -9,6 +9,7 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import VoteButton from './VoteButton';
 import AddButton from './AddButton';
+import {MukTheme} from '../../types';
 
 type Props = {
   song: IQueueTrack | ITrack;
@@ -16,7 +17,7 @@ type Props = {
 };
 
 const SongListItem = observer(({song, itemType}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {user, media, ui} = useStores();
 

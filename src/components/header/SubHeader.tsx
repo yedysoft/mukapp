@@ -7,9 +7,10 @@ import {observer} from 'mobx-react';
 import {NavButton} from './NavButton';
 import Token from '../user/Token';
 import Coin from '../user/Coin';
+import {MukTheme} from '../../types';
 
 export const SubHeader = observer(() => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
   const route = useRoute();
 

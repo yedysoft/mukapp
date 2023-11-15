@@ -1,6 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import MukIcon from '../custom/MukIcon';
+import {MukTheme} from '../../types';
 
 type Props = {
   onPress?: () => void;
@@ -8,7 +9,7 @@ type Props = {
 };
 
 export default function AddButton({onPress, style}: Props) {
-  const theme = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <TouchableOpacity onPress={onPress} style={style}>

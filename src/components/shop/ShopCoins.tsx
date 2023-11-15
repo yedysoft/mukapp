@@ -1,6 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import CoinList from './CoinList';
 import ShopSection from './ShopSection';
+import {MukTheme} from '../../types';
 
 const coins = [
   {
@@ -41,7 +42,7 @@ const coins = [
 ];
 
 export default function ShopCoins() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <ShopSection title={'Mük Coin'}>

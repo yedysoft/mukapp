@@ -3,13 +3,14 @@ import NotificationsListItem from './NotificationsListItem';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import {IFollowRequest} from '../../types/user';
+import {MukTheme} from '../../types';
 
 type Props = {
   list: IFollowRequest[];
 };
 
 export default function NotificationsList({list}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <FlatList

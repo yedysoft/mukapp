@@ -4,9 +4,10 @@ import {responsiveWidth} from '../../utils/Responsive';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
+import {MukTheme} from '../../types';
 
 export default function MenuFooter() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {ui} = useStores();
   const {api} = useServices();
   const toggleTheme = ui.appearance === 'light' ? 'dark' : 'light';

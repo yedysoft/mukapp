@@ -1,6 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import {Image, ImageSourcePropType, ImageStyle} from 'react-native';
 import {responsiveScale} from '../../utils/Responsive';
+import {MukTheme} from '../../types';
 
 type Props = {
   source: ImageSourcePropType;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export default function MukImage({source, style, scale}: Props) {
-  const theme = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <Image

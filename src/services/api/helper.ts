@@ -5,6 +5,7 @@ import {ImageSourcePropType, Linking} from 'react-native';
 import {IMessage} from 'react-native-gifted-chat';
 import {ILastMessage} from '../../types/user';
 import {PVoid} from '../../types';
+import {Children, cloneElement, useRef} from 'react';
 
 export class HelperApi {
   timeoutIds: {[key: number | string]: NodeJS.Timeout} = {};
@@ -41,6 +42,17 @@ export class HelperApi {
     const b = parseInt(hexColor.slice(5, 7), 16);
     const brightness = (r * 299 + g * 587 + b * 114) / 1000;
     return brightness >= 128;
+  }
+
+  generateChildsWithRefs<T>(children: any) {
+    return Children.map(children, (child: any) => {
+      if (child.ref) {
+        return child;
+      } else {
+        const childRef = useRef<T>(null);
+        return cloneElement(child, {...child.props, ref: childRef});
+      }
+    });
   }
 
   nummer(num: number): string {

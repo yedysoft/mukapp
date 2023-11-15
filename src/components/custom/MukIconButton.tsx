@@ -5,7 +5,7 @@ import {StyleProp, View, ViewStyle} from 'react-native';
 import React, {ReactNode, useRef, useState} from 'react';
 import MukBadge from './MukBadge';
 import defaults from '../../utils/defaults';
-import {Positions, TooltipScreenProps} from '../../types';
+import {MukTheme, Positions, TooltipScreenProps} from '../../types';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -18,7 +18,7 @@ type Props = {
   disabled?: boolean;
 };
 export default function MukIconButton({style, icon, color, scale, badge, onPress, tooltip, disabled}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   // Tooltip için gerekenler
   const ref = useRef<View>(null);

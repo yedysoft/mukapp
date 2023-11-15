@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import MukModal from '../custom/MukModal';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
+import {MukTheme} from '../../types';
 
 type Props = {
   setImage?: Dispatch<SetStateAction<string>>;
@@ -14,7 +15,7 @@ type Props = {
 };
 
 export default function EditImage({setImage, setVisible, isVisible}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
 
   const pickImage = async () => {

@@ -11,10 +11,11 @@ import {stores, useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
+import {MukTheme} from '../../types';
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation();
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const [form, setForm] = useState<ILogin>({name: 'admin', pass: '123', expoToken: stores.ui.getExpoToken});
   const {api, t} = useServices();
   const {loading} = useStores();

@@ -3,6 +3,7 @@ import DrawerLayout from '../../components/layouts/DrawerLayout';
 import HorizontalUser from '../../components/user/HorizontalUser';
 import MenuList from '../../components/menu/MenuList';
 import MenuFooter from '../../components/menu/MenuFooter';
+import {MukTheme} from '../../types';
 
 const menu = [
   {
@@ -50,7 +51,7 @@ const menu = [
 ];
 
 export default function SideScreen() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <DrawerLayout>

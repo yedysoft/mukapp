@@ -3,10 +3,11 @@ import {useTheme} from 'react-native-paper';
 import {screenWidth} from '../utils/Responsive';
 import SideScreen from '../screens/main/SideScreen';
 import MainStack from './MainStack';
+import {MukTheme} from '../types';
 
 const Main = createDrawerNavigator();
 export default function MainDrawer() {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <Main.Navigator

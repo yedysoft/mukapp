@@ -10,12 +10,13 @@ import {responsiveWidth} from '../../utils/Responsive';
 import {useTheme} from 'react-native-paper';
 import FriendsList from './FriendsList';
 import {useStores} from '../../stores';
+import {MukTheme} from '../../types';
 
 const CreateChat = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation();
   const {t} = useServices();
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
 
   const handleSheet = () => {

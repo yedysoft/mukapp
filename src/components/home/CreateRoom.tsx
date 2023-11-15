@@ -13,6 +13,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {View} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
+import {MukTheme} from '../../types';
 
 const CreateRoom = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -20,7 +21,7 @@ const CreateRoom = observer(() => {
   const {api, t} = useServices();
   const {room, user} = useStores();
   const [form, setForm] = useState<IRoomConfig | null>();
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   useEffect(() => {
     if (!room.getConfig) {

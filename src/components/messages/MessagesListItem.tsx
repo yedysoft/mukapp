@@ -6,13 +6,14 @@ import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {IChat, ILastMessage} from '../../types/user';
 import {useServices} from '../../services';
+import {MukTheme} from '../../types';
 
 type Props = {
   chat: IChat;
 };
 
 export default function MessagesListItem({chat}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
   const {api} = useServices();
   const lastMessage: ILastMessage = api.helper.getLastMessage(chat.messages);

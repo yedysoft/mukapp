@@ -2,6 +2,7 @@ import {TouchableOpacity} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {Dispatch, SetStateAction} from 'react';
+import {MukTheme} from '../../types';
 
 type Props = {
   stat: {
@@ -14,8 +15,8 @@ type Props = {
 };
 
 export default function ProfileStatsItem({stat, index, activeIndex, setActiveIndex}: Props) {
-  const {colors} = useTheme();
-  const active = index == activeIndex;
+  const {colors} = useTheme<MukTheme>();
+  const active = index === activeIndex;
 
   return (
     <TouchableOpacity

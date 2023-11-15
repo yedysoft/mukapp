@@ -5,6 +5,7 @@ import MukIcon from '../custom/MukIcon';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
+import {MukTheme} from '../../types';
 
 type Props = {
   item: {
@@ -16,7 +17,7 @@ type Props = {
 };
 
 export default function MenuListItem({item}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
   const [title, setTitle] = useState({label: item.label, color: colors.outlineVariant});
 

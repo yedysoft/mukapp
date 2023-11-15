@@ -5,6 +5,7 @@ import {responsiveWidth} from '../../utils/Responsive';
 import {ReactElement} from 'react';
 import {ISearchUser} from '../../types/user';
 import MukImage from '../custom/MukImage';
+import {MukTheme} from '../../types';
 
 type Props = {
   list?: ISearchUser[];
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export default function SearchList({list, header}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <FlatList

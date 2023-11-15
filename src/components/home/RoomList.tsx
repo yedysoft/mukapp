@@ -4,13 +4,14 @@ import RoomListItem from './RoomListItem';
 import {responsiveWidth} from '../../utils/Responsive';
 import {observer} from 'mobx-react';
 import {IRoom} from '../../types/room';
+import {MukTheme} from '../../types';
 
 type Props = {
   rooms: IRoom[];
 };
 
 const RoomList = observer(({rooms}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <FlatList

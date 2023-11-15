@@ -2,6 +2,7 @@ import {useTheme} from 'react-native-paper';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import {responsiveWidth} from '../../utils/Responsive';
 import {ReactNode} from 'react';
+import {MukTheme} from '../../types';
 
 type Props = {
   onPress?: () => void;
@@ -11,7 +12,7 @@ type Props = {
 };
 
 export default function MukListItem({onPress, children, style, disabled}: Props) {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <TouchableOpacity

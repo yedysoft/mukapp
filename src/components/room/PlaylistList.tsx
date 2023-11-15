@@ -8,13 +8,14 @@ import MukTextInput from '../custom/MukTextInput';
 import {useTheme} from 'react-native-paper';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
+import {MukTheme} from '../../types';
 
 type Props = {
   playlists: IPlaylist[];
 };
 
 const PlaylistList = observer(({playlists}: Props) => {
-  const {colors} = useTheme();
+  const {colors} = useTheme<MukTheme>();
   const [playlistId, setPlaylistId] = useState('search');
   const {api} = useServices();
   const {loading, media} = useStores();
