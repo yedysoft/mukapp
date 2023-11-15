@@ -40,6 +40,7 @@ export const AuthRegisterForm = observer(() => {
               label={'Ad'}
               value={form.name}
               onChange={handleOnChange}
+              preValidate={'required'}
               style={{display: step === 0 ? undefined : 'none'}}
             />
             <MukTextInput
@@ -47,6 +48,7 @@ export const AuthRegisterForm = observer(() => {
               label={'Soyad'}
               value={form.surname}
               onChange={handleOnChange}
+              preValidate={'required'}
               style={{display: step === 0 ? undefined : 'none'}}
             />
             <MukTextInput
