@@ -59,7 +59,7 @@ export default function MukToaster({error, interval}: Props) {
         <Text
           numberOfLines={2}
           style={{
-            color: colors.secondary,
+            color: colors.text,
             fontSize: responsiveSize(16),
           }}
         >

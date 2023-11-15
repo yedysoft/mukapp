@@ -45,6 +45,7 @@ export type MukColors = {
   outlineVariant: string;
   shadow: string;
   backdrop: string;
+  text: string;
 };
 export type MukTheme = ThemeBase & {
   version: 3;
