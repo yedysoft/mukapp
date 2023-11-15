@@ -5,12 +5,13 @@ import MukLogo from '../../components/custom/MukLogo';
 import {responsiveWidth} from '../../utils/Responsive';
 import {View} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
+import {useNavigation} from '@react-navigation/native';
+import {WelcomeNavProp} from '../../navigation/AuthStack';
 
 export const WelcomeScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<WelcomeNavProp>();
 
   return (
     <AuthLayout style={{justifyContent: 'center', alignItems: 'center', gap: responsiveWidth(64)}}>

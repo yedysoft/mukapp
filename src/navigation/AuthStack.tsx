@@ -1,10 +1,22 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack';
 import {LoginScreen} from '../screens/auth/LoginScreen';
 import {RegisterScreen} from '../screens/auth/RegisterScreen';
 import {WelcomeScreen} from '../screens/auth/WelcomeScreen';
 import {ForgotScreen} from '../screens/auth/ForgotScreen';
 
-const Auth = createStackNavigator();
+type AuthStackScreens = {
+  Welcome: undefined;
+  Login: undefined;
+  Forgot: undefined;
+  Register: undefined;
+};
+export type WelcomeNavProp = StackNavigationProp<AuthStackScreens, 'Welcome'>;
+export type LoginNavProp = StackNavigationProp<AuthStackScreens, 'Login'>;
+export type ForgotNavProp = StackNavigationProp<AuthStackScreens, 'Forgot'>;
+export type RegisterNavProp = StackNavigationProp<AuthStackScreens, 'Register'>;
+
+const Auth = createStackNavigator<AuthStackScreens>();
+
 export default function AuthStack() {
   return (
     <Auth.Navigator initialRouteName={'Welcome'}>

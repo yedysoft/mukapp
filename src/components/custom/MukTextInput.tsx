@@ -89,7 +89,7 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
     }));
 
     return (
-      <View style={{flexDirection: 'column', gap: responsiveWidth(8), marginBottom: responsiveWidth(16)}}>
+      <View style={[{flexDirection: 'column', gap: responsiveWidth(8), marginBottom: responsiveWidth(16)}, style]}>
         <TextInput
           label={label}
           inputMode={inputMode}
@@ -103,7 +103,7 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
           onChangeText={handleInputChange}
           onFocus={() => validateInput(value ?? inputValue)}
           outlineStyle={[{borderRadius: 16}, outlineStyle]}
-          style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}, style]}
+          style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}]}
         />
         <Text style={{display: error ? undefined : 'none', color: colors.error}}>* {error}</Text>
       </View>

@@ -38,7 +38,7 @@ export default function VerticalProfile({profile, otherUser}: Props) {
         <Text style={{fontSize: responsiveSize(24), fontWeight: 'bold'}}>
           {profile.name} {profile.surname}
         </Text>
-        <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.onSurfaceVariant}}>
+        <Text style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.primary}}>
           @{profile.userName}
         </Text>
       </View>

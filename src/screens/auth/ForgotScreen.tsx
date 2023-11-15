@@ -5,7 +5,7 @@ import {AuthForgotForm} from '../../components/form/AuthForgotForm';
 export const ForgotScreen = observer(() => {
   return (
     <AuthLayout>
-      <AuthForgotForm/>
+      <AuthForgotForm />
     </AuthLayout>
   );
 });

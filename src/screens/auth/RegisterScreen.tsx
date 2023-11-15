@@ -5,7 +5,7 @@ import {AuthRegisterForm} from '../../components/form/AuthRegisterForm';
 export const RegisterScreen = observer(() => {
   return (
     <AuthLayout>
-      <AuthRegisterForm/>
+      <AuthRegisterForm />
     </AuthLayout>
   );
 });

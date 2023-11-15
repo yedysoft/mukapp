@@ -12,12 +12,13 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
+import {ForgotNavProp} from '../../navigation/AuthStack';
 
 export const AuthForgotForm = observer(() => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ForgotNavProp>();
   const {colors} = useTheme<MukTheme>();
   const [form, setForm] = useState<IForgot>({name: ''});
-  const {api, t} = useServices();
+  const {api} = useServices();
   const {loading} = useStores();
   const formRef = useRef<MukFormRef>(null);
 

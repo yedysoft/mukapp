@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function VoteButton({onPress, badge, style, isLoading}: Props) {
-  const theme = useTheme<MukTheme>();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <TouchableOpacity onPress={onPress} style={style}>
