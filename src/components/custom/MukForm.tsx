@@ -27,7 +27,7 @@ const MukForm = forwardRef<MukFormRef, Props>(({children, style}: Props, ref) =>
       }
     });
     if (!isValid) {
-      stores.ui.addErrors({type: 'warning', code: 0, message: t.do('error.notValidInputs')});
+      stores.ui.addWarning(t.do('error.notValidInputs'));
     }
     return isValid;
   };

@@ -23,7 +23,7 @@ export default function MenuFooter() {
     >
       <MukIconButton icon={'logout'} onPress={() => api.auth.logout()} scale={0.5} style={{}} color={colors.error} />
       <MukIconButton
-        icon={'theme-light-dark'}
+        icon={'themes-light-dark'}
         color={colors.secondary}
         onPress={() => ui.set('appearance', toggleTheme)}
         scale={0.5}

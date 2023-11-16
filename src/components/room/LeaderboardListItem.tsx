@@ -5,7 +5,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import MukBadge from '../custom/MukBadge';
-import {YedyPalette} from '../../theme/YedyPalette';
+import {YedyPalette} from '../../themes/YedyPalette';
 import {MukTheme} from '../../types';
 
 type Props = {

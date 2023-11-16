@@ -71,13 +71,13 @@ export type TooltipScreenProps = {
   changeVisible: (open: boolean) => void;
 };
 
-// Error
-export type ErrorMessage = {
+// Message
+export type MukMessage = {
   id: number;
-  error: ErrorBody;
+  body: MessageBody;
 };
-export type ErrorBody = {
+export type MessageBody = {
   code: number;
   message: string;
-  type?: 'error' | 'warning' | 'info';
+  type: 'error' | 'warning' | 'info';
 };

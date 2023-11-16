@@ -10,7 +10,8 @@ export class AuthApi {
   async forgotPass(form: IForgot): PVoid {
     try {
       stores.loading.set('forgotPass', true);
-      await axiosIns.post('/auth/forgotPass', form);
+      const response = await axiosIns.post('/auth/forgotPass', form);
+      stores.ui.addMessage(response.data);
     } catch (e) {
       console.log(e);
     } finally {
@@ -21,7 +22,8 @@ export class AuthApi {
   async register(form: IRegister): PVoid {
     try {
       stores.loading.set('register', true);
-      await axiosIns.post('/auth/register', form);
+      const response = await axiosIns.post('/auth/register', form);
+      stores.ui.addMessage(response.data);
     } catch (e) {
       console.log(e);
     } finally {

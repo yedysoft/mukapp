@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Mük",
-    "slug": "muk_fe",
+    "slug": "muk",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,6 +13,16 @@
     },
     "assetBundlePatterns": [
       "**/*"
+    ],
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
     ],
     "ios": {
       "supportsTablet": true
@@ -29,9 +39,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-localization"
-    ],
     "extra": {
       "eas": {
         "projectId": "682feabe-f310-4a74-bfcb-69ba81aeba32"

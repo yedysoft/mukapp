@@ -7,7 +7,7 @@ const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationDark: NavigationDarkTheme,
 });
 
-export const CombinedLightTheme: MukTheme = {
+const CombinedLightTheme: MukTheme = {
   ...MD3LightTheme,
   ...LightTheme,
   colors: {
@@ -28,7 +28,7 @@ export const CombinedLightTheme: MukTheme = {
   },
 };
 
-export const CombinedDarkTheme: MukTheme = {
+const CombinedDarkTheme: MukTheme = {
   ...MD3DarkTheme,
   ...DarkTheme,
   colors: {
@@ -48,3 +48,6 @@ export const CombinedDarkTheme: MukTheme = {
     text: 'rgba(242, 242, 247, 1)',
   },
 };
+
+const themes = {light: CombinedLightTheme, dark: CombinedDarkTheme};
+export default themes;

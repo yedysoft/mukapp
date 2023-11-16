@@ -5,14 +5,14 @@ import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {useServices} from '../../services';
 import {Pressable} from 'react-native';
 import {useStores} from '../../stores';
-import {ErrorMessage, MukTheme} from '../../types';
+import {MukMessage, MukTheme} from '../../types';
 
 type Props = {
-  error: ErrorMessage;
+  message: MukMessage;
   interval: number;
 };
 
-export default function MukToaster({error, interval}: Props) {
+export default function MukToaster({message, interval}: Props) {
   const {colors} = useTheme<MukTheme>();
   const [visible, setVisible] = useState(true);
   const {api} = useServices();
@@ -20,7 +20,7 @@ export default function MukToaster({error, interval}: Props) {
 
   const close = () => {
     setVisible(false);
-    ui.delError(error.id);
+    ui.delMessage(message.id);
   };
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function MukToaster({error, interval}: Props) {
       style={{
         display: visible ? undefined : 'none',
         width: '90%',
-        backgroundColor: colors[error.error.type ?? 'error'],
+        backgroundColor: colors[message.body.type],
         borderRadius: 16,
         zIndex: 1400,
         justifyContent: 'center',
@@ -63,7 +63,7 @@ export default function MukToaster({error, interval}: Props) {
             fontSize: responsiveSize(16),
           }}
         >
-          {error.error.message}
+          {message.body.message}
         </Text>
       </Pressable>
     </Animated.View>

@@ -6,7 +6,7 @@ import media from './media';
 import {IVote} from '../../types/media';
 import {GiftedChat, IMessage} from 'react-native-gifted-chat';
 import {MessageType} from '../../types/enums';
-import {ErrorBody, PVoid} from '../../types';
+import {MessageBody, PVoid} from '../../types';
 
 export class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
@@ -113,8 +113,8 @@ export class SubscriptionApi {
   }
 
   private errorCallback(message: Message) {
-    const err: ErrorBody = JSON.parse(message.body);
-    stores.ui.addErrors(err);
+    const err: MessageBody = JSON.parse(message.body);
+    stores.ui.addMessage(err);
   }
 
   private privateChatCallback(message: Message) {

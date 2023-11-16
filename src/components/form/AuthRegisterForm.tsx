@@ -97,8 +97,8 @@ export const AuthRegisterForm = observer(() => {
               hideText={true}
               onChange={handleOnChange}
               preValidate={'required'}
-              validate={[value => value.length >= 3 && value.length <= 32]}
-              validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
+              validate={[value => value.length >= 8 && value.length <= 32]}
+              validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
               style={{display: step === 2 ? undefined : 'none'}}
             />
             <MukTextInput
@@ -106,8 +106,8 @@ export const AuthRegisterForm = observer(() => {
               label={'Şifre Tekrar'}
               hideText={true}
               preValidate={'required'}
-              validate={[value => value.length >= 3 && value.length <= 32, value => value === form.userPass]}
-              validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
+              validate={[value => value.length >= 8 && value.length <= 32, value => value === form.userPass]}
+              validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
               style={{display: step === 2 ? undefined : 'none'}}
             />
           </MukForm>

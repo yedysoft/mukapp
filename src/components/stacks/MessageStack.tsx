@@ -4,7 +4,7 @@ import MukToaster from '../custom/MukToaster';
 import {useStores} from '../../stores';
 import {responsiveWidth} from '../../utils/Responsive';
 
-const ErrorStack = observer(() => {
+const MessageStack = observer(() => {
   const {ui} = useStores();
 
   return (
@@ -21,11 +21,11 @@ const ErrorStack = observer(() => {
         overflow: 'hidden',
       }}
     >
-      {ui.getErrors.map(e => (
-        <MukToaster key={e.id} error={e} interval={3000} />
+      {ui.getMessages.map(e => (
+        <MukToaster key={e.id} message={e} interval={3000} />
       ))}
     </View>
   );
 });
 
-export default ErrorStack;
+export default MessageStack;

@@ -10,7 +10,7 @@ import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stores} from './src/stores';
 import {initServices, services} from './src/services';
 import SplashScreen from './src/screens/auth/SplashScreen';
-import ErrorStack from './src/components/stacks/ErrorStack';
+import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
 import {usePushNotifications} from './src/services/pushNotifications';
 import * as Device from 'expo-device';
@@ -54,7 +54,7 @@ export default observer(() => {
     <AppProvider>
       <PaperProvider theme={stores.ui.getTheme}>
         <StatusBar style={stores.ui.getStatusBarStyle} />
-        <ErrorStack />
+        <MessageStack />
         <DialogStack />
         {!ready ? <SplashScreen /> : <AppNavigation />}
       </PaperProvider>

@@ -1,6 +1,6 @@
 import {stores} from '../stores';
 import {restUrl} from '../../config';
-import {ErrorBody} from '../types';
+import {MessageBody} from '../types';
 
 const interceptXMLHttpRequest = () => {
   const open = XMLHttpRequest.prototype.open;
@@ -13,31 +13,34 @@ const interceptXMLHttpRequest = () => {
     password?: string | null | undefined,
   ) {
     open.call(this, method, url, async, user, password);
+    if (url.includes('ws')) {
+      console.log('url.includes', url);
+    }
     if (url.startsWith(restUrl)) {
       if (stores.auth.getAuthToken) {
         this.setRequestHeader('Authorization', `Bearer ${stores.auth.getAuthToken}`);
       }
 
       this.addEventListener('error', () => {
-        stores.ui.addErrors({code: this.status, message: this.responseText});
+        stores.ui.addError(this.responseText, this.status);
       });
 
       this.addEventListener('timeout', () => {
-        stores.ui.addErrors({code: this.status, message: this.responseText});
+        stores.ui.addError('İstek zaman aşımına uğradı', this.status);
       });
 
       this.addEventListener('load', () => {
         if (this.status === 401) {
           stores.auth.setMany({loggedIn: false, authToken: ''});
         } else if (this.status === 500) {
-          const err: ErrorBody = JSON.parse(this.response);
+          const err: MessageBody = JSON.parse(this.response);
           console.log(url, err);
           if (err) {
             // Spotify yetkilendirmesi gerekiyor
             if ([1012, 1013, 1014].includes(err.code)) {
               stores.media.set('authenticated', false);
             } else {
-              stores.ui.addErrors(err);
+              stores.ui.addMessage(err);
             }
           }
         } else if (this.status >= 400) {

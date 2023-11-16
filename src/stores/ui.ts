@@ -1,53 +1,66 @@
 import {Appearance, Language} from '../types/enums';
 import {BaseStore} from './base';
 import {StatusBarStyle} from 'expo-status-bar';
-import {CombinedDarkTheme, CombinedLightTheme} from '../theme';
-import {ErrorBody, ErrorMessage, MukTheme} from '../types';
+import themes from '../themes';
+import {MessageBody, MukMessage, MukTheme} from '../types';
 
 export class UIStore extends BaseStore<UIStore> {
   id = 0;
+  systemScheme: 'light' | 'dark' = 'dark';
   appearance: Appearance = 'system';
   language: Language = 'system';
-  errors: ErrorMessage[] = [];
+  messages: MukMessage[] = [];
   expoToken = '';
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language', 'expoToken']);
-  }
-
-  get isAppearanceSystem() {
-    return this.appearance === 'system';
+    this.makeObservableAndPersistable(this, UIStore.name, ['systemScheme', 'appearance', 'language', 'expoToken']);
   }
 
   get isLanguageSystem() {
     return this.language === 'system';
   }
 
+  get getScheme(): 'light' | 'dark' {
+    return this.appearance === 'system' ? this.systemScheme : this.appearance;
+  }
+
   get getStatusBarStyle(): StatusBarStyle {
-    return this.appearance === 'light' ? 'dark' : 'light';
+    return this.getScheme === 'light' ? 'dark' : 'light';
   }
 
   get getTheme(): MukTheme {
-    return this.appearance === 'light' ? CombinedLightTheme : CombinedDarkTheme;
-  }
-
-  get getErrors() {
-    return this.errors;
+    return themes[this.getScheme];
   }
 
   get getExpoToken() {
     return this.expoToken;
   }
 
-  addErrors(error: ErrorBody) {
-    this.set('errors', [...this.errors, {id: this.id++, error: error}]);
+  get getMessages() {
+    return this.messages;
   }
 
-  delError(id: number) {
+  addMessage(body: MessageBody) {
+    this.set('messages', [...this.messages, {id: this.id++, body: body}]);
+  }
+
+  addError(message: string, code?: number) {
+    this.addMessage({code: code ?? 0, message: message, type: 'error'});
+  }
+
+  addWarning(message: string, code?: number) {
+    this.addMessage({code: code ?? 0, message: message, type: 'warning'});
+  }
+
+  addInfo(message: string, code?: number) {
+    this.addMessage({code: code ?? 0, message: message, type: 'info'});
+  }
+
+  delMessage(id: number) {
     this.set(
-      'errors',
-      this.errors.filter(e => e.id !== id),
+      'messages',
+      this.messages.filter(e => e.id !== id),
     );
   }
 }

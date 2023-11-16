@@ -1,6 +1,5 @@
 import * as StompJs from '@stomp/stompjs';
 import {messageCallbackType, StompHeaders, StompSubscription} from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
 import {wsUrl} from '../../../config';
 import {PVoid} from '../../types';
 
@@ -11,14 +10,14 @@ export class SocketApi {
   constructor() {
     this.subscribes = {};
     this.client = new StompJs.Client({
+      brokerURL: wsUrl,
+      forceBinaryWSFrames: true,
+      //appendMissingNULLonIncoming: true,
       reconnectDelay: 4000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
-      webSocketFactory: () => new SockJS(wsUrl),
       debug: str =>
-        str.indexOf('Received data') === -1 &&
-        str.indexOf('playingTrack') === -1 &&
-        console.debug('Socket Debug:', str),
+        !str.includes('Received data') && !str.includes('playingTrack') && console.debug('Socket Debug:', str),
       onWebSocketError: event => console.log('onWebSocketError:', event),
       onStompError: event => console.log('onStompError:', event),
       onWebSocketClose: event => console.log('onWebSocketClose:', event),
