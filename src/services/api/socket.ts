@@ -2,6 +2,7 @@ import * as StompJs from '@stomp/stompjs';
 import {messageCallbackType, StompHeaders, StompSubscription} from '@stomp/stompjs';
 import {wsUrl} from '../../../config';
 import {PVoid} from '../../types';
+import {stores} from '../../stores';
 
 export class SocketApi {
   public subscribes: {[key: string]: StompSubscription};
@@ -11,6 +12,7 @@ export class SocketApi {
     this.subscribes = {};
     this.client = new StompJs.Client({
       brokerURL: wsUrl,
+      connectHeaders: {MukToken: stores.auth.getAuthToken},
       forceBinaryWSFrames: true,
       //appendMissingNULLonIncoming: true,
       reconnectDelay: 3000,

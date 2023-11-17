@@ -13,9 +13,6 @@ const interceptXMLHttpRequest = () => {
     password?: string | null | undefined,
   ) {
     open.call(this, method, url, async, user, password);
-    if (url.includes('ws')) {
-      console.log('url.includes', url);
-    }
     if (url.startsWith(restUrl)) {
       if (stores.auth.getAuthToken) {
         this.setRequestHeader('Authorization', `Bearer ${stores.auth.getAuthToken}`);

@@ -19,7 +19,6 @@ import {Appearance} from 'react-native';
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
   const [ready, setReady] = useState(false);
-  //Object.assign(global, {Websocket});
 
   Device.isDevice && usePushNotifications();
 
