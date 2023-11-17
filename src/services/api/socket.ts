@@ -12,7 +12,7 @@ export class SocketApi {
     this.subscribes = {};
     this.client = new StompJs.Client({
       brokerURL: wsUrl,
-      connectHeaders: {MukToken: stores.auth.getAuthToken},
+      connectHeaders: {YedyToken: stores.auth.getAuthToken},
       forceBinaryWSFrames: true,
       //appendMissingNULLonIncoming: true,
       reconnectDelay: 3000,
