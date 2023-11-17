@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import MukButton from '../../components/custom/MukButton';
 import MukLogo from '../../components/custom/MukLogo';
 import {responsiveWidth} from '../../utils/Responsive';
-import {View} from 'react-native';
+import {Appearance, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import {useNavigation} from '@react-navigation/native';
@@ -22,7 +22,7 @@ export const WelcomeScreen = observer(() => {
           buttonStyle={{backgroundColor: colors.backdrop}}
           textStyle={{color: colors.secondary, fontWeight: '600'}}
           label={'Kayıt Ol'}
-          onPress={() => navigation.navigate('Register')}
+          onPress={() => console.log(Appearance.getColorScheme())}
         />
       </View>
     </AuthLayout>

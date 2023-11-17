@@ -13,7 +13,7 @@ export class SocketApi {
       brokerURL: wsUrl,
       forceBinaryWSFrames: true,
       //appendMissingNULLonIncoming: true,
-      reconnectDelay: 4000,
+      reconnectDelay: 3000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       debug: str =>

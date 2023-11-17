@@ -14,12 +14,12 @@ import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
 import {usePushNotifications} from './src/services/pushNotifications';
 import * as Device from 'expo-device';
-import {Appearance, useColorScheme} from 'react-native';
+import {Appearance} from 'react-native';
 
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
-  const colorScheme = useColorScheme();
   const [ready, setReady] = useState(false);
+  //Object.assign(global, {Websocket});
 
   Device.isDevice && usePushNotifications();
 
@@ -35,11 +35,6 @@ export default observer(() => {
   }, []);
 
   useEffect(() => {
-    console.log('colorScheme', colorScheme);
-  }, [colorScheme]);
-
-  useEffect(() => {
-    console.log('getColorScheme', Appearance.getColorScheme());
     const subscription = Appearance.addChangeListener(({colorScheme}) => {
       console.log('Appearance.addChangeListener', colorScheme);
     });
