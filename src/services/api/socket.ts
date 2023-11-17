@@ -12,7 +12,6 @@ export class SocketApi {
     this.subscribes = {};
     this.client = new StompJs.Client({
       brokerURL: wsUrl,
-      connectHeaders: {YedyToken: stores.auth.getAuthToken},
       forceBinaryWSFrames: true,
       //appendMissingNULLonIncoming: true,
       reconnectDelay: 3000,
@@ -32,6 +31,7 @@ export class SocketApi {
       this.client.onConnect = () => {
         resolve();
       };
+      this.client.connectHeaders = {YedyToken: stores.auth.getAuthToken};
       this.client.activate();
     });
   }

@@ -14,11 +14,12 @@ import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
 import {usePushNotifications} from './src/services/pushNotifications';
 import * as Device from 'expo-device';
-import {Appearance} from 'react-native';
+import {Appearance, NativeEventSubscription} from 'react-native';
 
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
   const [ready, setReady] = useState(false);
+  const [apperanceListener, setApperanceListener] = useState<NativeEventSubscription>();
 
   Device.isDevice && usePushNotifications();
 
@@ -26,20 +27,25 @@ export default observer(() => {
     await hydrateStores();
     await initServices();
     await services.api.auth.checkToken();
+
+    setApperanceListener(
+      Appearance.addChangeListener(({colorScheme}) => {
+        if (colorScheme) {
+          stores.ui.set('systemScheme', colorScheme);
+        }
+      }),
+    );
   }, []);
 
   const deinitializeApp = useCallback(async () => {
+    apperanceListener?.remove();
     await services.api.room.closeRoom();
     await services.api.socket.disconnect();
   }, []);
 
   useEffect(() => {
-    const subscription = Appearance.addChangeListener(({colorScheme}) => {
-      console.log('Appearance.addChangeListener', colorScheme);
-    });
     initializeApp().then(() => setReady(true));
     return () => {
-      subscription.remove();
       deinitializeApp().then(() => console.log('deinitializeApp'));
     };
   }, []);
