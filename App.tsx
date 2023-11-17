@@ -25,9 +25,10 @@ export default observer(() => {
 
   const initializeApp = useCallback(async () => {
     await hydrateStores();
-    await initServices();
-    await services.api.auth.checkToken();
-
+    const scheme = Appearance.getColorScheme();
+    if (scheme) {
+      stores.ui.set('systemScheme', scheme);
+    }
     setApperanceListener(
       Appearance.addChangeListener(({colorScheme}) => {
         if (colorScheme) {
@@ -35,6 +36,8 @@ export default observer(() => {
         }
       }),
     );
+    await initServices();
+    await services.api.auth.checkToken();
   }, []);
 
   const deinitializeApp = useCallback(async () => {
