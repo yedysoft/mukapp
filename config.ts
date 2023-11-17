@@ -1,6 +1,6 @@
-const live = false;
+const live = true;
 
-const host: string = live ? '181.215.68.158:8002' : '192.168.32.171:8002';
+const host: string = live ? '181.215.68.158:8002' : '10.198.7.186:8002';
 
 export const restUrl = `http://${host}`;
 
