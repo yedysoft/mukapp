@@ -26,7 +26,7 @@ const PlaylistList = observer(({playlists}: Props) => {
   };
 
   const handleSearch = (name: string, value: string) => {
-    api.helper.sleep(500).then(() => {
+    api.helper.sleep(500, 'searchSong').then(() => {
       if (media.getSearchValue !== value) {
         !loading.getPlaylistTracks &&
           api.media.getPlaylistTracks('search', false, value, media.getSearchValue !== value);

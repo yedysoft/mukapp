@@ -66,7 +66,7 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
         text = '';
       }
       if (preValidate) {
-        if (preValidate === 'required' && text.length === 0) {
+        if (preValidate === 'required' && (text.length === 0 || text.trim().length === 0)) {
           setError(t.do('error.notEmpty'));
           return false;
         }
@@ -89,7 +89,7 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
     }));
 
     return (
-      <View style={[{flexDirection: 'column', gap: responsiveWidth(8), marginBottom: responsiveWidth(16)}, style]}>
+      <View style={[{flexDirection: 'column', gap: responsiveWidth(8), minHeight: responsiveWidth(80)}, style]}>
         <TextInput
           label={label}
           inputMode={inputMode}

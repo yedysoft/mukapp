@@ -14,14 +14,16 @@ import {View} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
+import MukForm, {MukFormRef} from '../custom/MukForm';
 
 const CreateRoom = observer(() => {
+  const {colors} = useTheme<MukTheme>();
   const sheetRef = useRef<BottomSheet>(null);
+  const formRef = useRef<MukFormRef>(null);
   const navigation = useNavigation();
   const {api, t} = useServices();
   const {room, user} = useStores();
   const [form, setForm] = useState<IRoomConfig | null>();
-  const {colors} = useTheme<MukTheme>();
 
   useEffect(() => {
     if (!room.getConfig) {
@@ -42,11 +44,13 @@ const CreateRoom = observer(() => {
   };
 
   const createRoom = async () => {
-    if (form) {
-      await api.room.createRoom(form);
-      if (room.isLive) {
-        sheetRef.current?.close();
-        navigation.navigate('Room');
+    if (formRef.current?.validateInputs()) {
+      if (form) {
+        await api.room.createRoom(form);
+        if (room.isLive) {
+          sheetRef.current?.close();
+          navigation.navigate('Room');
+        }
       }
     }
   };
@@ -65,13 +69,15 @@ const CreateRoom = observer(() => {
             <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>
               @{user.getInfo.userName}
             </Text>
-            <MukTextInput
-              name={'name'}
-              label={t.do('roomConfig.name')}
-              value={form?.name}
-              onChange={handleOnChange}
-              preValidate={'required'}
-            />
+            <MukForm ref={formRef}>
+              <MukTextInput
+                name={'name'}
+                label={t.do('roomConfig.name')}
+                value={form?.name}
+                onChange={handleOnChange}
+                preValidate={'required'}
+              />
+            </MukForm>
           </View>
         </View>
         <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createRoom()} />
