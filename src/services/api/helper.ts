@@ -55,6 +55,11 @@ export class HelperApi {
     });
   }
 
+  generateNumberArray(start: number, end: number): number[] {
+    const length = end - start + 1;
+    return Array.from({length}, (_, index) => start + index);
+  }
+
   nummer(num: number): string {
     if (num > 1e3 - 1 && num < 1e6) {
       return num / 1e3 + 'K';

@@ -17,21 +17,20 @@ import {MukColors, MukTheme} from '../../types';
 type Props<T> = {
   name: string;
   items: T[];
-  defaultValue?: T;
+  value?: T;
   itemHeight?: number;
   onValueChange?: (name: string, value: T) => void;
 };
 
-export default function MukPicker<T>({name, items, defaultValue, onValueChange, itemHeight = 30}: Props<T>) {
-  if (defaultValue && !items.includes(defaultValue)) {
-    defaultValue = undefined;
+export default function MukPicker<T>({name, items, value, onValueChange, itemHeight = 30}: Props<T>) {
+  if (value && !items.includes(value)) {
+    value = undefined;
   }
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
   const {colors} = useTheme<MukTheme>();
-  const [selectedValue, setSelectedValue] = useState(defaultValue ?? items[0]);
-  const memoSelectedValue = useMemo(() => selectedValue, [selectedValue]);
+  const [selectedValue, setSelectedValue] = useState(value ?? items[0]);
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...items, ...emptyItems], [items, emptyItems]);
   const styles = pickerStyles(itemHeight, visibleItemCount, colors);
@@ -53,7 +52,7 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
       outputRange: ['-40deg', '-20deg', '0deg', '20deg', '40deg'],
     });
     return (
-      <Pressable onPress={() => gotoItem(item)}>
+      <Pressable onPress={() => setSelectedValue(item)}>
         <Animated.View
           style={{height: itemHeight, justifyContent: 'center', alignItems: 'center', transform: [{scale}, {rotateX}]}}
         >
@@ -63,7 +62,7 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
               fontWeight: '600',
               textAlign: 'center',
               textAlignVertical: 'center',
-              color: memoSelectedValue === item ? colors.secondary : colors.outlineVariant,
+              color: selectedValue === item ? colors.secondary : colors.outlineVariant,
             }}
           >
             {String(item)}
@@ -77,10 +76,8 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
     const y = event.nativeEvent.contentOffset.y;
     const index = Math.round(y / itemHeight);
     const value = items[index];
-    if (value !== memoSelectedValue) {
-      console.log('onScrollEnd');
+    if (value !== selectedValue) {
       setSelectedValue(value);
-      onValueChange && onValueChange(name, value);
     }
   };
 
@@ -89,17 +86,13 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
       const index = modifiedItems.indexOf(value);
       const initialScrollIndex = index - (visibleItemCount - 1) / 2;
       listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
-      if (value !== memoSelectedValue) {
-        setSelectedValue(value);
-        onValueChange && onValueChange(name, value);
-      }
+      onValueChange && onValueChange(name, value);
     }
   };
 
   useEffect(() => {
-    console.log('useEffect');
-    gotoItem(defaultValue);
-  }, [listRef]);
+    gotoItem(selectedValue);
+  }, [selectedValue]);
 
   return (
     <View style={{height: itemHeight * visibleItemCount}}>
