@@ -6,19 +6,19 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
 
-type Props = {
-  items: string[];
-  defaultValue?: string;
+type Props<T> = {
+  name: string;
+  items: T[];
+  defaultValue?: T;
   itemHeight?: number;
-  onValueChange?: (value: string) => void;
+  onValueChange?: (name: string, value: T) => void;
 };
 
-export default function MukPicker({items, defaultValue, onValueChange, itemHeight = 30}: Props) {
+export default function MukPicker<T>({name, items, defaultValue, onValueChange, itemHeight = 30}: Props<T>) {
   if (defaultValue && !items.includes(defaultValue)) {
     defaultValue = undefined;
   }
@@ -30,7 +30,7 @@ export default function MukPicker({items, defaultValue, onValueChange, itemHeigh
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...items, ...emptyItems], [items, emptyItems]);
 
-  const renderItem = ({item, index}: ListRenderItemInfo<string>) => {
+  const renderItem = ({item, index}: ListRenderItemInfo<T>) => {
     const inputRange = [
       (index - 4) * itemHeight,
       (index - 3) * itemHeight,
@@ -48,8 +48,14 @@ export default function MukPicker({items, defaultValue, onValueChange, itemHeigh
     });
     return (
       <Pressable onPress={() => gotoItem(item)}>
-        <Animated.View style={[{height: itemHeight, transform: [{scale}, {rotateX}]}, styles.animatedContainer]}>
-          <Text style={styles.pickerItem}>{item}</Text>
+        <Animated.View
+          style={{height: itemHeight, justifyContent: 'center', alignItems: 'center', transform: [{scale}, {rotateX}]}}
+        >
+          <Text
+            style={{fontSize: 18, fontWeight: '600', textAlign: 'center', textAlignVertical: 'center', color: '#000'}}
+          >
+            {String(item)}
+          </Text>
         </Animated.View>
       </Pressable>
     );
@@ -61,17 +67,19 @@ export default function MukPicker({items, defaultValue, onValueChange, itemHeigh
     const value = items[index];
     if (value !== selectedValue) {
       setSelectedValue(value);
-      if (onValueChange) {
-        onValueChange(value);
-      }
+      onValueChange && onValueChange(name, value);
     }
   };
 
-  const gotoItem = (value: string | undefined) => {
+  const gotoItem = (value: T | undefined) => {
     if (listRef.current && value) {
       const index = modifiedItems.indexOf(value);
       const initialScrollIndex = index - (visibleItemCount - 1) / 2;
       listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
+      if (value !== selectedValue) {
+        setSelectedValue(value);
+        onValueChange && onValueChange(name, value);
+      }
     }
   };
 
@@ -80,8 +88,9 @@ export default function MukPicker({items, defaultValue, onValueChange, itemHeigh
   }, [listRef, defaultValue]);
 
   return (
-    <View style={{height: itemHeight * visibleItemCount}}>
+    <View style={{backgroundColor: 'red'}}>
       <Animated.FlatList
+        style={{backgroundColor: 'green', height: itemHeight * visibleItemCount}}
         ref={listRef}
         data={modifiedItems}
         renderItem={renderItem}
@@ -92,32 +101,18 @@ export default function MukPicker({items, defaultValue, onValueChange, itemHeigh
         onScroll={Animated.event([{nativeEvent: {contentOffset: {y: scrollY}}}], {useNativeDriver: true})}
         getItemLayout={(_, index) => ({length: itemHeight, offset: itemHeight * index, index})}
       />
-      <View style={[styles.indicatorHolder, {top: itemHeight * ((visibleItemCount - 1) / 2)}]}>
-        <View style={[styles.indicator]} />
-        <View style={[styles.indicator, {marginTop: itemHeight}]} />
-      </View>
+      <View
+        style={{
+          borderColor: 'red',
+          borderBottomWidth: 1,
+          borderTopWidth: 1,
+          position: 'absolute',
+          height: itemHeight,
+          right: 0,
+          left: 0,
+          top: itemHeight * ((visibleItemCount - 1) / 2),
+        }}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  pickerItem: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    color: '#000',
-  },
-  indicatorHolder: {
-    position: 'absolute',
-  },
-  indicator: {
-    width: 250,
-    height: 2,
-    backgroundColor: '#ccc',
-  },
-  animatedContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
