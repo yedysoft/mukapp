@@ -12,16 +12,23 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
-import {RegisterNavProp} from '../../navigation/AuthStack';
+import {AuthStackNavProp} from '../../navigation/AuthStack';
+import MukDatePicker from '../custom/MukDatePicker';
 
 export const AuthRegisterForm = observer(() => {
-  const navigation = useNavigation<RegisterNavProp>();
+  const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {loading} = useStores();
   const formRef = useRef<MukFormRef>(null);
   const [form, setForm] = useState<IRegister>({email: '', userName: '', userPass: ''});
   const [step, setStep] = useState(0);
+  const [displayPicker, setDisplayPicker] = useState(false);
+  const [pickerValue, setPickerValue] = useState({day: 5, month: 5, year: 1998})
+
+  const setBirthday = (date: {day: number, month: number, year: number}) => {
+    handleOnChange('birthday', `${date['day']}.${date['month']}.${date['year']}`)
+  }
 
   const handleOnChange = (name: string, value: string) => {
     setForm({...form, [name]: value});
@@ -56,7 +63,13 @@ export const AuthRegisterForm = observer(() => {
               label={'Doğum Günü'}
               value={form.birthday}
               onChange={handleOnChange}
+              selectionColor={colors.background}
               style={{display: step === 0 ? undefined : 'none'}}
+              onFocus={() => {
+                setDisplayPicker(true);
+                setBirthday(pickerValue)
+              }}
+              onBlur={() => setDisplayPicker(false)}
             />
             <MukTextInput
               name={'gender'}
@@ -139,6 +152,9 @@ export const AuthRegisterForm = observer(() => {
             }
           }}
         />
+      </View>
+      <View style={{display: displayPicker ? undefined : 'none', justifyContent: 'flex-start', alignItems: 'center', height: responsiveHeight(160), marginTop: responsiveHeight(-100)}}>
+        <MukDatePicker value={pickerValue} onValueChange={value => setBirthday(value)} />
       </View>
     </SafeAreaView>
   );

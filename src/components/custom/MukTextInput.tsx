@@ -20,6 +20,9 @@ type Props = {
   validate?: ((value: string) => boolean)[];
   validationMessage?: string[];
   placeholder?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  selectionColor?: string;
 };
 
 export type MukTextInputRef = {
@@ -44,6 +47,9 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
       validate,
       validationMessage,
       placeholder,
+      onFocus,
+      onBlur,
+      selectionColor
     }: Props,
     ref,
   ) => {
@@ -101,7 +107,14 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
           placeholderTextColor={colors.outlineVariant}
           autoCapitalize={autoCapitalize ?? 'none'}
           onChangeText={handleInputChange}
-          onFocus={() => validateInput(value ?? inputValue)}
+          onBlur={onBlur}
+          selectionColor={selectionColor ?? colors.primary}
+          onFocus={() => {
+            validateInput(value ?? inputValue);
+            if (onFocus) {
+              onFocus();
+            }
+          }}
           outlineStyle={[{borderRadius: 16}, outlineStyle]}
           style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}]}
         />

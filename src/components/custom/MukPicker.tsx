@@ -1,14 +1,8 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {
-  Animated,
-  FlatList,
-  ListRenderItemInfo,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  Pressable,
-  Text,
-  View,
-} from 'react-native';
+import {Animated, FlatList, ListRenderItemInfo, NativeScrollEvent, NativeSyntheticEvent, Pressable, Text, View, StyleSheet} from 'react-native';
+import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {useTheme} from 'react-native-paper';
+import {MukColors, MukTheme} from '../../types';
 
 type Props<T> = {
   name: string;
@@ -25,10 +19,11 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
-
+  const {colors} = useTheme<MukTheme>();
   const [selectedValue, setSelectedValue] = useState(defaultValue ?? items[0]);
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...items, ...emptyItems], [items, emptyItems]);
+  const styles = pickerStyles(itemHeight, visibleItemCount, colors)
 
   const renderItem = ({item, index}: ListRenderItemInfo<T>) => {
     const inputRange = [
@@ -40,11 +35,11 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
     ];
     const scale = scrollY.interpolate({
       inputRange,
-      outputRange: [0.7, 0.9, 1.1, 0.9, 0.7],
+      outputRange: [0.8, 0.9, 1.1, 0.9, 0.8],
     });
     const rotateX = scrollY.interpolate({
       inputRange,
-      outputRange: ['-55deg', '-50deg', '0deg', '50deg', '55deg'],
+      outputRange: ['-40deg', '-20deg', '0deg', '20deg', '40deg'],
     });
     return (
       <Pressable onPress={() => gotoItem(item)}>
@@ -52,7 +47,7 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
           style={{height: itemHeight, justifyContent: 'center', alignItems: 'center', transform: [{scale}, {rotateX}]}}
         >
           <Text
-            style={{fontSize: 18, fontWeight: '600', textAlign: 'center', textAlignVertical: 'center', color: '#000'}}
+            style={{fontSize: responsiveSize(16), fontWeight: '600', textAlign: 'center', textAlignVertical: 'center', color: selectedValue === item ? colors.secondary : colors.outlineVariant}}
           >
             {String(item)}
           </Text>
@@ -88,9 +83,9 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
   }, [listRef, defaultValue]);
 
   return (
-    <View style={{backgroundColor: 'red'}}>
+    <View style={{height: itemHeight * visibleItemCount}}>
       <Animated.FlatList
-        style={{backgroundColor: 'green', height: itemHeight * visibleItemCount}}
+        style={{height: itemHeight * visibleItemCount, width: responsiveWidth(80)}}
         ref={listRef}
         data={modifiedItems}
         renderItem={renderItem}
@@ -101,18 +96,20 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
         onScroll={Animated.event([{nativeEvent: {contentOffset: {y: scrollY}}}], {useNativeDriver: true})}
         getItemLayout={(_, index) => ({length: itemHeight, offset: itemHeight * index, index})}
       />
-      <View
-        style={{
-          borderColor: 'red',
-          borderBottomWidth: 1,
-          borderTopWidth: 1,
-          position: 'absolute',
-          height: itemHeight,
-          right: 0,
-          left: 0,
-          top: itemHeight * ((visibleItemCount - 1) / 2),
-        }}
-      />
+      <View style={styles.indicator}/>
+      <View style={[{
+        marginTop: itemHeight,
+      }, styles.indicator]}/>
     </View>
   );
 }
+
+const pickerStyles = (itemHeight: number, visibleItemCount: number, colors: MukColors) => StyleSheet.create({
+  indicator: {
+    position: 'absolute',
+    top: itemHeight * ((visibleItemCount - 1) / 2),
+    width: responsiveWidth(80),
+    height: responsiveWidth(.5),
+    backgroundColor: colors.outlineVariant,
+  },
+})

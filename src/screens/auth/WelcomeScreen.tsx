@@ -7,12 +7,11 @@ import {View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import {useNavigation} from '@react-navigation/native';
-import {WelcomeNavProp} from '../../navigation/AuthStack';
-import MukDatePicker from '../../components/custom/MukDatePicker';
+import {AuthStackNavProp} from '../../navigation/AuthStack';
 
 export const WelcomeScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation<WelcomeNavProp>();
+  const navigation = useNavigation<AuthStackNavProp>();
 
   return (
     <AuthLayout style={{justifyContent: 'center', alignItems: 'center', gap: responsiveWidth(64)}}>
@@ -26,7 +25,6 @@ export const WelcomeScreen = observer(() => {
           onPress={() => navigation.navigate('Register')}
         />
       </View>
-      <MukDatePicker value={{day: 5, month: 5, year: 1998}} onValueChange={value => console.log('date', value)} />
     </AuthLayout>
   );
 });
