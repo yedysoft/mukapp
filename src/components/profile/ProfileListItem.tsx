@@ -8,6 +8,7 @@ import {observer} from 'mobx-react';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
   item: ISearchUser;
@@ -17,12 +18,12 @@ type Props = {
 
 const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
 
   return (
     <MukListItem
       style={{alignItems: 'center', justifyContent: 'space-between'}}
-      onPress={() => navigation.navigate('Profile', {id: item.id})}
+      onPress={() => navigation.navigate('Profile', {userId: item.id})}
     >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')} />

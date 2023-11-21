@@ -12,10 +12,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
-import {LoginNavProp} from '../../navigation/AuthStack';
+import {AuthStackNavProp} from '../../navigation/AuthStack';
 
 export const AuthLoginForm = observer(() => {
-  const navigation = useNavigation<LoginNavProp>();
+  const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
   const [form, setForm] = useState<ILogin>({name: 'admin', pass: '123', expoToken: stores.ui.getExpoToken});
   const {api, t} = useServices();

@@ -4,6 +4,7 @@ import MukListItem from '../custom/MukListItem';
 import MukImage from '../custom/MukImage';
 import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
   notification: {
@@ -14,7 +15,7 @@ type Props = {
 
 export default function NotificationListItem({notification}: Props) {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
 
   return (
     <MukListItem

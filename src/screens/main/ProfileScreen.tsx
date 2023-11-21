@@ -11,8 +11,11 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import {MukTheme} from '../../types';
 
-const ProfileScreen = observer((props?: any) => {
-  const userId = props.route.params?.id;
+type Props = {
+  userId?: string;
+};
+
+const ProfileScreen = observer(({userId}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {user} = useStores();
@@ -35,9 +38,11 @@ const ProfileScreen = observer((props?: any) => {
     },
   ];
 
-  const fillProfile = async (id: string) => {
-    await api.user.getFollows(id);
-    await api.user.getFollowers(id);
+  const fillProfile = async (id: string | null) => {
+    if (id) {
+      await api.user.getFollows(id);
+      await api.user.getFollowers(id);
+    }
   };
 
   if (userId) {

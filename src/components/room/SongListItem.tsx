@@ -40,10 +40,7 @@ const SongListItem = observer(({song, itemType}: Props) => {
           onPress={() =>
             media.getPlayingTrack.voteable
               ? api.subscription.voteMusic({musicUri: song.uri, userId: user.getInfo.id})
-              : ui.addMessage({
-                  code: 1021,
-                  message: 'Oylamak için sıradaki şarkının çalmasını bekle',
-                })
+              : ui.addError('Oylamak için sıradaki şarkının çalmasını bekle', 1021)
           }
         />
       ) : itemType === 'add' ? (

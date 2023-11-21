@@ -1,4 +1,4 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack';
 import RoomScreen from '../screens/main/room';
 import BottomTabs from './BottomTabs';
 import {SubHeader} from '../components/header/SubHeader';
@@ -8,8 +8,21 @@ import TaskScreen from '../screens/main/TaskScreen';
 import PremiumScreen from '../screens/main/PremiumScreen';
 import {SearchScreen} from '../screens/main/social/SearchScreen';
 import {NotificationsScreen} from '../screens/main/NotificationsScreen';
+import {IChat} from '../types/user';
 
-const Main = createStackNavigator();
+export type MainStackScreens = {
+  Main: undefined;
+  Room: undefined;
+  Chat: {chat: IChat};
+  Profile: {userId?: string};
+  Search: undefined;
+  Notifications: undefined;
+  Task: undefined;
+  Premium: undefined;
+};
+export type MainStackNavProp = StackNavigationProp<MainStackScreens, 'Main'>;
+
+const Main = createStackNavigator<MainStackScreens>();
 
 export default function MainStack() {
   return (

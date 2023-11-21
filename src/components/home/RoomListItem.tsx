@@ -11,6 +11,7 @@ import {useServices} from '../../services';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
   roomData: IRoom;
@@ -18,7 +19,7 @@ type Props = {
 
 const RoomListItem = observer(({roomData}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
   const {room} = useStores();
 

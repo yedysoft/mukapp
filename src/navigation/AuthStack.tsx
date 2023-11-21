@@ -10,10 +10,7 @@ type AuthStackScreens = {
   Forgot: undefined;
   Register: undefined;
 };
-export type WelcomeNavProp = StackNavigationProp<AuthStackScreens, 'Welcome'>;
-export type LoginNavProp = StackNavigationProp<AuthStackScreens, 'Login'>;
-export type ForgotNavProp = StackNavigationProp<AuthStackScreens, 'Forgot'>;
-export type RegisterNavProp = StackNavigationProp<AuthStackScreens, 'Register'>;
+export type AuthStackNavProp = StackNavigationProp<AuthStackScreens, 'Welcome'>;
 
 const Auth = createStackNavigator<AuthStackScreens>();
 

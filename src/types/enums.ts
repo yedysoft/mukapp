@@ -2,14 +2,14 @@ const _languages = {
   system: 'System',
   tr: 'TR',
   en: 'EN',
-} as const;
+};
 export type Language = keyof typeof _languages;
 
 const _appearances = {
   system: 'System',
   light: 'Light',
   dark: 'Dark',
-} as const;
+};
 export type Appearance = keyof typeof _appearances;
 
 export enum MessageType {

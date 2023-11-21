@@ -1,4 +1,6 @@
 import {MD3Typescale, ThemeBase} from 'react-native-paper/lib/typescript/types';
+import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
+import {MainStackScreens} from '../navigation/MainStack';
 
 // Services
 export interface IService {
@@ -52,6 +54,12 @@ export type MukTheme = ThemeBase & {
   isV3: true;
   colors: MukColors;
   fonts: MD3Typescale;
+};
+export type MukMenu = {
+  icon: IconSource;
+  label: string;
+  route: keyof MainStackScreens;
+  disabled?: boolean;
 };
 export type PVoid = Promise<void>;
 export type PureFunc = () => void;

@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import FriendsListItem from './FriendsListItem';
 import {IFollowUser} from '../../types/user';
 import {MukTheme} from '../../types';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
   friends?: IFollowUser[];
@@ -12,7 +13,7 @@ type Props = {
 
 export default function FriendsList({friends}: Props) {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
 
   return (
     <FlatList

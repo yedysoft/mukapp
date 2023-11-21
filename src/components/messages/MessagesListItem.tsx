@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {IChat, ILastMessage} from '../../types/user';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
   chat: IChat;
@@ -14,7 +15,7 @@ type Props = {
 
 export default function MessagesListItem({chat}: Props) {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
   const lastMessage: ILastMessage = api.helper.getLastMessage(chat.messages);
 

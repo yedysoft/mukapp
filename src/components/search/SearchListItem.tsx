@@ -8,6 +8,7 @@ import {useServices} from '../../services';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
   user: ISearchUser;
@@ -16,12 +17,12 @@ type Props = {
 export default function SearchListItem({user}: Props) {
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
 
   return (
     <MukListItem
       style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}}
-      onPress={() => navigation.navigate('Profile', {id: user.id})}
+      onPress={() => navigation.navigate('Profile', {userId: user.id})}
     >
       <MukIcon scale={0.8} icon={user.image ?? 'account'} />
       <View style={{flexDirection: 'column', width: '66%', gap: responsiveWidth(4)}}>

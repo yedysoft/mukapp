@@ -3,9 +3,9 @@ import DrawerLayout from '../../components/layouts/DrawerLayout';
 import HorizontalUser from '../../components/user/HorizontalUser';
 import MenuList from '../../components/menu/MenuList';
 import MenuFooter from '../../components/menu/MenuFooter';
-import {MukTheme} from '../../types';
+import {MukMenu, MukTheme} from '../../types';
 
-const menu = [
+const menu: MukMenu[] = [
   {
     icon: 'account-outline',
     label: 'Profil',
@@ -21,11 +21,7 @@ const menu = [
     label: 'Arama',
     route: 'Search',
   },
-  {
-    icon: 'bookmark-outline',
-    label: 'Favoriler',
-    route: 'Favorite',
-  },
+
   {
     icon: 'star-outline',
     label: 'Premium',
@@ -37,16 +33,6 @@ const menu = [
     label: 'Görevler',
     route: 'Task',
     disabled: true,
-  },
-  {
-    icon: 'cog-outline',
-    label: 'Ayarlar',
-    route: 'Settings',
-  },
-  {
-    icon: 'help-circle-outline',
-    label: 'Yardım',
-    route: 'Help',
   },
 ];
 

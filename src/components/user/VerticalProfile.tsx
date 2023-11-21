@@ -47,7 +47,7 @@ export default function VerticalProfile({profile, otherUser}: Props) {
         <MukIconButton
           color={colors.secondary}
           scale={0.4}
-          icon={profile.isFollows ? 'account-minus-outline' : 'account-plus-outline'}
+          icon={'isFollows' in profile && profile.isFollows ? 'account-minus-outline' : 'account-plus-outline'}
           onPress={() => (profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id))}
         />
         <MukIconButton

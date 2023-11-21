@@ -34,9 +34,7 @@ export default function ProfileStatsItem({stat, index, activeIndex, setActiveInd
       }}
     >
       <Text style={{fontSize: responsiveSize(18), fontWeight: 'bold', color: colors.primary}}>{stat.value}</Text>
-      <Text style={{fontSize: responsiveSize(14), fontWeight: 'bold', color: colors.onSurfaceVariant}}>
-        {stat.label}
-      </Text>
+      <Text style={{fontSize: responsiveSize(14), fontWeight: 'bold', color: colors.text}}>{stat.label}</Text>
     </TouchableOpacity>
   );
 }

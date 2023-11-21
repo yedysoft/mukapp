@@ -9,6 +9,7 @@ import {useServices} from '../../services';
 import MukIconButton from '../custom/MukIconButton';
 import {useNavigation} from '@react-navigation/native';
 import {MukColors, MukTheme} from '../../types';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
   compact?: boolean;
@@ -21,7 +22,7 @@ const PlayingTrack = observer(({compact}: Props) => {
   const {api} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.background : colors.secondary;
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
 
   return (
     <View

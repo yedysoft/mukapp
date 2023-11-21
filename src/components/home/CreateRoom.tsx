@@ -15,12 +15,13 @@ import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import MukForm, {MukFormRef} from '../custom/MukForm';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 const CreateRoom = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const sheetRef = useRef<BottomSheet>(null);
   const formRef = useRef<MukFormRef>(null);
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
   const {api, t} = useServices();
   const {room, user} = useStores();
   const [form, setForm] = useState<IRoomConfig | null>();
