@@ -1,17 +1,31 @@
-import React, {useMemo, useRef, useState} from 'react';
-import {Animated, ListRenderItemInfo, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View} from 'react-native';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {
+  Animated,
+  FlatList,
+  ListRenderItemInfo,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 type Props = {
   items: string[];
   defaultValue?: string;
-  onValueChange?: (value: string) => void;
   itemHeight?: number;
+  onValueChange?: (value: string) => void;
 };
 
 export default function MukPicker({items, defaultValue, onValueChange, itemHeight = 30}: Props) {
+  if (defaultValue && !items.includes(defaultValue)) {
+    defaultValue = undefined;
+  }
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const listRef = useRef<FlatList>(null);
+
   const [selectedValue, setSelectedValue] = useState(defaultValue ?? items[0]);
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...items, ...emptyItems], [items, emptyItems]);
@@ -24,24 +38,20 @@ export default function MukPicker({items, defaultValue, onValueChange, itemHeigh
       (index - 1) * itemHeight,
       index * itemHeight,
     ];
-
     const scale = scrollY.interpolate({
       inputRange,
-      outputRange: [0.4, 0.8, 1.2, 0.8, 0.4],
+      outputRange: [0.7, 0.9, 1.1, 0.9, 0.7],
     });
-
-    const fontWeight = (() => {
-      const translateY = scrollPosition - index * itemHeight;
-      const maxTranslateY = itemHeight * 1.5; // You can adjust this value
-      const normalizedTranslateY = Math.min(Math.abs(translateY), maxTranslateY);
-      const normalizedWeight = 400 + (normalizedTranslateY / maxTranslateY) * 200;
-      console.log(normalizedWeight);
-      return normalizedWeight.toFixed(0);
-    })();
+    const rotateX = scrollY.interpolate({
+      inputRange,
+      outputRange: ['-55deg', '-50deg', '0deg', '50deg', '55deg'],
+    });
     return (
-      <Animated.View style={[{height: itemHeight, transform: [{scale}]}, styles.animatedContainer]}>
-        <Animated.Text style={[styles.pickerItem, {fontWeight}]}>{item}</Animated.Text>
-      </Animated.View>
+      <Pressable onPress={() => gotoItem(item)}>
+        <Animated.View style={[{height: itemHeight, transform: [{scale}, {rotateX}]}, styles.animatedContainer]}>
+          <Text style={styles.pickerItem}>{item}</Text>
+        </Animated.View>
+      </Pressable>
     );
   };
 
@@ -57,22 +67,29 @@ export default function MukPicker({items, defaultValue, onValueChange, itemHeigh
     }
   };
 
+  const gotoItem = (value: string | undefined) => {
+    if (listRef.current && value) {
+      const index = modifiedItems.indexOf(value);
+      const initialScrollIndex = index - (visibleItemCount - 1) / 2;
+      listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
+    }
+  };
+
+  useEffect(() => {
+    gotoItem(defaultValue);
+  }, [listRef, defaultValue]);
+
   return (
     <View style={{height: itemHeight * visibleItemCount}}>
       <Animated.FlatList
+        ref={listRef}
         data={modifiedItems}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         snapToInterval={itemHeight}
         onMomentumScrollEnd={onScrollEnd}
         scrollEventThrottle={16}
-        onScroll={Animated.event([{nativeEvent: {contentOffset: {y: scrollY}}}], {
-          useNativeDriver: true,
-          listener: (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-            const y = event.nativeEvent.contentOffset.y;
-            setScrollPosition(y);
-          },
-        })}
+        onScroll={Animated.event([{nativeEvent: {contentOffset: {y: scrollY}}}], {useNativeDriver: true})}
         getItemLayout={(_, index) => ({length: itemHeight, offset: itemHeight * index, index})}
       />
       <View style={[styles.indicatorHolder, {top: itemHeight * ((visibleItemCount - 1) / 2)}]}>
