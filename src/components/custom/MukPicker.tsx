@@ -1,5 +1,15 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, FlatList, ListRenderItemInfo, NativeScrollEvent, NativeSyntheticEvent, Pressable, Text, View, StyleSheet} from 'react-native';
+import {
+  Animated,
+  FlatList,
+  ListRenderItemInfo,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
 import {useTheme} from 'react-native-paper';
 import {MukColors, MukTheme} from '../../types';
@@ -21,9 +31,10 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
   const listRef = useRef<FlatList>(null);
   const {colors} = useTheme<MukTheme>();
   const [selectedValue, setSelectedValue] = useState(defaultValue ?? items[0]);
+  const memoSelectedValue = useMemo(() => selectedValue, [selectedValue]);
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...items, ...emptyItems], [items, emptyItems]);
-  const styles = pickerStyles(itemHeight, visibleItemCount, colors)
+  const styles = pickerStyles(itemHeight, visibleItemCount, colors);
 
   const renderItem = ({item, index}: ListRenderItemInfo<T>) => {
     const inputRange = [
@@ -47,7 +58,13 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
           style={{height: itemHeight, justifyContent: 'center', alignItems: 'center', transform: [{scale}, {rotateX}]}}
         >
           <Text
-            style={{fontSize: responsiveSize(16), fontWeight: '600', textAlign: 'center', textAlignVertical: 'center', color: selectedValue === item ? colors.secondary : colors.outlineVariant}}
+            style={{
+              fontSize: responsiveSize(16),
+              fontWeight: '600',
+              textAlign: 'center',
+              textAlignVertical: 'center',
+              color: memoSelectedValue === item ? colors.secondary : colors.outlineVariant,
+            }}
           >
             {String(item)}
           </Text>
@@ -60,7 +77,8 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
     const y = event.nativeEvent.contentOffset.y;
     const index = Math.round(y / itemHeight);
     const value = items[index];
-    if (value !== selectedValue) {
+    if (value !== memoSelectedValue) {
+      console.log('onScrollEnd');
       setSelectedValue(value);
       onValueChange && onValueChange(name, value);
     }
@@ -71,7 +89,7 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
       const index = modifiedItems.indexOf(value);
       const initialScrollIndex = index - (visibleItemCount - 1) / 2;
       listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
-      if (value !== selectedValue) {
+      if (value !== memoSelectedValue) {
         setSelectedValue(value);
         onValueChange && onValueChange(name, value);
       }
@@ -79,8 +97,9 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
   };
 
   useEffect(() => {
+    console.log('useEffect');
     gotoItem(defaultValue);
-  }, [listRef, defaultValue]);
+  }, [listRef]);
 
   return (
     <View style={{height: itemHeight * visibleItemCount}}>
@@ -96,20 +115,26 @@ export default function MukPicker<T>({name, items, defaultValue, onValueChange, 
         onScroll={Animated.event([{nativeEvent: {contentOffset: {y: scrollY}}}], {useNativeDriver: true})}
         getItemLayout={(_, index) => ({length: itemHeight, offset: itemHeight * index, index})}
       />
-      <View style={styles.indicator}/>
-      <View style={[{
-        marginTop: itemHeight,
-      }, styles.indicator]}/>
+      <View style={styles.indicator} />
+      <View
+        style={[
+          {
+            marginTop: itemHeight,
+          },
+          styles.indicator,
+        ]}
+      />
     </View>
   );
 }
 
-const pickerStyles = (itemHeight: number, visibleItemCount: number, colors: MukColors) => StyleSheet.create({
-  indicator: {
-    position: 'absolute',
-    top: itemHeight * ((visibleItemCount - 1) / 2),
-    width: responsiveWidth(80),
-    height: responsiveWidth(.5),
-    backgroundColor: colors.outlineVariant,
-  },
-})
+const pickerStyles = (itemHeight: number, visibleItemCount: number, colors: MukColors) =>
+  StyleSheet.create({
+    indicator: {
+      position: 'absolute',
+      top: itemHeight * ((visibleItemCount - 1) / 2),
+      width: responsiveWidth(80),
+      height: responsiveWidth(0.5),
+      backgroundColor: colors.outlineVariant,
+    },
+  });

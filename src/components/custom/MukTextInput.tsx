@@ -49,7 +49,7 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
       placeholder,
       onFocus,
       onBlur,
-      selectionColor
+      selectionColor,
     }: Props,
     ref,
   ) => {
