@@ -60,6 +60,12 @@ export class HelperApi {
     return Array.from({length}, (_, index) => start + index);
   }
 
+  formatNumberWithLength(number: number, length: number): string {
+    const numberString = String(number);
+    const zerosToAdd = Math.max(0, length - numberString.length);
+    return '0'.repeat(zerosToAdd) + numberString;
+  }
+
   nummer(num: number): string {
     if (num > 1e3 - 1 && num < 1e6) {
       return num / 1e3 + 'K';

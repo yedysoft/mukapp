@@ -106,9 +106,9 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
           placeholder={placeholder}
           placeholderTextColor={colors.outlineVariant}
           autoCapitalize={autoCapitalize ?? 'none'}
+          selectionColor={selectionColor ?? colors.primary}
           onChangeText={handleInputChange}
           onBlur={onBlur}
-          selectionColor={selectionColor ?? colors.primary}
           onFocus={() => {
             validateInput(value ?? inputValue);
             if (onFocus) {

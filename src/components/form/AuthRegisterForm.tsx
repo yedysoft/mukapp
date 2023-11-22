@@ -16,6 +16,7 @@ import {AuthStackNavProp} from '../../navigation/AuthStack';
 import MukDatePicker from '../custom/MukDatePicker';
 
 export const AuthRegisterForm = observer(() => {
+  console.log('AuthRegisterFormRender');
   const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
@@ -24,13 +25,9 @@ export const AuthRegisterForm = observer(() => {
   const [form, setForm] = useState<IRegister>({email: '', userName: '', userPass: ''});
   const [step, setStep] = useState(0);
   const [displayPicker, setDisplayPicker] = useState(false);
-  const [pickerValue, setPickerValue] = useState({day: 5, month: 5, year: 1998})
-
-  const setBirthday = (date: {day: number, month: number, year: number}) => {
-    handleOnChange('birthday', `${date['day']}.${date['month']}.${date['year']}`)
-  }
 
   const handleOnChange = (name: string, value: string) => {
+    console.log('AuthRegisterForm', name, value);
     setForm({...form, [name]: value});
   };
 
@@ -62,13 +59,9 @@ export const AuthRegisterForm = observer(() => {
               name={'birthday'}
               label={'Doğum Günü'}
               value={form.birthday}
-              onChange={handleOnChange}
               selectionColor={colors.background}
               style={{display: step === 0 ? undefined : 'none'}}
-              onFocus={() => {
-                setDisplayPicker(true);
-                setBirthday(pickerValue)
-              }}
+              onFocus={() => setDisplayPicker(true)}
               onBlur={() => setDisplayPicker(false)}
             />
             <MukTextInput
@@ -153,8 +146,16 @@ export const AuthRegisterForm = observer(() => {
           }}
         />
       </View>
-      <View style={{display: displayPicker ? undefined : 'none', justifyContent: 'flex-start', alignItems: 'center', height: responsiveHeight(160), marginTop: responsiveHeight(-100)}}>
-        <MukDatePicker value={pickerValue} onValueChange={value => setBirthday(value)} />
+      <View
+        style={{
+          display: displayPicker ? undefined : 'none',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          height: responsiveHeight(160),
+          marginTop: responsiveHeight(-100),
+        }}
+      >
+        <MukDatePicker name={'birthday'} value={form.birthday} onValueChange={handleOnChange} />
       </View>
     </SafeAreaView>
   );
