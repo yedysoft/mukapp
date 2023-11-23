@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {memo, useMemo, useRef} from 'react';
 import {
   Animated,
   FlatList,
@@ -22,16 +22,34 @@ type Props<T> = {
   onValueChange?: (name: string, value: T) => void;
 };
 
-export default function MukPicker<T>({name, items, value, onValueChange, itemHeight = 30}: Props<T>) {
-  console.log('MukPickerRender', name, value);
-  if (value && !items.includes(value)) {
-    value = undefined;
+const checkValue = <T,>(value: T | undefined, items: T[]): T => {
+  if (!value) {
+    return items[0];
   }
+  if (!items.includes(value)) {
+    return items[items.length - 1];
+  }
+  return value;
+};
+
+const pickerStyles = (itemHeight: number, visibleItemCount: number, colors: MukColors) =>
+  StyleSheet.create({
+    indicator: {
+      position: 'absolute',
+      top: itemHeight * ((visibleItemCount - 1) / 2),
+      width: responsiveWidth(80),
+      height: responsiveWidth(0.5),
+      backgroundColor: colors.outlineVariant,
+    },
+  });
+
+const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}: Props<T>) => {
+  console.log('MukPickerCompRender', name, value);
+  value = checkValue<T>(value, items);
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
   const {colors} = useTheme<MukTheme>();
-  const [selectedValue, setSelectedValue] = useState(value ?? items[0]);
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...items, ...emptyItems], [items, emptyItems]);
   const styles = useMemo(
@@ -39,76 +57,68 @@ export default function MukPicker<T>({name, items, value, onValueChange, itemHei
     [itemHeight, visibleItemCount, colors],
   );
 
-  const renderItem = useMemo(
-    () =>
-      ({item, index}: ListRenderItemInfo<T>) => {
-        const inputRange = [
-          (index - 4) * itemHeight,
-          (index - 3) * itemHeight,
-          (index - 2) * itemHeight,
-          (index - 1) * itemHeight,
-          index * itemHeight,
-        ];
-        const scale = scrollY.interpolate({
-          inputRange,
-          outputRange: [0.8, 0.9, 1.1, 0.9, 0.8],
-        });
-        const rotateX = scrollY.interpolate({
-          inputRange,
-          outputRange: ['-40deg', '-20deg', '0deg', '20deg', '40deg'],
-        });
-        return (
-          <Pressable onPress={() => gotoItem(item, true)}>
-            <Animated.View
-              style={{
-                height: itemHeight,
-                justifyContent: 'center',
-                alignItems: 'center',
-                transform: [{scale}, {rotateX}],
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: responsiveSize(16),
-                  fontWeight: '600',
-                  textAlign: 'center',
-                  textAlignVertical: 'center',
-                  color: selectedValue === item ? colors.secondary : colors.outlineVariant,
-                }}
-              >
-                {String(item)}
-              </Text>
-            </Animated.View>
-          </Pressable>
-        );
-      },
-    [selectedValue, itemHeight, scrollY],
-  );
+  const renderItem = ({item, index}: ListRenderItemInfo<T>) => {
+    const inputRange = [
+      (index - 4) * itemHeight,
+      (index - 3) * itemHeight,
+      (index - 2) * itemHeight,
+      (index - 1) * itemHeight,
+      index * itemHeight,
+    ];
+    const scale = scrollY.interpolate({
+      inputRange,
+      outputRange: [0.8, 0.9, 1.1, 0.9, 0.8],
+    });
+    const rotateX = scrollY.interpolate({
+      inputRange,
+      outputRange: ['-40deg', '-20deg', '0deg', '20deg', '40deg'],
+    });
+    return (
+      <Pressable onPress={() => gotoItem(item, true)}>
+        <Animated.View
+          style={{
+            height: itemHeight,
+            justifyContent: 'center',
+            alignItems: 'center',
+            transform: [{scale}, {rotateX}],
+          }}
+        >
+          <Text
+            style={{
+              fontSize: responsiveSize(16),
+              fontWeight: '600',
+              textAlign: 'center',
+              textAlignVertical: 'center',
+              color: value === item ? colors.secondary : colors.outlineVariant,
+            }}
+          >
+            {String(item)}
+          </Text>
+        </Animated.View>
+      </Pressable>
+    );
+  };
 
   const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const y = event.nativeEvent.contentOffset.y;
     const index = Math.round(y / itemHeight);
     const val = items[index];
-    if (val !== selectedValue) {
+    if (val !== value) {
       gotoItem(val, false);
     }
   };
 
-  const gotoItem = useCallback(
-    (value: T, scroll: boolean) => {
-      if (value) {
-        console.log('MukPicker', name, value);
-        onValueChange && onValueChange(name, value);
-        setSelectedValue(value);
-        if (listRef.current && scroll) {
-          const index = modifiedItems.indexOf(value);
-          const initialScrollIndex = index - (visibleItemCount - 1) / 2;
-          listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
-        }
+  const gotoItem = (val: T, scroll: boolean) => {
+    if (val) {
+      value = val;
+      if (listRef.current && scroll) {
+        const index = modifiedItems.indexOf(val);
+        const initialScrollIndex = index - (visibleItemCount - 1) / 2;
+        listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
       }
-    },
-    [modifiedItems, visibleItemCount, listRef],
-  );
+    }
+    onValueChange && onValueChange(name, val);
+  };
 
   return (
     <View style={{height: itemHeight * visibleItemCount}}>
@@ -137,15 +147,18 @@ export default function MukPicker<T>({name, items, value, onValueChange, itemHei
       />
     </View>
   );
-}
+};
 
-const pickerStyles = (itemHeight: number, visibleItemCount: number, colors: MukColors) =>
-  StyleSheet.create({
-    indicator: {
-      position: 'absolute',
-      top: itemHeight * ((visibleItemCount - 1) / 2),
-      width: responsiveWidth(80),
-      height: responsiveWidth(0.5),
-      backgroundColor: colors.outlineVariant,
-    },
-  });
+const genericMemo: <T>(
+  component: T,
+  propsAreEqual?: (prevProps: React.PropsWithChildren<T>, nextProps: React.PropsWithChildren<T>) => boolean,
+) => T = memo;
+
+const MukPicker = genericMemo(MukPickerComp, (prevProps, nextProps) => {
+  const a = Object.is(prevProps, nextProps);
+  console.log('prevProps', prevProps.name, prevProps.value);
+  console.log('nextProps', nextProps.name, nextProps.value);
+  console.log('propAreEqual', a);
+  return a;
+});
+export default MukPicker;

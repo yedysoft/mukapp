@@ -1,9 +1,9 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import {View} from 'react-native';
 import MukPicker from './MukPicker';
 import {services, useServices} from '../../services';
 
-type Date = {day: number; month: number; year: number};
+type DateType = {day: number; month: number; year: number};
 
 type Props = {
   name: string;
@@ -15,7 +15,7 @@ type Props = {
 
 const nowYear = new Date().getFullYear();
 
-function strToDate(str: string | undefined): Date {
+function strToDate(str: string | undefined): DateType {
   if (str) {
     const parts = str.split('.');
     if (parts.length === 3) {
@@ -28,29 +28,27 @@ function strToDate(str: string | undefined): Date {
   return {day: 1, month: 1, year: nowYear - 18};
 }
 
-function dateToStr(date: Date): string {
+function dateToStr(date: DateType): string {
   const day = services.api.helper.formatNumberWithLength(date.day, 2);
   const month = services.api.helper.formatNumberWithLength(date.month, 2);
   return `${day}.${month}.${date.year}`;
 }
 
 export default function MukDatePicker({name, value, minYear = 1970, maxYear = nowYear, onValueChange}: Props) {
-  console.log('MukDatePickerRender', value);
   const {api} = useServices();
-  const [date, setDate] = useState<Date>(strToDate(value));
+  let date: DateType = strToDate(value);
   const days = useMemo(() => {
     const m = new Date(date.year, date.month, 0).getDate();
-    console.log(date.year, date.month, m);
     return api.helper.generateNumberArray(1, m);
   }, [date.year, date.month]);
   const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const years = useMemo(() => api.helper.generateNumberArray(minYear, maxYear), [minYear, maxYear]);
+  const years = useMemo(() => {
+    return api.helper.generateNumberArray(minYear, maxYear);
+  }, [minYear, maxYear]);
 
   const handleValueChanged = (key: string, value: number) => {
-    const newDate: Date = {...date, [key]: value};
-    console.log('MukDatePicker', 'newDate', newDate);
-    setDate(newDate);
-    onValueChange && onValueChange(name, dateToStr(newDate));
+    date = {...date, [key]: value};
+    onValueChange && onValueChange(name, dateToStr(date));
   };
 
   return (

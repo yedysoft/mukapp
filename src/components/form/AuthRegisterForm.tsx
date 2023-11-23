@@ -16,7 +16,6 @@ import {AuthStackNavProp} from '../../navigation/AuthStack';
 import MukDatePicker from '../custom/MukDatePicker';
 
 export const AuthRegisterForm = observer(() => {
-  console.log('AuthRegisterFormRender');
   const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
@@ -27,7 +26,6 @@ export const AuthRegisterForm = observer(() => {
   const [displayPicker, setDisplayPicker] = useState(false);
 
   const handleOnChange = (name: string, value: string) => {
-    console.log('AuthRegisterForm', name, value);
     setForm({...form, [name]: value});
   };
 
