@@ -25,9 +25,12 @@ export const AuthRegisterForm = observer(() => {
   const [step, setStep] = useState(0);
   const [displayPicker, setDisplayPicker] = useState(false);
 
-  const handleOnChange = useCallback((name: string, value: string) => {
-    setForm({...form, [name]: value});
-  }, []);
+  const handleOnChange = useCallback(
+    (name: string, value: string) => {
+      setForm({...form, [name]: value});
+    },
+    [form],
+  );
 
   return (
     <SafeAreaView

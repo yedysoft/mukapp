@@ -20,9 +20,12 @@ const responsiveWidth = (size: number): number => normalize(size, 'width');
 const responsiveHeight = (size: number): number => normalize(size, 'height');
 const responsiveSize = (size: number): number => responsiveWidth(size);
 
-const genericMemo: <T>(
+const genericMemo: <T extends React.ComponentType<any>>(
   component: T,
-  propsAreEqual?: (prevProps: React.PropsWithChildren<T>, nextProps: React.PropsWithChildren<T>) => boolean,
+  propsAreEqual?: (
+    prevProps: React.PropsWithChildren<React.ComponentProps<T>>,
+    nextProps: React.PropsWithChildren<React.ComponentProps<T>>,
+  ) => boolean,
 ) => T = memo;
 
 export {screenWidth, screenHeight, responsiveScale, responsiveWidth, responsiveHeight, responsiveSize, genericMemo};

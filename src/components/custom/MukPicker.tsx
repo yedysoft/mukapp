@@ -155,5 +155,12 @@ const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}:
   );
 };
 
-const MukPicker = genericMemo(MukPickerComp);
+const MukPicker = genericMemo(
+  MukPickerComp,
+  (prevProps, nextProps) =>
+    Object.is(prevProps.name, nextProps.name) &&
+    Object.is(prevProps.value, nextProps.value) &&
+    Object.is(prevProps.items, nextProps.items) &&
+    Object.is(prevProps.itemHeight, nextProps.itemHeight),
+);
 export default MukPicker;
