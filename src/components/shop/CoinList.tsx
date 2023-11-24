@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import CoinGridItem from './CoinGridItem';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';

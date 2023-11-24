@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import MessagesListItem from './MessagesListItem';
 import {IChat} from '../../types/user';
 import {MukTheme} from '../../types';

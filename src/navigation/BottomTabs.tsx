@@ -3,7 +3,7 @@ import {AntDesign} from '@expo/vector-icons';
 import {useTheme} from 'react-native-paper';
 import {MainHeader} from '../components/header/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
-import {responsiveHeight} from '../utils/Responsive';
+import {responsiveHeight} from '../utils/util';
 import HomeScreen from '../screens/main/HomeScreen';
 import {MessagesScreen} from '../screens/main/social/MessagesScreen';
 import {MukTheme} from '../types';

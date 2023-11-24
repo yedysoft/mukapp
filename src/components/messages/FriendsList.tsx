@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {useNavigation} from '@react-navigation/native';
 import FriendsListItem from './FriendsListItem';
 import {IFollowUser} from '../../types/user';

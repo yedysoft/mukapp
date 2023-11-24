@@ -1,7 +1,7 @@
 import {Text, useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import MukIcon from '../../components/custom/MukIcon';
 import MukIconButton from '../../components/custom/MukIconButton';
 import MukListItem from '../custom/MukListItem';

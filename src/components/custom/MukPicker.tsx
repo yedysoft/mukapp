@@ -1,4 +1,4 @@
-import React, {memo, useMemo, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {
   Animated,
   FlatList,
@@ -10,7 +10,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
 import {MukColors, MukTheme} from '../../types';
 
@@ -44,8 +44,9 @@ const pickerStyles = (itemHeight: number, visibleItemCount: number, colors: MukC
   });
 
 const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}: Props<T>) => {
-  console.log('MukPickerCompRender', name, value);
-  value = checkValue<T>(value, items);
+  const tempValue = value;
+  value = checkValue<T>(tempValue, items);
+  console.log('MukPickerCompRender', name, tempValue, value);
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
@@ -120,6 +121,12 @@ const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}:
     onValueChange && onValueChange(name, val);
   };
 
+  useEffect(() => {
+    if (tempValue !== value && value) {
+      gotoItem(value, true);
+    }
+  }, [tempValue, value]);
+
   return (
     <View style={{height: itemHeight * visibleItemCount}}>
       <Animated.FlatList
@@ -130,7 +137,6 @@ const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}:
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         snapToInterval={itemHeight}
-        initialNumToRender={visibleItemCount * 2}
         onMomentumScrollEnd={onScrollEnd}
         scrollEventThrottle={16}
         onScroll={Animated.event([{nativeEvent: {contentOffset: {y: scrollY}}}], {useNativeDriver: true})}
@@ -149,16 +155,5 @@ const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}:
   );
 };
 
-const genericMemo: <T>(
-  component: T,
-  propsAreEqual?: (prevProps: React.PropsWithChildren<T>, nextProps: React.PropsWithChildren<T>) => boolean,
-) => T = memo;
-
-const MukPicker = genericMemo(MukPickerComp, (prevProps, nextProps) => {
-  const a = Object.is(prevProps, nextProps);
-  console.log('prevProps', prevProps.name, prevProps.value);
-  console.log('nextProps', nextProps.name, nextProps.value);
-  console.log('propAreEqual', a);
-  return a;
-});
+const MukPicker = genericMemo(MukPickerComp);
 export default MukPicker;

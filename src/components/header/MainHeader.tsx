@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import MukIconButton from '../custom/MukIconButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MukLogo from '../custom/MukLogo';

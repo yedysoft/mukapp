@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import {screenWidth} from '../../utils/Responsive';
+import {screenWidth} from '../../utils/util';
 import {ReactNode} from 'react';
 import Carousel from 'react-native-reanimated-carousel';
 import {MukTheme} from '../../types';

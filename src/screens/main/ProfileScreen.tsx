@@ -1,7 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../components/layouts/MainLayout';
 import VerticalProfile from '../../components/user/VerticalProfile';
-import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {useEffect, useState} from 'react';
 import ProfileStats from '../../components/profile/ProfileStats';
 import ProfileList from '../../components/profile/ProfileList';

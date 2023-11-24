@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {Image, ImageStyle} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 
 type Props = {

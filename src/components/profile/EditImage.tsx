@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {Dispatch, SetStateAction} from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import MukModal from '../custom/MukModal';

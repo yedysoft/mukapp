@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../components/layouts/MainLayout';
-import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import TokenExchange from '../../components/task/TokenExchange';
 import TasksList from '../../components/task/TasksList';
 import {MukTheme} from '../../types';

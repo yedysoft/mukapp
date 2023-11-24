@@ -1,5 +1,5 @@
 import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {ReactElement} from 'react';
 import RoomSettingsListItem from './RoomSettingsListItem';
 

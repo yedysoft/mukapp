@@ -1,8 +1,8 @@
 import {TextInput, useTheme} from 'react-native-paper';
 import {InputModeOptions, StyleProp, Text, View, ViewStyle} from 'react-native';
-import {forwardRef, useImperativeHandle, useState} from 'react';
+import {forwardRef, memo, useImperativeHandle, useState} from 'react';
 import {useServices} from '../../services';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 
 type Props = {
@@ -30,7 +30,7 @@ export type MukTextInputRef = {
   inputValue: string;
 };
 
-const MukTextInput = forwardRef<MukTextInputRef, Props>(
+const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
   (
     {
       name,
@@ -53,13 +53,13 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
     }: Props,
     ref,
   ) => {
+    console.log('MukTextInputCompRender', name);
     const {colors} = useTheme<MukTheme>();
     const {t} = useServices();
     const [error, setError] = useState<string | null>(null);
-    const [inputValue, setInputValue] = useState<string>('');
 
     const handleInputChange = (text: string) => {
-      setInputValue(text);
+      value = text;
       if (onChange) {
         onChange(name, text);
       }
@@ -91,7 +91,7 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
 
     useImperativeHandle(ref, () => ({
       validateInput,
-      inputValue,
+      inputValue: value ?? '',
     }));
 
     return (
@@ -110,7 +110,7 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
           onChangeText={handleInputChange}
           onBlur={onBlur}
           onFocus={() => {
-            validateInput(value ?? inputValue);
+            validateInput(value);
             if (onFocus) {
               onFocus();
             }
@@ -124,4 +124,5 @@ const MukTextInput = forwardRef<MukTextInputRef, Props>(
   },
 );
 
+const MukTextInput = memo(MukTextInputComp);
 export default MukTextInput;

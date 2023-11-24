@@ -1,7 +1,7 @@
 import {Dialog, Text, useTheme} from 'react-native-paper';
 import {ReactNode, useState} from 'react';
 import MukButton from './MukButton';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {StyleSheet} from 'react-native';
 import {MukColors, MukTheme, PVoid} from '../../types';
 

@@ -1,6 +1,6 @@
 import {TouchableOpacity} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {Dispatch, SetStateAction} from 'react';
 import {MukTheme} from '../../types';
 

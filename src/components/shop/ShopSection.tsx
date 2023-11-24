@@ -1,7 +1,7 @@
 import {Text, useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 
 type Props = {

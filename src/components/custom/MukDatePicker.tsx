@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {memo, useCallback, useMemo} from 'react';
 import {View} from 'react-native';
 import MukPicker from './MukPicker';
 import {services, useServices} from '../../services';
@@ -15,7 +15,7 @@ type Props = {
 
 const nowYear = new Date().getFullYear();
 
-function strToDate(str: string | undefined): DateType {
+const strToDate = (str: string | undefined): DateType => {
   if (str) {
     const parts = str.split('.');
     if (parts.length === 3) {
@@ -26,30 +26,27 @@ function strToDate(str: string | undefined): DateType {
     }
   }
   return {day: 1, month: 1, year: nowYear - 18};
-}
+};
 
-function dateToStr(date: DateType): string {
+const dateToStr = (date: DateType): string => {
   const day = services.api.helper.formatNumberWithLength(date.day, 2);
   const month = services.api.helper.formatNumberWithLength(date.month, 2);
   return `${day}.${month}.${date.year}`;
-}
+};
 
-export default function MukDatePicker({name, value, minYear = 1970, maxYear = nowYear, onValueChange}: Props) {
+const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onValueChange}: Props) => {
+  console.log('MukDatePickerCompRender', name);
   const {api} = useServices();
   let date: DateType = strToDate(value);
-  const days = useMemo(() => {
-    const m = new Date(date.year, date.month, 0).getDate();
-    return api.helper.generateNumberArray(1, m);
-  }, [date.year, date.month]);
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const years = useMemo(() => {
-    return api.helper.generateNumberArray(minYear, maxYear);
-  }, [minYear, maxYear]);
+  const day = useMemo(() => new Date(date.year, date.month, 0).getDate(), [date.year, date.month]);
+  const days = useMemo(() => api.helper.generateNumberArray(1, day), [day]);
+  const months = useMemo(() => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], []);
+  const years = useMemo(() => api.helper.generateNumberArray(minYear, maxYear), [minYear, maxYear]);
 
-  const handleValueChanged = (key: string, value: number) => {
+  const handleValueChanged = useCallback((key: string, value: number) => {
     date = {...date, [key]: value};
     onValueChange && onValueChange(name, dateToStr(date));
-  };
+  }, []);
 
   return (
     <View style={{flexDirection: 'row'}}>
@@ -58,4 +55,12 @@ export default function MukDatePicker({name, value, minYear = 1970, maxYear = no
       <MukPicker<number> name="year" items={years} value={date.year} onValueChange={handleValueChanged} />
     </View>
   );
-}
+};
+
+MukDatePickerComp.defaultProps = {
+  minYear: 1950,
+  maxYear: nowYear,
+};
+
+const MukDatePicker = memo(MukDatePickerComp);
+export default MukDatePicker;

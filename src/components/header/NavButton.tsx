@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 import {View} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 
 export const NavButton = ({children}: {children: ReactNode}) => {
   return (

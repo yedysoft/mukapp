@@ -1,7 +1,7 @@
 import {StyleProp, View, ViewStyle} from 'react-native';
 import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 import React, {ReactNode, useCallback, useMemo} from 'react';
-import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {useTheme} from 'react-native-paper';
 import {observer} from 'mobx-react';

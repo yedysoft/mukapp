@@ -1,5 +1,5 @@
 import {FAB, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';

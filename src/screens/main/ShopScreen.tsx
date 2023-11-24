@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../components/layouts/MainLayout';
-import {responsiveHeight} from '../../utils/Responsive';
+import {responsiveHeight} from '../../utils/util';
 import ShopCarousel from '../../components/shop/ShopCarousel';
 import ShopCoins from '../../components/shop/ShopCoins';
 import {MukTheme} from '../../types';

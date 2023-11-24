@@ -1,7 +1,7 @@
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
 import {useEffect, useState} from 'react';
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useServices} from '../../services';
 import {Pressable} from 'react-native';
 import {useStores} from '../../stores';

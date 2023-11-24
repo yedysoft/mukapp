@@ -2,11 +2,11 @@ import {observer} from 'mobx-react';
 import {Text, useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
-import {useRef, useState} from 'react';
+import {useCallback, useRef, useState} from 'react';
 import {IRegister} from '../../types/auth';
 import {useServices} from '../../services';
 import {View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
@@ -25,9 +25,9 @@ export const AuthRegisterForm = observer(() => {
   const [step, setStep] = useState(0);
   const [displayPicker, setDisplayPicker] = useState(false);
 
-  const handleOnChange = (name: string, value: string) => {
+  const handleOnChange = useCallback((name: string, value: string) => {
     setForm({...form, [name]: value});
-  };
+  }, []);
 
   return (
     <SafeAreaView

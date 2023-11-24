@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import MukBadge from '../custom/MukBadge';
 import {MukTheme} from '../../types';

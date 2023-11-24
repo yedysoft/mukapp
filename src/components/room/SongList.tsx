@@ -1,5 +1,5 @@
 import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import SongListItem from './SongListItem';
 import {IQueueTrack, ITrack} from '../../types/media';
 import {ReactElement} from 'react';

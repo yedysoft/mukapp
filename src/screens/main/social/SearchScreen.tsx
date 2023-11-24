@@ -4,7 +4,7 @@ import {useStores} from '../../../stores';
 import {useTheme} from 'react-native-paper';
 import {useServices} from '../../../services';
 import SearchList from '../../../components/search/SearchList';
-import {responsiveWidth} from '../../../utils/Responsive';
+import {responsiveWidth} from '../../../utils/util';
 import MukTextInput from '../../../components/custom/MukTextInput';
 import {MukTheme} from '../../../types';
 

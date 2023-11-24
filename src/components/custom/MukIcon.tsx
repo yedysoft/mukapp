@@ -1,7 +1,7 @@
 import {Avatar, Badge, useTheme} from 'react-native-paper';
 import {StyleProp, ViewStyle} from 'react-native';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {MukTheme} from 'src/types';
 
 type Props = {

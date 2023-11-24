@@ -1,5 +1,5 @@
 import {IconButton, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {StyleProp, View, ViewStyle} from 'react-native';
 import React, {ReactNode, useRef, useState} from 'react';

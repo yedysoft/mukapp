@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {FlatList, ListRenderItemInfo} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import MenuListItem from './MenuListItem';
 import {MukMenu, MukTheme} from '../../types';
 

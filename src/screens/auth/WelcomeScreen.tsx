@@ -2,7 +2,7 @@ import AuthLayout from '../../components/layouts/AuthLayout';
 import {observer} from 'mobx-react';
 import MukButton from '../../components/custom/MukButton';
 import MukLogo from '../../components/custom/MukLogo';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';

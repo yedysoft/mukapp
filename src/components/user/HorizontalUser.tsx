@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import Coin from './Coin';
 import Token from './Token';
 import {useStores} from '../../stores';

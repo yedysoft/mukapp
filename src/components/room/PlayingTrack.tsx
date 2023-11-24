@@ -1,6 +1,6 @@
 import {Text, useTheme} from 'react-native-paper';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/util';
 import MukImage from '../../components/custom/MukImage';
 import MukProgressBar from '../../components/custom/MukProgressBar';
 import {observer} from 'mobx-react';

@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 import ProfileStatsItem from './ProfileStatsItem';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {Dispatch, SetStateAction} from 'react';
 
 type Props = {

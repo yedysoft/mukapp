@@ -1,6 +1,6 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useTheme} from 'react-native-paper';
-import {screenWidth} from '../utils/Responsive';
+import {screenWidth} from '../utils/util';
 import SideScreen from '../screens/main/SideScreen';
 import MainStack from './MainStack';
 import {MukTheme} from '../types';

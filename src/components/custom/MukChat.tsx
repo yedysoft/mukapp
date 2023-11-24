@@ -3,7 +3,7 @@ import {Composer, GiftedChat, IMessage, InputToolbar, Send} from 'react-native-g
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import MukIcon from './MukIcon';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {MukTheme, PVoid} from '../../types';
 
 type Props = {

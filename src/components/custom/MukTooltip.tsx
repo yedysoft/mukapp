@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 import {useTheme} from 'react-native-paper';
-import {responsiveWidth, screenHeight, screenWidth} from '../../utils/Responsive';
+import {responsiveWidth, screenHeight, screenWidth} from '../../utils/util';
 import {Pressable, StyleSheet, View} from 'react-native';
 import defaults from '../../utils/defaults';
 import {MukColors, MukTheme, Positions} from '../../types';

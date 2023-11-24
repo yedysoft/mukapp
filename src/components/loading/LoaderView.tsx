@@ -1,7 +1,7 @@
 import {StyleProp, View, ViewStyle} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import MukLoader from './MukLoader';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 
 type Props = {

@@ -1,7 +1,7 @@
 import {StyleProp, View, ViewStyle} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';

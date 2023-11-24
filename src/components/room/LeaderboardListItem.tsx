@@ -1,7 +1,7 @@
 import {Text, useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import MukBadge from '../custom/MukBadge';

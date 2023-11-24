@@ -6,7 +6,7 @@ import {useRef, useState} from 'react';
 import {ILogin} from '../../types/auth';
 import {useServices} from '../../services';
 import {View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {stores, useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';

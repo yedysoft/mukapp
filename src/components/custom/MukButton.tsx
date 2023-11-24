@@ -1,6 +1,6 @@
 import {ActivityIndicator, StyleProp, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {ReactNode} from 'react';
 import {MukTheme, PureFunc} from '../../types';
 

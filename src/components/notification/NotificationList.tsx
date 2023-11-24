@@ -1,7 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import NotificationListItem from './NotificationListItem';
 import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 
 const data = [

@@ -2,7 +2,7 @@ import {View} from 'react-native';
 import {observer} from 'mobx-react';
 import MukToaster from '../custom/MukToaster';
 import {useStores} from '../../stores';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 
 const MessageStack = observer(() => {
   const {ui} = useStores();

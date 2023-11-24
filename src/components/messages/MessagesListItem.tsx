@@ -1,6 +1,6 @@
 import {Text, useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';

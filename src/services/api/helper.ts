@@ -1,6 +1,6 @@
 import {Buffer} from 'buffer';
 import {IArtist, IImage, IPlaylist} from '../../types/media';
-import {responsiveScale} from '../../utils/Responsive';
+import {responsiveScale} from '../../utils/util';
 import {ImageSourcePropType, Linking} from 'react-native';
 import {IMessage} from 'react-native-gifted-chat';
 import {ILastMessage} from '../../types/user';

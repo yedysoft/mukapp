@@ -6,7 +6,7 @@ import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
 import FriendsList from './FriendsList';
 import {useStores} from '../../stores';

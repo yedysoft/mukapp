@@ -1,5 +1,5 @@
 import {FlatList} from 'react-native';
-import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {ReactElement} from 'react';
 import ProfileListItem from './ProfileListItem';
 

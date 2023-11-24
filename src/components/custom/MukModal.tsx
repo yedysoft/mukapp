@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 import {Modal, Portal, useTheme} from 'react-native-paper';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 
 type Props = {

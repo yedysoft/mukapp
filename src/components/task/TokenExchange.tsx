@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import Token from '../user/Token';
 import MukIconButton from '../custom/MukIconButton';

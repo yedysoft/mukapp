@@ -1,5 +1,5 @@
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize} from '../../utils/Responsive';
+import {responsiveSize} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import MukSwitch from '../custom/MukSwitch';

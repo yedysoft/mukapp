@@ -1,5 +1,5 @@
 import {ProgressBar, useTheme} from 'react-native-paper';
-import {responsiveHeight} from '../../utils/Responsive';
+import {responsiveHeight} from '../../utils/util';
 import {StyleProp, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
 

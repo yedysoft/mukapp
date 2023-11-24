@@ -1,5 +1,5 @@
 import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import PlaylistListItem from './PlaylistListItem';
 import {useState} from 'react';
 import {IPlaylist} from '../../types/media';

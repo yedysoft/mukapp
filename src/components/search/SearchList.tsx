@@ -1,7 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import SearchListItem from './SearchListItem';
 import {FlatList, View} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {ReactElement} from 'react';
 import {ISearchUser} from '../../types/user';
 import MukImage from '../custom/MukImage';

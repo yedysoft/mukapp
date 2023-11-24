@@ -1,7 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import NotificationsListItem from './NotificationsListItem';
 import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {IFollowRequest} from '../../types/user';
 import {MukTheme} from '../../types';
 

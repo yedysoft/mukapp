@@ -22,7 +22,8 @@ export class UIStore extends BaseStore<UIStore> {
   }
 
   get getScheme(): 'light' | 'dark' {
-    return this.appearance === 'system' ? this.systemScheme : this.appearance;
+    return 'dark';
+    // return this.appearance === 'system' ? this.systemScheme : this.appearance;
   }
 
   get getStatusBarStyle(): StatusBarStyle {

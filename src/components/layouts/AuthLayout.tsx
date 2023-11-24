@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {responsiveWidth} from '../../utils/Responsive';
+import {responsiveWidth} from '../../utils/util';
 import {KeyboardAvoidingView, Platform, StyleProp, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
 

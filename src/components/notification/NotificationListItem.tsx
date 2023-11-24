@@ -1,5 +1,5 @@
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveWidth} from '../../utils/Responsive';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import MukImage from '../custom/MukImage';
 import {useNavigation} from '@react-navigation/native';

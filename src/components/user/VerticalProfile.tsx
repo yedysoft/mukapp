@@ -1,7 +1,7 @@
 import {Pressable, View} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/Responsive';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {IInfo, ISearchUser} from '../../types/user';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
