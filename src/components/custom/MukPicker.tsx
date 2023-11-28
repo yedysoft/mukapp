@@ -13,6 +13,7 @@ import {
 import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
 import {MukColors, MukTheme} from '../../types';
+import {services} from '../../services';
 
 type Props<T> = {
   name: string;
@@ -155,12 +156,7 @@ const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}:
   );
 };
 
-const MukPicker = genericMemo(
-  MukPickerComp,
-  (prevProps, nextProps) =>
-    Object.is(prevProps.name, nextProps.name) &&
-    Object.is(prevProps.value, nextProps.value) &&
-    Object.is(prevProps.items, nextProps.items) &&
-    Object.is(prevProps.itemHeight, nextProps.itemHeight),
+const MukPicker = genericMemo(MukPickerComp, (prevProps, nextProps) =>
+  services.api.helper.isEqual(prevProps, nextProps),
 );
 export default MukPicker;

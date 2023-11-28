@@ -1,8 +1,8 @@
 import {TextInput, useTheme} from 'react-native-paper';
 import {InputModeOptions, StyleProp, Text, View, ViewStyle} from 'react-native';
-import {forwardRef, memo, useImperativeHandle, useState} from 'react';
-import {useServices} from '../../services';
-import {responsiveWidth} from '../../utils/util';
+import {forwardRef, useImperativeHandle, useState} from 'react';
+import {services, useServices} from '../../services';
+import {genericMemo, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 
 type Props = {
@@ -124,5 +124,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
   },
 );
 
-const MukTextInput = memo(MukTextInputComp);
+const MukTextInput = genericMemo(MukTextInputComp, (prevProps, nextProps) =>
+  services.api.helper.isEqual(prevProps, nextProps),
+);
 export default MukTextInput;

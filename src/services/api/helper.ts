@@ -66,6 +66,33 @@ export class HelperApi {
     return '0'.repeat(zerosToAdd) + numberString;
   }
 
+  isEqual(object1: any, object2: any): boolean {
+    if (typeof object1 !== typeof object2) {
+      return false;
+    }
+    if (typeof object1 !== 'object' || object1 === null) {
+      return object1 === object2;
+    }
+    if (Object.keys(object1).length !== Object.keys(object2).length) {
+      return false;
+    }
+    for (const key in object1) {
+      if (!object2.hasOwnProperty(key)) {
+        return false;
+      }
+      if (typeof object1[key] === 'function' && typeof object2[key] === 'function') {
+        if (object1[key].toString() !== object2[key].toString()) {
+          return false;
+        }
+      } else {
+        if (!this.isEqual(object1[key], object2[key])) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   nummer(num: number): string {
     if (num > 1e3 - 1 && num < 1e6) {
       return num / 1e3 + 'K';

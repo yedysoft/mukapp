@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useMemo} from 'react';
+import React, {memo, useMemo} from 'react';
 import {View} from 'react-native';
 import MukPicker from './MukPicker';
 import {services, useServices} from '../../services';
@@ -43,10 +43,10 @@ const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onVa
   const months = useMemo(() => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], []);
   const years = useMemo(() => api.helper.generateNumberArray(minYear, maxYear), [minYear, maxYear]);
 
-  const handleValueChanged = useCallback((key: string, value: number) => {
+  const handleValueChanged = (key: string, value: number) => {
     date = {...date, [key]: value};
     onValueChange && onValueChange(name, dateToStr(date));
-  }, []);
+  };
 
   return (
     <View style={{flexDirection: 'row'}}>
