@@ -15,6 +15,7 @@ import DialogStack from './src/components/stacks/DialogStack';
 import {usePushNotifications} from './src/services/pushNotifications';
 import * as Device from 'expo-device';
 import {Appearance, NativeEventSubscription} from 'react-native';
+import {NavigationContainer, Theme} from '@react-navigation/native';
 
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
@@ -55,12 +56,14 @@ export default observer(() => {
 
   return (
     <AppProvider>
-      <PaperProvider theme={stores.ui.getTheme}>
-        <StatusBar style={stores.ui.getStatusBarStyle} />
-        <MessageStack />
-        <DialogStack />
-        {!ready ? <SplashScreen /> : <AppNavigation />}
-      </PaperProvider>
+      <NavigationContainer theme={stores.ui.getTheme as unknown as Theme}>
+        <PaperProvider theme={stores.ui.getTheme}>
+          <StatusBar style={stores.ui.getStatusBarStyle} />
+          <MessageStack />
+          <DialogStack />
+          {!ready ? <SplashScreen /> : <AppNavigation />}
+        </PaperProvider>
+      </NavigationContainer>
     </AppProvider>
   );
 });

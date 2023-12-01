@@ -1,9 +1,10 @@
 import {ReactNode} from 'react';
-import {useTheme} from 'react-native-paper';
-import {responsiveWidth, screenHeight, screenWidth} from '../../utils/util';
+import {Portal, useTheme} from 'react-native-paper';
+import {screenHeight, screenWidth} from '../../utils/util';
 import {Pressable, StyleSheet, View} from 'react-native';
 import defaults from '../../utils/defaults';
 import {MukColors, MukTheme, Positions} from '../../types';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type Props = {
   children: ReactNode;
@@ -17,37 +18,42 @@ export default function MukTooltip({children, positions = defaults.positions, vi
   const styles = makeStyles(colors);
 
   return (
-    <Pressable
-      onPress={() => changeVisible(false)}
-      style={{
-        display: visible ? undefined : 'none',
-        position: 'absolute',
-        top: -positions.pageY,
-        right: -responsiveWidth(8),
-        backgroundColor: colors.backdrop,
-        width: screenWidth,
-        height: screenHeight,
-      }}
-    >
-      <View
-        style={[
-          {
-            alignSelf: 'flex-end',
-            right: screenWidth - (positions.pageX + positions.width - responsiveWidth(8)),
-            top: positions.pageY + positions.height,
-            borderRadius: 16,
-            backgroundColor: colors.background,
-            borderWidth: 0.5,
-            borderColor: colors.backdrop,
-            width: screenWidth / 2,
-            height: responsiveWidth(320),
-          },
-          styles.shadow,
-        ]}
+    <Portal>
+      <Pressable
+        onPress={() => changeVisible(false)}
+        style={{
+          display: visible ? undefined : 'none',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          backgroundColor: 'red', //colors.backdrop,
+          width: screenWidth,
+          height: screenHeight,
+        }}
       >
-        {children}
-      </View>
-    </Pressable>
+        <SafeAreaView>
+          <View
+            style={[
+              {
+                //alignSelf: 'flex-end',
+                //right: screenWidth - (positions.pageX + positions.width - responsiveWidth(8)),
+                top: positions.pageY + 25,
+                left: 0,
+                borderRadius: 16,
+                backgroundColor: 'blue', //colors.background,
+                borderWidth: 0.5,
+                borderColor: colors.backdrop,
+                //width: screenWidth / 2,
+                //height: responsiveWidth(320),
+              },
+              styles.shadow,
+            ]}
+          >
+            {children}
+          </View>
+        </SafeAreaView>
+      </Pressable>
+    </Portal>
   );
 }
 
