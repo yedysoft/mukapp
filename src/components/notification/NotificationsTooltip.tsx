@@ -4,7 +4,7 @@ import {TooltipScreenProps} from '../../types';
 
 export default function NotificationsTooltip({positions, visible, changeVisible}: TooltipScreenProps) {
   return (
-    <MukTooltip positions={positions} visible={visible} changeVisible={changeVisible}>
+    <MukTooltip positions={positions} visible={visible} changeVisible={changeVisible} style={{width: '100%'}}>
       <NotificationList />
     </MukTooltip>
   );

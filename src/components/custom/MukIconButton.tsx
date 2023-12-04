@@ -43,7 +43,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
   };
 
   return (
-    <View ref={ref} onLayout={onLayout}>
+    <View ref={ref} onLayout={onLayout} style={style}>
       <MukBadge
         badge={badge}
         style={{
@@ -58,7 +58,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
         disabled={disabled}
         icon={icon ? icon : 'blank'}
         iconColor={color ? color : colors.secondary}
-        style={[{margin: 0}, style]}
+        style={{margin: 0}}
         size={responsiveSize(scale ? 64 * scale : 64)}
         onPress={onPressHandle}
       />

@@ -39,7 +39,11 @@ const PlayingTrack = observer(({compact}: Props) => {
       <TouchableOpacity
         disabled={!compact}
         onPress={() => navigation.navigate('Room')}
-        style={{flexDirection: 'row', gap: responsiveWidth(16), marginBottom: responsiveHeight(compact ? 8 : 16)}}
+        style={{
+          flexDirection: 'row',
+          gap: responsiveWidth(16),
+          marginBottom: responsiveHeight(compact ? 8 : 16),
+        }}
       >
         <MukImage
           scale={compact ? 1 : 2}

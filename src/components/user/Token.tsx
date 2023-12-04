@@ -16,7 +16,7 @@ const Token = observer(({style, customValue}: Props) => {
   const {user} = useStores();
 
   return (
-    <View style={[{flexDirection: 'row', alignItems: 'center'}, style]}>
+    <View style={[{flexDirection: 'row', alignItems: 'center', display: 'none'}, style]}>
       <MukImage
         scale={0.32}
         style={{marginRight: responsiveWidth(8)}}
