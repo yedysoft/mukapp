@@ -59,9 +59,16 @@ const PlaylistList = observer(({playlists}: Props) => {
       {playlistId === 'search' && (
         <MukTextInput
           name={'search'}
-          outlineStyle={{borderColor: colors.primary}}
+          underlineStyle={{backgroundColor: colors.primary, opacity: 0.5}}
           onChange={handleSearch}
-          style={{alignSelf: 'center', width: '92%', marginVertical: responsiveWidth(8)}}
+          style={{
+            alignSelf: 'center',
+            width: '92%',
+            marginVertical: responsiveWidth(8),
+            backgroundColor: colors.backdrop,
+            paddingHorizontal: responsiveWidth(8),
+            borderRadius: 8,
+          }}
         />
       )}
     </>

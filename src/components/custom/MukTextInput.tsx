@@ -16,6 +16,7 @@ type Props = {
   onChange?: (name: string, value: string) => void;
   style?: StyleProp<ViewStyle>;
   outlineStyle?: StyleProp<ViewStyle>;
+  underlineStyle?: StyleProp<ViewStyle>;
   preValidate?: 'required';
   validate?: ((value: string) => boolean)[];
   validationMessage?: string[];
@@ -50,6 +51,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       onFocus,
       onBlur,
       selectionColor,
+      underlineStyle,
     }: Props,
     ref,
   ) => {
@@ -115,6 +117,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
               onFocus();
             }
           }}
+          underlineStyle={underlineStyle}
           outlineStyle={[{borderRadius: 16}, outlineStyle]}
           style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}]}
         />
