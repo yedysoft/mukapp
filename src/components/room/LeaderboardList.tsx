@@ -6,21 +6,19 @@ import LeaderboardListItem from './LeaderboardListItem';
 type Props = {
   leaderboard: any[];
   header?: ReactElement;
-  onEndReached?: () => void;
+  onScrollBeginDrag?: () => void;
   footer?: ReactElement;
-  onStartReached?: () => void;
 };
 
-export default function LeaderboardList({leaderboard, header, onEndReached, footer, onStartReached}: Props) {
+export default function LeaderboardList({leaderboard, header, onScrollBeginDrag, footer}: Props) {
   return (
     <FlatList
-      onStartReached={onStartReached}
+      onScrollBeginDrag={onScrollBeginDrag}
       data={leaderboard}
       ListHeaderComponent={header}
       ListFooterComponent={footer}
       renderItem={({item, index}) => <LeaderboardListItem key={index} index={index} leader={item} />}
       scrollEnabled
-      onEndReached={onEndReached}
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
     />
   );

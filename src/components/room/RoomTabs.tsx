@@ -20,6 +20,7 @@ const RoomTabs = observer(() => {
 
   useEffect(() => {
     api.media.getCurrentUserPlaylists();
+    api.room.setLeaderboard();
   }, []);
 
   return (
@@ -55,7 +56,7 @@ const RoomTabs = observer(() => {
         {
           icon: 'crown-outline',
           children: (
-            <LeaderboardList onStartReached={() => api.room.setLeaderboard()} leaderboard={room.getLeaderboard} />
+            <LeaderboardList onScrollBeginDrag={() => api.room.setLeaderboard()} leaderboard={room.getLeaderboard} />
           ),
         },
         {

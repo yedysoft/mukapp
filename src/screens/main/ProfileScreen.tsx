@@ -52,6 +52,7 @@ const ProfileScreen = observer(({userId}: Props) => {
   useEffect(() => {
     setActiveIndex(0);
     fillProfile(userId ?? info.id);
+    api.user.getTopListVoteMusic(userId ?? info.id);
   }, [userId]);
 
   return (

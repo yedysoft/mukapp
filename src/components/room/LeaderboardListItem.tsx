@@ -49,18 +49,20 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
           alignItems: 'center',
         }}
       >
-        <Text
-          numberOfLines={1}
-          style={{
-            fontSize: responsiveSize(24),
-            fontWeight: '900',
-            color: rankColor,
-            minWidth: responsiveWidth(40),
-            textAlign: 'center',
-          }}
-        >
-          {index === 0 ? 'Sen' : index}
-        </Text>
+        {index === 0 ? null : (
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: responsiveSize(24),
+              fontWeight: '900',
+              color: rankColor,
+              minWidth: responsiveWidth(40),
+              textAlign: 'center',
+            }}
+          >
+            {index}
+          </Text>
+        )}
         <MukImage
           scale={1}
           source={leader.imagePath ?? require('../../../assets/adaptive-icon.png')}

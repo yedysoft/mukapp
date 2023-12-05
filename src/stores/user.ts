@@ -11,6 +11,7 @@ export class UserStore extends BaseStore<UserStore> {
   followers: IFollowUser[] = [];
   followRequests: IFollowRequest[] = [];
   blockedUsers: IBlockedUser[] = [];
+  topVoted: any[] = [];
 
   constructor() {
     super();
@@ -47,6 +48,10 @@ export class UserStore extends BaseStore<UserStore> {
 
   get getOtherUser() {
     return this.otherUser;
+  }
+
+  get getTopVoted() {
+    return this.topVoted;
   }
 }
 

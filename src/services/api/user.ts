@@ -154,6 +154,16 @@ export class UserApi {
       console.log(e);
     }
   }
+
+  async getTopListVoteMusic(userId: string | null): PVoid {
+    try {
+      const response = await axiosIns.get(`/user-info/getTopListVoteMusic/${userId}`);
+      console.log('getTopListVoteMusic: ', response.data);
+      stores.user.set('topVoted', response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 const user = new UserApi();

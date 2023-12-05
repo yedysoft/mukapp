@@ -70,7 +70,7 @@ export class RoomApi {
 
   async setLeaderboard(): PVoid {
     try {
-      const response = await axiosIns.get(`/room-session/getLeaderBoard/${stores.room.getSessionId}?page=0&size=11`);
+      const response = await axiosIns.get(`/room-session/getLeaderBoard/${stores.room.streamerId}?page=0&size=11`);
       stores.room.set('leaderboard', response.data.content);
     } catch (e: any) {
       console.log(e);
