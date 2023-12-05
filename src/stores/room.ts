@@ -1,6 +1,6 @@
 import {BaseStore} from './base';
 import user from './user';
-import {IRoom, IRoomConfig} from '../types/room';
+import {IRoom, IRoomConfig, IRoomLeaderboard} from '../types/room';
 import {IMessage} from 'react-native-gifted-chat';
 
 export class RoomStore extends BaseStore<RoomStore> {
@@ -11,6 +11,7 @@ export class RoomStore extends BaseStore<RoomStore> {
   config: IRoomConfig | null = null;
   places: IRoom[] = [];
   users: IRoom[] = [];
+  leaderboard: IRoomLeaderboard[] = [];
 
   constructor() {
     super();
@@ -43,6 +44,10 @@ export class RoomStore extends BaseStore<RoomStore> {
 
   get getUsers() {
     return this.users;
+  }
+
+  get getLeaderboard() {
+    return this.leaderboard;
   }
 }
 

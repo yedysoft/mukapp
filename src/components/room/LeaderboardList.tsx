@@ -8,11 +8,13 @@ type Props = {
   header?: ReactElement;
   onEndReached?: () => void;
   footer?: ReactElement;
+  onStartReached?: () => void;
 };
 
-export default function LeaderboardList({leaderboard, header, onEndReached, footer}: Props) {
+export default function LeaderboardList({leaderboard, header, onEndReached, footer, onStartReached}: Props) {
   return (
     <FlatList
+      onStartReached={onStartReached}
       data={leaderboard}
       ListHeaderComponent={header}
       ListFooterComponent={footer}

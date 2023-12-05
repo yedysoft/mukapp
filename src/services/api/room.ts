@@ -67,6 +67,15 @@ export class RoomApi {
       console.log(e);
     }
   }
+
+  async setLeaderboard(): PVoid {
+    try {
+      const response = await axiosIns.get(`/room-session/getLeaderBoard/${stores.room.getSessionId}?page=0&size=11`);
+      stores.room.set('leaderboard', response.data.content);
+    } catch (e: any) {
+      console.log(e);
+    }
+  }
 }
 
 const room = new RoomApi();

@@ -27,7 +27,11 @@ export default function VoteButton({onPress, badge, style, isLoading}: Props) {
       />
       <MukImage
         scale={0.6}
-        source={!isLoading ? require('../../../assets/vote/vote-filled.png') : require('../../../assets/loader.gif')}
+        source={
+          !isLoading
+            ? require('../../../assets/vote/vote-filled.png')
+            : require('../../../assets/vote/vote-outlined.png')
+        }
       />
       {/*<MukMask
         progress={'100%'}

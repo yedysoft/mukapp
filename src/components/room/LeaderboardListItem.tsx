@@ -7,18 +7,21 @@ import {observer} from 'mobx-react';
 import MukBadge from '../custom/MukBadge';
 import {YedyPalette} from '../../themes/YedyPalette';
 import {MukTheme} from '../../types';
+import {IRoomLeaderboard} from '../../types/room';
+import {useNavigation} from '@react-navigation/native';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
-  leader: any;
+  leader: IRoomLeaderboard;
   index: number;
 };
 
 const LeaderboardListItem = observer(({leader, index}: Props) => {
+  const navigation = useNavigation<MainStackNavProp>();
   const {colors} = useTheme<MukTheme>();
-  const rank = index + 1;
   let rankColor;
 
-  switch (rank) {
+  switch (index) {
     case 1:
       rankColor = YedyPalette.orange_dark;
       break;
@@ -33,7 +36,10 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
   }
 
   return (
-    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}}>
+    <MukListItem
+      style={{alignItems: 'center', justifyContent: 'space-between'}}
+      onPress={() => navigation.navigate('Profile', {userId: leader.userId})}
+    >
       <View
         style={{
           justifyContent: 'center',
@@ -53,18 +59,21 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
             textAlign: 'center',
           }}
         >
-          {rank}
+          {index === 0 ? 'Sen' : index}
         </Text>
         <MukImage
           scale={1}
-          source={require('../../../assets/adaptive-icon.png')}
+          source={leader.imagePath ?? require('../../../assets/adaptive-icon.png')}
           style={{borderRadius: 100, borderWidth: 1, borderColor: rankColor}}
         />
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '600', color: rankColor}}>
-          Tester {index}
+          {leader.userName}
         </Text>
       </View>
-      <MukBadge badge={32} style={{paddingVertical: responsiveWidth(8)}} />
+      <MukBadge
+        badge={leader.voteCount}
+        style={{width: responsiveWidth(36), aspectRatio: 1, alignItems: 'center', justifyContent: 'center'}}
+      />
     </MukListItem>
   );
 });

@@ -20,3 +20,10 @@ export type IRoomConfig = {
   roomId: string;
   name: string;
 };
+
+export type IRoomLeaderboard = {
+  imagePath: string | null;
+  userId: string;
+  userName: string;
+  voteCount: number;
+};

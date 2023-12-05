@@ -65,9 +65,6 @@ const PlaylistList = observer(({playlists}: Props) => {
             alignSelf: 'center',
             width: '92%',
             marginVertical: responsiveWidth(8),
-            backgroundColor: colors.backdrop,
-            paddingHorizontal: responsiveWidth(8),
-            borderRadius: 8,
           }}
         />
       )}

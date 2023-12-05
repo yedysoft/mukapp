@@ -9,7 +9,6 @@ import SongList from './SongList';
 import {useTheme} from 'react-native-paper';
 import LeaderboardList from './LeaderboardList';
 import RoomSettingsList from './RoomSettingsList';
-import LeaderboardListItem from './LeaderboardListItem';
 import MukLoader from '../loading/MukLoader';
 import {MukTheme} from '../../types';
 
@@ -56,7 +55,7 @@ const RoomTabs = observer(() => {
         {
           icon: 'crown-outline',
           children: (
-            <LeaderboardList header={<LeaderboardListItem index={31} leader={'any'} />} leaderboard={[...Array(10)]} />
+            <LeaderboardList onStartReached={() => api.room.setLeaderboard()} leaderboard={room.getLeaderboard} />
           ),
         },
         {
