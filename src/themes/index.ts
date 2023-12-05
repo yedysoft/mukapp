@@ -7,6 +7,18 @@ const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationDark: NavigationDarkTheme,
 });
 
+const Fonts = {
+  'Poppins-Black': require('./assets/fonts/poppins/Poppins-Black.ttf'),
+  'Poppins-Bold': require('./assets/fonts/poppins/Poppins-Bold.ttf'),
+  'Poppins-ExtraBold': require('./assets/fonts/poppins/Poppins-ExtraBold.ttf'),
+  'Poppins-ExtraLight': require('./assets/fonts/poppins/Poppins-ExtraLight.ttf'),
+  'Poppins-Light': require('./assets/fonts/poppins/Poppins-Light.ttf'),
+  'Poppins-Medium': require('./assets/fonts/poppins/Poppins-Medium.ttf'),
+  'Poppins-Regular': require('./assets/fonts/poppins/Poppins-Regular.ttf'),
+  'Poppins-SemiBold': require('./assets/fonts/poppins/Poppins-SemiBold.ttf'),
+  'Poppins-Thin': require('./assets/fonts/poppins/Poppins-Thin.ttf'),
+};
+
 const CombinedLightTheme: MukTheme = {
   ...MD3LightTheme,
   ...LightTheme,
@@ -49,5 +61,5 @@ const CombinedDarkTheme: MukTheme = {
   },
 };
 
-const themes = {light: CombinedLightTheme, dark: CombinedDarkTheme};
+const themes = {light: CombinedLightTheme, dark: CombinedDarkTheme, fonts: Fonts};
 export default themes;

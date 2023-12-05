@@ -9,18 +9,35 @@ import {AppNavigation} from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stores} from './src/stores';
 import {initServices, services} from './src/services';
-import SplashScreen from './src/screens/auth/SplashScreen';
+import MukSplashScreen from './src/screens/auth/SplashScreen';
 import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
 import {usePushNotifications} from './src/services/pushNotifications';
 import * as Device from 'expo-device';
 import {Appearance, NativeEventSubscription} from 'react-native';
 import {NavigationContainer, Theme} from '@react-navigation/native';
+import {useFonts} from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import themes from './src/themes';
+
+SplashScreen.preventAutoHideAsync();
 
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
   const [ready, setReady] = useState(false);
   const [apperanceListener, setApperanceListener] = useState<NativeEventSubscription>();
+
+  const [fontsLoaded] = useFonts(themes.fonts);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   Device.isDevice && usePushNotifications();
 
@@ -61,7 +78,7 @@ export default observer(() => {
           <StatusBar style={stores.ui.getStatusBarStyle} />
           <MessageStack />
           <DialogStack />
-          {!ready ? <SplashScreen /> : <AppNavigation />}
+          {!ready ? <MukSplashScreen /> : <AppNavigation onLayout={onLayoutRootView} />}
         </PaperProvider>
       </NavigationContainer>
     </AppProvider>
