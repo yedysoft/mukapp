@@ -79,11 +79,11 @@ export class MediaApi {
           }
         } else if (playlist.id !== 'search') {
           const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
-          const tracks = this.getTracks(response.data.map((d: any) => d.track));
+          const tracks = this.getTracks(response.data.map((d: any, _) => d.track));
           playlist.tracks.items.push(...tracks);
         }
       }
-      const playlists = stores.media.getPlaylists.map(p =>
+      const playlists = stores.media.getPlaylists.map((p, _) =>
         p.id === playlistId
           ? {...p, selected: true, tracks: {...p.tracks, total: total ?? p.tracks.total, count: p.tracks.items.length}}
           : {...p, selected: false},
@@ -124,7 +124,7 @@ export class MediaApi {
   async setVoteResult(data: IVoteResult): PVoid {
     try {
       if (stores.media.queue.length > 0) {
-        const updatedItems = stores.media.queue.map(t =>
+        const updatedItems = stores.media.queue.map((t, _) =>
           t.uri === data.musicUri ? {...t, voteCount: data.voteCount} : t,
         );
         updatedItems.sort((a, b) => b.voteCount - a.voteCount);
@@ -137,7 +137,7 @@ export class MediaApi {
 
   private getArtists(state: any): IArtist[] {
     return state
-      ? state.map((artist: any) => ({
+      ? state.map((artist: any, _: number) => ({
           id: artist.id,
           uri: artist.uri,
           name: artist.name,
@@ -147,7 +147,7 @@ export class MediaApi {
 
   private getImages(state: any): IImage[] {
     return state
-      ? state.map((image: any) => ({
+      ? state.map((image: any, _: number) => ({
           url: image.url,
           height: image.height,
           width: image.width,
@@ -155,15 +155,15 @@ export class MediaApi {
       : [];
   }
 
-  getTracks(state: any): ITrack[] {
-    return state ? state.map((data: any) => this.getTrack(data)) : [];
+  private getTracks(state: any): ITrack[] {
+    return state ? state.map((data: any, _: number) => this.getTrack(data)) : [];
   }
 
-  private getQueueTracks(state: any): IQueueTrack[] {
+  getQueueTracks(state: any): IQueueTrack[] {
     return state
-      ? state.map((data: any) => {
+      ? state.map((data: any, _: number) => {
           const track: IQueueTrack = this.getTrack(data.track) as IQueueTrack;
-          track.voteCount = data.voteCount;
+          track.voteCount = data.voteCount ?? data.total;
           return track;
         })
       : [];

@@ -10,13 +10,14 @@ type Props = {
   badge?: number;
   style?: StyleProp<ViewStyle>;
   isLoading?: boolean;
+  disabled?: boolean;
 };
 
-export default function VoteButton({onPress, badge, style, isLoading}: Props) {
+export default function VoteButton({onPress, badge, style, isLoading, disabled}: Props) {
   const {colors} = useTheme<MukTheme>();
 
   return (
-    <TouchableOpacity onPress={onPress} style={style}>
+    <TouchableOpacity disabled={disabled} onPress={onPress} style={style}>
       <MukBadge
         badge={badge}
         style={{
@@ -30,7 +31,9 @@ export default function VoteButton({onPress, badge, style, isLoading}: Props) {
         source={
           !isLoading
             ? require('../../../assets/vote/vote-filled.png')
-            : require('../../../assets/vote/vote-outlined.png')
+            : disabled
+              ? require('../../../assets/vote/vote-inlined.png')
+              : require('../../../assets/vote/vote-outlined.png')
         }
       />
       {/*<MukMask

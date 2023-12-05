@@ -22,7 +22,7 @@ export default function MukListItem({onPress, children, style, disabled}: Props)
   }));
 
   useEffect(() => {
-    offset.value = withTiming(0);
+    offset.value = withTiming(0, {duration: 1000});
   },[])
 
   return (

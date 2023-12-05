@@ -11,13 +11,9 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import {MukTheme} from '../../types';
 
-type Props = {
-  userId?: string;
-};
-
 const ProfileScreen = observer((props: any) => {
   const {colors} = useTheme<MukTheme>();
-  const userId = props.route.params?.userId
+  const userId = props.route.params?.userId;
   const {api} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -26,7 +22,7 @@ const ProfileScreen = observer((props: any) => {
 
   const stats = [
     {
-      value: user.getTopVoted.length.toString() ?? '0',
+      value: user.getCountTopVoted.toString(),
       label: 'Oylama',
     },
     {
@@ -58,10 +54,11 @@ const ProfileScreen = observer((props: any) => {
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
-      <VerticalProfile profile={info} otherUser={otherUser} />
+      <VerticalProfile profile={info} otherUser={otherUser}/>
       <View style={{gap: responsiveWidth(4)}}>
-        <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+        <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
         <ProfileList
+          tabIndex={activeIndex}
           otherUser={otherUser}
           onIconPress={(id: string) =>
             activeIndex === 1 ? api.user.takeOutMyFollowers(id) : activeIndex === 2 ? api.user.unFollow(id) : undefined

@@ -21,7 +21,7 @@ const MessageStack = observer(() => {
         overflow: 'hidden',
       }}
     >
-      {ui.getMessages.map(e => (
+      {ui.getMessages.map((e, _) => (
         <MukToaster key={e.id} message={e} interval={3000} />
       ))}
     </View>

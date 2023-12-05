@@ -4,24 +4,26 @@ import {ReactElement} from 'react';
 import ProfileListItem from './ProfileListItem';
 import LeaderboardListItem from '../room/LeaderboardListItem';
 import SongListItem from '../room/SongListItem';
+import {useTabIndex} from 'react-native-paper-tabs';
 
 type Props = {
   items: any[];
   header?: ReactElement;
   onIconPress: (id: string) => void;
   otherUser?: boolean;
+  tabIndex?: number;
 };
 
-export default function ProfileList({items, header, onIconPress, otherUser}: Props) {
+export default function ProfileList({items, header, onIconPress, otherUser, tabIndex}: Props) {
   return (
     <FlatList
       data={items}
       ListHeaderComponent={header}
       renderItem={({item, index}) => (
-        false ?
+        tabIndex !== 0 ?
           <ProfileListItem onIconPress={onIconPress} key={index} item={item} otherUser={otherUser} />
           :
-          <SongListItem song={item} badge={item.total} itemType={'vote'} />
+          <SongListItem song={item} itemType={'vote'} disabled={true} />
       )}
       scrollEnabled
       contentContainerStyle={{paddingVertical: responsiveWidth(8), paddingBottom: responsiveHeight(360)}}

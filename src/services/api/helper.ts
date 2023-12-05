@@ -166,7 +166,7 @@ export class HelperApi {
     if (!artists || artists.length === 0) {
       return '';
     }
-    return artists.map(a => a.name).join(', ');
+    return artists.map((a, _) => a.name).join(', ');
   }
 
   getSelectedPlaylist(playlists: IPlaylist[]): IPlaylist | undefined {

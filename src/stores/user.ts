@@ -1,6 +1,7 @@
 import {BaseStore} from './base';
 import {IBlockedUser, IChat, IFollowRequest, IFollowUser, IInfo, ISearchUser} from '../types/user';
 import defaults from '../utils/defaults';
+import {IQueueTrack} from '../types/media';
 
 export class UserStore extends BaseStore<UserStore> {
   info: IInfo = defaults.info;
@@ -11,7 +12,8 @@ export class UserStore extends BaseStore<UserStore> {
   followers: IFollowUser[] = [];
   followRequests: IFollowRequest[] = [];
   blockedUsers: IBlockedUser[] = [];
-  topVoted: any[] = [];
+  topVoted: IQueueTrack[] = [];
+  countTopVoted: number = 0;
 
   constructor() {
     super();
@@ -52,6 +54,10 @@ export class UserStore extends BaseStore<UserStore> {
 
   get getTopVoted() {
     return this.topVoted;
+  }
+
+  get getCountTopVoted() {
+    return this.countTopVoted;
   }
 }
 

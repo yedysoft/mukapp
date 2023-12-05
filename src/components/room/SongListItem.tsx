@@ -14,10 +14,10 @@ import {MukTheme} from '../../types';
 type Props = {
   song: IQueueTrack | ITrack;
   itemType: 'add' | 'vote';
-  badge?: number;
+  disabled?: boolean;
 };
 
-const SongListItem = observer(({song, itemType, badge}: Props) => {
+const SongListItem = observer(({song, itemType, disabled}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {user, media, ui} = useStores();
@@ -35,8 +35,9 @@ const SongListItem = observer(({song, itemType, badge}: Props) => {
       </View>
       {itemType === 'vote' ? (
         <VoteButton
+          disabled={disabled}
           isLoading={!media.getPlayingTrack.voteable}
-          badge={badge ? badge : 'voteCount' in song ? song.voteCount : undefined}
+          badge={'voteCount' in song ? song.voteCount : undefined}
           style={{position: 'absolute', right: responsiveWidth(16)}}
           onPress={() =>
             media.getPlayingTrack.voteable
