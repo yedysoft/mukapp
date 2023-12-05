@@ -70,10 +70,13 @@ export class RoomApi {
 
   async setLeaderboard(): PVoid {
     try {
+      stores.loading.set('leaderboard', true);
       const response = await axiosIns.get(`/room-session/getLeaderBoard/${stores.room.streamerId}?page=0&size=11`);
       stores.room.set('leaderboard', response.data.content);
     } catch (e: any) {
       console.log(e);
+    } finally {
+      stores.loading.set('leaderboard', false);
     }
   }
 }

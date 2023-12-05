@@ -37,7 +37,7 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
 
   return (
     <MukListItem
-      style={{alignItems: 'center', justifyContent: 'space-between'}}
+      style={{alignItems: 'center', justifyContent: 'space-between', backgroundColor: index === 0 ? colors.backdrop : colors.background}}
       onPress={() => navigation.navigate('Profile', {userId: leader.userId})}
     >
       <View

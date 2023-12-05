@@ -15,8 +15,9 @@ type Props = {
   userId?: string;
 };
 
-const ProfileScreen = observer(({userId}: Props) => {
+const ProfileScreen = observer((props: any) => {
   const {colors} = useTheme<MukTheme>();
+  const userId = props.route.params?.userId
   const {api} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -25,7 +26,7 @@ const ProfileScreen = observer(({userId}: Props) => {
 
   const stats = [
     {
-      value: '0',
+      value: user.getTopVoted.length.toString() ?? '0',
       label: 'Oylama',
     },
     {
@@ -66,7 +67,7 @@ const ProfileScreen = observer(({userId}: Props) => {
             activeIndex === 1 ? api.user.takeOutMyFollowers(id) : activeIndex === 2 ? api.user.unFollow(id) : undefined
           }
           items={
-            activeIndex === 0 ? [] : activeIndex === 1 ? user.getFollowers : activeIndex === 2 ? user.getFollows : []
+            activeIndex === 0 ? user.getTopVoted : activeIndex === 1 ? user.getFollowers : activeIndex === 2 ? user.getFollows : []
           }
         />
       </View>

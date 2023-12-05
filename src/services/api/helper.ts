@@ -111,8 +111,8 @@ export class HelperApi {
 
   msToMinSec(ms: number): string {
     const minutes: number = Math.floor(ms / 60000);
-    const seconds: string = ((ms % 60000) / 1000).toFixed(0);
-    return minutes + ':' + (seconds < '10' ? '0' : '') + seconds;
+    const seconds: number = +((ms % 60000) / 1000).toFixed(0);
+    return minutes + ':' + (seconds < 10 ? '0' : '') + (seconds > 59 ? 0 : seconds);
   }
 
   toBase64(text: string): string {

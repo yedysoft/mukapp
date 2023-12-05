@@ -10,6 +10,9 @@ export class LoadingStore extends BaseStore<LoadingStore> {
   userPlaylist = false;
   playlistTracks = false;
 
+  // Room
+  leaderboard = false;
+
   constructor() {
     super();
     this.makeObservableAndPersistable(this, LoadingStore.name, []);
@@ -33,6 +36,10 @@ export class LoadingStore extends BaseStore<LoadingStore> {
 
   get getPlaylistTracks() {
     return this.playlistTracks;
+  }
+
+  get getLeaderboard() {
+    return this.leaderboard;
   }
 }
 

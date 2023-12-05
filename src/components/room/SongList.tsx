@@ -12,12 +12,14 @@ type Props = {
   footer?: ReactElement;
   loading?: boolean;
   itemType: 'vote' | 'add';
+  onScrollBeginDrag?: () => void;
 };
 
-export default function SongList({songs, header, onEndReached, footer, loading, itemType}: Props) {
+export default function SongList({songs, header, onEndReached, footer, loading, itemType, onScrollBeginDrag}: Props) {
   return (
     <>
       <FlatList
+        onScrollBeginDrag={onScrollBeginDrag}
         data={songs}
         ListHeaderComponent={header}
         ListFooterComponent={footer}

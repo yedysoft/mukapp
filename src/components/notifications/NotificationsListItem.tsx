@@ -20,6 +20,7 @@ export default function NotificationsListItem({icon, notification, buttons}: Pro
   const {api} = useServices();
 
   const acceptFollowRequest = async (id: string) => {
+    console.log('test1')
     await api.user.acceptFollowRequest(id);
   };
 

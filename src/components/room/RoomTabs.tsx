@@ -50,13 +50,14 @@ const RoomTabs = observer(() => {
                 selectedPlaylist &&
                 api.media.getPlaylistTracks(selectedPlaylist?.id, false, media.getSearchValue)
               }
+              onScrollBeginDrag={() => api.media.getCurrentUserPlaylists()}
             />
           ),
         },
         {
           icon: 'crown-outline',
           children: (
-            <LeaderboardList onScrollBeginDrag={() => api.room.setLeaderboard()} leaderboard={room.getLeaderboard} />
+            <LeaderboardList loading={loading.getLeaderboard} onScrollBeginDrag={() => api.room.setLeaderboard()} leaderboard={room.getLeaderboard} />
           ),
         },
         {

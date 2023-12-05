@@ -31,9 +31,9 @@ export const SearchScreen = observer(() => {
           <MukTextInput
             placeholder={'Kimi aramıştın?'}
             name={'search'}
-            outlineStyle={{borderColor: colors.primary}}
+            underlineStyle={{backgroundColor: colors.primary, opacity: .5}}
             onChange={handleSearch}
-            style={{alignSelf: 'center', marginVertical: responsiveWidth(8)}}
+            style={{marginVertical: responsiveWidth(8)}}
           />
         }
       />

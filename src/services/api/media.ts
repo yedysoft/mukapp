@@ -155,7 +155,7 @@ export class MediaApi {
       : [];
   }
 
-  private getTracks(state: any): ITrack[] {
+  getTracks(state: any): ITrack[] {
     return state ? state.map((data: any) => this.getTrack(data)) : [];
   }
 

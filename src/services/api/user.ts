@@ -1,6 +1,7 @@
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import {PVoid} from '../../types';
+import media from './media';
 
 export class UserApi {
   async getInfo(): PVoid {
@@ -70,8 +71,7 @@ export class UserApi {
 
   async sendFollowRequest(userId: string): PVoid {
     try {
-      const response = await axiosIns.get(`/follow-request/${userId}`);
-      console.log('Request: ', response.data);
+      await axiosIns.get(`/follow-request/${userId}`);
     } catch (e) {
       console.log(e);
     }
@@ -89,8 +89,7 @@ export class UserApi {
 
   async acceptFollowRequest(requestId: string): PVoid {
     try {
-      const response = await axiosIns.get(`/follow-request/accept/${requestId}`);
-      console.log('Accept: ', response.data);
+      await axiosIns.get(`/follow-request/accept/${requestId}`);
       await this.getFollowRequests();
     } catch (e) {
       console.log(e);
@@ -99,8 +98,7 @@ export class UserApi {
 
   async rejectFollowRequest(requestId: string): PVoid {
     try {
-      const response = await axiosIns.delete(`/follow-request/reject/${requestId}`);
-      console.log('Reject: ', response.data);
+      await axiosIns.delete(`/follow-request/reject/${requestId}`);
       await this.getFollowRequests();
     } catch (e) {
       console.log(e);
@@ -159,7 +157,8 @@ export class UserApi {
     try {
       const response = await axiosIns.get(`/user-info/getTopListVoteMusic/${userId}`);
       console.log('getTopListVoteMusic: ', response.data);
-      stores.user.set('topVoted', response.data);
+      const tracks = media.getTracks(response.data.map((d: any) => d.track))
+      stores.user.set('topVoted', tracks);
     } catch (e) {
       console.log(e);
     }

@@ -28,8 +28,8 @@ const PlayingTrack = observer(({compact}: Props) => {
     <View
       style={{
         width: screenWidth,
-        height: responsiveHeight(compact ? 88 : 300),
-        justifyContent: 'flex-end',
+        height: responsiveWidth(compact ? 100 : 300),
+        justifyContent: compact ? 'flex-start' : 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
@@ -54,7 +54,7 @@ const PlayingTrack = observer(({compact}: Props) => {
             flexDirection: 'column',
             justifyContent: 'flex-end',
             gap: responsiveWidth(4),
-            paddingBottom: responsiveWidth(compact ? 8 : 16),
+            paddingBottom: responsiveWidth(compact ? 12 : 0),
             maxWidth: responsiveWidth(compact ? 264 : 236),
           }}
         >
@@ -78,6 +78,13 @@ const PlayingTrack = observer(({compact}: Props) => {
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}
           </Text>
+          {!compact &&
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', maxHeight: responsiveWidth(16), width: '100%'}}>
+                <Text style={{color: textColor ?? colors.secondary}}>{api.helper.msToMinSec(media.getPlayingTrack.progress)}</Text>
+                <Text style={{color: textColor ?? colors.secondary}}>/</Text>
+                <Text style={{color: textColor ?? colors.secondary}}>{api.helper.msToMinSec(media.getPlayingTrack.duration)}</Text>
+              </View>
+          }
         </View>
         {compact && (
           <MukIconButton
