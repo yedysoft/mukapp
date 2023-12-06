@@ -7,29 +7,29 @@ import {MukMenu, MukTheme} from '../../types';
 
 const menu: MukMenu[] = [
   {
-    icon: 'account-outline',
+    icon: 'user',
     label: 'Profil',
     route: 'Profile',
   },
   {
-    icon: 'bell-outline',
+    icon: 'bell',
     label: 'Bildirimler',
     route: 'Notifications',
   },
   {
-    icon: 'account-search-outline',
+    icon: 'search',
     label: 'Arama',
     route: 'Search',
   },
 
   {
-    icon: 'star-outline',
+    icon: 'star',
     label: 'Premium',
     route: 'Premium',
     disabled: true,
   },
   {
-    icon: 'view-list-outline',
+    icon: 'list',
     label: 'Görevler',
     route: 'Task',
     disabled: true,

@@ -21,9 +21,9 @@ export default function MenuFooter() {
         paddingHorizontal: responsiveWidth(16),
       }}
     >
-      <MukIconButton icon={'logout'} onPress={() => api.auth.logout()} scale={0.5} style={{}} color={colors.error} />
+      <MukIconButton icon={'log-out'} onPress={() => api.auth.logout()} scale={0.5} style={{}} color={colors.error} />
       <MukIconButton
-        icon={'theme-light-dark'}
+        icon={toggleTheme === 'light' ? 'moon' : 'sun'}
         color={colors.secondary}
         onPress={() => ui.set('appearance', toggleTheme)}
         scale={0.5}

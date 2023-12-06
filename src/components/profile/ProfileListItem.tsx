@@ -38,7 +38,7 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
       </View>
       <MukIconButton
         scale={0.4}
-        icon={'account-minus-outline'}
+        icon={'user-minus'}
         color={colors.secondary}
         style={{display: otherUser ? 'none' : 'flex'}}
         onPress={() => onIconPress(item.id)}

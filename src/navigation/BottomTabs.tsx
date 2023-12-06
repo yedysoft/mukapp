@@ -1,5 +1,4 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {AntDesign} from '@expo/vector-icons';
 import {useTheme} from 'react-native-paper';
 import {MainHeader} from '../components/header/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
@@ -7,6 +6,7 @@ import {responsiveHeight} from '../utils/util';
 import HomeScreen from '../screens/main/HomeScreen';
 import {MessagesScreen} from '../screens/main/social/MessagesScreen';
 import {MukTheme} from '../types';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Bottom = createBottomTabNavigator();
 export default function BottomTabs() {
@@ -31,7 +31,7 @@ export default function BottomTabs() {
         component={ShopScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <AntDesign name="shoppingcart" size={30} color={focused ? colors.primary : colors.outlineVariant} />
+            <Feather name="shopping-bag" size={30} color={focused ? colors.primary : colors.outlineVariant} />
           ),
         }}
         listeners={({navigation}) => ({
@@ -46,7 +46,7 @@ export default function BottomTabs() {
         component={HomeScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <AntDesign name="appstore-o" size={30} color={focused ? colors.primary : colors.outlineVariant} />
+            <Feather name="grid" size={30} color={focused ? colors.primary : colors.outlineVariant} />
           ),
         }}
         listeners={({navigation}) => ({
@@ -61,7 +61,7 @@ export default function BottomTabs() {
         component={MessagesScreen}
         options={{
           tabBarIcon: ({focused}) => (
-            <AntDesign name="message1" size={30} color={focused ? colors.primary : colors.outlineVariant} />
+            <Feather name="message-circle" size={30} color={focused ? colors.primary : colors.outlineVariant} />
           ),
         }}
         listeners={({navigation}) => ({

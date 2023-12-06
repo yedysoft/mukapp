@@ -50,14 +50,14 @@ const RoomListItem = observer(({roomData}: Props) => {
           }}
         >
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <MukIcon icon={'chart-bar'} scale={0.5} />
+            <MukIcon icon={'bar-chart-2'} scale={0.5} />
             <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <MukIcon icon={'account-group'} scale={0.5} />
+            <MukIcon icon={'users'} scale={0.5} />
             <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
           </View>
-          <MukIconButton scale={0.3} icon={'cards-heart-outline'} color={colors.tertiary} />
+          <MukIconButton scale={0.3} icon={'heart'} color={colors.tertiary} />
         </View>
       </View>
     </MukListItem>

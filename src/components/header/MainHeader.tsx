@@ -35,7 +35,7 @@ export const MainHeader = observer(() => {
         {route.name === 'Shop' ? (
           <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(16)}} />
         ) : (
-          <MukIconButton icon={'bell-outline'} scale={0.4} tooltip={NotificationsTooltip} />
+          <MukIconButton icon={'bell'} scale={0.4} tooltip={NotificationsTooltip} />
         )}
       </NavButton>
     </SafeAreaView>

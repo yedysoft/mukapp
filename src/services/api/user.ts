@@ -156,9 +156,11 @@ export class UserApi {
   async getTopListVoteMusic(userId: string | null): PVoid {
     try {
       const response = await axiosIns.get(`/user-info/getTopListVoteMusic/${userId}`);
-      const tracks = media.getQueueTracks(response.data.map((d: any, _: number) => d))
+      const tracks = media.getQueueTracks(response.data.map((d: any, _: number) => d));
       stores.user.set('topVoted', tracks);
-      let count = response.data.map((d: any, _: number) => d.total).reduce((sum: number, num: number) => sum + num, 0)
+      const count = response.data
+        .map((d: any, _: number) => d.total)
+        .reduce((sum: number, num: number) => sum + num, 0);
       stores.user.set('countTopVoted', count);
     } catch (e) {
       console.log(e);

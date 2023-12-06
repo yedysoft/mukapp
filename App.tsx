@@ -16,6 +16,7 @@ import {usePushNotifications} from './src/services/pushNotifications';
 import * as Device from 'expo-device';
 import {Appearance, NativeEventSubscription} from 'react-native';
 import {NavigationContainer, Theme} from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
@@ -57,7 +58,12 @@ export default observer(() => {
   return (
     <AppProvider>
       <NavigationContainer theme={stores.ui.getTheme as unknown as Theme}>
-        <PaperProvider theme={stores.ui.getTheme}>
+        <PaperProvider
+          theme={stores.ui.getTheme}
+          settings={{
+            icon: props => <Feather {...props} />,
+          }}
+        >
           <StatusBar style={stores.ui.getStatusBarStyle} />
           <MessageStack />
           <DialogStack />

@@ -47,12 +47,12 @@ export default function VerticalProfile({profile, otherUser}: Props) {
         <MukIconButton
           color={colors.secondary}
           scale={0.4}
-          icon={'isFollows' in profile && profile.isFollows ? 'account-minus-outline' : 'account-plus-outline'}
+          icon={'isFollows' in profile && profile.isFollows ? 'user-minus' : 'user-plus'}
           onPress={() => (profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id))}
         />
         <MukIconButton
           scale={0.4}
-          icon={'cancel'}
+          icon={'slash'}
           color={'rgba(255, 55, 95, 1)'}
           onPress={() => api.user.blockUser(profile.id)}
         />

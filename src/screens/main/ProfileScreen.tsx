@@ -54,9 +54,9 @@ const ProfileScreen = observer((props: any) => {
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
-      <VerticalProfile profile={info} otherUser={otherUser}/>
+      <VerticalProfile profile={info} otherUser={otherUser} />
       <View style={{gap: responsiveWidth(4)}}>
-        <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+        <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
         <ProfileList
           tabIndex={activeIndex}
           otherUser={otherUser}
@@ -64,7 +64,13 @@ const ProfileScreen = observer((props: any) => {
             activeIndex === 1 ? api.user.takeOutMyFollowers(id) : activeIndex === 2 ? api.user.unFollow(id) : undefined
           }
           items={
-            activeIndex === 0 ? user.getTopVoted : activeIndex === 1 ? user.getFollowers : activeIndex === 2 ? user.getFollows : []
+            activeIndex === 0
+              ? user.getTopVoted
+              : activeIndex === 1
+              ? user.getFollowers
+              : activeIndex === 2
+              ? user.getFollows
+              : []
           }
         />
       </View>
