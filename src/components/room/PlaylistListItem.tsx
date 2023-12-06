@@ -34,7 +34,7 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
       ]}
     >
       {playlist.id === 'search' ? (
-        <MukIcon icon={playlist.images[0].url} />
+        <MukIcon icon={playlist.images[0].url} scale={1.8} />
       ) : (
         <MukImage scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} />
       )}

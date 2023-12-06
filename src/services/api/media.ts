@@ -43,7 +43,7 @@ export class MediaApi {
       const playlists: IPlaylist[] = response.data;
       playlists.unshift({
         id: 'search',
-        name: 'Arama',
+        name: "Spotify'da Ara",
         selected: true,
         images: [{url: 'search', width: 128, height: 128}],
         tracks: {items: [], total: 0, count: 0},
@@ -79,7 +79,7 @@ export class MediaApi {
           }
         } else if (playlist.id !== 'search') {
           const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
-          const tracks = this.getTracks(response.data.map((d: any, _) => d.track));
+          const tracks = this.getTracks(response.data.map((d: any, _: number) => d.track));
           playlist.tracks.items.push(...tracks);
         }
       }

@@ -1,7 +1,6 @@
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import PlaylistListItem from './PlaylistListItem';
-import {useState} from 'react';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
 import MukTextInput from '../custom/MukTextInput';
@@ -16,13 +15,13 @@ type Props = {
 
 const PlaylistList = observer(({playlists}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const [playlistId, setPlaylistId] = useState('search');
+  const playlistId = playlists.find(p => p.selected)?.id;
   const {api} = useServices();
   const {loading, media} = useStores();
 
   const changePlaylist = (item: IPlaylist) => {
-    !loading.getPlaylistTracks && api.media.getPlaylistTracks(item.id, item.tracks.count === 0);
-    setPlaylistId(item.id);
+    console.log('!loading.getPlaylistTracks: ', !loading.getPlaylistTracks);
+    !loading.getPlaylistTracks && api.media.getPlaylistTracks(item.id, item.tracks.count > 0);
   };
 
   const handleSearch = (name: string, value: string) => {
@@ -39,12 +38,7 @@ const PlaylistList = observer(({playlists}: Props) => {
       <FlatList
         data={playlists}
         renderItem={({item, index}) => (
-          <PlaylistListItem
-            key={index}
-            active={playlistId === item.id}
-            onPress={() => changePlaylist(item)}
-            playlist={item}
-          />
+          <PlaylistListItem key={index} active={item.selected} onPress={() => changePlaylist(item)} playlist={item} />
         )}
         scrollEnabled
         horizontal

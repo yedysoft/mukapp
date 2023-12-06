@@ -19,8 +19,8 @@ export default function SearchList({list, header}: Props) {
     <FlatList
       ListHeaderComponent={header}
       ListFooterComponent={
-        <View style={{alignItems: 'center', display: list?.length === 0 ? 'flex' : 'none', opacity: 0.1}}>
-          <MukImage scale={2} source={require('../../../assets/noimage-gray.png')} />
+        <View style={{alignItems: 'center', display: list?.length === 0 ? 'flex' : 'none', opacity: 1}}>
+          <MukImage scale={2} source={require('../../../assets/noimage.png')} />
         </View>
       }
       contentContainerStyle={{paddingHorizontal: responsiveWidth(16), gap: responsiveWidth(8)}}

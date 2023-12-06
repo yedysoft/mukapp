@@ -154,7 +154,7 @@ export class HelperApi {
 
   getImageUrl(images: IImage[], scale: number): ImageSourcePropType {
     if (!images || images.length === 0) {
-      return require('../../../assets/noimage.png');
+      return require('../../../assets/noimage-gray.png');
     }
     let closestImage = images[0];
     if (images.length > 1) {
