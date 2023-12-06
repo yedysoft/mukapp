@@ -3,7 +3,7 @@ import PlaylistList from './PlaylistList';
 import {MukChat} from '../custom/MukChat';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
 import {useTheme} from 'react-native-paper';
@@ -14,6 +14,7 @@ import {MukTheme} from '../../types';
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme<MukTheme>();
+  const [tabIndex, setTabIndex] = useState(1);
   const {api} = useServices();
   const {media, room, loading} = useStores();
   const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists);
@@ -25,18 +26,19 @@ const RoomTabs = observer(() => {
 
   return (
     <MukTabs
-      defaultIndex={1}
+      onChangeIndex={(index: number) => setTabIndex(index)}
+      activeIndex={tabIndex}
       tabs={[
         {
-          icon: 'message-outline',
+          icon: 'message-circle',
           children: <MukChat sendMessage={api.subscription.sendPublicMessage} messages={room.chat} />,
         },
         {
-          icon: 'playlist-music-outline',
+          icon: 'play-circle',
           children: <SongList itemType={'vote'} songs={media.getQueue} />,
         },
         {
-          icon: 'playlist-plus',
+          icon: 'plus-circle',
           children: (
             <SongList
               itemType={'add'}
@@ -55,13 +57,17 @@ const RoomTabs = observer(() => {
           ),
         },
         {
-          icon: 'crown-outline',
+          icon: 'award',
           children: (
-            <LeaderboardList loading={loading.getLeaderboard} onScrollBeginDrag={() => api.room.setLeaderboard()} leaderboard={room.getLeaderboard} />
+            <LeaderboardList
+              loading={loading.getLeaderboard}
+              onScrollBeginDrag={() => api.room.setLeaderboard()}
+              leaderboard={room.getLeaderboard}
+            />
           ),
         },
         {
-          icon: 'cog-outline',
+          icon: 'settings',
           children: <RoomSettingsList settings={[...Array(3)]} />,
         },
       ]}

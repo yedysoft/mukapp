@@ -78,18 +78,30 @@ const PlayingTrack = observer(({compact}: Props) => {
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}
           </Text>
-          {!compact &&
-              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', maxHeight: responsiveWidth(16), width: '100%'}}>
-                <Text style={{color: textColor ?? colors.secondary}}>{api.helper.msToMinSec(media.getPlayingTrack.progress)}</Text>
-                <Text style={{color: textColor ?? colors.secondary}}>/</Text>
-                <Text style={{color: textColor ?? colors.secondary}}>{api.helper.msToMinSec(media.getPlayingTrack.duration)}</Text>
-              </View>
-          }
+          {!compact && (
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                maxHeight: responsiveWidth(16),
+                width: '100%',
+              }}
+            >
+              <Text style={{color: textColor ?? colors.secondary}}>
+                {api.helper.msToMinSec(media.getPlayingTrack.progress)}
+              </Text>
+              <Text style={{color: textColor ?? colors.secondary}}>/</Text>
+              <Text style={{color: textColor ?? colors.secondary}}>
+                {api.helper.msToMinSec(media.getPlayingTrack.duration)}
+              </Text>
+            </View>
+          )}
         </View>
         {compact && (
           <MukIconButton
             onPress={api.room.closeRoom}
-            icon={'window-close'}
+            icon={'x-circle'}
             scale={0.5}
             color={textColor ?? colors.secondary}
             style={{position: 'absolute', right: 0, top: responsiveWidth(8)}}

@@ -22,13 +22,14 @@ const HomeTabs = observer(() => {
   return (
     <MukTabs
       onChangeIndex={(index: number) => setTabIndex(index)}
+      activeIndex={tabIndex}
       tabs={[
         {
-          icon: 'home-group',
+          icon: 'home',
           children: <RoomList rooms={room.getPlaces} />,
         },
         {
-          icon: 'account-group',
+          icon: 'users',
           children: <RoomList rooms={room.getUsers} />,
         },
       ]}
