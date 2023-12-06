@@ -137,18 +137,16 @@ export class HelperApi {
     return urlRegex.test(url);
   }
 
-  hexToRgba = (hex: string, opacity: number) => {
-    let c: any;
-    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-      c = hex.substring(1).split('');
-      if (c.length === 3) {
-        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-      }
-      c = `0x${c.join('')}`;
-      return `rgba(${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')},${opacity})`;
+  hexToRgba(hex: string, a?: number): string {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    if (a) {
+      return `rgba(${r},${g},${b},${a})`;
+    } else {
+      return `rgb(${r},${g},${b})`;
     }
-    throw new Error('Bad Hex');
-  };
+  }
 
   getPercent(min: number, max: number): number {
     return max === 0 ? 1 : min / max;

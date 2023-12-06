@@ -45,7 +45,7 @@ export class MediaApi {
         id: 'search',
         name: 'Arama',
         selected: true,
-        images: [{url: require('../../../assets/search.png'), width: 128, height: 128}],
+        images: [{url: 'search', width: 128, height: 128}],
         tracks: {items: [], total: 0, count: 0},
       });
       stores.media.set('playlists', playlists);

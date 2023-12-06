@@ -5,6 +5,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
 import {MukColors, MukTheme} from '../../types';
+import MukIcon from '../custom/MukIcon';
 
 type Props = {
   onPress?: () => void;
@@ -32,7 +33,11 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
         styles.shadow,
       ]}
     >
-      <MukImage scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} />
+      {playlist.id === 'search' ? (
+        <MukIcon icon={playlist.images[0].url} />
+      ) : (
+        <MukImage scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} />
+      )}
       <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400'}}>
         {playlist.name}
       </Text>

@@ -3,7 +3,7 @@ import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import {ReactNode, useEffect} from 'react';
 import {MukTheme} from '../../types';
-import Animated, {useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
+import Animated, {useSharedValue, withTiming} from 'react-native-reanimated';
 
 type Props = {
   onPress?: () => void;
@@ -15,18 +15,13 @@ type Props = {
 export default function MukListItem({onPress, children, style, disabled}: Props) {
   const {colors} = useTheme<MukTheme>();
 
-  const offset = useSharedValue(-200);
-
-  const animationStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: offset.value }],
-  }));
-
+  const opacity = useSharedValue(0);
   useEffect(() => {
-    offset.value = withTiming(0, {duration: 1000});
-  },[])
+    opacity.value = withTiming(1, {duration: 1000});
+  }, []);
 
   return (
-    <Animated.View style={animationStyle}>
+    <Animated.View style={{opacity: opacity}}>
       <TouchableOpacity
         style={[
           {

@@ -27,14 +27,17 @@ export default function MukTabs({tabs, activeIndex, onChangeIndex}: Props) {
           return (
             <Pressable
               key={i}
-              onPress={() => onChangeIndex && onChangeIndex(i)}
+              onPress={() => {
+                onChangeIndex && onChangeIndex(i);
+              }}
               style={{
                 flex: 2,
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderBottomWidth: activeIndex === i ? 1 : 0,
-                borderBottomColor: api.helper.hexToRgba(theme.colors.primary, 0.1),
+                borderBottomColor: api.helper.hexToRgba(theme.colors.primary, 0.5),
+                backgroundColor: activeIndex === i ? theme.colors.backdrop : theme.colors.background,
               }}
             >
               <MukIcon
