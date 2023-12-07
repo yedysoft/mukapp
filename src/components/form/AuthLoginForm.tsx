@@ -31,19 +31,19 @@ export const AuthLoginForm = observer(() => {
       style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', paddingTop: responsiveHeight(32)}}
     >
       <View style={{gap: responsiveHeight(48)}}>
-        <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>Giriş Yap</Text>
+        <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.login.title')}</Text>
         <View style={{}}>
           <MukForm ref={formRef}>
             <MukTextInput
               name={'name'}
-              label={t.do('auth.user')}
+              label={t.do('auth.login.username')}
               value={form.name}
               onChange={handleOnChange}
               preValidate={'required'}
             />
             <MukTextInput
               name={'pass'}
-              label={t.do('auth.pass')}
+              label={t.do('auth.login.password')}
               value={form.pass}
               hideText={true}
               onChange={handleOnChange}
@@ -61,7 +61,7 @@ export const AuthLoginForm = observer(() => {
             }}
             textStyle={{color: colors.outlineVariant, fontWeight: '400', fontSize: responsiveSize(14)}}
             loading={loading.getLogin}
-            label={'Şifremi Unuttum'}
+            label={t.do('auth.login.changePassword')}
             onPress={() => navigation.navigate('Forgot')}
           />
         </View>
@@ -71,13 +71,13 @@ export const AuthLoginForm = observer(() => {
           buttonStyle={{backgroundColor: 'transparent', padding: 0}}
           textStyle={{color: colors.outlineVariant, fontWeight: '400'}}
           disabled={loading.getLogin}
-          label={'Hesabım Yok'}
+          label={t.do('auth.login.toRegister')}
           onPress={() => navigation.navigate('Register')}
         />
         <MukButton
           buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
           loading={loading.getLogin}
-          label={'Giriş'}
+          label={t.do('auth.login.submit')}
           onPress={() => {
             if (formRef.current?.validateInputs()) {
               api.auth.login(form);

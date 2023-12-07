@@ -9,19 +9,73 @@ export interface IService {
 
 // Language
 export type LangError = {
-  notEmpty: string;
+  required: string;
   notValidInputs: string;
 };
-export type LangAuth = {
-  title: string;
-  subTitle: string;
-  user: string;
-  pass: string;
-  login: string;
+export type LangHeader = {
+  blank: any;
 };
-export type LangHome = {
-  places: string;
-  streamers: string;
+export type LangAuth = {
+  login: {
+    title: string;
+    username: string;
+    password: string;
+    changePassword: string;
+    toRegister: string;
+    submit: string;
+  };
+  register: {
+    title: string;
+    name: string;
+    surname: string;
+    birthday: string;
+    gender: string;
+    email: string;
+    username: string;
+    phone: string;
+    password: string;
+    repassword: string;
+    next: string;
+    prev: string;
+    toLogin: string;
+    submit: string;
+  };
+  forgot: {
+    title: string;
+    email: string;
+    back: string;
+    submit: string;
+  };
+};
+export type LangMain = {
+  room: {
+    blank: string;
+  };
+  social: {
+    blank: string;
+  };
+  home: {
+    places: string;
+    streamers: string;
+  };
+  notifications: {
+    blank: string;
+  };
+  premium: {
+    blank: string;
+  };
+  profile: {
+    blank: string;
+  };
+  shop: {
+    blank: string;
+  };
+  side: {
+    blank: string;
+  };
+  task: {
+    blank: string;
+  };
 };
 export type LangRoomConfig = {
   name: string;
@@ -29,8 +83,9 @@ export type LangRoomConfig = {
 };
 export type MukLang = {
   error: LangError;
+  header: LangHeader;
   auth: LangAuth;
-  home: LangHome;
+  main: LangMain;
   roomConfig: LangRoomConfig;
 };
 

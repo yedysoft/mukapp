@@ -2,19 +2,73 @@ import {MukLang} from '../../types';
 
 export const tr: MukLang = {
   error: {
-    notEmpty: 'Boş bırakmayın',
+    required: 'Gerekli',
     notValidInputs: 'Gerekli alanları doldurun',
   },
-  auth: {
-    title: 'Giriş yap',
-    subTitle: 'Giriş bilgilerinizi girin',
-    user: 'Kullanıcı adı',
-    pass: 'Şifre',
-    login: 'Giriş',
+  header: {
+    blank: '',
   },
-  home: {
-    places: 'Mekanlar',
-    streamers: 'Yayıncılar',
+  auth: {
+    login: {
+      title: 'Giriş Yap',
+      username: 'Kullanıcı Adı',
+      password: 'Şifre',
+      changePassword: 'Şifremi Unuttum',
+      toRegister: 'Kayıt Ol',
+      submit: 'Giriş',
+    },
+    register: {
+      title: 'Kayıt Ol',
+      name: 'Ad',
+      surname: 'Soyad',
+      birthday: 'Doğum Günü',
+      gender: 'Cinsiyet',
+      email: 'Email',
+      username: 'Kullanıcı Adı',
+      phone: 'Telefon',
+      password: 'Şifre',
+      repassword: 'Şifre Tekrar',
+      next: 'İleri',
+      prev: 'Geri',
+      toLogin: 'Giriş Yap',
+      submit: 'Kaydol',
+    },
+    forgot: {
+      title: 'Şifre Sıfırla',
+      email: 'Email',
+      back: 'Geri',
+      submit: 'Sıfırla',
+    },
+  },
+  main: {
+    room: {
+      blank: '',
+    },
+    social: {
+      blank: '',
+    },
+    home: {
+      places: 'Mekanlar',
+      streamers: 'Yayıncılar',
+    },
+    notifications: {
+      blank: '',
+    },
+    premium: {
+      blank: '',
+    },
+    profile: {
+      blank: '',
+    },
+    shop: {
+      blank: '',
+    },
+    side: {
+      blank: '',
+    },
+    task: {
+      blank: '',
+    },
   },
   roomConfig: {
     name: 'Oda adı',
@@ -23,19 +77,73 @@ export const tr: MukLang = {
 };
 export const en: MukLang = {
   error: {
-    notEmpty: 'Do not leave blank',
+    required: 'Required',
     notValidInputs: 'Fill in the required fields',
   },
-  auth: {
-    title: 'Login',
-    subTitle: 'Enter your login information',
-    user: 'Username',
-    pass: 'Password',
-    login: 'Login',
+  header: {
+    blank: '',
   },
-  home: {
-    places: 'Places',
-    streamers: 'Streamers',
+  auth: {
+    login: {
+      title: 'Login',
+      username: 'Username',
+      password: 'Password',
+      changePassword: 'Forgot Password',
+      toRegister: 'Register',
+      submit: 'Login',
+    },
+    register: {
+      title: 'Register',
+      name: 'Name',
+      surname: 'Surname',
+      birthday: 'Birthday',
+      gender: 'Gender',
+      email: 'Email',
+      username: 'Username',
+      phone: 'Phone',
+      password: 'Password',
+      repassword: 'Password Retype',
+      next: 'Next',
+      prev: 'Prev',
+      toLogin: 'Login',
+      submit: 'Register',
+    },
+    forgot: {
+      title: 'Reset Password',
+      email: 'Email',
+      back: 'Back',
+      submit: 'Reset',
+    },
+  },
+  main: {
+    room: {
+      blank: '',
+    },
+    social: {
+      blank: '',
+    },
+    home: {
+      places: 'Mekanlar',
+      streamers: 'Yayıncılar',
+    },
+    notifications: {
+      blank: '',
+    },
+    premium: {
+      blank: '',
+    },
+    profile: {
+      blank: '',
+    },
+    shop: {
+      blank: '',
+    },
+    side: {
+      blank: '',
+    },
+    task: {
+      blank: '',
+    },
   },
   roomConfig: {
     name: 'Room name',

@@ -75,7 +75,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       }
       if (preValidate) {
         if (preValidate === 'required' && (text.length === 0 || text.trim().length === 0)) {
-          setError(t.do('error.notEmpty'));
+          setError(t.do('error.required'));
           return false;
         }
       }

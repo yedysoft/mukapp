@@ -18,7 +18,7 @@ import MukDatePicker from '../custom/MukDatePicker';
 export const AuthRegisterForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
-  const {api} = useServices();
+  const {api, t} = useServices();
   const {loading} = useStores();
   const formRef = useRef<MukFormRef>(null);
   const [form, setForm] = useState<IRegister>({email: '', userName: '', userPass: ''});
@@ -34,12 +34,12 @@ export const AuthRegisterForm = observer(() => {
       style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', paddingTop: responsiveHeight(32)}}
     >
       <View style={{gap: responsiveHeight(48)}}>
-        <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>Kaydol</Text>
+        <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.register.title')}</Text>
         <View style={{}}>
           <MukForm ref={formRef}>
             <MukTextInput
               name={'name'}
-              label={'Ad'}
+              label={t.do('auth.register.name')}
               value={form.name}
               onChange={handleOnChange}
               preValidate={'required'}
@@ -47,7 +47,7 @@ export const AuthRegisterForm = observer(() => {
             />
             <MukTextInput
               name={'surname'}
-              label={'Soyad'}
+              label={t.do('auth.register.surname')}
               value={form.surname}
               onChange={handleOnChange}
               preValidate={'required'}
@@ -55,7 +55,7 @@ export const AuthRegisterForm = observer(() => {
             />
             <MukTextInput
               name={'birthday'}
-              label={'Doğum Günü'}
+              label={t.do('auth.register.birthday')}
               value={form.birthday}
               selectionColor={colors.background}
               style={{display: step === 0 ? undefined : 'none'}}
@@ -64,14 +64,14 @@ export const AuthRegisterForm = observer(() => {
             />
             <MukTextInput
               name={'gender'}
-              label={'Cinsiyet'}
+              label={t.do('auth.register.gender')}
               value={form.gender?.toString()}
               onChange={handleOnChange}
               style={{display: step === 0 ? undefined : 'none'}}
             />
             <MukTextInput
               name={'email'}
-              label={'Email'}
+              label={t.do('auth.register.email')}
               inputMode={'email'}
               value={form.email}
               onChange={handleOnChange}
@@ -80,7 +80,7 @@ export const AuthRegisterForm = observer(() => {
             />
             <MukTextInput
               name={'userName'}
-              label={'Kullanıcı Adı'}
+              label={t.do('auth.register.username')}
               value={form.userName}
               onChange={handleOnChange}
               preValidate={'required'}
@@ -88,7 +88,7 @@ export const AuthRegisterForm = observer(() => {
             />
             <MukTextInput
               name={'telNumber'}
-              label={'Telefon'}
+              label={t.do('auth.register.phone')}
               inputMode={'tel'}
               value={form.telNumber}
               onChange={handleOnChange}
@@ -96,7 +96,7 @@ export const AuthRegisterForm = observer(() => {
             />
             <MukTextInput
               name={'userPass'}
-              label={'Şifre'}
+              label={t.do('auth.register.password')}
               value={form.userPass}
               hideText={true}
               onChange={handleOnChange}
@@ -107,7 +107,7 @@ export const AuthRegisterForm = observer(() => {
             />
             <MukTextInput
               name={'repass'}
-              label={'Şifre Tekrar'}
+              label={t.do('auth.register.repassword')}
               hideText={true}
               preValidate={'required'}
               validate={[value => value.length >= 8 && value.length <= 32, value => value === form.userPass]}
@@ -126,13 +126,13 @@ export const AuthRegisterForm = observer(() => {
           }}
           textStyle={{color: step === 0 ? colors.outlineVariant : colors.secondary, fontWeight: '400'}}
           disabled={loading.getRegister}
-          label={step === 0 ? 'Hesabım Var' : 'Geri'}
+          label={step === 0 ? t.do('auth.register.toLogin') : t.do('auth.register.prev')}
           onPress={() => (step === 0 ? navigation.navigate('Login') : setStep(step - 1))}
         />
         <MukButton
           buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
           loading={loading.getRegister}
-          label={step === 2 ? 'Kaydol' : 'İleri'}
+          label={step === 2 ? t.do('auth.register.submit') : t.do('auth.register.next')}
           onPress={() => {
             if (step === 2) {
               if (formRef.current?.validateInputs()) {
