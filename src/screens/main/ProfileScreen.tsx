@@ -7,14 +7,14 @@ import ProfileStats from '../../components/profile/ProfileStats';
 import ProfileList from '../../components/profile/ProfileList';
 import {View} from 'react-native';
 import {useServices} from '../../services';
-import {useStores} from '../../stores';
+import {stores, useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import {MukTheme} from '../../types';
 
 const ProfileScreen = observer((props: any) => {
   const {colors} = useTheme<MukTheme>();
   const userId = props.route.params?.userId;
-  const {api} = useServices();
+  const {api, t} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
   const info = userId ? user.getOtherUser : user.getInfo;
@@ -23,15 +23,15 @@ const ProfileScreen = observer((props: any) => {
   const stats = [
     {
       value: user.getCountTopVoted.toString(),
-      label: 'Oylama',
+      label: t.do('main.profile.votes'),
     },
     {
       value: user.getFollowers.length.toString() ?? '0',
-      label: 'Takipçi',
+      label: t.do('main.profile.followers'),
     },
     {
       value: user.getFollows.length.toString() ?? '0',
-      label: 'Takip edilen',
+      label: t.do('main.profile.following'),
     },
   ];
 
@@ -55,7 +55,7 @@ const ProfileScreen = observer((props: any) => {
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
       <VerticalProfile profile={info} otherUser={otherUser} />
-      <View style={{gap: responsiveWidth(4)}}>
+      <View style={{gap: responsiveWidth(4), display: stores.loading.getProfile ? 'none' : undefined}}>
         <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
         <ProfileList
           tabIndex={activeIndex}

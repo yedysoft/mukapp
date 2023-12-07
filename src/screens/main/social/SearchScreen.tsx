@@ -10,7 +10,7 @@ import {MukTheme} from '../../../types';
 
 export const SearchScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
-  const {api} = useServices();
+  const {api, t} = useServices();
   const {user} = useStores();
 
   const handleSearch = (name: string, value: string) => {
@@ -29,9 +29,9 @@ export const SearchScreen = observer(() => {
         list={user.getSearched}
         header={
           <MukTextInput
-            placeholder={'Kimi aramıştın?'}
+            placeholder={t.do('main.search.placeholder')}
             name={'search'}
-            underlineStyle={{backgroundColor: colors.primary, opacity: .5}}
+            underlineStyle={{backgroundColor: colors.primary, opacity: 0.5}}
             onChange={handleSearch}
             style={{marginVertical: responsiveWidth(8)}}
           />

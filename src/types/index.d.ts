@@ -30,6 +30,11 @@ export type LangAuth = {
     surname: string;
     birthday: string;
     gender: string;
+    genders: {
+      male: string;
+      female: string;
+      other: string;
+    };
     email: string;
     username: string;
     phone: string;
@@ -65,7 +70,9 @@ export type LangMain = {
     blank: string;
   };
   profile: {
-    blank: string;
+    votes: string;
+    followers: string;
+    following: string;
   };
   shop: {
     blank: string;
@@ -77,6 +84,9 @@ export type LangMain = {
     premium: string;
     tasks: string;
     settings: string;
+  };
+  search: {
+    placeholder: string;
   };
   task: {
     blank: string;

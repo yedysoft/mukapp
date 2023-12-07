@@ -2,6 +2,7 @@ import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import {PVoid} from '../../types';
 import media from './media';
+import {IQueueTrack} from '../../types/media';
 
 export class UserApi {
   async getInfo(): PVoid {
@@ -51,21 +52,27 @@ export class UserApi {
 
   async getFollows(userId: string): PVoid {
     try {
+      stores.loading.set('following', true);
       const response = await axiosIns.get(`/user-follower/getFollows/${userId}`);
       console.log('Follows: ', response.data);
       stores.user.set('follows', response.data);
     } catch (e) {
       console.log(e);
+    } finally {
+      stores.loading.set('following', false);
     }
   }
 
   async getFollowers(userId: string): PVoid {
     try {
+      stores.loading.set('followers', true);
       const response = await axiosIns.get(`/user-follower/getFollowers/${userId}`);
       console.log('Followers: ', response.data);
       stores.user.set('followers', response.data);
     } catch (e) {
       console.log(e);
+    } finally {
+      stores.loading.set('followers', false);
     }
   }
 
@@ -154,16 +161,19 @@ export class UserApi {
   }
 
   async getTopListVoteMusic(userId: string | null): PVoid {
+    const topListVoteMusic: {topVoted: IQueueTrack[]; countTopVoted: number} = {topVoted: [], countTopVoted: 0};
     try {
+      stores.loading.set('votes', true);
       const response = await axiosIns.get(`/user-info/getTopListVoteMusic/${userId}`);
-      const tracks = media.getQueueTracks(response.data.map((d: any, _: number) => d));
-      stores.user.set('topVoted', tracks);
-      const count = response.data
+      topListVoteMusic.topVoted = media.getQueueTracks(response.data.map((d: any, _: number) => d));
+      topListVoteMusic.countTopVoted = response.data
         .map((d: any, _: number) => d.total)
         .reduce((sum: number, num: number) => sum + num, 0);
-      stores.user.set('countTopVoted', count);
     } catch (e) {
       console.log(e);
+    } finally {
+      stores.user.setMany({topVoted: topListVoteMusic.topVoted, countTopVoted: topListVoteMusic.countTopVoted});
+      stores.loading.set('votes', false);
     }
   }
 }

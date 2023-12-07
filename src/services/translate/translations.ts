@@ -23,6 +23,11 @@ export const tr: MukLang = {
       surname: 'Soyad',
       birthday: 'Doğum Günü',
       gender: 'Cinsiyet',
+      genders: {
+        male: 'Kadın',
+        female: 'Erkek',
+        other: 'Diğer',
+      },
       email: 'Email',
       username: 'Kullanıcı Adı',
       phone: 'Telefon',
@@ -58,7 +63,9 @@ export const tr: MukLang = {
       blank: '',
     },
     profile: {
-      blank: '',
+      votes: 'Oylar',
+      followers: 'Takipçiler',
+      following: 'Takip Edilenler',
     },
     shop: {
       blank: '',
@@ -70,6 +77,9 @@ export const tr: MukLang = {
       premium: 'Premium',
       tasks: 'Görevler',
       settings: 'Ayarlar',
+    },
+    search: {
+      placeholder: 'Kullanıcı Ara',
     },
     task: {
       blank: '',
@@ -103,6 +113,11 @@ export const en: MukLang = {
       surname: 'Surname',
       birthday: 'Birthday',
       gender: 'Gender',
+      genders: {
+        male: 'Female',
+        female: 'Male',
+        other: 'Other',
+      },
       email: 'Email',
       username: 'Username',
       phone: 'Phone',
@@ -138,7 +153,9 @@ export const en: MukLang = {
       blank: '',
     },
     profile: {
-      blank: '',
+      votes: 'Votes',
+      followers: 'Followers',
+      following: 'Following',
     },
     shop: {
       blank: '',
@@ -153,6 +170,9 @@ export const en: MukLang = {
     },
     task: {
       blank: '',
+    },
+    search: {
+      placeholder: 'Search User',
     },
   },
   roomConfig: {

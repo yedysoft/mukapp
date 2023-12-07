@@ -13,6 +13,11 @@ export class LoadingStore extends BaseStore<LoadingStore> {
   // Room
   leaderboard = false;
 
+  // Profile
+  votes = false;
+  followers = false;
+  following = false;
+
   constructor() {
     super();
     this.makeObservableAndPersistable(this, LoadingStore.name, []);
@@ -40,6 +45,10 @@ export class LoadingStore extends BaseStore<LoadingStore> {
 
   get getLeaderboard() {
     return this.leaderboard;
+  }
+
+  get getProfile() {
+    return this.votes && this.followers && this.following;
   }
 }
 

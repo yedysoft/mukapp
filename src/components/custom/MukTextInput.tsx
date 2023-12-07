@@ -24,6 +24,7 @@ type Props = {
   onFocus?: () => void;
   onBlur?: () => void;
   selectionColor?: string;
+  showKeyboard?: boolean;
 };
 
 export type MukTextInputRef = {
@@ -52,6 +53,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       onBlur,
       selectionColor,
       underlineStyle,
+      showKeyboard,
     }: Props,
     ref,
   ) => {
@@ -119,6 +121,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
           }}
           underlineStyle={underlineStyle}
           outlineStyle={[{borderRadius: 16}, outlineStyle]}
+          showSoftInputOnFocus={showKeyboard}
           style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}]}
         />
         <Text style={{display: error ? undefined : 'none', color: colors.error}}>* {error}</Text>

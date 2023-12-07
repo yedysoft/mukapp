@@ -2,7 +2,7 @@ import {observer} from 'mobx-react';
 import {Text, useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
-import {useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {IRegister} from '../../types/auth';
 import {useServices} from '../../services';
 import {View} from 'react-native';
@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
+import MukPicker from '../custom/MukPicker';
 import MukDatePicker from '../custom/MukDatePicker';
 
 export const AuthRegisterForm = observer(() => {
@@ -23,7 +24,7 @@ export const AuthRegisterForm = observer(() => {
   const formRef = useRef<MukFormRef>(null);
   const [form, setForm] = useState<IRegister>({email: '', userName: '', userPass: ''});
   const [step, setStep] = useState(0);
-  const [displayPicker, setDisplayPicker] = useState(false);
+  const [displayPicker, setDisplayPicker] = useState<string | undefined>(undefined);
 
   const handleOnChange = (name: string, value: string) => {
     setForm({...form, [name]: value});
@@ -58,16 +59,20 @@ export const AuthRegisterForm = observer(() => {
               label={t.do('auth.register.birthday')}
               value={form.birthday}
               selectionColor={colors.background}
+              showKeyboard={false}
               style={{display: step === 0 ? undefined : 'none'}}
-              onFocus={() => setDisplayPicker(true)}
-              onBlur={() => setDisplayPicker(false)}
+              onFocus={() => setDisplayPicker('birthday')}
+              onBlur={() => setDisplayPicker(undefined)}
             />
             <MukTextInput
               name={'gender'}
               label={t.do('auth.register.gender')}
               value={form.gender?.toString()}
-              onChange={handleOnChange}
+              selectionColor={colors.background}
+              showKeyboard={false}
               style={{display: step === 0 ? undefined : 'none'}}
+              onFocus={() => setDisplayPicker('gender')}
+              onBlur={() => setDisplayPicker(undefined)}
             />
             <MukTextInput
               name={'email'}
@@ -153,7 +158,22 @@ export const AuthRegisterForm = observer(() => {
           marginTop: responsiveHeight(-100),
         }}
       >
-        <MukDatePicker name={'birthday'} value={form.birthday} onValueChange={handleOnChange} />
+        {displayPicker === 'birthday' ? (
+          <MukDatePicker name={'birthday'} value={form.birthday} onValueChange={handleOnChange} />
+        ) : (
+          displayPicker === 'gender' && (
+            <MukPicker<string>
+              name={'gender'}
+              items={[
+                t.do('auth.register.genders.male'),
+                t.do('auth.register.genders.female'),
+                t.do('auth.register.genders.other'),
+              ]}
+              value={form.gender?.toString()}
+              onValueChange={handleOnChange}
+            />
+          )
+        )}
       </View>
     </SafeAreaView>
   );
