@@ -45,7 +45,7 @@ export default function ShopCoins() {
   const {colors} = useTheme<MukTheme>();
 
   return (
-    <ShopSection title={'Mük Coin'}>
+    <ShopSection title={'MUK Coin'}>
       <CoinList coins={coins} />
     </ShopSection>
   );

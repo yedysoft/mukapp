@@ -64,15 +64,20 @@ export const tr: MukLang = {
       blank: '',
     },
     side: {
-      blank: '',
+      profile: 'Profil',
+      notifications: 'Bildirimler',
+      search: 'Arama',
+      premium: 'Premium',
+      tasks: 'Görevler',
+      settings: 'Ayarlar',
     },
     task: {
       blank: '',
     },
   },
   roomConfig: {
-    name: 'Oda adı',
-    createRoom: 'Oda Oluştur',
+    name: 'Oda Adı',
+    submit: 'Oda Oluştur',
   },
 };
 export const en: MukLang = {
@@ -123,8 +128,8 @@ export const en: MukLang = {
       blank: '',
     },
     home: {
-      places: 'Mekanlar',
-      streamers: 'Yayıncılar',
+      places: 'Places',
+      streamers: 'Streamers',
     },
     notifications: {
       blank: '',
@@ -139,14 +144,19 @@ export const en: MukLang = {
       blank: '',
     },
     side: {
-      blank: '',
+      profile: 'Profile',
+      notifications: 'Notifications',
+      search: 'Search',
+      premium: 'Premium',
+      tasks: 'Tasks',
+      settings: 'Settings',
     },
     task: {
       blank: '',
     },
   },
   roomConfig: {
-    name: 'Room name',
-    createRoom: 'Create Room',
+    name: 'Room Name',
+    submit: 'Create Room',
   },
 };

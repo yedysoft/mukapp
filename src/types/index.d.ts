@@ -71,7 +71,12 @@ export type LangMain = {
     blank: string;
   };
   side: {
-    blank: string;
+    profile: string;
+    notifications: string;
+    search: string;
+    premium: string;
+    tasks: string;
+    settings: string;
   };
   task: {
     blank: string;
@@ -79,7 +84,7 @@ export type LangMain = {
 };
 export type LangRoomConfig = {
   name: string;
-  createRoom: string;
+  submit: string;
 };
 export type MukLang = {
   error: LangError;
