@@ -1,24 +1,24 @@
-const _languages = {
+export const _languages = {
   system: 'System',
-  tr: 'TR',
-  en: 'EN',
+  tr: 'Turkish',
+  en: 'English',
 };
-export type Language = keyof typeof _languages;
+export type ILanguage = keyof typeof _languages;
 
-const _appearances = {
+export const _appearances = {
   system: 'System',
   light: 'Light',
   dark: 'Dark',
 };
-export type Appearance = keyof typeof _appearances;
+export type IAppearance = keyof typeof _appearances;
 
-export enum MessageType {
+export enum IMessageType {
   Public = 0,
   Private = 1,
   Group = 2,
 }
 
-export enum Gender {
+export enum IGender {
   Male = 0,
   Female = 1,
   Other = 2,

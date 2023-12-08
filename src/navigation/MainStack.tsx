@@ -9,6 +9,7 @@ import PremiumScreen from '../screens/main/PremiumScreen';
 import {SearchScreen} from '../screens/main/social/SearchScreen';
 import {NotificationsScreen} from '../screens/main/NotificationsScreen';
 import {IChat} from '../types/user';
+import {SettingsScreen} from '../screens/main/SettingsScreen';
 
 export type MainStackScreens = {
   Main: undefined;
@@ -19,6 +20,7 @@ export type MainStackScreens = {
   Notifications: undefined;
   Task: undefined;
   Premium: undefined;
+  Settings: undefined;
 };
 export type MainStackNavProp = StackNavigationProp<MainStackScreens, 'Main'>;
 
@@ -38,6 +40,7 @@ export default function MainStack() {
         <Main.Screen name="Notifications" component={NotificationsScreen} />
         <Main.Screen name="Task" component={TaskScreen} />
         <Main.Screen name="Premium" component={PremiumScreen} />
+        <Main.Screen name="Settings" component={SettingsScreen} />
       </Main.Group>
     </Main.Navigator>
   );

@@ -84,6 +84,18 @@ export const tr: MukLang = {
     task: {
       blank: '',
     },
+    settings: {
+      theme: {
+        system: 'Sistem',
+        light: 'Açık',
+        dark: 'Koyu',
+      },
+      language: {
+        system: 'Sistem',
+        tr: 'Türkçe',
+        en: 'İngilizce',
+      },
+    },
   },
   roomConfig: {
     name: 'Oda Adı',
@@ -173,6 +185,18 @@ export const en: MukLang = {
     },
     search: {
       placeholder: 'Search User',
+    },
+    settings: {
+      theme: {
+        system: 'System',
+        light: 'Light',
+        dark: 'Dark',
+      },
+      language: {
+        system: 'System',
+        tr: 'Turkish',
+        en: 'English',
+      },
     },
   },
   roomConfig: {

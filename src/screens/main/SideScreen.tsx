@@ -26,7 +26,6 @@ export default function SideScreen() {
       label: t.do('main.side.search'),
       route: 'Search',
     },
-
     {
       icon: 'star',
       label: t.do('main.side.premium'),
@@ -37,6 +36,12 @@ export default function SideScreen() {
       icon: 'list',
       label: t.do('main.side.tasks'),
       route: 'Task',
+      disabled: true,
+    },
+    {
+      icon: 'settings',
+      label: t.do('main.side.settings'),
+      route: 'Settings',
       disabled: true,
     },
   ];

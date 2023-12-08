@@ -5,7 +5,7 @@ import {StompSubscription} from '@stomp/stompjs';
 import media from './media';
 import {IVote} from '../../types/media';
 import {GiftedChat, IMessage} from 'react-native-gifted-chat';
-import {MessageType} from '../../types/enums';
+import {IMessageType} from '../../types/enums';
 import {MessageBody, PVoid} from '../../types';
 
 export class SubscriptionApi {
@@ -122,7 +122,7 @@ export class SubscriptionApi {
     const messages: IMessage[] = GiftedChat.append(stores.room.getChat, newMessage);
     stores.user.set('chats', [
       ...stores.user.getChats,
-      {id: '', name: '', type: MessageType.Private, messages: messages},
+      {id: '', name: '', type: IMessageType.Private, messages: messages},
     ]);
   }
 

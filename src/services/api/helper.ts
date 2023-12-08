@@ -148,6 +148,10 @@ export class HelperApi {
     }
   }
 
+  getKeyByValue(object: any, value: string | number) {
+    return Object.keys(object).find(k => object[k] === value);
+  }
+
   getPercent(min: number, max: number): number {
     return max === 0 ? 1 : min / max;
   }

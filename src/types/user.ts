@@ -1,5 +1,5 @@
 import {IMessage} from 'react-native-gifted-chat';
-import {MessageType} from './enums';
+import {IMessageType} from './enums';
 
 export type IInfo = {
   id: string | null;
@@ -14,7 +14,7 @@ export type IInfo = {
 export type IChat = {
   id: string;
   name: string;
-  type: MessageType;
+  type: IMessageType;
   messages: IMessage[];
 };
 

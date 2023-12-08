@@ -91,6 +91,18 @@ export type LangMain = {
   task: {
     blank: string;
   };
+  settings: {
+    theme: {
+      system: string;
+      light: string;
+      dark: string;
+    };
+    language: {
+      system: string;
+      tr: string;
+      en: string;
+    };
+  };
 };
 export type LangRoomConfig = {
   name: string;

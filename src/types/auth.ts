@@ -1,4 +1,4 @@
-import {Gender} from './enums';
+import {IGender} from './enums';
 
 export type ILogin = {
   name: string;
@@ -17,6 +17,6 @@ export type IRegister = {
   name?: string;
   surname?: string;
   birthday?: string;
-  gender?: Gender;
+  gender?: IGender;
   telNumber?: string;
 };
