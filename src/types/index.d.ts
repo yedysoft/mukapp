@@ -92,12 +92,15 @@ export type LangMain<T> = {
     blank: T;
   };
   settings: {
+    title: T;
     theme: {
+      title: T;
       system: T;
       light: T;
       dark: T;
     };
     language: {
+      title: T;
       system: T;
       tr: T;
       en: T;

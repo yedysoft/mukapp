@@ -85,12 +85,15 @@ export const tr: MukLang = {
       blank: '',
     },
     settings: {
+      title: 'Ayarlar',
       theme: {
+        title: 'Tema',
         system: 'Sistem',
         light: 'Açık',
         dark: 'Koyu',
       },
       language: {
+        title: 'Dil',
         system: 'Sistem',
         tr: 'Türkçe',
         en: 'İngilizce',
@@ -187,12 +190,15 @@ export const en: MukLang = {
       placeholder: 'Search User',
     },
     settings: {
+      title: 'Settings',
       theme: {
+        title: 'Theme',
         system: 'System',
         light: 'Light',
         dark: 'Dark',
       },
       language: {
+        title: 'Language',
         system: 'System',
         tr: 'Turkish',
         en: 'English',

@@ -2,7 +2,7 @@ import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack
 import {LoginScreen} from '../screens/auth/LoginScreen';
 import {RegisterScreen} from '../screens/auth/RegisterScreen';
 import {ForgotScreen} from '../screens/auth/ForgotScreen';
-import {SettingsScreen} from '../screens/main/SettingsScreen';
+import {WelcomeScreen} from '../screens/auth/WelcomeScreen';
 
 type AuthStackScreens = {
   Welcome: undefined;
@@ -17,7 +17,7 @@ const Auth = createStackNavigator<AuthStackScreens>();
 export default function AuthStack() {
   return (
     <Auth.Navigator initialRouteName={'Welcome'}>
-      <Auth.Screen name="Welcome" component={SettingsScreen} options={{headerShown: false}} />
+      <Auth.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}} />
       <Auth.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
       <Auth.Screen name="Forgot" component={ForgotScreen} options={{headerShown: false}} />
       <Auth.Screen name="Register" component={RegisterScreen} options={{headerShown: false}} />
