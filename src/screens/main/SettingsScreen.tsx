@@ -9,7 +9,7 @@ import {_appearances, _languages, IAppearance, ILanguage} from '../../types/enum
 import {useMemo} from 'react';
 import {TranslateService} from '../../services/translate';
 import MukCard from '../../components/custom/MukCard';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 
 const objectToDict = (object: any, path: string, t: TranslateService) => {
   const dict: Record<string, string> = {};
@@ -26,32 +26,25 @@ export const SettingsScreen = observer(() => {
   const LanguageDict = useMemo(() => objectToDict(_languages, 'language', t), [ui.getLanguage]);
 
   return (
-    <MainLayout>
-      <MukCard
-        title={t.do('main.settings.title')}
-        titleStyle={{fontSize: responsiveSize(32)}}
-        cardStyle={{backgroundColor: colors.background}}
-        contentStyle={{gap: responsiveWidth(16)}}
-      >
-        <MukCard title={t.do('main.settings.theme.title')}>
-          <MukPicker<string>
-            items={ThemeDict}
-            name={'appearance'}
-            value={ui.appearance}
-            onValueChange={(_name, value) => ui.set('appearance', value as IAppearance)}
-          />
-        </MukCard>
-        <MukCard title={t.do('main.settings.language.title')}>
-          <MukPicker<string>
-            items={LanguageDict}
-            name={'language'}
-            value={ui.language}
-            onValueChange={(_name, value) => {
-              ui.set('language', value as ILanguage);
-              t.setup();
-            }}
-          />
-        </MukCard>
+    <MainLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
+      <MukCard title={t.do('main.settings.theme.title')}>
+        <MukPicker<string>
+          items={ThemeDict}
+          name={'appearance'}
+          value={ui.appearance}
+          onValueChange={(_name, value) => ui.set('appearance', value as IAppearance)}
+        />
+      </MukCard>
+      <MukCard title={t.do('main.settings.language.title')}>
+        <MukPicker<string>
+          items={LanguageDict}
+          name={'language'}
+          value={ui.language}
+          onValueChange={(_name, value) => {
+            ui.set('language', value as ILanguage);
+            t.setup();
+          }}
+        />
       </MukCard>
     </MainLayout>
   );
