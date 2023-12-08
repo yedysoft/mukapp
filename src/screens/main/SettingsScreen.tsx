@@ -20,7 +20,7 @@ export const SettingsScreen = observer(() => {
   const {ui} = useStores();
   const {t} = useServices();
 
-  const ThemeDict = useMemo(() => objectToDict(_appearances, 'theme', t), [ui.getScheme]);
+  const ThemeDict = useMemo(() => objectToDict(_appearances, 'theme', t), [ui.getScheme, ui.getLanguage]);
   const LanguageDict = useMemo(() => objectToDict(_languages, 'language', t), [ui.getLanguage]);
 
   return (
