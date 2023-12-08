@@ -67,6 +67,7 @@ export class AuthApi {
 
   private clearAuth() {
     stores.auth.set('authToken', '');
+    stores.room.set('config', null);
   }
 }
 

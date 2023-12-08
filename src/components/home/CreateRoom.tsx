@@ -66,13 +66,21 @@ const CreateRoom = observer(() => {
       >
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
           <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
-          <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(8), justifyContent: 'center'}}>
-            <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>
+          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', gap: responsiveWidth(8)}}>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: responsiveSize(16),
+                fontWeight: '400',
+                color: colors.secondary,
+              }}
+            >
               @{user.getInfo.userName}
             </Text>
             <MukForm ref={formRef}>
               <MukTextInput
                 name={'name'}
+                selectionColor={colors.primary}
                 label={t.do('roomConfig.name')}
                 value={form?.name}
                 onChange={handleOnChange}

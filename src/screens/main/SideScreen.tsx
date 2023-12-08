@@ -42,7 +42,6 @@ export default function SideScreen() {
       icon: 'settings',
       label: t.do('main.side.settings'),
       route: 'Settings',
-      disabled: true,
     },
   ];
 
