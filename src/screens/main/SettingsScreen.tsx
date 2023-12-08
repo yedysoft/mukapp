@@ -7,43 +7,38 @@ import {useStores} from '../../stores';
 import MukPicker from '../../components/custom/MukPicker';
 import {_appearances, _languages, IAppearance, ILanguage} from '../../types/enums';
 import {useMemo} from 'react';
-import {en} from '../../services/translate/translations';
+import {TranslateService} from '../../services/translate';
+
+const objectToDict = (object: any, path: string, t: TranslateService) => {
+  const dict: Record<string, string> = {};
+  Object.keys(object).forEach(k => (dict[k] = t.do(`main.settings.${path}.${k}`)));
+  return dict;
+};
 
 export const SettingsScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {ui} = useStores();
-  const {api, t} = useServices();
+  const {t} = useServices();
 
-  const ThemeArray = useMemo(
-    () => Object.keys(_appearances).map((a, _) => t.do(`main.settings.theme.${a}`)),
-    [ui.getScheme],
-  );
-
-  const LanguageArray = useMemo(
-    () => Object.keys(_languages).map((l, _) => t.do(`main.settings.language.${l}`)),
-    [ui.getLanguage],
-  );
-
-  console.log('ui.getScheme: ', ui.getScheme);
-  console.log('ui.getLanguage: ', ui.getLanguage);
+  const ThemeDict = useMemo(() => objectToDict(_appearances, 'theme', t), [ui.getScheme]);
+  const LanguageDict = useMemo(() => objectToDict(_languages, 'language', t), [ui.getLanguage]);
 
   return (
     <MainLayout>
       <MukPicker<string>
-        items={ThemeArray}
+        items={ThemeDict}
         name={'appearance'}
-        value={ui.getScheme}
-        onValueChange={(name, value) =>
-          ui.set('appearance', api.helper.getKeyByValue(en.main.settings.theme, value) as IAppearance)
-        }
+        value={ui.appearance}
+        onValueChange={(_name, value) => ui.set('appearance', value as IAppearance)}
       />
       <MukPicker<string>
-        items={LanguageArray}
+        items={LanguageDict}
         name={'language'}
-        value={ui.getLanguage}
-        onValueChange={(name, value) =>
-          ui.set('language', api.helper.getKeyByValue(en.main.settings.language, value) as ILanguage)
-        }
+        value={ui.language}
+        onValueChange={(_name, value) => {
+          ui.set('language', value as ILanguage);
+          t.setup();
+        }}
       />
     </MainLayout>
   );

@@ -15,11 +15,13 @@ export class UIStore extends BaseStore<UIStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UIStore.name, ['systemScheme', 'appearance', 'language', 'expoToken']);
-  }
-
-  get isLanguageSystem() {
-    return this.language === 'system';
+    this.makeObservableAndPersistable(this, UIStore.name, [
+      'systemScheme',
+      'systemLanguage',
+      'appearance',
+      'language',
+      'expoToken',
+    ]);
   }
 
   get getScheme(): 'light' | 'dark' {

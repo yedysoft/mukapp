@@ -19,9 +19,9 @@ export default function MukTooltip({children, positions = defaults.positions, vi
   const styles = makeStyles(colors);
 
   return (
-    <Portal>
+    <Portal.Host>
       <Pressable
-        onPress={() => changeVisible(false)}
+        //onPress={() => changeVisible(false)}
         style={{
           display: visible ? undefined : 'none',
           position: 'absolute',
@@ -50,7 +50,7 @@ export default function MukTooltip({children, positions = defaults.positions, vi
           </View>
         </SafeAreaView>
       </Pressable>
-    </Portal>
+    </Portal.Host>
   );
 }
 

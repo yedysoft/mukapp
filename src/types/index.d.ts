@@ -8,112 +8,112 @@ export interface IService {
 }
 
 // Language
-export type LangError = {
-  required: string;
-  notValidInputs: string;
+export type LangError<T> = {
+  required: T;
+  notValidInputs: T;
 };
-export type LangHeader = {
-  blank: any;
+export type LangHeader<T> = {
+  blank: T;
 };
-export type LangAuth = {
+export type LangAuth<T> = {
   login: {
-    title: string;
-    username: string;
-    password: string;
-    changePassword: string;
-    toRegister: string;
-    submit: string;
+    title: T;
+    username: T;
+    password: T;
+    changePassword: T;
+    toRegister: T;
+    submit: T;
   };
   register: {
-    title: string;
-    name: string;
-    surname: string;
-    birthday: string;
-    gender: string;
+    title: T;
+    name: T;
+    surname: T;
+    birthday: T;
+    gender: T;
     genders: {
-      male: string;
-      female: string;
-      other: string;
+      male: T;
+      female: T;
+      other: T;
     };
-    email: string;
-    username: string;
-    phone: string;
-    password: string;
-    repassword: string;
-    next: string;
-    prev: string;
-    toLogin: string;
-    submit: string;
+    email: T;
+    username: T;
+    phone: T;
+    password: T;
+    repassword: T;
+    next: T;
+    prev: T;
+    toLogin: T;
+    submit: T;
   };
   forgot: {
-    title: string;
-    email: string;
-    back: string;
-    submit: string;
+    title: T;
+    email: T;
+    back: T;
+    submit: T;
   };
 };
-export type LangMain = {
+export type LangMain<T> = {
   room: {
-    blank: string;
+    blank: T;
   };
   social: {
-    blank: string;
+    blank: T;
   };
   home: {
-    places: string;
-    streamers: string;
+    places: T;
+    streamers: T;
   };
   notifications: {
-    blank: string;
+    blank: T;
   };
   premium: {
-    blank: string;
+    blank: T;
   };
   profile: {
-    votes: string;
-    followers: string;
-    following: string;
+    votes: T;
+    followers: T;
+    following: T;
   };
   shop: {
-    blank: string;
+    blank: T;
   };
   side: {
-    profile: string;
-    notifications: string;
-    search: string;
-    premium: string;
-    tasks: string;
-    settings: string;
+    profile: T;
+    notifications: T;
+    search: T;
+    premium: T;
+    tasks: T;
+    settings: T;
   };
   search: {
-    placeholder: string;
+    placeholder: T;
   };
   task: {
-    blank: string;
+    blank: T;
   };
   settings: {
     theme: {
-      system: string;
-      light: string;
-      dark: string;
+      system: T;
+      light: T;
+      dark: T;
     };
     language: {
-      system: string;
-      tr: string;
-      en: string;
+      system: T;
+      tr: T;
+      en: T;
     };
   };
 };
-export type LangRoomConfig = {
-  name: string;
-  submit: string;
+export type LangRoomConfig<T> = {
+  name: T;
+  submit: T;
 };
 export type MukLang = {
-  error: LangError;
-  header: LangHeader;
-  auth: LangAuth;
-  main: LangMain;
-  roomConfig: LangRoomConfig;
+  error: LangError<string>;
+  header: LangHeader<string>;
+  auth: LangAuth<string>;
+  main: LangMain<string>;
+  roomConfig: LangRoomConfig<string>;
 };
 
 // System

@@ -19,9 +19,8 @@ export class TranslateService implements IService {
 
   setup = (): void => {
     const {ui} = stores;
-    const lng = Localization.locale;
-
+    ui.set('systemLanguage', Localization.locale);
     this.i18n.enableFallback = true;
-    this.i18n.locale = ui.isLanguageSystem ? lng : ui.language;
+    this.i18n.locale = ui.getLanguage;
   };
 }

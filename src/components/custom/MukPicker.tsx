@@ -15,15 +15,15 @@ import {useTheme} from 'react-native-paper';
 import {MukColors, MukTheme} from '../../types';
 import {services} from '../../services';
 
-type Props<T> = {
+type Props<T extends string | number> = {
   name: string;
-  items: T[];
+  items: Record<T, string> | T[];
   value?: T;
   itemHeight?: number;
   onValueChange?: (name: string, value: T) => void;
 };
 
-const checkValue = <T,>(value: T | undefined, items: T[]): T => {
+const checkValue = <T extends string | number>(value: T | undefined, items: T[]): T => {
   if (!value) {
     return items[0];
   }
@@ -44,16 +44,18 @@ const pickerStyles = (itemHeight: number, visibleItemCount: number, colors: MukC
     },
   });
 
-const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}: Props<T>) => {
+const MukPickerComp = <T extends string | number>({name, items, value, onValueChange, itemHeight = 30}: Props<T>) => {
   const tempValue = value;
-  value = checkValue<T>(tempValue, items);
+  const itemsIsArray = Array.isArray(items);
+  const itemsArray = itemsIsArray ? items : Object.keys(items).map(k => k as T);
+  value = checkValue<T>(tempValue, itemsArray);
   console.log('MukPickerCompRender', name, tempValue, value);
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
   const {colors} = useTheme<MukTheme>();
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
-  const modifiedItems = useMemo(() => [...emptyItems, ...items, ...emptyItems], [items, emptyItems]);
+  const modifiedItems = useMemo(() => [...emptyItems, ...itemsArray, ...emptyItems], [itemsArray, emptyItems]);
   const styles = useMemo(
     () => pickerStyles(itemHeight, visibleItemCount, colors),
     [itemHeight, visibleItemCount, colors],
@@ -94,7 +96,7 @@ const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}:
               color: value === item ? colors.secondary : colors.outlineVariant,
             }}
           >
-            {String(item)}
+            {itemsIsArray ? String(item) : items[item]}
           </Text>
         </Animated.View>
       </Pressable>
@@ -104,7 +106,7 @@ const MukPickerComp = <T,>({name, items, value, onValueChange, itemHeight = 30}:
   const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const y = event.nativeEvent.contentOffset.y;
     const index = Math.round(y / itemHeight);
-    const val = items[index];
+    const val = itemsArray[index];
     if (val !== value) {
       gotoItem(val, false);
     }
