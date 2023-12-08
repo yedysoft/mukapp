@@ -31,8 +31,8 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
 
   const onLayout = () => {
     if (tooltip && ref.current) {
-      ref.current.measure((x, y, width, height, pageX, pageY) => {
-        setPositions({x: x, y: y, width: width, height: height, pageX: pageX, pageY: pageY});
+      ref.current.measure((_x, _y, width, height, pageX, pageY) => {
+        setPositions({width: width, height: height, pageX: pageX, pageY: pageY});
       });
     }
   };

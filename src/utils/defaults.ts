@@ -18,7 +18,7 @@ class Defaults {
 
   info: IInfo = {id: null, userName: '', image: '', name: '', surname: '', coin: 0, token: 0};
 
-  positions: Positions = {x: 0, y: 0, width: 0, height: 0, pageX: 0, pageY: 0};
+  positions: Positions = {width: 0, height: 0, pageX: 0, pageY: 0};
 }
 
 const defaults = new Defaults();

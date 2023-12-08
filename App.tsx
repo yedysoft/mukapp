@@ -9,7 +9,7 @@ import {AppNavigation} from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stores} from './src/stores';
 import {initServices, services} from './src/services';
-import MukSplashScreen from './src/screens/auth/SplashScreen';
+import MukSplashScreen from './src/screens/auth/MukSplashScreen';
 import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
 import {usePushNotifications} from './src/services/pushNotifications';

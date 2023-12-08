@@ -151,8 +151,6 @@ export type PureFunc = () => void;
 
 // Components
 export type Positions = {
-  x: number;
-  y: number;
   width: number;
   height: number;
   pageX: number;

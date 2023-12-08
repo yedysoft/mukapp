@@ -3,7 +3,7 @@ import {useTheme} from 'react-native-paper';
 import MukLoader from '../../components/loading/MukLoader';
 import {MukTheme} from '../../types';
 
-export default function SplashScreen() {
+export default function MukSplashScreen() {
   const {colors} = useTheme<MukTheme>();
 
   return (
