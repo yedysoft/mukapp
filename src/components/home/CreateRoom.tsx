@@ -58,38 +58,50 @@ const CreateRoom = observer(() => {
 
   return (
     <>
-      {!room.isLive ? <MukFAB onPress={handleSheet} /> : null}
+      {!room.isLive ? <MukFAB onPress={handleSheet}/> : null}
       <MukSheet
         snaps={['50%']}
         sheetRef={sheetRef}
         contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
       >
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
-          <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
+          <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')}/>
           <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', gap: responsiveWidth(8)}}>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: responsiveSize(16),
-                fontWeight: '400',
-                color: colors.secondary,
-              }}
-            >
-              @{user.getInfo.userName}
-            </Text>
+            <View style={{gap: responsiveWidth(4)}}>
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontSize: responsiveSize(16),
+                  fontWeight: '400',
+                  color: colors.secondary,
+                }}
+              >
+                {user.getInfo.name} {user.getInfo.surname}
+              </Text>
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontSize: responsiveSize(16),
+                  fontWeight: '400',
+                  color: colors.secondary,
+                }}
+              >
+                @{user.getInfo.userName}
+              </Text>
+            </View>
             <MukForm ref={formRef}>
               <MukTextInput
                 name={'name'}
                 selectionColor={colors.primary}
                 label={t.do('roomConfig.name')}
-                value={form?.name}
+                value={`${form?.name}${t.do('roomConfig.placeholder')}`}
                 onChange={handleOnChange}
                 preValidate={'required'}
               />
             </MukForm>
           </View>
         </View>
-        <MukButton label={t.do('roomConfig.submit')} onPress={() => createRoom()} />
+        <MukButton label={t.do('roomConfig.submit')} onPress={() => createRoom()}/>
       </MukSheet>
     </>
   );

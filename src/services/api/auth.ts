@@ -5,6 +5,7 @@ import socket from './socket';
 import user from './user';
 import subscription from './subscription';
 import {PVoid} from '../../types';
+import room from './room';
 
 export class AuthApi {
   async forgotPass(form: IForgot): PVoid {
@@ -46,6 +47,7 @@ export class AuthApi {
   }
 
   async logout(): PVoid {
+    stores.room.isLive && await room.closeRoom()
     await socket.disconnect();
     this.clearAuth();
     await this.checkToken();

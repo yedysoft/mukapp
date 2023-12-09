@@ -11,6 +11,7 @@ export interface IService {
 export type LangError<T> = {
   required: T;
   notValidInputs: T;
+  soon: T;
 };
 export type LangHeader<T> = {
   blank: T;
@@ -110,6 +111,7 @@ export type LangMain<T> = {
 export type LangRoomConfig<T> = {
   name: T;
   submit: T;
+  placeholder: T;
 };
 export type MukLang = {
   error: LangError<string>;

@@ -24,7 +24,7 @@ export default function SearchListItem({user}: Props) {
       style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}}
       onPress={() => navigation.navigate('Profile', {userId: user.id})}
     >
-      <MukIcon scale={0.8} icon={user.image ?? 'account'} />
+      <MukIcon scale={0.8} icon={user.image ?? 'user'} />
       <View style={{flexDirection: 'column', width: '66%', gap: responsiveWidth(4)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(15), color: colors.secondary, fontWeight: '600'}}>
           {user.name} {user.surname}

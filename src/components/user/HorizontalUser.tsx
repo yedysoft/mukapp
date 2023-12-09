@@ -17,11 +17,14 @@ export default function HorizontalUser() {
         source={require('../../../assets/adaptive-icon.png')}
         style={{borderWidth: 2, borderRadius: 24, borderColor: colors.primary, backgroundColor: colors.background}}
       />
-      <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(8), gap: responsiveWidth(12)}}>
-        <Text style={{color: colors.secondary, fontSize: responsiveSize(20)}}>@{user.getInfo.userName}</Text>
+      <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(4), gap: responsiveWidth(8)}}>
+        <View style={{gap: 4}}>
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20)}}>{user.getInfo.name} {user.getInfo.surname}</Text>
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20)}}>@{user.getInfo.userName}</Text>
+        </View>
         <View style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4)}}>
-          <Coin />
-          <Token />
+          <Coin/>
+          <Token/>
         </View>
       </View>
     </View>

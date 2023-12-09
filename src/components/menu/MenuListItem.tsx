@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
 import {MukMenu, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {useServices} from '../../services';
 
 type Props = {
   item: MukMenu;
@@ -15,9 +16,10 @@ export default function MenuListItem({item}: Props) {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const [title, setTitle] = useState({label: item.label, color: colors.outlineVariant});
+  const {t} = useServices();
 
   const soonTitle = () => {
-    setTitle({label: 'Çok yakında!', color: colors.tertiary});
+    setTitle({label: t.do('error.soon'), color: colors.tertiary});
     const myInterval = setInterval(() => {
       setTitle({label: item.label, color: colors.outlineVariant});
       clearInterval(myInterval);

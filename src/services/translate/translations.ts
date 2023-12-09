@@ -4,6 +4,7 @@ export const tr: MukLang = {
   error: {
     required: 'Gerekli',
     notValidInputs: 'Gerekli alanları doldurun',
+    soon: 'Çok Yakında!',
   },
   header: {
     blank: '',
@@ -103,12 +104,14 @@ export const tr: MukLang = {
   roomConfig: {
     name: 'Oda Adı',
     submit: 'Oda Oluştur',
+    placeholder: ' Odası',
   },
 };
 export const en: MukLang = {
   error: {
     required: 'Required',
     notValidInputs: 'Fill in the required fields',
+    soon: 'Very Soon!',
   },
   header: {
     blank: '',
@@ -208,5 +211,6 @@ export const en: MukLang = {
   roomConfig: {
     name: 'Room Name',
     submit: 'Create Room',
+    placeholder: "'s Room",
   },
 };
