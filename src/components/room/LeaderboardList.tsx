@@ -20,12 +20,12 @@ export default function LeaderboardList({leaderboard, header, onScrollBeginDrag,
         data={leaderboard}
         ListHeaderComponent={header}
         ListFooterComponent={footer}
-        renderItem={({item, index}) => <LeaderboardListItem key={index} index={index} leader={item}/>}
+        renderItem={({item, index}) => <LeaderboardListItem key={index} index={index} leader={item} />}
         scrollEnabled
         style={{display: loading ? 'none' : 'flex'}}
         contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
       />
-      <LoaderView style={{display: loading ? 'flex' : 'none'}}/>
+      <LoaderView style={{display: loading ? 'flex' : 'none'}} />
     </>
   );
 }

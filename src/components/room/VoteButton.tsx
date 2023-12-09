@@ -32,8 +32,8 @@ export default function VoteButton({onPress, badge, style, isLoading, disabled}:
           !isLoading
             ? require('../../../assets/vote/vote-filled.png')
             : disabled
-              ? require('../../../assets/vote/vote-inlined.png')
-              : require('../../../assets/vote/vote-outlined.png')
+            ? require('../../../assets/vote/vote-inlined.png')
+            : require('../../../assets/vote/vote-outlined.png')
         }
       />
       {/*<MukMask

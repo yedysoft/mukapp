@@ -19,12 +19,16 @@ export default function HorizontalUser() {
       />
       <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(4), gap: responsiveWidth(8)}}>
         <View style={{gap: 4}}>
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20)}}>{user.getInfo.name} {user.getInfo.surname}</Text>
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20)}}>@{user.getInfo.userName}</Text>
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20)}}>
+            {user.getInfo.name} {user.getInfo.surname}
+          </Text>
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20)}}>
+            @{user.getInfo.userName}
+          </Text>
         </View>
         <View style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4)}}>
-          <Coin/>
-          <Token/>
+          <Coin />
+          <Token />
         </View>
       </View>
     </View>

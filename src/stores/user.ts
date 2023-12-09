@@ -13,7 +13,7 @@ export class UserStore extends BaseStore<UserStore> {
   followRequests: IFollowRequest[] = [];
   blockedUsers: IBlockedUser[] = [];
   topVoted: IQueueTrack[] = [];
-  countTopVoted: number = 0;
+  countTopVoted = 0;
 
   constructor() {
     super();

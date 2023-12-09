@@ -47,7 +47,7 @@ export class AuthApi {
   }
 
   async logout(): PVoid {
-    stores.room.isLive && await room.closeRoom()
+    stores.room.isLive && (await room.closeRoom());
     await socket.disconnect();
     this.clearAuth();
     await this.checkToken();
