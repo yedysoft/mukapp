@@ -7,16 +7,17 @@ import LoaderView from '../loading/LoaderView';
 type Props = {
   leaderboard: any[];
   header?: ReactElement;
-  onScrollBeginDrag?: () => void;
+  onRefresh?: () => void;
   footer?: ReactElement;
   loading?: boolean;
 };
 
-export default function LeaderboardList({leaderboard, header, onScrollBeginDrag, footer, loading}: Props) {
+export default function LeaderboardList({leaderboard, header, onRefresh, footer, loading}: Props) {
   return (
     <>
       <FlatList
-        onScrollBeginDrag={onScrollBeginDrag}
+        refreshing={loading}
+        onRefresh={onRefresh}
         data={leaderboard}
         ListHeaderComponent={header}
         ListFooterComponent={footer}

@@ -11,6 +11,8 @@ import LeaderboardList from './LeaderboardList';
 import RoomSettingsList from './RoomSettingsList';
 import MukLoader from '../loading/MukLoader';
 import {MukTheme} from '../../types';
+import MukImage from '../custom/MukImage';
+import {responsiveWidth} from '../../utils/util';
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -35,7 +37,21 @@ const RoomTabs = observer(() => {
         },
         {
           icon: 'play-circle',
-          children: <SongList itemType={'vote'} songs={media.getQueue} />,
+          children: (
+            <SongList
+              itemType={'vote'}
+              songs={media.getQueue}
+              footer={
+                media.getQueue.length === 0 ? (
+                  <MukImage
+                    source={require('../../../assets/noimage-gray.png')}
+                    scale={2}
+                    style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
+                  />
+                ) : undefined
+              }
+            />
+          ),
         },
         {
           icon: 'plus-circle',
@@ -44,8 +60,18 @@ const RoomTabs = observer(() => {
               itemType={'add'}
               loading={loading.getUserPlaylist}
               header={<PlaylistList playlists={media.getPlaylists} />}
-              footer={<MukLoader loading={loading.getPlaylistTracks} />}
-              songs={selectedPlaylist ? selectedPlaylist.tracks.items : []}
+              footer={
+                selectedPlaylist?.tracks.items.length === 0 ? (
+                  <MukImage
+                    source={require('../../../assets/noimage-gray.png')}
+                    scale={2}
+                    style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
+                  />
+                ) : (
+                  <MukLoader loading={loading.getPlaylistTracks} />
+                )
+              }
+              songs={selectedPlaylist?.tracks.items ?? []}
               onEndReached={() => {
                 !loading.getUserPlaylist &&
                   !loading.getPlaylistTracks &&
@@ -62,7 +88,7 @@ const RoomTabs = observer(() => {
           children: (
             <LeaderboardList
               loading={loading.getLeaderboard}
-              onScrollBeginDrag={() => api.room.setLeaderboard()}
+              onRefresh={() => api.room.setLeaderboard()}
               leaderboard={room.getLeaderboard}
             />
           ),

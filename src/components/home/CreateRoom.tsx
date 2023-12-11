@@ -28,7 +28,7 @@ const CreateRoom = observer(() => {
 
   useEffect(() => {
     if (!room.getConfig) {
-      api.room.setConfig();
+      api.room.setConfig(t.do('roomConfig.placeholder'));
     } else {
       setForm(room.getConfig);
     }
@@ -94,7 +94,7 @@ const CreateRoom = observer(() => {
                 name={'name'}
                 selectionColor={colors.primary}
                 label={t.do('roomConfig.name')}
-                value={`${form?.name}${t.do('roomConfig.placeholder')}`}
+                value={form?.name}
                 onChange={handleOnChange}
                 preValidate={'required'}
               />
