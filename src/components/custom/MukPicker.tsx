@@ -50,9 +50,7 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
   const itemsArray = itemsIsArray ? items : Object.keys(items).map(k => k as T);
   value = checkValue<T>(tempValue, itemsArray);
   console.log('MukPickerCompRender', name, tempValue, value);
-  const compact: boolean = Object.keys(items).length < 5;
-
-  const visibleItemCount = compact ? 3 : 5;
+  const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
   const {colors} = useTheme<MukTheme>();
@@ -70,14 +68,14 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
       (index - 2) * itemHeight,
       (index - 1) * itemHeight,
       index * itemHeight,
-    ].slice(compact ? 2 : 0);
+    ];
     const scale = scrollY.interpolate({
       inputRange,
-      outputRange: [0.8, 0.9, 1.1, 0.9, 0.8].slice(compact ? 1 : 0, compact ? 4 : 5),
+      outputRange: [0.8, 0.9, 1.1, 0.9, 0.8],
     });
     const rotateX = scrollY.interpolate({
       inputRange,
-      outputRange: ['-40deg', '-20deg', '0deg', '20deg', '40deg'].slice(compact ? 1 : 0, compact ? 4 : 5),
+      outputRange: ['-40deg', '-20deg', '0deg', '20deg', '40deg'],
     });
     return (
       <Pressable onPress={() => gotoItem(item, true)}>
