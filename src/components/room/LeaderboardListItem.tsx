@@ -78,7 +78,16 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
       </View>
       <MukBadge
         badge={leader.voteCount}
-        style={{width: responsiveWidth(36), aspectRatio: 1, alignItems: 'center', justifyContent: 'center'}}
+        style={{
+          minWidth: responsiveWidth(36),
+          aspectRatio: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: index === 0 ? colors.background : colors.backdrop,
+          borderWidth: 1,
+          borderColor: colors.primary,
+        }}
+        textStyle={{color: colors.secondary}}
       />
     </MukListItem>
   );

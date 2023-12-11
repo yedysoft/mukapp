@@ -6,14 +6,15 @@ import {MukTheme} from '../../types';
 type Props = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  color?: string;
 };
 
-export default function AddButton({onPress, style}: Props) {
+export default function AddButton({onPress, style, color}: Props) {
   const {colors} = useTheme<MukTheme>();
 
   return (
     <TouchableOpacity onPress={onPress} style={style}>
-      <MukIcon icon={'plus'} />
+      <MukIcon icon={'plus'} color={color} />
     </TouchableOpacity>
   );
 }
