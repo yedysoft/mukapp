@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View} from 'react-native';
+import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import {MukTheme} from '../../types';
 import {responsiveHeight} from '../../utils/util';
 
@@ -17,9 +17,7 @@ export default function RoomLayout({children}: Props) {
       keyboardVerticalOffset={responsiveHeight(8)}
       style={{flex: 1}}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'transparent'}}>{children}</View>
-      </TouchableWithoutFeedback>
+      <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'transparent'}}>{children}</View>
     </KeyboardAvoidingView>
   );
 }
