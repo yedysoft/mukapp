@@ -35,8 +35,9 @@ export default function MukTabs({tabs, activeIndex, onChangeIndex}: Props) {
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderBottomWidth: activeIndex === i ? 1 : 0,
-                borderBottomColor: api.helper.hexToRgba(theme.colors.primary, 0.5),
+                borderBottomWidth: activeIndex === i ? 2 : 1,
+                borderBottomColor:
+                  activeIndex === i ? api.helper.hexToRgba(theme.colors.primary, 0.5) : theme.colors.backdrop,
               }}
             >
               <MukIcon

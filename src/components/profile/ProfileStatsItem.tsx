@@ -25,7 +25,7 @@ export default function ProfileStatsItem({stat, index, activeIndex, setActiveInd
         flexDirection: 'column',
         alignItems: 'center',
         width: responsiveWidth(128),
-        backgroundColor: colors.backdrop,
+        backgroundColor: colors.background,
         paddingVertical: responsiveWidth(16),
         borderRadius: 16,
         gap: responsiveWidth(4),
@@ -34,7 +34,7 @@ export default function ProfileStatsItem({stat, index, activeIndex, setActiveInd
       }}
     >
       <Text style={{fontSize: responsiveSize(18), fontWeight: 'bold', color: colors.primary}}>{stat.value}</Text>
-      <Text style={{fontSize: responsiveSize(14), fontWeight: 'bold', color: colors.text}}>{stat.label}</Text>
+      <Text style={{fontSize: responsiveSize(14), fontWeight: 'bold', color: colors.secondary}}>{stat.label}</Text>
     </TouchableOpacity>
   );
 }

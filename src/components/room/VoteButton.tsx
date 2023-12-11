@@ -22,7 +22,7 @@ export default function VoteButton({onPress, badge, style, isLoading, disabled}:
         badge={badge}
         style={{
           position: 'absolute',
-          left: responsiveWidth(24),
+          right: responsiveWidth(-8),
           bottom: responsiveWidth(24),
         }}
       />

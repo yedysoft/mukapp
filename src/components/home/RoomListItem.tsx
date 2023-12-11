@@ -2,8 +2,6 @@ import {Text, useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
-import MukIcon from '../../components/custom/MukIcon';
-import MukIconButton from '../../components/custom/MukIconButton';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {IRoom} from '../../types/room';
@@ -12,6 +10,7 @@ import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import MukIcon from '../custom/MukIcon';
 
 type Props = {
   roomData: IRoom;
@@ -42,23 +41,29 @@ const RoomListItem = observer(({roomData}: Props) => {
             @{roomData.streamerName}
           </Text>
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <MukIcon icon={'bar-chart-2'} scale={0.5} />
-            <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
-          </View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <MukIcon icon={'users'} scale={0.5} />
-            <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
-          </View>
-          <MukIconButton scale={0.3} icon={'heart'} color={colors.tertiary} />
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
+          <MukIcon icon={'speaker'} scale={0.6} color={colors.tertiary} iconStyle={{marginLeft: responsiveWidth(-8)}} />
+          <Text style={{color: colors.secondary}}>{roomData.liveSong?.name}</Text>
         </View>
+        {/*
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <MukIcon icon={'bar-chart-2'} scale={0.5} />
+              <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <MukIcon icon={'users'} scale={0.5} />
+              <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
+            </View>
+            <MukIconButton scale={0.3} icon={'heart'} color={colors.tertiary} />
+          </View>
+        */}
       </View>
     </MukListItem>
   );

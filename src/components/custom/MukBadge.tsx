@@ -2,6 +2,7 @@ import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
+import {useStores} from '../../stores';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -10,12 +11,13 @@ type Props = {
 };
 export default function MukBadge({style, textStyle, badge}: Props) {
   const {colors} = useTheme<MukTheme>();
+  const {ui} = useStores();
 
   return (
     <View
       style={[
         {
-          backgroundColor: colors.secondary,
+          backgroundColor: ui.getScheme === 'light' ? colors.tertiary : colors.secondary,
           minWidth: responsiveWidth(16),
           display: badge ? 'flex' : 'none',
           paddingHorizontal: responsiveWidth(8),
@@ -30,7 +32,7 @@ export default function MukBadge({style, textStyle, badge}: Props) {
         numberOfLines={1}
         style={[
           {
-            color: colors.tertiary,
+            color: ui.getScheme === 'light' ? colors.background : colors.tertiary,
             fontWeight: 'bold',
             fontSize: responsiveSize(14),
           },
