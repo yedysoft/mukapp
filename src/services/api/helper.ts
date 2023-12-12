@@ -6,6 +6,7 @@ import {IMessage} from 'react-native-gifted-chat';
 import {ILastMessage} from '../../types/user';
 import {PVoid} from '../../types';
 import {Children, cloneElement, useRef} from 'react';
+import {stores} from '../../stores';
 
 export class HelperApi {
   timeoutIds: {[key: number | string]: NodeJS.Timeout} = {};
@@ -202,6 +203,14 @@ export class HelperApi {
       message = messages[0];
     }
     return message ? {date: message.createdAt, message: message.text} : {date: 0, message: ''};
+  }
+
+  isUserFollows(userId: string) {
+    try {
+      return !!stores.user.getFollows.find(f => f.userId === userId);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 

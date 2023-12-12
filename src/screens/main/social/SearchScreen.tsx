@@ -7,6 +7,7 @@ import SearchList from '../../../components/search/SearchList';
 import {responsiveWidth} from '../../../utils/util';
 import MukTextInput from '../../../components/custom/MukTextInput';
 import {MukTheme} from '../../../types';
+import {useEffect} from 'react';
 
 export const SearchScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -22,6 +23,10 @@ export const SearchScreen = observer(() => {
       }
     });
   };
+
+  useEffect(() => {
+    user.set('searched', []);
+  }, []);
 
   return (
     <MainLayout>

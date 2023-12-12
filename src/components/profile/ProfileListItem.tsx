@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
-import MukIconButton from '../custom/MukIconButton';
 import {observer} from 'mobx-react';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
@@ -36,13 +35,15 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
           </Text>
         </View>
       </View>
-      <MukIconButton
-        scale={0.4}
-        icon={'user-minus'}
-        color={colors.secondary}
-        style={{display: otherUser ? 'none' : 'flex'}}
-        onPress={() => onIconPress(item.id)}
-      />
+      {/*
+        <MukIconButton
+          scale={0.4}
+          icon={'user-minus'}
+          color={colors.secondary}
+          style={{display: otherUser ? 'none' : 'flex'}}
+          onPress={() => onIconPress(item.id)}
+        />
+      */}
     </MukListItem>
   );
 });

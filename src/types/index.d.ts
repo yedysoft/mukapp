@@ -88,6 +88,7 @@ export type LangMain<T> = {
   };
   search: {
     placeholder: T;
+    follows: T;
   };
   task: {
     blank: T;

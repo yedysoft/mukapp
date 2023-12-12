@@ -121,7 +121,7 @@ export class UserApi {
     }
   }
 
-  async unblockUser(blockId: string): PVoid {
+  async unblockUser(blockId: string | undefined): PVoid {
     try {
       const response = await axiosIns.get(`/user-blocked/unblock/${blockId}`);
       console.log('Unblock: ', response.data);

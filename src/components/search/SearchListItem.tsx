@@ -3,7 +3,6 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import MukIcon from '../custom/MukIcon';
 import {View} from 'react-native';
-import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
@@ -16,7 +15,7 @@ type Props = {
 
 export default function SearchListItem({user}: Props) {
   const {colors} = useTheme<MukTheme>();
-  const {api} = useServices();
+  const {api, t} = useServices();
   const navigation = useNavigation<MainStackNavProp>();
 
   return (
@@ -35,20 +34,22 @@ export default function SearchListItem({user}: Props) {
         <Text
           numberOfLines={1}
           style={{
-            display: user.isFollower ? 'flex' : 'none',
+            display: user.isFollower ? undefined : 'none',
             fontSize: responsiveSize(12),
             marginTop: responsiveWidth(4),
           }}
         >
-          Seni takip ediyor
+          {t.do('main.search.follows')}
         </Text>
       </View>
-      <MukIconButton
-        color={colors.secondary}
-        scale={0.4}
-        icon={user.isFollows ? 'user-minus' : 'user-plus'}
-        onPress={() => (user.isFollows ? api.user.unFollow(user.id) : api.user.sendFollowRequest(user.id))}
-      />
+      {/*
+        <MukIconButton
+          color={colors.secondary}
+          scale={0.4}
+          icon={user.isFollows ? 'user-minus' : 'user-plus'}
+          onPress={() => (user.isFollows ? api.user.unFollow(user.id) : api.user.sendFollowRequest(user.id))}
+        />
+      */}
     </MukListItem>
   );
 }

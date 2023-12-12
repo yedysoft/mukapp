@@ -1,5 +1,5 @@
 import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack';
-import RoomScreen from '../screens/main/room';
+import RoomScreen from '../screens/main/RoomScreen';
 import BottomTabs from './BottomTabs';
 import {SubHeader} from '../components/header/SubHeader';
 import ChatScreen from '../screens/main/social/ChatScreen';
@@ -10,6 +10,7 @@ import {SearchScreen} from '../screens/main/social/SearchScreen';
 import {NotificationsScreen} from '../screens/main/NotificationsScreen';
 import {IChat} from '../types/user';
 import {SettingsScreen} from '../screens/main/SettingsScreen';
+import BlockedScreen from '../screens/main/social/BlockedScreen';
 
 export type MainStackScreens = {
   Main: undefined;
@@ -21,6 +22,7 @@ export type MainStackScreens = {
   Task: undefined;
   Premium: undefined;
   Settings: undefined;
+  Blocked: undefined;
 };
 export type MainStackNavProp = StackNavigationProp<MainStackScreens, 'Main'>;
 
@@ -41,6 +43,7 @@ export default function MainStack() {
         <Main.Screen name="Task" component={TaskScreen} />
         <Main.Screen name="Premium" component={PremiumScreen} />
         <Main.Screen name="Settings" component={SettingsScreen} />
+        <Main.Screen name="Blocked" component={BlockedScreen} />
       </Main.Group>
     </Main.Navigator>
   );

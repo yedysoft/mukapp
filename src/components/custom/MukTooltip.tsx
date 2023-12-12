@@ -61,7 +61,7 @@ export default function MukTooltip({
         onPress={() => changeVisible(false)}
         style={{
           display: visible ? undefined : 'none',
-          backgroundColor: 'rgba(255,0,0,0.3)', //colors.backdrop,
+          backgroundColor: colors.backdrop,
           width: screenWidth,
           height: screenHeight,
         }}
@@ -72,7 +72,7 @@ export default function MukTooltip({
           style={[
             {
               borderRadius: 16,
-              backgroundColor: 'rgba(0,81,255,0.8)', //colors.background,
+              backgroundColor: colors.background,
               borderWidth: 0.5,
               borderColor: colors.backdrop,
             },

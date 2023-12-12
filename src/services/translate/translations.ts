@@ -81,6 +81,7 @@ export const tr: MukLang = {
     },
     search: {
       placeholder: 'Kullanıcı Ara',
+      follows: 'Seni takip ediyor',
     },
     task: {
       blank: '',
@@ -191,6 +192,7 @@ export const en: MukLang = {
     },
     search: {
       placeholder: 'Search User',
+      follows: 'Following you',
     },
     settings: {
       title: 'Settings',

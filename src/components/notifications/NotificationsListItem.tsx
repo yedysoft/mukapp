@@ -20,7 +20,6 @@ export default function NotificationsListItem({icon, notification, buttons}: Pro
   const {api} = useServices();
 
   const acceptFollowRequest = async (id: string) => {
-    console.log('test1');
     await api.user.acceptFollowRequest(id);
   };
 
@@ -30,7 +29,7 @@ export default function NotificationsListItem({icon, notification, buttons}: Pro
 
   return (
     <MukListItem disabled={true} style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}}>
-      <MukIcon scale={0.8} icon={icon ?? 'bell-badge-outline'} />
+      <MukIcon scale={0.8} icon={icon ?? 'user-plus'} />
       <Text
         style={{
           fontSize: responsiveSize(14),
@@ -39,19 +38,19 @@ export default function NotificationsListItem({icon, notification, buttons}: Pro
           width: buttons ? responsiveWidth(180) : '80%',
         }}
       >
-        {notification?.userName} seni takip etmek istiyor
+        @{notification?.userName} seni takip etmek istiyor.
       </Text>
       <View style={{flexDirection: 'row', display: buttons ? 'flex' : 'none'}}>
         <MukIconButton
           color={colors.primary}
           scale={0.5}
-          icon={'check-circle-outline'}
+          icon={'check-circle'}
           onPress={() => notification && acceptFollowRequest(notification?.requestId)}
         />
         <MukIconButton
           color={colors.tertiary}
           scale={0.5}
-          icon={'close-circle-outline'}
+          icon={'x-circle'}
           onPress={() => notification && rejectFollowRequest(notification?.requestId)}
         />
       </View>

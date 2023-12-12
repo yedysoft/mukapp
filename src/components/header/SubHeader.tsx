@@ -8,10 +8,11 @@ import {NavButton} from './NavButton';
 import Token from '../user/Token';
 import Coin from '../user/Coin';
 import {MukTheme} from '../../types';
+import {MainStackNavProp} from '../../navigation/MainStack';
 
 export const SubHeader = observer(() => {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
 
   return (
