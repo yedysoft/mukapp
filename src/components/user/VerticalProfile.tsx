@@ -1,11 +1,10 @@
-import {Pressable, View} from 'react-native';
+import {View} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {IInfo} from '../../types/user';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
-import EditImage from '../profile/EditImage';
 import {useState} from 'react';
 import {MukTheme} from '../../types';
 import {useNavigation} from '@react-navigation/native';
@@ -21,26 +20,23 @@ export default function VerticalProfile({profile, otherUser}: Props) {
   const navigation = useNavigation();
   const {api} = useServices();
   const {user} = useStores();
-  const [visible, setVisible] = useState(false);
   const [followIcon, setFollowIcon] = useState<string>(
     api.helper.isUserFollows(profile.id) ? 'user-minus' : 'user-plus',
   );
 
   return (
     <View style={{flexDirection: 'column', alignItems: 'center', gap: responsiveWidth(16)}}>
-      <Pressable onPress={() => setVisible(true)}>
-        <MukImage
-          scale={2.4}
-          source={{uri: profile.image}}
-          style={{
-            borderWidth: responsiveSize(4),
-            borderRadius: 100,
-            aspectRatio: 1,
-            borderColor: colors.primary,
-            backgroundColor: 'transparent',
-          }}
-        />
-      </Pressable>
+      <MukImage
+        scale={2.4}
+        source={{uri: profile.image}}
+        style={{
+          borderWidth: responsiveSize(4),
+          borderRadius: 100,
+          aspectRatio: 1,
+          borderColor: colors.primary,
+          backgroundColor: 'transparent',
+        }}
+      />
       <View style={{justifyContent: 'center', alignItems: 'center', gap: responsiveWidth(8)}}>
         <Text
           style={{
@@ -86,7 +82,6 @@ export default function VerticalProfile({profile, otherUser}: Props) {
           </View>
         </View>
       </View>
-      <EditImage setVisible={setVisible} isVisible={visible} />
     </View>
   );
 }
