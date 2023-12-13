@@ -2,15 +2,15 @@ import {IMessage} from 'react-native-gifted-chat';
 import {IGender, IMessageType} from './enums';
 
 export type IInfo = {
-  id: string;
+  id: string | null;
   userName: string;
   image: string;
   name: string;
   surname: string;
   coin: number;
   token: number;
-  birthday: string;
-  gender: IGender;
+  birthday: string | null;
+  gender: IGender | null;
 };
 
 export type IChat = {

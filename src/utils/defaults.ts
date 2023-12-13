@@ -16,7 +16,17 @@ class Defaults {
     voteable: false,
   };
 
-  info: IInfo = {id: null, userName: '', image: '', name: '', surname: '', coin: 0, token: 0};
+  info: IInfo = {
+    id: null,
+    userName: '',
+    image: '',
+    name: '',
+    surname: '',
+    coin: 0,
+    token: 0,
+    birthday: null,
+    gender: null,
+  };
 
   positions: Positions = {width: 0, height: 0, pageX: 0, pageY: 0};
 }
