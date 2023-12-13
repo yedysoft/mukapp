@@ -3,27 +3,23 @@ import {Text, useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import React, {useRef, useState} from 'react';
-import {IRegister} from '../../types/auth';
+import {IEdit} from '../../types/auth';
 import {useServices} from '../../services';
 import {View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
-import {AuthStackNavProp} from '../../navigation/AuthStack';
 import MukPicker from '../custom/MukPicker';
 import MukDatePicker from '../custom/MukDatePicker';
 
-export const AuthRegisterForm = observer(() => {
-  const navigation = useNavigation<AuthStackNavProp>();
+export const AuthEditForm = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
   const {loading} = useStores();
   const formRef = useRef<MukFormRef>(null);
-  const [form, setForm] = useState<IRegister>({email: '', userName: '', userPass: ''});
-  const [step, setStep] = useState(0);
+  const [form, setForm] = useState<IEdit>({email: '', userName: '', userPass: ''});
   const [displayPicker, setDisplayPicker] = useState<string | undefined>(undefined);
 
   const handleOnChange = (name: string, value: string) => {
@@ -44,7 +40,6 @@ export const AuthRegisterForm = observer(() => {
               value={form.name}
               onChange={handleOnChange}
               preValidate={'required'}
-              style={{display: step === 0 ? undefined : 'none'}}
             />
             <MukTextInput
               name={'surname'}
@@ -52,29 +47,13 @@ export const AuthRegisterForm = observer(() => {
               value={form.surname}
               onChange={handleOnChange}
               preValidate={'required'}
-              style={{display: step === 0 ? undefined : 'none'}}
             />
             <MukTextInput
-              name={'birthday'}
-              label={t.do('auth.register.birthday')}
-              value={form.birthday}
-              selectionColor={colors.background}
-              showKeyboard={false}
-              style={{display: step === 0 ? undefined : 'none'}}
+              name={'userName'}
+              label={t.do('auth.register.username')}
+              value={form.userName}
+              onChange={handleOnChange}
               preValidate={'required'}
-              onFocus={() => setDisplayPicker('birthday')}
-              onBlur={() => setDisplayPicker(undefined)}
-            />
-            <MukTextInput
-              name={'gender'}
-              label={t.do('auth.register.gender')}
-              value={form.gender?.toString()}
-              selectionColor={colors.background}
-              showKeyboard={false}
-              style={{display: step === 0 ? undefined : 'none'}}
-              preValidate={'required'}
-              onFocus={() => setDisplayPicker('gender')}
-              onBlur={() => setDisplayPicker(undefined)}
             />
             <MukTextInput
               name={'email'}
@@ -83,24 +62,6 @@ export const AuthRegisterForm = observer(() => {
               value={form.email}
               onChange={handleOnChange}
               preValidate={'required'}
-              style={{display: step === 1 ? undefined : 'none'}}
-            />
-            <MukTextInput
-              name={'userName'}
-              label={t.do('auth.register.username')}
-              value={form.userName}
-              onChange={handleOnChange}
-              preValidate={'required'}
-              style={{display: step === 1 ? undefined : 'none'}}
-            />
-            <MukTextInput
-              name={'telNumber'}
-              label={t.do('auth.register.phone')}
-              inputMode={'tel'}
-              value={form.telNumber}
-              preValidate={'required'}
-              onChange={handleOnChange}
-              style={{display: step === 1 ? undefined : 'none'}}
             />
             <MukTextInput
               name={'userPass'}
@@ -111,7 +72,6 @@ export const AuthRegisterForm = observer(() => {
               preValidate={'required'}
               validate={[value => value.length >= 8 && value.length <= 32]}
               validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
-              style={{display: step === 2 ? undefined : 'none'}}
             />
             <MukTextInput
               name={'repass'}
@@ -120,36 +80,47 @@ export const AuthRegisterForm = observer(() => {
               preValidate={'required'}
               validate={[value => value.length >= 8 && value.length <= 32, value => value === form.userPass]}
               validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
-              style={{display: step === 2 ? undefined : 'none'}}
+            />
+            <MukTextInput
+              name={'telNumber'}
+              label={t.do('auth.register.phone')}
+              inputMode={'tel'}
+              value={form.telNumber}
+              preValidate={'required'}
+              onChange={handleOnChange}
+              disabled
+            />
+            <MukTextInput
+              name={'gender'}
+              label={t.do('auth.register.gender')}
+              value={form.gender?.toString()}
+              selectionColor={colors.background}
+              showKeyboard={false}
+              preValidate={'required'}
+              onFocus={() => setDisplayPicker('gender')}
+              onBlur={() => setDisplayPicker(undefined)}
+              disabled
+            />
+            <MukTextInput
+              name={'birthday'}
+              label={t.do('auth.register.birthday')}
+              value={form.birthday}
+              selectionColor={colors.background}
+              showKeyboard={false}
+              preValidate={'required'}
+              onFocus={() => setDisplayPicker('birthday')}
+              onBlur={() => setDisplayPicker(undefined)}
+              disabled
             />
           </MukForm>
         </View>
       </View>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-        <MukButton
-          buttonStyle={{
-            backgroundColor: step === 0 ? 'transparent' : colors.backdrop,
-            paddingHorizontal: step === 0 ? 0 : responsiveWidth(32),
-            paddingVertical: step === 0 ? 0 : responsiveWidth(16),
-          }}
-          textStyle={{color: step === 0 ? colors.outlineVariant : colors.secondary, fontWeight: '400'}}
-          disabled={loading.getRegister}
-          label={step === 0 ? t.do('auth.register.toLogin') : t.do('auth.register.prev')}
-          onPress={() => (step === 0 ? navigation.navigate('Login') : setStep(step - 1))}
-        />
+      <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
         <MukButton
           buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
           loading={loading.getRegister}
-          label={step === 2 ? t.do('auth.register.submit') : t.do('auth.register.next')}
-          onPress={() => {
-            if (step === 2) {
-              if (formRef.current?.validateInputs()) {
-                api.auth.register(form);
-              }
-            } else {
-              setStep(step + 1);
-            }
-          }}
+          label={t.do('auth.edit.submit')}
+          onPress={() => formRef.current?.validateInputs() && api.auth.register(form)}
         />
       </View>
       <View

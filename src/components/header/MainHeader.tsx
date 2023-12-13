@@ -35,13 +35,6 @@ export const MainHeader = observer(() => {
       <NavButton>
         {route.name === 'Shop' ? (
           <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(16)}} />
-        ) : route.name === 'Messages' ? (
-          <MukIconButton
-            icon={'slash'}
-            scale={0.4}
-            color={colors.tertiary}
-            onPress={() => navigation.navigate('Blocked')}
-          />
         ) : (
           <MukIconButton icon={'bell'} scale={0.4} tooltip={NotificationsTooltip} />
         )}

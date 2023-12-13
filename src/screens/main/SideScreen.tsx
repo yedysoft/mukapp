@@ -39,6 +39,12 @@ export default function SideScreen() {
       disabled: true,
     },
     {
+      icon: 'shield',
+      label: t.do('main.side.ps'),
+      route: 'PS',
+      disabled: true,
+    },
+    {
       icon: 'settings',
       label: t.do('main.side.settings'),
       route: 'Settings',

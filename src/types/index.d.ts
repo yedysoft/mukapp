@@ -52,6 +52,9 @@ export type LangAuth<T> = {
     back: T;
     submit: T;
   };
+  edit: {
+    submit: T;
+  };
 };
 export type LangMain<T> = {
   room: {
@@ -85,6 +88,7 @@ export type LangMain<T> = {
     premium: T;
     tasks: T;
     settings: T;
+    ps: T;
   };
   search: {
     placeholder: T;
@@ -107,6 +111,9 @@ export type LangMain<T> = {
       tr: T;
       en: T;
     };
+  };
+  ps: {
+    blocked: T;
   };
 };
 export type LangRoomConfig<T> = {

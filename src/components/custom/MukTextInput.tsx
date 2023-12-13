@@ -25,6 +25,7 @@ type Props = {
   onBlur?: () => void;
   selectionColor?: string;
   showKeyboard?: boolean;
+  disabled?: boolean;
 };
 
 export type MukTextInputRef = {
@@ -54,6 +55,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       selectionColor,
       underlineStyle,
       showKeyboard,
+      disabled,
     }: Props,
     ref,
   ) => {
@@ -102,6 +104,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       <View style={[{flexDirection: 'column', gap: responsiveWidth(8), minHeight: responsiveWidth(60)}, style]}>
         <TextInput
           label={label}
+          disabled={disabled}
           inputMode={inputMode}
           mode={mode ?? 'flat'}
           secureTextEntry={hideText}

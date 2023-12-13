@@ -7,10 +7,21 @@ export type ILogin = {
 };
 
 export type IForgot = {
-  name: string;
+  email: string;
 };
 
 export type IRegister = {
+  userName: string;
+  email: string;
+  userPass: string;
+  name?: string;
+  surname?: string;
+  birthday?: string;
+  gender?: IGender;
+  telNumber?: string;
+};
+
+export type IEdit = {
   userName: string;
   email: string;
   userPass: string;

@@ -45,6 +45,9 @@ export const tr: MukLang = {
       back: 'Geri',
       submit: 'Sıfırla',
     },
+    edit: {
+      submit: 'Değişiklikleri Onayla',
+    },
   },
   main: {
     room: {
@@ -78,6 +81,7 @@ export const tr: MukLang = {
       premium: 'Premium',
       tasks: 'Görevler',
       settings: 'Ayarlar',
+      ps: 'Gizlilik & Güvenlik',
     },
     search: {
       placeholder: 'Kullanıcı Ara',
@@ -100,6 +104,9 @@ export const tr: MukLang = {
         tr: 'Türkçe',
         en: 'İngilizce',
       },
+    },
+    ps: {
+      blocked: 'Engellenen Kullanıcılar',
     },
   },
   roomConfig: {
@@ -153,6 +160,9 @@ export const en: MukLang = {
       back: 'Back',
       submit: 'Reset',
     },
+    edit: {
+      submit: 'Submit Changes',
+    },
   },
   main: {
     room: {
@@ -186,6 +196,7 @@ export const en: MukLang = {
       premium: 'Premium',
       tasks: 'Tasks',
       settings: 'Settings',
+      ps: 'Privacy & Security',
     },
     task: {
       blank: '',
@@ -208,6 +219,9 @@ export const en: MukLang = {
         tr: 'Turkish',
         en: 'English',
       },
+    },
+    ps: {
+      blocked: 'Blocked Users',
     },
   },
   roomConfig: {

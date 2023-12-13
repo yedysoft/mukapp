@@ -11,6 +11,8 @@ import {NotificationsScreen} from '../screens/main/NotificationsScreen';
 import {IChat} from '../types/user';
 import {SettingsScreen} from '../screens/main/SettingsScreen';
 import BlockedScreen from '../screens/main/social/BlockedScreen';
+import EditScreen from '../screens/main/EditScreen';
+import {PsScreen} from '../screens/main/PsScreen';
 
 export type MainStackScreens = {
   Main: undefined;
@@ -21,8 +23,10 @@ export type MainStackScreens = {
   Notifications: undefined;
   Task: undefined;
   Premium: undefined;
+  PS: undefined;
   Settings: undefined;
   Blocked: undefined;
+  Edit: undefined;
 };
 export type MainStackNavProp = StackNavigationProp<MainStackScreens, 'Main'>;
 
@@ -42,8 +46,10 @@ export default function MainStack() {
         <Main.Screen name="Notifications" component={NotificationsScreen} />
         <Main.Screen name="Task" component={TaskScreen} />
         <Main.Screen name="Premium" component={PremiumScreen} />
+        <Main.Screen name="PS" component={PsScreen} />
         <Main.Screen name="Settings" component={SettingsScreen} />
         <Main.Screen name="Blocked" component={BlockedScreen} />
+        <Main.Screen name="Edit" component={EditScreen} />
       </Main.Group>
     </Main.Navigator>
   );

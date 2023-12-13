@@ -17,7 +17,7 @@ import {AuthStackNavProp} from '../../navigation/AuthStack';
 export const AuthForgotForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
-  const [form, setForm] = useState<IForgot>({name: ''});
+  const [form, setForm] = useState<IForgot>({email: ''});
   const {api, t} = useServices();
   const {loading} = useStores();
   const formRef = useRef<MukFormRef>(null);
@@ -34,9 +34,9 @@ export const AuthForgotForm = observer(() => {
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.forgot.title')}</Text>
         <MukForm ref={formRef}>
           <MukTextInput
-            name={'name'}
+            name={'email'}
             label={t.do('auth.forgot.email')}
-            value={form.name}
+            value={form.email}
             onChange={handleOnChange}
             preValidate={'required'}
             validate={[value => value.length >= 3]}

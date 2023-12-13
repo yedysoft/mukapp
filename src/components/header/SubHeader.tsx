@@ -35,6 +35,8 @@ export const SubHeader = observer(() => {
         <Token style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
       ) : route.name === 'Room' ? (
         <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
+      ) : route.name === 'Profile' ? (
+        <MukIconButton icon={'edit'} scale={0.4} onPress={() => navigation.navigate('Edit')} />
       ) : null}
     </SafeAreaView>
   );
