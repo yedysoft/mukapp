@@ -4,10 +4,10 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
-import {IChat, ILastMessage} from '../../types/user';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {IChat, ILastMessage} from '../../types/chat';
 
 type Props = {
   chat: IChat;
@@ -17,7 +17,7 @@ export default function MessagesListItem({chat}: Props) {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
-  const lastMessage: ILastMessage = api.helper.getLastMessage(chat.messages);
+  const lastMessage: ILastMessage = api.chat.getLastMessage(chat.messages);
 
   return (
     <MukListItem onPress={() => navigation.navigate('Chat', {chat: chat})}>
@@ -35,7 +35,7 @@ export default function MessagesListItem({chat}: Props) {
             numberOfLines={1}
             style={{fontSize: responsiveSize(15), fontWeight: '400', position: 'absolute', right: 0}}
           >
-            {lastMessage.date instanceof Date ? lastMessage.date.getTime() : lastMessage.date}
+            {lastMessage.date.toDateString()}
           </Text>
         </View>
         <Text numberOfLines={2} style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400'}}>

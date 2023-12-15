@@ -1,7 +1,7 @@
 import {BaseStore} from './base';
 import user from './user';
 import {IRoom, IRoomConfig, IRoomLeaderboard} from '../types/room';
-import {IMessage} from 'react-native-gifted-chat';
+import {IMessage} from '../types/chat';
 
 export class RoomStore extends BaseStore<RoomStore> {
   streamerId: string | null = null;

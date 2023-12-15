@@ -8,11 +8,11 @@ import TaskScreen from '../screens/main/TaskScreen';
 import PremiumScreen from '../screens/main/PremiumScreen';
 import {SearchScreen} from '../screens/main/social/SearchScreen';
 import {NotificationsScreen} from '../screens/main/NotificationsScreen';
-import {IChat} from '../types/user';
 import {SettingsScreen} from '../screens/main/SettingsScreen';
 import BlockedScreen from '../screens/main/social/BlockedScreen';
 import EditScreen from '../screens/main/EditScreen';
 import {PsScreen} from '../screens/main/PsScreen';
+import {IChat} from '../types/chat';
 
 export type MainStackScreens = {
   Main: undefined;

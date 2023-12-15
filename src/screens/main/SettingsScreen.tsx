@@ -23,7 +23,10 @@ export const SettingsScreen = observer(() => {
   const {t} = useServices();
 
   const ThemeDict = useMemo(() => objectToDict(_appearances, 'theme', t), [ui.getScheme, ui.getLanguage]);
-  const LanguageDict = useMemo(() => objectToDict(_languages, 'language', t), [ui.getLanguage]);
+  const LanguageDict = useMemo(
+    () => ({..._languages, system: t.do('main.settings.language.system')}),
+    [ui.getLanguage],
+  );
 
   return (
     <MainLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
@@ -40,10 +43,7 @@ export const SettingsScreen = observer(() => {
           items={LanguageDict}
           name={'language'}
           value={ui.language}
-          onValueChange={(_name, value) => {
-            ui.set('language', value as ILanguage);
-            t.setup();
-          }}
+          onValueChange={(_name, value) => t.setup(value as ILanguage)}
         />
       </MukCard>
     </MainLayout>

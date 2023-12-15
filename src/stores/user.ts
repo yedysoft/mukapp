@@ -1,7 +1,8 @@
 import {BaseStore} from './base';
-import {IBlockedUser, IChat, IFollowRequest, IFollowUser, IInfo, ISearchUser} from '../types/user';
+import {IBlockedUser, IFollowRequest, IFollowUser, IInfo, ISearchUser} from '../types/user';
 import defaults from '../utils/defaults';
 import {IQueueTrack} from '../types/media';
+import {IChat} from '../types/chat';
 
 export class UserStore extends BaseStore<UserStore> {
   info: IInfo = defaults.info;
