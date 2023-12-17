@@ -23,15 +23,6 @@ export class UserApi {
     }
   }
 
-  async getChats(): PVoid {
-    try {
-      const response = await axiosIns.get('/message/getChats');
-      stores.user.set('chats', response.data);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   async addCoin(quantity: number): PVoid {
     try {
       await axiosIns.get(`/test/addCoin/${stores.user.getInfo.id}/${quantity}`);
