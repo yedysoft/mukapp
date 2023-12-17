@@ -44,7 +44,10 @@ export default function ChatComposer({sendMessage}: Props) {
         mode={'outlined'}
         style={{flex: 1}}
       />
-      <MukIconButton icon={'send'} scale={0.4} color={colors.secondary} onPress={() => sendMessage(message)} />
+      <MukIconButton icon={'send'} scale={0.4} color={colors.secondary} onPress={() => {
+        message.content !== '' && sendMessage(message);
+        setMessage({...message, content: ''});
+      }} />
     </View>
   );
 }

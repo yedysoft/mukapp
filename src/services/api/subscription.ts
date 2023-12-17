@@ -101,12 +101,11 @@ export class SubscriptionApi {
   private messageListenCallback(message: Message) {
     const newMessage: IMessage = JSON.parse(message.body);
     if (newMessage.type === 'Public') {
-      console.log(newMessage);
-      stores.room.set('chat', [...stores.room.getChat, newMessage]);
+      stores.room.set('chat', [newMessage, ...stores.room.getChat]);
     } else if (newMessage.type === 'Private' || newMessage.type === 'Group') {
       const newChats = stores.user.getChats.map((c, _) =>
         c.id === newMessage.receiverId && c.type === newMessage.type
-          ? {...c, messages: [...c.messages, newMessage]}
+          ? {...c, messages: [newMessage, ...c.messages]}
           : c,
       );
       stores.user.set('chats', newChats);
