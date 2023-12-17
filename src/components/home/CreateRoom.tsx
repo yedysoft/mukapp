@@ -28,7 +28,7 @@ const CreateRoom = observer(() => {
 
   useEffect(() => {
     if (!room.getConfig) {
-      api.room.setConfig(t.do('roomConfig.placeholder'));
+      api.room.setConfig();
     } else {
       setForm(room.getConfig);
     }
@@ -58,14 +58,14 @@ const CreateRoom = observer(() => {
 
   return (
     <>
-      {!room.isLive ? <MukFAB onPress={handleSheet} /> : null}
+      {!room.isLive ? <MukFAB onPress={handleSheet}/> : null}
       <MukSheet
         snaps={['50%']}
         sheetRef={sheetRef}
         contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
       >
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
-          <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
+          <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')}/>
           <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', gap: responsiveWidth(8)}}>
             <View style={{gap: responsiveWidth(4)}}>
               <Text
@@ -101,7 +101,7 @@ const CreateRoom = observer(() => {
             </MukForm>
           </View>
         </View>
-        <MukButton label={t.do('roomConfig.submit')} onPress={() => createRoom()} />
+        <MukButton label={t.do('roomConfig.submit')} onPress={() => createRoom()}/>
       </MukSheet>
     </>
   );

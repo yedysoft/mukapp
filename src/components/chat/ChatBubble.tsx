@@ -4,17 +4,17 @@ import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
 import {IInfo} from '../../types/user';
+import {IMessage} from '../../types/chat';
+import {useStores} from '../../stores';
 
 type Props = {
-  me: boolean;
-  message?: {
-    text: string;
-    user: IInfo;
-  };
+  message: IMessage;
 };
 
-export default function ChatBubble({me, message}: Props) {
+export default function ChatBubble({message}: Props) {
   const {colors} = useTheme<MukTheme>();
+  const {user} = useStores();
+  const me = message.senderId === user.getInfo.id
 
   return (
     <View
@@ -25,7 +25,7 @@ export default function ChatBubble({me, message}: Props) {
       }}
     >
       <MukImage
-        source={message?.user.image ?? require('../../../assets/adaptive-icon.png')}
+        source={require('../../../assets/adaptive-icon.png')}
         scale={0.6}
         style={{
           display: me ? 'none' : undefined,
@@ -46,10 +46,10 @@ export default function ChatBubble({me, message}: Props) {
         }}
       >
         <Text style={{display: me ? 'none' : undefined, color: colors.tertiary, textAlign: 'left'}}>
-          {message?.user.userName ?? '@eto'}
+          {message?.senderId ?? '@eto'}
         </Text>
         <Text style={{color: me ? colors.secondary : colors.background, textAlign: 'left'}}>
-          {message?.text ?? 'Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet'}
+          {message?.content ?? 'Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet'}
         </Text>
       </View>
     </View>

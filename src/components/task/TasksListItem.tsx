@@ -22,7 +22,7 @@ export default function TasksListItem() {
       }}
     >
       <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-        <MukIcon scale={0.8} color={colors.outline} icon={'newspaper-variant-outline'} />
+        <MukIcon scale={0.8} color={colors.outline} icon={'align-left'} />
         <View style={{gap: responsiveWidth(4), width: responsiveWidth(240)}}>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '600'}}>
             Task Title (1/3)

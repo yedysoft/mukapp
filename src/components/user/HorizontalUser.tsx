@@ -11,7 +11,7 @@ export default function HorizontalUser() {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
   return (
-    <View style={{flexDirection: 'row', gap: responsiveWidth(12), padding: responsiveWidth(16)}}>
+    <View style={{flexDirection: 'row', gap: responsiveWidth(12), padding: responsiveWidth(16), overflow: 'hidden'}}>
       <MukImage
         scale={1.5}
         source={require('../../../assets/adaptive-icon.png')}
@@ -19,7 +19,7 @@ export default function HorizontalUser() {
       />
       <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(4), gap: responsiveWidth(8)}}>
         <View style={{gap: 4}}>
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20)}}>
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20), maxWidth: '90%'}}>
             {user.getInfo.name} {user.getInfo.surname}
           </Text>
           <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(20)}}>

@@ -22,8 +22,9 @@ export default function TokenExchange() {
     >
       <Token style={{width: '30%', justifyContent: 'flex-start'}} />
       <MukIconButton
-        style={{transform: [{rotate: '90deg'}, {rotateY: '180deg'}]}}
-        icon={'sync'}
+        scale={1}
+        style={{}}
+        icon={'refresh-cw'}
         onPress={() => console.log('convert')}
       />
       <Coin style={{width: '30%', justifyContent: 'flex-end'}} />
