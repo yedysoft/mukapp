@@ -98,17 +98,30 @@ export class MediaApi {
 
   async setPlayingTrack(data: any): PVoid {
     try {
+      const playingTrack = await this.getPlayingTrack(data);
+      if (playingTrack) {
+        stores.media.set('playingTrack', playingTrack);
+      }
+    } catch (e: any) {
+      console.log(e);
+    }
+  }
+
+  async getPlayingTrack(data: any): Promise<IPlayingTrack | null> {
+    let playingTrack: IPlayingTrack | null = null;
+    try {
       if (data !== '') {
         const track: IPlayingTrack = this.getTrack(data.item) as IPlayingTrack;
         track.isPlaying = data.is_playing;
         track.progress = data.progress_ms;
         track.dominantColor = data.dominantColor;
         track.voteable = data.voteable;
-        stores.media.set('playingTrack', track);
+        playingTrack = track;
       }
     } catch (e: any) {
       console.log(e);
     }
+    return playingTrack;
   }
 
   async setQueue(data: any): PVoid {
@@ -123,8 +136,8 @@ export class MediaApi {
 
   async setVoteResult(data: IVoteResult): PVoid {
     try {
-      if (stores.media.queue.length > 0) {
-        const updatedItems = stores.media.queue.map((t, _) =>
+      if (stores.media.getQueue.length > 0) {
+        const updatedItems = stores.media.getQueue.map((t, _) =>
           t.uri === data.musicUri ? {...t, voteCount: data.voteCount} : t,
         );
         updatedItems.sort((a, b) => b.voteCount - a.voteCount);

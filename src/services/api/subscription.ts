@@ -103,9 +103,12 @@ export class SubscriptionApi {
     const newMessage: IMessage = JSON.parse(message.body);
     if (newMessage.type === IMessageType.Public) {
       stores.room.set('chat', [...stores.room.getChat, newMessage]);
-    } else if (newMessage.type === IMessageType.Private) {
-      const messages: IMessage[] = [];
-      stores.user.set('chats', [...stores.user.getChats, {id: '', name: '', type: 'private', messages: messages}]);
+    } else if (newMessage.type === IMessageType.Private || newMessage.type === IMessageType.Group) {
+      const type = newMessage.type === IMessageType.Private ? 'private' : 'group';
+      const newChats = stores.user.getChats.map((c, _) =>
+        c.id === newMessage.receiverId && c.type === type ? {...c, messages: [...c.messages, newMessage]} : c,
+      );
+      stores.user.set('chats', newChats);
     }
   }
 
