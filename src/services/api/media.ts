@@ -110,7 +110,7 @@ export class MediaApi {
   async getPlayingTrack(data: any): Promise<IPlayingTrack | null> {
     let playingTrack: IPlayingTrack | null = null;
     try {
-      if (data !== '') {
+      if (data && data !== '') {
         const track: IPlayingTrack = this.getTrack(data.item) as IPlayingTrack;
         track.isPlaying = data.is_playing;
         track.progress = data.progress_ms;
