@@ -5,7 +5,7 @@ export type IRoom = {
   sessionId: string;
   roomName: string;
   streamerName: string;
-  liveSong: IPlayingTrack;
+  liveSong: IPlayingTrack | null;
   population: number;
   isLive: boolean;
 };

@@ -1,9 +1,10 @@
 import subscription from './subscription';
 import {stores} from '../../stores';
 import axiosIns from '../axiosIns';
-import {IRoomConfig, IRoomSession} from '../../types/room';
+import {IRoom, IRoomConfig, IRoomSession} from '../../types/room';
 import defaults from '../../utils/defaults';
 import {PVoid} from '../../types';
+import media from './media';
 
 export class RoomApi {
   async createRoom(config: IRoomConfig): PVoid {
@@ -44,7 +45,20 @@ export class RoomApi {
   async getRooms(role: string): PVoid {
     try {
       const response = await axiosIns.get(`/custom/getPlaces/${role}`);
-      stores.room.set(role === 'PLACE' ? 'places' : 'users', response.data);
+      const rooms: IRoom[] = [];
+      for (const r of response.data) {
+        const room: IRoom = {
+          streamerId: r.streamerId,
+          sessionId: r.sessionId,
+          roomName: r.roomName,
+          streamerName: r.streamerName,
+          population: r.population,
+          isLive: r.isLive,
+          liveSong: await media.getPlayingTrack(r.liveSong.item),
+        };
+        rooms.push(room);
+      }
+      stores.room.set(role === 'PLACE' ? 'places' : 'users', rooms);
     } catch (e: any) {
       console.log(e);
     }
