@@ -41,9 +41,9 @@ const RoomListItem = observer(({roomData}: Props) => {
             @{roomData.streamerName}
           </Text>
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', overflow: 'hidden', maxWidth: '100%'}}>
           <MukIcon icon={'speaker'} scale={0.6} color={colors.tertiary} iconStyle={{marginLeft: responsiveWidth(-8)}} />
-          <Text style={{color: colors.secondary, fontSize: responsiveSize(14)}}>{roomData.liveSong?.name}</Text>
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(14)}}>{roomData.liveSong?.name}</Text>
         </View>
         {/*
           <View
