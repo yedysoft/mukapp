@@ -8,6 +8,7 @@ export type IChat = {
 export type IMessage = {
   id: string;
   senderId: string;
+  senderName: string;
   receiverId: string;
   date: Date;
   content: string;
