@@ -54,7 +54,7 @@ export class RoomApi {
           streamerName: r.streamerName,
           population: r.population,
           isLive: r.isLive,
-          liveSong: await media.getPlayingTrack(r.liveSong.item),
+          liveSong: await media.getPlayingTrack(r.liveSong),
         };
         rooms.push(room);
       }
