@@ -12,20 +12,6 @@ export const _appearances = {
 };
 export type IAppearance = keyof typeof _appearances;
 
-export enum IMessageType {
-  Public = 0,
-  Private = 1,
-  Group = 2,
-}
-
-export enum IMessageContentType {
-  Text = 0,
-  Picture = 1,
-  Video = 2,
-  Link = 3,
-  File = 4,
-}
-
 export enum IGender {
   Male = 0,
   Female = 1,

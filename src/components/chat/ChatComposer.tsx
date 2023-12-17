@@ -21,8 +21,8 @@ export default function ChatComposer({sendMessage}: Props) {
     receiverId: room.sessionId ?? '',
     date: new Date(),
     content: '',
-    contentType: 0,
-    type: 0,
+    contentType: 'Text',
+    type: 'Public',
   });
 
   return (
@@ -37,8 +37,14 @@ export default function ChatComposer({sendMessage}: Props) {
         width: screenWidth,
       }}
     >
-      <MukTextInput name={'composer'} value={message.content} onChange={(name, value) => setMessage({...message, content: value})} mode={'outlined'} style={{flex: 1}}/>
-      <MukIconButton icon={'send'} scale={0.4} color={colors.secondary} onPress={() => sendMessage(message)}/>
+      <MukTextInput
+        name={'composer'}
+        value={message.content}
+        onChange={(name, value) => setMessage({...message, content: value})}
+        mode={'outlined'}
+        style={{flex: 1}}
+      />
+      <MukIconButton icon={'send'} scale={0.4} color={colors.secondary} onPress={() => sendMessage(message)} />
     </View>
   );
 }

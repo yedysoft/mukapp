@@ -1,5 +1,4 @@
 import {ILastMessage, IMessage} from '../../types/chat';
-import {IMessageContentType} from '../../types/enums';
 
 export class ChatApi {
   getLastMessage(messages: IMessage[]): ILastMessage {
@@ -13,14 +12,14 @@ export class ChatApi {
       : {date: new Date(), message: ''};
   }
 
-  private getMessageByContentType(content: string, contentType: IMessageContentType) {
-    if (contentType === IMessageContentType.Picture) {
+  private getMessageByContentType(content: string, contentType: 'Text' | 'Picture' | 'Video' | 'Link' | 'File') {
+    if (contentType === 'Picture') {
       return 'Resim';
     }
-    if (contentType === IMessageContentType.Video) {
+    if (contentType === 'Video') {
       return 'Video';
     }
-    if (contentType === IMessageContentType.File) {
+    if (contentType === 'File') {
       return 'Dosya';
     }
     return content;

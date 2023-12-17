@@ -1,9 +1,7 @@
-import {IMessageContentType, IMessageType} from './enums';
-
 export type IChat = {
   id: string;
   name: string;
-  type: 'group' | 'private';
+  type: 'Private' | 'Group';
   messages: IMessage[];
 };
 
@@ -13,8 +11,8 @@ export type IMessage = {
   receiverId: string;
   date: Date;
   content: string;
-  contentType: IMessageContentType;
-  type: IMessageType;
+  contentType: 'Text' | 'Picture' | 'Video' | 'Link' | 'File';
+  type: 'Public' | 'Private' | 'Group';
   quotedMessageId?: string;
 };
 

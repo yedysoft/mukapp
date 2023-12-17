@@ -4,7 +4,6 @@ import {stores} from '../../stores';
 import {StompSubscription} from '@stomp/stompjs';
 import media from './media';
 import {IVote} from '../../types/media';
-import {IMessageType} from '../../types/enums';
 import {MessageBody, PVoid} from '../../types';
 import {IMessage} from '../../types/chat';
 
@@ -101,12 +100,14 @@ export class SubscriptionApi {
   //Düzenlenecekkk
   private messageListenCallback(message: Message) {
     const newMessage: IMessage = JSON.parse(message.body);
-    if (newMessage.type === IMessageType.Public) {
+    if (newMessage.type === 'Public') {
+      console.log(newMessage);
       stores.room.set('chat', [...stores.room.getChat, newMessage]);
-    } else if (newMessage.type === IMessageType.Private || newMessage.type === IMessageType.Group) {
-      const type = newMessage.type === IMessageType.Private ? 'private' : 'group';
+    } else if (newMessage.type === 'Private' || newMessage.type === 'Group') {
       const newChats = stores.user.getChats.map((c, _) =>
-        c.id === newMessage.receiverId && c.type === type ? {...c, messages: [...c.messages, newMessage]} : c,
+        c.id === newMessage.receiverId && c.type === newMessage.type
+          ? {...c, messages: [...c.messages, newMessage]}
+          : c,
       );
       stores.user.set('chats', newChats);
     }
