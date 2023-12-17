@@ -50,10 +50,10 @@ export class RoomApi {
     }
   }
 
-  async setConfig(placeholder: string): PVoid {
+  async setConfig(): PVoid {
     try {
       const response = await axiosIns.get(`/room-config/getByRoomId/${stores.user.info.id}`);
-      response.data.name = `${response.data.name}${placeholder}`;
+      response.data.name = `${response.data.name}`;
       stores.room.set('config', response.data);
     } catch (e: any) {
       console.log(e);

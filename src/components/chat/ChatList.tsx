@@ -1,11 +1,12 @@
 import {useTheme} from 'react-native-paper';
-import {FlatList, View} from 'react-native';
+import {FlatList} from 'react-native';
 import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import ChatBubble from './ChatBubble';
+import {IMessage} from '../../types/chat';
 
 type Props = {
-  data: any[];
+  data: IMessage[];
 };
 
 export default function ChatList({data}: Props) {
@@ -20,12 +21,9 @@ export default function ChatList({data}: Props) {
         padding: responsiveWidth(8),
       }}
       data={data}
-      renderItem={() => {
+      renderItem={({item}) => {
         return (
-          <View style={{gap: responsiveWidth(8)}}>
-            <ChatBubble me={true} />
-            <ChatBubble me={false} />
-          </View>
+          <ChatBubble message={item}/>
         );
       }}
       inverted
