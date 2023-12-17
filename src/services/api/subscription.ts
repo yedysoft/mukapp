@@ -105,10 +105,7 @@ export class SubscriptionApi {
       stores.room.set('chat', [...stores.room.getChat, newMessage]);
     } else if (newMessage.type === IMessageType.Private) {
       const messages: IMessage[] = [];
-      stores.user.set('chats', [
-        ...stores.user.getChats,
-        {id: '', name: '', type: IMessageType.Private, messages: messages},
-      ]);
+      stores.user.set('chats', [...stores.user.getChats, {id: '', name: '', type: 'private', messages: messages}]);
     }
   }
 

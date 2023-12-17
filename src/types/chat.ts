@@ -3,7 +3,7 @@ import {IMessageContentType, IMessageType} from './enums';
 export type IChat = {
   id: string;
   name: string;
-  type: IMessageType;
+  type: 'group' | 'private';
   messages: IMessage[];
 };
 

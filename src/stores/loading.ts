@@ -3,6 +3,7 @@ import {BaseStore} from './base';
 export class LoadingStore extends BaseStore<LoadingStore> {
   // Auth
   login = false;
+  logout = false;
   register = false;
   forgotPass = false;
 
@@ -25,6 +26,10 @@ export class LoadingStore extends BaseStore<LoadingStore> {
 
   get getLogin() {
     return this.login;
+  }
+
+  get getLogout() {
+    return this.logout;
   }
 
   get getRegister() {

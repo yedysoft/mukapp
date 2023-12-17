@@ -47,10 +47,17 @@ export class AuthApi {
   }
 
   async logout(): PVoid {
-    stores.room.isLive && (await room.closeRoom());
-    await socket.disconnect();
-    this.clearAuth();
-    await this.checkToken();
+    try {
+      stores.loading.set('logout', true);
+      stores.room.isLive && (await room.closeRoom());
+      await socket.disconnect();
+      this.clearAuth();
+      await this.checkToken();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      stores.loading.set('logout', false);
+    }
   }
 
   async checkToken(): PVoid {
