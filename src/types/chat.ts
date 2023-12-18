@@ -21,3 +21,18 @@ export type ILastMessage = {
   date: Date;
   message: string;
 };
+
+export type IGroupPost = {
+  name: string;
+};
+
+export type IGroup = {
+  id: string;
+  name: string;
+  users: IGroupUser[];
+};
+
+export type IGroupUser = {
+  id: string;
+  authority: 'Admin' | 'User';
+};
