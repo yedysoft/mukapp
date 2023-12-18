@@ -1,5 +1,5 @@
 import {forwardRef, ReactNode, useImperativeHandle} from 'react';
-import {StyleProp, View, ViewStyle} from 'react-native';
+import {ScrollView, StyleProp, ViewStyle} from 'react-native';
 import {stores} from '../../stores';
 import {useServices} from '../../services';
 import {MukTextInputRef} from './MukTextInput';
@@ -36,7 +36,7 @@ const MukForm = forwardRef<MukFormRef, Props>(({children, style}: Props, ref) =>
     validateInputs,
   }));
 
-  return <View style={style}>{refChildrens}</View>;
+  return <ScrollView style={style}>{refChildrens}</ScrollView>;
 });
 
 export default MukForm;

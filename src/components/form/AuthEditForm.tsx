@@ -8,7 +8,6 @@ import {useServices} from '../../services';
 import {Pressable, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import MukPicker from '../custom/MukPicker';
@@ -30,23 +29,29 @@ export const AuthEditForm = observer(() => {
   };
 
   return (
-    <SafeAreaView
-      style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', paddingTop: responsiveHeight(32)}}
+    <View
+      style={{
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        gap: responsiveWidth(16),
+      }}
     >
-      <Pressable onPress={() => setVisible(true)}>
-        <MukImage
-          scale={2.4}
-          source={{uri: user.getInfo.image}}
-          style={{
-            borderWidth: responsiveSize(4),
-            borderRadius: 100,
-            aspectRatio: 1,
-            borderColor: colors.primary,
-            backgroundColor: 'transparent',
-          }}
-        />
-      </Pressable>
-      <MukForm ref={formRef}>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <Pressable style={{borderRadius: 100}} onPress={() => setVisible(true)}>
+          <MukImage
+            scale={2.4}
+            source={{uri: user.getInfo.image}}
+            style={{
+              borderWidth: responsiveSize(4),
+              borderRadius: 100,
+              aspectRatio: 1,
+              borderColor: colors.primary,
+              backgroundColor: 'transparent',
+            }}
+          />
+        </Pressable>
+      </View>
+      <MukForm ref={formRef} style={{height: responsiveHeight(320)}}>
         <MukTextInput
           name={'name'}
           label={t.do('auth.register.name')}
@@ -135,7 +140,7 @@ export const AuthEditForm = observer(() => {
           justifyContent: 'flex-start',
           alignItems: 'center',
           height: responsiveHeight(160),
-          marginTop: responsiveHeight(-100),
+          //marginTop: responsiveHeight(-100),
         }}
       >
         {displayPicker === 'birthday' ? (
@@ -156,6 +161,6 @@ export const AuthEditForm = observer(() => {
         )}
       </View>
       <EditImage setVisible={setVisible} isVisible={visible} />
-    </SafeAreaView>
+    </View>
   );
 });

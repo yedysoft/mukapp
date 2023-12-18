@@ -37,7 +37,12 @@ export const SubHeader = observer(() => {
       ) : route.name === 'Room' ? (
         <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
       ) : route.name === 'Profile' ? (
-        <MukIconButton icon={'edit'} scale={0.4} onPress={() => navigation.navigate('Edit')} />
+        <MukIconButton
+          style={{justifyContent: 'flex-end', marginRight: responsiveWidth(-8)}}
+          icon={'edit'}
+          scale={0.4}
+          onPress={() => navigation.navigate('Edit')}
+        />
       ) : route.name === 'Chat' ? (
         <Text style={{fontSize: responsiveSize(18), color: colors.secondary}}>{params?.chat.name}</Text>
       ) : null}
