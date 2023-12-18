@@ -17,8 +17,8 @@ export const MukChat = observer(({sendMessage, messages}: Props) => {
 
   return (
     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', width: screenWidth}}>
-      <ChatList data={messages}/>
-      <ChatComposer sendMessage={sendMessage}/>
+      <ChatList data={messages} />
+      <ChatComposer sendMessage={sendMessage} />
     </View>
   );
 });

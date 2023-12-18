@@ -17,7 +17,8 @@ export type IFollowUser = {
   imagePath: string;
   name: string;
   surname: string;
-  userId: string;
+  id: string;
+  selected?: boolean;
 };
 
 export type IFollowRequest = {

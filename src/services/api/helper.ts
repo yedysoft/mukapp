@@ -192,7 +192,7 @@ export class HelperApi {
 
   isUserFollows(userId: string) {
     try {
-      return !!stores.user.getFollows.find(f => f.userId === userId);
+      return !!stores.user.getFollows.find(f => f.id === userId);
     } catch (e) {
       console.log(e);
     }

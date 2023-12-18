@@ -1,6 +1,6 @@
 import MukFAB from '../../components/custom/MukFAB';
 import MukSheet from '../../components/custom/MukSheet';
-import {useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
@@ -12,24 +12,54 @@ import FriendsList from './FriendsList';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {IChat} from '../../types/chat';
 
 const CreateChat = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation<MainStackNavProp>();
-  const {t} = useServices();
+  const {t, api} = useServices();
   const {colors} = useTheme<MukTheme>();
-  const {user} = useStores();
+  const {user, room} = useStores();
+  const [users, setUsers] = useState(user.getFollows);
+
+  useEffect(() => {
+    setUsers(user.getFollows);
+  }, [user.getFollows]);
+
+  const selectUser = (id: string) => {
+    setUsers(users.map(user => (user.id === id ? {...user, selected: !user.selected} : user)));
+  };
 
   const handleSheet = () => {
+    user.getInfo.id && api.user.getFollows(user.getInfo.id);
     sheetRef.current?.expand();
   };
 
   const createChat = async () => {
+    let chat: IChat | null = null;
+    const selectionLength = users.filter(u => u.selected).length;
+    if (selectionLength === 1) {
+      const selectedUser = users.find(u => u.selected);
+      if (selectedUser) {
+        const chatFound = user.getChats.find(c => c.id === selectedUser.id);
+        if (!chatFound) {
+          chat = {
+            id: selectedUser.id,
+            name: selectedUser.userName,
+            type: 'Private',
+            messages: [],
+          };
+          user.set('chats', [...user.getChats, chat]);
+        } else {
+          chat = chatFound;
+        }
+      }
+    } else if (selectionLength > 1) {
+      chat = await api.chat.createGroup({name: `${user.getInfo.userName}'s Group`});
+    }
+    chat && navigation.navigate('Chat', {chat: chat});
     sheetRef.current?.close();
-    navigation.navigate('Chat');
   };
-
-  const {room} = useStores();
 
   return (
     <>
@@ -38,10 +68,14 @@ const CreateChat = observer(() => {
         snaps={['70%']}
         sheetRef={sheetRef}
         containerStyle={{marginBottom: room.isLive ? 88 : 0}}
-        contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
+        contentStyle={{
+          gap: responsiveWidth(16),
+          justifyContent: 'space-between',
+          paddingVertical: responsiveWidth(16),
+        }}
       >
-        <FriendsList friends={user.getFollows} />
-        <MukButton label={t.do('roomConfig.createRoom')} onPress={() => createChat()} />
+        <FriendsList friends={users} onPress={selectUser} />
+        <MukButton label={t.do('main.social.newChat')} onPress={() => createChat()} />
       </MukSheet>
     </>
   );

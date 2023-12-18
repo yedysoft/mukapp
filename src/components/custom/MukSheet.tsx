@@ -1,6 +1,6 @@
 import {StyleProp, View, ViewStyle} from 'react-native';
 import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
-import React, {ReactNode, useCallback, useMemo} from 'react';
+import React, {ReactNode, useCallback} from 'react';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {useTheme} from 'react-native-paper';
@@ -17,7 +17,6 @@ type Props = {
 
 const MukSheet = observer(({sheetRef, children, contentStyle, snaps, containerStyle}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const snapPoints = useMemo(() => snaps, []);
   const handleSheetChanges = useCallback((index: number) => {
     //console.log('handleSheetChanges', index);
   }, []);
@@ -32,7 +31,7 @@ const MukSheet = observer(({sheetRef, children, contentStyle, snaps, containerSt
       ref={sheetRef}
       containerStyle={containerStyle}
       index={-1}
-      snapPoints={snapPoints}
+      snapPoints={snaps}
       enablePanDownToClose
       onChange={handleSheetChanges}
       handleIndicatorStyle={{backgroundColor: colors.primary, width: responsiveWidth(80)}}

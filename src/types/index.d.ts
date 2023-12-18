@@ -61,7 +61,7 @@ export type LangMain<T> = {
     blank: T;
   };
   social: {
-    blank: T;
+    newChat: T;
   };
   home: {
     places: T;
@@ -119,7 +119,6 @@ export type LangMain<T> = {
 export type LangRoomConfig<T> = {
   name: T;
   submit: T;
-  placeholder: T;
 };
 export type MukLang = {
   error: LangError<string>;

@@ -7,7 +7,7 @@ import {View} from 'react-native';
 import {MukTheme} from '../../types';
 
 type Props = {
-  onPress?: () => void;
+  onPress?: (id: string) => void;
   friend?: IFollowUser;
 };
 
@@ -15,7 +15,14 @@ export default function FriendsListItem({onPress, friend}: Props) {
   const {colors} = useTheme<MukTheme>();
 
   return (
-    <MukListItem onPress={onPress} style={{alignItems: 'center', backgroundColor: colors.backdrop, borderRadius: 16}}>
+    <MukListItem
+      onPress={() => friend?.id && onPress && onPress(friend?.id)}
+      style={{
+        alignItems: 'center',
+        backgroundColor: friend?.selected ? colors.primary : colors.backdrop,
+        borderRadius: 16,
+      }}
+    >
       <MukImage scale={1} style={{borderRadius: 100}} source={require('../../../assets/adaptive-icon.png')} />
       <View style={{gap: responsiveWidth(4)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>

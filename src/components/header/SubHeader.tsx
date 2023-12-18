@@ -1,5 +1,5 @@
-import {useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveWidth} from '../../utils/util';
+import {Text, useTheme} from 'react-native-paper';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import MukIconButton from '../custom/MukIconButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -14,6 +14,7 @@ export const SubHeader = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
+  const params: any = route.params;
 
   return (
     <SafeAreaView
@@ -24,7 +25,7 @@ export const SubHeader = observer(() => {
         paddingTop: responsiveHeight(16),
         paddingBottom: responsiveHeight(-16),
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: route.name === 'Chat' ? 'flex-start' : 'space-between',
         alignItems: 'center',
       }}
     >
@@ -37,6 +38,8 @@ export const SubHeader = observer(() => {
         <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
       ) : route.name === 'Profile' ? (
         <MukIconButton icon={'edit'} scale={0.4} onPress={() => navigation.navigate('Edit')} />
+      ) : route.name === 'Chat' ? (
+        <Text style={{fontSize: responsiveSize(18), color: colors.secondary}}>{params?.chat.name}</Text>
       ) : null}
     </SafeAreaView>
   );

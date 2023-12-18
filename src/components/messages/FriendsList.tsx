@@ -9,20 +9,23 @@ import {MainStackNavProp} from '../../navigation/MainStack';
 
 type Props = {
   friends?: IFollowUser[];
+  onPress?: (id: string) => void;
 };
 
-export default function FriendsList({friends}: Props) {
+export default function FriendsList({friends, onPress}: Props) {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
 
   return (
     <FlatList
       data={friends}
-      renderItem={({item, index}) => (
-        <FriendsListItem key={index} friend={item} onPress={() => navigation.navigate('Chat')} />
-      )}
+      renderItem={({item, index}) => <FriendsListItem key={index} friend={item} onPress={onPress} />}
       scrollEnabled
-      contentContainerStyle={{paddingVertical: responsiveWidth(8), backgroundColor: colors.background}}
+      contentContainerStyle={{
+        paddingVertical: responsiveWidth(8),
+        backgroundColor: colors.background,
+        gap: responsiveWidth(8),
+      }}
     />
   );
 }

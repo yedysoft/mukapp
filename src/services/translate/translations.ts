@@ -54,7 +54,7 @@ export const tr: MukLang = {
       blank: '',
     },
     social: {
-      blank: '',
+      newChat: 'Yeni Sohbet',
     },
     home: {
       places: 'Mekanlar',
@@ -112,7 +112,6 @@ export const tr: MukLang = {
   roomConfig: {
     name: 'Oda Adı',
     submit: 'Oda Oluştur',
-    placeholder: ' Odası',
   },
 };
 export const en: MukLang = {
@@ -169,7 +168,7 @@ export const en: MukLang = {
       blank: '',
     },
     social: {
-      blank: '',
+      newChat: 'New Chat',
     },
     home: {
       places: 'Places',
@@ -227,6 +226,5 @@ export const en: MukLang = {
   roomConfig: {
     name: 'Room Name',
     submit: 'Create Room',
-    placeholder: "'s Room",
   },
 };
