@@ -11,6 +11,7 @@ type Props = {
   mode?: 'flat' | 'outlined';
   value?: string;
   hideText?: boolean;
+  multiline?: boolean;
   inputMode?: InputModeOptions;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   onChange?: (name: string, value: string) => void;
@@ -41,6 +42,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       label,
       value,
       hideText,
+      multiline,
       inputMode,
       autoCapitalize,
       onChange,
@@ -116,6 +118,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
           selectionColor={selectionColor ?? colors.primary}
           onChangeText={handleInputChange}
           onBlur={onBlur}
+          multiline={multiline}
           onFocus={() => {
             validateInput(value);
             if (onFocus) {

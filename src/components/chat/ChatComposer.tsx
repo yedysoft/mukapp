@@ -43,6 +43,7 @@ export default function ChatComposer({sendMessage, receiverId, messageType}: Pro
         value={message.content}
         onChange={(name, value) => setMessage({...message, content: value})}
         mode={'outlined'}
+        multiline={true}
         style={{flex: 1}}
       />
       <MukIconButton
