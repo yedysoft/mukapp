@@ -7,22 +7,23 @@ import MukIconButton from '../custom/MukIconButton';
 import {IMessage} from '../../types/chat';
 import {useState} from 'react';
 import {useStores} from '../../stores';
+import {IMessageType} from '../../types/enums';
+import defaults from '../../utils/defaults';
 
 type Props = {
   sendMessage: (data: IMessage) => void;
+  receiverId: string;
+  messageType: IMessageType;
 };
 
-export default function ChatComposer({sendMessage}: Props) {
+export default function ChatComposer({sendMessage, receiverId, messageType}: Props) {
   const {colors} = useTheme<MukTheme>();
-  const {room, user} = useStores();
+  const {user} = useStores();
   const [message, setMessage] = useState<IMessage>({
-    id: '',
+    ...defaults.message,
     senderId: user.getInfo.id ?? '',
-    receiverId: room.sessionId ?? '',
-    date: new Date(),
-    content: '',
-    contentType: 'Text',
-    type: 'Public',
+    receiverId: receiverId,
+    type: messageType,
   });
 
   return (
@@ -44,10 +45,17 @@ export default function ChatComposer({sendMessage}: Props) {
         mode={'outlined'}
         style={{flex: 1}}
       />
-      <MukIconButton icon={'send'} scale={0.4} color={colors.secondary} onPress={() => {
-        message.content !== '' && sendMessage(message);
-        setMessage({...message, content: ''});
-      }} />
+      <MukIconButton
+        icon={'send'}
+        scale={0.4}
+        color={colors.secondary}
+        onPress={() => {
+          if (message.content !== '') {
+            sendMessage({...message, date: new Date()});
+            setMessage({...message, content: ''});
+          }
+        }}
+      />
     </View>
   );
 }

@@ -1,6 +1,7 @@
 import {IChat, IGroupPost, ILastMessage, IMessage} from '../../types/chat';
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
+import {IContentType} from '../../types/enums';
 
 export class ChatApi {
   async createGroup(group: IGroupPost): Promise<IChat | null> {
@@ -19,16 +20,17 @@ export class ChatApi {
 
   getLastMessage(messages: IMessage[]): ILastMessage {
     let message: IMessage | null = null;
+    const temp = [...messages];
     if (messages && messages.length > 0) {
-      messages.sort((a, b) => b.date.getTime() - a.date.getTime());
-      message = messages[0];
+      temp.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      message = temp[0];
     }
     return message
       ? {date: message.date, message: this.getMessageByContentType(message.content, message.contentType)}
-      : {date: new Date(), message: ''};
+      : {date: '', message: ''};
   }
 
-  private getMessageByContentType(content: string, contentType: 'Text' | 'Picture' | 'Video' | 'Link' | 'File') {
+  private getMessageByContentType(content: string, contentType: IContentType) {
     if (contentType === 'Picture') {
       return 'Resim';
     }

@@ -18,7 +18,7 @@ export class UserStore extends BaseStore<UserStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UserStore.name, []);
+    this.makeObservableAndPersistable(this, UserStore.name, ['chats']);
   }
 
   get getInfo() {

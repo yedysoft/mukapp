@@ -33,7 +33,14 @@ const RoomTabs = observer(() => {
       tabs={[
         {
           icon: 'message-circle',
-          children: <MukChat sendMessage={api.subscription.sendMessage} messages={room.getChat} />,
+          children: (
+            <MukChat
+              sendMessage={api.subscription.sendMessage}
+              messages={room.getChat}
+              receiverId={room.getSessionId ?? ''}
+              messageType={'Public'}
+            />
+          ),
         },
         {
           icon: 'play-circle',

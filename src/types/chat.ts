@@ -1,7 +1,9 @@
+import {IChatType, IContentType, IMessageType, IUserAuthority} from './enums';
+
 export type IChat = {
   id: string;
   name: string;
-  type: 'Private' | 'Group';
+  type: IChatType;
   messages: IMessage[];
 };
 
@@ -9,16 +11,17 @@ export type IMessage = {
   id: string;
   senderId: string;
   senderName?: string;
+  groupName?: string;
   receiverId: string;
-  date: Date;
+  date: string | Date;
   content: string;
-  contentType: 'Text' | 'Picture' | 'Video' | 'Link' | 'File';
-  type: 'Public' | 'Private' | 'Group';
+  contentType: IContentType;
+  type: IMessageType;
   quotedMessageId?: string;
 };
 
 export type ILastMessage = {
-  date: Date;
+  date: string | Date;
   message: string;
 };
 
@@ -34,5 +37,5 @@ export type IGroup = {
 
 export type IGroupUser = {
   id: string;
-  authority: 'Admin' | 'User';
+  authority: IUserAuthority;
 };

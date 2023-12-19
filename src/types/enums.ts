@@ -12,8 +12,8 @@ export const _appearances = {
 };
 export type IAppearance = keyof typeof _appearances;
 
-export enum IGender {
-  Male = 0,
-  Female = 1,
-  Other = 2,
-}
+export type IChatType = 'Private' | 'Group';
+export type IContentType = 'Text' | 'Picture' | 'Video' | 'Link' | 'File';
+export type IMessageType = 'Public' | 'Private' | 'Group';
+export type IUserAuthority = 'Admin' | 'User';
+export type IGender = 'Male' | 'Female' | 'Other';

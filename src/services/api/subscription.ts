@@ -5,7 +5,7 @@ import {StompSubscription} from '@stomp/stompjs';
 import media from './media';
 import {IVote} from '../../types/media';
 import {MessageBody, PVoid} from '../../types';
-import {IMessage} from '../../types/chat';
+import {IChat, IMessage} from '../../types/chat';
 
 export class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
@@ -74,6 +74,7 @@ export class SubscriptionApi {
 
   async sendMessage(data: IMessage): PVoid {
     try {
+      console.log('sendMessage', data);
       await socket.sendMessage('/send/message', data);
     } catch (e) {
       console.log(e);
@@ -103,11 +104,25 @@ export class SubscriptionApi {
     if (newMessage.type === 'Public') {
       stores.room.set('chat', [newMessage, ...stores.room.getChat]);
     } else if (newMessage.type === 'Private' || newMessage.type === 'Group') {
-      const newChats = stores.user.getChats.map((c, _) =>
-        c.id === newMessage.receiverId && c.type === newMessage.type
-          ? {...c, messages: [newMessage, ...c.messages]}
-          : c,
-      );
+      const chat = stores.user.getChats.find(c => c.id === newMessage.receiverId && c.type === newMessage.type);
+      let newChats: IChat[];
+      if (chat) {
+        newChats = stores.user.getChats.map((c, _) =>
+          c.id === newMessage.receiverId && c.type === newMessage.type
+            ? {...c, messages: [newMessage, ...c.messages]}
+            : c,
+        );
+      } else {
+        newChats = [
+          {
+            id: newMessage.receiverId,
+            name: newMessage.groupName ?? newMessage.senderName ?? '',
+            type: newMessage.type,
+            messages: [newMessage],
+          },
+          ...stores.user.getChats,
+        ];
+      }
       stores.user.set('chats', newChats);
     }
   }

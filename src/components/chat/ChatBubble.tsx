@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
-import {IInfo} from '../../types/user';
 import {IMessage} from '../../types/chat';
 import {useStores} from '../../stores';
 
@@ -14,7 +13,7 @@ type Props = {
 export default function ChatBubble({message}: Props) {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
-  const me = message.senderId === user.getInfo.id
+  const me = message.senderId === user.getInfo.id;
 
   return (
     <View
@@ -46,11 +45,9 @@ export default function ChatBubble({message}: Props) {
         }}
       >
         <Text style={{display: me ? 'none' : undefined, color: colors.tertiary, textAlign: 'left'}}>
-          {message?.senderId ?? '@eto'}
+          {message.senderName}
         </Text>
-        <Text style={{color: me ? colors.secondary : colors.background, textAlign: 'left'}}>
-          {message?.content ?? 'Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet'}
-        </Text>
+        <Text style={{color: me ? colors.secondary : colors.background, textAlign: 'left'}}>{message.content}</Text>
       </View>
     </View>
   );

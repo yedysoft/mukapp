@@ -35,7 +35,7 @@ export default function MessagesListItem({chat}: Props) {
             numberOfLines={1}
             style={{fontSize: responsiveSize(15), fontWeight: '400', position: 'absolute', right: 0}}
           >
-            {lastMessage.date.toDateString()}
+            {api.helper.formatDateForChat(lastMessage.date)}
           </Text>
         </View>
         <Text numberOfLines={2} style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400'}}>

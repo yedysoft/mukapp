@@ -22,9 +22,7 @@ export default function ChatList({data}: Props) {
       }}
       data={data}
       renderItem={({item}) => {
-        return (
-          <ChatBubble message={item}/>
-        );
+        return <ChatBubble message={item} />;
       }}
       inverted
       showsVerticalScrollIndicator={false}

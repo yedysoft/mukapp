@@ -1,6 +1,7 @@
 import {IPlayingTrack} from '../types/media';
 import {IInfo} from '../types/user';
 import {Positions} from '../types';
+import {IMessage} from '../types/chat';
 
 class Defaults {
   playingTrack: IPlayingTrack = {
@@ -29,6 +30,16 @@ class Defaults {
   };
 
   positions: Positions = {width: 0, height: 0, pageX: 0, pageY: 0};
+
+  message: IMessage = {
+    id: '',
+    senderId: '',
+    receiverId: '',
+    date: new Date(),
+    content: '',
+    contentType: 'Text',
+    type: 'Public',
+  };
 }
 
 const defaults = new Defaults();
