@@ -18,7 +18,7 @@ class Defaults {
   };
 
   info: IInfo = {
-    id: null,
+    id: '',
     userName: '',
     image: '',
     name: '',

@@ -10,6 +10,7 @@ import {useServices} from '../../services';
 import {stores, useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import {MukTheme} from '../../types';
+import MukLoader from '../../components/loading/MukLoader';
 
 const ProfileScreen = observer((props: any) => {
   const {colors} = useTheme<MukTheme>();
@@ -54,26 +55,36 @@ const ProfileScreen = observer((props: any) => {
 
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
-      <VerticalProfile profile={info} otherUser={otherUser} />
-      <View style={{gap: responsiveWidth(4), display: stores.loading.getProfile ? 'none' : undefined}}>
-        <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
-        <ProfileList
-          tabIndex={activeIndex}
-          otherUser={otherUser}
-          onIconPress={(id: string) =>
-            activeIndex === 1 ? api.user.takeOutMyFollowers(id) : activeIndex === 2 ? api.user.unFollow(id) : undefined
-          }
-          items={
-            activeIndex === 0
-              ? user.getTopVoted
-              : activeIndex === 1
-              ? user.getFollowers
-              : activeIndex === 2
-              ? user.getFollows
-              : []
-          }
-        />
-      </View>
+      {!stores.loading.votes ? (
+        <>
+          <VerticalProfile profile={info} otherUser={otherUser} />
+          <View style={{gap: responsiveWidth(4), display: stores.loading.getProfile ? 'none' : undefined}}>
+            <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+            <ProfileList
+              tabIndex={activeIndex}
+              otherUser={otherUser}
+              onIconPress={(id: string) =>
+                activeIndex === 1
+                  ? api.user.takeOutMyFollowers(id)
+                  : activeIndex === 2
+                  ? api.user.unFollow(id)
+                  : undefined
+              }
+              items={
+                activeIndex === 0
+                  ? user.getTopVoted
+                  : activeIndex === 1
+                  ? user.getFollowers
+                  : activeIndex === 2
+                  ? user.getFollows
+                  : []
+              }
+            />
+          </View>
+        </>
+      ) : (
+        <MukLoader loading={true} />
+      )}
     </MainLayout>
   );
 });

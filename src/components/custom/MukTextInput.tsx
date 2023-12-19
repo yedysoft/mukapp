@@ -1,5 +1,5 @@
 import {TextInput, useTheme} from 'react-native-paper';
-import {InputModeOptions, StyleProp, Text, View, ViewStyle} from 'react-native';
+import {InputModeOptions, StyleProp, Text, TextStyle, View, ViewStyle} from 'react-native';
 import {forwardRef, useImperativeHandle, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveWidth} from '../../utils/util';
@@ -16,6 +16,8 @@ type Props = {
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   onChange?: (name: string, value: string) => void;
   style?: StyleProp<ViewStyle>;
+  contentStyle?: StyleProp<ViewStyle>;
+  inputStyle?: StyleProp<TextStyle>;
   outlineStyle?: StyleProp<ViewStyle>;
   underlineStyle?: StyleProp<ViewStyle>;
   preValidate?: 'required';
@@ -47,6 +49,8 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       autoCapitalize,
       onChange,
       style,
+      contentStyle,
+      inputStyle,
       outlineStyle,
       preValidate,
       validate,
@@ -128,7 +132,16 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
           underlineStyle={underlineStyle}
           outlineStyle={[{borderRadius: 16}, outlineStyle]}
           showSoftInputOnFocus={showKeyboard}
-          style={[{width: '100%', color: colors.secondary, backgroundColor: 'transparent'}, style]}
+          contentStyle={{maxHeight: responsiveWidth(100)}}
+          style={[
+            {
+              width: '100%',
+              color: colors.secondary,
+              backgroundColor: 'transparent',
+              paddingVertical: responsiveWidth(4),
+            },
+            inputStyle,
+          ]}
         />
         <Text style={{display: error ? undefined : 'none', color: colors.error}}>* {error}</Text>
       </View>
