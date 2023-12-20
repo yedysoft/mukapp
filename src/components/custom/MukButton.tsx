@@ -27,7 +27,6 @@ export default function MukButton({buttonStyle, disabled, loading, onPress, labe
           flexDirection: 'row',
           backgroundColor: colors.primary,
           padding: responsiveWidth(20 * (scale ?? 1)),
-          minHeight: responsiveWidth(20 * (scale ?? 1)),
           borderRadius: 16,
           justifyContent: 'center',
           alignItems: 'center',
@@ -35,7 +34,11 @@ export default function MukButton({buttonStyle, disabled, loading, onPress, labe
         buttonStyle,
       ]}
     >
-      <ActivityIndicator color={colors.background} style={{display: loading ? undefined : 'none', marginRight: 5}} />
+      <ActivityIndicator
+        size={responsiveSize(12)}
+        color={colors.background}
+        style={{display: loading ? undefined : 'none', marginRight: responsiveWidth(8)}}
+      />
       {children}
       <Text style={[{fontSize: responsiveSize(16), fontWeight: 'bold', color: colors.background}, textStyle]}>
         {label}
