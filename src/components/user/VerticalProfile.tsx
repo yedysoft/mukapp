@@ -28,7 +28,7 @@ export default function VerticalProfile({profile, otherUser}: Props) {
     <View style={{flexDirection: 'column', alignItems: 'center', gap: responsiveWidth(16)}}>
       <MukImage
         scale={2.4}
-        source={{uri: profile.image}}
+        source={{uri: `${profile.image ?? require('../../../assets/adaptive-icon.png').uri}`}}
         style={{
           borderWidth: responsiveSize(4),
           borderRadius: 100,

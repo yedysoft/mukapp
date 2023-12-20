@@ -48,7 +48,7 @@ export default function ChatComposer({sendMessage, receiverId, messageType}: Pro
       />
       <MukIconButton
         icon={'send'}
-        scale={0.4}
+        scale={0.5}
         color={colors.secondary}
         onPress={() => {
           if (message.content !== '') {
