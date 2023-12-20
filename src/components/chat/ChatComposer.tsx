@@ -44,6 +44,7 @@ export default function ChatComposer({sendMessage, receiverId, messageType}: Pro
         onChange={(name, value) => setMessage({...message, content: value})}
         mode={'outlined'}
         multiline={true}
+        inputStyle={{backgroundColor: 'rgba(255, 255, 255, .1)'}}
         style={{flex: 1}}
       />
       <MukIconButton

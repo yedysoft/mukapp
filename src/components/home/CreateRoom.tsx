@@ -60,9 +60,9 @@ const CreateRoom = observer(() => {
     <>
       {!room.isLive ? <MukFAB onPress={handleSheet} /> : null}
       <MukSheet
-        snaps={['50%']}
+        snaps={['40%']}
         sheetRef={sheetRef}
-        contentStyle={{gap: responsiveWidth(16), justifyContent: 'space-between', paddingVertical: responsiveWidth(16)}}
+        contentStyle={{gap: responsiveWidth(24), justifyContent: 'flex-start', paddingVertical: responsiveWidth(16)}}
       >
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
           <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />

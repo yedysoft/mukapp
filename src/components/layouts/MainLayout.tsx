@@ -27,7 +27,7 @@ export const MainLayout = observer(({children, style}: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={responsiveHeight(16)}
+      keyboardVerticalOffset={responsiveHeight(140)}
       style={{flex: 1}}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

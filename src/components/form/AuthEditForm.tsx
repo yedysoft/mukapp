@@ -31,9 +31,10 @@ export const AuthEditForm = observer(() => {
   return (
     <View
       style={{
+        flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-between',
         gap: responsiveWidth(16),
+        paddingBottom: responsiveWidth(32),
       }}
     >
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -51,7 +52,7 @@ export const AuthEditForm = observer(() => {
           />
         </Pressable>
       </View>
-      <MukForm ref={formRef} style={{height: responsiveHeight(320)}}>
+      <MukForm ref={formRef}>
         <MukTextInput
           name={'name'}
           label={t.do('auth.register.name')}

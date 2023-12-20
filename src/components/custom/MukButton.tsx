@@ -27,6 +27,7 @@ export default function MukButton({buttonStyle, disabled, loading, onPress, labe
           flexDirection: 'row',
           backgroundColor: colors.primary,
           padding: responsiveWidth(20 * (scale ?? 1)),
+          minHeight: responsiveWidth(20 * (scale ?? 1)),
           borderRadius: 16,
           justifyContent: 'center',
           alignItems: 'center',

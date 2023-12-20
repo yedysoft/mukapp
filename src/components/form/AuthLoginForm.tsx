@@ -32,7 +32,7 @@ export const AuthLoginForm = observer(() => {
     >
       <View style={{gap: responsiveHeight(48)}}>
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.login.title')}</Text>
-        <View style={{}}>
+        <View style={{gap: responsiveWidth(8)}}>
           <MukForm ref={formRef}>
             <MukTextInput
               name={'name'}
@@ -57,7 +57,6 @@ export const AuthLoginForm = observer(() => {
               backgroundColor: 'transparent',
               padding: 0,
               alignSelf: 'flex-end',
-              marginTop: responsiveWidth(8),
             }}
             textStyle={{color: colors.outlineVariant, fontWeight: '400', fontSize: responsiveSize(14)}}
             loading={loading.getLogin}

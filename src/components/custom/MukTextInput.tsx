@@ -109,6 +109,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
     return (
       <View style={[{flexDirection: 'column', gap: responsiveWidth(8), minHeight: responsiveWidth(60)}, style]}>
         <TextInput
+          dense
           label={label}
           disabled={disabled}
           inputMode={inputMode}
@@ -130,7 +131,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
             }
           }}
           underlineStyle={underlineStyle}
-          outlineStyle={[{borderRadius: 16}, outlineStyle]}
+          outlineStyle={[{borderRadius: 16, borderColor: 'transparent'}, outlineStyle]}
           showSoftInputOnFocus={showKeyboard}
           contentStyle={{maxHeight: responsiveWidth(100)}}
           style={[
