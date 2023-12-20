@@ -17,7 +17,11 @@ export default function MessagesList({chats}: Props) {
       data={chats}
       renderItem={({item, index}) => <MessagesListItem key={index} chat={item} />}
       scrollEnabled
-      contentContainerStyle={{paddingVertical: responsiveWidth(8), backgroundColor: colors.background}}
+      contentContainerStyle={{
+        paddingVertical: responsiveWidth(8),
+        gap: responsiveWidth(8),
+        backgroundColor: colors.background,
+      }}
     />
   );
 }

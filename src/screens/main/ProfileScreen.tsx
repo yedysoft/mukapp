@@ -83,7 +83,7 @@ const ProfileScreen = observer((props: any) => {
           </View>
         </>
       ) : (
-        <MukLoader loading={true} />
+        <MukLoader scale={1} loading={true} />
       )}
     </MainLayout>
   );

@@ -9,7 +9,7 @@ type Props = {
   contentStyle?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
   title?: string;
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export default function MukCard({title, cardStyle, contentStyle, titleStyle, children}: Props) {
@@ -42,7 +42,7 @@ export default function MukCard({title, cardStyle, contentStyle, titleStyle, chi
               {
                 color: colors.secondary,
                 fontSize: responsiveSize(18),
-                fontWeight: '300',
+                fontWeight: '600',
               },
               titleStyle,
             ]}

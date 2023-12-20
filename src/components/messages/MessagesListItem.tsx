@@ -20,13 +20,13 @@ export default function MessagesListItem({chat}: Props) {
   const lastMessage: ILastMessage = api.chat.getLastMessage(chat.messages);
 
   return (
-    <MukListItem onPress={() => navigation.navigate('Chat', {chat: chat})}>
+    <MukListItem style={{alignItems: 'center'}} onPress={() => navigation.navigate('Chat', {chat: chat})}>
       <MukImage
-        scale={1.3}
+        scale={1}
         style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}}
         source={require('../../../assets/adaptive-icon.png')}
       />
-      <View style={{flex: 1, justifyContent: 'flex-start', gap: responsiveWidth(8), paddingTop: responsiveWidth(8)}}>
+      <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500'}}>
             {chat.name}
@@ -35,10 +35,12 @@ export default function MessagesListItem({chat}: Props) {
             numberOfLines={1}
             style={{fontSize: responsiveSize(15), fontWeight: '400', position: 'absolute', right: 0}}
           >
-            {api.helper.formatDateForChat(lastMessage.date)}
+            {api.helper.formatDateForChat(
+              lastMessage.date.toString() === '' ? new Date().toString() : lastMessage.date.toString(),
+            )}
           </Text>
         </View>
-        <Text numberOfLines={2} style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400'}}>
+        <Text numberOfLines={1} style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400'}}>
           {lastMessage.message}
         </Text>
       </View>
