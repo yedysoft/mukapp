@@ -13,7 +13,7 @@ export type MukFormRef = {
   validateInputs: () => boolean;
 };
 
-const MukForm = forwardRef<MukFormRef, Props>(({children, style}: Props, ref) => {
+export default forwardRef<MukFormRef, Props>(({children, style}: Props, ref) => {
   const {api, t} = useServices();
   const refChildrens = api.helper.generateChildsWithRefs<MukTextInputRef>(children);
 
@@ -38,5 +38,3 @@ const MukForm = forwardRef<MukFormRef, Props>(({children, style}: Props, ref) =>
 
   return <ScrollView style={style}>{refChildrens}</ScrollView>;
 });
-
-export default MukForm;
