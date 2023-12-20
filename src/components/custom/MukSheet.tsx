@@ -1,5 +1,5 @@
 import {StyleProp, View, ViewStyle} from 'react-native';
-import {BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
+import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 import React, {ReactNode, useCallback} from 'react';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
@@ -28,8 +28,9 @@ const MukSheet = observer(({sheetRef, children, contentStyle, snaps, containerSt
   );
 
   return (
-    <BottomSheetModal
+    <BottomSheet
       backdropComponent={renderBackdrop}
+      ref={sheetRef}
       containerStyle={containerStyle}
       index={-1}
       snapPoints={snaps}
@@ -50,7 +51,7 @@ const MukSheet = observer(({sheetRef, children, contentStyle, snaps, containerSt
       >
         {children}
       </View>
-    </BottomSheetModal>
+    </BottomSheet>
   );
 });
 
