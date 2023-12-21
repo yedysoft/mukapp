@@ -5,24 +5,30 @@ import {useServices} from '../../services';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import MukPicker from '../../components/custom/MukPicker';
-import {_appearances, _languages, IAppearance, ILanguage} from '../../types/enums';
-import {useMemo} from 'react';
-import {TranslateService} from '../../services/translate';
+import {_languages, IAppearance, ILanguage} from '../../types/enums';
+import {useEffect, useMemo, useState} from 'react';
 import MukCard from '../../components/custom/MukCard';
 import {responsiveWidth} from '../../utils/util';
+import MukSegmented from '../../components/custom/MukSegmented';
 
-const objectToDict = (object: any, path: string, t: TranslateService) => {
+/*const objectToDict = (object: any, path: string, t: TranslateService) => {
   const dict: Record<string, string> = {};
   Object.keys(object).forEach(k => (dict[k] = t.do(`main.settings.${path}.${k}`)));
   return dict;
-};
+};*/
 
 export const SettingsScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {ui} = useStores();
   const {t} = useServices();
 
-  const ThemeDict = useMemo(() => objectToDict(_appearances, 'theme', t), [ui.getScheme, ui.getLanguage]);
+  const [appearance, setAppearance] = useState<string>(ui.appearance);
+
+  useEffect(() => {
+    ui.set('appearance', appearance as IAppearance);
+  }, [appearance]);
+
+  //const ThemeDict = useMemo(() => objectToDict(_appearances, 'theme', t), [ui.getScheme, ui.getLanguage]);
   const LanguageDict = useMemo(
     () => ({..._languages, system: t.do('main.settings.language.system')}),
     [ui.getLanguage],
@@ -31,12 +37,33 @@ export const SettingsScreen = observer(() => {
   return (
     <MainLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
       <MukCard title={t.do('main.settings.theme.title')}>
-        <MukPicker<string>
-          items={ThemeDict}
-          name={'appearance'}
-          value={ui.appearance}
-          onValueChange={(_name, value) => ui.set('appearance', value as IAppearance)}
+        <MukSegmented
+          density={'small'}
+          value={appearance}
+          handleChange={setAppearance}
+          buttons={[
+            {
+              value: 'system',
+              label: 'System',
+            },
+            {
+              value: 'light',
+              label: 'Light',
+            },
+            {
+              value: 'dark',
+              label: 'Dark',
+            },
+          ]}
         />
+        {/*
+          <MukPicker<string>
+            items={ThemeDict}
+            name={'appearance'}
+            value={ui.appearance}
+            onValueChange={(_name, value) => ui.set('appearance', value as IAppearance)}
+          />
+        */}
       </MukCard>
       <MukCard title={t.do('main.settings.language.title')}>
         <MukPicker<string>

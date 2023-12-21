@@ -23,8 +23,8 @@ export default function MukCard({title, cardStyle, contentStyle, titleStyle, chi
           backgroundColor: colors.backdrop,
           width: '100%',
           borderRadius: 16,
-          padding: responsiveWidth(8),
-          paddingHorizontal: responsiveWidth(16),
+          padding: responsiveWidth(16),
+          paddingHorizontal: responsiveWidth(20),
           gap: responsiveWidth(8),
         },
         cardStyle,
@@ -56,7 +56,6 @@ export default function MukCard({title, cardStyle, contentStyle, titleStyle, chi
           {
             width: '100%',
             paddingVertical: responsiveWidth(8),
-            paddingHorizontal: responsiveWidth(16),
             justifyContent: 'center',
             alignItems: 'center',
           },
