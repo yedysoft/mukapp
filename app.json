@@ -19,11 +19,11 @@
         "expo-build-properties",
         {
           "android": {
-            "usesCleartextTraffic": true,
-            "kotlinVersion": "1.7.22"
+            "usesCleartextTraffic": true
           }
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "ios": {
       "supportsTablet": true
