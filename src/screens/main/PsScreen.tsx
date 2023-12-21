@@ -2,18 +2,20 @@ import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';
-import BlockedScreen from './social/BlockedScreen';
 import {MainLayout} from '../../components/layouts/MainLayout';
-import MukCard from '../../components/custom/MukCard';
+import {useNavigation} from '@react-navigation/native';
+import {MainStackNavProp} from '../../navigation/MainStack';
+import {responsiveWidth} from '../../utils/util';
+import PsListItem from '../../components/ps/PsListItem';
 
 export const PsScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {t} = useServices();
+  const navigation = useNavigation<MainStackNavProp>();
 
   return (
-    <MainLayout>
-      <MukCard title={t.do('main.ps.blocked')} />
-      <BlockedScreen />
+    <MainLayout style={{paddingHorizontal: responsiveWidth(24)}}>
+      <PsListItem label={t.do('main.ps.blocked')} onPress={() => navigation.navigate('Blocked')} />
     </MainLayout>
   );
 });

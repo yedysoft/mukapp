@@ -201,19 +201,15 @@ export class HelperApi {
   formatDateForChat(inputDateStr: string) {
     const inputDate = new Date(inputDateStr);
     const currentDate = new Date();
-
-    // Check if the input date is today
     if (
       inputDate.getDate() === currentDate.getDate() &&
       inputDate.getMonth() === currentDate.getMonth() &&
       inputDate.getFullYear() === currentDate.getFullYear()
     ) {
-      // If it's today, format as HH:mm
       const hours = String(inputDate.getHours()).padStart(2, '0');
       const minutes = String(inputDate.getMinutes()).padStart(2, '0');
       return `${hours}:${minutes}`;
     } else {
-      // If it's not today, format as dd/mm HH:mm
       const day = String(inputDate.getDate()).padStart(2, '0');
       const month = String(inputDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based
       const hours = String(inputDate.getHours()).padStart(2, '0');
@@ -224,9 +220,7 @@ export class HelperApi {
 
   dateAgo = (date: Date) => {
     const currentDatetime = new Date();
-
     const timeDifference = currentDatetime.getTime() - date.getTime();
-
     const minutesAgo = Math.floor(timeDifference / (1000 * 60));
     const hoursAgo = Math.floor(timeDifference / (1000 * 60 * 60));
     const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));

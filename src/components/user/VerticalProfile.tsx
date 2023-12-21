@@ -25,7 +25,14 @@ export default function VerticalProfile({profile, otherUser}: Props) {
   );
 
   return (
-    <View style={{flexDirection: 'column', alignItems: 'center', gap: responsiveWidth(16)}}>
+    <View
+      style={{
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: responsiveWidth(16),
+        paddingBottom: responsiveWidth(8),
+      }}
+    >
       <MukImage
         scale={2.4}
         source={{uri: `${profile.image ?? require('../../../assets/adaptive-icon.png').uri}`}}
