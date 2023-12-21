@@ -101,8 +101,6 @@ export const tr: MukLang = {
       language: {
         title: 'Dil',
         system: 'Sistem',
-        tr: 'Türkçe',
-        en: 'İngilizce',
       },
     },
     ps: {
@@ -215,8 +213,6 @@ export const en: MukLang = {
       language: {
         title: 'Language',
         system: 'System',
-        tr: 'Turkish',
-        en: 'English',
       },
     },
     ps: {

@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
-import {MukColors, MukTheme} from '../../types';
-import {services} from '../../services';
+import {MukTheme} from '../../types';
+import {services, useServices} from '../../services';
 
 type Props<T extends string | number> = {
   name: string;
@@ -33,14 +33,14 @@ const checkValue = <T extends string | number>(value: T | undefined, items: T[])
   return value;
 };
 
-const pickerStyles = (itemHeight: number, visibleItemCount: number, colors: MukColors) =>
+const pickerStyles = (itemHeight: number, visibleItemCount: number, color: string) =>
   StyleSheet.create({
     indicator: {
       position: 'absolute',
       top: itemHeight * ((visibleItemCount - 1) / 2),
       width: responsiveWidth(80),
-      height: responsiveWidth(0.5),
-      backgroundColor: colors.outlineVariant,
+      height: responsiveWidth(1),
+      backgroundColor: color,
     },
   });
 
@@ -56,8 +56,10 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
   const {colors} = useTheme<MukTheme>();
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...itemsArray, ...emptyItems], [itemsArray, emptyItems]);
+  const {api} = useServices();
+
   const styles = useMemo(
-    () => pickerStyles(itemHeight, visibleItemCount, colors),
+    () => pickerStyles(itemHeight, visibleItemCount, api.helper.hexToRgba(colors.secondary, 0.1)),
     [itemHeight, visibleItemCount, colors],
   );
 

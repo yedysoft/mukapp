@@ -108,8 +108,6 @@ export type LangMain<T> = {
     language: {
       title: T;
       system: T;
-      tr: T;
-      en: T;
     };
   };
   ps: {

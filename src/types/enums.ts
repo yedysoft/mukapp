@@ -2,6 +2,8 @@ export const _languages = {
   system: 'System',
   tr: 'Türkçe',
   en: 'English',
+  de: 'Deutsch',
+  ru: 'Русский',
 };
 export type ILanguage = keyof typeof _languages;
 
