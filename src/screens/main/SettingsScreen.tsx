@@ -44,15 +44,15 @@ export const SettingsScreen = observer(() => {
           buttons={[
             {
               value: 'system',
-              label: 'System',
+              label: t.do('main.settings.theme.system'),
             },
             {
               value: 'light',
-              label: 'Light',
+              label: t.do('main.settings.theme.light'),
             },
             {
               value: 'dark',
-              label: 'Dark',
+              label: t.do('main.settings.theme.dark'),
             },
           ]}
         />
