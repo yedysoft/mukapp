@@ -4,6 +4,10 @@ export const _languages = {
   en: 'English',
   de: 'Deutsch',
   ru: 'Русский',
+  ar: 'عربي',
+  fr: 'Français',
+  it: 'Italiano',
+  es: 'Español',
 };
 export type ILanguage = keyof typeof _languages;
 
