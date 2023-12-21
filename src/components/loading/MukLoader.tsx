@@ -10,9 +10,11 @@ type Props = {
 export default function MukLoader({loading, scale}: Props) {
   const {colors} = useTheme<MukTheme>();
 
-  return loading ? (
-    <MukImage scale={scale ?? 0.5} style={{alignSelf: 'center'}} source={require('../../../assets/loader.gif')} />
-  ) : (
-    <></>
+  return (
+    <MukImage
+      scale={scale ?? 0.5}
+      style={{alignSelf: 'center', display: loading ? undefined : 'none'}}
+      source={require('../../../assets/loader.gif')}
+    />
   );
 }

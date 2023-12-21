@@ -36,8 +36,8 @@ export default function MukListItem({onPress, children, style, disabled}: Props)
           },
           style,
         ]}
-        activeOpacity={disabled ? 1 : 0}
-        disabled={disabled}
+        activeOpacity={disabled ? 0 : 1}
+        disabled={disabled && !onPress}
         onPress={onPress}
       >
         {children}

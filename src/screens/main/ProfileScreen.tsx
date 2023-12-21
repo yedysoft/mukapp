@@ -56,34 +56,32 @@ const ProfileScreen = observer((props: any) => {
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
       {!stores.loading.votes ? (
-        <>
+        <View style={{gap: responsiveWidth(4)}}>
           <VerticalProfile profile={info} otherUser={otherUser} />
-          <View style={{gap: responsiveWidth(4), display: stores.loading.getProfile ? 'none' : undefined}}>
-            <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
-            <ProfileList
-              tabIndex={activeIndex}
-              otherUser={otherUser}
-              onIconPress={(id: string) =>
-                activeIndex === 1
-                  ? api.user.takeOutMyFollowers(id)
-                  : activeIndex === 2
-                  ? api.user.unFollow(id)
-                  : undefined
-              }
-              items={
-                activeIndex === 0
-                  ? user.getTopVoted
-                  : activeIndex === 1
-                  ? user.getFollowers
-                  : activeIndex === 2
-                  ? user.getFollows
-                  : []
-              }
-            />
-          </View>
-        </>
+          <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+          <ProfileList
+            tabIndex={activeIndex}
+            otherUser={otherUser}
+            onIconPress={(id: string) =>
+              activeIndex === 1
+                ? api.user.takeOutMyFollowers(id)
+                : activeIndex === 2
+                ? api.user.unFollow(id)
+                : undefined
+            }
+            items={
+              activeIndex === 0
+                ? user.getTopVoted
+                : activeIndex === 1
+                ? user.getFollowers
+                : activeIndex === 2
+                ? user.getFollows
+                : []
+            }
+          />
+        </View>
       ) : (
-        <MukLoader scale={1} loading={true} />
+        <MukLoader scale={1} loading={stores.loading.votes} />
       )}
     </MainLayout>
   );
