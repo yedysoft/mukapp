@@ -4,6 +4,7 @@ import {forwardRef, useImperativeHandle, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
+import {useStores} from '../../stores';
 
 type Props = {
   name: string;
@@ -67,6 +68,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
   ) => {
     console.log('MukTextInputCompRender', name);
     const {colors} = useTheme<MukTheme>();
+    const {ui} = useStores();
     const {t} = useServices();
     const [error, setError] = useState<string | null>(null);
 
@@ -140,6 +142,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
               color: colors.secondary,
               backgroundColor: 'transparent',
               paddingVertical: responsiveWidth(4),
+              textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
             },
             inputStyle,
           ]}

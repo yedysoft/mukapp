@@ -51,9 +51,9 @@ export default observer(() => {
   useEffect(() => {
     initializeApp().then(() => setReady(true));
     return () => {
-      deinitializeApp().then(() => console.log('deinitializeApp'));
+      deinitializeApp().then(() => setReady(false));
     };
-  }, []);
+  }, [stores.ui.getReloadToggle]);
 
   return (
     <AppProvider>

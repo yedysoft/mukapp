@@ -9,12 +9,14 @@ import Token from '../user/Token';
 import Coin from '../user/Coin';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {useStores} from '../../stores';
 
 export const SubHeader = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
   const params: any = route.params;
+  const {ui} = useStores();
 
   return (
     <SafeAreaView
@@ -30,7 +32,14 @@ export const SubHeader = observer(() => {
       }}
     >
       <NavButton>
-        <MukIconButton icon={'chevron-left'} scale={0.7} onPress={() => navigation.goBack()} />
+        <MukIconButton
+          icon={'chevron-left'}
+          scale={0.7}
+          onPress={() => {
+            route.name === 'Settings' && ui.toggleReload();
+            navigation.goBack();
+          }}
+        />
       </NavButton>
       {route.name === 'Task' ? (
         <Token style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />

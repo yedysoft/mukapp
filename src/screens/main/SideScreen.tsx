@@ -5,8 +5,9 @@ import MenuList from '../../components/menu/MenuList';
 import MenuFooter from '../../components/menu/MenuFooter';
 import {MukMenu, MukTheme} from '../../types';
 import {useServices} from '../../services';
+import {observer} from 'mobx-react';
 
-export default function SideScreen() {
+const SideScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {t} = useServices();
 
@@ -57,4 +58,6 @@ export default function SideScreen() {
       <MenuFooter />
     </DrawerLayout>
   );
-}
+});
+
+export default SideScreen;

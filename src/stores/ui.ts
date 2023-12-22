@@ -12,6 +12,7 @@ export class UIStore extends BaseStore<UIStore> {
   language: ILanguage = 'system';
   messages: MukMessage[] = [];
   expoToken = '';
+  reloadToggle = false;
 
   constructor() {
     super();
@@ -21,6 +22,7 @@ export class UIStore extends BaseStore<UIStore> {
       'appearance',
       'language',
       'expoToken',
+      'reloadToggle',
     ]);
   }
 
@@ -48,6 +50,10 @@ export class UIStore extends BaseStore<UIStore> {
     return this.messages;
   }
 
+  get getReloadToggle(): boolean {
+    return this.reloadToggle;
+  }
+
   addMessage(body: MessageBody) {
     this.set('messages', [...this.messages, {id: this.id++, body: body}]);
   }
@@ -69,6 +75,10 @@ export class UIStore extends BaseStore<UIStore> {
       'messages',
       this.messages.filter(e => e.id !== id),
     );
+  }
+
+  toggleReload() {
+    this.set('reloadToggle', !this.reloadToggle);
   }
 }
 
