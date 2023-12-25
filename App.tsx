@@ -21,7 +21,7 @@ import Feather from 'react-native-vector-icons/Feather';
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
   const [ready, setReady] = useState(false);
-  const [apperanceListener, setApperanceListener] = useState<NativeEventSubscription>();
+  const [appearanceListener, setAppearanceListener] = useState<NativeEventSubscription>();
 
   Device.isDevice && usePushNotifications();
 
@@ -31,7 +31,7 @@ export default observer(() => {
     if (scheme) {
       stores.ui.set('systemScheme', scheme);
     }
-    setApperanceListener(
+    setAppearanceListener(
       Appearance.addChangeListener(({colorScheme}) => {
         if (colorScheme) {
           stores.ui.set('systemScheme', colorScheme);
@@ -43,10 +43,10 @@ export default observer(() => {
   }, []);
 
   const deinitializeApp = useCallback(async () => {
-    apperanceListener?.remove();
+    appearanceListener?.remove();
     await services.api.room.closeRoom();
     await services.api.socket.disconnect();
-  }, []);
+  }, [appearanceListener]);
 
   useEffect(() => {
     initializeApp().then(() => setReady(true));
