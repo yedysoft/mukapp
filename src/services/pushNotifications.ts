@@ -26,6 +26,7 @@ export const usePushNotifications = (): IPushNotification => {
 
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef<Notifications.Subscription>();
+  const categoryListener = useRef<Notifications.NotificationCategory>();
 
   async function registerForPushNotificationsAsync() {
     let token;
@@ -69,11 +70,27 @@ export const usePushNotifications = (): IPushNotification => {
       setNotification(notification);
     });
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
+      console.log('userText:', response.userText);
     });
+    Notifications.setNotificationCategoryAsync('daily_question', [
+      {
+        identifier: 'send',
+        buttonTitle: 'Gönder',
+        textInput: {
+          submitButtonTitle: 'Test',
+          placeholder: 'undefined',
+        },
+        options: {opensAppToForeground: false},
+      },
+      {
+        identifier: 'sil',
+        buttonTitle: 'Sil',
+      },
+    ]).then(c => (categoryListener.current = c));
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current!);
       Notifications.removeNotificationSubscription(responseListener.current!);
+      Notifications.deleteNotificationCategoryAsync(categoryListener.current!.identifier);
     };
   }, []);
 
