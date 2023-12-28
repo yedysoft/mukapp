@@ -7,6 +7,7 @@ import subscription, {SubscriptionApi} from './subscription';
 import image, {ImageApi} from './image';
 import room, {RoomApi} from './room';
 import chat, {ChatApi} from './chat';
+import permission, {PermissionApi} from './permission';
 import {IService, PVoid} from '../../types';
 
 export class ApiService implements IService {
@@ -21,6 +22,7 @@ export class ApiService implements IService {
   image: ImageApi;
   room: RoomApi;
   chat: ChatApi;
+  permission: PermissionApi;
 
   constructor() {
     this.socket = socket;
@@ -32,6 +34,7 @@ export class ApiService implements IService {
     this.image = image;
     this.room = room;
     this.chat = chat;
+    this.permission = permission;
   }
 
   async init(): PVoid {

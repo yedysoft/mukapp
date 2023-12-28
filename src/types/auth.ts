@@ -3,7 +3,7 @@ import {IGender} from './enums';
 export type ILogin = {
   name: string;
   pass: string;
-  expoToken: string;
+  expoToken: string | null;
 };
 
 export type IForgot = {

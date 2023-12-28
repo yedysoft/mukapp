@@ -12,41 +12,30 @@ import {initServices, services} from './src/services';
 import MukSplashScreen from './src/screens/auth/MukSplashScreen';
 import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
-import {usePushNotifications} from './src/services/pushNotifications';
-import * as Device from 'expo-device';
-import {Appearance, NativeEventSubscription} from 'react-native';
 import {NavigationContainer, Theme} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
+import appearance from './src/services/appearance';
+import notification from './src/services/notification';
 
 // noinspection JSUnusedGlobalSymbols
 export default observer(() => {
   const [ready, setReady] = useState(false);
-  const [appearanceListener, setAppearanceListener] = useState<NativeEventSubscription>();
-
-  Device.isDevice && usePushNotifications();
 
   const initializeApp = useCallback(async () => {
     await hydrateStores();
-    const scheme = Appearance.getColorScheme();
-    if (scheme) {
-      stores.ui.set('systemScheme', scheme);
-    }
-    setAppearanceListener(
-      Appearance.addChangeListener(({colorScheme}) => {
-        if (colorScheme) {
-          stores.ui.set('systemScheme', colorScheme);
-        }
-      }),
-    );
+    appearance.load();
+    await notification.load();
     await initServices();
+    await services.api.permission.getNotification();
     await services.api.auth.checkToken();
   }, []);
 
   const deinitializeApp = useCallback(async () => {
-    appearanceListener?.remove();
+    appearance.unload();
+    notification.unload();
     await services.api.room.closeRoom();
     await services.api.socket.disconnect();
-  }, [appearanceListener]);
+  }, []);
 
   useEffect(() => {
     initializeApp().then(() => setReady(true));

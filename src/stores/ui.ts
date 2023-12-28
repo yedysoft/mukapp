@@ -11,19 +11,12 @@ export class UIStore extends BaseStore<UIStore> {
   appearance: IAppearance = 'system';
   language: ILanguage = 'system';
   messages: MukMessage[] = [];
-  expoToken = '';
+  expoToken: string | null = null;
   reloadToggle = false;
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UIStore.name, [
-      'systemScheme',
-      'systemLanguage',
-      'appearance',
-      'language',
-      'expoToken',
-      'reloadToggle',
-    ]);
+    this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language']);
   }
 
   get getScheme(): 'light' | 'dark' {

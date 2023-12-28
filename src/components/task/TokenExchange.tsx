@@ -21,12 +21,7 @@ export default function TokenExchange() {
       }}
     >
       <Token style={{width: '30%', justifyContent: 'flex-start'}} />
-      <MukIconButton
-        scale={1}
-        style={{}}
-        icon={'refresh-cw'}
-        onPress={() => console.log('convert')}
-      />
+      <MukIconButton scale={1} style={{}} icon={'refresh-cw'} onPress={() => console.log('convert')} />
       <Coin style={{width: '30%', justifyContent: 'flex-end'}} />
     </View>
   );
