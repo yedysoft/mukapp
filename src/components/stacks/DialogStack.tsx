@@ -1,7 +1,7 @@
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import MukDialog from '../custom/MukDialog';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useServices} from '../../services';
 import {Portal} from 'react-native-paper';
 
@@ -14,10 +14,6 @@ const DialogStack = observer(() => {
     authUrl && (await api.helper.openURL(authUrl));
     media.set('authenticated', true);
   };
-
-  useEffect(() => {
-    console.log(media.authenticated);
-  }, []);
 
   return (
     <Portal>

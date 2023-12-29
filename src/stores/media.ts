@@ -1,10 +1,10 @@
 import {BaseStore} from './base';
-import {IPlayingTrack, IPlaylist, IQueueTrack} from '../types/media';
+import {IPlaylist, IQueueTrack} from '../types/media';
 import defaults from '../utils/defaults';
 
 export class MediaStore extends BaseStore<MediaStore> {
   authenticated = true;
-  playingTrack: IPlayingTrack = defaults.playingTrack;
+  playingTrack = defaults.playingTrack;
   queue: IQueueTrack[] = [];
   playlists: IPlaylist[] = [];
   searchValue = '';

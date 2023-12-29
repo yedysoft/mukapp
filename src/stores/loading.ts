@@ -52,8 +52,16 @@ export class LoadingStore extends BaseStore<LoadingStore> {
     return this.leaderboard;
   }
 
-  get getProfile() {
-    return this.votes && this.followers && this.following;
+  get getVotes() {
+    return this.votes;
+  }
+
+  get getFollowers() {
+    return this.followers;
+  }
+
+  get getFollowing() {
+    return this.following;
   }
 }
 

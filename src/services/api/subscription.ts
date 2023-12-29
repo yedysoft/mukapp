@@ -30,7 +30,7 @@ class SubscriptionApi {
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/playingTrack`, this.playingTrackCallback));
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/queue`, this.queueCallback));
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/voteResult`, this.voteResultCallback));
-        this.roomSubs.push(await socket.subscribe(`/live/room/user/${stores.user.info.id}`));
+        this.roomSubs.push(await socket.subscribe(`/live/room/user/${stores.user.getInfo.id}`));
         if (stores.room.isAdmin) {
           this.roomSubs.push(await socket.subscribe('/live/room/admin'));
         }
