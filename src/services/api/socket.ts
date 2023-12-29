@@ -4,7 +4,7 @@ import {wsUrl} from '../../../config';
 import {PVoid} from '../../types';
 import {stores} from '../../stores';
 
-export class SocketApi {
+class SocketApi {
   public subscribes: {[key: string]: StompSubscription};
   private client: StompJs.Client;
 

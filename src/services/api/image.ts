@@ -1,7 +1,7 @@
 import axiosIns from '../axiosIns';
 import {PVoid} from '../../types';
 
-export class ImageApi {
+class ImageApi {
   async save(imageUri: string, fileName: string | null | undefined): PVoid {
     try {
       const form = new FormData();

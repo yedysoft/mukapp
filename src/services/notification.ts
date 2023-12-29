@@ -19,11 +19,20 @@ const load = async () => {
   stores.ui.set('expoToken', token);
 
   Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldPlaySound: false,
-      shouldShowAlert: true,
-      shouldSetBadge: false,
-    }),
+    handleNotification: async notification => {
+      console.log('handleNotification', notification);
+      return {
+        shouldPlaySound: false,
+        shouldShowAlert: true,
+        shouldSetBadge: false,
+      };
+    },
+    handleSuccess: notificationId => {
+      console.log('handleSuccess', notificationId);
+    },
+    handleError: (notificationId, error) => {
+      console.log('handleError', notificationId, error);
+    },
   });
 
   subscriptions.push(
@@ -33,25 +42,34 @@ const load = async () => {
   );
   subscriptions.push(
     Notifications.addNotificationResponseReceivedListener(response => {
-      console.log('userText:', response.userText);
+      console.log('NotificationResponseReceivedListener', response);
+    }),
+  );
+  subscriptions.push(
+    Notifications.addNotificationsDroppedListener(() => {
+      console.log('NotificationsDroppedListener');
     }),
   );
 
-  await Notifications.setNotificationCategoryAsync('message', [
-    {
-      identifier: 'send',
-      buttonTitle: 'Gönder',
-      textInput: {
-        submitButtonTitle: 'Test',
-        placeholder: 'undefined',
+  await Notifications.setNotificationCategoryAsync(
+    'message',
+    [
+      {
+        identifier: 'send',
+        buttonTitle: 'Gönder',
+        textInput: {
+          submitButtonTitle: 'Test',
+          placeholder: 'Place holder',
+        },
+        options: {opensAppToForeground: false},
       },
-      options: {opensAppToForeground: false},
-    },
-    {
-      identifier: 'sil',
-      buttonTitle: 'Sil',
-    },
-  ]);
+      {
+        identifier: 'sil',
+        buttonTitle: 'Sil',
+      },
+    ],
+    {previewPlaceholder: 'previewPlaceholder'},
+  );
 };
 
 const unload = () => {

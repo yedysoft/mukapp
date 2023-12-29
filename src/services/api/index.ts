@@ -1,41 +1,28 @@
-import auth, {AuthApi} from './auth';
-import socket, {SocketApi} from './socket';
-import helper, {HelperApi} from './helper';
-import user, {UserApi} from './user';
-import media, {MediaApi} from './media';
-import subscription, {SubscriptionApi} from './subscription';
-import image, {ImageApi} from './image';
-import room, {RoomApi} from './room';
-import chat, {ChatApi} from './chat';
-import permission, {PermissionApi} from './permission';
+import helper from './helper';
+import socket from './socket';
+import auth from './auth';
+import user from './user';
+import media from './media';
+import subscription from './subscription';
+import image from './image';
+import room from './room';
+import chat from './chat';
+import permission from './permission';
 import {IService, PVoid} from '../../types';
 
 export class ApiService implements IService {
   private inited = false;
 
-  helper: HelperApi;
-  socket: SocketApi;
-  auth: AuthApi;
-  user: UserApi;
-  media: MediaApi;
-  subscription: SubscriptionApi;
-  image: ImageApi;
-  room: RoomApi;
-  chat: ChatApi;
-  permission: PermissionApi;
-
-  constructor() {
-    this.socket = socket;
-    this.helper = helper;
-    this.auth = auth;
-    this.user = user;
-    this.media = media;
-    this.subscription = subscription;
-    this.image = image;
-    this.room = room;
-    this.chat = chat;
-    this.permission = permission;
-  }
+  helper = helper;
+  socket = socket;
+  auth = auth;
+  user = user;
+  media = media;
+  subscription = subscription;
+  image = image;
+  room = room;
+  chat = chat;
+  permission = permission;
 
   async init(): PVoid {
     if (!this.inited) {

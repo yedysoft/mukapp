@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import {PVoid} from '../../types';
 
-export class PermissionApi {
+class PermissionApi {
   async getNotification(): PVoid {
     try {
       const {granted} = await Notifications.getPermissionsAsync();

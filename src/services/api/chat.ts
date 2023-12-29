@@ -3,7 +3,7 @@ import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import {IContentType} from '../../types/enums';
 
-export class ChatApi {
+class ChatApi {
   async createGroup(group: IGroupPost): Promise<IChat | null> {
     let chat: IChat | null = null;
     try {

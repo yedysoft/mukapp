@@ -7,7 +7,7 @@ import {IVote} from '../../types/media';
 import {MessageBody, PVoid} from '../../types';
 import {IChat, IMessage} from '../../types/chat';
 
-export class SubscriptionApi {
+class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
 
   async globalSubscribes(): PVoid {

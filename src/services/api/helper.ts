@@ -6,7 +6,7 @@ import {PVoid} from '../../types';
 import {Children, cloneElement, useRef} from 'react';
 import {stores} from '../../stores';
 
-export class HelperApi {
+class HelperApi {
   timeoutIds: {[key: number | string]: NodeJS.Timeout} = {};
 
   sleep(ms: number, key?: string | number): PVoid {

@@ -13,7 +13,7 @@ import axiosIns from '../axiosIns';
 import helper from './helper';
 import {PVoid} from '../../types';
 
-export class MediaApi {
+class MediaApi {
   async getAuthUrl(): Promise<string> {
     try {
       const response = await axiosIns.get('/media/getAuthUrl');

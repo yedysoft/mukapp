@@ -4,7 +4,7 @@ import {PVoid} from '../../types';
 import media from './media';
 import {IQueueTrack} from '../../types/media';
 
-export class UserApi {
+class UserApi {
   async getInfo(): PVoid {
     try {
       const response = await axiosIns.get('/user-info/getInfo');

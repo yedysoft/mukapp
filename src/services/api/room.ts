@@ -6,7 +6,7 @@ import defaults from '../../utils/defaults';
 import {PVoid} from '../../types';
 import media from './media';
 
-export class RoomApi {
+class RoomApi {
   async createRoom(config: IRoomConfig): PVoid {
     try {
       stores.user.getInfo.id && (config.roomId = stores.user.getInfo.id);

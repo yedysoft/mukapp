@@ -7,7 +7,7 @@ import subscription from './subscription';
 import {PVoid} from '../../types';
 import room from './room';
 
-export class AuthApi {
+class AuthApi {
   async forgotPass(form: IForgot): PVoid {
     try {
       stores.loading.set('forgotPass', true);
