@@ -5,7 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import MukLogo from '../custom/MukLogo';
 import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import NotificationsTooltip from '../notification/NotificationsTooltip';
+import NotificationsTooltip from '../tooltips/NotificationsTooltip';
 import {NavButton} from './NavButton';
 import Coin from '../user/Coin';
 import {MukTheme} from '../../types';

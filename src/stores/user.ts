@@ -1,5 +1,5 @@
 import {BaseStore} from './base';
-import {IBlockedUser, IFollowRequest, IFollowUser, IInfo, ISearchUser} from '../types/user';
+import {IBlockedUser, IFollowRequest, IFollowUser, IInfo, INotification, ISearchUser} from '../types/user';
 import defaults from '../utils/defaults';
 import {IQueueTrack} from '../types/media';
 import {IChat} from '../types/chat';
@@ -7,6 +7,7 @@ import {IChat} from '../types/chat';
 export class UserStore extends BaseStore<UserStore> {
   info: IInfo = defaults.info;
   otherUser: IInfo = defaults.info;
+  notifications: INotification[] = [];
   chats: IChat[] = [];
   searched: ISearchUser[] = [];
   follows: IFollowUser[] = [];
@@ -18,11 +19,15 @@ export class UserStore extends BaseStore<UserStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UserStore.name, ['chats']);
+    this.makeObservableAndPersistable(this, UserStore.name, ['notifications', 'chats']);
   }
 
   get getInfo() {
     return this.info;
+  }
+
+  get getNotifications() {
+    return this.notifications;
   }
 
   get getChats() {

@@ -1,4 +1,4 @@
-import NotificationList from './/NotificationList';
+import NotificationList from '../notification/NotificationList';
 import MukTooltip from '../custom/MukTooltip';
 import {TooltipScreenProps} from '../../types';
 

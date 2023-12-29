@@ -118,12 +118,17 @@ export type LangRoomConfig<T> = {
   name: T;
   submit: T;
 };
+export type LangNotification<T> = {
+  accept: T;
+  reject: T;
+};
 export type MukLang = {
   error: LangError<string>;
   header: LangHeader<string>;
   auth: LangAuth<string>;
   main: LangMain<string>;
   roomConfig: LangRoomConfig<string>;
+  notification: LangNotification<string>;
 };
 
 // System

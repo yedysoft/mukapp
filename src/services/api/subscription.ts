@@ -6,6 +6,7 @@ import media from './media';
 import {IVote} from '../../types/media';
 import {MessageBody, PVoid} from '../../types';
 import {IChat, IMessage} from '../../types/chat';
+import {INotification} from '../../types/user';
 
 class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
@@ -15,6 +16,7 @@ class SubscriptionApi {
       await socket.subscribe('/user/info/coin', this.coinCallback);
       await socket.subscribe('/user/info/token', this.tokenCallback);
       await socket.subscribe('/user/error', this.errorCallback);
+      await socket.subscribe('/user/notification', this.notificationCallback);
       await socket.subscribe('/message/listen', this.messageListenCallback);
       await socket.subscribe('/live/user');
     } catch (e) {
@@ -98,7 +100,11 @@ class SubscriptionApi {
     stores.ui.addMessage(err);
   }
 
-  //Düzenlenecekkk
+  private notificationCallback(message: Message) {
+    const notification: INotification = JSON.parse(message.body);
+    stores.user.set('notifications', [notification, ...stores.user.getNotifications]);
+  }
+
   private messageListenCallback(message: Message) {
     const newMessage: IMessage = JSON.parse(message.body);
     if (newMessage.type === 'Public') {

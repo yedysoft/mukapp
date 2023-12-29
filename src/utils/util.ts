@@ -1,16 +1,13 @@
 import {Dimensions, PixelRatio} from 'react-native';
 import React, {memo} from 'react';
 
-const normalize = (size: number, based: 'width' | 'height' = 'width'): number => {
-  const widthBaseScale: number = screenWidth / widthMobileUI;
-  const heightBaseScale: number = screenHeight / heightMobileUI;
-
-  const newSize: number = based === 'height' ? size * heightBaseScale : size * widthBaseScale;
-  return Math.round(PixelRatio.roundToNearestPixel(newSize));
-};
-
 const heightMobileUI = 896;
 const widthMobileUI = 414;
+
+const normalize = (size: number, based: 'width' | 'height'): number => {
+  const newSize: number = size * (based === 'height' ? screenHeight / heightMobileUI : screenWidth / widthMobileUI);
+  return Math.round(PixelRatio.roundToNearestPixel(newSize));
+};
 
 const screenWidth: number = Dimensions.get('window').width;
 const screenHeight: number = Dimensions.get('window').height;

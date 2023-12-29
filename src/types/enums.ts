@@ -23,3 +23,4 @@ export type IContentType = 'Text' | 'Picture' | 'Video' | 'Link' | 'File';
 export type IMessageType = 'Public' | 'Private' | 'Group';
 export type IUserAuthority = 'Admin' | 'User';
 export type IGender = 'Male' | 'Female' | 'Other';
+export type INotificationType = 'Default' | 'Follow' | 'Message';

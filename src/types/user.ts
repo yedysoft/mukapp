@@ -1,4 +1,4 @@
-import {IGender} from './enums';
+import {IGender, INotificationType} from './enums';
 
 export type IInfo = {
   id: string;
@@ -10,6 +10,16 @@ export type IInfo = {
   token: number;
   birthday: string | null;
   gender: IGender | null;
+};
+
+export type INotification = {
+  id: string;
+  receiverId: string;
+  date: string | Date;
+  content: string;
+  data: any;
+  category: INotificationType;
+  readed: boolean;
 };
 
 export type IFollowUser = {

@@ -5,12 +5,10 @@ import MukImage from '../custom/MukImage';
 import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {INotification} from '../../types/user';
 
 type Props = {
-  notification: {
-    image: string;
-    context: string;
-  };
+  notification: INotification;
 };
 
 export default function NotificationListItem({notification}: Props) {
@@ -34,7 +32,7 @@ export default function NotificationListItem({notification}: Props) {
         style={{backgroundColor: colors.background, borderWidth: 0.2, borderRadius: 100, borderColor: colors.secondary}}
       />
       <Text numberOfLines={2} style={{color: colors.secondary, maxWidth: responsiveWidth(124)}}>
-        {notification.context}
+        {notification.content}
       </Text>
     </MukListItem>
   );

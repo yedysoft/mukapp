@@ -1,5 +1,6 @@
 import {stores} from '../stores';
 import * as Notifications from 'expo-notifications';
+import defaults from '../utils/defaults';
 
 const subscriptions: Notifications.Subscription[] = [];
 
@@ -51,25 +52,9 @@ const load = async () => {
     }),
   );
 
-  await Notifications.setNotificationCategoryAsync(
-    'message',
-    [
-      {
-        identifier: 'send',
-        buttonTitle: 'Gönder',
-        textInput: {
-          submitButtonTitle: 'Test',
-          placeholder: 'Place holder',
-        },
-        options: {opensAppToForeground: false},
-      },
-      {
-        identifier: 'sil',
-        buttonTitle: 'Sil',
-      },
-    ],
-    {previewPlaceholder: 'previewPlaceholder'},
-  );
+  for (const category of defaults.getNotificationCategories) {
+    await Notifications.setNotificationCategoryAsync(category.identifier, category.actions, category.options);
+  }
 };
 
 const unload = () => {

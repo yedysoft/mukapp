@@ -111,6 +111,10 @@ export const tr: MukLang = {
     name: 'Oda Adı',
     submit: 'Oda Oluştur',
   },
+  notification: {
+    accept: 'Kabul Et',
+    reject: 'Reddet',
+  },
 };
 export const en: MukLang = {
   error: {
@@ -222,6 +226,10 @@ export const en: MukLang = {
   roomConfig: {
     name: 'Room Name',
     submit: 'Create Room',
+  },
+  notification: {
+    accept: 'Accept',
+    reject: 'Reject',
   },
 };
 
@@ -336,6 +344,10 @@ export const de: MukLang = {
     name: 'Raumname',
     submit: 'Raum erstellen',
   },
+  notification: {
+    accept: 'Kabul Et',
+    reject: 'Reddet',
+  },
 };
 
 export const ru: MukLang = {
@@ -448,6 +460,10 @@ export const ru: MukLang = {
   roomConfig: {
     name: 'Название комнаты',
     submit: 'Создать комнату',
+  },
+  notification: {
+    accept: 'Kabul Et',
+    reject: 'Reddet',
   },
 };
 
@@ -562,6 +578,10 @@ export const ar: MukLang = {
     name: 'اسم الغرفة',
     submit: 'إنشاء الغرفة',
   },
+  notification: {
+    accept: 'Kabul Et',
+    reject: 'Reddet',
+  },
 };
 
 export const fr: MukLang = {
@@ -674,6 +694,10 @@ export const fr: MukLang = {
   roomConfig: {
     name: 'Nom de la salle',
     submit: 'Créer une salle',
+  },
+  notification: {
+    accept: 'Kabul Et',
+    reject: 'Reddet',
   },
 };
 
@@ -788,6 +812,10 @@ export const it: MukLang = {
     name: 'Nome della stanza',
     submit: 'Crea stanza',
   },
+  notification: {
+    accept: 'Kabul Et',
+    reject: 'Reddet',
+  },
 };
 
 export const es: MukLang = {
@@ -900,5 +928,9 @@ export const es: MukLang = {
   roomConfig: {
     name: 'Nombre de la sala',
     submit: 'Crear sala',
+  },
+  notification: {
+    accept: 'Kabul Et',
+    reject: 'Reddet',
   },
 };
