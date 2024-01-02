@@ -4,7 +4,6 @@ import {Positions} from '../types';
 import {IMessage} from '../types/chat';
 import {NotificationCategory} from 'expo-notifications/src/Notifications.types';
 import {INotificationType} from '../types/enums';
-import {services} from '../services';
 
 class Defaults {
   playingTrack: IPlayingTrack = {
@@ -49,8 +48,8 @@ class Defaults {
       {
         identifier: 'Follow' as INotificationType,
         actions: [
-          {identifier: 'accept', buttonTitle: services.t.do('notifications.accept')},
-          {identifier: 'reject', buttonTitle: services.t.do('notifications.reject')},
+          {identifier: 'accept', buttonTitle: 'Kabul Et'},
+          {identifier: 'reject', buttonTitle: 'Reddet'},
         ],
       },
     ];

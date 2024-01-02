@@ -1,6 +1,7 @@
 import {MD3Typescale, ThemeBase} from 'react-native-paper/lib/typescript/types';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {MainStackScreens} from '../navigation/MainStack';
+import {IMessageBodyType} from './enums';
 
 // Services
 export interface IService {
@@ -182,5 +183,6 @@ export type MukMessage = {
 export type MessageBody = {
   code: number;
   message: string;
-  type: 'error' | 'warning' | 'info';
+  type: IMessageBodyType;
+  data?: any;
 };

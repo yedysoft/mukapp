@@ -3,7 +3,7 @@ import user from './user';
 import {IRoom, IRoomConfig, IRoomLeaderboard} from '../types/room';
 import {IMessage} from '../types/chat';
 
-export class RoomStore extends BaseStore<RoomStore> {
+class RoomStore extends BaseStore<RoomStore> {
   streamerId: string | null = null;
   sessionId: string | null = null;
   live = false;

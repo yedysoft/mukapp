@@ -10,7 +10,7 @@ import chat from './chat';
 import permission from './permission';
 import {IService, PVoid} from '../../types';
 
-export class ApiService implements IService {
+class ApiService implements IService {
   private inited = false;
 
   helper = helper;
@@ -30,3 +30,6 @@ export class ApiService implements IService {
     }
   }
 }
+
+const api = new ApiService();
+export default api;

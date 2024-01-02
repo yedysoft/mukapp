@@ -2,7 +2,7 @@ import {BaseStore} from './base';
 import {IPlaylist, IQueueTrack} from '../types/media';
 import defaults from '../utils/defaults';
 
-export class MediaStore extends BaseStore<MediaStore> {
+class MediaStore extends BaseStore<MediaStore> {
   authenticated = true;
   playingTrack = defaults.playingTrack;
   queue: IQueueTrack[] = [];

@@ -1,6 +1,6 @@
 import {BaseStore} from './base';
 
-export class LoadingStore extends BaseStore<LoadingStore> {
+class LoadingStore extends BaseStore<LoadingStore> {
   // Auth
   login = false;
   logout = false;

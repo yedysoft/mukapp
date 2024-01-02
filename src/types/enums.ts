@@ -24,3 +24,4 @@ export type IMessageType = 'Public' | 'Private' | 'Group';
 export type IUserAuthority = 'Admin' | 'User';
 export type IGender = 'Male' | 'Female' | 'Other';
 export type INotificationType = 'Default' | 'Follow' | 'Message';
+export type IMessageBodyType = 'Error' | 'Warning' | 'Info';

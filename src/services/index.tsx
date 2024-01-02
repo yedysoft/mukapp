@@ -1,11 +1,11 @@
 import React from 'react';
-import {TranslateService} from './translate';
-import {ApiService} from './api';
+import translate from './translate';
+import api from './api';
 import {IService, PVoid} from '../types';
 
 class Services {
-  t = new TranslateService();
-  api = new ApiService();
+  t = translate;
+  api = api;
 }
 export const services = new Services();
 

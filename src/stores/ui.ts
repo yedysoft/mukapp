@@ -4,7 +4,7 @@ import {StatusBarStyle} from 'expo-status-bar';
 import themes from '../themes';
 import {MessageBody, MukMessage, MukTheme} from '../types';
 
-export class UIStore extends BaseStore<UIStore> {
+class UIStore extends BaseStore<UIStore> {
   id = 0;
   systemScheme: 'light' | 'dark' = 'dark';
   systemLanguage = 'tr';

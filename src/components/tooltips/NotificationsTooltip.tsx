@@ -11,7 +11,7 @@ export default function NotificationsTooltip({positions, visible, changeVisible}
       changeVisible={changeVisible}
       style={{width: 200, height: 200}}
     >
-      <NotificationList />
+      <NotificationList compact />
     </MukTooltip>
   );
 }

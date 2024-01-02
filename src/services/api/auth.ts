@@ -49,7 +49,7 @@ class AuthApi {
   async logout(): PVoid {
     try {
       stores.loading.set('logout', true);
-      stores.room.isLive && (await room.closeRoom());
+      await room.closeRoom();
       await socket.disconnect();
       this.clearAuth();
       await this.checkToken();

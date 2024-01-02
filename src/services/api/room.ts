@@ -21,7 +21,7 @@ class RoomApi {
 
   async openRoom(sessionId: string, streamerId: string): PVoid {
     try {
-      await this.closeRoom();
+      await this.closeRoom(sessionId);
       stores.room.setMany({sessionId: sessionId, streamerId: streamerId});
       await subscription.roomSubscribes();
     } catch (e) {
@@ -29,14 +29,16 @@ class RoomApi {
     }
   }
 
-  async closeRoom(): PVoid {
+  async closeRoom(sessionId?: string): PVoid {
     try {
-      if (stores.room.isAdmin) {
-        await axiosIns.get(`/room-session/stop/${stores.room.getSessionId}`);
+      if (stores.room.isLive && (!sessionId || sessionId !== stores.room.getSessionId)) {
+        if (stores.room.isAdmin) {
+          await axiosIns.get(`/room-session/stop/${stores.room.getSessionId}`);
+        }
+        stores.room.setMany({sessionId: null, streamerId: null, chat: []});
+        stores.media.setMany({playingTrack: defaults.playingTrack, queue: []});
+        await subscription.roomUnsubscribes();
       }
-      stores.room.setMany({sessionId: null, streamerId: null, chat: []});
-      stores.media.setMany({playingTrack: defaults.playingTrack, queue: []});
-      await subscription.roomUnsubscribes();
     } catch (e) {
       console.log(e);
     }

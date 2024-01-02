@@ -1,11 +1,11 @@
 import * as Localization from 'expo-localization';
 import {I18n, Scope, TranslateOptions} from 'i18n-js';
 import * as translations from './translations';
-import {stores} from '../../stores';
 import {IService, PVoid} from '../../types';
 import {ILanguage} from '../../types/enums';
+import ui from '../../stores/ui';
 
-export class TranslateService implements IService {
+class TranslateService implements IService {
   private inited = false;
   private i18n = new I18n(translations);
 
@@ -21,7 +21,6 @@ export class TranslateService implements IService {
   }
 
   setup(language?: ILanguage): void {
-    const {ui} = stores;
     if (language) {
       ui.set('language', language);
     }
@@ -30,3 +29,6 @@ export class TranslateService implements IService {
     this.i18n.locale = ui.getLanguage;
   }
 }
+
+const translate = new TranslateService();
+export default translate;

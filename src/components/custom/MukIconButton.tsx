@@ -1,7 +1,7 @@
 import {IconButton, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
-import {StyleProp, View, ViewStyle} from 'react-native';
+import {Pressable, StyleProp, View, ViewStyle} from 'react-native';
 import React, {ReactNode, useRef, useState} from 'react';
 import MukBadge from './MukBadge';
 import defaults from '../../utils/defaults';
@@ -43,7 +43,7 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
   };
 
   return (
-    <View ref={ref} onLayout={onLayout} style={style}>
+    <Pressable ref={ref} onLayout={onLayout} style={style} onPress={onPressHandle}>
       <MukBadge
         badge={badge}
         style={{
@@ -60,9 +60,8 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
         iconColor={color ? color : colors.secondary}
         style={{margin: 0}}
         size={responsiveSize(scale ? 64 * scale : 64)}
-        onPress={onPressHandle}
       />
       {tooltip && tooltip({positions: positions, visible: tooltipVisible, changeVisible: tooltipChangeVisible})}
-    </View>
+    </Pressable>
   );
 }

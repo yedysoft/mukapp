@@ -12,7 +12,7 @@ const HomeTabs = observer(() => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      api.room.getRooms(tabIndex === 0 ? 'PLACE' : 'STREAMER');
+      //api.room.getRooms(tabIndex === 0 ? 'PLACE' : 'STREAMER');
     }, 1000);
     return () => {
       clearInterval(intervalId);

@@ -1,6 +1,6 @@
 import {BaseStore} from './base';
 
-export class AuthStore extends BaseStore<AuthStore> {
+class AuthStore extends BaseStore<AuthStore> {
   loggedIn = false;
   authToken = '';
 

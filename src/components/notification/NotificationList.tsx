@@ -6,7 +6,11 @@ import {MukTheme} from '../../types';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 
-export default observer(() => {
+type Props = {
+  compact: boolean;
+};
+
+export default observer(({compact}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
 
@@ -17,7 +21,7 @@ export default observer(() => {
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
       scrollEnabled
       data={user.getNotifications}
-      renderItem={({item, index}) => <NotificationListItem key={index} notification={item} />}
+      renderItem={({item, index}) => <NotificationListItem key={index} compact={compact} notification={item} />}
     />
   );
 });

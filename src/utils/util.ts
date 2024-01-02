@@ -4,14 +4,13 @@ import React, {memo} from 'react';
 const heightMobileUI = 896;
 const widthMobileUI = 414;
 
+const screenWidth: number = Dimensions.get('window').width;
+const screenHeight: number = Dimensions.get('window').height;
+
 const normalize = (size: number, based: 'width' | 'height'): number => {
   const newSize: number = size * (based === 'height' ? screenHeight / heightMobileUI : screenWidth / widthMobileUI);
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
-
-const screenWidth: number = Dimensions.get('window').width;
-const screenHeight: number = Dimensions.get('window').height;
-
 const responsiveScale = (scale: number | undefined): number => responsiveWidth(scale ? 64 * scale : 64);
 const responsiveWidth = (size: number): number => normalize(size, 'width');
 const responsiveHeight = (size: number): number => normalize(size, 'height');

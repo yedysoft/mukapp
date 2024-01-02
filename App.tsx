@@ -24,8 +24,8 @@ export default observer(() => {
   const initializeApp = useCallback(async () => {
     await hydrateStores();
     appearance.load();
-    await notification.load();
     await initServices();
+    await notification.load();
     await services.api.permission.getNotification();
     await services.api.auth.checkToken();
   }, []);
