@@ -44,6 +44,7 @@ const load = async () => {
   subscriptions.push(
     Notifications.addNotificationResponseReceivedListener(response => {
       console.log('NotificationResponseReceivedListener', response);
+      Notifications.dismissNotificationAsync(response.notification.request.identifier);
     }),
   );
   subscriptions.push(
