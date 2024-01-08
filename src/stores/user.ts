@@ -6,7 +6,7 @@ import {IChat} from '../types/chat';
 
 class UserStore extends BaseStore<UserStore> {
   info: IInfo = defaults.info;
-  otherUser: IInfo = defaults.info;
+  infos: IInfo[] = [];
   notifications: INotification[] = [];
   chats: IChat[] = [];
   searched: ISearchUser[] = [];
@@ -24,6 +24,16 @@ class UserStore extends BaseStore<UserStore> {
 
   get getInfo() {
     return this.info;
+  }
+
+  getInfosById(id: string): IInfo {
+    return this.infos.find(i => i.id === id) ?? defaults.info;
+  }
+
+  addOrUpdateInfo(info: IInfo) {
+    const a = this.getInfosById(info.id);
+    const newList = a ? this.infos.map(i => (i.id === info.id ? info : i)) : [...this.infos, info];
+    this.set('infos', newList);
   }
 
   get getNotifications() {
@@ -52,10 +62,6 @@ class UserStore extends BaseStore<UserStore> {
 
   get getBlockedUsers() {
     return this.blockedUsers;
-  }
-
-  get getOtherUser() {
-    return this.otherUser;
   }
 
   get getTopVoted() {

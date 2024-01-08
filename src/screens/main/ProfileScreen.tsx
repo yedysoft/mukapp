@@ -18,7 +18,7 @@ const ProfileScreen = observer((props: any) => {
   const {api, t} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
-  const info = userId ? user.getOtherUser : user.getInfo;
+  const info = userId ? user.getInfosById(userId) : user.getInfo;
   const otherUser = userId ? user.getInfo.id !== userId : false;
 
   const stats = [
