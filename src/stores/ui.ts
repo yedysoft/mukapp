@@ -52,15 +52,15 @@ class UIStore extends BaseStore<UIStore> {
   }
 
   addError(message: string, code?: number) {
-    this.addMessage({code: code ?? 0, message: message, type: 'error'});
+    this.addMessage({code: code ?? 0, message: message, type: 'Error'});
   }
 
   addWarning(message: string, code?: number) {
-    this.addMessage({code: code ?? 0, message: message, type: 'warning'});
+    this.addMessage({code: code ?? 0, message: message, type: 'Warning'});
   }
 
   addInfo(message: string, code?: number) {
-    this.addMessage({code: code ?? 0, message: message, type: 'info'});
+    this.addMessage({code: code ?? 0, message: message, type: 'Info'});
   }
 
   delMessage(id: number) {
