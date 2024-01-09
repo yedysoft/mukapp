@@ -1,13 +1,16 @@
 import {stores} from '../stores';
 import * as Notifications from 'expo-notifications';
 import defaults from '../utils/defaults';
+import Constants from 'expo-constants';
 
 const subscriptions: Notifications.Subscription[] = [];
 
 const getExpoPushToken = async (): Promise<string | null> => {
   let token: string | null;
   try {
-    const {data} = await Notifications.getExpoPushTokenAsync();
+    const {data} = await Notifications.getExpoPushTokenAsync({
+      projectId: Constants.expoConfig?.extra?.eas.projectId,
+    });
     token = data;
   } catch {
     token = null;

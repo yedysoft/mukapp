@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Mük",
-    "slug": "muk",
+    "slug": "muk_fe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

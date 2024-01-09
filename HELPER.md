@@ -21,3 +21,20 @@ Sonra diğer kütüphanelerin expo ile uyumlu versiyonlarını yükle.
 ```
 npx expo install --fix
 ```
+
+## Build almak için.
+
+Eas kütüphanesini global olarak yükle.
+```
+npm install -g eas-cli
+```
+
+Expo hesabına giriş yap.
+```
+eas login
+```
+
+Apk build almak için çalıştır.
+```
+eas build -p android -e apk
+```

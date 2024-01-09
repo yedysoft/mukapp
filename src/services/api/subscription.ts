@@ -107,7 +107,7 @@ class SubscriptionApi {
 
   private messageListenCallback(message: Message) {
     const newMessage: IMessage = JSON.parse(message.body);
-    if (newMessage.type === 'Public') {
+    if (newMessage.type === 'Public' && newMessage.receiverId === stores.room.getSessionId) {
       stores.room.set('chat', [newMessage, ...stores.room.getChat]);
     } else if (newMessage.type === 'Private' || newMessage.type === 'Group') {
       const chat = stores.user.getChats.find(c => c.id === newMessage.receiverId && c.type === newMessage.type);
