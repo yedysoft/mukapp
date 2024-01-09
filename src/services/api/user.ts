@@ -17,7 +17,7 @@ class UserApi {
   async getInfoById(id: string): PVoid {
     try {
       const response = await axiosIns.get(`/user-info/getInfoById/${id}`);
-      stores.user.set('otherUser', response.data);
+      stores.user.addOrUpdateInfo(response.data);
     } catch (e) {
       console.log(e);
     }

@@ -48,8 +48,8 @@ class Defaults {
       {
         identifier: 'Follow' as INotificationType,
         actions: [
-          {identifier: 'accept', buttonTitle: 'Kabul Et'},
-          {identifier: 'reject', buttonTitle: 'Reddet'},
+          {identifier: 'accept', buttonTitle: 'Kabul Et', options: {opensAppToForeground: false}},
+          {identifier: 'reject', buttonTitle: 'Reddet', options: {opensAppToForeground: false}},
         ],
       },
     ];
