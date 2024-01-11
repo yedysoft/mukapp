@@ -1,11 +1,12 @@
 import * as Notifications from 'expo-notifications';
 import {PVoid} from '../../types';
+import {NotificationPermissionsStatus} from 'expo-notifications/src/NotificationPermissions.types';
 
 class PermissionApi {
   async getNotification(): PVoid {
     try {
-      const {granted} = await Notifications.getPermissionsAsync();
-      if (!granted) {
+      const {status}: NotificationPermissionsStatus = await Notifications.getPermissionsAsync();
+      if (status !== 'undetermined' && status !== 'granted') {
         await Notifications.requestPermissionsAsync();
       }
     } catch (e) {
