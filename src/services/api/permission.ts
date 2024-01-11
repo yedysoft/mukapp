@@ -6,7 +6,7 @@ class PermissionApi {
   async getNotification(): PVoid {
     try {
       const {status}: NotificationPermissionsStatus = await Notifications.getPermissionsAsync();
-      if (status !== 'undetermined' && status !== 'granted') {
+      if (status !== 'denied' && status !== 'granted') {
         await Notifications.requestPermissionsAsync();
       }
     } catch (e) {
