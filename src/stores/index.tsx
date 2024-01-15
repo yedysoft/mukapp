@@ -29,7 +29,9 @@ export const hydrateStores = async (): PVoid => {
   for (const key in stores) {
     if (Object.prototype.hasOwnProperty.call(stores, key)) {
       const s = (stores as any)[key] as BaseStore<any>;
-      await s.hydrate();
+      if (s.hydrate) {
+        await s.hydrate();
+      }
     }
   }
 };
@@ -38,7 +40,9 @@ export const stopPersists = () => {
   for (const key in stores) {
     if (Object.prototype.hasOwnProperty.call(stores, key)) {
       const s = (stores as any)[key] as BaseStore<any>;
-      s.stopPersist();
+      if (s.stopPersist) {
+        s.stopPersist();
+      }
     }
   }
 };

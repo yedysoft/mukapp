@@ -3,7 +3,6 @@ import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import socket from './socket';
 import user from './user';
-import subscription from './subscription';
 import {PVoid} from '../../types';
 import room from './room';
 
@@ -66,7 +65,6 @@ class AuthApi {
       if (opt.status && opt.status === 200) {
         await user.getInfo();
         await socket.connect();
-        await subscription.globalSubscribes();
         stores.auth.set('loggedIn', true);
       }
     } catch (e: any) {
