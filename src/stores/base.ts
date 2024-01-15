@@ -1,4 +1,4 @@
-import {hydrateStore, makePersistable} from 'mobx-persist-store';
+import {hydrateStore, makePersistable, stopPersisting} from 'mobx-persist-store';
 import {makeObservable, observable, runInAction} from 'mobx';
 
 export class BaseStore<T extends Record<string, any>> {
@@ -38,7 +38,11 @@ export class BaseStore<T extends Record<string, any>> {
     }
   }
 
-  async hydrate(): Promise<void> {
+  public async hydrate(): Promise<void> {
     await hydrateStore(this);
+  }
+
+  public stopPersist() {
+    stopPersisting(this);
   }
 }

@@ -3,10 +3,12 @@ import {useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../utils/util';
 import {Dispatch, SetStateAction} from 'react';
 import * as ImagePicker from 'expo-image-picker';
+import {MediaTypeOptions} from 'expo-image-picker';
 import MukModal from '../custom/MukModal';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';
+import {ImagePickerResult} from 'expo-image-picker/src/ImagePicker.types';
 
 type Props = {
   setImage?: Dispatch<SetStateAction<string>>;
@@ -18,42 +20,36 @@ export default function EditImage({setImage, setVisible, isVisible}: Props) {
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
 
+  const saveImage = async (result: ImagePickerResult) => {
+    if (result && !result.canceled) {
+      const img = result.assets[0];
+      await api.image.save(img.uri, img.fileName);
+      setImage && setImage(img.uri);
+    }
+  };
+
   const pickImage = async () => {
     setVisible(false);
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
       quality: 1,
     });
-    if (result && result.assets) {
-      const img = result.assets[0];
-      await api.image.save(img.uri, img.fileName);
-    }
-    if (!result.canceled) {
-      setImage && setImage(result.assets[0].uri);
-      setVisible(false);
-    }
+    await saveImage(result);
   };
 
   const takePhoto = async () => {
     setVisible(false);
     const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [6, 8],
       quality: 1,
     });
-    if (!result.canceled) {
-      setImage && setImage(result.assets[0].uri);
-      setVisible(false);
-    }
+    await saveImage(result);
   };
 
-  const hideModal = () => setVisible(false);
-
   return (
-    <MukModal visible={isVisible} onDismiss={hideModal}>
+    <MukModal visible={isVisible} onDismiss={() => setVisible(false)}>
       <View
         style={{
           width: responsiveWidth(300),
