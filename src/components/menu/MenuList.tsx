@@ -16,7 +16,7 @@ export default function MenuList({menu}: Props) {
       data={menu}
       style={{paddingVertical: responsiveWidth(16)}}
       renderItem={({item, index}: ListRenderItemInfo<MukMenu>) => <MenuListItem key={index} item={item} />}
-      scrollEnabled={false}
+      scrollEnabled={true}
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
     />
   );

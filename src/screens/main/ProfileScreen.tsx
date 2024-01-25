@@ -19,6 +19,7 @@ const ProfileScreen = observer((props: any) => {
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
   const info = userId ? user.getInfosById(userId) : user.getInfo;
+  console.log(userId, info);
   const otherUser = userId ? user.getInfo.id !== userId : false;
 
   const stats = [
@@ -43,14 +44,11 @@ const ProfileScreen = observer((props: any) => {
     }
   };
 
-  if (userId) {
-    api.user.getInfoById(userId);
-  }
-
   useEffect(() => {
     setActiveIndex(0);
-    fillProfile(userId ?? info.id);
-    api.user.getTopListVoteMusic(userId ?? info.id);
+    //fillProfile(userId ?? info.id);
+    api.user.getInfoByIds([userId]);
+    //api.user.getTopListVoteMusic(userId ?? info.id);
   }, [userId]);
 
   return (

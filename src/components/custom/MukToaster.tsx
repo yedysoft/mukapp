@@ -34,7 +34,7 @@ export default function MukToaster({message, interval}: Props) {
       style={{
         display: visible ? undefined : 'none',
         width: '90%',
-        backgroundColor: colors[message.body.type],
+        backgroundColor: colors[message.body.type.toLowerCase() as 'info' | 'error' | 'warning'],
         borderRadius: 16,
         zIndex: 1400,
         justifyContent: 'center',

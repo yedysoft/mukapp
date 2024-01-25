@@ -3,7 +3,6 @@ import {messageCallbackType, StompHeaders, StompSubscription} from '@stomp/stomp
 import {wsUrl} from '../../../config';
 import {PVoid} from '../../types';
 import {stores} from '../../stores';
-import subscription from './subscription';
 
 class SocketApi {
   public subscribes: {[key: string]: StompSubscription};
@@ -30,7 +29,6 @@ class SocketApi {
     await this.disconnect();
     return new Promise<void>(resolve => {
       this.client.onConnect = () => {
-        subscription.globalSubscribes();
         resolve();
       };
       this.client.connectHeaders = {YedyToken: stores.auth.getAuthToken};

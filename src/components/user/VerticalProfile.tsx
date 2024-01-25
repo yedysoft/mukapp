@@ -35,7 +35,7 @@ export default function VerticalProfile({profile, otherUser}: Props) {
     >
       <MukImage
         scale={2.4}
-        source={{uri: `${profile.image ?? require('../../../assets/adaptive-icon.png').uri}`}}
+        source={profile.image ? {uri: profile.image} : require('../../../assets/adaptive-icon.png')}
         style={{
           borderWidth: responsiveSize(4),
           borderRadius: 100,

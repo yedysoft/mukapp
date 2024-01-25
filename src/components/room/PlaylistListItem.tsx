@@ -55,6 +55,6 @@ const makeStyles = (colors: MukColors, active: boolean | undefined) =>
       },
       shadowOpacity: active ? 0.4 : 0.2,
       shadowRadius: 3,
-      elevation: 0,
+      elevation: 8,
     },
   });

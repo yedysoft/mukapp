@@ -5,6 +5,7 @@ import socket from './socket';
 import user from './user';
 import {PVoid} from '../../types';
 import room from './room';
+import subscription from './subscription';
 
 class AuthApi {
   async forgotPass(form: IForgot): PVoid {
@@ -65,6 +66,7 @@ class AuthApi {
       if (opt.status && opt.status === 200) {
         await user.getInfo();
         await socket.connect();
+        await subscription.globalSubscribes();
         stores.auth.set('loggedIn', true);
       }
     } catch (e: any) {

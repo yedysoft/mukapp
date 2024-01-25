@@ -54,7 +54,7 @@ export default observer(() => {
             icon: props => <Feather {...props} />,
           }}
         >
-          <StatusBar style={stores.ui.getStatusBarStyle} />
+          <StatusBar backgroundColor={stores.ui.getTheme.colors.background} style={stores.ui.getStatusBarStyle} />
           <MessageStack />
           <DialogStack />
           {!ready ? <MukSplashScreen /> : <AppNavigation />}

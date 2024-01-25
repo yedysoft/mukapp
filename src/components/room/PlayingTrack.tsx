@@ -53,38 +53,38 @@ const PlayingTrack = observer(({compact}: Props) => {
           style={{
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            gap: responsiveWidth(4),
+            gap: responsiveWidth(24),
             paddingBottom: responsiveWidth(compact ? 12 : 0),
             maxWidth: responsiveWidth(compact ? 264 : 236),
           }}
         >
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: responsiveSize(compact ? 18 : 20),
-              fontWeight: '500',
-              color: textColor ?? colors.secondary,
-            }}
-          >
-            {media.getPlayingTrack.name}
-          </Text>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: responsiveSize(compact ? 14 : 16),
-              fontWeight: '300',
-              color: textColor ?? colors.secondary,
-            }}
-          >
-            {api.helper.getArtist(media.getPlayingTrack.artists)}
-          </Text>
+          <View style={{flexDirection: 'column', gap: responsiveWidth(1)}}>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: responsiveSize(compact ? 18 : 20),
+                fontWeight: '500',
+                color: textColor ?? colors.secondary,
+              }}
+            >
+              {media.getPlayingTrack.name}
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: responsiveSize(compact ? 14 : 16),
+                fontWeight: '300',
+                color: textColor ?? colors.secondary,
+              }}
+            >
+              {api.helper.getArtist(media.getPlayingTrack.artists)}
+            </Text>
+          </View>
           {!compact && (
             <View
               style={{
-                flex: 1,
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
-                maxHeight: responsiveWidth(16),
                 width: '100%',
               }}
             >

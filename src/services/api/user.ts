@@ -3,6 +3,7 @@ import {stores} from '../../stores';
 import {PVoid} from '../../types';
 import media from './media';
 import {IQueueTrack} from '../../types/media';
+import {IInfo} from '../../types/user';
 
 class UserApi {
   async getInfo(): PVoid {
@@ -14,10 +15,10 @@ class UserApi {
     }
   }
 
-  async getInfoById(id: string): PVoid {
+  async getInfoByIds(ids: string[]): PVoid {
     try {
-      const response = await axiosIns.get(`/user-info/getInfoById/${id}`);
-      stores.user.addOrUpdateInfo(response.data);
+      const response = await axiosIns.post<IInfo[]>('/user-info/getInfoByIds', ids);
+      stores.user.addOrUpdateInfo(response.data[0]);
     } catch (e) {
       console.log(e);
     }

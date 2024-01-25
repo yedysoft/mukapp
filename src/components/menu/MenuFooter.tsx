@@ -10,7 +10,7 @@ export default function MenuFooter() {
   const {colors} = useTheme<MukTheme>();
   const {ui} = useStores();
   const {api} = useServices();
-  const toggleTheme = ui.appearance === 'light' ? 'dark' : 'light';
+  const toggleTheme = ui.getScheme === 'light' ? 'dark' : 'light';
 
   return (
     <View
