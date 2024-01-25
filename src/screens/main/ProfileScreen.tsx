@@ -46,9 +46,9 @@ const ProfileScreen = observer((props: any) => {
 
   useEffect(() => {
     setActiveIndex(0);
-    //fillProfile(userId ?? info.id);
-    api.user.getInfoByIds([userId]);
-    //api.user.getTopListVoteMusic(userId ?? info.id);
+    userId && api.user.getInfoByIds([userId]);
+    fillProfile(userId ?? info.id);
+    api.user.getTopListVoteMusic(userId ?? info.id);
   }, [userId]);
 
   return (
