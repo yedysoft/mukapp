@@ -38,15 +38,15 @@ export const AuthLoginForm = observer(() => {
               name={'name'}
               label={t.do('auth.login.username')}
               value={form.name}
-              onChange={handleOnChange}
+              onCustomChange={handleOnChange}
               preValidate={'required'}
             />
             <MukTextInput
               name={'pass'}
               label={t.do('auth.login.password')}
               value={form.pass}
-              hideText={true}
-              onChange={handleOnChange}
+              secureTextEntry={true}
+              onCustomChange={handleOnChange}
               preValidate={'required'}
               validate={[value => value.length >= 3 && value.length <= 32]}
               validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}

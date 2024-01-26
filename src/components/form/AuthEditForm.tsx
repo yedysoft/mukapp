@@ -28,6 +28,8 @@ export const AuthEditForm = observer(() => {
     setForm({...form, [name]: value});
   };
 
+  const onSubmit = () => formRef.current?.validateInputs() && api.auth.register(form);
+
   return (
     <View
       style={{
@@ -52,26 +54,26 @@ export const AuthEditForm = observer(() => {
           />
         </Pressable>
       </View>
-      <MukForm ref={formRef}>
+      <MukForm ref={formRef} onSubmit={onSubmit}>
         <MukTextInput
           name={'name'}
           label={t.do('auth.register.name')}
           value={form.name}
-          onChange={handleOnChange}
+          onCustomChange={handleOnChange}
           preValidate={'required'}
         />
         <MukTextInput
           name={'surname'}
           label={t.do('auth.register.surname')}
           value={form.surname}
-          onChange={handleOnChange}
+          onCustomChange={handleOnChange}
           preValidate={'required'}
         />
         <MukTextInput
           name={'userName'}
           label={t.do('auth.register.username')}
           value={form.userName}
-          onChange={handleOnChange}
+          onCustomChange={handleOnChange}
           preValidate={'required'}
         />
         <MukTextInput
@@ -79,15 +81,15 @@ export const AuthEditForm = observer(() => {
           label={t.do('auth.register.email')}
           inputMode={'email'}
           value={form.email}
-          onChange={handleOnChange}
+          onCustomChange={handleOnChange}
           preValidate={'required'}
         />
         <MukTextInput
           name={'userPass'}
           label={t.do('auth.register.password')}
           value={form.userPass}
-          hideText={true}
-          onChange={handleOnChange}
+          secureTextEntry={true}
+          onCustomChange={handleOnChange}
           preValidate={'required'}
           validate={[value => value.length >= 8 && value.length <= 32]}
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
@@ -95,7 +97,7 @@ export const AuthEditForm = observer(() => {
         <MukTextInput
           name={'repass'}
           label={t.do('auth.register.repassword')}
-          hideText={true}
+          secureTextEntry={true}
           preValidate={'required'}
           validate={[value => value.length >= 8 && value.length <= 32, value => value === form.userPass]}
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
@@ -106,7 +108,7 @@ export const AuthEditForm = observer(() => {
           inputMode={'tel'}
           value={form.telNumber}
           preValidate={'required'}
-          onChange={handleOnChange}
+          onCustomChange={handleOnChange}
         />
         <MukTextInput
           name={'gender'}
@@ -133,7 +135,7 @@ export const AuthEditForm = observer(() => {
         buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
         loading={loading.getRegister}
         label={t.do('auth.edit.submit')}
-        onPress={() => formRef.current?.validateInputs() && api.auth.register(form)}
+        onPress={onSubmit}
       />
       <View
         style={{

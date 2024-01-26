@@ -1,4 +1,4 @@
-import {forwardRef, ReactNode, useImperativeHandle} from 'react';
+import {cloneElement, forwardRef, ReactNode, useImperativeHandle} from 'react';
 import {ScrollView, StyleProp, ViewStyle} from 'react-native';
 import {stores} from '../../stores';
 import {useServices} from '../../services';
@@ -6,6 +6,7 @@ import {MukTextInputRef} from './MukTextInput';
 
 type Props = {
   children: ReactNode;
+  onSubmit: () => void;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -13,19 +14,20 @@ export type MukFormRef = {
   validateInputs: () => boolean;
 };
 
-export default forwardRef<MukFormRef, Props>(({children, style}: Props, ref) => {
+export default forwardRef<MukFormRef, Props>(({children, style, onSubmit}: Props, ref) => {
   const {api, t} = useServices();
   const refChildrens = api.helper.generateChildsWithRefs<MukTextInputRef>(children);
 
   const validateInputs = () => {
     let isValid = true;
-    refChildrens.forEach((child: any) => {
-      const cur = child.ref.current;
-      const error = cur.validateInput(child.props.value ?? cur.inputValue);
+    for (const child of refChildrens) {
+      const ref = child.ref.current;
+
+      const error = ref.validateInput(child.props.value ?? ref.inputValue);
       if (!error) {
         isValid = false;
       }
-    });
+    }
     if (!isValid) {
       stores.ui.addWarning(t.do('error.notValidInputs'));
     }
@@ -36,5 +38,21 @@ export default forwardRef<MukFormRef, Props>(({children, style}: Props, ref) => 
     validateInputs,
   }));
 
-  return <ScrollView style={style}>{refChildrens}</ScrollView>;
+  return (
+    <ScrollView style={style}>
+      {refChildrens.map((child, index) => {
+        const last = index + 1 === refChildrens.length;
+        const nextRef = last ? null : refChildrens[index + 1].ref.current;
+
+        const props = {
+          key: index,
+          returnKeyType: last ? 'done' : 'next',
+          returnKeyLabel: last ? 'Onayla' : 'Sonraki',
+          onSubmitEditing: last ? onSubmit : () => nextRef?.focus(),
+          blurOnSubmit: last,
+        };
+        return cloneElement(child, {...child.props, ...props});
+      })}
+    </ScrollView>
+  );
 });

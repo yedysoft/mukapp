@@ -43,7 +43,7 @@ class HelperApi {
     return brightness >= 128;
   }
 
-  generateChildsWithRefs<T>(children: any) {
+  generateChildsWithRefs<T>(children: any): any[] {
     return Children.map(children, (child: any) => {
       if (child.ref) {
         return child;

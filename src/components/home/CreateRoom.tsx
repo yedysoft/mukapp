@@ -89,13 +89,13 @@ const CreateRoom = observer(() => {
                 @{user.getInfo.userName}
               </Text>
             </View>
-            <MukForm ref={formRef}>
+            <MukForm ref={formRef} onSubmit={createRoom}>
               <MukTextInput
                 name={'name'}
                 selectionColor={colors.primary}
                 label={t.do('roomConfig.name')}
                 value={form?.name}
-                onChange={handleOnChange}
+                onCustomChange={handleOnChange}
                 preValidate={'required'}
               />
             </MukForm>

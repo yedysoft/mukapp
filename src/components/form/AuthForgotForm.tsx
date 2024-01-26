@@ -26,18 +26,20 @@ export const AuthForgotForm = observer(() => {
     setForm({...form, [name]: value});
   };
 
+  const onSubmit = () => formRef.current?.validateInputs() && api.auth.forgotPass(form);
+
   return (
     <SafeAreaView
       style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', paddingTop: responsiveHeight(32)}}
     >
       <View style={{gap: responsiveHeight(48)}}>
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.forgot.title')}</Text>
-        <MukForm ref={formRef}>
+        <MukForm ref={formRef} onSubmit={onSubmit}>
           <MukTextInput
             name={'email'}
             label={t.do('auth.forgot.email')}
             value={form.email}
-            onChange={handleOnChange}
+            onCustomChange={handleOnChange}
             preValidate={'required'}
             validate={[value => value.length >= 3]}
             validationMessage={['En az 3 karakter olmalıdır.']}
@@ -60,11 +62,7 @@ export const AuthForgotForm = observer(() => {
           buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
           loading={loading.getForgotPass}
           label={t.do('auth.forgot.submit')}
-          onPress={() => {
-            if (formRef.current?.validateInputs()) {
-              api.auth.forgotPass(form);
-            }
-          }}
+          onPress={onSubmit}
         />
       </View>
     </SafeAreaView>

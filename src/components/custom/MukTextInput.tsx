@@ -1,6 +1,6 @@
-import {TextInput, useTheme} from 'react-native-paper';
-import {InputModeOptions, StyleProp, Text, TextStyle, View, ViewStyle} from 'react-native';
-import {forwardRef, useImperativeHandle, useState} from 'react';
+import {TextInput, TextInputProps, useTheme} from 'react-native-paper';
+import {StyleProp, Text, TextInput as TextInputRN, TextStyle, View, ViewStyle} from 'react-native';
+import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
@@ -8,76 +8,54 @@ import {useStores} from '../../stores';
 
 type Props = {
   name: string;
-  label?: string;
-  mode?: 'flat' | 'outlined';
-  value?: string;
-  hideText?: boolean;
-  multiline?: boolean;
-  inputMode?: InputModeOptions;
-  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
-  onChange?: (name: string, value: string) => void;
-  style?: StyleProp<ViewStyle>;
-  contentStyle?: StyleProp<ViewStyle>;
+  visible?: boolean;
+  onCustomChange?: (name: string, value: string) => void;
+  viewStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
-  outlineStyle?: StyleProp<ViewStyle>;
-  underlineStyle?: StyleProp<ViewStyle>;
   preValidate?: 'required';
   validate?: ((value: string) => boolean)[];
   validationMessage?: string[];
-  placeholder?: string;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  selectionColor?: string;
   showKeyboard?: boolean;
-  disabled?: boolean;
-};
+} & TextInputProps;
 
 export type MukTextInputRef = {
   validateInput: (text: string) => void;
   inputValue: string;
+  focus?: () => void;
 };
 
 const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
   (
     {
       name,
-      mode,
-      label,
-      value,
-      hideText,
-      multiline,
-      inputMode,
-      autoCapitalize,
-      onChange,
-      style,
-      contentStyle,
+      visible = true,
+      onCustomChange,
+      viewStyle,
       inputStyle,
-      outlineStyle,
       preValidate,
       validate,
       validationMessage,
-      placeholder,
-      onFocus,
-      onBlur,
-      selectionColor,
-      underlineStyle,
       showKeyboard,
-      disabled,
+      ...rest
     }: Props,
     ref,
   ) => {
     console.log('MukTextInputCompRender', name);
+    const inputRef = useRef<TextInputRN>(null);
     const {colors} = useTheme<MukTheme>();
     const {ui} = useStores();
     const {t} = useServices();
     const [error, setError] = useState<string | null>(null);
 
-    const handleInputChange = (text: string) => {
-      value = text;
-      if (onChange) {
-        onChange(name, text);
-      }
+    const handleChangeText = (text: string) => {
+      rest.value = text;
+      onCustomChange && onCustomChange(name, text);
       validateInput(text);
+    };
+
+    const handleFocus = (e: any) => {
+      validateInput(rest.value);
+      rest.onFocus && rest.onFocus(e);
     };
 
     const validateInput = (text: string | undefined): boolean => {
@@ -105,37 +83,32 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
 
     useImperativeHandle(ref, () => ({
       validateInput,
-      inputValue: value ?? '',
+      inputValue: rest.value ?? '',
+      focus: inputRef.current?.focus,
     }));
 
     return (
-      <View style={[{flexDirection: 'column', gap: responsiveWidth(8), minHeight: responsiveWidth(60)}, style]}>
+      <View
+        style={[
+          {
+            flexDirection: 'column',
+            gap: responsiveWidth(8),
+            minHeight: responsiveWidth(60),
+            display: visible ? undefined : 'none',
+          },
+          viewStyle,
+        ]}
+      >
         <TextInput
-          dense
-          label={label}
-          disabled={disabled}
-          inputMode={inputMode}
-          mode={mode ?? 'flat'}
-          secureTextEntry={hideText}
-          value={value}
-          error={error !== null}
-          placeholder={placeholder}
+          ref={inputRef}
+          {...rest}
+          selectionColor={rest.selectionColor ?? colors.primary}
           placeholderTextColor={colors.outlineVariant}
-          autoCapitalize={autoCapitalize ?? 'none'}
-          selectionColor={selectionColor ?? colors.primary}
-          onChangeText={handleInputChange}
-          onBlur={onBlur}
-          multiline={multiline}
-          onFocus={() => {
-            validateInput(value);
-            if (onFocus) {
-              onFocus();
-            }
-          }}
-          underlineStyle={underlineStyle}
-          outlineStyle={[{borderRadius: 16, borderColor: 'transparent'}, outlineStyle]}
+          error={error !== null}
+          dense
           showSoftInputOnFocus={showKeyboard}
-          contentStyle={{maxHeight: responsiveWidth(100)}}
+          onChangeText={handleChangeText}
+          onFocus={handleFocus}
           style={[
             {
               width: '100%',
@@ -146,6 +119,8 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
             },
             inputStyle,
           ]}
+          outlineStyle={[{borderRadius: 16, borderColor: 'transparent'}, rest.outlineStyle]}
+          contentStyle={[{maxHeight: responsiveWidth(100)}, rest.contentStyle]}
         />
         <Text style={{display: error ? undefined : 'none', color: colors.error}}>* {error}</Text>
       </View>
