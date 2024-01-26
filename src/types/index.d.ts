@@ -201,7 +201,7 @@ export type IPage<T> = {
   numberOfElements: number;
   empty: boolean;
 };
-export type IPageable = {
+type IPageable = {
   pageNumber: number;
   pageSize: number;
   sort: ISort;
@@ -209,7 +209,7 @@ export type IPageable = {
   paged: boolean;
   unpaged: boolean;
 };
-export type ISort = {
+type ISort = {
   empty: boolean;
   sorted: boolean;
   unsorted: boolean;
