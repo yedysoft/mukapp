@@ -16,7 +16,7 @@ import {PVoid} from '../../types';
 class MediaApi {
   async getAuthUrl(): Promise<string> {
     try {
-      const response = await axiosIns.get('/media/getAuthUrl');
+      const response = await axiosIns.get<string>('/media/getAuthUrl');
       return response.data;
     } catch (e: any) {
       console.log(e);
@@ -28,7 +28,7 @@ class MediaApi {
     let result: ISearchResult = {tracks: [], total: 0};
     try {
       stores.media.set('searchValue', q);
-      const response = await axiosIns.get(`/media/searchTracks?q=${q}&offset=${offset}&limit=${limit}`);
+      const response = await axiosIns.get<ISearchResult>(`/media/searchTracks?q=${q}&offset=${offset}&limit=${limit}`);
       result = response.data;
     } catch (e: any) {
       console.log(e);
@@ -39,7 +39,7 @@ class MediaApi {
   async getCurrentUserPlaylists(): PVoid {
     try {
       stores.loading.set('userPlaylist', true);
-      const response = await axiosIns.get('/media/getCurrentUserPlaylists');
+      const response = await axiosIns.get<IPlaylist[]>('/media/getCurrentUserPlaylists');
       const playlists: IPlaylist[] = response.data;
       playlists.unshift({
         id: 'search',

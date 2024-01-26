@@ -7,7 +7,7 @@ class ChatApi {
   async createGroup(group: IGroupPost): Promise<IChat | null> {
     let chat: IChat | null = null;
     try {
-      const response = await axiosIns.post('/message-group/createGroup', group);
+      const response = await axiosIns.post<IChat>('/message-group/createGroup', group);
       chat = response.data;
       if (chat) {
         stores.user.set('chats', [...stores.user.getChats, chat]);

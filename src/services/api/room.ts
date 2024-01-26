@@ -1,9 +1,9 @@
 import subscription from './subscription';
 import {stores} from '../../stores';
 import axiosIns from '../axiosIns';
-import {IRoom, IRoomConfig, IRoomSession} from '../../types/room';
+import {IRoom, IRoomConfig, IRoomLeaderboard, IRoomSession} from '../../types/room';
 import defaults from '../../utils/defaults';
-import {PVoid} from '../../types';
+import {IPage, PVoid} from '../../types';
 import media from './media';
 
 class RoomApi {
@@ -11,7 +11,7 @@ class RoomApi {
     try {
       stores.user.getInfo.id && (config.roomId = stores.user.getInfo.id);
       await this.saveConfig(config);
-      const response = await axiosIns.get(`/room-session/start/${stores.user.getInfo.id}`);
+      const response = await axiosIns.get<IRoomSession>(`/room-session/start/${stores.user.getInfo.id}`);
       const session: IRoomSession = response.data;
       await this.openRoom(session.sessionId, session.id);
     } catch (e) {
@@ -68,8 +68,7 @@ class RoomApi {
 
   async setConfig(): PVoid {
     try {
-      const response = await axiosIns.get(`/room-config/getByRoomId/${stores.user.getInfo.id}`);
-      response.data.name = `${response.data.name}`;
+      const response = await axiosIns.get<IRoomConfig>(`/room-config/getByRoomId/${stores.user.getInfo.id}`);
       stores.room.set('config', response.data);
     } catch (e: any) {
       console.log(e);
@@ -78,7 +77,7 @@ class RoomApi {
 
   async saveConfig(config: IRoomConfig): PVoid {
     try {
-      const response = await axiosIns.post('/room-config/saveConfig', config);
+      const response = await axiosIns.post<IRoomConfig>('/room-config/saveConfig', config);
       stores.room.set('config', response.data);
     } catch (e: any) {
       console.log(e);
@@ -88,7 +87,9 @@ class RoomApi {
   async setLeaderboard(): PVoid {
     try {
       stores.loading.set('leaderboard', true);
-      const response = await axiosIns.get(`/room-session/getLeaderBoard/${stores.room.streamerId}?page=0&size=11`);
+      const response = await axiosIns.get<IPage<IRoomLeaderboard[]>>(
+        `/room-session/getLeaderBoard/${stores.room.streamerId}?page=0&size=11`,
+      );
       stores.room.set('leaderboard', response.data.content);
     } catch (e: any) {
       console.log(e);

@@ -3,7 +3,7 @@ import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import socket from './socket';
 import user from './user';
-import {PVoid} from '../../types';
+import {MessageBody, PVoid} from '../../types';
 import room from './room';
 import subscription from './subscription';
 
@@ -11,7 +11,7 @@ class AuthApi {
   async forgotPass(form: IForgot): PVoid {
     try {
       stores.loading.set('forgotPass', true);
-      const response = await axiosIns.post('/auth/forgotPass', form);
+      const response = await axiosIns.post<MessageBody>('/auth/forgotPass', form);
       stores.ui.addMessage(response.data);
     } catch (e) {
       console.log(e);
@@ -23,7 +23,7 @@ class AuthApi {
   async register(form: IRegister): PVoid {
     try {
       stores.loading.set('register', true);
-      const response = await axiosIns.post('/auth/register', form);
+      const response = await axiosIns.post<MessageBody>('/auth/register', form);
       stores.ui.addMessage(response.data);
     } catch (e) {
       console.log(e);
@@ -36,7 +36,7 @@ class AuthApi {
     try {
       stores.loading.set('login', true);
       this.clearAuth();
-      const response = await axiosIns.post('/auth/login', form);
+      const response = await axiosIns.post<string>('/auth/login', form);
       stores.auth.set('authToken', response.data);
       await this.checkToken();
     } catch (e) {

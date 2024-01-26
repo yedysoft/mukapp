@@ -1,14 +1,14 @@
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
-import {PVoid} from '../../types';
+import {IPage, PVoid} from '../../types';
 import media from './media';
 import {IQueueTrack} from '../../types/media';
-import {IInfo} from '../../types/user';
+import {IBlockedUser, IFollowUser, IInfo, ISearchUser} from '../../types/user';
 
 class UserApi {
   async getInfo(): PVoid {
     try {
-      const response = await axiosIns.get('/user-info/getInfo');
+      const response = await axiosIns.get<IInfo>('/user-info/getInfo');
       stores.user.set('info', response.data);
     } catch (e) {
       console.log(e);
@@ -34,7 +34,9 @@ class UserApi {
 
   async searchUser(keyword: string, page = 0, size = 10): PVoid {
     try {
-      const response = await axiosIns.get(`/user-info/search/${keyword}?page=${page}&size=${size}&sort=ui.name`);
+      const response = await axiosIns.get<IPage<ISearchUser[]>>(
+        `/user-info/search/${keyword}?page=${page}&size=${size}&sort=ui.name`,
+      );
       stores.user.set('searched', response.data.content);
       console.log(response.data.content);
     } catch (e) {
@@ -45,7 +47,7 @@ class UserApi {
   async getFollows(userId: string): PVoid {
     try {
       stores.loading.set('following', true);
-      const response = await axiosIns.get(`/user-follower/getFollows/${userId}`);
+      const response = await axiosIns.get<IFollowUser[]>(`/user-follower/getFollows/${userId}`);
       console.log('Follows: ', response.data);
       stores.user.set('follows', response.data);
     } catch (e) {
@@ -58,7 +60,7 @@ class UserApi {
   async getFollowers(userId: string): PVoid {
     try {
       stores.loading.set('followers', true);
-      const response = await axiosIns.get(`/user-follower/getFollowers/${userId}`);
+      const response = await axiosIns.get<IFollowUser[]>(`/user-follower/getFollowers/${userId}`);
       console.log('Followers: ', response.data);
       stores.user.set('followers', response.data);
     } catch (e) {
@@ -76,20 +78,9 @@ class UserApi {
     }
   }
 
-  async getFollowRequests(): PVoid {
-    try {
-      const response = await axiosIns.get('/follow-request/getIncomingFollowRequests');
-      console.log('Requests: ', response.data);
-      stores.user.set('followRequests', response.data);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   async acceptFollowRequest(requestId: string): PVoid {
     try {
       await axiosIns.get(`/follow-request/accept/${requestId}`);
-      await this.getFollowRequests();
     } catch (e) {
       console.log(e);
     }
@@ -98,7 +89,6 @@ class UserApi {
   async rejectFollowRequest(requestId: string): PVoid {
     try {
       await axiosIns.delete(`/follow-request/reject/${requestId}`);
-      await this.getFollowRequests();
     } catch (e) {
       console.log(e);
     }
@@ -124,7 +114,7 @@ class UserApi {
 
   async getBlockedUsers(): PVoid {
     try {
-      const response = await axiosIns.get('/user-blocked/getBlockedUsers');
+      const response = await axiosIns.get<IBlockedUser[]>('/user-blocked/getBlockedUsers');
       console.log('BlockedUsers: ', response.data);
       stores.user.set('blockedUsers', response.data);
     } catch (e) {
@@ -136,7 +126,7 @@ class UserApi {
     try {
       const response = await axiosIns.delete(`/user-follower/unFollow/${userId}`);
       console.log('Unfollow: ', response.data);
-      await this.getFollows(userId);
+      await this.getFollows(stores.user.getInfo.id);
     } catch (e) {
       console.log(e);
     }
@@ -146,7 +136,7 @@ class UserApi {
     try {
       const response = await axiosIns.delete(`/user-follower/takeOutMyFollowers/${userId}`);
       console.log('takeOutMyFollowers: ', response.data);
-      await this.getFollowers(userId);
+      await this.getFollowers(stores.user.getInfo.id);
     } catch (e) {
       console.log(e);
     }

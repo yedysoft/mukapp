@@ -186,3 +186,31 @@ export type MessageBody = {
   type: IMessageBodyType;
   data?: any;
 };
+
+// Global
+export type IPage<T> = {
+  content: T;
+  pageable: IPageable;
+  last: boolean;
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+  sort: ISort;
+  first: boolean;
+  numberOfElements: number;
+  empty: boolean;
+};
+export type IPageable = {
+  pageNumber: number;
+  pageSize: number;
+  sort: ISort;
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+};
+export type ISort = {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+};
