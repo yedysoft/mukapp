@@ -2,12 +2,11 @@ import {observer} from 'mobx-react';
 import {Text, useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
-import {useRef, useState} from 'react';
-import {ILogin} from '../../types/auth';
+import {useRef} from 'react';
 import {useServices} from '../../services';
 import {View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
-import {stores, useStores} from '../../stores';
+import {useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
@@ -17,13 +16,13 @@ import {AuthStackNavProp} from '../../navigation/AuthStack';
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
-  const [form, setForm] = useState<ILogin>({name: 'admin', pass: '123', expoToken: stores.ui.getExpoToken});
   const {api, t} = useServices();
-  const {loading} = useStores();
+  const {loading, ui} = useStores();
   const formRef = useRef<MukFormRef>(null);
 
-  const handleOnChange = (name: string, value: string) => {
-    setForm({...form, [name]: value});
+  const handleSubmit = () => {
+    console.log('formData', formRef.current?.formData());
+    formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData());
   };
 
   return (
@@ -33,20 +32,16 @@ export const AuthLoginForm = observer(() => {
       <View style={{gap: responsiveHeight(48)}}>
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.login.title')}</Text>
         <View style={{gap: responsiveWidth(8)}}>
-          <MukForm ref={formRef}>
-            <MukTextInput
-              name={'name'}
-              label={t.do('auth.login.username')}
-              value={form.name}
-              onCustomChange={handleOnChange}
-              preValidate={'required'}
-            />
+          <MukForm
+            ref={formRef}
+            onSubmit={handleSubmit}
+            data={{name: 'admina', pass: '123', expoToken: ui.getExpoToken}}
+          >
+            <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
             <MukTextInput
               name={'pass'}
               label={t.do('auth.login.password')}
-              value={form.pass}
               secureTextEntry={true}
-              onCustomChange={handleOnChange}
               preValidate={'required'}
               validate={[value => value.length >= 3 && value.length <= 32]}
               validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
@@ -77,11 +72,7 @@ export const AuthLoginForm = observer(() => {
           buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
           loading={loading.getLogin}
           label={t.do('auth.login.submit')}
-          onPress={() => {
-            if (formRef.current?.validateInputs()) {
-              api.auth.login(form);
-            }
-          }}
+          onPress={handleSubmit}
         />
       </View>
     </SafeAreaView>

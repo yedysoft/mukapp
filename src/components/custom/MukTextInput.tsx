@@ -1,10 +1,14 @@
-import {TextInput, TextInputProps, useTheme} from 'react-native-paper';
-import {StyleProp, Text, TextInput as TextInputRN, TextStyle, View, ViewStyle} from 'react-native';
-import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
+import {HelperText, TextInput, TextInputProps, useTheme} from 'react-native-paper';
+import {StyleProp, TextInput as TextInputRN, TextStyle, View, ViewStyle} from 'react-native';
+import {forwardRef, memo, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
-import {genericMemo, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
+
+type Validates = 'required';
+
+type ValidateFunction = (value: string) => boolean;
 
 type Props = {
   name: string;
@@ -12,15 +16,15 @@ type Props = {
   onCustomChange?: (name: string, value: string) => void;
   viewStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
-  preValidate?: 'required';
-  validate?: ((value: string) => boolean)[];
+  preValidate?: Validates | Validates[];
+  validate?: ValidateFunction[];
   validationMessage?: string[];
   showKeyboard?: boolean;
 } & TextInputProps;
 
 export type MukTextInputRef = {
   validateInput: (text: string) => void;
-  inputValue: string;
+  inputValue: () => string;
   focus?: () => void;
 };
 
@@ -45,21 +49,24 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
     const {colors} = useTheme<MukTheme>();
     const {ui} = useStores();
     const {t} = useServices();
+    const validInputValue = rest.value ?? rest.defaultValue;
     const [error, setError] = useState<string | null>(null);
+    const value = useRef<string | undefined>(validInputValue);
 
     const handleChangeText = (text: string) => {
-      rest.value = text;
-      onCustomChange && onCustomChange(name, text);
       validateInput(text);
+      value.current = text;
+      onCustomChange && onCustomChange(name, text);
+      rest.onChangeText && rest.onChangeText(text);
     };
 
     const handleFocus = (e: any) => {
-      validateInput(rest.value);
+      validateInput(value.current);
       rest.onFocus && rest.onFocus(e);
     };
 
     const validateInput = (text: string | undefined): boolean => {
-      setError(null);
+      error != null && setError(null);
       if (!text) {
         text = '';
       }
@@ -81,10 +88,17 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       return true;
     };
 
+    const getValue = () => value.current ?? '';
+
+    const getInputFocusFunc = () => {
+      console.log(inputRef.current);
+      return inputRef.current?.focus;
+    };
+
     useImperativeHandle(ref, () => ({
       validateInput,
-      inputValue: rest.value ?? '',
-      focus: inputRef.current?.focus,
+      inputValue: getValue,
+      focus: getInputFocusFunc,
     }));
 
     return (
@@ -102,10 +116,11 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
         <TextInput
           ref={inputRef}
           {...rest}
+          dense
+          value={undefined}
           selectionColor={rest.selectionColor ?? colors.primary}
           placeholderTextColor={colors.outlineVariant}
           error={error !== null}
-          dense
           showSoftInputOnFocus={showKeyboard}
           onChangeText={handleChangeText}
           onFocus={handleFocus}
@@ -122,13 +137,15 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
           outlineStyle={[{borderRadius: 16, borderColor: 'transparent'}, rest.outlineStyle]}
           contentStyle={[{maxHeight: responsiveWidth(100)}, rest.contentStyle]}
         />
-        <Text style={{display: error ? undefined : 'none', color: colors.error}}>* {error}</Text>
+        <HelperText type={'error'} visible={!!error} style={{color: colors.error}}>
+          * {error}
+        </HelperText>
       </View>
     );
   },
 );
 
-const MukTextInput = genericMemo(MukTextInputComp, (prevProps, nextProps) =>
+const MukTextInput = memo(MukTextInputComp, (prevProps, nextProps) =>
   services.api.helper.isEqual(prevProps, nextProps),
 );
 export default MukTextInput;

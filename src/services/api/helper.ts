@@ -3,7 +3,7 @@ import {IArtist, IImage, IPlaylist} from '../../types/media';
 import {responsiveScale} from '../../utils/util';
 import {ImageSourcePropType, Linking} from 'react-native';
 import {PVoid} from '../../types';
-import {Children, cloneElement, useRef} from 'react';
+import React, {Children, cloneElement, useRef} from 'react';
 import {stores} from '../../stores';
 
 class HelperApi {
@@ -84,7 +84,11 @@ class HelperApi {
           return false;
         }
       } else {
-        if (!this.isEqual(object1[key], object2[key])) {
+        if (React.isValidElement(object1[key]) && React.isValidElement(object2[key])) {
+          if (!this.isEqual(object1[key].props, object2[key].props)) {
+            return false;
+          }
+        } else if (!this.isEqual(object1[key], object2[key])) {
           return false;
         }
       }
