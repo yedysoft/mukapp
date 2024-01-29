@@ -3,7 +3,7 @@ import {restUrl} from '../../config';
 
 const axiosIns = axios.create({
   baseURL: restUrl,
-  timeout: 1,
+  timeout: 10000,
 });
 
 export default axiosIns;

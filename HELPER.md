@@ -1,40 +1,73 @@
 ## Kullanılmayan kütüphaneleri tespit etmek için.
 
-Kütüphaneyi yükle.
-```
+* Kütüphaneyi yükle.
+```shell
 npm install -g depcheck
 ```
 
-Sonra bunu projenin ana dizininde çalıştır.
-```
+* Sonra bunu projenin ana dizininde çalıştır.
+```shell
 depcheck
 ```
 
 ## Projeyi son expo versiyonuna yükseltmek için.
 
-Son expo versiyonunu yükle
-```
+* Son expo versiyonunu yükle
+```shell
 npm install expo@latest
 ```
 
-Sonra diğer kütüphanelerin expo ile uyumlu versiyonlarını yükle.
-```
+* Sonra diğer kütüphanelerin expo ile uyumlu versiyonlarını yükle.
+```shell
 npx expo install --fix
 ```
 
 ## Build almak için.
 
-Eas kütüphanesini global olarak yükle.
-```
+* Eas kütüphanesini global olarak yükle.
+```shell
 npm install -g eas-cli
 ```
 
-Expo hesabına giriş yap.
-```
+* Expo hesabına giriş yap.
+```shell
 eas login
 ```
 
-Apk build almak için çalıştır.
-```
+* Apk build almak için çalıştır.
+```shell
 eas build -p android -e apk
+```
+
+## Developer Build almak için.
+
+* Expo dev client kütüphanesini yükle.
+```shell
+npx expo install expo-dev-client
+```
+
+* App dosyasının en üstüne ekle.
+```typescript
+import 'expo-dev-client';
+```
+
+* Android için userInterfaceStyle özelliğini aktif etmek için bu kütüphaneyi ekle.
+```shell
+npx expo install expo-system-ui
+```
+
+* Prebuild yap. (ios, android)
+```shell
+npx expo prebuild -p android
+```
+
+* android/gradle.properties dosyasına bu satırları ekle. JAVA_HOME bilgisayarda tanımlı ise üsttekine gerek yok. (Sadece android)
+```
+org.gradle.java.home=C:/Program Files/Java/jdk-17
+org.gradle.daemon=true
+```
+
+* Local build oluştur. (Sadece anroid)
+```shell
+npx expo run:android
 ```

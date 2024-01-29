@@ -2,6 +2,7 @@ import {StatusBar} from 'expo-status-bar';
 import {PaperProvider} from 'react-native-paper';
 import 'react-native-gesture-handler';
 import 'text-encoding';
+import 'expo-dev-client';
 import './src/services/xhrInterceptors';
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
