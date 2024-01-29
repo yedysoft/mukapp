@@ -71,3 +71,8 @@ org.gradle.daemon=true
 ```shell
 npx expo run:android
 ```
+
+* Sonraki çalıştırmalarda bu şekilde çalıştır.
+```shell
+npx expo start --dev-client
+```
