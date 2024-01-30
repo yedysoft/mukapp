@@ -7,7 +7,7 @@ import React, {Children, cloneElement, createRef} from 'react';
 import {stores} from '../../stores';
 
 class HelperApi {
-  timeoutIds: Map<number | string, NodeJS.Timeout> = new Map();
+  timeoutIds: Map<number | string, NodeJS.Timeout> = new Map<number | string, NodeJS.Timeout>();
 
   sleep(ms: number, key?: string | number): PVoid {
     if (key && this.timeoutIds.get(key)) {
