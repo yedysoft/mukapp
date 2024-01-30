@@ -3,22 +3,23 @@ import {IArtist, IImage, IPlaylist} from '../../types/media';
 import {responsiveScale} from '../../utils/util';
 import {ImageSourcePropType, Linking} from 'react-native';
 import {PVoid} from '../../types';
-import React, {Children, cloneElement, useRef} from 'react';
+import React, {Children, cloneElement, createRef} from 'react';
 import {stores} from '../../stores';
 
 class HelperApi {
-  timeoutIds: {[key: number | string]: NodeJS.Timeout} = {};
+  timeoutIds: Map<number | string, NodeJS.Timeout> = new Map();
 
   sleep(ms: number, key?: string | number): PVoid {
-    if (key && this.timeoutIds[key]) {
-      clearTimeout(this.timeoutIds[key]);
+    if (key && this.timeoutIds.get(key)) {
+      clearTimeout(this.timeoutIds.get(key));
     }
     return new Promise<void>(resolver => {
       const timeoutId: NodeJS.Timeout = setTimeout(() => {
         resolver();
-        key && delete this.timeoutIds[key];
+        key && this.timeoutIds.delete(key);
       }, ms);
-      key && (this.timeoutIds[key] = timeoutId);
+      console.log('sleep', key, timeoutId);
+      key && this.timeoutIds.set(key, timeoutId);
     });
   }
 
@@ -48,7 +49,7 @@ class HelperApi {
       if (child.ref) {
         return child;
       } else {
-        const childRef = useRef<T>(null);
+        const childRef = createRef<T>();
         return cloneElement(child, {...child.props, ref: childRef});
       }
     });
@@ -83,14 +84,12 @@ class HelperApi {
         if (object1[key].toString() !== object2[key].toString()) {
           return false;
         }
-      } else {
-        if (React.isValidElement(object1[key]) && React.isValidElement(object2[key])) {
-          if (!this.isEqual(object1[key].props, object2[key].props)) {
-            return false;
-          }
-        } else if (!this.isEqual(object1[key], object2[key])) {
+      } else if (React.isValidElement(object1[key]) && React.isValidElement(object2[key])) {
+        if (!this.isEqual(object1[key].props, object2[key].props)) {
           return false;
         }
+      } else if (!this.isEqual(object1[key], object2[key])) {
+        return false;
       }
     }
     return true;

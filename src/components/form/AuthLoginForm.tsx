@@ -12,18 +12,17 @@ import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
+import {ILogin} from '../../types/auth';
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
   const {loading, ui} = useStores();
-  const formRef = useRef<MukFormRef>(null);
+  const formRef = useRef<MukFormRef<ILogin>>(null);
+  const formData: ILogin = {name: 'admina', pass: '123', expoToken: ui.getExpoToken};
 
-  const handleSubmit = () => {
-    console.log('formData', formRef.current?.formData());
-    formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData());
-  };
+  const handleSubmit = () => formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);
 
   return (
     <SafeAreaView
@@ -32,11 +31,7 @@ export const AuthLoginForm = observer(() => {
       <View style={{gap: responsiveHeight(48)}}>
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.login.title')}</Text>
         <View style={{gap: responsiveWidth(8)}}>
-          <MukForm
-            ref={formRef}
-            onSubmit={handleSubmit}
-            data={{name: 'admina', pass: '123', expoToken: ui.getExpoToken}}
-          >
+          <MukForm ref={formRef} onSubmit={handleSubmit} data={formData}>
             <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
             <MukTextInput
               name={'pass'}

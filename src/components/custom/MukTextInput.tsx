@@ -1,8 +1,8 @@
 import {HelperText, TextInput, TextInputProps, useTheme} from 'react-native-paper';
 import {StyleProp, TextInput as TextInputRN, TextStyle, View, ViewStyle} from 'react-native';
-import {forwardRef, memo, useImperativeHandle, useRef, useState} from 'react';
+import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
-import {responsiveWidth} from '../../utils/util';
+import {genericMemo, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 
@@ -10,7 +10,7 @@ type Validates = 'required';
 
 type ValidateFunction = (value: string) => boolean;
 
-type Props = {
+type Props = TextInputProps & {
   name: string;
   visible?: boolean;
   onCustomChange?: (name: string, value: string) => void;
@@ -20,7 +20,7 @@ type Props = {
   validate?: ValidateFunction[];
   validationMessage?: string[];
   showKeyboard?: boolean;
-} & TextInputProps;
+};
 
 export type MukTextInputRef = {
   validateInput: (text: string) => void;
@@ -65,14 +65,15 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       rest.onFocus && rest.onFocus(e);
     };
 
+    const changeError = (text: string | null) => error !== text && setError(text);
+
     const validateInput = (text: string | undefined): boolean => {
-      error != null && setError(null);
       if (!text) {
         text = '';
       }
       if (preValidate) {
         if (preValidate === 'required' && (text.length === 0 || text.trim().length === 0)) {
-          setError(t.do('error.required'));
+          changeError(t.do('error.required'));
           return false;
         }
       }
@@ -80,25 +81,23 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
         for (let i = 0; i < validate.length; i++) {
           const validationFunction = validate[i];
           if (!validationFunction(text)) {
-            setError(validationMessage[i]);
+            changeError(validationMessage[i]);
             return false;
           }
         }
       }
+      changeError(null);
       return true;
     };
 
     const getValue = () => value.current ?? '';
 
-    const getInputFocusFunc = () => {
-      console.log(inputRef.current);
-      return inputRef.current?.focus;
-    };
+    const focusInput = () => inputRef.current?.focus();
 
     useImperativeHandle(ref, () => ({
       validateInput,
       inputValue: getValue,
-      focus: getInputFocusFunc,
+      focus: focusInput,
     }));
 
     return (
@@ -145,7 +144,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
   },
 );
 
-const MukTextInput = memo(MukTextInputComp, (prevProps, nextProps) =>
+const MukTextInput = genericMemo(MukTextInputComp, (prevProps, nextProps) =>
   services.api.helper.isEqual(prevProps, nextProps),
 );
 export default MukTextInput;

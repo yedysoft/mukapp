@@ -1,5 +1,5 @@
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useServices} from '../../services';
@@ -14,17 +14,15 @@ type Props = {
 
 export default function MukToaster({message, interval}: Props) {
   const {colors} = useTheme<MukTheme>();
-  const [visible, setVisible] = useState(true);
   const {api} = useServices();
   const {ui} = useStores();
 
   const close = () => {
-    setVisible(false);
     ui.delMessage(message.id);
   };
 
   useEffect(() => {
-    api.helper.sleep(interval, ui.id).then(close);
+    api.helper.sleep(interval, message.id).then(close);
   }, []);
 
   return (
@@ -32,7 +30,6 @@ export default function MukToaster({message, interval}: Props) {
       entering={FadeInUp}
       exiting={FadeOutUp}
       style={{
-        display: visible ? undefined : 'none',
         width: '90%',
         backgroundColor: colors[message.body.type.toLowerCase() as 'info' | 'error' | 'warning'],
         borderRadius: 16,

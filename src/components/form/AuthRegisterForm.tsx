@@ -21,16 +21,13 @@ export const AuthRegisterForm = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
   const {loading} = useStores();
-  const formRef = useRef<MukFormRef>(null);
-  const [form, setForm] = useState<IRegister>({email: '', userName: '', userPass: ''});
   const [step, setStep] = useState(0);
   const [displayPicker, setDisplayPicker] = useState<string | undefined>(undefined);
+  const formRef = useRef<MukFormRef<IRegister>>(null);
+  const formData: IRegister = {email: '', userName: '', userPass: ''};
 
-  const handleOnChange = (name: string, value: string) => {
-    setForm({...form, [name]: value});
-  };
-
-  const onSubmit = () => formRef.current?.validateInputs() && api.auth.register(form);
+  const onSubmit = () =>
+    formRef.current?.validateInputs() && api.auth.register(formRef.current?.formData() as IRegister);
 
   return (
     <SafeAreaView
@@ -38,27 +35,22 @@ export const AuthRegisterForm = observer(() => {
     >
       <View style={{gap: responsiveHeight(48)}}>
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.register.title')}</Text>
-        <MukForm ref={formRef} onSubmit={onSubmit}>
+        <MukForm ref={formRef} onSubmit={onSubmit} data={formData}>
           <MukTextInput
             name={'name'}
             label={t.do('auth.register.name')}
-            value={form.name}
-            onCustomChange={handleOnChange}
             preValidate={'required'}
             visible={step === 0}
           />
           <MukTextInput
             name={'surname'}
             label={t.do('auth.register.surname')}
-            value={form.surname}
-            onCustomChange={handleOnChange}
             preValidate={'required'}
             visible={step === 0}
           />
           <MukTextInput
             name={'birthday'}
             label={t.do('auth.register.birthday')}
-            value={form.birthday}
             selectionColor={colors.background}
             showKeyboard={false}
             visible={step === 0}
@@ -69,7 +61,6 @@ export const AuthRegisterForm = observer(() => {
           <MukTextInput
             name={'gender'}
             label={t.do('auth.register.gender')}
-            value={form.gender?.toString()}
             selectionColor={colors.background}
             showKeyboard={false}
             visible={step === 0}
@@ -81,16 +72,12 @@ export const AuthRegisterForm = observer(() => {
             name={'email'}
             label={t.do('auth.register.email')}
             inputMode={'email'}
-            value={form.email}
-            onCustomChange={handleOnChange}
             preValidate={'required'}
             visible={step === 1}
           />
           <MukTextInput
             name={'userName'}
             label={t.do('auth.register.username')}
-            value={form.userName}
-            onCustomChange={handleOnChange}
             preValidate={'required'}
             visible={step === 1}
           />
@@ -98,17 +85,13 @@ export const AuthRegisterForm = observer(() => {
             name={'telNumber'}
             label={t.do('auth.register.phone')}
             inputMode={'tel'}
-            value={form.telNumber}
             preValidate={'required'}
-            onCustomChange={handleOnChange}
             visible={step === 1}
           />
           <MukTextInput
             name={'userPass'}
             label={t.do('auth.register.password')}
-            value={form.userPass}
             secureTextEntry={true}
-            onCustomChange={handleOnChange}
             preValidate={'required'}
             validate={[value => value.length >= 8 && value.length <= 32]}
             validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
@@ -119,7 +102,10 @@ export const AuthRegisterForm = observer(() => {
             label={t.do('auth.register.repassword')}
             secureTextEntry={true}
             preValidate={'required'}
-            validate={[value => value.length >= 8 && value.length <= 32, value => value === form.userPass]}
+            validate={[
+              value => value.length >= 8 && value.length <= 32,
+              value => value === formRef.current?.formData('userPass'),
+            ]}
             validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
             visible={step === 2}
           />

@@ -1,11 +1,12 @@
 import {View} from 'react-native';
 import {observer} from 'mobx-react';
-import MukToaster from '../custom/MukToaster';
-import {useStores} from '../../stores';
 import {responsiveWidth} from '../../utils/util';
+import {useStores} from '../../stores';
+import MukToaster from '../custom/MukToaster';
 
 const MessageStack = observer(() => {
   const {ui} = useStores();
+  console.log('MessageStackRender');
 
   return (
     <View
@@ -22,7 +23,7 @@ const MessageStack = observer(() => {
       }}
     >
       {ui.getMessages.map((e, _) => (
-        <MukToaster key={e.id} message={e} interval={3000} />
+        <MukToaster key={e.id} message={e} interval={2000} />
       ))}
     </View>
   );

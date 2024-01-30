@@ -1,80 +1,75 @@
-import React, {cloneElement, forwardRef, ReactNode, useImperativeHandle, useRef} from 'react';
+import React, {cloneElement, ForwardedRef, forwardRef, ReactNode, useImperativeHandle, useRef} from 'react';
 import {ScrollView, StyleProp, ViewStyle} from 'react-native';
 import {stores} from '../../stores';
 import {services, useServices} from '../../services';
 import {MukTextInputRef} from './MukTextInput';
 import {genericMemo} from '../../utils/util';
 
-type Props = {
+type Props<T> = {
   children: ReactNode;
   onSubmit: () => void;
-  data: any;
+  data: T;
   style?: StyleProp<ViewStyle>;
 };
 
-export type MukFormRef = {
+export type MukFormRef<T> = {
   validateInputs: () => boolean;
-  formData: any;
+  formData: (key?: keyof T) => T | T[keyof T];
 };
 
-const MukFormComp = forwardRef<MukFormRef, Props>(({children, onSubmit, data, style}: Props, ref) => {
-  console.log('MukFormCompRender', data);
-  const {api, t} = useServices();
-  const refChildrens = api.helper.generateChildsWithRefs<MukTextInputRef>(children);
-  const form = useRef<any>(data);
+const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
+  <T,>({children, onSubmit, data, style}: Props<T>, ref: ForwardedRef<MukFormRef<T>>) => {
+    console.log('MukFormCompRender', data);
+    const {api, t} = useServices();
+    const refChildrens = api.helper.generateChildsWithRefs<MukTextInputRef>(children);
+    const form = useRef<T>(data);
 
-  const handleOnChange = (name: string, value: string) => {
-    console.log('handleOnChange', form.current, name, value);
-    form.current = {...form.current, [name]: value};
-  };
+    const handleOnChange = (name: string, value: string) => {
+      form.current = {...form.current, [name]: value};
+    };
 
-  const validateInputs = () => {
-    let isValid = true;
-    for (const child of refChildrens) {
-      const ref = child.ref.current;
+    const validateInputs = () => {
+      let isValid = true;
+      for (const child of refChildrens) {
+        const ref = child.ref.current;
 
-      const error = ref.validateInput(ref.inputValue());
-      if (!error) {
-        isValid = false;
+        const error = ref.validateInput(ref.inputValue());
+        if (!error) {
+          isValid = false;
+        }
       }
-    }
-    if (!isValid) {
-      stores.ui.addWarning(t.do('error.notValidInputs'));
-    }
-    return isValid;
-  };
+      if (!isValid) {
+        stores.ui.addWarning(t.do('error.notValidInputs'));
+      }
+      return isValid;
+    };
 
-  const getFormData = () => form.current;
+    const getFormData = (key?: keyof T) => (key ? form.current[key as keyof T] : form.current);
 
-  useImperativeHandle(
-    ref,
-    () => ({
+    useImperativeHandle(ref, () => ({
       validateInputs,
       formData: getFormData,
-    }),
-    [form, form.current],
-  );
+    }));
 
-  return (
-    <ScrollView style={style}>
-      {refChildrens.map((child, index) => {
-        const last = index + 1 === refChildrens.length;
-        const nextRef = last ? null : refChildrens[index + 1].ref.current;
-
-        const props = {
-          key: index,
-          returnKeyType: last ? 'done' : 'next',
-          returnKeyLabel: last ? 'Onayla' : 'Sonraki',
-          onSubmitEditing: last ? onSubmit : () => nextRef?.focus(),
-          blurOnSubmit: last,
-          defaultValue: data && data[child.props.name],
-          onCustomChange: handleOnChange,
-        };
-        return cloneElement(child, {...child.props, ...props});
-      })}
-    </ScrollView>
-  );
-});
+    return (
+      <ScrollView style={style}>
+        {refChildrens.map((child, index) => {
+          const last = index + 1 === refChildrens.length;
+          const props = {
+            key: index,
+            returnKeyType: last ? 'done' : 'next',
+            returnKeyLabel: last ? 'Onayla' : 'Sonraki',
+            onSubmitEditing: last ? onSubmit : () => refChildrens[index + 1].ref.current?.focus(),
+            blurOnSubmit: last,
+            defaultValue: data && data[child.props.name as keyof T],
+            onCustomChange: handleOnChange,
+          };
+          return cloneElement(child, {...child.props, ...props});
+        })}
+      </ScrollView>
+    );
+  },
+);
 
 const MukForm = genericMemo(MukFormComp, (prevProps, nextProps) => services.api.helper.isEqual(prevProps, nextProps));
 export default MukForm;

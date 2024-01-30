@@ -30,6 +30,7 @@ export default function AuthLayout({children, style}: Props) {
         <View
           style={[
             {
+              paddingBottom: responsiveWidth(16),
               flex: 1,
               flexDirection: 'column',
               width: screenWidth,

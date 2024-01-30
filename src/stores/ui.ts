@@ -40,7 +40,7 @@ class UIStore extends BaseStore<UIStore> {
   }
 
   get getMessages() {
-    return this.messages;
+    return this.messages.slice(0, 3);
   }
 
   get getReloadToggle(): boolean {
