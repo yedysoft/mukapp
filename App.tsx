@@ -17,10 +17,12 @@ import {NavigationContainer, Theme} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 import appearance from './src/services/appearance';
 import notification from './src/services/notification';
+import listeners from './src/services/listeners';
 
 const initializeApp = async () => {
   await hydrateStores();
   appearance.load();
+  listeners.load();
   await initServices();
   await notification.load();
   await services.api.permission.getNotification();
@@ -30,6 +32,7 @@ const initializeApp = async () => {
 const deinitializeApp = async () => {
   stopPersists();
   appearance.unload();
+  listeners.unload();
   notification.unload();
   await services.api.room.closeRoom();
   await services.api.socket.disconnect();

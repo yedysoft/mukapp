@@ -1,6 +1,6 @@
 import MukFAB from '../../components/custom/MukFAB';
 import MukSheet from '../../components/custom/MukSheet';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
@@ -20,17 +20,15 @@ import {MainStackNavProp} from '../../navigation/MainStack';
 const CreateRoom = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const sheetRef = useRef<BottomSheet>(null);
-  const formRef = useRef<MukFormRef>(null);
   const navigation = useNavigation<MainStackNavProp>();
   const {api, t} = useServices();
   const {room, user} = useStores();
-  const [form, setForm] = useState<IRoomConfig | null>();
+  const formRef = useRef<MukFormRef<IRoomConfig>>(null);
+  const form: IRoomConfig | null = room.getConfig;
 
   useEffect(() => {
     if (!room.getConfig) {
       api.room.setConfig();
-    } else {
-      setForm(room.getConfig);
     }
   }, [room.getConfig]);
 
@@ -38,16 +36,10 @@ const CreateRoom = observer(() => {
     sheetRef.current?.expand();
   };
 
-  const handleOnChange = (name: string, value: string) => {
-    if (form) {
-      setForm({...form, [name]: value});
-    }
-  };
-
   const createRoom = async () => {
     if (formRef.current?.validateInputs()) {
       if (form) {
-        await api.room.createRoom(form);
+        await api.room.createRoom(formRef.current?.formData() as IRoomConfig);
         if (room.isLive) {
           sheetRef.current?.close();
           navigation.navigate('Room');
@@ -89,13 +81,11 @@ const CreateRoom = observer(() => {
                 @{user.getInfo.userName}
               </Text>
             </View>
-            <MukForm ref={formRef} onSubmit={createRoom}>
+            <MukForm ref={formRef} onSubmit={createRoom} data={form}>
               <MukTextInput
                 name={'name'}
                 selectionColor={colors.primary}
                 label={t.do('roomConfig.name')}
-                value={form?.name}
-                onCustomChange={handleOnChange}
                 preValidate={'required'}
               />
             </MukForm>

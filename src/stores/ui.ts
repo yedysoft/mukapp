@@ -3,6 +3,7 @@ import {BaseStore} from './base';
 import {StatusBarStyle} from 'expo-status-bar';
 import themes from '../themes';
 import {MessageBody, MukMessage, MukTheme} from '../types';
+import {Dimensions, ScaledSize} from 'react-native';
 
 class UIStore extends BaseStore<UIStore> {
   id = 0;
@@ -13,6 +14,9 @@ class UIStore extends BaseStore<UIStore> {
   messages: MukMessage[] = [];
   expoToken: string | null = null;
   reloadToggle = false;
+  window: ScaledSize = Dimensions.get('window');
+  screen: ScaledSize = Dimensions.get('screen');
+  keyboardHeight = 0;
 
   constructor() {
     super();
@@ -47,20 +51,36 @@ class UIStore extends BaseStore<UIStore> {
     return this.reloadToggle;
   }
 
-  addMessage(body: MessageBody) {
-    this.set('messages', [...this.messages, {id: this.id++, body: body}]);
+  get screenWidth() {
+    return this.screen.width;
+  }
+
+  get screenHeight() {
+    return this.screen.height;
+  }
+
+  get windowWidth() {
+    return this.window.width;
+  }
+
+  get windowHeight() {
+    return this.window.height;
+  }
+
+  addMessage(body: MessageBody, interval = 2000) {
+    this.set('messages', [...this.messages, {id: this.id++, interval: interval, body: body}]);
   }
 
   addError(message: string, code?: number) {
-    this.addMessage({code: code ?? 0, message: message, type: 'Error'});
+    this.addMessage({code: code ?? 0, message: message, type: 'Error'}, 3000);
   }
 
   addWarning(message: string, code?: number) {
-    this.addMessage({code: code ?? 0, message: message, type: 'Warning'});
+    this.addMessage({code: code ?? 0, message: message, type: 'Warning'}, 2000);
   }
 
   addInfo(message: string, code?: number) {
-    this.addMessage({code: code ?? 0, message: message, type: 'Info'});
+    this.addMessage({code: code ?? 0, message: message, type: 'Info'}, 2000);
   }
 
   delMessage(id: number) {

@@ -19,16 +19,12 @@ export const AuthEditForm = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
   const {loading, user} = useStores();
-  const formRef = useRef<MukFormRef>(null);
-  const [form, setForm] = useState<IEdit>({email: '', userName: '', userPass: ''});
+  const formRef = useRef<MukFormRef<IEdit>>(null);
+  const form: IEdit = {email: '', userName: '', userPass: ''};
   const [displayPicker, setDisplayPicker] = useState<string | undefined>(undefined);
   const [visible, setVisible] = useState(false);
 
-  const handleOnChange = (name: string, value: string) => {
-    setForm({...form, [name]: value});
-  };
-
-  const onSubmit = () => formRef.current?.validateInputs() && api.auth.register(form);
+  const onSubmit = () => formRef.current?.validateInputs() && api.auth.register(formRef.current?.formData() as IEdit);
 
   return (
     <View
@@ -54,42 +50,15 @@ export const AuthEditForm = observer(() => {
           />
         </Pressable>
       </View>
-      <MukForm ref={formRef} onSubmit={onSubmit}>
-        <MukTextInput
-          name={'name'}
-          label={t.do('auth.register.name')}
-          value={form.name}
-          onCustomChange={handleOnChange}
-          preValidate={'required'}
-        />
-        <MukTextInput
-          name={'surname'}
-          label={t.do('auth.register.surname')}
-          value={form.surname}
-          onCustomChange={handleOnChange}
-          preValidate={'required'}
-        />
-        <MukTextInput
-          name={'userName'}
-          label={t.do('auth.register.username')}
-          value={form.userName}
-          onCustomChange={handleOnChange}
-          preValidate={'required'}
-        />
-        <MukTextInput
-          name={'email'}
-          label={t.do('auth.register.email')}
-          inputMode={'email'}
-          value={form.email}
-          onCustomChange={handleOnChange}
-          preValidate={'required'}
-        />
+      <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
+        <MukTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
+        <MukTextInput name={'surname'} label={t.do('auth.register.surname')} preValidate={'required'} />
+        <MukTextInput name={'userName'} label={t.do('auth.register.username')} preValidate={'required'} />
+        <MukTextInput name={'email'} label={t.do('auth.register.email')} inputMode={'email'} preValidate={'required'} />
         <MukTextInput
           name={'userPass'}
           label={t.do('auth.register.password')}
-          value={form.userPass}
           secureTextEntry={true}
-          onCustomChange={handleOnChange}
           preValidate={'required'}
           validate={[value => value.length >= 8 && value.length <= 32]}
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
@@ -99,21 +68,21 @@ export const AuthEditForm = observer(() => {
           label={t.do('auth.register.repassword')}
           secureTextEntry={true}
           preValidate={'required'}
-          validate={[value => value.length >= 8 && value.length <= 32, value => value === form.userPass]}
+          validate={[
+            value => value.length >= 8 && value.length <= 32,
+            value => value === formRef.current?.formData('userPass'),
+          ]}
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
         />
         <MukTextInput
           name={'telNumber'}
           label={t.do('auth.register.phone')}
           inputMode={'tel'}
-          value={form.telNumber}
           preValidate={'required'}
-          onCustomChange={handleOnChange}
         />
         <MukTextInput
           name={'gender'}
           label={t.do('auth.register.gender')}
-          value={form.gender?.toString()}
           selectionColor={colors.background}
           showKeyboard={false}
           preValidate={'required'}
@@ -123,7 +92,6 @@ export const AuthEditForm = observer(() => {
         <MukTextInput
           name={'birthday'}
           label={t.do('auth.register.birthday')}
-          value={form.birthday}
           selectionColor={colors.background}
           showKeyboard={false}
           preValidate={'required'}

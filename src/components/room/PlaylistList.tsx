@@ -24,7 +24,7 @@ const PlaylistList = observer(({playlists}: Props) => {
     !loading.getPlaylistTracks && api.media.getPlaylistTracks(item.id, item.tracks.count > 0);
   };
 
-  const handleSearch = (name: string, value: string) => {
+  const handleSearch = (_name: string, value: string) => {
     api.helper.sleep(500, 'searchSong').then(() => {
       if (media.getSearchValue !== value) {
         !loading.getPlaylistTracks &&
@@ -54,7 +54,7 @@ const PlaylistList = observer(({playlists}: Props) => {
         <MukTextInput
           name={'search'}
           underlineStyle={{backgroundColor: colors.primary, opacity: 0.5}}
-          onChange={handleSearch}
+          onCustomChange={handleSearch}
           style={{
             alignSelf: 'center',
             width: '92%',

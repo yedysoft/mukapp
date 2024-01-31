@@ -1,22 +1,21 @@
-import {useTheme} from 'react-native-paper';
-import {screenWidth} from '../../utils/util';
 import {ReactNode} from 'react';
 import Carousel from 'react-native-reanimated-carousel';
-import {MukTheme} from '../../types';
+import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   data: any[];
   carousel?: ReactNode;
 };
 
-export default function MukCarousel({data, carousel}: Props) {
-  const {colors} = useTheme<MukTheme>();
+export default observer(({data, carousel}: Props) => {
+  const {ui} = useStores();
 
   return (
     <Carousel
       loop
-      width={screenWidth}
-      height={screenWidth / 2}
+      width={ui.windowWidth}
+      height={ui.windowWidth / 2}
       autoPlay={true}
       autoPlayInterval={4000}
       mode={'parallax'}
@@ -32,4 +31,4 @@ export default function MukCarousel({data, carousel}: Props) {
       }}
     />
   );
-}
+});

@@ -13,6 +13,7 @@ type ValidateFunction = (value: string) => boolean;
 type Props = TextInputProps & {
   name: string;
   visible?: boolean;
+  showError?: boolean;
   onCustomChange?: (name: string, value: string) => void;
   viewStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
@@ -23,9 +24,10 @@ type Props = TextInputProps & {
 };
 
 export type MukTextInputRef = {
-  validateInput: (text: string) => void;
+  validateInput: (text: string) => boolean;
   inputValue: () => string;
-  focus?: () => void;
+  focus: () => void;
+  clear: () => void;
 };
 
 const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
@@ -33,6 +35,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
     {
       name,
       visible = true,
+      showError = true,
       onCustomChange,
       viewStyle,
       inputStyle,
@@ -54,14 +57,14 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
     const value = useRef<string | undefined>(validInputValue);
 
     const handleChangeText = (text: string) => {
-      validateInput(text);
+      showError && validateInput(text);
       value.current = text;
       onCustomChange && onCustomChange(name, text);
       rest.onChangeText && rest.onChangeText(text);
     };
 
     const handleFocus = (e: any) => {
-      validateInput(value.current);
+      showError && validateInput(value.current);
       rest.onFocus && rest.onFocus(e);
     };
 
@@ -94,10 +97,13 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
 
     const focusInput = () => inputRef.current?.focus();
 
+    const clearInput = () => inputRef.current?.clear();
+
     useImperativeHandle(ref, () => ({
       validateInput,
       inputValue: getValue,
       focus: focusInput,
+      clear: clearInput,
     }));
 
     return (
@@ -106,7 +112,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
           {
             flexDirection: 'column',
             gap: responsiveWidth(8),
-            minHeight: responsiveWidth(60),
+            minHeight: showError ? responsiveWidth(60) : undefined,
             display: visible ? undefined : 'none',
           },
           viewStyle,

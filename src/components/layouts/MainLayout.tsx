@@ -10,7 +10,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {observer} from 'mobx-react';
-import {responsiveHeight, screenWidth} from '../../utils/util';
+import {responsiveHeight} from '../../utils/util';
 import PlayingTrack from '../room/PlayingTrack';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
@@ -22,7 +22,7 @@ type Props = {
 
 export const MainLayout = observer(({children, style}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {room} = useStores();
+  const {room, ui} = useStores();
 
   return (
     <KeyboardAvoidingView
@@ -32,7 +32,7 @@ export const MainLayout = observer(({children, style}: Props) => {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
-          style={[{flex: 1, flexDirection: 'column', width: screenWidth, backgroundColor: colors.background}, style]}
+          style={[{flex: 1, flexDirection: 'column', width: ui.windowWidth, backgroundColor: colors.background}, style]}
         >
           {children}
           {room.isLive ? <PlayingTrack compact={true} /> : null}

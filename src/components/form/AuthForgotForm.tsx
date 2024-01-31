@@ -2,7 +2,7 @@ import {observer} from 'mobx-react';
 import {Text, useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 import {IForgot} from '../../types/auth';
 import {useServices} from '../../services';
 import {View} from 'react-native';
@@ -17,16 +17,13 @@ import {AuthStackNavProp} from '../../navigation/AuthStack';
 export const AuthForgotForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme<MukTheme>();
-  const [form, setForm] = useState<IForgot>({email: ''});
   const {api, t} = useServices();
   const {loading} = useStores();
-  const formRef = useRef<MukFormRef>(null);
+  const formRef = useRef<MukFormRef<IForgot>>(null);
+  const form: IForgot = {email: ''};
 
-  const handleOnChange = (name: string, value: string) => {
-    setForm({...form, [name]: value});
-  };
-
-  const onSubmit = () => formRef.current?.validateInputs() && api.auth.forgotPass(form);
+  const onSubmit = () =>
+    formRef.current?.validateInputs() && api.auth.forgotPass(formRef.current?.formData() as IForgot);
 
   return (
     <SafeAreaView
@@ -34,12 +31,10 @@ export const AuthForgotForm = observer(() => {
     >
       <View style={{gap: responsiveHeight(48)}}>
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.forgot.title')}</Text>
-        <MukForm ref={formRef} onSubmit={onSubmit}>
+        <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
           <MukTextInput
             name={'email'}
             label={t.do('auth.forgot.email')}
-            value={form.email}
-            onCustomChange={handleOnChange}
             preValidate={'required'}
             validate={[value => value.length >= 3]}
             validationMessage={['En az 3 karakter olmalıdır.']}

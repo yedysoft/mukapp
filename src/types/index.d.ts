@@ -178,6 +178,7 @@ export type TooltipScreenProps = {
 // Message
 export type MukMessage = {
   id: number;
+  interval: number;
   body: MessageBody;
 };
 export type MessageBody = {

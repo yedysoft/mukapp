@@ -1,13 +1,15 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useTheme} from 'react-native-paper';
-import {screenWidth} from '../utils/util';
 import SideScreen from '../screens/main/SideScreen';
 import MainStack from './MainStack';
 import {MukTheme} from '../types';
+import {observer} from 'mobx-react';
+import {useStores} from '../stores';
 
 const Main = createDrawerNavigator();
-export default function MainDrawer() {
+export default observer(() => {
   const {colors} = useTheme<MukTheme>();
+  const {ui} = useStores();
 
   return (
     <Main.Navigator
@@ -19,11 +21,11 @@ export default function MainDrawer() {
         drawerStyle: {},
         drawerContentContainerStyle: {},
         drawerPosition: 'left',
-        swipeEdgeWidth: screenWidth / 4,
+        swipeEdgeWidth: ui.windowWidth / 4,
       }}
       drawerContent={() => <SideScreen />}
     >
       <Main.Screen name="DrawerMain" component={MainStack} options={{headerShown: false}} />
     </Main.Navigator>
   );
-}
+});

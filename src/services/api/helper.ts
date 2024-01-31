@@ -18,7 +18,6 @@ class HelperApi {
         resolver();
         key && this.timeoutIds.delete(key);
       }, ms);
-      console.log('sleep', key, timeoutId);
       key && this.timeoutIds.set(key, timeoutId);
     });
   }

@@ -9,10 +9,10 @@ import {MukMessage, MukTheme} from '../../types';
 
 type Props = {
   message: MukMessage;
-  interval: number;
 };
 
-export default function MukToaster({message, interval}: Props) {
+export default function MukToaster({message}: Props) {
+  console.log('MukToasterRender', message);
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {ui} = useStores();
@@ -22,7 +22,9 @@ export default function MukToaster({message, interval}: Props) {
   };
 
   useEffect(() => {
-    api.helper.sleep(interval, message.id).then(close);
+    if (message.interval > 0) {
+      api.helper.sleep(message.interval, message.id).then(close);
+    }
   }, []);
 
   return (

@@ -1,14 +1,13 @@
-import {Dimensions, PixelRatio} from 'react-native';
+import {PixelRatio} from 'react-native';
 import React, {memo} from 'react';
+import {stores} from '../stores';
 
 const heightMobileUI = 896;
 const widthMobileUI = 414;
 
-const screenWidth: number = Dimensions.get('window').width;
-const screenHeight: number = Dimensions.get('window').height;
-
 const normalize = (size: number, based: 'width' | 'height'): number => {
-  const newSize: number = size * (based === 'height' ? screenHeight / heightMobileUI : screenWidth / widthMobileUI);
+  const newSize: number =
+    size * (based === 'height' ? stores.ui.windowHeight / heightMobileUI : stores.ui.windowWidth / widthMobileUI);
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
 const responsiveScale = (scale: number | undefined): number => responsiveWidth(scale ? 64 * scale : 64);
@@ -21,4 +20,4 @@ const genericMemo: <T extends React.ComponentType<any>>(
   propsAreEqual?: (prevProps: React.ComponentProps<T>, nextProps: React.ComponentProps<T>) => boolean,
 ) => T = memo;
 
-export {screenWidth, screenHeight, responsiveScale, responsiveWidth, responsiveHeight, responsiveSize, genericMemo};
+export {responsiveScale, responsiveWidth, responsiveHeight, responsiveSize, genericMemo};

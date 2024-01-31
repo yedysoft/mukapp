@@ -14,7 +14,7 @@ export const SearchScreen = observer(() => {
   const {api, t} = useServices();
   const {user} = useStores();
 
-  const handleSearch = (name: string, value: string) => {
+  const handleSearch = (_name: string, value: string) => {
     api.helper.sleep(500, 'searchUser').then(() => {
       if (value !== '') {
         api.user.searchUser(value);
@@ -37,8 +37,8 @@ export const SearchScreen = observer(() => {
             placeholder={t.do('main.search.placeholder')}
             name={'search'}
             underlineStyle={{backgroundColor: colors.primary, opacity: 0.5}}
-            onChange={handleSearch}
-            style={{marginVertical: responsiveWidth(8)}}
+            onCustomChange={handleSearch}
+            viewStyle={{marginVertical: responsiveWidth(8)}}
           />
         }
       />

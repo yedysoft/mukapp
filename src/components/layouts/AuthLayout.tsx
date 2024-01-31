@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {responsiveWidth, screenWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -11,14 +11,17 @@ import {
   ViewStyle,
 } from 'react-native';
 import {MukTheme} from '../../types';
+import {observer} from 'mobx-react';
+import {useStores} from '../../stores';
 
 type Props = {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
 };
 
-export default function AuthLayout({children, style}: Props) {
+export default observer(({children, style}: Props) => {
   const {colors} = useTheme<MukTheme>();
+  const {ui} = useStores();
 
   return (
     <KeyboardAvoidingView
@@ -33,7 +36,7 @@ export default function AuthLayout({children, style}: Props) {
               paddingBottom: responsiveWidth(16),
               flex: 1,
               flexDirection: 'column',
-              width: screenWidth,
+              width: ui.windowWidth,
               backgroundColor: colors.background,
               paddingHorizontal: responsiveWidth(20),
             },
@@ -45,4 +48,4 @@ export default function AuthLayout({children, style}: Props) {
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
-}
+});

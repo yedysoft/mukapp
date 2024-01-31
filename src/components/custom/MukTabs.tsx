@@ -3,8 +3,10 @@ import {ReactNode} from 'react';
 import {MukTheme} from '../../types';
 import {Pressable, View} from 'react-native';
 import MukIcon from './MukIcon';
-import {responsiveWidth, screenWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {useServices} from '../../services';
+import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   activeIndex?: number;
@@ -16,12 +18,13 @@ type Props = {
   }[];
 };
 
-export default function MukTabs({tabs, activeIndex, onChangeIndex}: Props) {
+export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
   const theme = useTheme<MukTheme>();
   const {api} = useServices();
+  const {ui} = useStores();
 
   return (
-    <View style={{flex: 1, flexDirection: 'column', width: screenWidth}}>
+    <View style={{flex: 1, flexDirection: 'column', width: ui.windowWidth}}>
       <View style={{flex: 1, flexDirection: 'row', width: '100%', maxHeight: responsiveWidth(60)}}>
         {tabs.map((tab, i) => {
           return (
@@ -54,4 +57,4 @@ export default function MukTabs({tabs, activeIndex, onChangeIndex}: Props) {
       </View>
     </View>
   );
-}
+});

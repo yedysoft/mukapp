@@ -23,7 +23,7 @@ const MessageStack = observer(() => {
       }}
     >
       {ui.getMessages.map((e, _) => (
-        <MukToaster key={e.id} message={e} interval={2000} />
+        <MukToaster key={e.id} message={e} />
       ))}
     </View>
   );

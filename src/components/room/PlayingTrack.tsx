@@ -1,6 +1,6 @@
 import {Text, useTheme} from 'react-native-paper';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth, screenWidth} from '../../utils/util';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import MukImage from '../../components/custom/MukImage';
 import MukProgressBar from '../../components/custom/MukProgressBar';
 import {observer} from 'mobx-react';
@@ -18,7 +18,7 @@ type Props = {
 const PlayingTrack = observer(({compact}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const styles = makeStyles(colors);
-  const {media} = useStores();
+  const {media, ui} = useStores();
   const {api} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.background : colors.secondary;
@@ -27,7 +27,7 @@ const PlayingTrack = observer(({compact}: Props) => {
   return (
     <View
       style={{
-        width: screenWidth,
+        width: ui.windowWidth,
         height: responsiveWidth(compact ? 100 : 300),
         justifyContent: compact ? 'flex-start' : 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),
