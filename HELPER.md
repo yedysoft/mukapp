@@ -12,6 +12,11 @@ depcheck
 
 ## Projeyi son expo versiyonuna yükseltmek için.
 
+* Bu tek başına otomatik olarak yapar. Alttakiler ile manuel yapılabilir.
+```shell
+npx expo install --check
+```
+
 * Son expo versiyonunu yükle
 ```shell
 npm install expo@latest
