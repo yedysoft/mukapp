@@ -10,8 +10,7 @@
     "web": "npx expo start --web",
     "prebuild": "npx expo prebuild",
     "build": "eas build -p android -e apk",
-    "update": "npm install expo@latest",
-    "fix": "npx expo install --fix"
+    "upgrade": "npx expo install --check"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.5.1",
@@ -24,7 +23,7 @@
     "@stomp/stompjs": "^7.0.0",
     "@types/i18n-js": "^3.8.5",
     "axios": "1.6.2",
-    "expo": "~50.0.5",
+    "expo": "~50.0.6",
     "expo-build-properties": "~0.11.1",
     "expo-constants": "~15.4.5",
     "expo-dev-client": "~3.3.8",
@@ -38,7 +37,7 @@
     "mobx-persist-store": "1.1.3",
     "mobx-react": "^9.0.1",
     "react": "18.2.0",
-    "react-native": "0.73.2",
+    "react-native": "0.73.4",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-paper": "^5.12.3",
     "react-native-reanimated": "~3.6.2",
