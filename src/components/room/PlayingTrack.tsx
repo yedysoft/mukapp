@@ -34,6 +34,7 @@ const PlayingTrack = observer(({compact}: Props) => {
         position: compact ? 'absolute' : 'relative',
         bottom: 0,
         backgroundColor: dominantColor ?? colors.background,
+        gap: responsiveWidth(4),
       }}
     >
       <TouchableOpacity
@@ -42,7 +43,7 @@ const PlayingTrack = observer(({compact}: Props) => {
         style={{
           flexDirection: 'row',
           gap: responsiveWidth(16),
-          marginBottom: responsiveHeight(compact ? 8 : 16),
+          marginBottom: responsiveHeight(compact ? 8 : 0),
         }}
       >
         <MukImage
@@ -53,50 +54,31 @@ const PlayingTrack = observer(({compact}: Props) => {
           style={{
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            gap: responsiveWidth(24),
+            gap: responsiveWidth(1),
             paddingBottom: responsiveWidth(compact ? 12 : 0),
             maxWidth: responsiveWidth(compact ? 264 : 236),
           }}
         >
-          <View style={{flexDirection: 'column', gap: responsiveWidth(1)}}>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: responsiveSize(compact ? 18 : 20),
-                fontWeight: '500',
-                color: textColor ?? colors.secondary,
-              }}
-            >
-              {media.getPlayingTrack.name}
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: responsiveSize(compact ? 14 : 16),
-                fontWeight: '300',
-                color: textColor ?? colors.secondary,
-              }}
-            >
-              {api.helper.getArtist(media.getPlayingTrack.artists)}
-            </Text>
-          </View>
-          {!compact && (
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                width: '100%',
-              }}
-            >
-              <Text style={{color: textColor ?? colors.secondary}}>
-                {api.helper.msToMinSec(media.getPlayingTrack.progress)}
-              </Text>
-              <Text style={{color: textColor ?? colors.secondary}}>/</Text>
-              <Text style={{color: textColor ?? colors.secondary}}>
-                {api.helper.msToMinSec(media.getPlayingTrack.duration)}
-              </Text>
-            </View>
-          )}
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: responsiveSize(compact ? 18 : 20),
+              fontWeight: '500',
+              color: textColor ?? colors.secondary,
+            }}
+          >
+            {media.getPlayingTrack.name}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: responsiveSize(compact ? 14 : 16),
+              fontWeight: '300',
+              color: textColor ?? colors.secondary,
+            }}
+          >
+            {api.helper.getArtist(media.getPlayingTrack.artists)}
+          </Text>
         </View>
         {compact && (
           <MukIconButton
@@ -108,6 +90,22 @@ const PlayingTrack = observer(({compact}: Props) => {
           />
         )}
       </TouchableOpacity>
+      {!compact && (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
+          <Text style={{color: textColor ?? colors.secondary}}>
+            {api.helper.msToMinSec(media.getPlayingTrack.progress)}
+          </Text>
+          <Text style={{color: textColor ?? colors.secondary}}>
+            {api.helper.msToMinSec(media.getPlayingTrack.duration)}
+          </Text>
+        </View>
+      )}
       <View style={styles.shadow}>
         <MukProgressBar
           color={textColor ?? colors.primary}
@@ -121,7 +119,7 @@ const PlayingTrack = observer(({compact}: Props) => {
 const makeStyles = (colors: MukColors) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: colors.primary,
+      shadowColor: colors.secondary,
       shadowOffset: {
         width: 0,
         height: 0,

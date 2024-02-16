@@ -31,7 +31,7 @@ export default function ChatComposer({sendMessage, receiverId, messageType}: Pro
     <View
       style={{
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
         gap: responsiveWidth(4),
         padding: responsiveWidth(16),

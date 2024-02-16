@@ -8,7 +8,6 @@ import {useServices} from '../../services';
 import SongList from './SongList';
 import {useTheme} from 'react-native-paper';
 import LeaderboardList from './LeaderboardList';
-import RoomSettingsList from './RoomSettingsList';
 import MukLoader from '../loading/MukLoader';
 import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
@@ -100,10 +99,10 @@ const RoomTabs = observer(() => {
             />
           ),
         },
-        {
+        /*{
           icon: 'settings',
           children: <RoomSettingsList settings={[...Array(3)]} />,
-        },
+        },*/
       ]}
     />
   );

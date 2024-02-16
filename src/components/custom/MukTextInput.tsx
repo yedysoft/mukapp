@@ -134,7 +134,6 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
               width: '100%',
               color: colors.secondary,
               backgroundColor: 'transparent',
-              paddingVertical: responsiveWidth(4),
               textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
             },
             inputStyle,
