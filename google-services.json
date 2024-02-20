@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "776088216102",
-    "project_id": "yedy-muk",
-    "storage_bucket": "yedy-muk.appspot.com"
+    "project_number": "143812558146",
+    "project_id": "muk-yedy",
+    "storage_bucket": "muk-yedy.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:776088216102:android:7ceecf34dc45b81dce7ce7",
+        "mobilesdk_app_id": "1:143812558146:android:23eaa751647b6a1ec59cdb",
         "android_client_info": {
           "package_name": "com.yedy.muk"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBD0bCzkMMUwKCcjgC2BqLg3OqnBg0bQkA"
+          "current_key": "AIzaSyAFST6QotPtB5j7zaYTAg8jwu6pQNxxg0s"
         }
       ],
       "services": {

@@ -10,6 +10,11 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./muk-yedy-8c09cdad9b8a.json",
+        "track": "internal"
+      }
+    }
   }
 }
