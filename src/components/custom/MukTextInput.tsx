@@ -122,6 +122,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
           ref={inputRef}
           {...rest}
           dense
+          autoCapitalize={rest.autoCapitalize ?? 'none'}
           value={undefined}
           selectionColor={rest.selectionColor ?? colors.primary}
           placeholderTextColor={colors.outlineVariant}
