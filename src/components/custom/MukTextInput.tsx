@@ -111,7 +111,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
         style={[
           {
             flexDirection: 'column',
-            gap: responsiveWidth(8),
+            gap: showError ? responsiveWidth(8) : undefined,
             minHeight: showError ? responsiveWidth(60) : undefined,
             display: visible ? undefined : 'none',
           },
@@ -142,7 +142,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
           outlineStyle={[{borderRadius: 16, borderColor: 'transparent'}, rest.outlineStyle]}
           contentStyle={[{maxHeight: responsiveWidth(100)}, rest.contentStyle]}
         />
-        <HelperText type={'error'} visible={!!error} style={{color: colors.error}}>
+        <HelperText type={'error'} visible={!!error} style={{color: colors.error, display: error ? undefined : 'none'}}>
           * {error}
         </HelperText>
       </View>

@@ -43,7 +43,7 @@ class MediaApi {
       const playlists: IPlaylist[] = response.data;
       playlists.unshift({
         id: 'search',
-        name: "Spotify'da Ara",
+        name: 'Search Songs',
         selected: true,
         images: [{url: 'search', width: 128, height: 128}],
         tracks: {items: [], total: 0, count: 0},

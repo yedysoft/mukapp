@@ -43,7 +43,7 @@ const CombinedDarkTheme: MukTheme = {
     info: 'rgba(10, 132, 255, 1)',
     outline: 'rgba(209, 209, 214, 1)',
     outlineVariant: 'rgba(174, 174, 178, 1)',
-    shadow: 'rgba(142, 142, 147, 1)',
+    shadow: 'rgba(142, 142, 147, .1)',
     backdrop: 'rgba(44, 44, 46, .1)',
     text: 'rgba(242, 242, 247, 1)',
   },

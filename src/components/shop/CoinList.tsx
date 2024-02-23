@@ -28,8 +28,7 @@ export default function CoinList({coins}: Props) {
       style={{height: responsiveWidth(280)}}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
-        paddingVertical: responsiveWidth(16),
-        paddingHorizontal: responsiveWidth(20),
+        padding: responsiveWidth(20),
         gap: responsiveWidth(24),
       }}
     />

@@ -65,7 +65,7 @@ const CreateChat = observer(() => {
     <>
       <MukFAB onPress={handleSheet} />
       <MukSheet
-        snaps={['70%']}
+        snaps={[users.length > 0 ? '70%' : '44%']}
         sheetRef={sheetRef}
         containerStyle={{marginBottom: room.isLive ? 88 : 0}}
         contentStyle={{

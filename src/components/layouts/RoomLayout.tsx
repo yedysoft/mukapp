@@ -14,7 +14,7 @@ export default function RoomLayout({children}: Props) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={responsiveHeight(8)}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(4) : responsiveHeight(-16)}
       style={{flex: 1}}
     >
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'transparent'}}>{children}</View>

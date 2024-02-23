@@ -51,10 +51,7 @@ export default function NotificationListItem({notification, compact}: Props) {
         }}
       >
         <MukIcon scale={0.8} icon={notification.category === 'Follow' ? 'user-plus' : ''} />
-        <Text
-          numberOfLines={2}
-          style={{color: colors.secondary, maxWidth: compact ? '70%' : '100%', backgroundColor: 'red'}}
-        >
+        <Text numberOfLines={2} style={{color: colors.secondary, maxWidth: compact ? '70%' : '100%'}}>
           {notification.content}
         </Text>
       </View>

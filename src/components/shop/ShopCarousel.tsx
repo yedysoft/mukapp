@@ -14,6 +14,7 @@ export default function ShopCarousel() {
             flex: 1,
             justifyContent: 'center',
             backgroundColor: colors.primary,
+            borderRadius: 8,
           }}
         />
       }

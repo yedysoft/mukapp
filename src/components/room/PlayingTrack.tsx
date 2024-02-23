@@ -48,14 +48,15 @@ const PlayingTrack = observer(({compact}: Props) => {
       >
         <MukImage
           scale={compact ? 1 : 2}
+          style={{backgroundColor: colors.shadow}}
           source={api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}
         />
         <View
           style={{
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            gap: responsiveWidth(1),
-            paddingBottom: responsiveWidth(compact ? 12 : 0),
+            gap: responsiveWidth(2),
+            paddingBottom: responsiveWidth(compact ? 12 : 8),
             maxWidth: responsiveWidth(compact ? 264 : 236),
           }}
         >
@@ -65,6 +66,8 @@ const PlayingTrack = observer(({compact}: Props) => {
               fontSize: responsiveSize(compact ? 18 : 20),
               fontWeight: '500',
               color: textColor ?? colors.secondary,
+              backgroundColor: !media.getPlayingTrack.name ? colors.shadow : undefined,
+              minWidth: !media.getPlayingTrack.name ? 180 : undefined,
             }}
           >
             {media.getPlayingTrack.name}
@@ -75,6 +78,8 @@ const PlayingTrack = observer(({compact}: Props) => {
               fontSize: responsiveSize(compact ? 14 : 16),
               fontWeight: '300',
               color: textColor ?? colors.secondary,
+              backgroundColor: !media.getPlayingTrack.artists ? colors.shadow : undefined,
+              maxWidth: !media.getPlayingTrack.artists ? 120 : undefined,
             }}
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}

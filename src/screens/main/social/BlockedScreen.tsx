@@ -8,13 +8,14 @@ import {useServices} from '../../../services';
 import {FlatList} from 'react-native';
 import BlockedListItem from '../../../components/block/BlockedListItem';
 import {IBlockedUser} from '../../../types/user';
+import MukImage from '../../../components/custom/MukImage';
 
 export default function BlockedScreen() {
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {user} = useStores();
 
-  const [blockedList, setBlockedList] = useState<Array<IBlockedUser>>();
+  const [blockedList, setBlockedList] = useState<Array<IBlockedUser>>([]);
 
   const getBlockedList = () => {
     api.user.getBlockedUsers();
@@ -32,12 +33,20 @@ export default function BlockedScreen() {
 
   return (
     <MainLayout>
-      <FlatList
-        contentContainerStyle={{gap: responsiveWidth(8)}}
-        scrollEnabled
-        data={blockedList}
-        renderItem={({item}) => <BlockedListItem item={item} onIconPress={handleBlock} />}
-      />
+      {blockedList.length > 0 ? (
+        <FlatList
+          contentContainerStyle={{gap: responsiveWidth(8)}}
+          scrollEnabled
+          data={blockedList}
+          renderItem={({item}) => <BlockedListItem item={item} onIconPress={handleBlock} />}
+        />
+      ) : (
+        <MukImage
+          source={require('../../../../assets/noimage-gray.png')}
+          scale={2}
+          style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
+        />
+      )}
     </MainLayout>
   );
 }
