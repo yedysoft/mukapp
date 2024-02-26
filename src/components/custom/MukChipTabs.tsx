@@ -2,7 +2,7 @@ import {Text, useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {MukTheme} from '../../types';
 import {TouchableOpacity, View} from 'react-native';
-import {responsiveWidth} from '../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 
@@ -21,13 +21,15 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
   const {ui} = useStores();
 
   return (
-    <View style={{flex: 1, flexDirection: 'column', width: ui.windowWidth, gap: responsiveWidth(16)}}>
+    <View style={{flex: 1, flexDirection: 'column', width: ui.windowWidth}}>
       <View
         style={{
           flexDirection: 'row',
           width: '100%',
           gap: responsiveWidth(8),
           paddingHorizontal: responsiveWidth(16),
+          paddingTop: responsiveWidth(16),
+          paddingBottom: responsiveWidth(8),
         }}
       >
         {tabs.map((tab, i) => {
@@ -44,7 +46,11 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
                 borderRadius: 32,
               }}
             >
-              <Text style={{color: i === activeIndex ? colors.background : colors.secondary}}>{tab.label}</Text>
+              <Text
+                style={{color: i === activeIndex ? colors.background : colors.secondary, fontSize: responsiveSize(14)}}
+              >
+                {tab.label}
+              </Text>
             </TouchableOpacity>
           );
         })}

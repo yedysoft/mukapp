@@ -33,6 +33,7 @@ class SubscriptionApi {
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/queue`, this.queueCallback));
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/voteResult`, this.voteResultCallback));
         this.roomSubs.push(await socket.subscribe(`/live/room/user/${sessionId}`));
+        this.roomSubs.push(await socket.subscribe('/message/listen', this.messageListenCallback));
         if (stores.room.isAdmin) {
           this.roomSubs.push(await socket.subscribe('/live/room/admin'));
         }
@@ -107,28 +108,38 @@ class SubscriptionApi {
 
   private messageListenCallback(message: Message) {
     const newMessage: IMessage = JSON.parse(message.body);
-    if (newMessage.type === 'Public' && newMessage.receiverId === stores.room.getSessionId) {
+    if (newMessage.type === 'Public') {
       stores.room.set('chat', [newMessage, ...stores.room.getChat]);
-    } else if (newMessage.type === 'Private' || newMessage.type === 'Group') {
-      const chat = stores.user.getChats.find(c => c.id === newMessage.receiverId && c.type === newMessage.type);
-      let newChats: IChat[];
+    } else if (
+      (newMessage.type === 'Private' || newMessage.type === 'Group') &&
+      (stores.user.getInfo.id === newMessage.receiverId || stores.user.getInfo.id === newMessage.senderId)
+    ) {
+      const id = stores.user.getInfo.id === newMessage.senderId ? newMessage.receiverId : newMessage.senderId;
+      const chat = stores.user.getChats.find(c => c.id === id && c.type === newMessage.type);
+      let newChats: IChat[] | null = null;
       if (chat) {
         newChats = stores.user.getChats.map((c, _) =>
-          c.id === newMessage.receiverId && c.type === newMessage.type
-            ? {...c, messages: [newMessage, ...c.messages]}
-            : c,
+          c.id === id && c.type === newMessage.type ? {...c, messages: [newMessage, ...c.messages]} : c,
         );
-      } else {
+      } else if (stores.user.getInfo.id === newMessage.receiverId || stores.user.getInfo.id === newMessage.senderId) {
         newChats = [
           {
-            id: newMessage.receiverId,
-            name: newMessage.groupName ?? newMessage.senderName ?? '',
+            id: id,
+            name:
+              newMessage.groupName ??
+              (stores.user.getInfo.id === newMessage.senderId ? newMessage.receiverName : newMessage.senderName) ??
+              '',
             type: newMessage.type,
             messages: [newMessage],
           },
           ...stores.user.getChats,
         ];
       }
+      newChats && stores.user.set('chats', newChats);
+    } else if (newMessage.type === 'Typing' && stores.user.getInfo.id === newMessage.receiverId) {
+      const newChats = stores.user.getChats.map((c, _) =>
+        c.id === newMessage.senderId ? {...c, isTyping: newMessage.content === 'true'} : c,
+      );
       stores.user.set('chats', newChats);
     }
   }

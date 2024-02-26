@@ -3,7 +3,7 @@ import {stores} from '../../stores';
 import {IPage, PVoid} from '../../types';
 import media from './media';
 import {IQueueTrack} from '../../types/media';
-import {IBlockedUser, IFollowUser, IInfo, ISearchUser} from '../../types/user';
+import {IBlockedUser, IFollowUser, IInfo, INotification, ISearchUser} from '../../types/user';
 
 class UserApi {
   async getInfo(): PVoid {
@@ -78,17 +78,23 @@ class UserApi {
     }
   }
 
-  async acceptFollowRequest(requestId: string): PVoid {
+  async acceptFollowRequest(requestId: string, notificationId: string): PVoid {
     try {
-      await axiosIns.get(`/follow-request/accept/${requestId}`);
+      const response = await axiosIns.get(`/follow-request/accept/${requestId}`);
+      if (response.status === 200) {
+        await this.deleteNotification(notificationId);
+      }
     } catch (e) {
       console.log(e);
     }
   }
 
-  async rejectFollowRequest(requestId: string): PVoid {
+  async rejectFollowRequest(requestId: string, notificationId: string): PVoid {
     try {
-      await axiosIns.delete(`/follow-request/reject/${requestId}`);
+      const response = await axiosIns.delete(`/follow-request/reject/${requestId}`);
+      if (response.status === 200) {
+        await this.deleteNotification(notificationId);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -156,6 +162,43 @@ class UserApi {
     } finally {
       stores.user.setMany({topVoted: topListVoteMusic.topVoted, countTopVoted: topListVoteMusic.countTopVoted});
       stores.loading.set('votes', false);
+    }
+  }
+
+  async getAllNotifications(userId: string): PVoid {
+    try {
+      const response = await axiosIns.get<INotification[]>(`/notification/getAllNotifications/${userId}`);
+      console.log('Notifications: ', response.data);
+      stores.user.set('notifications', response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async deleteNotification(notificationId: string): PVoid {
+    try {
+      const response = await axiosIns.delete(`/notification/deleteNotification/${notificationId}`);
+      if (response.status === 200) {
+        stores.user.set(
+          'notifications',
+          stores.user.getNotifications.filter(n => n.id !== notificationId),
+        );
+      }
+      console.log('Delete Notification: ', response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async updateReaded(): PVoid {
+    try {
+      const response = await axiosIns.post(
+        '/notification/updateReaded',
+        stores.user.notifications.map(n => n.id),
+      );
+      console.log('Update Readed: ', response.data);
+    } catch (e) {
+      console.log(e);
     }
   }
 }

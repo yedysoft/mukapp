@@ -9,6 +9,7 @@ import {useServices} from '../../services';
 import MukIconButton from '../custom/MukIconButton';
 import {View} from 'react-native';
 import MukIcon from '../custom/MukIcon';
+import {useStores} from '../../stores';
 
 type Props = {
   notification: INotification;
@@ -18,16 +19,8 @@ type Props = {
 export default function NotificationListItem({notification, compact}: Props) {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
-
+  const {user} = useStores();
   const {api} = useServices();
-
-  const acceptFollowRequest = async (id: string) => {
-    await api.user.acceptFollowRequest(id);
-  };
-
-  const rejectFollowRequest = async (id: string) => {
-    await api.user.rejectFollowRequest(id);
-  };
 
   return (
     <MukListItem
@@ -74,7 +67,7 @@ export default function NotificationListItem({notification, compact}: Props) {
           color={compact ? colors.secondary : colors.primary}
           scale={compact ? 0.3 : 0.4}
           icon={'check-circle'}
-          onPress={() => notification && acceptFollowRequest(notification?.id)}
+          onPress={() => notification && api.user.acceptFollowRequest(JSON.parse(notification?.data), notification?.id)}
         />
         <MukIconButton
           style={{
@@ -87,7 +80,7 @@ export default function NotificationListItem({notification, compact}: Props) {
           color={compact ? colors.secondary : colors.tertiary}
           scale={compact ? 0.3 : 0.4}
           icon={'x-circle'}
-          onPress={() => notification && rejectFollowRequest(notification?.id)}
+          onPress={() => notification && api.user.rejectFollowRequest(JSON.parse(notification?.data), notification?.id)}
         />
       </View>
     </MukListItem>

@@ -38,6 +38,7 @@ const RoomListItem = observer(({roomData}: Props) => {
         borderRadius: 16,
         paddingHorizontal: 0,
         paddingVertical: 0,
+        paddingRight: responsiveWidth(16),
       }}
       onPress={() => openRoom()}
     >
@@ -74,7 +75,7 @@ const RoomListItem = observer(({roomData}: Props) => {
             maxWidth: '100%',
           }}
         >
-          <MukIcon icon={'speaker'} scale={0.5} color={colors.tertiary} iconStyle={{padding: 0}} />
+          <MukIcon icon={'speaker'} scale={0.5} color={roomData.liveSong?.dominantColor} iconStyle={{padding: 0}} />
           <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(14)}}>
             {roomData.liveSong?.name}
           </Text>

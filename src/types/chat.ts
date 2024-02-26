@@ -4,6 +4,7 @@ export type IChat = {
   id: string;
   name: string;
   type: IChatType;
+  isTyping?: boolean;
   messages: IMessage[];
 };
 
@@ -11,6 +12,7 @@ export type IMessage = {
   id: string;
   senderId: string;
   senderName?: string;
+  receiverName?: string;
   groupName?: string;
   receiverId: string;
   date: string | Date;
