@@ -1,5 +1,5 @@
 import {BaseStore} from './base';
-import {IBlockedUser, IFollowRequest, IFollowUser, IInfo, INotification, ISearchUser} from '../types/user';
+import {IBlockedUser, IFollowUser, IInfo, INotification, ISearchUser} from '../types/user';
 import defaults from '../utils/defaults';
 import {IQueueTrack} from '../types/media';
 import {IChat} from '../types/chat';
@@ -12,7 +12,6 @@ class UserStore extends BaseStore<UserStore> {
   searched: ISearchUser[] = [];
   follows: IFollowUser[] = [];
   followers: IFollowUser[] = [];
-  followRequests: IFollowRequest[] = [];
   blockedUsers: IBlockedUser[] = [];
   topVoted: IQueueTrack[] = [];
   countTopVoted = 0;
@@ -54,10 +53,6 @@ class UserStore extends BaseStore<UserStore> {
 
   get getFollowers() {
     return this.followers;
-  }
-
-  get getFollowRequests() {
-    return this.followRequests;
   }
 
   get getBlockedUsers() {

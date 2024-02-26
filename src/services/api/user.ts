@@ -78,22 +78,22 @@ class UserApi {
     }
   }
 
-  async acceptFollowRequest(requestId: string, notificationId: string): PVoid {
+  async acceptFollowRequest(requestId: string, notificationId?: string): PVoid {
     try {
       const response = await axiosIns.get(`/follow-request/accept/${requestId}`);
       if (response.status === 200) {
-        await this.deleteNotification(notificationId);
+        notificationId && (await this.deleteNotification(notificationId));
       }
     } catch (e) {
       console.log(e);
     }
   }
 
-  async rejectFollowRequest(requestId: string, notificationId: string): PVoid {
+  async rejectFollowRequest(requestId: string, notificationId?: string): PVoid {
     try {
       const response = await axiosIns.delete(`/follow-request/reject/${requestId}`);
       if (response.status === 200) {
-        await this.deleteNotification(notificationId);
+        notificationId && (await this.deleteNotification(notificationId));
       }
     } catch (e) {
       console.log(e);

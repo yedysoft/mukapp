@@ -20,7 +20,7 @@ class Defaults {
   };
 
   info: IInfo = {
-    id: '',
+    id: 'default',
     userName: '',
     image: '',
     name: '',
