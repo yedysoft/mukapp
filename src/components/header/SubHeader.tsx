@@ -10,13 +10,17 @@ import Coin from '../user/Coin';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
+import {useServices} from '../../services';
 
 export const SubHeader = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
   const params: any = route.params;
-  const {ui} = useStores();
+  const {media, ui} = useStores();
+  const {api} = useServices();
+  const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
+  const textColor = api.helper.isColorLight(dominantColor) ? colors.background : colors.secondary;
 
   return (
     <SafeAreaView
@@ -39,12 +43,16 @@ export const SubHeader = observer(() => {
             route.name === 'Settings' && ui.toggleReload();
             navigation.goBack();
           }}
+          color={textColor}
         />
       </NavButton>
       {route.name === 'Task' ? (
         <Token style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
       ) : route.name === 'Room' ? (
-        <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
+        <Coin
+          textColor={textColor}
+          style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}}
+        />
       ) : route.name === 'Profile' ? (
         <MukIconButton
           style={{justifyContent: 'flex-end', marginRight: responsiveWidth(-8)}}

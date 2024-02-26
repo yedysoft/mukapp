@@ -97,7 +97,7 @@ const RoomTabs = observer(() => {
               onRefresh={() => api.room.setLeaderboard()}
               leaderboard={room.getLeaderboard}
               footer={
-                media.getQueue.length === 0 ? (
+                room.getLeaderboard.length === 0 ? (
                   <MukImage
                     source={require('../../../assets/noimage-gray.png')}
                     scale={2}

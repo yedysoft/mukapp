@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import MukLoader from '../../components/loading/MukLoader';
 import {MukTheme} from '../../types';
+import MukLogo from '../../components/custom/MukLogo';
 
 export default function MukSplashScreen() {
   const {colors} = useTheme<MukTheme>();
@@ -16,7 +16,7 @@ export default function MukSplashScreen() {
         alignItems: 'center',
       }}
     >
-      <MukLoader loading={true} scale={2} />
+      <MukLogo imageStyle={{width: 40, aspectRatio: 0.5}} />
     </View>
   );
 }

@@ -8,9 +8,10 @@ import {MukTheme} from '../../types';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
+  textColor?: string;
 };
 
-const Coin = observer(({style}: Props) => {
+const Coin = observer(({style, textColor}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
 
@@ -23,7 +24,12 @@ const Coin = observer(({style}: Props) => {
       />
       <Text
         numberOfLines={1}
-        style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '600', textAlign: 'left'}}
+        style={{
+          color: textColor ?? colors.secondary,
+          fontSize: responsiveSize(18),
+          fontWeight: '600',
+          textAlign: 'left',
+        }}
       >
         {user.getInfo.coin}
       </Text>

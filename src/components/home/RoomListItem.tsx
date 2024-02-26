@@ -1,7 +1,7 @@
 import {Text, useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {IRoom} from '../../types/room';
@@ -40,7 +40,14 @@ const RoomListItem = observer(({roomData}: Props) => {
         }}
         source={require('../../../assets/adaptive-icon.png')}
       />
-      <View style={{justifyContent: 'space-between', paddingTop: responsiveHeight(16), flex: 1}}>
+      <View
+        style={{
+          justifyContent: 'space-between',
+          paddingBottom: responsiveWidth(4),
+          paddingTop: responsiveWidth(16),
+          flex: 1,
+        }}
+      >
         <View style={{gap: responsiveWidth(8)}}>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>
             {roomData.roomName}
@@ -58,9 +65,13 @@ const RoomListItem = observer(({roomData}: Props) => {
             maxWidth: '100%',
           }}
         >
-          <MukIcon icon={'speaker'} scale={0.6} color={colors.tertiary} iconStyle={{marginLeft: responsiveWidth(-8)}} />
+          <MukIcon icon={'speaker'} scale={0.5} color={colors.tertiary} iconStyle={{padding: 0}} />
           <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(14)}}>
             {roomData.liveSong?.name}
+          </Text>
+          <Text> • </Text>
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(14)}}>
+            {roomData.liveSong ? api.helper.getArtist(roomData.liveSong.artists) : ''}
           </Text>
         </View>
         {/*

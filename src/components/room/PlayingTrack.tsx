@@ -78,8 +78,8 @@ const PlayingTrack = observer(({compact}: Props) => {
               fontSize: responsiveSize(compact ? 14 : 16),
               fontWeight: '300',
               color: textColor ?? colors.secondary,
-              backgroundColor: !media.getPlayingTrack.artists ? colors.shadow : undefined,
-              maxWidth: !media.getPlayingTrack.artists ? 120 : undefined,
+              backgroundColor: !api.helper.getArtist(media.getPlayingTrack.artists) ? colors.shadow : undefined,
+              maxWidth: !api.helper.getArtist(media.getPlayingTrack.artists) ? 120 : undefined,
             }}
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}

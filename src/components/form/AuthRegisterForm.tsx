@@ -146,7 +146,11 @@ export const AuthRegisterForm = observer(() => {
         }}
       >
         {displayPicker === 'birthday' ? (
-          <MukDatePicker name={'birthday'} value={form.birthday} onValueChange={handleOnChange} />
+          <MukDatePicker
+            name={'birthday'}
+            value={formRef.current ? (formRef.current.formData('birthday') as string) : ''}
+            onValueChange={() => {}}
+          />
         ) : (
           displayPicker === 'gender' && (
             <MukPicker<string>
@@ -156,8 +160,8 @@ export const AuthRegisterForm = observer(() => {
                 t.do('auth.register.genders.female'),
                 t.do('auth.register.genders.other'),
               ]}
-              value={form.gender?.toString()}
-              onValueChange={handleOnChange}
+              value={formRef.current ? (formRef.current.formData('gender') as string) : ''}
+              onValueChange={() => {}}
             />
           )
         )}
