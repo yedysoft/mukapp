@@ -1,9 +1,9 @@
-import MukTabs from '../../components/custom/MukTabs';
 import RoomList from '../../components/home/RoomList';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import {useEffect, useState} from 'react';
+import MukChipTabs from '../custom/MukChipTabs';
 
 const HomeTabs = observer(() => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -20,16 +20,16 @@ const HomeTabs = observer(() => {
   }, [tabIndex]);
 
   return (
-    <MukTabs
+    <MukChipTabs
       onChangeIndex={(index: number) => setTabIndex(index)}
       activeIndex={tabIndex}
       tabs={[
         {
-          icon: 'home',
+          label: 'Mekanlar',
           children: <RoomList rooms={room.getPlaces} />,
         },
         {
-          icon: 'users',
+          label: 'Kullanıcılar',
           children: <RoomList rooms={room.getUsers} />,
         },
       ]}

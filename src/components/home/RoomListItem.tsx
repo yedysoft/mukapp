@@ -30,13 +30,22 @@ const RoomListItem = observer(({roomData}: Props) => {
   };
 
   return (
-    <MukListItem disabled={!roomData.isLive} style={{opacity: roomData.isLive ? 1 : 0.5}} onPress={() => openRoom()}>
+    <MukListItem
+      disabled={!roomData.isLive}
+      style={{
+        opacity: roomData.isLive ? 1 : 0.5,
+        backgroundColor: colors.shadow,
+        borderRadius: 16,
+        paddingHorizontal: 0,
+        paddingVertical: 0,
+      }}
+      onPress={() => openRoom()}
+    >
       <MukImage
         scale={2}
         style={{
           backgroundColor: roomData.liveSong?.dominantColor,
           borderColor: roomData.liveSong?.dominantColor,
-          borderWidth: responsiveWidth(2),
         }}
         source={require('../../../assets/adaptive-icon.png')}
       />

@@ -21,7 +21,12 @@ const RoomList = observer(({rooms}: Props) => {
           data={rooms}
           renderItem={({item, index}) => <RoomListItem key={index} roomData={item} />}
           scrollEnabled
-          contentContainerStyle={{paddingVertical: responsiveWidth(8), backgroundColor: colors.background}}
+          contentContainerStyle={{
+            paddingVertical: responsiveWidth(8),
+            paddingHorizontal: responsiveWidth(16),
+            backgroundColor: colors.background,
+            gap: responsiveWidth(8),
+          }}
         />
       ) : (
         <MukImage
