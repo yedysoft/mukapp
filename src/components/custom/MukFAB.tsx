@@ -46,7 +46,7 @@ const makeStyles = (colors: MukColors) =>
       },
       shadowOpacity: 0.5,
       shadowRadius: 8,
-      elevation: 0,
+      elevation: 6,
     },
   });
 

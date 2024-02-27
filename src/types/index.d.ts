@@ -1,7 +1,8 @@
-import {MD3Typescale, ThemeBase} from 'react-native-paper/lib/typescript/types';
+import {ThemeBase} from 'react-native-paper/lib/typescript/types';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {MainStackScreens} from '../navigation/MainStack';
 import {IMessageBodyType} from './enums';
+import {Fonts} from 'react-native-paper/src/types';
 
 // Services
 export interface IService {
@@ -162,10 +163,10 @@ export type MukColors = {
   dark: string;
 };
 export type MukTheme = ThemeBase & {
-  version: 3;
-  isV3: true;
+  version: 2;
+  isV3: false;
   colors: MukColors;
-  fonts: MD3Typescale;
+  fonts: Fonts;
 };
 export type MukMenu = {
   icon: IconSource;
