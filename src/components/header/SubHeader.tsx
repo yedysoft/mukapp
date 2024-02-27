@@ -54,7 +54,7 @@ export const SubHeader = observer(() => {
           textColor={textColor}
           style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}}
         />
-      ) : route.name === 'Profile' ? (
+      ) : route.name === 'Profile' && !(route.params as any)?.userId ? (
         <MukIconButton
           style={{justifyContent: 'flex-end', marginRight: responsiveWidth(-8)}}
           icon={'edit'}

@@ -31,7 +31,7 @@ class UserStore extends BaseStore<UserStore> {
 
   addOrUpdateInfo(info: IInfo) {
     const a = this.getInfosById(info.id);
-    const newList = a.id ? this.infos.map(i => (i.id === info.id ? info : i)) : [...this.infos, info];
+    const newList = a.id !== 'default' ? this.infos.map(i => (i.id === info.id ? info : i)) : [...this.infos, info];
     this.set('infos', newList);
   }
 

@@ -6,7 +6,6 @@ import user from './user';
 import {MessageBody, PVoid} from '../../types';
 import room from './room';
 import subscription from './subscription';
-import {services} from '../index';
 
 class AuthApi {
   async forgotPass(form: IForgot): PVoid {
@@ -54,7 +53,6 @@ class AuthApi {
       await socket.disconnect();
       this.clearAuth();
       await this.checkToken();
-      await stores.user.set('notifications', []);
     } catch (e) {
       console.log(e);
     } finally {
@@ -68,7 +66,7 @@ class AuthApi {
       if (opt.status && opt.status === 200) {
         await user.getInfo();
         await socket.connect();
-        await services.api.user.getAllNotifications(stores.user.getInfo.id);
+        await user.getAllNotifications(stores.user.getInfo.id);
         await subscription.globalSubscribes();
         stores.auth.set('loggedIn', true);
       }
@@ -80,6 +78,7 @@ class AuthApi {
   private clearAuth() {
     stores.auth.set('authToken', '');
     stores.room.set('config', {id: '', name: '', roomId: ''});
+    stores.user.set('notifications', []);
   }
 }
 
