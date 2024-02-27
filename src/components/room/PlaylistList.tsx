@@ -56,7 +56,7 @@ const PlaylistList = observer(({playlists}: Props) => {
           underlineStyle={{backgroundColor: colors.primary, opacity: 0.5, display: 'none'}}
           onCustomChange={handleSearch}
           contentStyle={{
-            backgroundColor: colors.backdrop,
+            backgroundColor: colors.shadow,
             borderRadius: 8,
           }}
           placeholder={'Search'}
