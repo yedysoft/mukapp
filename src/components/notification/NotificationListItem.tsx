@@ -43,7 +43,16 @@ export default function NotificationListItem({notification, compact}: Props) {
           alignItems: 'center',
         }}
       >
-        <MukIcon scale={0.8} icon={notification.category === 'Follow' ? 'user-plus' : ''} />
+        <MukIcon
+          scale={compact ? 0.6 : 0.8}
+          icon={
+            notification.category === 'Follow'
+              ? 'user-plus'
+              : notification.category === 'Message'
+              ? 'message-circle'
+              : 'info'
+          }
+        />
         <Text numberOfLines={2} style={{color: colors.secondary, maxWidth: compact ? '70%' : '100%'}}>
           {notification.content}
         </Text>

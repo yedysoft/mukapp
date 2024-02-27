@@ -21,7 +21,7 @@ const PlayingTrack = observer(({compact}: Props) => {
   const {media, ui} = useStores();
   const {api} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
-  const textColor = api.helper.isColorLight(dominantColor) ? colors.background : colors.secondary;
+  const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
   const navigation = useNavigation<MainStackNavProp>();
 
   return (

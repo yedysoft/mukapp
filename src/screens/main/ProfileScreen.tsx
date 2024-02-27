@@ -1,5 +1,4 @@
 import {useTheme} from 'react-native-paper';
-import {MainLayout} from '../../components/layouts/MainLayout';
 import VerticalProfile from '../../components/user/VerticalProfile';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {useEffect, useState} from 'react';
@@ -11,6 +10,7 @@ import {stores, useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import {MukTheme} from '../../types';
 import MukLoader from '../../components/loading/MukLoader';
+import {SubLayout} from '../../components/layouts/SubLayout';
 
 const ProfileScreen = observer((props: any) => {
   const {colors} = useTheme<MukTheme>();
@@ -19,7 +19,6 @@ const ProfileScreen = observer((props: any) => {
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
   const info = userId ? user.getInfosById(userId) : user.getInfo;
-  console.log(userId, info);
   const otherUser = userId ? user.getInfo.id !== userId : false;
 
   const stats = [
@@ -52,7 +51,7 @@ const ProfileScreen = observer((props: any) => {
   }, [userId]);
 
   return (
-    <MainLayout style={{gap: responsiveHeight(16)}}>
+    <SubLayout style={{gap: responsiveHeight(16)}}>
       {!stores.loading.getVotes ? (
         <View style={{gap: responsiveWidth(4)}}>
           <VerticalProfile profile={info} otherUser={otherUser} />
@@ -81,7 +80,7 @@ const ProfileScreen = observer((props: any) => {
       ) : (
         <MukLoader scale={1} loading={stores.loading.getVotes} />
       )}
-    </MainLayout>
+    </SubLayout>
   );
 });
 

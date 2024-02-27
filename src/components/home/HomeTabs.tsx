@@ -8,7 +8,7 @@ import MukChipTabs from '../custom/MukChipTabs';
 const HomeTabs = observer(() => {
   const [tabIndex, setTabIndex] = useState(0);
   const {room} = useStores();
-  const {api} = useServices();
+  const {api, t} = useServices();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -25,11 +25,11 @@ const HomeTabs = observer(() => {
       activeIndex={tabIndex}
       tabs={[
         {
-          label: 'Mekanlar',
+          label: t.do('main.home.places'),
           children: <RoomList rooms={room.getPlaces} />,
         },
         {
-          label: 'Kullanıcılar',
+          label: t.do('main.home.streamers'),
           children: <RoomList rooms={room.getUsers} />,
         },
       ]}

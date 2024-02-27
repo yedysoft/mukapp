@@ -16,8 +16,19 @@ type Props = {
   onPress?: () => void;
   tooltip?: ({positions, visible, changeVisible}: TooltipScreenProps) => ReactNode;
   disabled?: boolean;
+  defaultBadge?: boolean;
 };
-export default function MukIconButton({style, icon, color, scale, badge, onPress, tooltip, disabled}: Props) {
+export default function MukIconButton({
+  style,
+  icon,
+  color,
+  scale,
+  badge,
+  onPress,
+  tooltip,
+  disabled,
+  defaultBadge,
+}: Props) {
   const {colors} = useTheme<MukTheme>();
 
   // Tooltip için gerekenler
@@ -44,6 +55,19 @@ export default function MukIconButton({style, icon, color, scale, badge, onPress
 
   return (
     <Pressable ref={ref} onLayout={onLayout} style={style} onPress={onPressHandle}>
+      <View
+        style={{
+          display: defaultBadge ? undefined : 'none',
+          position: 'absolute',
+          width: responsiveWidth(8),
+          top: responsiveWidth(6),
+          right: responsiveWidth(10),
+          zIndex: 10,
+          aspectRatio: 1,
+          borderRadius: 100,
+          backgroundColor: colors.tertiary,
+        }}
+      />
       <MukBadge
         badge={badge}
         style={{

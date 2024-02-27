@@ -10,11 +10,13 @@ import {NavButton} from './NavButton';
 import Coin from '../user/Coin';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {useStores} from '../../stores';
 
 export const MainHeader = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
+  const {user} = useStores();
 
   return (
     <SafeAreaView
@@ -36,7 +38,12 @@ export const MainHeader = observer(() => {
         {route.name === 'Shop' ? (
           <Coin style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(16)}} />
         ) : (
-          <MukIconButton icon={'bell'} scale={0.4} tooltip={NotificationsTooltip} />
+          <MukIconButton
+            defaultBadge={Boolean(user.getNotifications.find(n => !n.readed))}
+            icon={'bell'}
+            scale={0.4}
+            tooltip={NotificationsTooltip}
+          />
         )}
       </NavButton>
     </SafeAreaView>

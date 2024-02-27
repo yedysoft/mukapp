@@ -1,8 +1,8 @@
-import {MainLayout} from '../../../components/layouts/MainLayout';
 import {observer} from 'mobx-react';
 import {MukChat} from '../../../components/custom/MukChat';
 import {useServices} from '../../../services';
 import {useStores} from '../../../stores';
+import {SubLayout} from '../../../components/layouts/SubLayout';
 
 const ChatScreen = observer(({route}: any) => {
   const {api} = useServices();
@@ -11,14 +11,14 @@ const ChatScreen = observer(({route}: any) => {
   const messages = user.getChats.find(c => c.id === chat.id && c.type === chat.type)?.messages;
 
   return (
-    <MainLayout>
+    <SubLayout>
       <MukChat
         sendMessage={api.subscription.sendMessage}
         messages={messages ?? []}
         receiverId={chat.id}
         messageType={chat.type}
       />
-    </MainLayout>
+    </SubLayout>
   );
 });
 

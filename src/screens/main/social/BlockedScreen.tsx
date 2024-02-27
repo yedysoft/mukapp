@@ -1,5 +1,4 @@
 import {useTheme} from 'react-native-paper';
-import {MainLayout} from '../../../components/layouts/MainLayout';
 import {responsiveWidth} from '../../../utils/util';
 import {MukTheme} from '../../../types';
 import {useEffect, useState} from 'react';
@@ -9,6 +8,7 @@ import {FlatList} from 'react-native';
 import BlockedListItem from '../../../components/block/BlockedListItem';
 import {IBlockedUser} from '../../../types/user';
 import MukImage from '../../../components/custom/MukImage';
+import {SubLayout} from '../../../components/layouts/SubLayout';
 
 export default function BlockedScreen() {
   const {colors} = useTheme<MukTheme>();
@@ -32,7 +32,7 @@ export default function BlockedScreen() {
   };
 
   return (
-    <MainLayout>
+    <SubLayout>
       {blockedList.length > 0 ? (
         <FlatList
           contentContainerStyle={{gap: responsiveWidth(8)}}
@@ -47,6 +47,6 @@ export default function BlockedScreen() {
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
         />
       )}
-    </MainLayout>
+    </SubLayout>
   );
 }

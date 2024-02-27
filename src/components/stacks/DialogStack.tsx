@@ -21,10 +21,7 @@ const DialogStack = observer(() => {
         visible={!media.getAuthenticated}
         onReject={() => media.set('authenticated', true)}
         onAccept={handleAuth}
-        title={'Yetkilendirme Gerekli'}
-        content={'Devam etmek için Spotify yetkilendirmesi gerekli. Şimdi yetkilendirmek ister misin?'}
-        labelReject={'Hatırlat'}
-        labelAccept={'Yetkilendir'}
+        name={'spotify'}
       />
     </Portal>
   );

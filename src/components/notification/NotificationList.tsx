@@ -6,6 +6,8 @@ import {MukTheme} from '../../types';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import MukImage from '../custom/MukImage';
+import {useServices} from '../../services';
+import {useEffect} from 'react';
 
 type Props = {
   compact: boolean;
@@ -13,7 +15,12 @@ type Props = {
 
 export default observer(({compact}: Props) => {
   const {colors} = useTheme<MukTheme>();
+  const {api} = useServices();
   const {user} = useStores();
+
+  useEffect(() => {
+    api.user.updateReaded();
+  }, []);
 
   return (
     <>

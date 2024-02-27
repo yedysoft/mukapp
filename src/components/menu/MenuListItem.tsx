@@ -29,11 +29,15 @@ export default function MenuListItem({item}: Props) {
   return (
     <MukListItem
       onPress={() => (item.disabled ? soonTitle() : navigation.navigate(item.route as any))}
-      style={{alignItems: 'center', paddingVertical: responsiveWidth(2), borderBottomWidth: 0}}
+      style={{
+        alignItems: 'center',
+        paddingVertical: responsiveWidth(2),
+        borderBottomWidth: 0,
+        paddingRight: responsiveWidth(64),
+      }}
     >
       <MukIcon scale={0.8} icon={item.icon} color={item.disabled ? title.color : colors.secondary} />
       <Text
-        numberOfLines={1}
         style={{
           fontSize: responsiveSize(20),
           fontWeight: '600',

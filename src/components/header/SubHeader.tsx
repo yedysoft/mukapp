@@ -11,6 +11,7 @@ import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
+import {View} from 'react-native';
 
 export const SubHeader = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -18,9 +19,9 @@ export const SubHeader = observer(() => {
   const route = useRoute();
   const params: any = route.params;
   const {media, ui} = useStores();
-  const {api} = useServices();
+  const {api, t} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
-  const textColor = api.helper.isColorLight(dominantColor) ? colors.background : colors.secondary;
+  const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
 
   return (
     <SafeAreaView
@@ -43,7 +44,7 @@ export const SubHeader = observer(() => {
             route.name === 'Settings' && ui.toggleReload();
             navigation.goBack();
           }}
-          color={textColor}
+          color={route.name === 'Room' ? textColor : colors.secondary}
         />
       </NavButton>
       {route.name === 'Task' ? (
@@ -61,7 +62,18 @@ export const SubHeader = observer(() => {
           onPress={() => navigation.navigate('Edit')}
         />
       ) : route.name === 'Chat' ? (
-        <Text style={{fontSize: responsiveSize(18), color: colors.secondary}}>{params?.chat.name}</Text>
+        <View style={{gap: responsiveWidth(4)}}>
+          <Text style={{fontSize: responsiveSize(18), color: colors.secondary}}>{params?.chat.name}</Text>
+          <Text
+            style={{
+              fontSize: responsiveSize(14),
+              color: colors.secondary,
+              display: params?.chat.isTyping ? undefined : 'none',
+            }}
+          >
+            {params?.chat.isTyping ? t.do('main.social.isTyping') : ''}
+          </Text>
+        </View>
       ) : null}
     </SafeAreaView>
   );

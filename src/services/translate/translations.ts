@@ -55,6 +55,7 @@ export const tr: MukLang = {
     },
     social: {
       newChat: 'Yeni Sohbet',
+      typing: 'Yazıyor...',
     },
     home: {
       places: 'Mekanlar',
@@ -115,6 +116,20 @@ export const tr: MukLang = {
     accept: 'Kabul Et',
     reject: 'Reddet',
   },
+  dialog: {
+    default: {
+      title: '',
+      content: '',
+      reject: 'İptal',
+      accept: 'Onayla',
+    },
+    spotify: {
+      title: 'Yetkilendirme Gerekli',
+      content: 'Devam etmek için Spotify yetkilendirmesi gerekli. Şimdi yetkilendirmek ister misin?',
+      reject: 'Hatırlat',
+      accept: 'Yetkilendir',
+    },
+  },
 };
 export const en: MukLang = {
   error: {
@@ -171,6 +186,7 @@ export const en: MukLang = {
     },
     social: {
       newChat: 'New Chat',
+      typing: 'Typing...',
     },
     home: {
       places: 'Places',
@@ -231,6 +247,15 @@ export const en: MukLang = {
     accept: 'Accept',
     reject: 'Reject',
   },
+  dialog: {
+    default: {title: '', content: '', reject: 'Reject', accept: 'Accept'},
+    spotify: {
+      title: 'Authorization Required',
+      content: 'Spotify authorization required to continue. Do you want to authorize now?',
+      reject: 'Remind',
+      accept: 'Authorize',
+    },
+  },
 };
 
 export const de: MukLang = {
@@ -288,6 +313,7 @@ export const de: MukLang = {
     },
     social: {
       newChat: 'Neuer Chat',
+      typing: 'Typing...',
     },
     home: {
       places: 'Orte',
@@ -345,8 +371,17 @@ export const de: MukLang = {
     submit: 'Raum erstellen',
   },
   notification: {
-    accept: 'Kabul Et',
-    reject: 'Reddet',
+    accept: 'Accept',
+    reject: 'Reject',
+  },
+  dialog: {
+    default: {title: '', content: '', reject: 'Reject', accept: 'Accept'},
+    spotify: {
+      title: 'Authorization Required',
+      content: 'Spotify authorization required to continue. Do you want to authorize now?',
+      reject: 'Remind',
+      accept: 'Authorize',
+    },
   },
 };
 
@@ -405,6 +440,7 @@ export const ru: MukLang = {
     },
     social: {
       newChat: 'Новый чат',
+      typing: 'Typing...',
     },
     home: {
       places: 'Места',
@@ -462,8 +498,17 @@ export const ru: MukLang = {
     submit: 'Создать комнату',
   },
   notification: {
-    accept: 'Kabul Et',
-    reject: 'Reddet',
+    accept: 'Accept',
+    reject: 'Reject',
+  },
+  dialog: {
+    default: {title: '', content: '', reject: 'Reject', accept: 'Accept'},
+    spotify: {
+      title: 'Authorization Required',
+      content: 'Spotify authorization required to continue. Do you want to authorize now?',
+      reject: 'Remind',
+      accept: 'Authorize',
+    },
   },
 };
 
@@ -522,6 +567,7 @@ export const ar: MukLang = {
     },
     social: {
       newChat: 'دردشة جديدة',
+      typing: 'Typing...',
     },
     home: {
       places: 'أماكن',
@@ -579,8 +625,17 @@ export const ar: MukLang = {
     submit: 'إنشاء الغرفة',
   },
   notification: {
-    accept: 'Kabul Et',
-    reject: 'Reddet',
+    accept: 'Accept',
+    reject: 'Reject',
+  },
+  dialog: {
+    default: {title: '', content: '', reject: 'Reject', accept: 'Accept'},
+    spotify: {
+      title: 'Authorization Required',
+      content: 'Spotify authorization required to continue. Do you want to authorize now?',
+      reject: 'Remind',
+      accept: 'Authorize',
+    },
   },
 };
 
@@ -639,6 +694,7 @@ export const fr: MukLang = {
     },
     social: {
       newChat: 'Nouvelle discussion',
+      typing: 'Typing...',
     },
     home: {
       places: 'Lieux',
@@ -696,8 +752,17 @@ export const fr: MukLang = {
     submit: 'Créer une salle',
   },
   notification: {
-    accept: 'Kabul Et',
-    reject: 'Reddet',
+    accept: 'Accept',
+    reject: 'Reject',
+  },
+  dialog: {
+    default: {title: '', content: '', reject: 'Reject', accept: 'Accept'},
+    spotify: {
+      title: 'Authorization Required',
+      content: 'Spotify authorization required to continue. Do you want to authorize now?',
+      reject: 'Remind',
+      accept: 'Authorize',
+    },
   },
 };
 
@@ -756,6 +821,7 @@ export const it: MukLang = {
     },
     social: {
       newChat: 'Nuova chat',
+      typing: 'Typing...',
     },
     home: {
       places: 'Luoghi',
@@ -813,8 +879,17 @@ export const it: MukLang = {
     submit: 'Crea stanza',
   },
   notification: {
-    accept: 'Kabul Et',
-    reject: 'Reddet',
+    accept: 'Accept',
+    reject: 'Reject',
+  },
+  dialog: {
+    default: {title: '', content: '', reject: 'Reject', accept: 'Accept'},
+    spotify: {
+      title: 'Authorization Required',
+      content: 'Spotify authorization required to continue. Do you want to authorize now?',
+      reject: 'Remind',
+      accept: 'Authorize',
+    },
   },
 };
 
@@ -873,6 +948,7 @@ export const es: MukLang = {
     },
     social: {
       newChat: 'Nuevo chat',
+      typing: 'Typing...',
     },
     home: {
       places: 'Lugares',
@@ -930,7 +1006,16 @@ export const es: MukLang = {
     submit: 'Crear sala',
   },
   notification: {
-    accept: 'Kabul Et',
-    reject: 'Reddet',
+    accept: 'Accept',
+    reject: 'Reject',
+  },
+  dialog: {
+    default: {title: '', content: '', reject: 'Reject', accept: 'Accept'},
+    spotify: {
+      title: 'Authorization Required',
+      content: 'Spotify authorization required to continue. Do you want to authorize now?',
+      reject: 'Remind',
+      accept: 'Authorize',
+    },
   },
 };

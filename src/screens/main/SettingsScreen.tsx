@@ -1,4 +1,3 @@
-import {MainLayout} from '../../components/layouts/MainLayout';
 import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
 import {useServices} from '../../services';
@@ -10,6 +9,7 @@ import {useEffect, useMemo, useState} from 'react';
 import MukCard from '../../components/custom/MukCard';
 import {responsiveWidth} from '../../utils/util';
 import MukSegmented from '../../components/custom/MukSegmented';
+import {SubLayout} from '../../components/layouts/SubLayout';
 
 /*const objectToDict = (object: any, path: string, t: TranslateService) => {
   const dict: Record<string, string> = {};
@@ -35,7 +35,7 @@ export const SettingsScreen = observer(() => {
   );
 
   return (
-    <MainLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
+    <SubLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
       <MukCard title={t.do('main.settings.theme.title')}>
         <MukSegmented
           density={'small'}
@@ -73,6 +73,6 @@ export const SettingsScreen = observer(() => {
           onValueChange={(_name, value) => t.setup(value as ILanguage)}
         />
       </MukCard>
-    </MainLayout>
+    </SubLayout>
   );
 });

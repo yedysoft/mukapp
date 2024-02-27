@@ -22,9 +22,11 @@ const CombinedLightTheme: MukTheme = {
     info: 'rgba(10, 132, 255, 1)',
     outline: 'rgba(209, 209, 214, 1)',
     outlineVariant: 'rgb(61,61,77)',
-    shadow: 'rgba(142, 142, 147, 1)',
+    shadow: 'rgba(80,80,80,0.1)',
     backdrop: 'rgba(44, 44, 46, .1)',
     text: 'rgba(242, 242, 247, 1)',
+    light: 'rgba(255, 255, 255, 1)',
+    dark: 'rgba(0, 0, 0, 1)',
   },
 };
 
@@ -46,6 +48,8 @@ const CombinedDarkTheme: MukTheme = {
     shadow: 'rgba(142, 142, 147, .1)',
     backdrop: 'rgba(44, 44, 46, .1)',
     text: 'rgba(242, 242, 247, 1)',
+    light: 'rgba(255, 255, 255, 1)',
+    dark: 'rgba(0, 0, 0, 1)',
   },
 };
 

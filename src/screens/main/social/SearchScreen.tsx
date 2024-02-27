@@ -1,4 +1,3 @@
-import {MainLayout} from '../../../components/layouts/MainLayout';
 import {observer} from 'mobx-react';
 import {useStores} from '../../../stores';
 import {useTheme} from 'react-native-paper';
@@ -8,6 +7,7 @@ import {responsiveWidth} from '../../../utils/util';
 import MukTextInput from '../../../components/custom/MukTextInput';
 import {MukTheme} from '../../../types';
 import {useEffect} from 'react';
+import {SubLayout} from '../../../components/layouts/SubLayout';
 
 export const SearchScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -29,7 +29,7 @@ export const SearchScreen = observer(() => {
   }, []);
 
   return (
-    <MainLayout>
+    <SubLayout>
       <SearchList
         list={user.getSearched}
         header={
@@ -42,6 +42,6 @@ export const SearchScreen = observer(() => {
           />
         }
       />
-    </MainLayout>
+    </SubLayout>
   );
 });

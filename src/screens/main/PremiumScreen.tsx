@@ -1,9 +1,9 @@
 import {Text, useTheme} from 'react-native-paper';
-import {MainLayout} from '../../components/layouts/MainLayout';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useState} from 'react';
 import {MukColors, MukTheme} from '../../types';
+import {SubLayout} from '../../components/layouts/SubLayout';
 
 const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) => {
   const {colors} = useTheme<MukTheme>();
@@ -35,9 +35,9 @@ export default function PremiumScreen() {
   const [selection, setSelection] = useState(1);
 
   return (
-    <MainLayout style={{gap: responsiveHeight(16), padding: responsiveWidth(16)}}>
+    <SubLayout style={{gap: responsiveHeight(16), padding: responsiveWidth(16)}}>
       <></>
-    </MainLayout>
+    </SubLayout>
   );
 }
 

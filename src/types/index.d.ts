@@ -9,15 +9,15 @@ export interface IService {
 }
 
 // Language
-export type LangError<T> = {
+type LangError<T> = {
   required: T;
   notValidInputs: T;
   soon: T;
 };
-export type LangHeader<T> = {
+type LangHeader<T> = {
   blank: T;
 };
-export type LangAuth<T> = {
+type LangAuth<T> = {
   login: {
     title: T;
     username: T;
@@ -57,12 +57,13 @@ export type LangAuth<T> = {
     submit: T;
   };
 };
-export type LangMain<T> = {
+type LangMain<T> = {
   room: {
     blank: T;
   };
   social: {
     newChat: T;
+    typing: T;
   };
   home: {
     places: T;
@@ -115,13 +116,23 @@ export type LangMain<T> = {
     blocked: T;
   };
 };
-export type LangRoomConfig<T> = {
+type LangRoomConfig<T> = {
   name: T;
   submit: T;
 };
-export type LangNotification<T> = {
+type LangNotification<T> = {
   accept: T;
   reject: T;
+};
+type LangDialogContent<T> = {
+  title: T;
+  content: T;
+  reject: T;
+  accept: T;
+};
+type LangDialog<T> = {
+  default: LangDialogContent<T>;
+  spotify: LangDialogContent<T>;
 };
 export type MukLang = {
   error: LangError<string>;
@@ -130,6 +141,7 @@ export type MukLang = {
   main: LangMain<string>;
   roomConfig: LangRoomConfig<string>;
   notification: LangNotification<string>;
+  dialog: LangDialog<string>;
 };
 
 // System
@@ -146,6 +158,8 @@ export type MukColors = {
   shadow: string;
   backdrop: string;
   text: string;
+  light: string;
+  dark: string;
 };
 export type MukTheme = ThemeBase & {
   version: 3;

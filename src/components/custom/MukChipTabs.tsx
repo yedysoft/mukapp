@@ -47,7 +47,7 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
               }}
             >
               <Text
-                style={{color: i === activeIndex ? colors.background : colors.secondary, fontSize: responsiveSize(14)}}
+                style={{color: i === activeIndex ? colors.background : colors.secondary, fontSize: responsiveSize(15)}}
               >
                 {tab.label}
               </Text>
