@@ -1,5 +1,5 @@
-import {HelperText, TextInput, TextInputProps, useTheme} from 'react-native-paper';
-import {StyleProp, TextInput as TextInputRN, TextStyle, View, ViewStyle} from 'react-native';
+import {HelperText, TextInputProps, useTheme} from 'react-native-paper';
+import {StyleProp, TextInput, TextStyle, View, ViewStyle} from 'react-native';
 import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveWidth} from '../../utils/util';
@@ -48,7 +48,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
     ref,
   ) => {
     console.log('MukTextInputCompRender', name);
-    const inputRef = useRef<TextInputRN>(null);
+    const inputRef = useRef<TextInput>(null);
     const {colors} = useTheme<MukTheme>();
     const {ui} = useStores();
     const {t} = useServices();
@@ -121,12 +121,10 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
         <TextInput
           ref={inputRef}
           {...rest}
-          dense
           autoCapitalize={rest.autoCapitalize ?? 'none'}
           value={undefined}
           selectionColor={rest.selectionColor ?? colors.primary}
           placeholderTextColor={colors.outlineVariant}
-          error={error !== null}
           showSoftInputOnFocus={showKeyboard}
           onChangeText={handleChangeText}
           onFocus={handleFocus}
@@ -134,13 +132,11 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
             {
               width: '100%',
               color: colors.secondary,
-              backgroundColor: 'transparent',
+              backgroundColor: colors.shadow,
               textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
             },
             inputStyle,
           ]}
-          outlineStyle={[{borderRadius: 16, borderColor: 'transparent'}, rest.outlineStyle]}
-          contentStyle={[{maxHeight: responsiveWidth(100)}, rest.contentStyle]}
         />
         <HelperText type={'error'} visible={!!error} style={{color: colors.error, display: error ? undefined : 'none'}}>
           * {error}

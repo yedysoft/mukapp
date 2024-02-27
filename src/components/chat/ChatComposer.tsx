@@ -48,7 +48,6 @@ export default function ChatComposer({sendMessage, receiverId, messageType}: Pro
         showError={false}
         preValidate={'required'}
         numberOfLines={3}
-        inputStyle={{backgroundColor: 'rgba(255, 255, 255, .1)'}}
         viewStyle={{flex: 1}}
       />
       <MukIconButton
