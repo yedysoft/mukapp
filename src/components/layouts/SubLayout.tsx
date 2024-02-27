@@ -10,9 +10,9 @@ import {
   ViewStyle,
 } from 'react-native';
 import {observer} from 'mobx-react';
-import {responsiveHeight} from '../../utils/util';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
+import {responsiveHeight} from '../../utils/util';
 
 type Props = {
   children: ReactNode;

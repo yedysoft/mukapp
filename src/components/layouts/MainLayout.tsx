@@ -10,7 +10,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import {observer} from 'mobx-react';
-import {responsiveHeight} from '../../utils/util';
 import PlayingTrack from '../room/PlayingTrack';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
@@ -25,11 +24,7 @@ export const MainLayout = observer(({children, style}: Props) => {
   const {room, ui} = useStores();
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={responsiveHeight(140)}
-      style={{flex: 1}}
-    >
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex: 1}}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
           style={[{flex: 1, flexDirection: 'column', width: ui.windowWidth, backgroundColor: colors.background}, style]}

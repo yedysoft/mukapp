@@ -18,6 +18,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import appearance from './src/services/appearance';
 import notification from './src/services/notification';
 import listeners from './src/services/listeners';
+import * as SystemUI from 'expo-system-ui';
 
 const initializeApp = async () => {
   await hydrateStores();
@@ -48,6 +49,8 @@ export default observer(() => {
       deinitializeApp().then(() => setReady(false));
     };
   }, [stores.ui.getReloadToggle]);
+
+  SystemUI.setBackgroundColorAsync(stores.ui.getTheme.colors.background);
 
   return (
     <AppProvider>
