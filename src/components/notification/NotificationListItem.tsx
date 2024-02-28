@@ -1,5 +1,5 @@
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveWidth} from '../../utils/util';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
@@ -44,7 +44,7 @@ export default function NotificationListItem({notification, compact}: Props) {
         }}
       >
         <MukIcon
-          scale={compact ? 0.6 : 0.8}
+          scale={compact ? 0.5 : 0.6}
           icon={
             notification.category === 'Follow'
               ? 'user-plus'
@@ -53,7 +53,14 @@ export default function NotificationListItem({notification, compact}: Props) {
               : 'info'
           }
         />
-        <Text numberOfLines={2} style={{color: colors.secondary, maxWidth: compact ? '70%' : '100%'}}>
+        <Text
+          numberOfLines={2}
+          style={{
+            color: colors.secondary,
+            fontSize: responsiveSize(compact ? 14 : 16),
+            maxWidth: compact ? '70%' : '100%',
+          }}
+        >
           {notification.content}
         </Text>
       </View>

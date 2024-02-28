@@ -48,7 +48,8 @@ export default function VerticalProfile({profile, otherUser}: Props) {
         <Text
           style={{
             fontSize: responsiveSize(24),
-            fontWeight: 'bold',
+            fontWeight: '500',
+            color: colors.secondary,
           }}
         >
           {profile.name} {profile.surname}
@@ -57,8 +58,8 @@ export default function VerticalProfile({profile, otherUser}: Props) {
           <Text
             style={{
               fontSize: responsiveSize(16),
-              fontWeight: '500',
-              color: colors.primary,
+              fontWeight: '300',
+              color: colors.secondary,
             }}
           >
             @{profile.userName}

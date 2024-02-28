@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {responsiveWidth} from '../../utils/util';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -24,7 +24,11 @@ export default observer(({children, style}: Props) => {
   const {ui} = useStores();
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex: 1}}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(-32) : responsiveWidth(-32)}
+      style={{flex: 1}}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
           style={[

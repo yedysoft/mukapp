@@ -74,6 +74,10 @@ export const SubHeader = observer(() => {
             {params?.chat.isTyping ? t.do('main.social.isTyping') : ''}
           </Text>
         </View>
+      ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (
+        <Text style={{fontSize: responsiveSize(28), color: colors.secondary, fontWeight: '300'}}>
+          {t.do(`main.side.${route.name.toLowerCase()}`)}
+        </Text>
       ) : null}
     </SafeAreaView>
   );

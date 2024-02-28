@@ -52,13 +52,13 @@ const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
     }));
 
     return (
-      <ScrollView style={style}>
+      <ScrollView contentContainerStyle={style}>
         {refChildrens.map((child, index) => {
           const last = index + 1 === refChildrens.length;
           const props = {
             key: index,
             returnKeyType: last ? 'done' : 'next',
-            returnKeyLabel: last ? 'Onayla' : 'Sonraki',
+            returnKeyLabel: last ? 'Accept' : 'Next',
             onSubmitEditing: last ? onSubmit : () => refChildrens[index + 1].ref.current?.focus(),
             blurOnSubmit: last,
             defaultValue: data && data[child.props.name as keyof T],

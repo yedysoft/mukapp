@@ -1,8 +1,8 @@
-import {HelperText, TextInputProps, useTheme} from 'react-native-paper';
-import {StyleProp, TextInput, TextStyle, View, ViewStyle} from 'react-native';
+import {HelperText, Text, useTheme} from 'react-native-paper';
+import {StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle} from 'react-native';
 import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
-import {genericMemo, responsiveWidth} from '../../utils/util';
+import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 
@@ -14,9 +14,10 @@ type Props = TextInputProps & {
   name: string;
   visible?: boolean;
   showError?: boolean;
+  label?: string;
   onCustomChange?: (name: string, value: string) => void;
   viewStyle?: StyleProp<ViewStyle>;
-  inputStyle?: StyleProp<TextStyle>;
+  style?: StyleProp<TextStyle>;
   preValidate?: Validates | Validates[];
   validate?: ValidateFunction[];
   validationMessage?: string[];
@@ -36,9 +37,10 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       name,
       visible = true,
       showError = true,
+      label,
       onCustomChange,
       viewStyle,
-      inputStyle,
+      style,
       preValidate,
       validate,
       validationMessage,
@@ -54,11 +56,17 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
     const {t} = useServices();
     const validInputValue = rest.value ?? rest.defaultValue;
     const [error, setError] = useState<string | null>(null);
+    const [isEmpty, setIsEmpty] = useState<boolean>(!validInputValue);
     const value = useRef<string | undefined>(validInputValue);
 
     const handleChangeText = (text: string) => {
       showError && validateInput(text);
       value.current = text;
+      if (text && isEmpty) {
+        setIsEmpty(false);
+      } else if (!text) {
+        setIsEmpty(true);
+      }
       onCustomChange && onCustomChange(name, text);
       rest.onChangeText && rest.onChangeText(text);
     };
@@ -111,33 +119,51 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
         style={[
           {
             flexDirection: 'column',
-            gap: showError ? responsiveWidth(8) : undefined,
-            minHeight: showError ? responsiveWidth(60) : undefined,
+            minHeight: (!!error || !isEmpty) && label ? responsiveWidth(80) : responsiveWidth(60),
             display: visible ? undefined : 'none',
           },
           viewStyle,
         ]}
       >
-        <TextInput
-          ref={inputRef}
-          {...rest}
-          autoCapitalize={rest.autoCapitalize ?? 'none'}
-          value={undefined}
-          selectionColor={rest.selectionColor ?? colors.primary}
-          placeholderTextColor={colors.outlineVariant}
-          showSoftInputOnFocus={showKeyboard}
-          onChangeText={handleChangeText}
-          onFocus={handleFocus}
-          style={[
-            {
-              width: '100%',
-              color: colors.secondary,
-              backgroundColor: colors.shadow,
-              textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
-            },
-            inputStyle,
-          ]}
-        />
+        <View
+          style={{
+            flexDirection: 'column',
+            gap: responsiveWidth(4),
+          }}
+        >
+          <Text
+            style={{
+              display: label ? (isEmpty ? 'none' : undefined) : 'none',
+              color: colors.outlineVariant,
+              fontSize: responsiveSize(15),
+            }}
+          >
+            {label}
+          </Text>
+          <TextInput
+            ref={inputRef}
+            {...rest}
+            placeholder={label ?? rest.placeholder}
+            autoCapitalize={rest.autoCapitalize ?? 'none'}
+            value={undefined}
+            selectionColor={rest.selectionColor ?? colors.primary}
+            placeholderTextColor={colors.outlineVariant}
+            showSoftInputOnFocus={showKeyboard}
+            onChangeText={handleChangeText}
+            onFocus={handleFocus}
+            style={[
+              {
+                width: '100%',
+                color: colors.secondary,
+                backgroundColor: colors.shadow,
+                textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
+                padding: responsiveWidth(16),
+                borderRadius: 12,
+              },
+              style,
+            ]}
+          />
+        </View>
         <HelperText type={'error'} visible={!!error} style={{color: colors.error, display: error ? undefined : 'none'}}>
           * {error}
         </HelperText>

@@ -26,11 +26,11 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
     >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')} />
-        <View style={{justifyContent: 'center', gap: responsiveWidth(8)}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400'}}>
+        <View style={{justifyContent: 'center', gap: responsiveWidth(4)}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.secondary}}>
             {item.name} {item.surname}
           </Text>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '300'}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '300', color: colors.secondary}}>
             @{item.userName}
           </Text>
         </View>

@@ -35,17 +35,17 @@ const SongListItem = observer(({song, itemType, disabled}: Props) => {
   return (
     <MukListItem style={{alignItems: 'center'}} disabled={disabled} onPress={() => {}}>
       <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)} />
-      <View style={{justifyContent: 'center', gap: responsiveWidth(8), maxWidth: responsiveWidth(240)}}>
+      <View style={{justifyContent: 'center', gap: responsiveWidth(4), maxWidth: responsiveWidth(240)}}>
         {title ? (
           <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400', color: colors.tertiary}}>
             {title}
           </Text>
         ) : (
           <>
-            <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>
+            <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary}}>
               {song.name}
             </Text>
-            <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400'}}>
+            <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '300', color: colors.secondary}}>
               {api.helper.getArtist(song.artists)}
             </Text>
           </>

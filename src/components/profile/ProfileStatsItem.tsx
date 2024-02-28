@@ -25,16 +25,22 @@ export default function ProfileStatsItem({stat, index, activeIndex, setActiveInd
         flexDirection: 'column',
         alignItems: 'center',
         width: responsiveWidth(128),
-        backgroundColor: colors.background,
+        backgroundColor: active ? colors.primary : colors.shadow,
         paddingVertical: responsiveWidth(16),
         borderRadius: 16,
         gap: responsiveWidth(4),
-        borderWidth: 0.5,
-        borderColor: active ? colors.primary : colors.background,
       }}
     >
-      <Text style={{fontSize: responsiveSize(18), fontWeight: 'bold', color: colors.primary}}>{stat.value}</Text>
-      <Text style={{fontSize: responsiveSize(14), fontWeight: 'bold', color: colors.secondary}}>{stat.label}</Text>
+      <Text
+        style={{fontSize: responsiveSize(20), fontWeight: '500', color: active ? colors.background : colors.secondary}}
+      >
+        {stat.value}
+      </Text>
+      <Text
+        style={{fontSize: responsiveSize(14), fontWeight: '300', color: active ? colors.background : colors.secondary}}
+      >
+        {stat.label}
+      </Text>
     </TouchableOpacity>
   );
 }

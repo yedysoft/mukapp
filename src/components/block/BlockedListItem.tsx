@@ -23,7 +23,7 @@ const BlockedListItem = observer(({item, onIconPress}: Props) => {
     <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled>
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')} />
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '300'}}>
+        <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '300', color: colors.secondary}}>
           @{item.userName}
         </Text>
       </View>

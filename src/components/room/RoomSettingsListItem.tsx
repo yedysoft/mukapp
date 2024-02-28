@@ -14,7 +14,7 @@ const RoomSettingsListItem = observer(({setting}: Props) => {
 
   return (
     <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled={true}>
-      <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400'}}>
+      <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>
         Test Setting
       </Text>
       <MukSwitch value={true} onValueChange={() => console.log('switched')} />

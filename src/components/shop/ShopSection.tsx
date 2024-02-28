@@ -20,9 +20,9 @@ export default observer(({title, children, style}: Props) => {
     <View style={[{flexDirection: 'column', width: ui.windowWidth, gap: responsiveHeight(4)}, style]}>
       <Text
         style={{
-          fontSize: responsiveSize(20),
+          fontSize: responsiveSize(24),
           color: colors.secondary,
-          fontWeight: '500',
+          fontWeight: '400',
           paddingLeft: responsiveWidth(20),
         }}
       >

@@ -38,7 +38,6 @@ export const SettingsScreen = observer(() => {
     <SubLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
       <MukCard title={t.do('main.settings.theme.title')}>
         <MukSegmented
-          density={'small'}
           value={appearance}
           handleChange={setAppearance}
           buttons={[

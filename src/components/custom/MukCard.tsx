@@ -20,7 +20,7 @@ export default function MukCard({title, cardStyle, contentStyle, titleStyle, chi
       style={[
         {
           flexDirection: 'column',
-          backgroundColor: colors.backdrop,
+          backgroundColor: colors.shadow,
           width: '100%',
           borderRadius: 16,
           padding: responsiveWidth(16),

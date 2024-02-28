@@ -14,7 +14,7 @@ export const PsScreen = observer(() => {
   const navigation = useNavigation<MainStackNavProp>();
 
   return (
-    <SubLayout style={{paddingHorizontal: responsiveWidth(24)}}>
+    <SubLayout style={{paddingHorizontal: responsiveWidth(24), paddingTop: responsiveWidth(16)}}>
       <PsListItem label={t.do('main.ps.blocked')} onPress={() => navigation.navigate('Blocked')} />
     </SubLayout>
   );

@@ -20,7 +20,7 @@ export const AuthLoginForm = observer(() => {
   const {api, t} = useServices();
   const {loading, ui} = useStores();
   const formRef = useRef<MukFormRef<ILogin>>(null);
-  const formData: ILogin = {name: 'admin', pass: '123', expoToken: ui.getExpoToken};
+  const formData: ILogin = {name: 'eto', pass: '123', expoToken: ui.getExpoToken};
 
   const handleSubmit = () => formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);
 

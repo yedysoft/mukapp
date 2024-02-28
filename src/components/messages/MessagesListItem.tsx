@@ -28,19 +28,28 @@ export default function MessagesListItem({chat}: Props) {
       />
       <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500'}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary}}>
             {chat.name}
           </Text>
           <Text
             numberOfLines={1}
-            style={{fontSize: responsiveSize(15), fontWeight: '400', position: 'absolute', right: 0}}
+            style={{
+              fontSize: responsiveSize(15),
+              fontWeight: '400',
+              position: 'absolute',
+              right: 0,
+              color: colors.secondary,
+            }}
           >
             {api.helper.formatDateForChat(
               lastMessage.date.toString() === '' ? new Date().toString() : lastMessage.date.toString(),
             )}
           </Text>
         </View>
-        <Text numberOfLines={1} style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400'}}>
+        <Text
+          numberOfLines={1}
+          style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400', color: colors.secondary}}
+        >
           {lastMessage.message}
         </Text>
       </View>

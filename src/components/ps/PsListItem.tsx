@@ -24,7 +24,7 @@ export default function PsListItem({label, onPress}: Props) {
         alignItems: 'center',
       }}
     >
-      <Text style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary}}>{label}</Text>
+      <Text style={{fontSize: responsiveSize(18), fontWeight: '400', color: colors.secondary}}>{label}</Text>
     </MukListItem>
   );
 }

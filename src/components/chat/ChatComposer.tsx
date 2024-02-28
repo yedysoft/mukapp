@@ -42,12 +42,12 @@ export default function ChatComposer({sendMessage, receiverId, messageType}: Pro
       <MukTextInput
         ref={inputRef}
         name={'composer'}
-        mode={'outlined'}
         defaultValue={message.content}
         multiline={true}
+        textAlignVertical={'top'}
         showError={false}
         preValidate={'required'}
-        numberOfLines={3}
+        style={{paddingTop: responsiveWidth(16)}}
         viewStyle={{flex: 1}}
       />
       <MukIconButton

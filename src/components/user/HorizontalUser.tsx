@@ -17,12 +17,15 @@ export default function HorizontalUser() {
         source={require('../../../assets/adaptive-icon.png')}
         style={{borderWidth: 2, borderRadius: 24, borderColor: colors.primary, backgroundColor: colors.background}}
       />
-      <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(4), gap: responsiveWidth(8)}}>
-        <View style={{gap: 4}}>
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(18), maxWidth: '90%'}}>
+      <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(8), gap: responsiveWidth(12)}}>
+        <View style={{gap: responsiveWidth(1)}}>
+          <Text
+            numberOfLines={1}
+            style={{color: colors.secondary, fontSize: responsiveSize(18), maxWidth: '90%', fontWeight: '500'}}
+          >
             {user.getInfo.name} {user.getInfo.surname}
           </Text>
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(18)}}>
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '300'}}>
             @{user.getInfo.userName}
           </Text>
         </View>

@@ -59,15 +59,16 @@ const RoomListItem = observer(({roomData}: Props) => {
         }}
       >
         <View style={{gap: responsiveWidth(8)}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400'}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400', color: colors.secondary}}>
             {roomData.roomName}
           </Text>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400'}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400', color: colors.secondary}}>
             @{roomData.streamerName}
           </Text>
         </View>
         <View
           style={{
+            display: roomData.liveSong ? undefined : 'none',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'flex-start',

@@ -25,10 +25,10 @@ export default function SearchListItem({user}: Props) {
     >
       <MukIcon scale={0.8} icon={user.image ?? 'user'} />
       <View style={{flexDirection: 'column', width: '66%', gap: responsiveWidth(4)}}>
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(15), color: colors.secondary, fontWeight: '600'}}>
+        <Text numberOfLines={1} style={{fontSize: responsiveSize(16), color: colors.secondary, fontWeight: '500'}}>
           {user.name} {user.surname}
         </Text>
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(14), color: colors.outline, fontWeight: '400'}}>
+        <Text numberOfLines={1} style={{fontSize: responsiveSize(14), color: colors.outline, fontWeight: '300'}}>
           @{user.userName}
         </Text>
         <Text
@@ -37,6 +37,7 @@ export default function SearchListItem({user}: Props) {
             display: user.isFollower ? undefined : 'none',
             fontSize: responsiveSize(12),
             marginTop: responsiveWidth(4),
+            color: colors.outline,
           }}
         >
           {t.do('main.search.follows')}

@@ -12,7 +12,7 @@ import {
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
-import {responsiveHeight} from '../../utils/util';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 
 type Props = {
   children: ReactNode;
@@ -26,7 +26,7 @@ export const SubLayout = observer(({children, style}: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={responsiveHeight(140)}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(140) : responsiveWidth(140)}
       style={{flex: 1}}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

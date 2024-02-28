@@ -36,7 +36,6 @@ export const SearchScreen = observer(() => {
           <MukTextInput
             placeholder={t.do('main.search.placeholder')}
             name={'search'}
-            underlineStyle={{backgroundColor: colors.primary, opacity: 0.5}}
             onCustomChange={handleSearch}
             viewStyle={{marginVertical: responsiveWidth(8)}}
           />

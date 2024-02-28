@@ -32,7 +32,7 @@ export default function MukListItem({onPress, children, style, disabled}: Props)
             paddingVertical: responsiveWidth(8),
             overflow: 'hidden',
             borderBottomWidth: 1,
-            borderColor: colors.backdrop,
+            borderColor: colors.shadow,
           },
           style,
         ]}

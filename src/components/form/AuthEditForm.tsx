@@ -115,7 +115,7 @@ export const AuthEditForm = observer(() => {
         }}
       >
         {displayPicker === 'birthday' ? (
-          <MukDatePicker name={'birthday'} value={form.birthday} onValueChange={handleOnChange} />
+          <MukDatePicker name={'birthday'} value={form.birthday} onValueChange={() => {}} />
         ) : (
           displayPicker === 'gender' && (
             <MukPicker<string>
@@ -126,7 +126,7 @@ export const AuthEditForm = observer(() => {
                 t.do('auth.register.genders.other'),
               ]}
               value={form.gender?.toString()}
-              onValueChange={handleOnChange}
+              onValueChange={() => {}}
             />
           )
         )}
