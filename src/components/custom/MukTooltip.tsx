@@ -5,6 +5,7 @@ import defaults from '../../utils/defaults';
 import {MukColors, MukTheme, Positions} from '../../types';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import {useServices} from '../../services';
 
 type Props = {
   children: ReactNode;
@@ -21,6 +22,7 @@ export default observer(
     const ref = useRef<View>(null);
     const [tooltipPosition, setTooltipPosition] = useState<{width: number; height: number}>({width: 0, height: 0});
     const styles = makeStyles(colors);
+    const {api} = useServices();
     const {ui} = useStores();
 
     const onLayout = () => {
@@ -63,7 +65,7 @@ export default observer(
           onPress={() => changeVisible(false)}
           style={{
             display: visible ? undefined : 'none',
-            backgroundColor: colors.backdrop,
+            backgroundColor: api.helper.hexToRgba(colors.background, 0.5),
             width: ui.windowWidth,
             height: ui.windowHeight,
           }}
