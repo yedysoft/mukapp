@@ -40,7 +40,7 @@ export default function MukIconButton({
     setTooltipVisible(open);
   };
 
-  const onLayout = () => {
+  const getMeasure = () => {
     if (tooltip && ref.current) {
       ref.current.measure((_x, _y, width, height, pageX, pageY) => {
         setPositions({width: width, height: height, pageX: pageX, pageY: pageY});
@@ -54,7 +54,7 @@ export default function MukIconButton({
   };
 
   return (
-    <Pressable ref={ref} onLayout={onLayout} style={style} onPress={onPressHandle}>
+    <Pressable ref={ref} style={style} onPress={onPressHandle} onPressIn={getMeasure}>
       <View
         style={{
           display: defaultBadge ? undefined : 'none',

@@ -22,7 +22,7 @@ export default function MukSegmented({value, handleChange, buttons, style}: Prop
       style={{
         flexDirection: 'row',
         width: '100%',
-        height: responsiveWidth(48),
+        height: responsiveWidth(40),
       }}
     >
       {buttons.map((button, i) => {
@@ -46,7 +46,13 @@ export default function MukSegmented({value, handleChange, buttons, style}: Prop
               style,
             ]}
           >
-            <Text style={{fontSize: responsiveSize(15), fontWeight: '400', color: colors.secondary}}>
+            <Text
+              style={{
+                fontSize: responsiveSize(15),
+                fontWeight: '400',
+                color: button.value === value ? colors.background : colors.secondary,
+              }}
+            >
               {button.label}
             </Text>
           </TouchableOpacity>

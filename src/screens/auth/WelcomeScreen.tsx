@@ -25,7 +25,7 @@ export const WelcomeScreen = observer(() => {
           onPress={() => navigation.navigate('Login')}
         />
         <MukButton
-          buttonStyle={{backgroundColor: colors.backdrop}}
+          buttonStyle={{backgroundColor: colors.shadow}}
           textStyle={{color: colors.secondary, fontWeight: '600'}}
           label={t.do('auth.register.title')}
           onPress={() => navigation.navigate('Register')}

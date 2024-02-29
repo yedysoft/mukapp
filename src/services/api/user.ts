@@ -194,9 +194,17 @@ class UserApi {
     try {
       const response = await axiosIns.post(
         '/notification/updateReaded',
-        stores.user.notifications.map(n => n.id),
+        stores.user.getNotifications.map(n => n.id),
       );
-      console.log('Update Readed: ', response.data);
+      if (response.status === 200) {
+        stores.user.set(
+          'notifications',
+          stores.user.getNotifications.map(n => ({
+            ...n,
+            readed: true,
+          })),
+        );
+      }
     } catch (e) {
       console.log(e);
     }

@@ -76,7 +76,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       rest.onFocus && rest.onFocus(e);
     };
 
-    const changeError = (text: string | null) => error !== text && setError(text);
+    const changeError = (text: string | null) => showError && error !== text && setError(text);
 
     const validateInput = (text: string | undefined): boolean => {
       if (!text) {

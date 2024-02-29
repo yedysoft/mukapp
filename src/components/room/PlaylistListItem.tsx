@@ -38,7 +38,15 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
       ) : (
         <MukImage scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} />
       )}
-      <Text numberOfLines={1} style={{maxWidth: responsiveWidth(120), fontSize: responsiveSize(14), fontWeight: '400'}}>
+      <Text
+        numberOfLines={1}
+        style={{
+          maxWidth: responsiveWidth(120),
+          fontSize: responsiveSize(14),
+          fontWeight: '400',
+          color: colors.secondary,
+        }}
+      >
         {playlist.name}
       </Text>
     </TouchableOpacity>

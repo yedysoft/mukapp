@@ -19,7 +19,7 @@ export default observer(({compact}: Props) => {
   const {user} = useStores();
 
   useEffect(() => {
-    api.user.updateReaded();
+    !compact && api.user.updateReaded();
   }, []);
 
   return (

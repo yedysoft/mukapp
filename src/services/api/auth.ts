@@ -78,7 +78,7 @@ class AuthApi {
   private clearAuth() {
     stores.auth.set('authToken', '');
     stores.room.set('config', {id: '', name: '', roomId: ''});
-    stores.user.set('notifications', []);
+    stores.user.setMany({notifications: [], chats: []});
   }
 }
 
