@@ -27,6 +27,18 @@ npm install expo@latest
 npx expo install --fix
 ```
 
+## Google Play'e yayınlamak için.
+
+* Önce production build al.
+```shell
+eas build -p android -e production
+```
+
+* Sonra google play'e gönder.
+```shell
+eas submit -p android
+```
+
 ## Build almak için.
 
 * Eas kütüphanesini global olarak yükle.
@@ -56,7 +68,7 @@ npx expo install expo-dev-client
 import 'expo-dev-client';
 ```
 
-* Android için userInterfaceStyle özelliğini aktif etmek için bu kütüphaneyi ekle.
+* Android'de userInterfaceStyle özelliğini aktif etmek için bu kütüphaneyi ekle.
 ```shell
 npx expo install expo-system-ui
 ```
