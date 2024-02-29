@@ -27,9 +27,7 @@ const CreateRoom = observer(() => {
   const form: IRoomConfig | null = room.getConfig;
 
   useEffect(() => {
-    if (!room.getConfig) {
-      api.room.setConfig();
-    }
+    !room.getConfig?.id && api.room.setConfig();
   }, [room.getConfig]);
 
   const handleSheet = () => {

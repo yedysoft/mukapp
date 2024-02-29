@@ -29,8 +29,7 @@ class SocketApi {
     await this.disconnect();
     return new Promise<void>(resolve => {
       this.client.onConnect = async () => {
-        for (const key of Object.keys(this.subscribes)) {
-          const sub = this.subscribes[key];
+        for (const [key, sub] of Object.entries(this.subscribes)) {
           await this.subscribe(key, sub.callback, sub.subId, true);
         }
         resolve();
@@ -41,7 +40,7 @@ class SocketApi {
   }
 
   async disconnect(): PVoid {
-    Object.keys(this.subscribes).forEach(k => this.subscribes[k].unsubscribe());
+    Object.values(this.subscribes).forEach(s => s.unsubscribe);
     await this.client.deactivate({force: true});
     this.subscribes = {};
   }
