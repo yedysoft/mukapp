@@ -5,7 +5,6 @@
   "build": {
     "apk": {
       "android": {
-        "autoIncrement": true,
         "buildType": "apk"
       }
     },
