@@ -5,7 +5,7 @@ import {PVoid} from '../../types';
 import {stores} from '../../stores';
 
 class SocketApi {
-  public subscribes: {[key: string]: StompSubscription};
+  public subscribes: {[key: string]: StompSubscription & {callback?: messageCallbackType; subId?: string}};
   private client: StompJs.Client;
 
   constructor() {
@@ -28,7 +28,11 @@ class SocketApi {
   async connect(): PVoid {
     await this.disconnect();
     return new Promise<void>(resolve => {
-      this.client.onConnect = () => {
+      this.client.onConnect = async () => {
+        for (const key of Object.keys(this.subscribes)) {
+          const sub = this.subscribes[key];
+          await this.subscribe(key, sub.callback, sub.subId, true);
+        }
         resolve();
       };
       this.client.connectHeaders = {YedyToken: stores.auth.getAuthToken};
@@ -42,8 +46,8 @@ class SocketApi {
     this.subscribes = {};
   }
 
-  async subscribe(destination: string, callback?: messageCallbackType, subId?: string) {
-    if (!(destination in this.subscribes)) {
+  async subscribe(destination: string, callback?: messageCallbackType, subId?: string, force?: boolean) {
+    if (!(destination in this.subscribes) || force) {
       await this.checkConnect();
       if (this.client.connected) {
         const headers: StompHeaders = {};
