@@ -24,7 +24,7 @@ const CreateRoom = observer(() => {
   const {api, t} = useServices();
   const {room, user} = useStores();
   const formRef = useRef<MukFormRef<IRoomConfig>>(null);
-  const form: IRoomConfig | null = null; //TODO:room.getConfig
+  const form: IRoomConfig | null = room.getConfig;
 
   useEffect(() => {
     if (!room.getConfig) {
