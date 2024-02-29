@@ -44,7 +44,8 @@
     "react-native-screens": "~3.29.0",
     "react-native-vector-icons": "^10.0.0",
     "text-encoding": "0.7.0",
-    "expo-system-ui": "~2.9.3"
+    "expo-system-ui": "~2.9.3",
+    "expo-updates": "~0.24.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

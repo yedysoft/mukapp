@@ -16,9 +16,7 @@
     "production": {
       "android": {
         "serviceAccountKeyPath": "./muk-yedy-8c09cdad9b8a.json",
-        "track": "internal",
-        "releaseStatus": "inProgress",
-        "rollout": 1
+        "track": "internal"
       }
     }
   }

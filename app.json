@@ -2,7 +2,7 @@
   "expo": {
     "name": "Mük",
     "slug": "muk_fe",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -44,6 +44,12 @@
       "eas": {
         "projectId": "4af63416-aec4-4c25-b38f-3f6335f12c85"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/4af63416-aec4-4c25-b38f-3f6335f12c85"
     }
   }
 }
