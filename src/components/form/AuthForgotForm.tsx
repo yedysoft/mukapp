@@ -30,7 +30,9 @@ export const AuthForgotForm = observer(() => {
       style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', paddingTop: responsiveHeight(32)}}
     >
       <View style={{gap: responsiveHeight(48)}}>
-        <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.forgot.title')}</Text>
+        <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
+          {t.do('auth.forgot.title')}
+        </Text>
         <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
           <MukTextInput
             name={'email'}

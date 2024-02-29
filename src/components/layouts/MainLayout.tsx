@@ -32,7 +32,16 @@ export const MainLayout = observer(({children, style}: Props) => {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
-          style={[{flex: 1, flexDirection: 'column', width: ui.windowWidth, backgroundColor: colors.background}, style]}
+          style={[
+            {
+              flex: 1,
+              flexDirection: 'column',
+              width: ui.windowWidth,
+              backgroundColor: colors.background,
+              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 16),
+            },
+            style,
+          ]}
         >
           {children}
           {room.isLive ? <PlayingTrack compact={true} /> : null}

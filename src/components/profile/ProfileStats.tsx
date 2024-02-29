@@ -20,6 +20,7 @@ export default function ProfileStats({stats, activeIndex, setActiveIndex}: Props
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: responsiveWidth(8),
+        gap: responsiveWidth(4),
       }}
     >
       {stats.map((stat, index) => {

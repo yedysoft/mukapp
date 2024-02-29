@@ -1,9 +1,9 @@
-import {PixelRatio} from 'react-native';
+import {PixelRatio, Platform} from 'react-native';
 import React, {memo} from 'react';
 import {stores} from '../stores';
 
-const heightMobileUI = 896;
-const widthMobileUI = 414;
+const heightMobileUI = Platform.OS === 'ios' ? 896 : 900;
+const widthMobileUI = Platform.OS === 'ios' ? 414 : 450;
 
 const normalize = (size: number, based: 'width' | 'height'): number => {
   const newSize: number =

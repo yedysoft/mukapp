@@ -29,7 +29,9 @@ export const AuthLoginForm = observer(() => {
       style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', paddingTop: responsiveHeight(32)}}
     >
       <View style={{gap: responsiveHeight(48)}}>
-        <Text style={{fontSize: responsiveSize(32), fontWeight: '300'}}>{t.do('auth.login.title')}</Text>
+        <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
+          {t.do('auth.login.title')}
+        </Text>
         <View style={{gap: responsiveWidth(8)}}>
           <MukForm ref={formRef} onSubmit={handleSubmit} data={formData}>
             <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />

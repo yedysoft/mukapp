@@ -24,7 +24,7 @@ export default function ProfileStatsItem({stat, index, activeIndex, setActiveInd
       style={{
         flexDirection: 'column',
         alignItems: 'center',
-        width: responsiveWidth(128),
+        flex: 1,
         backgroundColor: active ? colors.primary : colors.shadow,
         paddingVertical: responsiveWidth(16),
         borderRadius: 16,

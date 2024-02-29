@@ -41,7 +41,7 @@ export const MainHeader = observer(() => {
           <MukIconButton
             defaultBadge={Boolean(user.getNotifications.find(n => !n.readed))}
             icon={'bell'}
-            scale={0.4}
+            scale={0.45}
             tooltip={NotificationsTooltip}
           />
         )}

@@ -62,6 +62,6 @@ const makeStyles = () =>
       },
       shadowOpacity: 0.4,
       shadowRadius: 12,
-      elevation: 0,
+      elevation: 8,
     },
   });

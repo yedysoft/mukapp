@@ -67,7 +67,7 @@ const RoomTabs = observer(() => {
               loading={loading.getUserPlaylist}
               header={<PlaylistList playlists={media.getPlaylists} />}
               footer={
-                selectedPlaylist?.tracks.items.length === 0 ? (
+                selectedPlaylist?.tracks.items.length === 0 || media.getPlaylists.length === 0 ? (
                   <MukImage
                     source={require('../../../assets/noimage-gray.png')}
                     scale={2}

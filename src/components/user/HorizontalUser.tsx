@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
@@ -17,7 +17,13 @@ export default function HorizontalUser() {
         source={require('../../../assets/adaptive-icon.png')}
         style={{borderWidth: 2, borderRadius: 24, borderColor: colors.primary, backgroundColor: colors.background}}
       />
-      <View style={{flexDirection: 'column', paddingVertical: responsiveWidth(8), gap: responsiveWidth(12)}}>
+      <View
+        style={{
+          flexDirection: 'column',
+          paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 8 : 4),
+          gap: responsiveWidth(Platform.OS === 'ios' ? 12 : 8),
+        }}
+      >
         <View style={{gap: responsiveWidth(1)}}>
           <Text
             numberOfLines={1}

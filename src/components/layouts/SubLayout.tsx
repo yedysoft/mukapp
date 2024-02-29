@@ -26,12 +26,21 @@ export const SubLayout = observer(({children, style}: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(140) : responsiveWidth(140)}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(140) : responsiveWidth(94)}
       style={{flex: 1}}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
-          style={[{flex: 1, flexDirection: 'column', width: ui.windowWidth, backgroundColor: colors.background}, style]}
+          style={[
+            {
+              flex: 1,
+              flexDirection: 'column',
+              width: ui.windowWidth,
+              backgroundColor: colors.background,
+              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 32),
+            },
+            style,
+          ]}
         >
           {children}
         </View>

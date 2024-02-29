@@ -1,5 +1,5 @@
 import {HelperText, Text, useTheme} from 'react-native-paper';
-import {StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle} from 'react-native';
+import {Platform, StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle} from 'react-native';
 import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
@@ -119,7 +119,10 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
         style={[
           {
             flexDirection: 'column',
-            minHeight: (!!error || !isEmpty) && label ? responsiveWidth(80) : responsiveWidth(60),
+            minHeight:
+              (!!error || !isEmpty) && label
+                ? responsiveWidth(Platform.OS === 'ios' ? 80 : 92)
+                : responsiveWidth(Platform.OS === 'ios' ? 60 : 64),
             display: visible ? undefined : 'none',
           },
           viewStyle,
@@ -157,7 +160,8 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
                 color: colors.secondary,
                 backgroundColor: colors.shadow,
                 textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
-                padding: responsiveWidth(16),
+                paddingHorizontal: responsiveWidth(16),
+                paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 16 : 12),
                 borderRadius: 12,
               },
               style,
