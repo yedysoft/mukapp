@@ -38,7 +38,7 @@ npx expo install --fix
 
 * Önce production build al.
 ```shell
-eas build -p android -e production
+eas build -p android -e production --auto-submit
 ```
 
 * Sonra google play'e gönder.
