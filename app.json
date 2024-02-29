@@ -33,9 +33,6 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "CAMERA"
-      ],
       "softwareKeyboardLayoutMode": "resize",
       "package": "com.yedy.muk",
       "googleServicesFile": "./google-services.json"

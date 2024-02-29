@@ -10,6 +10,13 @@ npm install -g depcheck
 depcheck
 ```
 
+## Expo doctor.
+
+* Bu tek başına otomatik olarak yapar. Alttakiler ile manuel yapılabilir.
+```shell
+npx expo-doctor
+```
+
 ## Projeyi son expo versiyonuna yükseltmek için.
 
 * Bu tek başına otomatik olarak yapar. Alttakiler ile manuel yapılabilir.
