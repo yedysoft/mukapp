@@ -35,10 +35,10 @@ class RoomApi {
         if (stores.room.isAdmin) {
           await axiosIns.get(`/room-session/stop/${stores.room.getSessionId}`);
         }
-        stores.room.setMany({sessionId: null, streamerId: null, chat: []});
-        stores.media.setMany({playingTrack: defaults.playingTrack, queue: [], playlists: [], searchValue: ''});
         await subscription.roomUnsubscribes();
       }
+      stores.room.setMany({sessionId: null, streamerId: null, chat: []});
+      stores.media.setMany({playingTrack: defaults.playingTrack, queue: [], playlists: [], searchValue: ''});
     } catch (e) {
       console.log(e);
     }
