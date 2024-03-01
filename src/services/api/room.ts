@@ -36,7 +36,7 @@ class RoomApi {
           await axiosIns.get(`/room-session/stop/${stores.room.getSessionId}`);
         }
         stores.room.setMany({sessionId: null, streamerId: null, chat: []});
-        stores.media.setMany({playingTrack: defaults.playingTrack, queue: []});
+        stores.media.setMany({playingTrack: defaults.playingTrack, queue: [], playlists: [], searchValue: ''});
         await subscription.roomUnsubscribes();
       }
     } catch (e) {
