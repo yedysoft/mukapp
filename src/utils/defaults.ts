@@ -15,7 +15,7 @@ class Defaults {
     duration: 0,
     progress: 0,
     isPlaying: false,
-    dominantColor: '',
+    dominantColor: null,
     voteable: false,
   };
 

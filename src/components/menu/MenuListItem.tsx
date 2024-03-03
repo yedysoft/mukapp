@@ -15,15 +15,12 @@ type Props = {
 export default function MenuListItem({item}: Props) {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
-  const [title, setTitle] = useState({label: item.label, color: colors.outlineVariant});
-  const {t} = useServices();
+  const {t, api} = useServices();
+  const [title, setTitle] = useState<{label: string; color: string}>();
 
   const soonTitle = () => {
     setTitle({label: t.do('error.soon'), color: colors.tertiary});
-    const myInterval = setInterval(() => {
-      setTitle({label: item.label, color: colors.outlineVariant});
-      clearInterval(myInterval);
-    }, 2000);
+    api.helper.sleep(2000, item.route).then(() => setTitle(undefined));
   };
 
   return (
@@ -36,16 +33,16 @@ export default function MenuListItem({item}: Props) {
         paddingRight: responsiveWidth(64),
       }}
     >
-      <MukIcon scale={0.8} icon={item.icon} color={item.disabled ? title.color : colors.secondary} />
+      <MukIcon scale={0.8} icon={item.icon} color={title?.color ?? colors.secondary} />
       <Text
         style={{
           fontSize: responsiveSize(20),
           fontWeight: '600',
           marginLeft: responsiveWidth(-8),
-          color: item.disabled ? title.color : colors.secondary,
+          color: title?.color ?? colors.secondary,
         }}
       >
-        {title.label}
+        {title?.label ?? item.label}
       </Text>
     </MukListItem>
   );

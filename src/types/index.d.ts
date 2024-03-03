@@ -158,6 +158,7 @@ export type MukColors = {
   outlineVariant: string;
   shadow: string;
   backdrop: string;
+  bubble: string;
   text: string;
   light: string;
   dark: string;

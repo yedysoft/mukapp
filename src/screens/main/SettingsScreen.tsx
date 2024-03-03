@@ -5,7 +5,7 @@ import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import MukPicker from '../../components/custom/MukPicker';
 import {_languages, IAppearance, ILanguage} from '../../types/enums';
-import {useEffect, useMemo, useState} from 'react';
+import {useMemo} from 'react';
 import MukCard from '../../components/custom/MukCard';
 import {responsiveWidth} from '../../utils/util';
 import MukSegmented from '../../components/custom/MukSegmented';
@@ -22,12 +22,6 @@ export const SettingsScreen = observer(() => {
   const {ui} = useStores();
   const {t} = useServices();
 
-  const [appearance, setAppearance] = useState<string>(ui.appearance);
-
-  useEffect(() => {
-    ui.set('appearance', appearance as IAppearance);
-  }, [appearance]);
-
   //const ThemeDict = useMemo(() => objectToDict(_appearances, 'theme', t), [ui.getScheme, ui.getLanguage]);
   const LanguageDict = useMemo(
     () => ({..._languages, system: t.do('main.settings.language.system')}),
@@ -38,8 +32,8 @@ export const SettingsScreen = observer(() => {
     <SubLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
       <MukCard title={t.do('main.settings.theme.title')}>
         <MukSegmented
-          value={appearance}
-          handleChange={setAppearance}
+          value={ui.appearance}
+          onValueChange={value => ui.set('appearance', value as IAppearance)}
           buttons={[
             {
               value: 'system',

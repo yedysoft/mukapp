@@ -1,7 +1,7 @@
 {
   "name": "muk_fe",
   "version": "0.0.2",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "Main.ts",
   "scripts": {
     "start": "npx expo start",
     "start-dev": "npx expo start --dev-client",

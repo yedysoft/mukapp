@@ -39,8 +39,8 @@ const deinitializeApp = async () => {
   await services.api.socket.disconnect();
 };
 
-// noinspection JSUnusedGlobalSymbols
 export default observer(() => {
+  console.log('RenderApp', stores.ui.getLanguage);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {

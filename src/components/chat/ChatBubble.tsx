@@ -27,8 +27,8 @@ export default function ChatBubble({message}: Props) {
         source={require('../../../assets/adaptive-icon.png')}
         scale={0.6}
         style={{
-          display: me ? 'none' : undefined,
-          backgroundColor: colors.secondary,
+          display: me || message.type === 'Private' ? 'none' : undefined,
+          backgroundColor: colors.bubble,
           borderRadius: 100,
           marginTop: responsiveWidth(8),
         }}
@@ -37,17 +37,17 @@ export default function ChatBubble({message}: Props) {
         style={{
           flexDirection: 'column',
           alignSelf: 'flex-start',
-          backgroundColor: me ? colors.primary : colors.secondary,
+          backgroundColor: me ? colors.primary : 'rgb(54,54,54)',
           padding: responsiveWidth(12),
           maxWidth: responsiveWidth(240),
           borderRadius: 16,
           gap: responsiveWidth(4),
         }}
       >
-        <Text style={{display: me ? 'none' : undefined, color: colors.tertiary, textAlign: 'left'}}>
+        <Text style={{display: me ? 'none' : undefined, color: colors.light, textAlign: 'left', fontWeight: '800'}}>
           {message.senderName}
         </Text>
-        <Text style={{color: me ? colors.secondary : colors.background, textAlign: 'left'}}>{message.content}</Text>
+        <Text style={{color: colors.light, textAlign: 'left'}}>{message.content}</Text>
       </View>
     </View>
   );

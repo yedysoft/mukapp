@@ -157,9 +157,9 @@ class HelperApi {
     return max === 0 ? 1 : min / max;
   }
 
-  getImageUrl(images: IImage[], scale: number): ImageSourcePropType {
+  getImageUrl(images: IImage[], scale: number): ImageSourcePropType | undefined {
     if (!images || images.length === 0) {
-      return require('../../../assets/adaptive-icon.png');
+      return undefined;
     }
     let closestImage = images[0];
     if (images.length > 1) {

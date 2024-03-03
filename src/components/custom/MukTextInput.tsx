@@ -1,6 +1,6 @@
 import {HelperText, Text, useTheme} from 'react-native-paper';
 import {Platform, StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle} from 'react-native';
-import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
+import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
@@ -22,6 +22,7 @@ type Props = TextInputProps & {
   validate?: ValidateFunction[];
   validationMessage?: string[];
   showKeyboard?: boolean;
+  nextPage?: () => void;
 };
 
 export type MukTextInputRef = {
@@ -58,6 +59,11 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
     const [error, setError] = useState<string | null>(null);
     const [isEmpty, setIsEmpty] = useState<boolean>(!validInputValue);
     const value = useRef<string | undefined>(validInputValue);
+
+    useEffect(() => {
+      isEmpty !== !validInputValue && setIsEmpty(!validInputValue);
+      value.current !== validInputValue && (value.current = validInputValue);
+    }, [validInputValue]);
 
     const handleChangeText = (text: string) => {
       showError && validateInput(text);

@@ -12,20 +12,18 @@ import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import {View} from 'react-native';
-import {useMemo, useRef} from 'react';
 
 export const SubHeader = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
   const params: any = route.params;
-  const {media, ui} = useStores();
+  const {media} = useStores();
   const {api, t} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
-
-  const currentLanguage = useRef(ui.language);
-  const langChanged = useMemo(() => ui.language !== currentLanguage.current, [ui.language]);
+  //const currentLanguage = useRef(ui.language);
+  //const langChanged = useMemo(() => ui.language !== currentLanguage.current, [ui.language]);
 
   return (
     <SafeAreaView
@@ -45,7 +43,7 @@ export const SubHeader = observer(() => {
           icon={'chevron-left'}
           scale={0.7}
           onPress={() => {
-            route.name === 'Settings' && langChanged && ui.toggleReload();
+            //route.name === 'Settings' && langChanged && ui.toggleReload();
             navigation.goBack();
           }}
           color={route.name === 'Room' ? textColor : colors.secondary}

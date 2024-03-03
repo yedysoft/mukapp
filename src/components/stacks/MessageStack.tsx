@@ -6,7 +6,6 @@ import MukToaster from '../custom/MukToaster';
 
 const MessageStack = observer(() => {
   const {ui} = useStores();
-  console.log('MessageStackRender');
 
   return (
     <View

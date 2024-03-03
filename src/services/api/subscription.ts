@@ -151,7 +151,6 @@ class SubscriptionApi {
         await subscription.getQueue();
       }
     });
-    media.setPlayingTrack(JSON.parse(message.body));
   }
 
   private queueCallback(message: Message) {

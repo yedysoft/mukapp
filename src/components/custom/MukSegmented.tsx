@@ -1,12 +1,11 @@
 import {Text, useTheme} from 'react-native-paper';
 import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {Dispatch, SetStateAction} from 'react';
 import {MukTheme} from '../../types';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 
 type Props = {
   value: string;
-  handleChange: Dispatch<SetStateAction<string>>;
+  onValueChange: (value: string) => void;
   buttons: {
     value: string;
     label: string;
@@ -14,7 +13,7 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export default function MukSegmented({value, handleChange, buttons, style}: Props) {
+export default function MukSegmented({value, onValueChange, buttons, style}: Props) {
   const {colors} = useTheme<MukTheme>();
 
   return (
@@ -29,11 +28,11 @@ export default function MukSegmented({value, handleChange, buttons, style}: Prop
         return (
           <TouchableOpacity
             key={i}
-            onPress={() => handleChange(button.value)}
+            onPress={() => onValueChange(button.value)}
             style={[
               {
-                borderTopRightRadius: i === 2 ? 100 : 0,
-                borderBottomRightRadius: i === 2 ? 100 : 0,
+                borderTopRightRadius: i === buttons.length - 1 ? 100 : 0,
+                borderBottomRightRadius: i === buttons.length - 1 ? 100 : 0,
                 borderTopLeftRadius: i === 0 ? 100 : 0,
                 borderBottomLeftRadius: i === 0 ? 100 : 0,
                 borderWidth: 1,

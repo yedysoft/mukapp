@@ -1,6 +1,4 @@
-import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
-import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import ChatBubble from './ChatBubble';
 import {IMessage} from '../../types/chat';
@@ -10,8 +8,6 @@ type Props = {
 };
 
 export default function ChatList({data}: Props) {
-  const {colors} = useTheme<MukTheme>();
-
   return (
     <FlatList
       scrollEnabled
@@ -21,9 +17,7 @@ export default function ChatList({data}: Props) {
         padding: responsiveWidth(8),
       }}
       data={data}
-      renderItem={({item}) => {
-        return <ChatBubble message={item} />;
-      }}
+      renderItem={({item, index}) => <ChatBubble key={index} message={item} />}
       inverted
       showsVerticalScrollIndicator={false}
     />

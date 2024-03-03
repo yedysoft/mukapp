@@ -57,10 +57,5 @@ const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onVa
   );
 };
 
-MukDatePickerComp.defaultProps = {
-  minYear: 1950,
-  maxYear: nowYear,
-};
-
 const MukDatePicker = memo(MukDatePickerComp);
 export default MukDatePicker;

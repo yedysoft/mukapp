@@ -1,14 +1,11 @@
-import {useTheme} from 'react-native-paper';
 import DrawerLayout from '../../components/layouts/DrawerLayout';
 import HorizontalUser from '../../components/user/HorizontalUser';
 import MenuList from '../../components/menu/MenuList';
 import MenuFooter from '../../components/menu/MenuFooter';
-import {MukMenu, MukTheme} from '../../types';
+import {MukMenu} from '../../types';
 import {useServices} from '../../services';
-import {observer} from 'mobx-react';
 
-const SideScreen = observer(() => {
-  const {colors} = useTheme<MukTheme>();
+const SideScreen = () => {
   const {t} = useServices();
 
   const menu: MukMenu[] = [
@@ -58,6 +55,6 @@ const SideScreen = observer(() => {
       <MenuFooter />
     </DrawerLayout>
   );
-});
+};
 
 export default SideScreen;

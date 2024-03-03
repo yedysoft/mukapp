@@ -1,4 +1,4 @@
-import React, {cloneElement, ForwardedRef, forwardRef, ReactNode, useImperativeHandle, useRef} from 'react';
+import React, {cloneElement, ForwardedRef, forwardRef, ReactNode, useEffect, useImperativeHandle, useRef} from 'react';
 import {ScrollView, StyleProp, ViewStyle} from 'react-native';
 import {stores} from '../../stores';
 import {services, useServices} from '../../services';
@@ -21,18 +21,39 @@ const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
   <T,>({children, onSubmit, data, style}: Props<T>, ref: ForwardedRef<MukFormRef<T>>) => {
     console.log('MukFormCompRender', data);
     const {api, t} = useServices();
-    const refChildrens = api.helper.generateChildsWithRefs<MukTextInputRef>(children);
     const form = useRef<T>(data);
+
+    useEffect(() => {
+      form.current = data;
+    }, [data]);
 
     const handleOnChange = (name: string, value: string) => {
       form.current = {...form.current, [name]: value};
     };
 
+    const refChildrens = api.helper.generateChildsWithRefs<MukTextInputRef>(children).map((child, index, array) => {
+      const last = index + 1 === array.length;
+      const props = {
+        key: index,
+        returnKeyType: last ? 'done' : 'next',
+        returnKeyLabel: last ? 'Accept' : 'Next',
+        onSubmitEditing: last
+          ? onSubmit
+          : () => {
+              child.props.nextPage && child.props.nextPage();
+              array[index + 1].ref.current?.focus();
+            },
+        blurOnSubmit: last,
+        defaultValue: data && data[child.props.name as keyof T],
+        onCustomChange: handleOnChange,
+      };
+      return cloneElement(child, {...child.props, ...props}) as any;
+    });
+
     const validateInputs = () => {
       let isValid = true;
       for (const child of refChildrens) {
         const ref = child.ref.current;
-
         const error = ref.validateInput(ref.inputValue());
         if (!error) {
           isValid = false;
@@ -51,23 +72,7 @@ const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
       formData: getFormData,
     }));
 
-    return (
-      <ScrollView contentContainerStyle={style}>
-        {refChildrens.map((child, index) => {
-          const last = index + 1 === refChildrens.length;
-          const props = {
-            key: index,
-            returnKeyType: last ? 'done' : 'next',
-            returnKeyLabel: last ? 'Accept' : 'Next',
-            onSubmitEditing: last ? onSubmit : () => refChildrens[index + 1].ref.current?.focus(),
-            blurOnSubmit: last,
-            defaultValue: data && data[child.props.name as keyof T],
-            onCustomChange: handleOnChange,
-          };
-          return cloneElement(child, {...child.props, ...props});
-        })}
-      </ScrollView>
-    );
+    return <ScrollView contentContainerStyle={style}>{refChildrens}</ScrollView>;
   },
 );
 

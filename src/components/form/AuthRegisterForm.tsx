@@ -53,22 +53,23 @@ export const AuthRegisterForm = observer(() => {
           <MukTextInput
             name={'birthday'}
             label={t.do('auth.register.birthday')}
-            selectionColor={colors.background}
-            showKeyboard={false}
+            //showKeyboard={false}
+            //readOnly={true}
             visible={step === 0}
             preValidate={'required'}
-            onFocus={() => setDisplayPicker('birthday')}
-            onBlur={() => setDisplayPicker(undefined)}
+            //onFocus={() => setDisplayPicker('birthday')}
+            //onBlur={() => setDisplayPicker(undefined)}
           />
           <MukTextInput
             name={'gender'}
             label={t.do('auth.register.gender')}
-            selectionColor={colors.background}
             showKeyboard={false}
+            readOnly={true}
             visible={step === 0}
             preValidate={'required'}
-            onFocus={() => setDisplayPicker('gender')}
-            onBlur={() => setDisplayPicker(undefined)}
+            //onFocus={() => setDisplayPicker('gender')}
+            //onBlur={() => setDisplayPicker(undefined)}
+            nextPage={() => setStep(step + 1)}
           />
           <MukTextInput
             name={'email'}
@@ -89,6 +90,7 @@ export const AuthRegisterForm = observer(() => {
             inputMode={'tel'}
             preValidate={'required'}
             visible={step === 1}
+            nextPage={() => setStep(step + 1)}
           />
           <MukTextInput
             name={'userPass'}
