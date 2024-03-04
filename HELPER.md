@@ -34,6 +34,13 @@ npm install expo@latest
 npx expo install --fix
 ```
 
+## Güncelleme çıkmak için.
+
+* Son commit expo sunucularına yüklenir. Expo GO ile kullanabilirsin.
+```shell
+eas update --auto
+```
+
 ## Google Play'e yayınlamak için.
 
 * Önce production build al. (auto-submit eklendiğinde build bitince otomatik submit yapar).
