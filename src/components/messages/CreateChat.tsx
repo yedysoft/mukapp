@@ -7,10 +7,8 @@ import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import {responsiveWidth} from '../../utils/util';
-import {useTheme} from 'react-native-paper';
 import FriendsList from './FriendsList';
 import {useStores} from '../../stores';
-import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat} from '../../types/chat';
 
@@ -18,7 +16,6 @@ const CreateChat = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation<MainStackNavProp>();
   const {t, api} = useServices();
-  const {colors} = useTheme<MukTheme>();
   const {user, room} = useStores();
   const [users, setUsers] = useState(user.getFollows);
 
@@ -47,6 +44,7 @@ const CreateChat = observer(() => {
             id: selectedUser.id,
             name: selectedUser.userName,
             type: 'Private',
+            typing: false,
             messages: [],
           };
           user.set('chats', [...user.getChats, chat]);
@@ -55,7 +53,11 @@ const CreateChat = observer(() => {
         }
       }
     } else if (selectionLength > 1) {
-      chat = await api.chat.createGroup({name: `${user.getInfo.userName}'s Group`});
+      chat = await api.chat.createGroup({
+        id: '',
+        name: `${user.getInfo.userName}'s Group`,
+        users: users.map(u => ({id: u.id, authority: 'User'})),
+      });
     }
     chat && navigation.navigate('Chat', {chat: chat});
     sheetRef.current?.close();

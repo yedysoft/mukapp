@@ -4,16 +4,26 @@ export type IChat = {
   id: string;
   name: string;
   type: IChatType;
-  isTyping?: boolean;
+  typing: boolean | ITypingUser[];
   messages: IMessage[];
+};
+
+export type ITypingUser = {
+  id: string;
+  typing: boolean;
+};
+
+export type IMessageTyping = {
+  senderId: string;
+  receiverId: string;
+  typing: boolean;
+  type: IMessageType;
 };
 
 export type IMessage = {
   id: string;
+  tempId: string;
   senderId: string;
-  senderName?: string;
-  receiverName?: string;
-  groupName?: string;
   receiverId: string;
   date: string | Date;
   content: string;
@@ -25,10 +35,6 @@ export type IMessage = {
 export type ILastMessage = {
   date: string | Date;
   message: string;
-};
-
-export type IGroupPost = {
-  name: string;
 };
 
 export type IGroup = {

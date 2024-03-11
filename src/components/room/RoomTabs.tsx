@@ -94,7 +94,7 @@ const RoomTabs = observer(() => {
           children: (
             <LeaderboardList
               loading={loading.getLeaderboard}
-              onRefresh={() => api.room.setLeaderboard()}
+              onRefresh={api.room.setLeaderboard}
               leaderboard={room.getLeaderboard}
               footer={
                 room.getLeaderboard.length === 0 ? (

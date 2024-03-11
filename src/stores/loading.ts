@@ -19,6 +19,9 @@ class LoadingStore extends BaseStore<LoadingStore> {
   followers = false;
   following = false;
 
+  // Chat
+  chats = false;
+
   constructor() {
     super();
     this.makeObservableAndPersistable(this, LoadingStore.name, []);
@@ -62,6 +65,10 @@ class LoadingStore extends BaseStore<LoadingStore> {
 
   get getFollowing() {
     return this.following;
+  }
+
+  get getChats() {
+    return this.chats;
   }
 }
 

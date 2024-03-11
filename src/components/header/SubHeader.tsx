@@ -70,10 +70,10 @@ export const SubHeader = observer(() => {
             style={{
               fontSize: responsiveSize(14),
               color: colors.secondary,
-              display: params?.chat.isTyping ? undefined : 'none',
+              display: params?.chat.typing ? undefined : 'none',
             }}
           >
-            {params?.chat.isTyping ? t.do('main.social.isTyping') : ''}
+            {params?.chat.typing ? t.do('main.social.isTyping') : ''}
           </Text>
         </View>
       ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (

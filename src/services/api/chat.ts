@@ -1,10 +1,11 @@
-import {IChat, IGroupPost, ILastMessage, IMessage} from '../../types/chat';
+import {IChat, IGroup, ILastMessage, IMessage} from '../../types/chat';
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import {IContentType} from '../../types/enums';
+import {PVoid} from '../../types';
 
 class ChatApi {
-  async createGroup(group: IGroupPost): Promise<IChat | null> {
+  async createGroup(group: IGroup): Promise<IChat | null> {
     let chat: IChat | null = null;
     try {
       const response = await axiosIns.post<IChat>('/message-group/createGroup', group);
@@ -16,6 +17,18 @@ class ChatApi {
       console.log(e);
     }
     return chat;
+  }
+
+  async getChats(): PVoid {
+    try {
+      stores.loading.set('chats', true);
+      const response = await axiosIns.get<IChat[]>('/message/getChats');
+      stores.user.set('chats', response.data);
+    } catch (e: any) {
+      console.log(e);
+    } finally {
+      stores.loading.set('chats', false);
+    }
   }
 
   getLastMessage(messages: IMessage[]): ILastMessage {

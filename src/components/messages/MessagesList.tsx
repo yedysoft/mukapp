@@ -1,23 +1,30 @@
 import {useTheme} from 'react-native-paper';
-import {FlatList} from 'react-native';
-import {responsiveWidth} from '../../utils/util';
-import MessagesListItem from './MessagesListItem';
 import {MukTheme} from '../../types';
 import {IChat} from '../../types/chat';
+import LoaderView from '../loading/LoaderView';
+import {FlatList} from 'react-native';
+import MessagesListItem from './MessagesListItem';
+import {responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
 
 type Props = {
   chats: IChat[];
+  onRefresh?: () => void;
+  loading?: boolean;
 };
 
-export default function MessagesList({chats}: Props) {
+export default function MessagesList({chats, onRefresh, loading}: Props) {
   const {colors} = useTheme<MukTheme>();
 
   return (
     <>
-      {chats.length > 0 ? (
+      {loading ? (
+        <LoaderView style={{display: loading ? 'flex' : 'none'}} />
+      ) : chats.length > 0 ? (
         <FlatList
           data={chats}
+          onRefresh={onRefresh}
+          refreshing={loading}
           renderItem={({item, index}) => <MessagesListItem key={index} chat={item} />}
           scrollEnabled
           contentContainerStyle={{

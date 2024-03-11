@@ -5,7 +5,7 @@ import {StompSubscription} from '@stomp/stompjs';
 import media from './media';
 import {IVote} from '../../types/media';
 import {MessageBody, PVoid} from '../../types';
-import {IChat, IMessage} from '../../types/chat';
+import {IChat, IMessage, IMessageTyping, ITypingUser} from '../../types/chat';
 import {INotification} from '../../types/user';
 
 class SubscriptionApi {
@@ -18,6 +18,7 @@ class SubscriptionApi {
       await socket.subscribe('/user/error', this.errorCallback);
       await socket.subscribe('/user/notification', this.notificationCallback);
       await socket.subscribe('/user/message', this.userMessageListenCallback);
+      await socket.subscribe('/user/message/typing', this.userMessageTypingListenCallback);
       await socket.subscribe('/live/user');
     } catch (e) {
       console.log(e);
@@ -77,8 +78,15 @@ class SubscriptionApi {
 
   async sendMessage(data: IMessage): PVoid {
     try {
-      console.log('sendMessage', data);
       await socket.sendMessage('/send/message', data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async sendMessageTyping(data: IMessageTyping): PVoid {
+    try {
+      await socket.sendMessage('/send/message/typing', data);
     } catch (e) {
       console.log(e);
     }
@@ -106,11 +114,30 @@ class SubscriptionApi {
     stores.user.set('notifications', [notification, ...stores.user.getNotifications]);
   }
 
+  private userMessageTypingListenCallback(message: Message) {
+    const t: IMessageTyping = JSON.parse(message.body);
+    if (t.type === 'Private') {
+      const chat = stores.user.getChats.find(c => c.id === t.senderId);
+      if (chat) {
+        stores.user.do(() => (chat.typing = t.typing));
+      }
+    } else if (t.type === 'Group') {
+      const chat = stores.user.getChats.find(c => c.id === t.receiverId);
+      if (chat) {
+        stores.user.do(() => {
+          const user: ITypingUser = {id: t.senderId, typing: t.typing};
+          let users = chat.typing ? (chat.typing as ITypingUser[]) : [];
+          users = users.filter(u => u.id !== user.id && u.typing);
+          users.push(user);
+          chat.typing = users;
+        });
+      }
+    }
+  }
+
   private userMessageListenCallback(message: Message) {
     const newMessage: IMessage = JSON.parse(message.body);
-    if (newMessage.type === 'Public') {
-      stores.room.set('chat', [newMessage, ...stores.room.getChat]);
-    } else if (
+    if (
       (newMessage.type === 'Private' || newMessage.type === 'Group') &&
       (stores.user.getInfo.id === newMessage.receiverId || stores.user.getInfo.id === newMessage.senderId)
     ) {
@@ -125,11 +152,9 @@ class SubscriptionApi {
         newChats = [
           {
             id: id,
-            name:
-              newMessage.groupName ??
-              (stores.user.getInfo.id === newMessage.senderId ? newMessage.receiverName : newMessage.senderName) ??
-              '',
+            name: '',
             type: newMessage.type,
+            typing: false,
             messages: [newMessage],
           },
           ...stores.user.getChats,

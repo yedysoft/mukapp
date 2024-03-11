@@ -35,6 +35,7 @@ class Defaults {
 
   message: IMessage = {
     id: '',
+    tempId: '',
     senderId: '',
     receiverId: '',
     date: new Date(),

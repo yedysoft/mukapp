@@ -9,6 +9,8 @@ import {useRef} from 'react';
 import {useStores} from '../../stores';
 import {IMessageType} from '../../types/enums';
 import defaults from '../../utils/defaults';
+import {useServices} from '../../services';
+import {observer} from 'mobx-react';
 
 type Props = {
   sendMessage: (data: IMessage) => void;
@@ -16,15 +18,36 @@ type Props = {
   messageType: IMessageType;
 };
 
-export default function ChatComposer({sendMessage, receiverId, messageType}: Props) {
+export default observer(({sendMessage, receiverId, messageType}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user, ui} = useStores();
+  const {api} = useServices();
   const inputRef = useRef<MukTextInputRef>(null);
+  const typingRef = useRef<boolean>();
   const message = {
     ...defaults.message,
     senderId: user.getInfo.id ?? '',
     receiverId: receiverId,
     type: messageType,
+  };
+
+  const handleCustomChange = (_name: string, _value: string) => {
+    if (messageType !== 'Public') {
+      !typingRef.current && sendTyping(true);
+      api.helper.sleep(500, 'chat1').then(async () => {
+        await sendTyping(false);
+      });
+    }
+  };
+
+  const sendTyping = async (typing: boolean) => {
+    await api.subscription.sendMessageTyping({
+      typing: typing,
+      senderId: user.getInfo.id,
+      receiverId: receiverId,
+      type: messageType,
+    });
+    typingRef.current = typing;
   };
 
   return (
@@ -42,6 +65,7 @@ export default function ChatComposer({sendMessage, receiverId, messageType}: Pro
       <MukTextInput
         ref={inputRef}
         name={'composer'}
+        onCustomChange={handleCustomChange}
         defaultValue={message.content}
         multiline={true}
         textAlignVertical={'top'}
@@ -66,4 +90,4 @@ export default function ChatComposer({sendMessage, receiverId, messageType}: Pro
       />
     </View>
   );
-}
+});
