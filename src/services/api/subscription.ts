@@ -33,8 +33,8 @@ class SubscriptionApi {
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/playingTrack`, this.playingTrackCallback));
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/queue`, this.queueCallback));
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/voteResult`, this.voteResultCallback));
-        this.roomSubs.push(await socket.subscribe(`/live/room/user/${sessionId}`));
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/message`, this.publicMessageListenCallback));
+        this.roomSubs.push(await socket.subscribe(`/live/room/user/${sessionId}`));
         if (stores.room.isAdmin) {
           this.roomSubs.push(await socket.subscribe('/live/room/admin'));
         }
@@ -116,19 +116,14 @@ class SubscriptionApi {
 
   private userMessageTypingListenCallback(message: Message) {
     const t: IMessageTyping = JSON.parse(message.body);
-    if (t.type === 'Private') {
-      const chat = stores.user.getChats.find(c => c.id === t.senderId);
+    if (t.type === 'Private' || t.type === 'Group') {
+      const id = t.type === 'Group' ? t.receiverId : t.senderId;
+      const chat = stores.user.getChats.find(c => c.id === id);
       if (chat) {
-        stores.user.do(() => (chat.typing = t.typing));
-      }
-    } else if (t.type === 'Group') {
-      const chat = stores.user.getChats.find(c => c.id === t.receiverId);
-      if (chat) {
-        stores.user.do(() => {
-          const user: ITypingUser = {id: t.senderId, typing: t.typing};
-          const users = chat.typing ? (chat.typing as ITypingUser[]) : [];
-          chat.typing = [user, ...users.filter(u => u.id !== user.id && u.typing)];
-        });
+        const user: ITypingUser | null = t.type === 'Group' ? {id: t.senderId, typing: t.typing} : null;
+        const users = user && chat.typing ? (chat.typing as ITypingUser[]) : [];
+        const typing = user ? [user, ...users.filter(u => u.id !== user.id && u.typing)] : t.typing;
+        stores.user.do(() => (chat.typing = typing));
       }
     }
   }
@@ -136,29 +131,25 @@ class SubscriptionApi {
   private userMessageListenCallback(message: Message) {
     const m: IMessage = JSON.parse(message.body);
     const me = m.senderId === stores.user.getInfo.id;
-    if (m.type === 'Private') {
-      const id = me ? m.receiverId : m.senderId;
+    if (m.type === 'Private' || m.type === 'Group') {
+      const id = me || m.type === 'Group' ? m.receiverId : m.senderId;
       const chat = stores.user.getChats.find(c => c.id === id);
       if (chat) {
         stores.user.do(() => {
           chat.messages.unshift(m);
         });
-      }
-    } else if (m.type === 'Group') {
-      const chat = stores.user.getChats.find(c => c.id === m.receiverId);
-      if (chat) {
-        stores.user.do(() => {
-          const user: ITypingUser = {id: t.senderId, typing: t.typing};
-          const users = chat.typing ? (chat.typing as ITypingUser[]) : [];
-          chat.typing = [user, ...users.filter(u => u.id !== user.id && u.typing)];
-        });
+      } else {
+        stores.user.set('chats', [
+          {id: id, name: '', type: m.type, typing: false, messages: [m]},
+          ...stores.user.getChats,
+        ]);
       }
     }
   }
 
   private publicMessageListenCallback(message: Message) {
-    const newMessage: IMessage = JSON.parse(message.body);
-    stores.room.set('chat', [newMessage, ...stores.room.getChat]);
+    const m: IMessage = JSON.parse(message.body);
+    stores.room.set('chat', [m, ...stores.room.getChat]);
   }
 
   private playingTrackCallback(message: Message) {

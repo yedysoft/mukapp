@@ -3,15 +3,13 @@ import {observer} from 'mobx-react';
 import MessagesList from '../../../components/messages/MessagesList';
 import CreateChat from '../../../components/messages/CreateChat';
 import {useStores} from '../../../stores';
-import {useServices} from '../../../services';
 
 export const MessagesScreen = observer(() => {
-  const {user, loading} = useStores();
-  const {api} = useServices();
+  const {user} = useStores();
 
   return (
     <MainLayout>
-      <MessagesList chats={user.getChats} onRefresh={api.chat.getChats} loading={loading.getChats} />
+      <MessagesList chats={user.getChats} />
       <CreateChat />
     </MainLayout>
   );

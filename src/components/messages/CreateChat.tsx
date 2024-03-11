@@ -42,7 +42,7 @@ const CreateChat = observer(() => {
         if (!chatFound) {
           chat = {
             id: selectedUser.id,
-            name: selectedUser.userName,
+            name: selectedUser.name + ' ' + selectedUser.surname,
             type: 'Private',
             typing: false,
             messages: [],

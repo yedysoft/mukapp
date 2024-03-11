@@ -21,13 +21,10 @@ class ChatApi {
 
   async getChats(): PVoid {
     try {
-      stores.loading.set('chats', true);
       const response = await axiosIns.get<IChat[]>('/message/getChats');
       stores.user.set('chats', response.data);
     } catch (e: any) {
       console.log(e);
-    } finally {
-      stores.loading.set('chats', false);
     }
   }
 

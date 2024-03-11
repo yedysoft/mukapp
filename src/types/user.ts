@@ -23,17 +23,12 @@ export type INotification = {
 };
 
 export type IFollowUser = {
+  id: string;
   userName: string;
   imagePath: string;
   name: string;
   surname: string;
-  id: string;
   selected?: boolean;
-};
-
-export type IFollowRequest = {
-  requestId: string;
-  userName: string;
 };
 
 export type IBlockedUser = {

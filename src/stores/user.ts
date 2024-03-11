@@ -26,20 +26,23 @@ class UserStore extends BaseStore<UserStore> {
     return this.info;
   }
 
-  getInfosById(id: string): IInfo {
+  getInfoById(id: string, auto = true): IInfo {
     const i = this.infos.find(i => i.id === id);
     if (i) {
       return i;
     } else {
-      services.api.user.getInfoByIds([id]);
+      auto && services.api.user.getInfoByIds([id]);
       return defaults.info;
     }
   }
 
   addOrUpdateInfo(info: IInfo) {
-    const a = this.infos.find(i => i.id === info.id);
-    const newList = a ? this.infos.map(i => (i.id === info.id ? info : i)) : [...this.infos, info];
-    this.set('infos', newList);
+    const index = this.infos.findIndex(i => i.id === info.id);
+    if (index === -1) {
+      this.infos.push(info);
+    } else {
+      this.infos[index] = info;
+    }
   }
 
   get getNotifications() {

@@ -1,4 +1,3 @@
-import {useTheme} from 'react-native-paper';
 import VerticalProfile from '../../components/user/VerticalProfile';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {useEffect, useState} from 'react';
@@ -8,18 +7,16 @@ import {View} from 'react-native';
 import {useServices} from '../../services';
 import {stores, useStores} from '../../stores';
 import {observer} from 'mobx-react';
-import {MukTheme} from '../../types';
 import MukLoader from '../../components/loading/MukLoader';
 import {SubLayout} from '../../components/layouts/SubLayout';
 
 export default observer((props: any) => {
-  const {colors} = useTheme<MukTheme>();
   const userId = props.route.params?.userId;
   const {api, t} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
   const otherUser = userId ? user.getInfo.id !== userId : false;
-  const info = otherUser ? user.getInfosById(userId) : user.getInfo;
+  const info = otherUser ? user.getInfoById(userId) : user.getInfo;
 
   const stats = [
     {

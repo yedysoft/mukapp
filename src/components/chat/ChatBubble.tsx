@@ -15,7 +15,7 @@ export default observer(({message}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
   const me = message.senderId === user.getInfo.id;
-  const info = me ? user.getInfo : user.getInfosById(message.senderId);
+  const info = me ? user.getInfo : user.getInfoById(message.senderId);
 
   return (
     <View
