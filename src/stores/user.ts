@@ -3,6 +3,7 @@ import {IBlockedUser, IFollowUser, IInfo, INotification, ISearchUser} from '../t
 import defaults from '../utils/defaults';
 import {IQueueTrack} from '../types/media';
 import {IChat} from '../types/chat';
+import {services} from '../services';
 
 class UserStore extends BaseStore<UserStore> {
   info: IInfo = defaults.info;
@@ -26,12 +27,18 @@ class UserStore extends BaseStore<UserStore> {
   }
 
   getInfosById(id: string): IInfo {
-    return this.infos.find(i => i.id === id) ?? defaults.info;
+    const i = this.infos.find(i => i.id === id);
+    if (i) {
+      return i;
+    } else {
+      services.api.user.getInfoByIds([id]);
+      return defaults.info;
+    }
   }
 
   addOrUpdateInfo(info: IInfo) {
-    const a = this.getInfosById(info.id);
-    const newList = a.id !== 'default' ? this.infos.map(i => (i.id === info.id ? info : i)) : [...this.infos, info];
+    const a = this.infos.find(i => i.id === info.id);
+    const newList = a ? this.infos.map(i => (i.id === info.id ? info : i)) : [...this.infos, info];
     this.set('infos', newList);
   }
 

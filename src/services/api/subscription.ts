@@ -5,7 +5,7 @@ import {StompSubscription} from '@stomp/stompjs';
 import media from './media';
 import {IVote} from '../../types/media';
 import {MessageBody, PVoid} from '../../types';
-import {IChat, IMessage, IMessageTyping, ITypingUser} from '../../types/chat';
+import {IMessage, IMessageTyping, ITypingUser} from '../../types/chat';
 import {INotification} from '../../types/user';
 
 class SubscriptionApi {
@@ -126,46 +126,33 @@ class SubscriptionApi {
       if (chat) {
         stores.user.do(() => {
           const user: ITypingUser = {id: t.senderId, typing: t.typing};
-          let users = chat.typing ? (chat.typing as ITypingUser[]) : [];
-          users = users.filter(u => u.id !== user.id && u.typing);
-          users.push(user);
-          chat.typing = users;
+          const users = chat.typing ? (chat.typing as ITypingUser[]) : [];
+          chat.typing = [user, ...users.filter(u => u.id !== user.id && u.typing)];
         });
       }
     }
   }
 
   private userMessageListenCallback(message: Message) {
-    const newMessage: IMessage = JSON.parse(message.body);
-    if (
-      (newMessage.type === 'Private' || newMessage.type === 'Group') &&
-      (stores.user.getInfo.id === newMessage.receiverId || stores.user.getInfo.id === newMessage.senderId)
-    ) {
-      const id = stores.user.getInfo.id === newMessage.senderId ? newMessage.receiverId : newMessage.senderId;
-      const chat = stores.user.getChats.find(c => c.id === id && c.type === newMessage.type);
-      let newChats: IChat[] | null = null;
+    const m: IMessage = JSON.parse(message.body);
+    const me = m.senderId === stores.user.getInfo.id;
+    if (m.type === 'Private') {
+      const id = me ? m.receiverId : m.senderId;
+      const chat = stores.user.getChats.find(c => c.id === id);
       if (chat) {
-        newChats = stores.user.getChats.map((c, _) =>
-          c.id === id && c.type === newMessage.type ? {...c, messages: [newMessage, ...c.messages]} : c,
-        );
-      } else if (stores.user.getInfo.id === newMessage.receiverId || stores.user.getInfo.id === newMessage.senderId) {
-        newChats = [
-          {
-            id: id,
-            name: '',
-            type: newMessage.type,
-            typing: false,
-            messages: [newMessage],
-          },
-          ...stores.user.getChats,
-        ];
+        stores.user.do(() => {
+          chat.messages.unshift(m);
+        });
       }
-      newChats && stores.user.set('chats', newChats);
-    } else if (newMessage.type === 'Typing' && stores.user.getInfo.id === newMessage.receiverId) {
-      const newChats = stores.user.getChats.map((c, _) =>
-        c.id === newMessage.senderId ? {...c, isTyping: newMessage.content === 'true'} : c,
-      );
-      stores.user.set('chats', newChats);
+    } else if (m.type === 'Group') {
+      const chat = stores.user.getChats.find(c => c.id === m.receiverId);
+      if (chat) {
+        stores.user.do(() => {
+          const user: ITypingUser = {id: t.senderId, typing: t.typing};
+          const users = chat.typing ? (chat.typing as ITypingUser[]) : [];
+          chat.typing = [user, ...users.filter(u => u.id !== user.id && u.typing)];
+        });
+      }
     }
   }
 

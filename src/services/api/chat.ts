@@ -33,10 +33,9 @@ class ChatApi {
 
   getLastMessage(messages: IMessage[]): ILastMessage {
     let message: IMessage | null = null;
-    const temp = [...messages];
     if (messages && messages.length > 0) {
-      temp.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      message = temp[0];
+      stores.user.do(() => messages.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
+      message = messages[0];
     }
     return message
       ? {date: message.date, message: this.getMessageByContentType(message.content, message.contentType)}

@@ -12,14 +12,14 @@ import {MukTheme} from '../../types';
 import MukLoader from '../../components/loading/MukLoader';
 import {SubLayout} from '../../components/layouts/SubLayout';
 
-const ProfileScreen = observer((props: any) => {
+export default observer((props: any) => {
   const {colors} = useTheme<MukTheme>();
   const userId = props.route.params?.userId;
   const {api, t} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
-  const info = userId ? user.getInfosById(userId) : user.getInfo;
   const otherUser = userId ? user.getInfo.id !== userId : false;
+  const info = otherUser ? user.getInfosById(userId) : user.getInfo;
 
   const stats = [
     {
@@ -36,19 +36,15 @@ const ProfileScreen = observer((props: any) => {
     },
   ];
 
-  const fillProfile = async (id: string | null) => {
-    if (id) {
-      await api.user.getFollows(id);
-      await api.user.getFollowers(id);
-    }
-  };
-
   useEffect(() => {
-    setActiveIndex(0);
-    userId && api.user.getInfoByIds([userId]);
-    fillProfile(userId ?? info.id);
-    api.user.getTopListVoteMusic(userId ?? info.id);
-  }, [userId]);
+    const id = info.id;
+    if (id !== 'default') {
+      setActiveIndex(0);
+      api.user.getFollows(id);
+      api.user.getFollowers(id);
+      api.user.getTopListVoteMusic(id);
+    }
+  }, [info]);
 
   return (
     <SubLayout style={{gap: responsiveHeight(16)}}>
@@ -83,5 +79,3 @@ const ProfileScreen = observer((props: any) => {
     </SubLayout>
   );
 });
-
-export default ProfileScreen;

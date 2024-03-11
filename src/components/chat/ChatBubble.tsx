@@ -5,15 +5,17 @@ import {responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
 import {IMessage} from '../../types/chat';
 import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   message: IMessage;
 };
 
-export default function ChatBubble({message}: Props) {
+export default observer(({message}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
   const me = message.senderId === user.getInfo.id;
+  const info = me ? user.getInfo : user.getInfosById(message.senderId);
 
   return (
     <View
@@ -45,10 +47,10 @@ export default function ChatBubble({message}: Props) {
         }}
       >
         <Text style={{display: me ? 'none' : undefined, color: colors.light, textAlign: 'left', fontWeight: '800'}}>
-          {message.senderName}
+          {info?.name} {info?.surname}
         </Text>
         <Text style={{color: colors.light, textAlign: 'left'}}>{message.content}</Text>
       </View>
     </View>
   );
-}
+});
