@@ -17,7 +17,7 @@ class SubscriptionApi {
       await socket.subscribe('/user/info/token', this.tokenCallback);
       await socket.subscribe('/user/error', this.errorCallback);
       await socket.subscribe('/user/notification', this.notificationCallback);
-      await socket.subscribe('/message/listen', this.messageListenCallback);
+      await socket.subscribe('/user/message', this.userMessageListenCallback);
       await socket.subscribe('/live/user');
     } catch (e) {
       console.log(e);
@@ -33,7 +33,7 @@ class SubscriptionApi {
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/queue`, this.queueCallback));
         this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/voteResult`, this.voteResultCallback));
         this.roomSubs.push(await socket.subscribe(`/live/room/user/${sessionId}`));
-        this.roomSubs.push(await socket.subscribe('/message/listen', this.messageListenCallback));
+        this.roomSubs.push(await socket.subscribe(`/room/${sessionId}/message`, this.publicMessageListenCallback));
         if (stores.room.isAdmin) {
           this.roomSubs.push(await socket.subscribe('/live/room/admin'));
         }
@@ -106,7 +106,7 @@ class SubscriptionApi {
     stores.user.set('notifications', [notification, ...stores.user.getNotifications]);
   }
 
-  private messageListenCallback(message: Message) {
+  private userMessageListenCallback(message: Message) {
     const newMessage: IMessage = JSON.parse(message.body);
     if (newMessage.type === 'Public') {
       stores.room.set('chat', [newMessage, ...stores.room.getChat]);
@@ -142,6 +142,11 @@ class SubscriptionApi {
       );
       stores.user.set('chats', newChats);
     }
+  }
+
+  private publicMessageListenCallback(message: Message) {
+    const newMessage: IMessage = JSON.parse(message.body);
+    stores.room.set('chat', [newMessage, ...stores.room.getChat]);
   }
 
   private playingTrackCallback(message: Message) {
