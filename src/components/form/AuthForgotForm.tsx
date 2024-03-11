@@ -20,7 +20,7 @@ export const AuthForgotForm = observer(() => {
   const {api, t} = useServices();
   const {loading} = useStores();
   const formRef = useRef<MukFormRef<IForgot>>(null);
-  const form: IForgot = {email: ''};
+  const form: IForgot = {name: ''};
 
   const onSubmit = () =>
     formRef.current?.validateInputs() && api.auth.forgotPass(formRef.current?.formData() as IForgot);
@@ -35,7 +35,7 @@ export const AuthForgotForm = observer(() => {
         </Text>
         <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
           <MukTextInput
-            name={'email'}
+            name={'name'}
             label={t.do('auth.forgot.email')}
             preValidate={'required'}
             validate={[value => value.length >= 3]}

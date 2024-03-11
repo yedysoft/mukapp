@@ -7,7 +7,7 @@ export type ILogin = {
 };
 
 export type IForgot = {
-  email: string;
+  name: string;
 };
 
 export type IRegister = {

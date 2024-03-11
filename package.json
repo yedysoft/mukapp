@@ -1,6 +1,6 @@
 {
   "name": "muk_fe",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "Main.ts",
   "scripts": {
     "start": "npx expo start",
