@@ -1,5 +1,6 @@
 import axiosIns from '../axiosIns';
 import {PVoid} from '../../types';
+import {stores} from '../../stores';
 
 class ImageApi {
   async save(imageUri: string, fileName: string | null | undefined): PVoid {
@@ -10,7 +11,9 @@ class ImageApi {
         type: 'image/jpeg',
         name: fileName ?? 'image.jpg',
       } as any);
-      await axiosIns.post('/image/upload', form, {
+      form.append('tableName', 'S_USER');
+      form.append('tableId', stores.user.getInfo.id);
+      await axiosIns.post('/file/upload', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
