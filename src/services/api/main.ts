@@ -22,7 +22,7 @@ class MainApi {
   async getServerByIds(ids: string[]): PVoid {
     try {
       const response = await axiosIns.post<IServer[]>('/server/getServerByIds', ids);
-      stores.user.do(() => {
+      stores.main.do(() => {
         for (const i of response.data) {
           stores.main.addOrUpdateServer(i);
         }
@@ -35,7 +35,7 @@ class MainApi {
   async getGroupByIds(ids: string[]): PVoid {
     try {
       const response = await axiosIns.post<IGroup[]>('/message-group/getGroupByIds', ids);
-      stores.user.do(() => {
+      stores.main.do(() => {
         for (const i of response.data) {
           stores.main.addOrUpdateGroup(i);
         }
