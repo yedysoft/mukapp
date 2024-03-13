@@ -42,13 +42,13 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
   };
 
   const sendTyping = async (typing: boolean) => {
+    typingRef.current = typing;
     await api.subscription.sendMessageTyping({
       typing: typing,
       senderId: user.getInfo.id,
       receiverId: receiverId,
       type: messageType,
     });
-    typingRef.current = typing;
   };
 
   return (
