@@ -11,6 +11,7 @@ import {IMessageType} from '../../types/enums';
 import defaults from '../../utils/defaults';
 import {useServices} from '../../services';
 import {observer} from 'mobx-react';
+import uuid from 'uuid';
 
 type Props = {
   sendMessage: (data: IMessage) => void;
@@ -82,7 +83,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
           if (inputRef.current) {
             const value = inputRef.current.inputValue().trim();
             if (inputRef.current.validateInput(value)) {
-              sendMessage({...message, content: value, date: new Date()});
+              sendMessage({...message, content: value, date: new Date(), tempId: uuid.v4()});
               inputRef.current.clear();
             }
           }

@@ -1,9 +1,10 @@
 import {IPlayingTrack} from '../types/media';
 import {IInfo} from '../types/user';
 import {Positions} from '../types';
-import {IMessage} from '../types/chat';
+import {IGroup, IMessage} from '../types/chat';
 import {NotificationCategory} from 'expo-notifications/src/Notifications.types';
 import {INotificationType} from '../types/enums';
+import {IServer} from '../types/main';
 
 class Defaults {
   playingTrack: IPlayingTrack = {
@@ -29,6 +30,17 @@ class Defaults {
     token: 0,
     birthday: null,
     gender: null,
+  };
+
+  server: IServer = {
+    id: 'default',
+    link: '',
+  };
+
+  group: IGroup = {
+    id: 'default',
+    name: '',
+    users: [],
   };
 
   positions: Positions = {width: 0, height: 0, pageX: 0, pageY: 0};

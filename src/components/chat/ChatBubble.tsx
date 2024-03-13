@@ -13,9 +13,10 @@ type Props = {
 
 export default observer(({message}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {user} = useStores();
+  const {user, main} = useStores();
   const me = message.senderId === user.getInfo.id;
-  const info = me ? user.getInfo : user.getInfoById(message.senderId);
+  const info = me ? user.getInfo : main.getInfoById(message.senderId);
+  const sended = !!message.id;
 
   return (
     <View
@@ -50,6 +51,9 @@ export default observer(({message}: Props) => {
           {info?.name} {info?.surname}
         </Text>
         <Text style={{color: colors.light, textAlign: 'left'}}>{message.content}</Text>
+        <Text style={{display: me ? 'none' : undefined, color: colors.light, textAlign: 'right', fontWeight: '800'}}>
+          {sended ? 'Gönderildi' : 'Gönderiliyor'} {/* TODO Sağ alta tik şeklinde değiştirilecek */}
+        </Text>
       </View>
     </View>
   );

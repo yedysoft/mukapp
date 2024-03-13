@@ -7,6 +7,7 @@ import {IVote} from '../../types/media';
 import {MessageBody, PVoid} from '../../types';
 import {IMessage, IMessageTyping, ITypingUser} from '../../types/chat';
 import {INotification} from '../../types/user';
+import {IChatType} from '../../types/enums';
 
 class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
@@ -78,6 +79,25 @@ class SubscriptionApi {
 
   async sendMessage(data: IMessage): PVoid {
     try {
+      if (data.type === 'Private' || data.type === 'Group') {
+        const id = data.receiverId;
+        const chat = stores.user.chats.find(c => c.id === id);
+        stores.user.do(() => {
+          if (chat) {
+            chat.messages.unshift(data);
+          } else {
+            stores.user.chats.unshift({
+              id: id,
+              name: '',
+              type: data.type as IChatType,
+              typing: false,
+              messages: [data],
+            });
+          }
+        });
+      } else if (data.type === 'Public') {
+        stores.room.do(() => stores.room.chat.unshift(data));
+      }
       await socket.sendMessage('/send/message', data);
     } catch (e) {
       console.log(e);
@@ -133,23 +153,36 @@ class SubscriptionApi {
     const me = m.senderId === stores.user.getInfo.id;
     if (m.type === 'Private' || m.type === 'Group') {
       const id = me || m.type === 'Group' ? m.receiverId : m.senderId;
-      const chat = stores.user.getChats.find(c => c.id === id);
-      if (chat) {
-        stores.user.do(() => {
-          chat.messages.unshift(m);
-        });
-      } else {
-        stores.user.set('chats', [
-          {id: id, name: '', type: m.type, typing: false, messages: [m]},
-          ...stores.user.getChats,
-        ]);
-      }
+      const chat = stores.user.chats.find(c => c.id === id);
+      stores.user.do(() => {
+        if (chat) {
+          if (me) {
+            const index = chat.messages.findIndex(cm => cm.tempId === m.tempId);
+            if (index !== -1) {
+              chat.messages[index] = m;
+            } else {
+              chat.messages.unshift(m);
+            }
+          } else {
+            chat.messages.unshift(m);
+          }
+        } else {
+          stores.user.chats.unshift({id: id, name: '', type: m.type as IChatType, typing: false, messages: [m]});
+        }
+      });
     }
   }
 
   private publicMessageListenCallback(message: Message) {
     const m: IMessage = JSON.parse(message.body);
-    stores.room.set('chat', [m, ...stores.room.getChat]);
+    stores.room.do(() => {
+      const index = stores.room.chat.findIndex(cm => cm.tempId === m.tempId);
+      if (index !== -1) {
+        stores.room.chat[index] = m;
+      } else {
+        stores.room.chat.unshift(m);
+      }
+    });
   }
 
   private playingTrackCallback(message: Message) {

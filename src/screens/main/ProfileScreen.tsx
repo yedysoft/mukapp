@@ -13,10 +13,10 @@ import {SubLayout} from '../../components/layouts/SubLayout';
 export default observer((props: any) => {
   const userId = props.route.params?.userId;
   const {api, t} = useServices();
-  const {user} = useStores();
+  const {user, main} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
   const otherUser = userId ? user.getInfo.id !== userId : false;
-  const info = otherUser ? user.getInfoById(userId) : user.getInfo;
+  const info = otherUser ? main.getInfoById(userId) : user.getInfo;
 
   const stats = [
     {

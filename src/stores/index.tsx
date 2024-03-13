@@ -7,6 +7,7 @@ import user from './user';
 import media from './media';
 import room from './room';
 import loading from './loading';
+import main from './main';
 import {PVoid} from '../types';
 
 class Stores {
@@ -16,6 +17,7 @@ class Stores {
   media = media;
   room = room;
   loading = loading;
+  main = main;
 }
 export const stores = new Stores();
 

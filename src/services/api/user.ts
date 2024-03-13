@@ -15,19 +15,6 @@ class UserApi {
     }
   }
 
-  async getInfoByIds(ids: string[]): PVoid {
-    try {
-      const response = await axiosIns.post<IInfo[]>('/user-info/getInfoByIds', ids);
-      stores.user.do(() => {
-        for (const i of response.data) {
-          stores.user.addOrUpdateInfo(i);
-        }
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   async addCoin(quantity: number): PVoid {
     try {
       await axiosIns.get(`/test/addCoin/${stores.user.getInfo.id}/${quantity}`);

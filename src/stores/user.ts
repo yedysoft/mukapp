@@ -3,11 +3,9 @@ import {IBlockedUser, IFollowUser, IInfo, INotification, ISearchUser} from '../t
 import defaults from '../utils/defaults';
 import {IQueueTrack} from '../types/media';
 import {IChat} from '../types/chat';
-import {services} from '../services';
 
 class UserStore extends BaseStore<UserStore> {
   info: IInfo = defaults.info;
-  infos: IInfo[] = [];
   notifications: INotification[] = [];
   chats: IChat[] = [];
   searched: ISearchUser[] = [];
@@ -24,25 +22,6 @@ class UserStore extends BaseStore<UserStore> {
 
   get getInfo() {
     return this.info;
-  }
-
-  getInfoById(id: string, auto = true): IInfo {
-    const i = this.infos.find(i => i.id === id);
-    if (i) {
-      return i;
-    } else {
-      auto && services.api.user.getInfoByIds([id]);
-      return defaults.info;
-    }
-  }
-
-  addOrUpdateInfo(info: IInfo) {
-    const index = this.infos.findIndex(i => i.id === info.id);
-    if (index === -1) {
-      this.infos.push(info);
-    } else {
-      this.infos[index] = info;
-    }
   }
 
   get getNotifications() {
