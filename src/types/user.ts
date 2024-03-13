@@ -3,6 +3,7 @@ import {IGender, INotificationType} from './enums';
 export type IInfo = {
   id: string;
   userName: string;
+  imageServerId: string;
   image: string;
   name: string;
   surname: string;
