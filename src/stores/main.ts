@@ -11,46 +11,40 @@ class MainStore extends BaseStore<MainStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, MainStore.name, []);
+    this.makeObservableAndPersistable(this, MainStore.name, ['infos', 'servers', 'groups']);
   }
 
   getInfoById(id: string): IInfo {
     return this.infos.find(i => i.id === id) ?? defaults.info;
   }
 
-  addOrUpdateInfo(info: IInfo) {
-    const index = this.infos.findIndex(i => i.id === info.id);
-    if (index === -1) {
-      this.infos.push(info);
-    } else {
-      this.infos[index] = info;
-    }
+  addOrUpdateInfos(infos: IInfo[]) {
+    this.set('infos', [
+      ...this.infos.map(a => infos.find(t => t.id === a.id) ?? a),
+      ...infos.filter(t => !this.infos.some(a => a.id === t.id)),
+    ]);
   }
 
   getServerById(id: string): IServer {
     return this.servers.find(i => i.id === id) ?? defaults.server;
   }
 
-  addOrUpdateServer(server: IServer) {
-    const index = this.servers.findIndex(i => i.id === server.id);
-    if (index === -1) {
-      this.servers.push(server);
-    } else {
-      this.servers[index] = server;
-    }
+  addOrUpdateServers(servers: IServer[]) {
+    this.set('servers', [
+      ...this.servers.map(a => servers.find(t => t.id === a.id) ?? a),
+      ...servers.filter(t => !this.servers.some(a => a.id === t.id)),
+    ]);
   }
 
   getGroupById(id: string): IGroup {
     return this.groups.find(i => i.id === id) ?? defaults.group;
   }
 
-  addOrUpdateGroup(group: IGroup) {
-    const index = this.groups.findIndex(i => i.id === group.id);
-    if (index === -1) {
-      this.groups.push(group);
-    } else {
-      this.groups[index] = group;
-    }
+  addOrUpdateGroups(groups: IGroup[]) {
+    this.set('groups', [
+      ...this.groups.map(a => groups.find(t => t.id === a.id) ?? a),
+      ...groups.filter(t => !this.groups.some(a => a.id === t.id)),
+    ]);
   }
 }
 

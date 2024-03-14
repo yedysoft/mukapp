@@ -11,7 +11,7 @@ import {IMessageType} from '../../types/enums';
 import defaults from '../../utils/defaults';
 import {useServices} from '../../services';
 import {observer} from 'mobx-react';
-import uuid from 'uuid';
+import uuid from 'react-native-uuid';
 
 type Props = {
   sendMessage: (data: IMessage) => void;
@@ -35,7 +35,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
   const handleCustomChange = (_name: string, _value: string) => {
     if (messageType !== 'Public') {
       !typingRef.current && sendTyping(true);
-      api.helper.sleep(500, 'chat1').then(async () => {
+      api.helper.sleep(800, 'chat1').then(async () => {
         await sendTyping(false);
       });
     }
@@ -83,7 +83,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
           if (inputRef.current) {
             const value = inputRef.current.inputValue().trim();
             if (inputRef.current.validateInput(value)) {
-              sendMessage({...message, content: value, date: new Date(), tempId: uuid.v4()});
+              sendMessage({...message, content: value, date: new Date(), tempId: uuid.v4() as string});
               inputRef.current.clear();
             }
           }

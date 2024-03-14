@@ -8,6 +8,8 @@ import {useServices} from '../../services';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat, ILastMessage} from '../../types/chat';
+import useInfo from '../../hooks/useInfo';
+import useGroup from '../../hooks/useGroup';
 
 type Props = {
   chat: IChat;
@@ -16,8 +18,12 @@ type Props = {
 export default function MessagesListItem({chat}: Props) {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
-  const {api} = useServices();
+  const {api, t} = useServices();
   const lastMessage: ILastMessage = api.chat.getLastMessage(chat.messages);
+  const isPrivate = chat.type === 'Private';
+  const info = useInfo(chat.id, isPrivate);
+  const group = useGroup(chat.id, chat.type === 'Group');
+  const name = isPrivate ? info.name + ' ' + info.surname : group.name;
 
   return (
     <MukListItem style={{alignItems: 'center'}} onPress={() => navigation.navigate('Chat', {chat: chat})}>
@@ -29,7 +35,7 @@ export default function MessagesListItem({chat}: Props) {
       <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary}}>
-            {chat.name}
+            {chat.name ? chat.name : name}
           </Text>
           <Text
             numberOfLines={1}
@@ -50,7 +56,7 @@ export default function MessagesListItem({chat}: Props) {
           numberOfLines={1}
           style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400', color: colors.secondary}}
         >
-          {lastMessage.message}
+          {chat.typing ? t.do('main.social.typing') : lastMessage.message}
         </Text>
       </View>
     </MukListItem>

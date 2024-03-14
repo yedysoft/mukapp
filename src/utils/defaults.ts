@@ -1,7 +1,7 @@
 import {IPlayingTrack} from '../types/media';
 import {IInfo} from '../types/user';
 import {Positions} from '../types';
-import {IGroup, IMessage} from '../types/chat';
+import {IChat, IGroup, IMessage} from '../types/chat';
 import {NotificationCategory} from 'expo-notifications/src/Notifications.types';
 import {INotificationType} from '../types/enums';
 import {IServer} from '../types/main';
@@ -20,9 +20,18 @@ class Defaults {
     voteable: false,
   };
 
+  chat: IChat = {
+    id: 'default',
+    name: '',
+    type: 'Private',
+    typing: false,
+    messages: [],
+  };
+
   info: IInfo = {
     id: 'default',
     userName: '',
+    imageServerId: '',
     image: '',
     name: '',
     surname: '',

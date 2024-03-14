@@ -81,22 +81,20 @@ class SubscriptionApi {
     try {
       if (data.type === 'Private' || data.type === 'Group') {
         const id = data.receiverId;
-        const chat = stores.user.chats.find(c => c.id === id);
-        stores.user.do(() => {
-          if (chat) {
-            chat.messages.unshift(data);
-          } else {
-            stores.user.chats.unshift({
-              id: id,
-              name: '',
-              type: data.type as IChatType,
-              typing: false,
-              messages: [data],
-            });
-          }
-        });
+        const chat = stores.user.getChats.some(c => c.id === id);
+        if (chat) {
+          stores.user.set(
+            'chats',
+            stores.user.getChats.map(c => (c.id === id ? {...c, messages: [data, ...c.messages]} : c)),
+          );
+        } else {
+          stores.user.set('chats', [
+            {id: id, name: '', type: data.type as IChatType, typing: false, messages: [data]},
+            ...stores.user.getChats,
+          ]);
+        }
       } else if (data.type === 'Public') {
-        stores.room.do(() => stores.room.chat.unshift(data));
+        stores.room.set('chat', [data, ...stores.room.getChat]);
       }
       await socket.sendMessage('/send/message', data);
     } catch (e) {
@@ -143,7 +141,10 @@ class SubscriptionApi {
         const user: ITypingUser | null = t.type === 'Group' ? {id: t.senderId, typing: t.typing} : null;
         const users = user && chat.typing ? (chat.typing as ITypingUser[]) : [];
         const typing = user ? [user, ...users.filter(u => u.id !== user.id && u.typing)] : t.typing;
-        stores.user.do(() => (chat.typing = typing));
+        stores.user.set(
+          'chats',
+          stores.user.getChats.map(c => (c.id === id ? {...c, typing: typing} : c)),
+        );
       }
     }
   }
@@ -154,35 +155,48 @@ class SubscriptionApi {
     if (m.type === 'Private' || m.type === 'Group') {
       const id = me || m.type === 'Group' ? m.receiverId : m.senderId;
       const chat = stores.user.chats.find(c => c.id === id);
-      stores.user.do(() => {
-        if (chat) {
-          if (me) {
-            const index = chat.messages.findIndex(cm => cm.tempId === m.tempId);
-            if (index !== -1) {
-              chat.messages[index] = m;
-            } else {
-              chat.messages.unshift(m);
-            }
+      if (chat) {
+        if (me) {
+          const some = chat.messages.some(cm => cm.tempId === m.tempId);
+          if (some) {
+            stores.user.set(
+              'chats',
+              stores.user.getChats.map(c =>
+                c.id === id ? {...c, messages: c.messages.map(msg => (msg.tempId === m.tempId ? m : msg))} : c,
+              ),
+            );
           } else {
-            chat.messages.unshift(m);
+            stores.user.set(
+              'chats',
+              stores.user.getChats.map(c => (c.id === id ? {...c, messages: [m, ...c.messages]} : c)),
+            );
           }
         } else {
-          stores.user.chats.unshift({id: id, name: '', type: m.type as IChatType, typing: false, messages: [m]});
+          stores.user.set(
+            'chats',
+            stores.user.getChats.map(c => (c.id === id ? {...c, messages: [m, ...c.messages]} : c)),
+          );
         }
-      });
+      } else {
+        stores.user.set('chats', [
+          {id: id, name: '', type: m.type as IChatType, typing: false, messages: [m]},
+          ...stores.user.getChats,
+        ]);
+      }
     }
   }
 
   private publicMessageListenCallback(message: Message) {
     const m: IMessage = JSON.parse(message.body);
-    stores.room.do(() => {
-      const index = stores.room.chat.findIndex(cm => cm.tempId === m.tempId);
-      if (index !== -1) {
-        stores.room.chat[index] = m;
-      } else {
-        stores.room.chat.unshift(m);
-      }
-    });
+    const some = stores.room.chat.some(cm => cm.tempId === m.tempId);
+    if (some) {
+      stores.room.set(
+        'chat',
+        stores.room.getChat.map(msg => (msg.tempId === m.tempId ? m : msg)),
+      );
+    } else {
+      stores.room.set('chat', [m, ...stores.room.getChat]);
+    }
   }
 
   private playingTrackCallback(message: Message) {

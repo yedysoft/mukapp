@@ -29,7 +29,7 @@ class UserStore extends BaseStore<UserStore> {
   }
 
   get getChats() {
-    return this.chats;
+    return this.chats ?? [];
   }
 
   get getSearched() {

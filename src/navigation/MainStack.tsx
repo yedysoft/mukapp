@@ -1,7 +1,7 @@
 import {createStackNavigator, StackNavigationProp} from '@react-navigation/stack';
 import RoomScreen from '../screens/main/RoomScreen';
 import BottomTabs from './BottomTabs';
-import {SubHeader} from '../components/header/SubHeader';
+import SubHeader from '../components/header/SubHeader';
 import ChatScreen from '../screens/main/social/ChatScreen';
 import ProfileScreen from '../screens/main/ProfileScreen';
 import TaskScreen from '../screens/main/TaskScreen';

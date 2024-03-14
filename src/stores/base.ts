@@ -22,10 +22,6 @@ export class BaseStore<T extends Record<string, any>> {
       });
   }
 
-  do(fn: () => void) {
-    runInAction(fn);
-  }
-
   set<K extends keyof T>(what: K, value: T[K]) {
     runInAction(() => {
       (this as unknown as T)[what] = value;

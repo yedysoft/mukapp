@@ -21,7 +21,7 @@ type Props = {
 
 export const SubLayout = observer(({children, style}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {room, ui} = useStores();
+  const {ui} = useStores();
 
   return (
     <KeyboardAvoidingView

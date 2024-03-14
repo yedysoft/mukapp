@@ -12,8 +12,11 @@ import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import {View} from 'react-native';
+import useInfo from '../../hooks/useInfo';
+import useGroup from '../../hooks/useGroup';
+import defaults from 'src/utils/defaults';
 
-export const SubHeader = observer(() => {
+export default observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
@@ -64,23 +67,38 @@ export const SubHeader = observer(() => {
           onPress={() => navigation.navigate('Edit')}
         />
       ) : route.name === 'Chat' ? (
-        <View style={{gap: responsiveWidth(4)}}>
-          <Text style={{fontSize: responsiveSize(18), color: colors.secondary}}>{params?.chat.name}</Text>
-          <Text
-            style={{
-              fontSize: responsiveSize(14),
-              color: colors.secondary,
-              display: params?.chat.typing ? undefined : 'none',
-            }}
-          >
-            {params?.chat.typing ? t.do('main.social.isTyping') : ''}
-          </Text>
-        </View>
+        <ChatHeader id={params?.chat.id} />
       ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (
         <Text style={{fontSize: responsiveSize(28), color: colors.secondary, fontWeight: '300'}}>
           {t.do(`main.side.${route.name.toLowerCase()}`)}
         </Text>
       ) : null}
     </SafeAreaView>
+  );
+});
+
+const ChatHeader = observer(({id}: {id: string}) => {
+  const {colors} = useTheme<MukTheme>();
+  const {t} = useServices();
+  const {user} = useStores();
+  const chat = user.getChats.find(c => c.id === id) ?? defaults.chat;
+  const isPrivate = chat.type === 'Private';
+  const info = useInfo(chat.id, isPrivate);
+  const group = useGroup(chat.id, !isPrivate);
+  const name = isPrivate ? info.name + ' ' + info.surname : group.name;
+
+  return (
+    <View style={{gap: responsiveWidth(4)}}>
+      <Text style={{fontSize: responsiveSize(18), color: colors.secondary}}>{chat.name ? chat.name : name}</Text>
+      <Text
+        style={{
+          fontSize: responsiveSize(12),
+          color: colors.secondary,
+          display: chat.typing ? undefined : 'none',
+        }}
+      >
+        {chat.typing ? t.do('main.social.typing') : ''}
+      </Text>
+    </View>
   );
 });

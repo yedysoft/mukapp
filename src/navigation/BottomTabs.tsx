@@ -4,9 +4,9 @@ import {MainHeader} from '../components/header/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
 import {responsiveHeight} from '../utils/util';
 import HomeScreen from '../screens/main/HomeScreen';
-import {MessagesScreen} from '../screens/main/social/MessagesScreen';
 import {MukTheme} from '../types';
 import Feather from 'react-native-vector-icons/Feather';
+import MessagesScreen from '../screens/main/social/MessagesScreen';
 
 const Bottom = createBottomTabNavigator();
 export default function BottomTabs() {

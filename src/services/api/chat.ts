@@ -1,7 +1,6 @@
 import {IChat, IGroup, ILastMessage, IMessage} from '../../types/chat';
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
-import {IContentType} from '../../types/enums';
 import {PVoid} from '../../types';
 
 class ChatApi {
@@ -22,7 +21,7 @@ class ChatApi {
   async getChats(): PVoid {
     try {
       const response = await axiosIns.get<IChat[]>('/message/getChats');
-      stores.user.set('chats', response.data);
+      //stores.user.set('chats', response.data); TODO Backend düzeltildikten sonra açılacak
     } catch (e: any) {
       console.log(e);
     }
@@ -31,25 +30,25 @@ class ChatApi {
   getLastMessage(messages: IMessage[]): ILastMessage {
     let message: IMessage | null = null;
     if (messages && messages.length > 0) {
-      stores.user.do(() => messages.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
-      message = messages[0];
+      const temp = [...messages];
+      temp.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      message = temp[0];
     }
-    return message
-      ? {date: message.date, message: this.getMessageByContentType(message.content, message.contentType)}
-      : {date: '', message: ''};
+    return message ? {date: message.date, message: this.getMessageByContentType(message)} : {date: '', message: ''};
   }
 
-  private getMessageByContentType(content: string, contentType: IContentType) {
-    if (contentType === 'Picture') {
-      return 'Resim';
+  private getMessageByContentType(message: IMessage) {
+    const me = message.senderId === stores.user.getInfo.id;
+    const sended = !!message.id;
+    let m = message.content;
+    if (message.contentType === 'Picture') {
+      m = 'Resim';
+    } else if (message.contentType === 'Video') {
+      m = 'Video';
+    } else if (message.contentType === 'File') {
+      m = 'Dosya';
     }
-    if (contentType === 'Video') {
-      return 'Video';
-    }
-    if (contentType === 'File') {
-      return 'Dosya';
-    }
-    return content;
+    return `${me ? (sended ? '✓' : '⏳') : ''} ${m}`;
   }
 }
 

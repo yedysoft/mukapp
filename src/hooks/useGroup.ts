@@ -1,29 +1,29 @@
 import {useStores} from '../stores';
 import {useServices} from '../services';
 import {useEffect, useState} from 'react';
-import {IInfo} from '../types/user';
+import {IGroup} from '../types/chat';
 
 export default (id: string, doWork = true) => {
-  if (!doWork && !id) {
-    return {} as IInfo;
+  if (!doWork) {
+    return {} as IGroup;
   }
   const {main} = useStores();
   const {api} = useServices();
-  const [info, setInfo] = useState(main.getInfoById(id));
+  const [group, setGroup] = useState(main.getGroupById(id));
   const [toogle, setToogle] = useState<boolean>(false);
 
   useEffect(() => {
-    const i = main.getInfoById(id);
-    if (i.id === 'default') {
+    const g = main.getGroupById(id);
+    if (g.id === 'default') {
       api.main
-        .getInfoByIds([id])
+        .getGroupByIds([id])
         .then(() => setToogle(!toogle))
         .catch(() => api.helper.sleep(500).then(() => setToogle(!toogle)));
-    } else if (!api.helper.isEqual(i, info)) {
-      setInfo(i);
+    } else if (!api.helper.isEqual(g, group)) {
+      setGroup(g);
     }
-    return () => console.log('useInfo', id, 'useEffectReturn');
+    return () => console.log('useGroup', id, 'useEffectReturn');
   }, [toogle]);
 
-  return info;
+  return group;
 };

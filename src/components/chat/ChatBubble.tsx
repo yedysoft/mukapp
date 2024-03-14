@@ -16,7 +16,8 @@ export default observer(({message}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
   const me = message.senderId === user.getInfo.id;
-  const info = me ? user.getInfo : useInfo(message.senderId);
+  const i = useInfo(message.senderId, !me);
+  const info = me ? user.getInfo : i;
   const sended = !!message.id;
 
   return (
@@ -48,12 +49,27 @@ export default observer(({message}: Props) => {
           gap: responsiveWidth(4),
         }}
       >
-        <Text style={{display: me ? 'none' : undefined, color: colors.light, textAlign: 'left', fontWeight: '800'}}>
+        <Text
+          style={{
+            display: me || message.type === 'Private' ? 'none' : undefined,
+            color: colors.light,
+            textAlign: 'left',
+            fontWeight: '800',
+          }}
+        >
           {info?.name} {info?.surname}
         </Text>
         <Text style={{color: colors.light, textAlign: 'left'}}>{message.content}</Text>
-        <Text style={{display: me ? 'none' : undefined, color: colors.light, textAlign: 'right', fontWeight: '800'}}>
-          {sended ? 'Gönderildi' : 'Gönderiliyor'} {/* TODO Sağ alta tik şeklinde değiştirilecek */}
+        <Text
+          style={{
+            display: me ? undefined : 'none',
+            color: colors.light,
+            textAlign: 'right',
+            fontSize: 10,
+            fontWeight: '300',
+          }}
+        >
+          {sended ? '✓' : '⏳'}
         </Text>
       </View>
     </View>

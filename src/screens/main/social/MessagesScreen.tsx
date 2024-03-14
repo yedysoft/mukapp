@@ -4,7 +4,7 @@ import MessagesList from '../../../components/messages/MessagesList';
 import CreateChat from '../../../components/messages/CreateChat';
 import {useStores} from '../../../stores';
 
-export const MessagesScreen = observer(() => {
+export default observer(() => {
   const {user} = useStores();
 
   return (

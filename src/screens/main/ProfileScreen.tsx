@@ -17,7 +17,8 @@ export default observer((props: any) => {
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
   const otherUser = userId ? user.getInfo.id !== userId : false;
-  const info = otherUser ? useInfo(userId) : user.getInfo;
+  const otherUserInfo = useInfo(userId, otherUser);
+  const info = otherUser ? otherUserInfo : user.getInfo;
 
   const stats = [
     {

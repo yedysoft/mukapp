@@ -13,7 +13,7 @@ import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat} from '../../types/chat';
 import {IFollowUser} from '../../types/user';
 
-const CreateChat = observer(() => {
+export default observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation<MainStackNavProp>();
   const {t, api} = useServices();
@@ -38,7 +38,8 @@ const CreateChat = observer(() => {
     const selectedUsers = users.filter(u => u.selected);
     if (selectedUsers.length === 1) {
       const selectedUser = selectedUsers[0];
-      const chatFound = user.chats.find(c => c.id === selectedUser.id);
+      console.log(user);
+      const chatFound = user.getChats.find(c => c.id === selectedUser.id);
       if (chatFound) {
         chat = chatFound;
       } else {
@@ -85,5 +86,3 @@ const CreateChat = observer(() => {
     </>
   );
 });
-
-export default CreateChat;
