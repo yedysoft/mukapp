@@ -11,20 +11,21 @@ import FriendsList from './FriendsList';
 import {useStores} from '../../stores';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat} from '../../types/chat';
+import {IFollowUser} from '../../types/user';
 
 const CreateChat = observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation<MainStackNavProp>();
   const {t, api} = useServices();
-  const {user, room} = useStores();
-  const [users, setUsers] = useState(user.getFollows);
+  const {user, room, ui} = useStores();
+  const [users, setUsers] = useState<(IFollowUser & {selected: boolean})[]>([]);
 
   useEffect(() => {
-    setUsers(user.getFollows);
+    setUsers(user.getFollows.map(u => ({...u, selected: false})));
   }, [user.getFollows]);
 
   const selectUser = (id: string) => {
-    setUsers(users.map(user => (user.id === id ? {...user, selected: !user.selected} : user)));
+    setUsers(users.map(u => (u.id === id ? {...u, selected: !u.selected} : u)));
   };
 
   const handleSheet = () => {
@@ -34,33 +35,35 @@ const CreateChat = observer(() => {
 
   const createChat = async () => {
     let chat: IChat | null = null;
-    const selectionLength = users.filter(u => u.selected).length;
-    if (selectionLength === 1) {
-      const selectedUser = users.find(u => u.selected);
-      if (selectedUser) {
-        const chatFound = user.getChats.find(c => c.id === selectedUser.id);
-        if (!chatFound) {
-          chat = {
-            id: selectedUser.id,
-            name: selectedUser.name + ' ' + selectedUser.surname,
-            type: 'Private',
-            typing: false,
-            messages: [],
-          };
-          user.set('chats', [...user.getChats, chat]);
-        } else {
-          chat = chatFound;
-        }
+    const selectedUsers = users.filter(u => u.selected);
+    if (selectedUsers.length === 1) {
+      const selectedUser = selectedUsers[0];
+      const chatFound = user.chats.find(c => c.id === selectedUser.id);
+      if (chatFound) {
+        chat = chatFound;
+      } else {
+        chat = {
+          id: selectedUser.id,
+          name: selectedUser.name + ' ' + selectedUser.surname,
+          type: 'Private',
+          typing: false,
+          messages: [],
+        };
+        user.set('chats', [chat, ...user.getChats]);
       }
-    } else if (selectionLength > 1) {
+    } else if (selectedUsers.length > 1) {
       chat = await api.chat.createGroup({
         id: '',
         name: `${user.getInfo.userName}'s Group`,
-        users: users.map(u => ({id: u.id, authority: 'User'})),
+        users: selectedUsers.map(u => ({id: u.id, authority: 'User'})),
       });
     }
-    chat && navigation.navigate('Chat', {chat: chat});
-    sheetRef.current?.close();
+    if (chat) {
+      navigation.navigate('Chat', {chat: chat});
+      sheetRef.current?.close();
+    } else {
+      ui.addWarning('En az 1 kullanıcı seçmelisiniz.');
+    }
   };
 
   return (
@@ -77,7 +80,7 @@ const CreateChat = observer(() => {
         }}
       >
         <FriendsList friends={users} onPress={selectUser} />
-        <MukButton label={t.do('main.social.newChat')} onPress={() => createChat()} />
+        <MukButton label={t.do('main.social.newChat')} onPress={createChat} />
       </MukSheet>
     </>
   );

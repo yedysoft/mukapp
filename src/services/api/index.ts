@@ -8,8 +8,8 @@ import image from './image';
 import room from './room';
 import chat from './chat';
 import permission from './permission';
-import {IService, PVoid} from '../../types';
 import main from './main';
+import {IService, PVoid} from '../../types';
 
 class ApiService implements IService {
   private inited = false;

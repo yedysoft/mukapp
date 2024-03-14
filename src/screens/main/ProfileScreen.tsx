@@ -9,14 +9,15 @@ import {stores, useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import MukLoader from '../../components/loading/MukLoader';
 import {SubLayout} from '../../components/layouts/SubLayout';
+import useInfo from '../../hooks/useInfo';
 
 export default observer((props: any) => {
   const userId = props.route.params?.userId;
   const {api, t} = useServices();
-  const {user, main} = useStores();
+  const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
   const otherUser = userId ? user.getInfo.id !== userId : false;
-  const info = otherUser ? main.getInfoById(userId) : user.getInfo;
+  const info = otherUser ? useInfo(userId) : user.getInfo;
 
   const stats = [
     {

@@ -6,7 +6,7 @@ import user from './user';
 import {MessageBody, PVoid} from '../../types';
 import room from './room';
 import subscription from './subscription';
-import {services} from '../index';
+import chat from './chat';
 
 class AuthApi {
   async forgotPass(form: IForgot): PVoid {
@@ -68,7 +68,7 @@ class AuthApi {
         await user.getInfo();
         await socket.connect();
         await user.getAllNotifications(stores.user.getInfo.id);
-        await services.api.chat.getChats();
+        await chat.getChats();
         await subscription.globalSubscribes();
         stores.auth.set('loggedIn', true);
       }

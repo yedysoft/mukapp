@@ -29,7 +29,6 @@ export type IFollowUser = {
   imagePath: string;
   name: string;
   surname: string;
-  selected?: boolean;
 };
 
 export type IBlockedUser = {

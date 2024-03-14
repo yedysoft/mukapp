@@ -1,9 +1,8 @@
 import {BaseStore} from './base';
 import {IInfo} from '../types/user';
-import defaults from '../utils/defaults';
-import {services} from '../services';
 import {IServer} from '../types/main';
 import {IGroup} from '../types/chat';
+import defaults from '../utils/defaults';
 
 class MainStore extends BaseStore<MainStore> {
   infos: IInfo[] = [];
@@ -15,14 +14,8 @@ class MainStore extends BaseStore<MainStore> {
     this.makeObservableAndPersistable(this, MainStore.name, []);
   }
 
-  getInfoById(id: string, auto = true): IInfo {
-    const i = this.infos.find(i => i.id === id);
-    if (i) {
-      return i;
-    } else {
-      auto && services.api.main.getInfoByIds([id]);
-      return defaults.info;
-    }
+  getInfoById(id: string): IInfo {
+    return this.infos.find(i => i.id === id) ?? defaults.info;
   }
 
   addOrUpdateInfo(info: IInfo) {
@@ -34,14 +27,8 @@ class MainStore extends BaseStore<MainStore> {
     }
   }
 
-  getServerById(id: string, auto = true): IServer {
-    const i = this.servers.find(i => i.id === id);
-    if (i) {
-      return i;
-    } else {
-      auto && services.api.main.getServerByIds([id]);
-      return defaults.server;
-    }
+  getServerById(id: string): IServer {
+    return this.servers.find(i => i.id === id) ?? defaults.server;
   }
 
   addOrUpdateServer(server: IServer) {
@@ -53,14 +40,8 @@ class MainStore extends BaseStore<MainStore> {
     }
   }
 
-  getGroupById(id: string, auto = true): IGroup {
-    const i = this.groups.find(i => i.id === id);
-    if (i) {
-      return i;
-    } else {
-      auto && services.api.main.getGroupByIds([id]);
-      return defaults.group;
-    }
+  getGroupById(id: string): IGroup {
+    return this.groups.find(i => i.id === id) ?? defaults.group;
   }
 
   addOrUpdateGroup(group: IGroup) {

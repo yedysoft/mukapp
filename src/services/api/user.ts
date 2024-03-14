@@ -159,7 +159,7 @@ class UserApi {
   async getAllNotifications(userId: string): PVoid {
     try {
       const response = await axiosIns.get<INotification[]>(`/notification/getAllNotifications/${userId}`);
-      console.log('Notifications: ', response.data);
+      console.log('getAllNotifications', response.data);
       stores.user.set('notifications', response.data);
     } catch (e) {
       console.log(e);

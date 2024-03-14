@@ -6,6 +6,7 @@ import MukImage from '../custom/MukImage';
 import {IMessage} from '../../types/chat';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import useInfo from '../../hooks/useInfo';
 
 type Props = {
   message: IMessage;
@@ -13,9 +14,9 @@ type Props = {
 
 export default observer(({message}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {user, main} = useStores();
+  const {user} = useStores();
   const me = message.senderId === user.getInfo.id;
-  const info = me ? user.getInfo : main.getInfoById(message.senderId);
+  const info = me ? user.getInfo : useInfo(message.senderId);
   const sended = !!message.id;
 
   return (
