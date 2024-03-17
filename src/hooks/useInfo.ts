@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {IInfo} from '../types/user';
 
 export default (id: string, doWork = true) => {
-  if (!doWork && !id) {
+  if (!doWork || !id) {
     return {} as IInfo;
   }
   const {main} = useStores();

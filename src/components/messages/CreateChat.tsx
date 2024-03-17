@@ -55,7 +55,7 @@ export default observer(() => {
     } else if (selectedUsers.length > 1) {
       chat = await api.chat.createGroup({
         id: '',
-        name: `${user.getInfo.userName}'s Group`,
+        name: `${user.getInfo.name}'s Group`,
         users: selectedUsers.map(u => ({id: u.id, authority: 'User'})),
       });
     }

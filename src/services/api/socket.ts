@@ -29,6 +29,7 @@ class SocketApi {
     await this.disconnect();
     return new Promise<void>(resolve => {
       this.client.onConnect = async () => {
+        console.log('SocketOnConnect', this.subscribes);
         for (const [key, sub] of Object.entries(this.subscribes)) {
           await this.subscribe(key, sub.callback, sub.subId, true);
         }

@@ -21,7 +21,9 @@ class ChatApi {
   async getChats(): PVoid {
     try {
       const response = await axiosIns.get<IChat[]>('/message/getChats');
-      //stores.user.set('chats', response.data); TODO Backend düzeltildikten sonra açılacak
+      if (response.status === 200) {
+        stores.user.set('chats', response.data);
+      }
     } catch (e: any) {
       console.log(e);
     }

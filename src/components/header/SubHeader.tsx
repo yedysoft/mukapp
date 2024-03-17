@@ -89,11 +89,13 @@ const ChatHeader = observer(({id}: {id: string}) => {
 
   return (
     <View style={{gap: responsiveWidth(4)}}>
-      <Text style={{fontSize: responsiveSize(18), color: colors.secondary}}>{chat.name ? chat.name : name}</Text>
+      <Text style={{fontWeight: '500', fontSize: responsiveSize(18), color: colors.secondary}}>
+        {chat.name ? chat.name : name}
+      </Text>
       <Text
         style={{
           fontSize: responsiveSize(12),
-          color: colors.secondary,
+          color: colors.primary,
           display: chat.typing ? undefined : 'none',
         }}
       >

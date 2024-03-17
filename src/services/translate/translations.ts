@@ -55,7 +55,7 @@ export const tr: MukLang = {
     },
     social: {
       newChat: 'Yeni Sohbet',
-      typing: 'Yazıyor...',
+      typing: 'yazıyor...',
     },
     home: {
       places: 'Mekanlar',
@@ -186,7 +186,7 @@ export const en: MukLang = {
     },
     social: {
       newChat: 'New Chat',
-      typing: 'Typing...',
+      typing: 'typing...',
     },
     home: {
       places: 'Places',
@@ -313,7 +313,7 @@ export const de: MukLang = {
     },
     social: {
       newChat: 'Neuer Chat',
-      typing: 'Typing...',
+      typing: 'typing...',
     },
     home: {
       places: 'Orte',
@@ -440,7 +440,7 @@ export const ru: MukLang = {
     },
     social: {
       newChat: 'Новый чат',
-      typing: 'Typing...',
+      typing: 'typing...',
     },
     home: {
       places: 'Места',
@@ -567,7 +567,7 @@ export const ar: MukLang = {
     },
     social: {
       newChat: 'دردشة جديدة',
-      typing: 'Typing...',
+      typing: 'typing...',
     },
     home: {
       places: 'أماكن',
@@ -694,7 +694,7 @@ export const fr: MukLang = {
     },
     social: {
       newChat: 'Nouvelle discussion',
-      typing: 'Typing...',
+      typing: 'typing...',
     },
     home: {
       places: 'Lieux',
@@ -821,7 +821,7 @@ export const it: MukLang = {
     },
     social: {
       newChat: 'Nuova chat',
-      typing: 'Typing...',
+      typing: 'typing...',
     },
     home: {
       places: 'Luoghi',
@@ -948,7 +948,7 @@ export const es: MukLang = {
     },
     social: {
       newChat: 'Nuevo chat',
-      typing: 'Typing...',
+      typing: 'typing...',
     },
     home: {
       places: 'Lugares',

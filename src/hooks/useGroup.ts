@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {IGroup} from '../types/chat';
 
 export default (id: string, doWork = true) => {
-  if (!doWork) {
+  if (!doWork || !id) {
     return {} as IGroup;
   }
   const {main} = useStores();

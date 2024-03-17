@@ -41,7 +41,6 @@ export default function MessagesListItem({chat}: Props) {
             numberOfLines={1}
             style={{
               fontSize: responsiveSize(15),
-              fontWeight: '400',
               position: 'absolute',
               right: 0,
               color: colors.secondary,
@@ -54,7 +53,12 @@ export default function MessagesListItem({chat}: Props) {
         </View>
         <Text
           numberOfLines={1}
-          style={{flex: 1, fontSize: responsiveSize(15), fontWeight: '400', color: colors.secondary}}
+          style={{
+            flex: 1,
+            fontSize: responsiveSize(15),
+            fontWeight: '400',
+            color: chat.typing ? colors.primary : colors.secondary,
+          }}
         >
           {chat.typing ? t.do('main.social.typing') : lastMessage.message}
         </Text>

@@ -159,7 +159,6 @@ class UserApi {
   async getAllNotifications(userId: string): PVoid {
     try {
       const response = await axiosIns.get<INotification[]>(`/notification/getAllNotifications/${userId}`);
-      console.log('getAllNotifications', response.data);
       stores.user.set('notifications', response.data);
     } catch (e) {
       console.log(e);
@@ -183,18 +182,21 @@ class UserApi {
 
   async updateReaded(): PVoid {
     try {
-      const response = await axiosIns.post(
-        '/notification/updateReaded',
-        stores.user.getNotifications.map(n => n.id),
-      );
-      if (response.status === 200) {
-        stores.user.set(
-          'notifications',
-          stores.user.getNotifications.map(n => ({
-            ...n,
-            readed: true,
-          })),
+      const unreaded = stores.user.getNotifications.filter(n => !n.readed);
+      if (unreaded.length > 0) {
+        const response = await axiosIns.post(
+          '/notification/updateReaded',
+          unreaded.map(n => n.id),
         );
+        if (response.status === 200) {
+          stores.user.set(
+            'notifications',
+            stores.user.getNotifications.map(n => ({
+              ...n,
+              readed: true,
+            })),
+          );
+        }
       }
     } catch (e) {
       console.log(e);

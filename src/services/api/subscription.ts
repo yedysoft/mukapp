@@ -141,6 +141,7 @@ class SubscriptionApi {
         const user: ITypingUser | null = t.type === 'Group' ? {id: t.senderId, typing: t.typing} : null;
         const users = user && chat.typing ? (chat.typing as ITypingUser[]) : [];
         const typing = user ? [user, ...users.filter(u => u.id !== user.id && u.typing)] : t.typing;
+        console.log(t, typing);
         stores.user.set(
           'chats',
           stores.user.getChats.map(c => (c.id === id ? {...c, typing: typing} : c)),
