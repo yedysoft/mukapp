@@ -4,9 +4,6 @@ import {useEffect, useState} from 'react';
 import {IGroup} from '../types/chat';
 
 export default (id: string, doWork = true) => {
-  if (!doWork || !id) {
-    return {} as IGroup;
-  }
   const {main} = useStores();
   const {api} = useServices();
   const [group, setGroup] = useState(main.getGroupById(id));
@@ -22,8 +19,7 @@ export default (id: string, doWork = true) => {
     } else if (!api.helper.isEqual(g, group)) {
       setGroup(g);
     }
-    return () => console.log('useGroup', id, 'useEffectReturn');
-  }, [toogle]);
+  }, [toogle, id]);
 
-  return group;
+  return !doWork || !id ? ({} as IGroup) : group;
 };

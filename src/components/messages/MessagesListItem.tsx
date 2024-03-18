@@ -18,12 +18,13 @@ type Props = {
 export default function MessagesListItem({chat}: Props) {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
-  const {api, t} = useServices();
+  const {api} = useServices();
   const lastMessage: ILastMessage = api.chat.getLastMessage(chat.messages);
   const isPrivate = chat.type === 'Private';
   const info = useInfo(chat.id, isPrivate);
   const group = useGroup(chat.id, chat.type === 'Group');
   const name = isPrivate ? info.name + ' ' + info.surname : group.name;
+  const typingMessage = api.chat.getTyping(chat);
 
   return (
     <MukListItem style={{alignItems: 'center'}} onPress={() => navigation.navigate('Chat', {chat: chat})}>
@@ -57,10 +58,10 @@ export default function MessagesListItem({chat}: Props) {
             flex: 1,
             fontSize: responsiveSize(15),
             fontWeight: '400',
-            color: chat.typing ? colors.primary : colors.secondary,
+            color: typingMessage ? colors.primary : colors.secondary,
           }}
         >
-          {chat.typing ? t.do('main.social.typing') : lastMessage.message}
+          {typingMessage ? typingMessage : lastMessage.message}
         </Text>
       </View>
     </MukListItem>

@@ -1,7 +1,9 @@
-import {IChat, IGroup, ILastMessage, IMessage} from '../../types/chat';
+import {IChat, IGroup, ILastMessage, IMessage, ITypingUser} from '../../types/chat';
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import {PVoid} from '../../types';
+import translate from '../translate';
+import main from './main';
 
 class ChatApi {
   async createGroup(group: IGroup): Promise<IChat | null> {
@@ -37,6 +39,27 @@ class ChatApi {
       message = temp[0];
     }
     return message ? {date: message.date, message: this.getMessageByContentType(message)} : {date: '', message: ''};
+  }
+
+  getTyping(chat: IChat) {
+    if (chat.typing) {
+      if (typeof chat.typing === 'boolean') {
+        return translate.do('main.social.typing');
+      } else {
+        const users: ITypingUser[] = chat.typing.filter(u => u.typing);
+        if (users && users.length > 0) {
+          console.log(users);
+          const ids = users.map(u => u.id);
+          const infos = stores.main.infos.filter(i => ids.includes(i.id));
+          main.getInfoByIds(ids.filter(id => !infos.some(i => i.id === id)));
+          return `${infos.map(i => i.name).join(', ')} ${translate.do('main.social.typing')}`;
+        } else {
+          return '';
+        }
+      }
+    } else {
+      return '';
+    }
   }
 
   private getMessageByContentType(message: IMessage) {

@@ -28,7 +28,7 @@ export default function SearchListItem({user}: Props) {
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), color: colors.secondary, fontWeight: '500'}}>
           {user.name} {user.surname}
         </Text>
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(14), color: colors.outline, fontWeight: '300'}}>
+        <Text numberOfLines={1} style={{fontSize: responsiveSize(14), color: colors.outlineVariant, fontWeight: '300'}}>
           @{user.userName}
         </Text>
         <Text
@@ -37,7 +37,7 @@ export default function SearchListItem({user}: Props) {
             display: user.isFollower ? undefined : 'none',
             fontSize: responsiveSize(12),
             marginTop: responsiveWidth(4),
-            color: colors.outline,
+            color: colors.outlineVariant,
           }}
         >
           {t.do('main.search.follows')}

@@ -79,13 +79,14 @@ export default observer(() => {
 
 const ChatHeader = observer(({id}: {id: string}) => {
   const {colors} = useTheme<MukTheme>();
-  const {t} = useServices();
+  const {api} = useServices();
   const {user} = useStores();
   const chat = user.getChats.find(c => c.id === id) ?? defaults.chat;
   const isPrivate = chat.type === 'Private';
   const info = useInfo(chat.id, isPrivate);
   const group = useGroup(chat.id, !isPrivate);
   const name = isPrivate ? info.name + ' ' + info.surname : group.name;
+  const typingMessage = api.chat.getTyping(chat);
 
   return (
     <View style={{gap: responsiveWidth(4)}}>
@@ -96,10 +97,10 @@ const ChatHeader = observer(({id}: {id: string}) => {
         style={{
           fontSize: responsiveSize(12),
           color: colors.primary,
-          display: chat.typing ? undefined : 'none',
+          display: typingMessage ? undefined : 'none',
         }}
       >
-        {chat.typing ? t.do('main.social.typing') : ''}
+        {typingMessage}
       </Text>
     </View>
   );

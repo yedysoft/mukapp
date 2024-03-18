@@ -7,6 +7,7 @@ import {IMessage} from '../../types/chat';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import useInfo from '../../hooks/useInfo';
+import {useServices} from '../../services';
 
 type Props = {
   message: IMessage;
@@ -15,10 +16,14 @@ type Props = {
 export default observer(({message}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
+  const {api} = useServices();
   const me = message.senderId === user.getInfo.id;
   const i = useInfo(message.senderId, !me);
   const info = me ? user.getInfo : i;
   const sended = !!message.id;
+  const time = api.helper.formatDateForChat(
+    message.date.toString() === '' ? new Date().toString() : message.date.toString(),
+  );
 
   return (
     <View
@@ -57,19 +62,18 @@ export default observer(({message}: Props) => {
             fontWeight: '800',
           }}
         >
-          {info?.name} {info?.surname}
+          {info.name} {info.surname}
         </Text>
         <Text style={{color: colors.light, textAlign: 'left'}}>{message.content}</Text>
         <Text
           style={{
-            display: me ? undefined : 'none',
             color: colors.light,
             textAlign: 'right',
             fontSize: 10,
             fontWeight: '300',
           }}
         >
-          {sended ? '✓' : '⏳'}
+          {time} {me ? (sended ? '✓' : '⏳') : ''}
         </Text>
       </View>
     </View>

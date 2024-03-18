@@ -22,7 +22,10 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
   return (
     <MukListItem
       style={{alignItems: 'center', justifyContent: 'space-between'}}
-      onPress={() => navigation.navigate('Profile', {userId: item.id})}
+      onPress={() => {
+        console.log('ProfileListItem', {userId: item.id});
+        navigation.navigate('Profile', {userId: item.id});
+      }}
     >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')} />

@@ -111,7 +111,10 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
 
     const focusInput = () => inputRef.current?.focus();
 
-    const clearInput = () => inputRef.current?.clear();
+    const clearInput = () => {
+      inputRef.current?.clear();
+      value.current = '';
+    };
 
     useImperativeHandle(ref, () => ({
       validateInput,

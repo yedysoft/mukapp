@@ -4,9 +4,6 @@ import {useEffect, useState} from 'react';
 import {IInfo} from '../types/user';
 
 export default (id: string, doWork = true) => {
-  if (!doWork || !id) {
-    return {} as IInfo;
-  }
   const {main} = useStores();
   const {api} = useServices();
   const [info, setInfo] = useState(main.getInfoById(id));
@@ -22,8 +19,7 @@ export default (id: string, doWork = true) => {
     } else if (!api.helper.isEqual(i, info)) {
       setInfo(i);
     }
-    return () => console.log('useInfo', id, 'useEffectReturn');
-  }, [toogle]);
+  }, [toogle, id]);
 
-  return info;
+  return !doWork || !id ? ({} as IInfo) : info;
 };

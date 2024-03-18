@@ -8,8 +8,10 @@ import {IServer} from '../../types/main';
 class MainApi {
   async getInfoByIds(ids: string[]): PVoid {
     try {
-      const response = await axiosIns.post<IInfo[]>('/user-info/getInfoByIds', ids);
-      stores.main.addOrUpdateInfos(response.data);
+      if (ids && ids.length > 0) {
+        const response = await axiosIns.post<IInfo[]>('/user-info/getInfoByIds', ids);
+        stores.main.addOrUpdateInfos(response.data);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -17,8 +19,10 @@ class MainApi {
 
   async getServerByIds(ids: string[]): PVoid {
     try {
-      const response = await axiosIns.post<IServer[]>('/server/getServerByIds', ids);
-      stores.main.addOrUpdateServers(response.data);
+      if (ids && ids.length > 0) {
+        const response = await axiosIns.post<IServer[]>('/server/getServerByIds', ids);
+        stores.main.addOrUpdateServers(response.data);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -26,8 +30,10 @@ class MainApi {
 
   async getGroupByIds(ids: string[]): PVoid {
     try {
-      const response = await axiosIns.post<IGroup[]>('/message-group/getGroupByIds', ids);
-      stores.main.addOrUpdateGroups(response.data);
+      if (ids && ids.length > 0) {
+        const response = await axiosIns.post<IGroup[]>('/message-group/getGroupByIds', ids);
+        stores.main.addOrUpdateGroups(response.data);
+      }
     } catch (e) {
       console.log(e);
     }
