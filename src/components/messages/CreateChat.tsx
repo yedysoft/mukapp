@@ -69,7 +69,7 @@ export default observer(() => {
 
   return (
     <>
-      <MukFAB onPress={handleSheet} />
+      <MukFAB onPress={handleSheet} icon={'message-square'} />
       <MukSheet
         snaps={[users.length > 0 ? '70%' : '44%']}
         sheetRef={sheetRef}

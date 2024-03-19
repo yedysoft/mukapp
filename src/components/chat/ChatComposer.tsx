@@ -32,7 +32,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
     type: messageType,
   };
 
-  const handleCustomChange = (_name: string, _value: string) => {
+  const handleChange = () => {
     if (messageType !== 'Public') {
       !typingRef.current && sendTyping(true);
       api.helper.sleep(800, 'chat1').then(async () => {
@@ -66,7 +66,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
       <MukTextInput
         ref={inputRef}
         name={'composer'}
-        onCustomChange={handleCustomChange}
+        onChange={handleChange}
         defaultValue={message.content}
         multiline={true}
         textAlignVertical={'top'}

@@ -1,7 +1,6 @@
 import {useStores} from '../stores';
 import {useServices} from '../services';
 import {useEffect, useState} from 'react';
-import {IInfo} from '../types/user';
 
 export default (id: string, doWork = true) => {
   const {main} = useStores();
@@ -10,16 +9,15 @@ export default (id: string, doWork = true) => {
   const [toogle, setToogle] = useState<boolean>(false);
 
   useEffect(() => {
-    const i = main.getInfoById(id);
-    if (i.id === 'default') {
-      api.main
-        .getInfoByIds([id])
-        .then(() => setToogle(!toogle))
-        .catch(() => api.helper.sleep(500).then(() => setToogle(!toogle)));
-    } else if (!api.helper.isEqual(i, info)) {
-      setInfo(i);
+    if (id && doWork) {
+      const i = main.getInfoById(id);
+      if (i.id === 'default') {
+        api.main.getInfoByIds([id]).catch(() => api.helper.sleep(500).then(() => setToogle(!toogle)));
+      } else if (!api.helper.isEqual(i, info)) {
+        setInfo(i);
+      }
     }
-  }, [toogle, id]);
+  }, [toogle, main.infos, id, doWork]);
 
-  return !doWork || !id ? ({} as IInfo) : info;
+  return info;
 };

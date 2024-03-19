@@ -8,16 +8,17 @@ import {MukColors, MukTheme} from '../../types';
 type Props = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  icon?: string;
 };
 
-const MukFAB = observer(({onPress, style}: Props) => {
+const MukFAB = observer(({onPress, style, icon}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const styles = makeStyles(colors);
   const {room} = useStores();
 
   return (
     <FAB
-      icon="plus"
+      icon={icon ?? 'plus'}
       color={colors.background}
       customSize={responsiveSize(64)}
       style={[

@@ -7,7 +7,6 @@ import {IVote} from '../../types/media';
 import {MessageBody, PVoid} from '../../types';
 import {IMessage, IMessageTyping, ITypingUser} from '../../types/chat';
 import {INotification} from '../../types/user';
-import {IChatType} from '../../types/enums';
 
 class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
@@ -89,7 +88,7 @@ class SubscriptionApi {
           );
         } else {
           stores.user.set('chats', [
-            {id: id, name: '', type: data.type as IChatType, typing: false, messages: [data]},
+            {id: id, name: '', type: data.type, typing: false, messages: [data]},
             ...stores.user.getChats,
           ]);
         }
@@ -158,12 +157,14 @@ class SubscriptionApi {
       const chat = stores.user.chats.find(c => c.id === id);
       if (chat) {
         if (me) {
-          const some = chat.messages.some(cm => cm.tempId === m.tempId);
+          const some = chat.messages.some(cm => cm.tempId === m.tempId && !cm.id);
           if (some) {
             stores.user.set(
               'chats',
               stores.user.getChats.map(c =>
-                c.id === id ? {...c, messages: c.messages.map(msg => (msg.tempId === m.tempId ? m : msg))} : c,
+                c.id === id
+                  ? {...c, messages: c.messages.map(msg => (msg.tempId === m.tempId && !msg.id ? m : msg))}
+                  : c,
               ),
             );
           } else {
@@ -180,7 +181,7 @@ class SubscriptionApi {
         }
       } else {
         stores.user.set('chats', [
-          {id: id, name: '', type: m.type as IChatType, typing: false, messages: [m]},
+          {id: id, name: '', type: m.type, typing: false, messages: [m]},
           ...stores.user.getChats,
         ]);
       }
@@ -189,11 +190,11 @@ class SubscriptionApi {
 
   private publicMessageListenCallback(message: Message) {
     const m: IMessage = JSON.parse(message.body);
-    const some = stores.room.chat.some(cm => cm.tempId === m.tempId);
+    const some = stores.room.chat.some(cm => cm.tempId === m.tempId && !cm.id);
     if (some) {
       stores.room.set(
         'chat',
-        stores.room.getChat.map(msg => (msg.tempId === m.tempId ? m : msg)),
+        stores.room.getChat.map(msg => (msg.tempId === m.tempId && !msg.id ? m : msg)),
       );
     } else {
       stores.room.set('chat', [m, ...stores.room.getChat]);
@@ -210,11 +211,11 @@ class SubscriptionApi {
   }
 
   private queueCallback(message: Message) {
-    media.setQueue(JSON.parse(message.body));
+    message && media.setQueue(JSON.parse(message.body));
   }
 
   private voteResultCallback(message: Message) {
-    media.setVoteResult(JSON.parse(message.body));
+    message && media.setVoteResult(JSON.parse(message.body));
   }
 }
 

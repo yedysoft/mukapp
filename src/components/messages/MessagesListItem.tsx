@@ -47,8 +47,9 @@ export default function MessagesListItem({chat}: Props) {
               color: colors.secondary,
             }}
           >
-            {api.helper.formatDateForChat(
+            {api.helper.formatDateTime(
               lastMessage.date.toString() === '' ? new Date().toString() : lastMessage.date.toString(),
+              'both',
             )}
           </Text>
         </View>

@@ -200,24 +200,31 @@ class HelperApi {
     }
   }
 
-  formatDateForChat(inputDateStr: string) {
-    const inputDate = new Date(inputDateStr);
-    const currentDate = new Date();
-    if (
-      inputDate.getDate() === currentDate.getDate() &&
-      inputDate.getMonth() === currentDate.getMonth() &&
-      inputDate.getFullYear() === currentDate.getFullYear()
-    ) {
-      const hours = String(inputDate.getHours()).padStart(2, '0');
-      const minutes = String(inputDate.getMinutes()).padStart(2, '0');
-      return `${hours}:${minutes}`;
-    } else {
-      const day = String(inputDate.getDate()).padStart(2, '0');
-      const month = String(inputDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based
-      const hours = String(inputDate.getHours()).padStart(2, '0');
-      const minutes = String(inputDate.getMinutes()).padStart(2, '0');
-      return `${day}/${month} ${hours}:${minutes}`;
+  calculateDaysBetweenDates(startDate: Date, endDate: Date): number {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const startTimestamp = startDate.getTime();
+    const endTimestamp = endDate.getTime();
+    return Math.round(Math.abs((startTimestamp - endTimestamp) / oneDay));
+  }
+
+  formatDateTime(value: number | string, type: 'both' | 'date' | 'time') {
+    const date = new Date(value);
+    let d = '';
+    let t = '';
+    if (type === 'both' || type === 'date') {
+      const diff = this.calculateDaysBetweenDates(date, new Date());
+      if (diff === 0) {
+        d = 'Bugün';
+      } else if (diff === 1) {
+        d = 'Dün';
+      } else {
+        d = date.toLocaleString('tr-tr', {timeZone: 'Europe/Istanbul', day: 'numeric', month: 'long', year: 'numeric'});
+      }
     }
+    if (type === 'both' || type === 'time') {
+      t = date.toLocaleString('tr-tr', {timeZone: 'Europe/Istanbul', hour: '2-digit', minute: '2-digit'});
+    }
+    return `${d}${type === 'both' ? ' ' : ''}${t}`;
   }
 
   dateAgo = (date: Date) => {

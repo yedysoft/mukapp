@@ -1,5 +1,5 @@
 import {Text, useTheme} from 'react-native-paper';
-import {View} from 'react-native';
+import {Animated, PanResponder, View} from 'react-native';
 import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
@@ -8,6 +8,7 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import useInfo from '../../hooks/useInfo';
 import {useServices} from '../../services';
+import {useState} from 'react';
 
 type Props = {
   message: IMessage;
@@ -21,17 +22,48 @@ export default observer(({message}: Props) => {
   const i = useInfo(message.senderId, !me);
   const info = me ? user.getInfo : i;
   const sended = !!message.id;
-  const time = api.helper.formatDateForChat(
-    message.date.toString() === '' ? new Date().toString() : message.date.toString(),
-  );
+  const time = api.helper.formatDateTime(message.date.toString(), 'time');
+  const [isQuoting, setIsQuoting] = useState(false);
+
+  const translateX = new Animated.Value(0);
+
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderMove: (event, gestureState) => {
+      if (gestureState.dx > 0) {
+        translateX.setValue(gestureState.dx);
+      }
+      if (gestureState.dx > 50) {
+        setIsQuoting(true);
+      } else {
+        setIsQuoting(false);
+      }
+    },
+    onPanResponderRelease: () => {
+      setIsQuoting(false);
+      Animated.timing(translateX, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    },
+  });
+
+  const animatedStyles = {
+    transform: [{translateX: translateX}],
+  };
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        gap: responsiveWidth(4),
-        justifyContent: me ? 'flex-end' : 'flex-start',
-      }}
+    <Animated.View
+      style={[
+        {
+          flexDirection: 'row',
+          gap: responsiveWidth(4),
+          justifyContent: me ? 'flex-end' : 'flex-start',
+        },
+        animatedStyles,
+      ]}
+      {...panResponder.panHandlers}
     >
       <MukImage
         source={require('../../../assets/adaptive-icon.png')}
@@ -76,6 +108,6 @@ export default observer(({message}: Props) => {
           {time} {me ? (sended ? '✓' : '⏳') : ''}
         </Text>
       </View>
-    </View>
+    </Animated.View>
   );
 });
