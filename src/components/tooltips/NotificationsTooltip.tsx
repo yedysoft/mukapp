@@ -3,9 +3,11 @@ import MukTooltip from '../custom/MukTooltip';
 import {TooltipScreenProps} from '../../types';
 import {useEffect} from 'react';
 import {useServices} from '../../services';
+import {useStores} from '../../stores';
 
 export default function NotificationsTooltip({positions, visible, changeVisible}: TooltipScreenProps) {
   const {api} = useServices();
+  const {ui} = useStores();
 
   useEffect(() => {
     visible && api.user.updateReaded();
@@ -17,7 +19,7 @@ export default function NotificationsTooltip({positions, visible, changeVisible}
       positions={positions}
       visible={visible}
       changeVisible={changeVisible}
-      style={{width: 200, height: 200}}
+      style={{width: ui.windowWidth * 0.6, height: ui.windowHeight * 0.3}}
     >
       <NotificationList compact />
     </MukTooltip>

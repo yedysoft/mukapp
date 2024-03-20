@@ -1,5 +1,5 @@
 import MukFAB from '../../components/custom/MukFAB';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
@@ -14,7 +14,7 @@ import {Text, useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MainStackNavProp} from '../../navigation/MainStack';
-import MukBottomSheet from '../custom/MukBottomSheet';
+import MukBottomSheet, {MukBottomSheetRef} from '../custom/MukBottomSheet';
 
 const CreateRoom = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -22,23 +22,22 @@ const CreateRoom = observer(() => {
   const {api, t} = useServices();
   const {room, user} = useStores();
   const formRef = useRef<MukFormRef<IRoomConfig>>(null);
+  const sheetRef = useRef<MukBottomSheetRef>(null);
   const form: IRoomConfig | null = room.getConfig;
-
-  const [expand, setExpand] = useState(false);
 
   useEffect(() => {
     !room.getConfig?.id && api.room.setConfig();
   }, [room.getConfig]);
 
-  const handleSheet = () => {
-    setExpand(!expand);
+  const handleOnPress = () => {
+    sheetRef.current?.open();
   };
 
   const createRoom = async () => {
     if (formRef.current?.validateInputs()) {
       await api.room.createRoom(formRef.current?.formData() as IRoomConfig);
       if (room.isLive) {
-        setExpand(false);
+        sheetRef.current?.close();
         navigation.navigate('Room');
       }
     }
@@ -46,8 +45,8 @@ const CreateRoom = observer(() => {
 
   return (
     <>
-      {!room.isLive ? <MukFAB onPress={handleSheet} /> : null}
-      <MukBottomSheet visible={expand} setVisible={setExpand}>
+      {!room.isLive ? <MukFAB onPress={handleOnPress} /> : null}
+      <MukBottomSheet ref={sheetRef}>
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
           <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
           <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', gap: responsiveWidth(8)}}>

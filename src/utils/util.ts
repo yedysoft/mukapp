@@ -20,4 +20,6 @@ const genericMemo: <T extends React.ComponentType<any>>(
   propsAreEqual?: (prevProps: React.ComponentProps<T>, nextProps: React.ComponentProps<T>) => boolean,
 ) => T = memo;
 
-export {responsiveScale, responsiveWidth, responsiveHeight, responsiveSize, genericMemo};
+const getAnimatedValue = (value: any): number => value.__getValue() as number;
+
+export {responsiveScale, responsiveWidth, responsiveHeight, responsiveSize, genericMemo, getAnimatedValue};

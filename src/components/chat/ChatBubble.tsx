@@ -1,14 +1,14 @@
 import {Text, useTheme} from 'react-native-paper';
 import {Animated, PanResponder, View} from 'react-native';
 import {MukTheme} from '../../types';
-import {responsiveWidth} from '../../utils/util';
+import {getAnimatedValue, responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
 import {IMessage} from '../../types/chat';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import useInfo from '../../hooks/useInfo';
 import {useServices} from '../../services';
-import {ReactNode} from 'react';
+import {ReactNode, useRef} from 'react';
 
 type Props = {
   message: IMessage;
@@ -24,31 +24,32 @@ export default observer(({message, quotedMessage}: Props) => {
   const info = me ? user.getInfo : i;
   const sended = !!message.id;
   const time = api.helper.formatDateTime(message.date.toString(), 'time');
+  const translateX = useRef(new Animated.Value(0)).current;
 
-  const translateX = new Animated.Value(0);
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => sended,
+      onPanResponderMove: (_e, gestureState) => {
+        if ((!me && gestureState.dx > 0) || (me && gestureState.dx < 0)) {
+          translateX.setValue(gestureState.dx);
+        }
+      },
+      onPanResponderRelease: () => {
+        if (Math.abs(getAnimatedValue(translateX)) > 20) {
+          user.set('quotedMessage', {id: message.id, senderId: message.senderId, content: message.content});
+        }
 
-  const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => sended,
-    onPanResponderMove: (_e, gestureState) => {
-      if ((!me && gestureState.dx > 0) || (me && gestureState.dx < 0)) {
-        translateX.setValue(gestureState.dx);
-      }
-    },
-    onPanResponderRelease: () => {
-      if (Math.abs(translateX.__getValue()) > 20) {
-        user.set('quotedMessage', {id: message.id, senderId: message.senderId, content: message.content});
-      }
-
-      Animated.timing(translateX, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    },
-  });
+        Animated.timing(translateX, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }).start();
+      },
+    }),
+  ).current;
 
   const animatedStyles = {
-    transform: [{translateX: translateX}],
+    transform: [{translateX}],
   };
 
   return (

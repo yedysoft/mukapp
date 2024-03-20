@@ -5,6 +5,7 @@ import {services, useServices} from '../../services';
 import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Validates = 'required';
 
@@ -33,161 +34,167 @@ export type MukTextInputRef = {
   clear: () => void;
 };
 
-const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
-  (
-    {
-      name,
-      visible = true,
-      showError = true,
-      label,
-      onCustomChange,
-      viewStyle,
-      style,
-      preValidate,
-      validate,
-      validationMessage,
-      showKeyboard,
-      quotedMessage,
-      ...rest
-    }: Props,
-    ref,
-  ) => {
-    console.log('MukTextInputCompRender', name);
-    const inputRef = useRef<TextInput>(null);
-    const {colors} = useTheme<MukTheme>();
-    const {ui} = useStores();
-    const {t} = useServices();
-    const validInputValue = rest.value ?? rest.defaultValue;
-    const [error, setError] = useState<string | null>(null);
-    const [isEmpty, setIsEmpty] = useState<boolean>(!validInputValue);
-    const value = useRef<string | undefined>(validInputValue);
+const MukTextInputComp = observer(
+  forwardRef<MukTextInputRef, Props>(
+    (
+      {
+        name,
+        visible = true,
+        showError = true,
+        label,
+        onCustomChange,
+        viewStyle,
+        style,
+        preValidate,
+        validate,
+        validationMessage,
+        showKeyboard,
+        quotedMessage,
+        ...rest
+      }: Props,
+      ref,
+    ) => {
+      console.log('MukTextInputCompRender', name);
+      const inputRef = useRef<TextInput>(null);
+      const {colors} = useTheme<MukTheme>();
+      const {ui} = useStores();
+      const {t} = useServices();
+      const validInputValue = rest.value ?? rest.defaultValue;
+      const [error, setError] = useState<string | null>(null);
+      const [isEmpty, setIsEmpty] = useState<boolean>(!validInputValue);
+      const value = useRef<string | undefined>(validInputValue);
 
-    useEffect(() => {
-      isEmpty !== !validInputValue && setIsEmpty(!validInputValue);
-      value.current !== validInputValue && (value.current = validInputValue);
-    }, [validInputValue]);
+      useEffect(() => {
+        isEmpty !== !validInputValue && setIsEmpty(!validInputValue);
+        value.current !== validInputValue && (value.current = validInputValue);
+      }, [validInputValue]);
 
-    const handleChangeText = (text: string) => {
-      showError && validateInput(text);
-      value.current = text;
-      if (text && isEmpty) {
-        setIsEmpty(false);
-      } else if (!text) {
-        setIsEmpty(true);
-      }
-      onCustomChange && onCustomChange(name, text);
-      rest.onChangeText && rest.onChangeText(text);
-    };
-
-    const handleFocus = (e: any) => {
-      showError && validateInput(value.current);
-      rest.onFocus && rest.onFocus(e);
-    };
-
-    const changeError = (text: string | null) => showError && error !== text && setError(text);
-
-    const validateInput = (text: string | undefined): boolean => {
-      if (!text) {
-        text = '';
-      }
-      if (preValidate) {
-        if (preValidate === 'required' && (text.length === 0 || text.trim().length === 0)) {
-          changeError(t.do('error.required'));
-          return false;
+      const handleChangeText = (text: string) => {
+        showError && validateInput(text);
+        value.current = text;
+        if (text && isEmpty) {
+          setIsEmpty(false);
+        } else if (!text) {
+          setIsEmpty(true);
         }
-      }
-      if (validate && validationMessage && validate.length === validationMessage.length) {
-        for (let i = 0; i < validate.length; i++) {
-          const validationFunction = validate[i];
-          if (!validationFunction(text)) {
-            changeError(validationMessage[i]);
+        onCustomChange && onCustomChange(name, text);
+        rest.onChangeText && rest.onChangeText(text);
+      };
+
+      const handleFocus = (e: any) => {
+        showError && validateInput(value.current);
+        rest.onFocus && rest.onFocus(e);
+      };
+
+      const changeError = (text: string | null) => showError && error !== text && setError(text);
+
+      const validateInput = (text: string | undefined): boolean => {
+        if (!text) {
+          text = '';
+        }
+        if (preValidate) {
+          if (preValidate === 'required' && (text.length === 0 || text.trim().length === 0)) {
+            changeError(t.do('error.required'));
             return false;
           }
         }
-      }
-      changeError(null);
-      return true;
-    };
+        if (validate && validationMessage && validate.length === validationMessage.length) {
+          for (let i = 0; i < validate.length; i++) {
+            const validationFunction = validate[i];
+            if (!validationFunction(text)) {
+              changeError(validationMessage[i]);
+              return false;
+            }
+          }
+        }
+        changeError(null);
+        return true;
+      };
 
-    const getValue = () => value.current ?? '';
+      const getValue = () => value.current ?? '';
 
-    const focusInput = () => inputRef.current?.focus();
+      const focusInput = () => inputRef.current?.focus();
 
-    const clearInput = () => {
-      inputRef.current?.clear();
-      value.current = '';
-    };
+      const clearInput = () => {
+        inputRef.current?.clear();
+        value.current = '';
+      };
 
-    useImperativeHandle(ref, () => ({
-      validateInput,
-      inputValue: getValue,
-      focus: focusInput,
-      clear: clearInput,
-    }));
+      useImperativeHandle(ref, () => ({
+        validateInput,
+        inputValue: getValue,
+        focus: focusInput,
+        clear: clearInput,
+      }));
 
-    return (
-      <View
-        style={[
-          {
-            flexDirection: 'column',
-            minHeight:
-              (!!error || !isEmpty) && label
-                ? responsiveWidth(Platform.OS === 'ios' ? 80 : 92)
-                : responsiveWidth(Platform.OS === 'ios' ? 60 : 64),
-            display: visible ? undefined : 'none',
-          },
-          viewStyle,
-        ]}
-      >
+      return (
         <View
-          style={{
-            flexDirection: 'column',
-            gap: responsiveWidth(quotedMessage ? 0 : 4),
-          }}
+          style={[
+            {
+              flexDirection: 'column',
+              minHeight:
+                (!!error || !isEmpty) && label
+                  ? responsiveWidth(Platform.OS === 'ios' ? 80 : 92)
+                  : responsiveWidth(Platform.OS === 'ios' ? 60 : 64),
+              display: visible ? undefined : 'none',
+            },
+            viewStyle,
+          ]}
         >
-          <Text
+          <View
             style={{
-              display: label ? (isEmpty ? 'none' : undefined) : 'none',
-              color: colors.outlineVariant,
-              fontSize: responsiveSize(15),
+              flexDirection: 'column',
+              gap: responsiveWidth(quotedMessage ? 0 : 4),
             }}
           >
-            {label}
-          </Text>
-          {quotedMessage}
-          <TextInput
-            ref={inputRef}
-            {...rest}
-            placeholder={label ?? rest.placeholder}
-            autoCapitalize={rest.autoCapitalize ?? 'none'}
-            value={undefined}
-            selectionColor={rest.selectionColor ?? colors.primary}
-            placeholderTextColor={colors.outlineVariant}
-            showSoftInputOnFocus={showKeyboard}
-            onChangeText={handleChangeText}
-            onFocus={handleFocus}
-            style={[
-              {
-                width: '100%',
-                color: colors.secondary,
-                backgroundColor: colors.shadow,
-                textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
-                paddingHorizontal: responsiveWidth(16),
-                paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 16 : 12),
-                borderRadius: 16,
-                borderTopLeftRadius: quotedMessage ? 0 : 16,
-                borderTopRightRadius: quotedMessage ? 0 : 16,
-              },
-              style,
-            ]}
-          />
+            <Text
+              style={{
+                display: label ? (isEmpty ? 'none' : undefined) : 'none',
+                color: colors.outlineVariant,
+                fontSize: responsiveSize(15),
+              }}
+            >
+              {label}
+            </Text>
+            {quotedMessage}
+            <TextInput
+              ref={inputRef}
+              {...rest}
+              placeholder={label ?? rest.placeholder}
+              autoCapitalize={rest.autoCapitalize ?? 'none'}
+              value={undefined}
+              selectionColor={rest.selectionColor ?? colors.primary}
+              placeholderTextColor={colors.outlineVariant}
+              showSoftInputOnFocus={showKeyboard}
+              onChangeText={handleChangeText}
+              onFocus={handleFocus}
+              style={[
+                {
+                  width: '100%',
+                  color: colors.secondary,
+                  backgroundColor: colors.shadow,
+                  textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
+                  paddingHorizontal: responsiveWidth(16),
+                  paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 16 : 12),
+                  borderRadius: 16,
+                  borderTopLeftRadius: quotedMessage ? 0 : 16,
+                  borderTopRightRadius: quotedMessage ? 0 : 16,
+                },
+                style,
+              ]}
+            />
+          </View>
+          <HelperText
+            type={'error'}
+            visible={!!error}
+            style={{color: colors.error, display: error ? undefined : 'none'}}
+          >
+            * {error}
+          </HelperText>
         </View>
-        <HelperText type={'error'} visible={!!error} style={{color: colors.error, display: error ? undefined : 'none'}}>
-          * {error}
-        </HelperText>
-      </View>
-    );
-  },
+      );
+    },
+  ),
 );
 
 const MukTextInput = genericMemo(MukTextInputComp, (prevProps, nextProps) =>

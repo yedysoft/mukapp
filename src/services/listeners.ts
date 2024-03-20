@@ -16,8 +16,15 @@ const load = () => {
   );
 
   listeners.push(
-    Keyboard.addListener('keyboardDidChangeFrame', event => {
-      console.log('keyboardDidChangeFrame', event);
+    Keyboard.addListener('keyboardWillHide', event => {
+      console.log('keyboardDidHide', event);
+      stores.ui.set('keyboardHeight', 0);
+    }),
+  );
+
+  listeners.push(
+    Keyboard.addListener('keyboardWillShow', event => {
+      console.log('keyboardWillShow', event);
       stores.ui.set('keyboardHeight', event.endCoordinates.height);
     }),
   );
