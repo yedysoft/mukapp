@@ -1,5 +1,5 @@
 import MukFAB from '../../components/custom/MukFAB';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
@@ -9,14 +9,15 @@ import {useStores} from '../../stores';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat} from '../../types/chat';
 import {IFollowUser} from '../../types/user';
-import MukBottomSheet from '../custom/MukBottomSheet';
+import MukBottomSheet, {MukBottomSheetRef} from '../custom/MukBottomSheet';
 import {responsiveWidth} from '../../utils/util';
 
 export default observer(() => {
   const navigation = useNavigation<MainStackNavProp>();
   const {t, api} = useServices();
-  const {user, room, ui} = useStores();
+  const {user, ui} = useStores();
   const [users, setUsers] = useState<(IFollowUser & {selected: boolean})[]>([]);
+  const sheetRef = useRef<MukBottomSheetRef>(null);
 
   useEffect(() => {
     setUsers(user.getFollows.map(u => ({...u, selected: false})));
@@ -26,9 +27,9 @@ export default observer(() => {
     setUsers(users.map(u => (u.id === id ? {...u, selected: !u.selected} : u)));
   };
 
-  const handleSheet = () => {
+  const handleOnPress = () => {
     user.getInfo.id && api.user.getFollows(user.getInfo.id);
-    setExpand(true);
+    sheetRef.current?.open();
   };
 
   const createChat = async () => {
@@ -58,21 +59,18 @@ export default observer(() => {
       });
     }
     if (chat) {
+      sheetRef.current?.close(true);
       navigation.navigate('Chat', {chat: chat});
-      setExpand(false);
     } else {
       ui.addWarning('En az 1 kullanıcı seçmelisiniz.');
     }
   };
 
-  const [expand, setExpand] = useState(false);
-
   return (
     <>
-      <MukFAB onPress={handleSheet} icon={'message-square'} />
+      <MukFAB onPress={handleOnPress} icon={'message-square'} />
       <MukBottomSheet
-        visible={expand}
-        setVisible={setExpand}
+        ref={sheetRef}
         style={{
           gap: responsiveWidth(16),
           justifyContent: 'space-between',

@@ -87,7 +87,7 @@ class MediaApi {
         p.id === playlistId
           ? {...p, selected: true, tracks: {...p.tracks, total: total ?? p.tracks.total, count: p.tracks.items.length}}
           : {...p, selected: false},
-      );
+      ); // TODO OBSERVER HATASI DÜZELTİLECEK
       stores.media.set('playlists', playlists);
     } catch (e: any) {
       console.log(e);

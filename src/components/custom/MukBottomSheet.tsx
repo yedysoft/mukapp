@@ -20,7 +20,7 @@ export default observer(
   forwardRef<MukBottomSheetRef, Props>(({style, children}: Props, ref) => {
     const {colors} = useTheme<MukTheme>();
     const {ui} = useStores();
-    const BOTTOM_SHEET_MAX_HEIGHT = ui.screenHeight * 0.6;
+    const BOTTOM_SHEET_MAX_HEIGHT = ui.windowHeight * 0.5;
     const BOTTOM_SHEET_MIN_HEIGHT = 0;
     const MAX_UPWARD_TRANSLATE_Y = -BOTTOM_SHEET_MAX_HEIGHT;
     const MAX_DOWNWARD_TRANSLATE_Y = 0;
@@ -33,14 +33,12 @@ export default observer(
       PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderGrant: () => {
-          console.log('onPanResponderGrant');
           animatedValue.setOffset(lastGestureDy.current);
         },
         onPanResponderMove: (e, gesture) => {
           animatedValue.setValue(gesture.dy);
         },
         onPanResponderRelease: (e, gesture) => {
-          console.log('onPanResponderRelease');
           animatedValue.flattenOffset();
           lastGestureDy.current += gesture.dy;
           if (lastGestureDy.current < MAX_UPWARD_TRANSLATE_Y) {
@@ -72,12 +70,9 @@ export default observer(
       Animated.spring(animatedValue, {
         toValue: lastGestureDy.current,
         useNativeDriver: true,
-      }).start(() => {
-        console.log(animatedValue);
-        if (direction === 'down') {
-          setVisible(false);
-        }
-      });
+        restSpeedThreshold: 1000,
+        restDisplacementThreshold: 100,
+      }).start(() => direction === 'down' && setVisible(false));
     };
 
     const bottomSheetAnimation = {
@@ -90,6 +85,14 @@ export default observer(
           }),
         },
       ],
+    };
+
+    const bacgroundOpacity = {
+      opacity: animatedValue.interpolate({
+        inputRange: [MAX_UPWARD_TRANSLATE_Y, MAX_DOWNWARD_TRANSLATE_Y],
+        outputRange: [0.7, MAX_DOWNWARD_TRANSLATE_Y],
+        extrapolate: 'clamp',
+      }),
     };
 
     const open = () => {
@@ -112,65 +115,69 @@ export default observer(
 
     return (
       <Portal>
-        <Pressable
-          style={{flex: 1, backgroundColor: 'red', display: visible ? undefined : 'none'}}
-          onPress={() => close()}
+        <Animated.View
+          style={[
+            {
+              backgroundColor: colors.background,
+              display: visible ? undefined : 'none',
+            },
+            bacgroundOpacity,
+          ]}
         >
-          <Animated.View
-            style={[
-              {
-                position: 'absolute',
-                width: '100%',
-                flex: 1,
-                bottom: ui.keyboardHeight + BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT,
-                ...Platform.select({
-                  android: {elevation: 3},
-                  ios: {
-                    shadowColor: colors.shadow,
-                    shadowOpacity: 1,
-                    shadowRadius: 6,
-                    shadowOffset: {
-                      width: 2,
-                      height: 2,
-                    },
+          <Pressable style={{width: '100%', height: '100%'}} onPress={() => close()} />
+        </Animated.View>
+        <Animated.View
+          style={[
+            {
+              position: 'absolute',
+              display: visible ? undefined : 'none',
+              width: '100%',
+              flex: 1,
+              bottom: ui.keyboardHeight + BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT,
+              ...Platform.select({
+                android: {elevation: 3},
+                ios: {
+                  shadowColor: colors.shadow,
+                  shadowOpacity: 1,
+                  shadowRadius: 6,
+                  shadowOffset: {
+                    width: 2,
+                    height: 2,
                   },
-                }),
-                backgroundColor: '#051517',
-                borderTopLeftRadius: 32,
-                borderTopRightRadius: 32,
-              },
-              bottomSheetAnimation,
-            ]}
+                },
+              }),
+              backgroundColor: '#051517',
+              borderTopLeftRadius: 32,
+              borderTopRightRadius: 32,
+            },
+            bottomSheetAnimation,
+          ]}
+        >
+          <View
+            style={{
+              width: 132,
+              height: 32,
+              alignSelf: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            {...panResponder.panHandlers}
           >
             <View
               style={{
-                width: 132,
-                height: 32,
-                alignSelf: 'center',
-                justifyContent: 'center',
-                alignItems: 'center',
+                width: 100,
+                height: 6,
+                backgroundColor: colors.primary,
+                borderRadius: 10,
               }}
-              {...panResponder.panHandlers}
-            >
-              <View
-                style={{
-                  width: 100,
-                  height: 6,
-                  backgroundColor: colors.primary,
-                  borderRadius: 10,
-                }}
-              />
-            </View>
-            <View
-              style={[
-                {flex: 1, flexDirection: 'column', padding: responsiveWidth(20), gap: responsiveWidth(24)},
-                style,
-              ]}
-            >
-              {children}
-            </View>
-          </Animated.View>
-        </Pressable>
+            />
+          </View>
+          <View
+            style={[{flex: 1, flexDirection: 'column', padding: responsiveWidth(20), gap: responsiveWidth(24)}, style]}
+          >
+            {children}
+          </View>
+        </Animated.View>
       </Portal>
     );
   }),

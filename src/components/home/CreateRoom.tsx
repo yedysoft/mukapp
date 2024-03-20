@@ -37,7 +37,7 @@ const CreateRoom = observer(() => {
     if (formRef.current?.validateInputs()) {
       await api.room.createRoom(formRef.current?.formData() as IRoomConfig);
       if (room.isLive) {
-        sheetRef.current?.close();
+        sheetRef.current?.close(true);
         navigation.navigate('Room');
       }
     }

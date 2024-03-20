@@ -25,40 +25,41 @@ export default function MessagesListItem({chat}: Props) {
   const group = useGroup(chat.id, chat.type === 'Group');
   const name = isPrivate ? info.name + ' ' + info.surname : group.name;
   const typingMessage = api.chat.getTyping(chat);
+  const dateString = lastMessage.date.toString() === '' ? new Date().toString() : lastMessage.date.toString();
+  const date = api.helper.formatDateTime(dateString, 'date');
+  const time = api.helper.formatDateTime(dateString, 'time');
+  const datetime = date === 'Bugün' ? time : date;
 
   return (
     <MukListItem style={{alignItems: 'center'}} onPress={() => navigation.navigate('Chat', {chat: chat})}>
       <MukImage
-        scale={1}
+        scale={0.8}
         style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}}
         source={require('../../../assets/adaptive-icon.png')}
       />
       <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(17), fontWeight: '500', color: colors.secondary}}>
             {chat.name ? chat.name : name}
           </Text>
           <Text
             numberOfLines={1}
             style={{
-              fontSize: responsiveSize(15),
+              fontSize: responsiveSize(12),
               position: 'absolute',
               right: 0,
               color: colors.secondary,
             }}
           >
-            {api.helper.formatDateTime(
-              lastMessage.date.toString() === '' ? new Date().toString() : lastMessage.date.toString(),
-              'both',
-            )}
+            {datetime}
           </Text>
         </View>
         <Text
           numberOfLines={1}
           style={{
             flex: 1,
-            fontSize: responsiveSize(15),
-            fontWeight: '400',
+            fontSize: responsiveSize(14),
+            fontWeight: '300',
             color: typingMessage ? colors.primary : colors.secondary,
           }}
         >
