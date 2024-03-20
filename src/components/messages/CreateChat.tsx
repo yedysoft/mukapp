@@ -1,6 +1,5 @@
 import MukFAB from '../../components/custom/MukFAB';
-import {useEffect, useRef, useState} from 'react';
-import BottomSheet from '@gorhom/bottom-sheet';
+import {useEffect, useState} from 'react';
 import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
@@ -14,7 +13,6 @@ import MukBottomSheet from '../custom/MukBottomSheet';
 import {responsiveWidth} from '../../utils/util';
 
 export default observer(() => {
-  const sheetRef = useRef<BottomSheet>(null);
   const navigation = useNavigation<MainStackNavProp>();
   const {t, api} = useServices();
   const {user, room, ui} = useStores();
@@ -30,7 +28,7 @@ export default observer(() => {
 
   const handleSheet = () => {
     user.getInfo.id && api.user.getFollows(user.getInfo.id);
-    sheetRef.current?.expand();
+    setExpand(true);
   };
 
   const createChat = async () => {
@@ -61,7 +59,7 @@ export default observer(() => {
     }
     if (chat) {
       navigation.navigate('Chat', {chat: chat});
-      sheetRef.current?.close();
+      setExpand(false);
     } else {
       ui.addWarning('En az 1 kullanıcı seçmelisiniz.');
     }
