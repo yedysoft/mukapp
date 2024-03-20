@@ -2,6 +2,7 @@ import {Text, useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import React from 'react';
+import {View} from 'react-native';
 
 type Props = {
   visible: boolean;
@@ -12,21 +13,18 @@ export default ({visible, value}: Props) => {
   const {colors} = useTheme<MukTheme>();
 
   return (
-    <Text
+    <View
       style={{
         alignSelf: 'center',
         backgroundColor: colors.shadow,
-        color: colors.secondary,
-        borderRadius: 10,
-        fontSize: responsiveSize(16),
+        borderRadius: 12,
         paddingVertical: responsiveWidth(4),
         paddingHorizontal: responsiveWidth(8),
-        fontWeight: '300',
         display: visible ? undefined : 'none',
         marginBottom: responsiveWidth(8),
       }}
     >
-      {value}
-    </Text>
+      <Text style={{color: colors.secondary, fontSize: responsiveSize(15), fontWeight: '300'}}>{value}</Text>
+    </View>
   );
 };

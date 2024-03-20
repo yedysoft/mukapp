@@ -21,7 +21,7 @@ export default observer(() => {
   const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
   const params: any = route.params;
-  const {media} = useStores();
+  const {media, user} = useStores();
   const {api, t} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
@@ -48,6 +48,7 @@ export default observer(() => {
           onPress={() => {
             //route.name === 'Settings' && langChanged && ui.toggleReload();
             navigation.goBack();
+            route.name === 'Chat' && user.set('quotedMessage', null);
           }}
           color={route.name === 'Room' ? textColor : colors.secondary}
         />
