@@ -5,6 +5,7 @@ import MainStack from './MainStack';
 import {MukTheme} from '../types';
 import {observer} from 'mobx-react';
 import {useStores} from '../stores';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 const Main = createDrawerNavigator();
 export default observer(() => {
@@ -25,7 +26,14 @@ export default observer(() => {
       }}
       drawerContent={() => <SideScreen />}
     >
-      <Main.Screen name="DrawerMain" component={MainStack} options={{headerShown: false}} />
+      <Main.Screen
+        name="DrawerMain"
+        component={MainStack}
+        options={({route}) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? 'Items';
+          return {headerShown: false, swipeEnabled: !['Chat'].includes(routeName)};
+        }}
+      />
     </Main.Navigator>
   );
 });

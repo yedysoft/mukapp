@@ -2,10 +2,10 @@ import {useStores} from '../stores';
 import {useServices} from '../services';
 import {useEffect, useState} from 'react';
 
-export default (id: string, doWork = true) => {
+export default (id: string | null | undefined, doWork = true) => {
   const {main} = useStores();
   const {api} = useServices();
-  const [info, setInfo] = useState(main.getInfoById(id));
+  const [info, setInfo] = useState(main.getInfoById(<string>id));
   const [toogle, setToogle] = useState<boolean>(false);
 
   useEffect(() => {

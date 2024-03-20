@@ -32,6 +32,12 @@ export type IMessage = {
   quotedMessageId?: string;
 };
 
+export type IQuotedMessage = {
+  id: string;
+  senderId: string;
+  content: string;
+};
+
 export type ILastMessage = {
   date: string | Date;
   message: string;

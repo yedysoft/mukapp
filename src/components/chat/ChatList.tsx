@@ -5,6 +5,7 @@ import {IMessage} from '../../types/chat';
 import React, {useCallback, useRef} from 'react';
 import {useServices} from '../../services';
 import ChatBubbleHeader from './ChatBubbleHeader';
+import ChatQuotedMessage from './ChatQuotedMessage';
 
 type Props = {
   data: IMessage[];
@@ -13,6 +14,7 @@ type Props = {
 export default function ChatList({data}: Props) {
   const {api} = useServices();
   const tempDate = useRef<string>();
+  const listRef = useRef<FlatList>(null);
 
   const handleRenderItem = useCallback(
     ({item, index}: ListRenderItemInfo<IMessage>) => {
@@ -21,12 +23,25 @@ export default function ChatList({data}: Props) {
       const last = index === data.length - 1;
       const showDate = last || date !== tempDate.current;
       const value = last ? date : tempDate.current;
+      const quotedMessage = item.quotedMessageId ? data.find(m => m.id === item.quotedMessageId) : undefined;
       tempDate.current = date;
+
+      const handleOnPress = () => {
+        if (quotedMessage && listRef.current) {
+          listRef.current.scrollToItem({item: quotedMessage, animated: true});
+        }
+      };
 
       return (
         <>
           {!last && <ChatBubbleHeader visible={showDate} value={value ?? ''} />}
-          <ChatBubble key={index} message={item} />
+          <ChatBubble
+            key={index}
+            message={item}
+            quotedMessage={
+              quotedMessage ? <ChatQuotedMessage quotedMessage={quotedMessage} onPress={handleOnPress} /> : undefined
+            }
+          />
           {last && <ChatBubbleHeader visible={showDate} value={value ?? ''} />}
         </>
       );
@@ -36,6 +51,7 @@ export default function ChatList({data}: Props) {
 
   return (
     <FlatList
+      ref={listRef}
       scrollEnabled
       snapToEnd
       contentContainerStyle={{

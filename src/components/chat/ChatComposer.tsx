@@ -12,6 +12,7 @@ import defaults from '../../utils/defaults';
 import {useServices} from '../../services';
 import {observer} from 'mobx-react';
 import uuid from 'react-native-uuid';
+import ChatQuotedMessage from './ChatQuotedMessage';
 
 type Props = {
   sendMessage: (data: IMessage) => void;
@@ -67,24 +68,36 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
         ref={inputRef}
         name={'composer'}
         onChange={handleChange}
-        defaultValue={message.content}
         multiline={true}
         textAlignVertical={'top'}
         showError={false}
         preValidate={'required'}
         style={{paddingTop: responsiveWidth(16)}}
         viewStyle={{flex: 1}}
+        quotedMessage={
+          user.quotedMessage ? (
+            <ChatQuotedMessage quotedMessage={user.quotedMessage} onPress={() => user.set('quotedMessage', null)} />
+          ) : undefined
+        }
       />
       <MukIconButton
         icon={'send'}
         scale={0.5}
         color={colors.secondary}
+        style={{alignSelf: user.quotedMessage ? 'flex-end' : 'center'}}
         onPress={() => {
           if (inputRef.current) {
             const value = inputRef.current.inputValue().trim();
             if (inputRef.current.validateInput(value)) {
-              sendMessage({...message, content: value, date: new Date(), tempId: uuid.v4() as string});
+              sendMessage({
+                ...message,
+                quotedMessageId: user.quotedMessage?.id,
+                content: value,
+                date: new Date(),
+                tempId: uuid.v4() as string,
+              });
               inputRef.current.clear();
+              user.set('quotedMessage', null);
             }
           }
         }}

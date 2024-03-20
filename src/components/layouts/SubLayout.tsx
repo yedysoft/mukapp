@@ -37,7 +37,7 @@ export const SubLayout = observer(({children, style}: Props) => {
               flexDirection: 'column',
               width: ui.windowWidth,
               backgroundColor: colors.background,
-              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 32),
+              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
             },
             style,
           ]}

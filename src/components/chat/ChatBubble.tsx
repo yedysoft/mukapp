@@ -8,13 +8,14 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import useInfo from '../../hooks/useInfo';
 import {useServices} from '../../services';
-import {useState} from 'react';
+import {ReactNode} from 'react';
 
 type Props = {
   message: IMessage;
+  quotedMessage?: ReactNode;
 };
 
-export default observer(({message}: Props) => {
+export default observer(({message, quotedMessage}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
   const {api} = useServices();
@@ -23,24 +24,21 @@ export default observer(({message}: Props) => {
   const info = me ? user.getInfo : i;
   const sended = !!message.id;
   const time = api.helper.formatDateTime(message.date.toString(), 'time');
-  const [isQuoting, setIsQuoting] = useState(false);
 
   const translateX = new Animated.Value(0);
 
   const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (event, gestureState) => {
-      if (gestureState.dx > 0) {
+    onStartShouldSetPanResponder: () => sended,
+    onPanResponderMove: (_e, gestureState) => {
+      if ((!me && gestureState.dx > 0) || (me && gestureState.dx < 0)) {
         translateX.setValue(gestureState.dx);
-      }
-      if (gestureState.dx > 50) {
-        setIsQuoting(true);
-      } else {
-        setIsQuoting(false);
       }
     },
     onPanResponderRelease: () => {
-      setIsQuoting(false);
+      if (Math.abs(translateX.__getValue()) > 20) {
+        user.set('quotedMessage', {id: message.id, senderId: message.senderId, content: message.content});
+      }
+
       Animated.timing(translateX, {
         toValue: 0,
         duration: 200,
@@ -86,6 +84,7 @@ export default observer(({message}: Props) => {
           gap: responsiveWidth(4),
         }}
       >
+        {quotedMessage}
         <Text
           style={{
             display: me || message.type === 'Private' ? 'none' : undefined,

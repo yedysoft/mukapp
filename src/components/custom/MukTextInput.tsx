@@ -1,6 +1,6 @@
 import {HelperText, Text, useTheme} from 'react-native-paper';
 import {Platform, StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle} from 'react-native';
-import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
+import {forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
@@ -22,6 +22,7 @@ type Props = TextInputProps & {
   validate?: ValidateFunction[];
   validationMessage?: string[];
   showKeyboard?: boolean;
+  quotedMessage?: ReactNode;
   nextPage?: () => void;
 };
 
@@ -46,6 +47,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
       validate,
       validationMessage,
       showKeyboard,
+      quotedMessage,
       ...rest
     }: Props,
     ref,
@@ -140,7 +142,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
         <View
           style={{
             flexDirection: 'column',
-            gap: responsiveWidth(4),
+            gap: responsiveWidth(quotedMessage ? 0 : 4),
           }}
         >
           <Text
@@ -152,6 +154,7 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
           >
             {label}
           </Text>
+          {quotedMessage}
           <TextInput
             ref={inputRef}
             {...rest}
@@ -171,7 +174,9 @@ const MukTextInputComp = forwardRef<MukTextInputRef, Props>(
                 textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
                 paddingHorizontal: responsiveWidth(16),
                 paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 16 : 12),
-                borderRadius: 12,
+                borderRadius: 16,
+                borderTopLeftRadius: quotedMessage ? 0 : 16,
+                borderTopRightRadius: quotedMessage ? 0 : 16,
               },
               style,
             ]}

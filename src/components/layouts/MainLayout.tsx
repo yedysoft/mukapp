@@ -38,7 +38,7 @@ export const MainLayout = observer(({children, style}: Props) => {
               flexDirection: 'column',
               width: ui.windowWidth,
               backgroundColor: colors.background,
-              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 16),
+              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
             },
             style,
           ]}
