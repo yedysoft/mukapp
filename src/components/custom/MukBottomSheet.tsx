@@ -3,8 +3,8 @@ import {Animated, PanResponder, Platform, StyleProp, View, ViewStyle} from 'reac
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import {ReactNode, useEffect, useRef} from 'react';
-import {useServices} from '../../services';
 import {responsiveWidth} from '../../utils/util';
+import {observer} from 'mobx-react';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -12,17 +12,14 @@ type Props = {
   setVisible: (a: boolean) => void;
   children?: ReactNode;
 };
-export default function MukBottomSheet({style, visible, setVisible, children}: Props) {
+const MukBottomSheet = observer(({style, visible, setVisible, children}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {api} = useServices();
   const {ui} = useStores();
-
   const BOTTOM_SHEET_MAX_HEIGHT = ui.screenHeight * 0.6;
   const BOTTOM_SHEET_MIN_HEIGHT = 0;
   const MAX_UPWARD_TRANSLATE_Y = BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT;
   const MAX_DOWNWARD_TRANSLATE_Y = 0;
   const DRAG_THRESHOLD = 50;
-
   const animatedValue = useRef(new Animated.Value(0)).current;
   const lastGestureDy = useRef(0);
   const panResponder = useRef(
@@ -141,4 +138,6 @@ export default function MukBottomSheet({style, visible, setVisible, children}: P
       </Animated.View>
     </Portal>
   );
-}
+});
+
+export default MukBottomSheet;

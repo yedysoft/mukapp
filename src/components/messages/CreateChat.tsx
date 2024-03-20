@@ -1,17 +1,17 @@
 import MukFAB from '../../components/custom/MukFAB';
-import MukSheet from '../../components/custom/MukSheet';
 import {useEffect, useRef, useState} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import {responsiveWidth} from '../../utils/util';
 import FriendsList from './FriendsList';
 import {useStores} from '../../stores';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat} from '../../types/chat';
 import {IFollowUser} from '../../types/user';
+import MukBottomSheet from '../custom/MukBottomSheet';
+import {responsiveWidth} from '../../utils/util';
 
 export default observer(() => {
   const sheetRef = useRef<BottomSheet>(null);
@@ -67,14 +67,15 @@ export default observer(() => {
     }
   };
 
+  const [expand, setExpand] = useState(false);
+
   return (
     <>
       <MukFAB onPress={handleSheet} icon={'message-square'} />
-      <MukSheet
-        snaps={[users.length > 0 ? '70%' : '44%']}
-        sheetRef={sheetRef}
-        containerStyle={{marginBottom: room.isLive ? 88 : 0}}
-        contentStyle={{
+      <MukBottomSheet
+        visible={expand}
+        setVisible={setExpand}
+        style={{
           gap: responsiveWidth(16),
           justifyContent: 'space-between',
           paddingVertical: responsiveWidth(16),
@@ -82,7 +83,7 @@ export default observer(() => {
       >
         <FriendsList friends={users} onPress={selectUser} />
         <MukButton label={t.do('main.social.newChat')} onPress={createChat} />
-      </MukSheet>
+      </MukBottomSheet>
     </>
   );
 });
