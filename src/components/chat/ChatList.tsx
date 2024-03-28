@@ -1,4 +1,4 @@
-import {FlatList, ListRenderItemInfo, View} from 'react-native';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import ChatBubble from './ChatBubble';
 import {IMessage} from '../../types/chat';
@@ -33,7 +33,7 @@ export default function ChatList({data}: Props) {
       };
 
       return (
-        <View>
+        <>
           {!last && <ChatBubbleHeader visible={showDate} value={value ?? ''} />}
           <ChatBubble
             key={index}
@@ -43,7 +43,7 @@ export default function ChatList({data}: Props) {
             }
           />
           {last && <ChatBubbleHeader visible={showDate} value={value ?? ''} />}
-        </View>
+        </>
       );
     },
     [data],

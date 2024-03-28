@@ -28,6 +28,9 @@ export default observer(({message, quotedMessage}: Props) => {
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => sended,
+    onMoveShouldSetPanResponder: (evt, gestureState) => {
+      return gestureState.dy === 0;
+    },
     onPanResponderMove: (_e, gestureState) => {
       if ((!me && gestureState.dx > 0) || (me && gestureState.dx < 0)) {
         translateX.setValue(gestureState.dx);
