@@ -1,4 +1,4 @@
-const live = false;
+const live = true;
 
 const host: string = live ? '181.215.68.158:8002' : '10.198.7.186:8002';
 
