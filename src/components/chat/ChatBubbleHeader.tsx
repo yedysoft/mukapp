@@ -18,13 +18,13 @@ export default ({visible, value}: Props) => {
         alignSelf: 'center',
         backgroundColor: colors.shadow,
         borderRadius: 12,
-        paddingVertical: responsiveWidth(4),
-        paddingHorizontal: responsiveWidth(8),
+        paddingVertical: responsiveWidth(8),
+        paddingHorizontal: responsiveWidth(12),
         display: visible ? undefined : 'none',
-        marginBottom: responsiveWidth(8),
+        marginVertical: responsiveWidth(16),
       }}
     >
-      <Text style={{color: colors.secondary, fontSize: responsiveSize(15), fontWeight: '300'}}>{value}</Text>
+      <Text style={{color: colors.secondary, fontSize: responsiveSize(14), fontWeight: '300'}}>{value}</Text>
     </View>
   );
 };

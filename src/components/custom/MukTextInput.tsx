@@ -156,7 +156,18 @@ const MukTextInputComp = observer(
             >
               {label}
             </Text>
-            {quotedMessage}
+            <View
+              style={{
+                padding: responsiveWidth(8),
+                paddingBottom: 0,
+                backgroundColor: colors.shadow,
+                display: quotedMessage ? undefined : 'none',
+                borderTopRightRadius: 16,
+                borderTopLeftRadius: 16,
+              }}
+            >
+              {quotedMessage}
+            </View>
             <TextInput
               ref={inputRef}
               {...rest}

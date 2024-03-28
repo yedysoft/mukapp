@@ -173,7 +173,16 @@ export default observer(
             />
           </View>
           <View
-            style={[{flex: 1, flexDirection: 'column', padding: responsiveWidth(20), gap: responsiveWidth(24)}, style]}
+            style={[
+              {
+                flex: 1,
+                flexDirection: 'column',
+                padding: responsiveWidth(20),
+                paddingBottom: responsiveWidth(64),
+                gap: responsiveWidth(24),
+              },
+              style,
+            ]}
           >
             {children}
           </View>

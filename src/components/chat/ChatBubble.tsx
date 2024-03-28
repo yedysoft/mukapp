@@ -26,27 +26,25 @@ export default observer(({message, quotedMessage}: Props) => {
   const time = api.helper.formatDateTime(message.date.toString(), 'time');
   const translateX = useRef(new Animated.Value(0)).current;
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => sended,
-      onPanResponderMove: (_e, gestureState) => {
-        if ((!me && gestureState.dx > 0) || (me && gestureState.dx < 0)) {
-          translateX.setValue(gestureState.dx);
-        }
-      },
-      onPanResponderRelease: () => {
-        if (Math.abs(getAnimatedValue(translateX)) > 20) {
-          user.set('quotedMessage', {id: message.id, senderId: message.senderId, content: message.content});
-        }
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => sended,
+    onPanResponderMove: (_e, gestureState) => {
+      if ((!me && gestureState.dx > 0) || (me && gestureState.dx < 0)) {
+        translateX.setValue(gestureState.dx);
+      }
+    },
+    onPanResponderRelease: () => {
+      if (Math.abs(getAnimatedValue(translateX)) > 20) {
+        user.set('quotedMessage', {id: message.id, senderId: message.senderId, content: message.content});
+      }
 
-        Animated.timing(translateX, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }).start();
-      },
-    }),
-  ).current;
+      Animated.timing(translateX, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    },
+  });
 
   const animatedStyles = {
     transform: [{translateX}],
@@ -89,7 +87,7 @@ export default observer(({message, quotedMessage}: Props) => {
         <Text
           style={{
             display: me || message.type === 'Private' ? 'none' : undefined,
-            color: colors.light,
+            color: api.helper.randomColor(),
             textAlign: 'left',
             fontWeight: '800',
           }}

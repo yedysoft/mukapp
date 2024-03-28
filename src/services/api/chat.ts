@@ -73,7 +73,7 @@ class ChatApi {
     } else if (message.contentType === 'File') {
       m = 'Dosya';
     }
-    return `${me ? (sended ? '✓' : '⏳') : ''} ${m}`;
+    return `${me ? (sended ? '✓ ' : '⏳ ') : ''}${m}`;
   }
 }
 

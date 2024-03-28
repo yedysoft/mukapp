@@ -26,7 +26,6 @@ export default function FriendsList({friends, onPress}: Props) {
           scrollEnabled
           contentContainerStyle={{
             paddingVertical: responsiveWidth(8),
-            backgroundColor: colors.background,
             gap: responsiveWidth(8),
           }}
         />

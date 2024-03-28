@@ -39,7 +39,7 @@ export default function MessagesListItem({chat}: Props) {
       />
       <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(17), fontWeight: '500', color: colors.secondary}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.secondary}}>
             {chat.name ? chat.name : name}
           </Text>
           <Text
@@ -49,6 +49,7 @@ export default function MessagesListItem({chat}: Props) {
               position: 'absolute',
               right: 0,
               color: colors.secondary,
+              fontWeight: '300',
             }}
           >
             {datetime}

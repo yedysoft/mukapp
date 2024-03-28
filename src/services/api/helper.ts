@@ -265,6 +265,32 @@ class HelperApi {
       date,
     )}`;
   }
+
+  luminance(r: number, g: number, b: number): number {
+    return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  }
+
+  randomColor(): string {
+    const bgColor = stores.ui.getTheme.colors.background;
+    const bgR = parseInt(bgColor.substring(1, 3), 16);
+    const bgG = parseInt(bgColor.substring(3, 5), 16);
+    const bgB = parseInt(bgColor.substring(5, 7), 16);
+
+    let r, g, b;
+    do {
+      r = Math.floor(Math.random() * 256);
+      g = Math.floor(Math.random() * 256);
+      b = Math.floor(Math.random() * 256);
+    } while (Math.abs(this.luminance(bgR, bgG, bgB) - this.luminance(r, g, b)) < 0.2);
+
+    const hexR = r.toString(16).padStart(2, '0');
+    const hexG = g.toString(16).padStart(2, '0');
+    const hexB = b.toString(16).padStart(2, '0');
+
+    const hexColor = `#${hexR}${hexG}${hexB}`;
+
+    return hexColor;
+  }
 }
 
 const helper = new HelperApi();
