@@ -19,6 +19,7 @@ import appearance from './src/services/appearance';
 import notification from './src/services/notification';
 import listeners from './src/services/listeners';
 import * as SystemUI from 'expo-system-ui';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 
 const initializeApp = async () => {
   await hydrateStores();
@@ -58,7 +59,7 @@ export default observer(() => {
         <PaperProvider
           theme={stores.ui.getTheme}
           settings={{
-            icon: props => <Feather {...props} />,
+            icon: props => <>{['reply'].includes(props.name) ? <FontAwesome6 {...props} /> : <Feather {...props} />}</>,
           }}
         >
           <StatusBar backgroundColor={stores.ui.getTheme.colors.background} style={stores.ui.getStatusBarStyle} />

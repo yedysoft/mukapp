@@ -9,6 +9,7 @@ import {observer} from 'mobx-react';
 import useInfo from '../../hooks/useInfo';
 import {useServices} from '../../services';
 import {ReactNode, useRef} from 'react';
+import MukIcon from '../custom/MukIcon';
 
 type Props = {
   message: IMessage;
@@ -65,6 +66,15 @@ export default observer(({message, quotedMessage}: Props) => {
       ]}
       {...panResponder.panHandlers}
     >
+      <MukIcon
+        icon={'reply'}
+        scale={0.5}
+        color={colors.secondary}
+        iconStyle={[
+          {padding: 0, position: 'absolute', alignSelf: 'center', transform: [{rotateY: me ? '180deg' : '0deg'}]},
+          me ? {right: responsiveWidth(-44)} : {left: responsiveWidth(-44)},
+        ]}
+      />
       <MukImage
         source={require('../../../assets/adaptive-icon.png')}
         scale={0.6}
@@ -79,7 +89,7 @@ export default observer(({message, quotedMessage}: Props) => {
         style={{
           flexDirection: 'column',
           alignSelf: 'flex-start',
-          backgroundColor: me ? colors.primary : 'rgb(54,54,54)',
+          backgroundColor: me ? colors.primary : colors.bubble,
           padding: responsiveWidth(12),
           maxWidth: responsiveWidth(240),
           borderRadius: 16,
@@ -97,10 +107,10 @@ export default observer(({message, quotedMessage}: Props) => {
         >
           {info.name} {info.surname}
         </Text>
-        <Text style={{color: colors.light, textAlign: 'left'}}>{message.content}</Text>
+        <Text style={{color: me ? colors.light : colors.secondary, textAlign: 'left'}}>{message.content}</Text>
         <Text
           style={{
-            color: colors.light,
+            color: me ? colors.light : colors.secondary,
             textAlign: 'right',
             fontSize: 10,
             fontWeight: '300',

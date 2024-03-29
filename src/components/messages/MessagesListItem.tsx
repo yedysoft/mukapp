@@ -37,15 +37,15 @@ export default function MessagesListItem({chat}: Props) {
         style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}}
         source={require('../../../assets/adaptive-icon.png')}
       />
-      <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8)}}>
+      <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8), paddingVertical: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.secondary}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(17), fontWeight: '500', color: colors.secondary}}>
             {chat.name ? chat.name : name}
           </Text>
           <Text
             numberOfLines={1}
             style={{
-              fontSize: responsiveSize(12),
+              fontSize: responsiveSize(13),
               position: 'absolute',
               right: 0,
               color: colors.secondary,
@@ -59,7 +59,7 @@ export default function MessagesListItem({chat}: Props) {
           numberOfLines={1}
           style={{
             flex: 1,
-            fontSize: responsiveSize(14),
+            fontSize: responsiveSize(15),
             fontWeight: '300',
             color: typingMessage ? colors.primary : colors.secondary,
           }}

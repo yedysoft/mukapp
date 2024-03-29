@@ -162,6 +162,7 @@ export type MukColors = {
   text: string;
   light: string;
   dark: string;
+  dialog: string;
 };
 export type MukTheme = ThemeBase & {
   version: 2;

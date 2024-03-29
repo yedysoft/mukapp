@@ -19,16 +19,30 @@ export default function FriendsListItem({onPress, friend}: Props) {
       onPress={() => friend?.id && onPress && onPress(friend?.id)}
       style={{
         alignItems: 'center',
-        backgroundColor: friend?.selected ? colors.primary : colors.backdrop,
+        backgroundColor: friend?.selected ? colors.primary : colors.shadow,
         borderRadius: 16,
       }}
     >
       <MukImage scale={1} style={{borderRadius: 100}} source={require('../../../assets/adaptive-icon.png')} />
       <View style={{gap: responsiveWidth(4)}}>
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '400', color: colors.secondary}}>
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: responsiveSize(16),
+            fontWeight: '400',
+            color: friend?.selected ? colors.background : colors.secondary,
+          }}
+        >
           {friend?.name} {friend?.surname}
         </Text>
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(15), fontWeight: '300', color: colors.secondary}}>
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: responsiveSize(15),
+            fontWeight: '300',
+            color: friend?.selected ? colors.background : colors.secondary,
+          }}
+        >
           @{friend?.userName}
         </Text>
       </View>

@@ -35,7 +35,7 @@ export default observer(({quotedMessage, onPress, style}: Props) => {
           borderRadius: 16,
           gap: responsiveWidth(4),
           display: quotedMessage ? undefined : 'none',
-          backgroundColor: api.helper.hexToRgba(colors.background, 0.4),
+          backgroundColor: api.helper.hexToRgba(colors.background, 0.5),
           width: '100%',
           marginBottom: responsiveWidth(4),
         },
@@ -45,14 +45,14 @@ export default observer(({quotedMessage, onPress, style}: Props) => {
       <Text
         numberOfLines={1}
         style={{
-          color: me ? colors.primary : api.helper.randomColor(),
+          color: api.helper.randomColor(),
           textAlign: 'left',
           fontWeight: '800',
         }}
       >
         {info.name} {info.surname}
       </Text>
-      <Text numberOfLines={3} style={{color: colors.light, textAlign: 'left'}}>
+      <Text numberOfLines={3} style={{color: colors.secondary, textAlign: 'left'}}>
         {quotedMessage?.content}
       </Text>
     </TouchableOpacity>

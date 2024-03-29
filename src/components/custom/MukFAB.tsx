@@ -9,9 +9,10 @@ type Props = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   icon?: string;
+  scale?: number;
 };
 
-const MukFAB = observer(({onPress, style, icon}: Props) => {
+const MukFAB = observer(({onPress, style, icon, scale = 1}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const styles = makeStyles(colors);
   const {room} = useStores();
@@ -20,7 +21,7 @@ const MukFAB = observer(({onPress, style, icon}: Props) => {
     <FAB
       icon={icon ?? 'plus'}
       color={colors.background}
-      customSize={responsiveSize(64)}
+      customSize={responsiveSize(64) * scale}
       style={[
         {
           position: 'absolute',

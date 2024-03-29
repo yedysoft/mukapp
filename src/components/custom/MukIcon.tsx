@@ -1,18 +1,18 @@
 import {Avatar, Badge, useTheme} from 'react-native-paper';
 import {StyleProp, ViewStyle} from 'react-native';
-import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {MukTheme} from 'src/types';
 
 type Props = {
   badge?: number;
-  icon: IconSource;
+  icon: string;
   color?: string;
   iconStyle?: StyleProp<ViewStyle>;
   scale?: number;
+  direction?: 'ltr' | 'rtl' | 'auto';
 };
 
-export default function MukIcon({badge, icon, color, iconStyle, scale}: Props) {
+export default function MukIcon({badge, icon, color, iconStyle, scale, direction = 'auto'}: Props) {
   const {colors} = useTheme<MukTheme>();
 
   return (
@@ -34,7 +34,7 @@ export default function MukIcon({badge, icon, color, iconStyle, scale}: Props) {
         </Badge>
       )}
       <Avatar.Icon
-        icon={icon}
+        icon={{source: icon, direction: direction}}
         color={color ? color : colors.secondary}
         size={responsiveSize(scale ? 64 * scale : 64)}
         style={[{backgroundColor: 'transparent', marginLeft: responsiveWidth(-5)}, iconStyle]}

@@ -22,7 +22,6 @@ export default function MessagesList({chats}: Props) {
           scrollEnabled
           contentContainerStyle={{
             paddingVertical: responsiveWidth(8),
-            gap: responsiveWidth(8),
             backgroundColor: colors.background,
           }}
         />

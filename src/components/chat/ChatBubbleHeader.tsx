@@ -21,7 +21,8 @@ export default ({visible, value}: Props) => {
         paddingVertical: responsiveWidth(8),
         paddingHorizontal: responsiveWidth(12),
         display: visible ? undefined : 'none',
-        marginVertical: responsiveWidth(16),
+        marginTop: responsiveWidth(16),
+        marginBottom: responsiveWidth(8),
       }}
     >
       <Text style={{color: colors.secondary, fontSize: responsiveSize(14), fontWeight: '300'}}>{value}</Text>

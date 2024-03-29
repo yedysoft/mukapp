@@ -15,6 +15,7 @@ import {View} from 'react-native';
 import useInfo from '../../hooks/useInfo';
 import useGroup from '../../hooks/useGroup';
 import defaults from 'src/utils/defaults';
+import MukImage from '../custom/MukImage';
 
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -91,18 +92,30 @@ const ChatHeader = observer(({id}: {id: string}) => {
 
   return (
     <View style={{gap: responsiveWidth(4)}}>
-      <Text style={{fontWeight: '500', fontSize: responsiveSize(18), color: colors.secondary}}>
-        {chat.name ? chat.name : name}
-      </Text>
-      <Text
-        style={{
-          fontSize: responsiveSize(12),
-          color: colors.primary,
-          display: typingMessage ? undefined : 'none',
-        }}
-      >
-        {typingMessage}
-      </Text>
+      <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(8)}}>
+        <MukImage
+          source={require('../../../assets/adaptive-icon.png')}
+          scale={0.7}
+          style={{
+            backgroundColor: colors.bubble,
+            borderRadius: 100,
+          }}
+        />
+        <View>
+          <Text style={{fontWeight: '500', fontSize: responsiveSize(18), color: colors.secondary}}>
+            {chat.name ? chat.name : name}
+          </Text>
+          <Text
+            style={{
+              fontSize: responsiveSize(12),
+              color: colors.primary,
+              display: typingMessage ? undefined : 'none',
+            }}
+          >
+            {typingMessage}
+          </Text>
+        </View>
+      </View>
     </View>
   );
 });

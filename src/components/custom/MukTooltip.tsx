@@ -72,7 +72,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
             position: 'absolute',
             display: visible ? undefined : 'none',
             borderRadius: 16,
-            backgroundColor: colors.background,
+            backgroundColor: colors.dialog,
             borderWidth: 0.5,
             borderColor: colors.backdrop,
           },
@@ -90,7 +90,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
 const makeStyles = (colors: MukColors) =>
   StyleSheet.create({
     shadow: {
-      shadowColor: colors.primary,
+      shadowColor: colors.secondary,
       shadowOffset: {
         width: 0,
         height: 0,

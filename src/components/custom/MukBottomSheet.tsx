@@ -87,7 +87,7 @@ export default observer(
       ],
     };
 
-    const bacgroundOpacity = {
+    const backgroundOpacity = {
       opacity: animatedValue.interpolate({
         inputRange: [MAX_UPWARD_TRANSLATE_Y, MAX_DOWNWARD_TRANSLATE_Y],
         outputRange: [0.7, MAX_DOWNWARD_TRANSLATE_Y],
@@ -121,7 +121,7 @@ export default observer(
               backgroundColor: colors.background,
               display: visible ? undefined : 'none',
             },
-            bacgroundOpacity,
+            backgroundOpacity,
           ]}
         >
           <Pressable style={{width: '100%', height: '100%'}} onPress={() => close()} />
@@ -146,7 +146,7 @@ export default observer(
                   },
                 },
               }),
-              backgroundColor: '#051517',
+              backgroundColor: colors.dialog,
               borderTopLeftRadius: 32,
               borderTopRightRadius: 32,
             },
