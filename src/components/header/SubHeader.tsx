@@ -14,8 +14,8 @@ import {useServices} from '../../services';
 import {View} from 'react-native';
 import useInfo from '../../hooks/useInfo';
 import useGroup from '../../hooks/useGroup';
-import defaults from 'src/utils/defaults';
 import MukImage from '../custom/MukImage';
+import defaults from '../../utils/defaults';
 
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
