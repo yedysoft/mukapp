@@ -10,7 +10,6 @@ type Props = {
   activeIndex?: number;
   onChangeIndex?: (index: number) => void;
   tabs: {
-    icon?: string;
     label?: string;
     children?: ReactNode;
   }[];

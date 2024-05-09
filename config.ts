@@ -7,3 +7,5 @@ const prefix = 'http';
 export const restUrl = `${prefix}://${host}`;
 
 export const wsUrl = `ws://${host}/ws`;
+
+export const spotifyOpenUrlBase = 'https://open.spotify.com';

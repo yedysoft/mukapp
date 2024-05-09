@@ -10,12 +10,13 @@ import MukIconButton from '../custom/MukIconButton';
 import {useNavigation} from '@react-navigation/native';
 import {MukColors, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {spotifyOpenUrlBase} from '../../../config';
 
 type Props = {
   compact?: boolean;
 };
 
-const PlayingTrack = observer(({compact}: Props) => {
+export default observer(({compact}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const styles = makeStyles(colors);
   const {media, ui} = useStores();
@@ -38,8 +39,14 @@ const PlayingTrack = observer(({compact}: Props) => {
       }}
     >
       <TouchableOpacity
-        disabled={!compact}
-        onPress={() => navigation.navigate('Room')}
+        disabled={!media.getPlayingTrack.id && !compact}
+        onPress={() => {
+          if (compact) {
+            navigation.navigate('Room');
+          } else {
+            media.getPlayingTrack.id && api.helper.openURL(`${spotifyOpenUrlBase}/track/${media.getPlayingTrack.id}`);
+          }
+        }}
         style={{
           flexDirection: 'row',
           gap: responsiveWidth(16),
@@ -50,6 +57,7 @@ const PlayingTrack = observer(({compact}: Props) => {
           scale={compact ? 1 : 2}
           style={{backgroundColor: colors.shadow}}
           source={api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}
+          radius={false}
         />
         <View
           style={{
@@ -134,5 +142,3 @@ const makeStyles = (colors: MukColors) =>
       elevation: 5,
     },
   });
-
-export default PlayingTrack;

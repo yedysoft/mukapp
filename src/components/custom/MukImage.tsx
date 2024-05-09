@@ -5,9 +5,10 @@ type Props = {
   source?: ImageSourcePropType;
   style?: ImageStyle;
   scale?: number;
+  radius?: boolean;
 };
 
-export default function MukImage({source, style, scale}: Props) {
+export default function MukImage({source, style, scale, radius = true}: Props) {
   if (source) {
     return (
       <Image
@@ -16,11 +17,11 @@ export default function MukImage({source, style, scale}: Props) {
         style={[
           {
             backgroundColor: 'transparent',
-            borderRadius: 16,
             width: responsiveScale(scale),
             height: responsiveScale(scale),
             aspectRatio: 1,
           },
+          radius ? {borderRadius: 16} : {},
           style,
         ]}
       />
@@ -31,11 +32,11 @@ export default function MukImage({source, style, scale}: Props) {
         style={[
           {
             backgroundColor: 'transparent',
-            borderRadius: 16,
             width: responsiveScale(scale),
             height: responsiveScale(scale),
             aspectRatio: 1,
           },
+          radius ? {borderRadius: 16} : {},
           style,
         ]}
       />

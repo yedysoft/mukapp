@@ -96,15 +96,6 @@ const RoomTabs = observer(() => {
               loading={loading.getLeaderboard}
               onRefresh={api.room.setLeaderboard}
               leaderboard={room.getLeaderboard}
-              footer={
-                room.getLeaderboard.length === 0 ? (
-                  <MukImage
-                    source={require('../../../assets/noimage-gray.png')}
-                    scale={2}
-                    style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
-                  />
-                ) : undefined
-              }
             />
           ),
         },

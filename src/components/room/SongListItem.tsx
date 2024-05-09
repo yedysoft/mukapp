@@ -11,6 +11,7 @@ import VoteButton from './VoteButton';
 import AddButton from './AddButton';
 import {MukTheme} from '../../types';
 import {useState} from 'react';
+import {spotifyOpenUrlBase} from '../../../config';
 
 type Props = {
   song: IQueueTrack | ITrack;
@@ -18,7 +19,7 @@ type Props = {
   disabled?: boolean;
 };
 
-const SongListItem = observer(({song, itemType, disabled}: Props) => {
+export default observer(({song, itemType, disabled}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
   const {user, media, ui} = useStores();
@@ -33,8 +34,12 @@ const SongListItem = observer(({song, itemType, disabled}: Props) => {
   };
 
   return (
-    <MukListItem style={{alignItems: 'center'}} disabled={disabled} onPress={() => {}}>
-      <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)} />
+    <MukListItem
+      style={{alignItems: 'center'}}
+      disabled={disabled}
+      onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/track/${song.id}`)}
+    >
+      <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)} radius={false} />
       <View style={{justifyContent: 'center', gap: responsiveWidth(4), maxWidth: responsiveWidth(240)}}>
         {title ? (
           <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400', color: colors.tertiary}}>
@@ -73,5 +78,3 @@ const SongListItem = observer(({song, itemType, disabled}: Props) => {
     </MukListItem>
   );
 });
-
-export default SongListItem;

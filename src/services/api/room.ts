@@ -45,6 +45,7 @@ class RoomApi {
   }
 
   async getRooms(role: string): PVoid {
+    stores.loading.set('roomList', true);
     try {
       const response = await axiosIns.get(`/custom/getPlaces/${role}`);
       const rooms: IRoom[] = [];
@@ -63,6 +64,8 @@ class RoomApi {
       stores.room.set(role === 'PLACE' ? 'places' : 'users', rooms);
     } catch (e: any) {
       console.log(e);
+    } finally {
+      stores.loading.set('roomList', false);
     }
   }
 

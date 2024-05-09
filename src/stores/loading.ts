@@ -13,6 +13,7 @@ class LoadingStore extends BaseStore<LoadingStore> {
 
   // Room
   leaderboard = false;
+  roomList = false;
 
   // Profile
   votes = false;
@@ -53,6 +54,10 @@ class LoadingStore extends BaseStore<LoadingStore> {
 
   get getLeaderboard() {
     return this.leaderboard;
+  }
+
+  get getRoomList() {
+    return this.roomList;
   }
 
   get getVotes() {

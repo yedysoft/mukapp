@@ -24,7 +24,7 @@ export default function ProfileList({items, header, onIconPress, otherUser, tabI
             tabIndex !== 0 ? (
               <ProfileListItem onIconPress={onIconPress} key={index} item={item} otherUser={otherUser} />
             ) : (
-              <SongListItem song={item} itemType={'vote'} disabled={true} />
+              <SongListItem song={item} itemType={'vote'} />
             )
           }
           scrollEnabled

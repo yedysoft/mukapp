@@ -1,23 +1,11 @@
 import RoomList from '../../components/home/RoomList';
-import {observer} from 'mobx-react';
-import {useStores} from '../../stores';
 import {useServices} from '../../services';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import MukChipTabs from '../custom/MukChipTabs';
 
-const HomeTabs = observer(() => {
+export default function () {
   const [tabIndex, setTabIndex] = useState(0);
-  const {room} = useStores();
-  const {api, t} = useServices();
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      api.room.getRooms(tabIndex === 0 ? 'PLACE' : 'STREAMER');
-    }, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [tabIndex]);
+  const {t} = useServices();
 
   return (
     <MukChipTabs
@@ -26,15 +14,13 @@ const HomeTabs = observer(() => {
       tabs={[
         {
           label: t.do('main.home.places'),
-          children: <RoomList rooms={room.getPlaces} />,
+          children: <RoomList type={'PLACE'} />,
         },
         {
           label: t.do('main.home.streamers'),
-          children: <RoomList rooms={room.getUsers} />,
+          children: <RoomList type={'STREAMER'} />,
         },
       ]}
     />
   );
-});
-
-export default HomeTabs;
+}

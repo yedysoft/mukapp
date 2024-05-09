@@ -3,40 +3,43 @@ import {FlatList} from 'react-native';
 import RoomListItem from './RoomListItem';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
-import {IRoom} from '../../types/room';
 import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
+import {useServices} from '../../services';
+import {useStores} from '../../stores';
 
 type Props = {
-  rooms: IRoom[];
+  type: 'PLACE' | 'STREAMER';
 };
 
-const RoomList = observer(({rooms}: Props) => {
+export default observer(({type}: Props) => {
   const {colors} = useTheme<MukTheme>();
+  const {api} = useServices();
+  const {loading, room} = useStores();
+  const rooms = type === 'PLACE' ? room.getPlaces : room.getUsers;
+
+  const handleRefresh = () => !loading.getRoomList && api.room.getRooms(type);
 
   return (
-    <>
-      {rooms.length > 0 ? (
-        <FlatList
-          data={rooms}
-          renderItem={({item, index}) => <RoomListItem key={index} roomData={item} />}
-          scrollEnabled
-          contentContainerStyle={{
-            paddingVertical: responsiveWidth(8),
-            paddingHorizontal: responsiveWidth(16),
-            backgroundColor: colors.background,
-            gap: responsiveWidth(8),
-          }}
-        />
-      ) : (
+    <FlatList
+      refreshing={loading.getRoomList}
+      onRefresh={handleRefresh}
+      data={rooms}
+      renderItem={({item, index}) => <RoomListItem key={index} roomData={item} />}
+      scrollEnabled
+      ListEmptyComponent={
         <MukImage
           source={require('../../../assets/noimage-gray.png')}
           scale={2}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
         />
-      )}
-    </>
+      }
+      contentContainerStyle={{
+        paddingVertical: responsiveWidth(8),
+        paddingHorizontal: responsiveWidth(16),
+        backgroundColor: colors.background,
+        gap: responsiveWidth(8),
+      }}
+    />
   );
 });
-
-export default RoomList;
