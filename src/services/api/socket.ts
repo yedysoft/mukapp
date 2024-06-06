@@ -3,6 +3,7 @@ import {messageCallbackType, StompHeaders, StompSubscription} from '@stomp/stomp
 import {wsUrl} from '../../../config';
 import {PVoid} from '../../types';
 import {stores} from '../../stores';
+import {w3cwebsocket} from 'websocket';
 
 class SocketApi {
   public subscribes: {[key: string]: StompSubscription & {callback?: messageCallbackType; subId?: string}};
@@ -11,7 +12,6 @@ class SocketApi {
   constructor() {
     this.subscribes = {};
     this.client = new StompJs.Client({
-      brokerURL: wsUrl,
       forceBinaryWSFrames: true,
       //appendMissingNULLonIncoming: true,
       reconnectDelay: 3000,
@@ -22,11 +22,11 @@ class SocketApi {
       onWebSocketError: event => console.log('onWebSocketError:', event),
       onStompError: event => console.log('onStompError:', event),
       onWebSocketClose: event => console.log('onWebSocketClose:', event),
+      webSocketFactory: () => new w3cwebsocket(wsUrl, undefined, "undefined", {'user-agent': "YEDY"}),
     });
   }
 
   async connect(): PVoid {
-    await this.disconnect();
     return new Promise<void>(resolve => {
       this.client.onConnect = async () => {
         console.log('SocketOnConnect', this.subscribes);
