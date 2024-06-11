@@ -1,10 +1,10 @@
 import * as StompJs from '@stomp/stompjs';
-import {messageCallbackType, StompHeaders, StompSubscription} from '@stomp/stompjs';
+import {messageCallbackType, StompHeaders, StompSubscription, Versions} from '@stomp/stompjs';
 import {wsUrl} from '../../../config';
 import {PVoid} from '../../types';
 import {stores} from '../../stores';
-import {w3cwebsocket} from 'websocket';
 
+const WS = WebSocket as any
 class SocketApi {
   public subscribes: {[key: string]: StompSubscription & {callback?: messageCallbackType; subId?: string}};
   private client: StompJs.Client;
@@ -12,6 +12,7 @@ class SocketApi {
   constructor() {
     this.subscribes = {};
     this.client = new StompJs.Client({
+          webSocketFactory: () => new WS(wsUrl, Versions.default.protocolVersions(), {headers: {'Origin': 'https://muk.yedysoft.com', 'Authorization': `Bearer ${stores.auth.getAuthToken}`}}),
       forceBinaryWSFrames: true,
       //appendMissingNULLonIncoming: true,
       reconnectDelay: 3000,
@@ -22,20 +23,18 @@ class SocketApi {
       onWebSocketError: event => console.log('onWebSocketError:', event),
       onStompError: event => console.log('onStompError:', event),
       onWebSocketClose: event => console.log('onWebSocketClose:', event),
-      webSocketFactory: () => new w3cwebsocket(wsUrl, undefined, "undefined", {'user-agent': "YEDY"}),
     });
   }
 
   async connect(): PVoid {
     return new Promise<void>(resolve => {
       this.client.onConnect = async () => {
-        console.log('SocketOnConnect', this.subscribes);
         for (const [key, sub] of Object.entries(this.subscribes)) {
           await this.subscribe(key, sub.callback, sub.subId, true);
         }
         resolve();
       };
-      this.client.connectHeaders = {YedyToken: stores.auth.getAuthToken};
+     // this.client.connectHeaders = {YedyToken: stores.auth.getAuthToken};
       this.client.activate();
     });
   }
@@ -55,7 +54,7 @@ class SocketApi {
           headers.id = subId;
         }
         const sub: StompSubscription = this.client.subscribe(destination, <messageCallbackType>callback, headers);
-        this.subscribes[destination] = sub;
+        this.subscribes[destination] = {...sub, callback: callback, subId: subId};
         return sub;
       }
     }
