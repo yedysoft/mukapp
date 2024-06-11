@@ -14,7 +14,6 @@ class SocketApi {
     this.client = new StompJs.Client({
           webSocketFactory: () => new WS(wsUrl, Versions.default.protocolVersions(), {headers: {'Origin': 'https://muk.yedysoft.com', 'Authorization': `Bearer ${stores.auth.getAuthToken}`}}),
       forceBinaryWSFrames: true,
-      //appendMissingNULLonIncoming: true,
       reconnectDelay: 3000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
@@ -34,7 +33,6 @@ class SocketApi {
         }
         resolve();
       };
-     // this.client.connectHeaders = {YedyToken: stores.auth.getAuthToken};
       this.client.activate();
     });
   }
