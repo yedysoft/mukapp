@@ -74,6 +74,18 @@ class Defaults {
           {identifier: 'reject', buttonTitle: 'Reddet', options: {opensAppToForeground: false}},
         ],
       },
+      {
+        identifier: 'Message' as INotificationType,
+        actions: [
+          {
+            identifier: 'answer',
+            buttonTitle: 'Cevapla',
+            textInput: {submitButtonTitle: 'Gönder', placeholder: 'Mesaj girin...'},
+            options: {opensAppToForeground: false},
+          },
+          {identifier: 'readed', buttonTitle: 'Okundu Olarak İşaretle', options: {opensAppToForeground: false}},
+        ],
+      },
     ];
   }
 }

@@ -4,7 +4,7 @@ import {wsUrl} from '../../../config';
 import {PVoid} from '../../types';
 import {stores} from '../../stores';
 
-const WS = WebSocket as any
+const WS = WebSocket as any;
 class SocketApi {
   public subscribes: {[key: string]: StompSubscription & {callback?: messageCallbackType; subId?: string}};
   private client: StompJs.Client;
@@ -12,7 +12,10 @@ class SocketApi {
   constructor() {
     this.subscribes = {};
     this.client = new StompJs.Client({
-          webSocketFactory: () => new WS(wsUrl, Versions.default.protocolVersions(), {headers: {'Origin': 'https://muk.yedysoft.com', 'Authorization': `Bearer ${stores.auth.getAuthToken}`}}),
+      webSocketFactory: () =>
+        new WS(wsUrl, Versions.default.protocolVersions(), {
+          headers: {Origin: 'https://muk.yedysoft.com', Authorization: `Bearer ${stores.auth.getAuthToken}`},
+        }),
       forceBinaryWSFrames: true,
       reconnectDelay: 3000,
       heartbeatIncoming: 4000,
