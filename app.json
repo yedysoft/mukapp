@@ -2,7 +2,7 @@
   "expo": {
     "name": "Mük",
     "slug": "muk_fe",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -33,7 +33,7 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 7,
+      "versionCode": 8,
       "softwareKeyboardLayoutMode": "resize",
       "package": "com.yedy.muk",
       "googleServicesFile": "./google-services.json"
