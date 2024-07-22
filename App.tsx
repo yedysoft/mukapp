@@ -20,6 +20,7 @@ import notification from './src/services/notification';
 import listeners from './src/services/listeners';
 import * as SystemUI from 'expo-system-ui';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import TrackPlayer from "react-native-track-player";
 
 const initializeApp = async () => {
   await hydrateStores();
@@ -29,6 +30,7 @@ const initializeApp = async () => {
   await notification.load();
   await services.api.permission.getNotification();
   await services.api.auth.checkToken();
+  await TrackPlayer.setupPlayer()
 };
 
 const deinitializeApp = async () => {
