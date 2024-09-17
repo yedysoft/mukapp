@@ -30,21 +30,23 @@ export const MainLayout = observer(({children, style}: Props) => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(140) : responsiveWidth(140)}
       style={{flex: 1}}
     >
-      <View
-        style={[
-          {
-            flex: 1,
-            flexDirection: 'column',
-            width: ui.windowWidth,
-            backgroundColor: colors.background,
-            paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
-          },
-          style,
-        ]}
-      >
-        {children}
-        {room.isLive ? <PlayingTrack compact={true}/> : null}
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View
+          style={[
+            {
+              flex: 1,
+              flexDirection: 'column',
+              width: ui.windowWidth,
+              backgroundColor: colors.background,
+              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
+            },
+            style,
+          ]}
+        >
+          {children}
+          {room.isLive ? <PlayingTrack compact={true} /> : null}
+        </View>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 });
