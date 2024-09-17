@@ -24,9 +24,7 @@ const RoomTabs = observer(() => {
     api.media.getCurrentUserPlaylists();
     api.room.setLeaderboard();
   }, []);
-
-  console.log('testtt', media.getQueue)
-
+  
   return (
     <MukTabs
       onChangeIndex={(index: number) => setTabIndex(index)}
