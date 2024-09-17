@@ -47,7 +47,7 @@ const PlaylistList = observer(({playlists}: Props) => {
         contentContainerStyle={{
           paddingHorizontal: responsiveWidth(16),
           paddingVertical: responsiveWidth(4),
-          gap: responsiveWidth(24),
+          gap: responsiveWidth(12),
         }}
       />
       {playlistId === 'search' && (
@@ -58,7 +58,7 @@ const PlaylistList = observer(({playlists}: Props) => {
           viewStyle={{
             alignSelf: 'center',
             width: '92%',
-            marginVertical: responsiveWidth(8),
+            marginBottom: responsiveWidth(8),
           }}
           showError={false}
         />

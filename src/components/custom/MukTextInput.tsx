@@ -162,8 +162,8 @@ const MukTextInputComp = observer(
                 paddingBottom: 0,
                 backgroundColor: colors.shadow,
                 display: quotedMessage ? undefined : 'none',
-                borderTopRightRadius: 16,
-                borderTopLeftRadius: 16,
+                borderTopRightRadius: 12,
+                borderTopLeftRadius: 12,
               }}
             >
               {quotedMessage}
@@ -187,9 +187,9 @@ const MukTextInputComp = observer(
                   textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
                   paddingHorizontal: responsiveWidth(16),
                   paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 16 : 12),
-                  borderRadius: 16,
-                  borderTopLeftRadius: quotedMessage ? 0 : 16,
-                  borderTopRightRadius: quotedMessage ? 0 : 16,
+                  borderRadius: 12,
+                  borderTopLeftRadius: quotedMessage ? 0 : 12,
+                  borderTopRightRadius: quotedMessage ? 0 : 12,
                 },
                 style,
               ]}

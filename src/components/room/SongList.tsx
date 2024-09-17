@@ -24,6 +24,7 @@ export default function SongList({songs, header, onEndReached, footer, loading, 
         data={songs}
         ListHeaderComponent={header}
         ListFooterComponent={footer}
+        keyExtractor={(item: any, index: number) => item.id + index}
         renderItem={({item, index}) => <SongListItem key={index} song={item} itemType={itemType} />}
         scrollEnabled
         onEndReached={onEndReached}

@@ -25,6 +25,8 @@ const RoomTabs = observer(() => {
     api.room.setLeaderboard();
   }, []);
 
+  console.log('testtt', media.getQueue)
+
   return (
     <MukTabs
       onChangeIndex={(index: number) => setTabIndex(index)}

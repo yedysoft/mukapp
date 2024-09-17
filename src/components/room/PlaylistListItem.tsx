@@ -25,8 +25,8 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
         {
           flexDirection: 'column',
           backgroundColor: colors.background,
-          height: responsiveWidth(160),
-          borderRadius: 16,
+          height: responsiveWidth(156),
+          borderRadius: 12,
           justifyContent: 'space-between',
           padding: responsiveWidth(8),
         },
@@ -36,7 +36,7 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
       {playlist.id === 'search' ? (
         <MukIcon icon={playlist.images[0].url as string} scale={1.8} />
       ) : (
-        <MukImage scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} />
+        <MukImage radius={false} scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} />
       )}
       <Text
         numberOfLines={1}

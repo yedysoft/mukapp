@@ -20,8 +20,8 @@ export default function MukImage({source, style, scale, radius = true}: Props) {
             width: responsiveScale(scale),
             height: responsiveScale(scale),
             aspectRatio: 1,
+            borderRadius: radius ? 16 : 2
           },
-          radius ? {borderRadius: 16} : {},
           style,
         ]}
       />
@@ -35,8 +35,8 @@ export default function MukImage({source, style, scale, radius = true}: Props) {
             width: responsiveScale(scale),
             height: responsiveScale(scale),
             aspectRatio: 1,
+            borderRadius: radius ? 16 : 2
           },
-          radius ? {borderRadius: 16} : {},
           style,
         ]}
       />
