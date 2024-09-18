@@ -12,6 +12,7 @@ import MukLoader from '../loading/MukLoader';
 import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
+import MukButton from "../custom/MukButton";
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -42,7 +43,7 @@ const RoomTabs = observer(() => {
           ),
         },
         {
-          icon: 'play-circle',
+          icon: 'menu',
           children: (
             <SongList
               itemType={'vote'}
@@ -54,12 +55,12 @@ const RoomTabs = observer(() => {
                     scale={2}
                     style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
                   />
-                ) : undefined
+                ) : <MukButton label={'test'} />
               }
             />
           ),
         },
-        {
+        /*{
           icon: 'plus-circle',
           children: (
             <SongList
@@ -88,7 +89,7 @@ const RoomTabs = observer(() => {
               onRefresh={() => api.media.getCurrentUserPlaylists()}
             />
           ),
-        },
+        },*/
         {
           icon: 'award',
           children: (

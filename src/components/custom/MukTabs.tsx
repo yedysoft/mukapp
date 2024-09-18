@@ -39,13 +39,13 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 borderBottomWidth: activeIndex === i ? 2 : 1,
-                borderBottomColor:
-                  activeIndex === i ? api.helper.hexToRgba(theme.colors.primary, 0.5) : theme.colors.backdrop,
+                backgroundColor:
+                  activeIndex === i ? theme.colors.primary : theme.colors.backdrop,
               }}
             >
               <MukIcon
-                scale={0.7}
-                color={activeIndex === i ? theme.colors.primary : theme.colors.outlineVariant}
+                scale={activeIndex === i ? 0.9 : 0.7}
+                color={activeIndex === i ? theme.colors.light : theme.colors.outlineVariant}
                 icon={tab.icon ? tab.icon : 'blank'}
               />
             </Pressable>

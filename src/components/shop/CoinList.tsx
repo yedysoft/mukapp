@@ -25,7 +25,7 @@ export default function CoinList({coins}: Props) {
       )}
       scrollEnabled
       horizontal
-      style={{height: responsiveWidth(280)}}
+      style={{height: responsiveWidth(420)}}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
         padding: responsiveWidth(20),

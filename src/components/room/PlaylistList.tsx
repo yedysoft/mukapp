@@ -8,6 +8,7 @@ import {useTheme} from 'react-native-paper';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
+import SpotifyLogo from "../spotify/SpotifyLogo";
 
 type Props = {
   playlists: IPlaylist[];

@@ -57,7 +57,7 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
           <Text
             numberOfLines={1}
             style={{
-              fontSize: responsiveSize(24),
+              fontSize: responsiveSize(28),
               fontWeight: '900',
               color: rankColor,
               minWidth: responsiveWidth(40),
@@ -70,7 +70,7 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
         <MukImage
           scale={1}
           source={leader.imagePath ?? require('../../../assets/adaptive-icon.png')}
-          style={{borderRadius: 100, borderWidth: 1, borderColor: rankColor}}
+          style={{borderRadius: 100, borderWidth: 2, borderColor: rankColor}}
         />
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '600', color: rankColor}}>
           {leader.userName}
@@ -84,10 +84,10 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: index === 0 ? colors.background : colors.backdrop,
-          borderWidth: 1,
+          borderWidth: 4,
           borderColor: colors.primary,
         }}
-        textStyle={{color: colors.secondary}}
+        textStyle={{color: colors.secondary, fontSize: responsiveSize(16)}}
       />
     </MukListItem>
   );

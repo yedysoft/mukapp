@@ -22,9 +22,13 @@ class HelperApi {
     });
   }
 
+  async canOpenURL(url: string): Promise<boolean> {
+    return await Linking.canOpenURL(url);
+  }
+
   async openURL(url: string): PVoid {
     try {
-      const supported = await Linking.canOpenURL(url);
+      const supported = await this.canOpenURL(url);
       if (supported) {
         await Linking.openURL(url);
       } else {

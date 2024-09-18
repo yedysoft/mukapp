@@ -1,11 +1,14 @@
 import {Text, useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
 import {MukColors, MukTheme} from '../../types';
 import MukIcon from '../custom/MukIcon';
+import SpotifyLogo from "../spotify/SpotifyLogo";
+import SpotifyIcon from "../spotify/SpotifyIcon";
+import {stores} from "../../stores";
 
 type Props = {
   onPress?: () => void;
@@ -17,6 +20,7 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
   const {colors} = useTheme<MukTheme>();
   const styles = makeStyles(colors, active);
   const {api} = useServices();
+  const isSearch = playlist.id === 'search'
 
   return (
     <TouchableOpacity
@@ -25,30 +29,35 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
         {
           flexDirection: 'column',
           backgroundColor: colors.background,
-          height: responsiveWidth(156),
+          height: responsiveWidth(164),
           borderRadius: 12,
           justifyContent: 'space-between',
-          padding: responsiveWidth(8),
+          paddingVertical: responsiveWidth(8),
+          paddingRight: responsiveWidth(8),
+          paddingLeft: responsiveWidth(isSearch ? 8 : 0)
         },
         styles.shadow,
       ]}
     >
-      {playlist.id === 'search' ? (
-        <MukIcon icon={playlist.images[0].url as string} scale={1.8} />
+      {isSearch ? (
+        <SpotifyIcon color={'green'} scale={2.5} /> /*<MukIcon icon={playlist.images[0].url as string} scale={1.8}/>*/
       ) : (
-        <MukImage radius={false} scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} />
+        <MukImage radius={false} scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} style={{marginLeft: responsiveWidth(8)}} />
       )}
-      <Text
-        numberOfLines={1}
-        style={{
-          maxWidth: responsiveWidth(120),
-          fontSize: responsiveSize(14),
-          fontWeight: '400',
-          color: colors.secondary,
-        }}
-      >
-        {playlist.name}
-      </Text>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        {!isSearch && <SpotifyIcon />}
+        <Text
+          numberOfLines={1}
+          style={{
+            maxWidth: responsiveWidth(120),
+            fontSize: responsiveSize(14),
+            fontWeight: '400',
+            color: colors.secondary,
+          }}
+        >
+          {playlist.name}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 }

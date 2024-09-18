@@ -11,6 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import {MukColors, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {spotifyOpenUrlBase} from '../../../config';
+import SpotifyIcon from "../spotify/SpotifyIcon";
 
 type Props = {
   compact?: boolean;
@@ -23,13 +24,14 @@ export default observer(({compact}: Props) => {
   const {api} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
+  const iconColor = api.helper.isColorLight(dominantColor) ? 'black' : 'white'
   const navigation = useNavigation<MainStackNavProp>();
 
   return (
     <View
       style={{
         width: ui.windowWidth,
-        height: responsiveWidth(compact ? 100 : 300),
+        height: responsiveWidth(compact ? 112 : 300),
         justifyContent: compact ? 'flex-start' : 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),
         position: compact ? 'absolute' : 'relative',
@@ -49,12 +51,11 @@ export default observer(({compact}: Props) => {
         }}
         style={{
           flexDirection: 'row',
-          gap: responsiveWidth(16),
           marginBottom: responsiveHeight(compact ? 8 : 0),
         }}
       >
         <MukImage
-          scale={compact ? 1 : 2}
+          scale={compact ? 1.15 : 2}
           style={{backgroundColor: colors.shadow}}
           source={api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}
           radius={false}
@@ -68,6 +69,7 @@ export default observer(({compact}: Props) => {
             maxWidth: responsiveWidth(compact ? 264 : 236),
           }}
         >
+          <SpotifyIcon color={iconColor} />
           <Text
             numberOfLines={1}
             style={{
@@ -76,6 +78,7 @@ export default observer(({compact}: Props) => {
               color: textColor ?? colors.secondary,
               backgroundColor: !media.getPlayingTrack.name ? colors.shadow : undefined,
               minWidth: !media.getPlayingTrack.name ? 180 : undefined,
+              marginLeft: responsiveWidth(8)
             }}
           >
             {media.getPlayingTrack.name}
@@ -88,6 +91,7 @@ export default observer(({compact}: Props) => {
               color: textColor ?? colors.secondary,
               backgroundColor: !api.helper.getArtist(media.getPlayingTrack.artists) ? colors.shadow : undefined,
               maxWidth: !api.helper.getArtist(media.getPlayingTrack.artists) ? 120 : undefined,
+              marginLeft: responsiveWidth(8)
             }}
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}

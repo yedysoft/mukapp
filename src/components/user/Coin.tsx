@@ -5,6 +5,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
+import {useServices} from "../../services";
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -13,6 +14,7 @@ type Props = {
 
 const Coin = observer(({style, textColor}: Props) => {
   const {colors} = useTheme<MukTheme>();
+  const {api} = useServices();
   const {user} = useStores();
 
   return (
@@ -31,7 +33,7 @@ const Coin = observer(({style, textColor}: Props) => {
           textAlign: 'left',
         }}
       >
-        {user.getInfo.coin}
+        {api.helper.nummer(user.getInfo.coin)}
       </Text>
     </View>
   );
