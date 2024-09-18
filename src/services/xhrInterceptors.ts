@@ -33,9 +33,12 @@ const interceptXMLHttpRequest = () => {
           const err: MessageBody = JSON.parse(this.response);
           console.log(url, err);
           if (err) {
-            // Spotify yetkilendirmesi gerekiyor
             if ([1012, 1013, 1014].includes(err.code)) {
+              // Spotify yetkilendirmesi gerekiyor
               stores.media.set('authenticated', false);
+            } else if (err.code === 1036) {
+              // Spotify premium gerekiyor
+              stores.media.set('premiumNeeded', true);
             } else {
               stores.ui.addMessage(err);
             }

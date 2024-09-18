@@ -4,6 +4,7 @@ import defaults from '../utils/defaults';
 
 class MediaStore extends BaseStore<MediaStore> {
   authenticated = true;
+  premiumNeeded = false;
   playingTrack = defaults.playingTrack;
   queue: IQueueTrack[] = [];
   playlists: IPlaylist[] = [];

@@ -11,7 +11,7 @@ type Props = {
   visible: boolean;
   onReject?: () => void;
   onAccept: () => PVoid;
-  name?: 'default' | 'spotify';
+  name?: 'default' | 'spotify' | 'premium';
 };
 
 export default function MukDialog({children, visible, onReject, onAccept, name}: Props) {
