@@ -23,7 +23,7 @@ class HelperApi {
   }
 
   async canOpenURL(url: string): Promise<boolean> {
-    return await Linking.canOpenURL(url);
+    return Linking.canOpenURL(url); //TODO: infopliste LSApplicationQueriesSchemes ekle
   }
 
   async openURL(url: string): PVoid {

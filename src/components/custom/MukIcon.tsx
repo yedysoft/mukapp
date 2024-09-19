@@ -5,7 +5,7 @@ import {MukTheme} from 'src/types';
 
 type Props = {
   badge?: number;
-  icon: string;
+  icon: any;
   color?: string;
   iconStyle?: StyleProp<ViewStyle>;
   scale?: number;

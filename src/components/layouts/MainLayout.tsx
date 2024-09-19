@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import {ReactNode} from 'react';
+import {ReactNode, useEffect} from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -14,6 +14,7 @@ import PlayingTrack from '../room/PlayingTrack';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
+import {useRoute} from "@react-navigation/native";
 
 type Props = {
   children: ReactNode;
@@ -25,28 +26,20 @@ export const MainLayout = observer(({children, style}: Props) => {
   const {room, ui} = useStores();
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(140) : responsiveWidth(140)}
-      style={{flex: 1}}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View
-          style={[
-            {
-              flex: 1,
-              flexDirection: 'column',
-              width: ui.windowWidth,
-              backgroundColor: colors.background,
-              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
-            },
-            style,
-          ]}
-        >
-          {children}
-          {room.isLive ? <PlayingTrack compact={true} /> : null}
-        </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+      <View
+        style={[
+          {
+            flex: 1,
+            flexDirection: 'column',
+            width: ui.windowWidth,
+            backgroundColor: colors.background,
+            paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
+          },
+          style,
+        ]}
+      >
+        {children}
+        {room.isLive ? <PlayingTrack compact={true}/> : null}
+      </View>
   );
 });

@@ -26,7 +26,7 @@ const MukFAB = observer(({onPress, style, icon, scale = 1}: Props) => {
         {
           position: 'absolute',
           backgroundColor: colors.primary,
-          bottom: room.isLive ? responsiveWidth(110) : responsiveWidth(16),
+          bottom: room.isLive ? responsiveWidth(120) : responsiveWidth(16),
           right: responsiveWidth(16),
           borderRadius: 100,
         },

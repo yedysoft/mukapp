@@ -28,7 +28,7 @@ export type IQueueTrack = ITrack & {
 export type IPlayingTrack = ITrack & {
   progress: number;
   isPlaying: boolean;
-  dominantColor: string | null;
+  dominantColor: string | undefined;
   voteable: boolean;
 };
 

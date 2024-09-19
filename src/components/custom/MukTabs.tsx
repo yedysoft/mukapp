@@ -38,13 +38,11 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderBottomWidth: activeIndex === i ? 2 : 1,
-                backgroundColor:
-                  activeIndex === i ? theme.colors.primary : theme.colors.backdrop,
+                backgroundColor: activeIndex === i ? theme.colors.primary : theme.colors.backdrop,
               }}
             >
               <MukIcon
-                scale={activeIndex === i ? 0.9 : 0.7}
+                scale={activeIndex === i ? 0.8 : 0.7}
                 color={activeIndex === i ? theme.colors.light : theme.colors.outlineVariant}
                 icon={tab.icon ? tab.icon : 'blank'}
               />

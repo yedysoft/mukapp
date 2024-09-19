@@ -129,6 +129,12 @@ export const tr: MukLang = {
       reject: 'Hatırlat',
       accept: 'Yetkilendir',
     },
+    spotifyPremium: {
+      title: 'Oda Oluşturmak İçin Spotify Premium Edinin',
+      content: 'Spotify Premium, herhangi bir parçayı, podcast bölümünü veya sesli kitabı reklamsız ve daha iyi ses kalitesiyle oynatmanıza olanak tanır. Ücretsiz denemek için spotify.com/premium adresine gidin.',
+      reject: 'Hatırlat',
+      accept: 'Edin',
+    },
   },
 };
 export const en: MukLang = {
@@ -254,6 +260,12 @@ export const en: MukLang = {
       content: 'Spotify authorization required to continue. Do you want to authorize now?',
       reject: 'Remind',
       accept: 'Authorize',
+    },
+    spotifyPremium: {
+      title: 'Get Spotify Premium to Create Room',
+      content: 'Spotify Premium allows you to play any track, podcast episode, or audiobook ad-free and with better sound quality. To try it for free, visit spotify.com/premium.',
+      reject: 'Remind Me Later',
+      accept: 'Get It Now',
     },
   },
 };
@@ -382,6 +394,12 @@ export const de: MukLang = {
       reject: 'Remind',
       accept: 'Authorize',
     },
+    spotifyPremium: {
+      title: 'Spotify Premium für das Erstellen von Playlists erhalten',
+      content: 'Mit Spotify Premium können Sie jeden Titel, jede Podcast-Episode oder jedes Hörbuch werbefrei und mit besserer Klangqualität abspielen. Um es kostenlos auszuprobieren, besuchen Sie spotify.com/premium.',
+      reject: 'Erinnere mich später',
+      accept: 'Erwerben',
+    },
   },
 };
 
@@ -508,6 +526,12 @@ export const ru: MukLang = {
       content: 'Spotify authorization required to continue. Do you want to authorize now?',
       reject: 'Remind',
       accept: 'Authorize',
+    },
+    spotifyPremium: {
+      title: 'Получите Spotify Premium для создания плейлистов',
+      content: 'Spotify Premium позволяет воспроизводить любые треки, эпизоды подкастов или аудиокниги без рекламы и с лучшим качеством звука. Чтобы попробовать бесплатно, посетите spotify.com/premium.',
+      reject: 'Напомнить позже',
+      accept: 'Получить',
     },
   },
 };
@@ -636,6 +660,12 @@ export const ar: MukLang = {
       reject: 'Remind',
       accept: 'Authorize',
     },
+    spotifyPremium: {
+      title: 'احصل على سبوتيفاي بريميوم لإنشاء قوائم التشغيل',
+      content: 'يتيح لك سبوتيفاي بريميوم تشغيل أي مقطع أو حلقة بودكاست أو كتاب صوتي بدون إعلانات وبدقة صوت أفضل. لتجربته مجانًا، زوروا الموقع spotify.com/premium.',
+      reject: 'ذكرني لاحقًا',
+      accept: 'احصل عليه',
+    },
   },
 };
 
@@ -762,6 +792,12 @@ export const fr: MukLang = {
       content: 'Spotify authorization required to continue. Do you want to authorize now?',
       reject: 'Remind',
       accept: 'Authorize',
+    },
+    spotifyPremium: {
+      title: 'Obtenez Spotify Premium pour créer des playlists',
+      content: 'Spotify Premium vous permet de jouer n’importe quel morceau, épisode de podcast ou livre audio sans publicité et avec une meilleure qualité sonore. Pour essayer gratuitement, rendez-vous sur spotify.com/premium.',
+      reject: 'Rappelle-moi plus tard',
+      accept: 'Obtenir',
     },
   },
 };
@@ -890,6 +926,12 @@ export const it: MukLang = {
       reject: 'Remind',
       accept: 'Authorize',
     },
+    spotifyPremium: {
+      title: 'Ottieni Spotify Premium per creare playlist',
+      content: 'Spotify Premium ti consente di riprodurre qualsiasi brano, episodio di podcast o audiolibro senza pubblicità e con una qualità audio migliore. Per provarlo gratuitamente, visita spotify.com/premium.',
+      reject: 'Ricordamelo dopo',
+      accept: 'Ottieni',
+    },
   },
 };
 
@@ -1016,6 +1058,12 @@ export const es: MukLang = {
       content: 'Spotify authorization required to continue. Do you want to authorize now?',
       reject: 'Remind',
       accept: 'Authorize',
+    },
+    spotifyPremium: {
+      title: 'Obtén Spotify Premium para crear listas de reproducción',
+      content: 'Spotify Premium te permite reproducir cualquier canción, episodio de podcast o audiolibro sin anuncios y con mejor calidad de sonido. Para probarlo gratis, visita spotify.com/premium.',
+      reject: 'Recuérdame más tarde',
+      accept: 'Obtener',
     },
   },
 };

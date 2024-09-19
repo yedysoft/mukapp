@@ -13,6 +13,9 @@ import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
 import MukButton from "../custom/MukButton";
+import SpotifyIcon from "../spotify/SpotifyIcon";
+import {spotifyOpenUrlBase} from "../../../config";
+import {View} from "react-native";
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -25,7 +28,7 @@ const RoomTabs = observer(() => {
     api.media.getCurrentUserPlaylists();
     api.room.setLeaderboard();
   }, []);
-  
+
   return (
     <MukTabs
       onChangeIndex={(index: number) => setTabIndex(index)}
@@ -50,12 +53,17 @@ const RoomTabs = observer(() => {
               songs={media.getQueue}
               footer={
                 media.getQueue.length === 0 ? (
-                  <MukImage
-                    source={require('../../../assets/noimage-gray.png')}
-                    scale={2}
-                    style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
-                  />
-                ) : <MukButton label={'test'} />
+                    <MukImage
+                      source={require('../../../assets/noimage-gray.png')}
+                      scale={2}
+                      style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
+                    />
+                  ) :
+                  <MukButton onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/`)} scale={0.25}
+                             buttonStyle={{margin: responsiveWidth(16)}}>
+                    <SpotifyIcon onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/`)} color={'white'}
+                                 spotifyText={'Open Spotify'}/>
+                  </MukButton>
               }
             />
           ),

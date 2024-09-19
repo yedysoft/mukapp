@@ -22,8 +22,7 @@ export default function BottomTabs() {
           backgroundColor: colors.background,
           borderTopWidth: 0,
         },
-        headerShown: true,
-        header: () => <MainHeader />,
+        headerShown: false,
       })}
     >
       <Bottom.Screen

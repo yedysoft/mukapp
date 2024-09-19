@@ -35,8 +35,6 @@ export default observer(() => {
         backgroundColor: 'transparent',
         paddingHorizontal: responsiveWidth(8),
         paddingRight: responsiveWidth(24),
-        paddingTop: responsiveHeight(16),
-        paddingBottom: responsiveHeight(-16),
         flexDirection: 'row',
         justifyContent: route.name === 'Chat' ? 'flex-start' : 'space-between',
         alignItems: 'center',

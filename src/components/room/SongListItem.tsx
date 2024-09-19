@@ -38,7 +38,6 @@ export default observer(({song, itemType, disabled}: Props) => {
     <MukListItem
       style={{alignItems: 'center', gap: 0}}
       disabled={disabled}
-      onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/track/${song.id}`)}
     >
       <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)} radius={false} />
       <View style={{gap: responsiveWidth(4), maxWidth: responsiveWidth(240)}}>
@@ -48,13 +47,13 @@ export default observer(({song, itemType, disabled}: Props) => {
           </Text>
         ) : (
           <>
-            <SpotifyIcon />
             <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary, marginLeft: responsiveWidth(8)}}>
               {song.name}
             </Text>
             <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '300', color: colors.secondary, marginLeft: responsiveWidth(8)}}>
               {api.helper.getArtist(song.artists)}
             </Text>
+            <SpotifyIcon onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/track/${song.id}`)} />
           </>
         )}
       </View>

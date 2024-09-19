@@ -38,7 +38,7 @@ const interceptXMLHttpRequest = () => {
               stores.media.set('authenticated', false);
             } else if (err.code === 1036) {
               // Spotify premium gerekiyor
-              stores.media.set('premiumNeeded', true);
+              stores.media.set('spotifyPremiumNeeded', true);
             } else {
               stores.ui.addMessage(err);
             }

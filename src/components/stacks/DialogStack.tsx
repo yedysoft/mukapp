@@ -16,7 +16,7 @@ const DialogStack = observer(() => {
   };
 
   const handlePremium = async () => {
-    const authUrl = await api.media.getAuthUrl();
+    const authUrl = 'https://www.spotify.com/premium'
     authUrl && (await api.helper.openURL(authUrl));
     media.set('authenticated', true);
   };
@@ -30,10 +30,10 @@ const DialogStack = observer(() => {
         name={'spotify'}
       />
       <MukDialog
-        visible={media.premiumNeeded}
-        onReject={() => media.set('premiumNeeded', false)}
+        visible={media.spotifyPremiumNeeded}
+        onReject={() => media.set('spotifyPremiumNeeded', false)}
         onAccept={handlePremium}
-        name={'premium'}
+        name={'spotifyPremium'}
       />
     </Portal>
   );

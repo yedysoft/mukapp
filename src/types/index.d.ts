@@ -134,6 +134,7 @@ type LangDialogContent<T> = {
 type LangDialog<T> = {
   default: LangDialogContent<T>;
   spotify: LangDialogContent<T>;
+  spotifyPremium: LangDialogContent<T>;
 };
 export type MukLang = {
   error: LangError<string>;

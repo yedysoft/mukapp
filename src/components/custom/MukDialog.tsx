@@ -11,7 +11,7 @@ type Props = {
   visible: boolean;
   onReject?: () => void;
   onAccept: () => PVoid;
-  name?: 'default' | 'spotify' | 'premium';
+  name?: 'default' | 'spotify' | 'spotifyPremium';
 };
 
 export default function MukDialog({children, visible, onReject, onAccept, name}: Props) {
@@ -44,7 +44,7 @@ export default function MukDialog({children, visible, onReject, onAccept, name}:
           {children}
         </Dialog.Content>
         <Dialog.Actions
-          style={{gap: responsiveWidth(16), paddingBottom: responsiveWidth(20), paddingRight: responsiveWidth(24)}}
+          style={{gap: responsiveWidth(16), paddingBottom: responsiveWidth(20), paddingHorizontal: responsiveWidth(24), justifyContent: 'space-between'}}
         >
           <MukButton
             onPress={onDismiss}

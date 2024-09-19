@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import {FlatList} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import RoomListItem from './RoomListItem';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
@@ -7,6 +7,8 @@ import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
+import {useEffect} from "react";
+import {useRoute} from "@react-navigation/native";
 
 type Props = {
   type: 'PLACE' | 'STREAMER';
@@ -20,6 +22,13 @@ export default observer(({type}: Props) => {
 
   const handleRefresh = () => !loading.getRoomList && api.room.getRooms(type);
 
+  useEffect(() => {
+    const intervalId = setInterval(async () => {  //assign interval to a variable to clear it.
+      await api.room.getRooms(type, false);
+    }, 6000)
+    return () => clearInterval(intervalId);
+  }, [])
+
   return (
     <FlatList
       refreshing={loading.getRoomList}
@@ -30,7 +39,7 @@ export default observer(({type}: Props) => {
       ListEmptyComponent={
         <MukImage
           source={require('../../../assets/noimage-gray.png')}
-          scale={2}
+          scale={3}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
         />
       }
