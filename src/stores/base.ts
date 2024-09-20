@@ -22,15 +22,20 @@ export class BaseStore<T extends Record<string, any>> {
       });
   }
 
-  set<K extends keyof T>(what: K, value: T[K]) {
+  set<K extends keyof T>(what: K, value: T[K] | ((v: T[K]) => T[K])) {
     runInAction(() => {
-      (this as unknown as T)[what] = value;
+      if (typeof value === 'function') {
+        const valueFunction = value as (v: T[K]) => T[K];
+        (this as unknown as T)[what] = valueFunction((this as unknown as T)[what]);
+      } else {
+        (this as unknown as T)[what] = value;
+      }
     });
   }
 
-  setMany(obj: Partial<T>) {
+  setMany(obj: {[K in keyof T]?: T[K] | ((v: T[K]) => T[K])}) {
     for (const [k, v] of Object.entries(obj)) {
-      this.set(k as keyof T, v as T[keyof T]);
+      this.set(k as keyof T, v as T[keyof T] | ((v: T[keyof T]) => T[keyof T]));
     }
   }
 

@@ -1,5 +1,4 @@
 import {View} from 'react-native';
-import {useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../utils/util';
 import {Dispatch, SetStateAction} from 'react';
 import * as ImagePicker from 'expo-image-picker';
@@ -7,24 +6,25 @@ import {MediaTypeOptions} from 'expo-image-picker';
 import MukModal from '../custom/MukModal';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
-import {MukTheme} from '../../types';
 import {ImagePickerResult} from 'expo-image-picker/src/ImagePicker.types';
+import {useStores} from '../../stores';
 
 type Props = {
-  setImage?: Dispatch<SetStateAction<string>>;
   setVisible: Dispatch<SetStateAction<boolean>>;
   isVisible: boolean;
 };
 
-export default function EditImage({setImage, setVisible, isVisible}: Props) {
-  const {colors} = useTheme<MukTheme>();
+export default function EditImage({setVisible, isVisible}: Props) {
   const {api} = useServices();
+  const {user} = useStores();
 
   const saveImage = async (result: ImagePickerResult) => {
-    if (result && !result.canceled) {
+    if (result && !result.canceled && result.assets[0] && result.assets[0].type === 'image') {
       const img = result.assets[0];
-      await api.image.save(img.uri, img.fileName);
-      setImage && setImage(img.uri);
+      const uploadedImage = await api.image.save(img.uri, img.fileName, null, null);
+      if (uploadedImage) {
+        user.set('info', i => ({...i, image: uploadedImage}));
+      }
     }
   };
 
@@ -32,8 +32,9 @@ export default function EditImage({setImage, setVisible, isVisible}: Props) {
     setVisible(false);
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images,
+      aspect: [3, 4],
       allowsEditing: true,
-      quality: 1,
+      quality: 0.1,
     });
     await saveImage(result);
   };
@@ -42,8 +43,9 @@ export default function EditImage({setImage, setVisible, isVisible}: Props) {
     setVisible(false);
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
+      aspect: [3, 4],
       allowsEditing: true,
-      quality: 1,
+      quality: 0.1,
     });
     await saveImage(result);
   };
