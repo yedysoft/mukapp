@@ -20,9 +20,9 @@ export default function MessagesListItem({chat}: Props) {
   const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
   const lastMessage: ILastMessage = api.chat.getLastMessage(chat.messages);
-  const isPrivate = chat.type === 'Private';
+  const isPrivate = chat.type === 'PRIVATE';
   const info = useInfo(chat.id, isPrivate);
-  const group = useGroup(chat.id, chat.type === 'Group');
+  const group = useGroup(chat.id, chat.type === 'GROUP');
   const name = isPrivate ? info.name + ' ' + info.surname : group.name;
   const typingMessage = api.chat.getTyping(chat);
   const dateString = lastMessage.date.toString() === '' ? new Date().toString() : lastMessage.date.toString();

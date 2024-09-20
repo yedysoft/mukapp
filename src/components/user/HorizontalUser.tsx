@@ -9,12 +9,16 @@ import {MukTheme} from '../../types';
 
 export default function HorizontalUser() {
   const {colors} = useTheme<MukTheme>();
-  const {user} = useStores();
+  const {user, auth} = useStores();
   return (
     <View style={{flexDirection: 'row', gap: responsiveWidth(12), padding: responsiveWidth(16), overflow: 'hidden'}}>
       <MukImage
         scale={1.5}
-        source={require('../../../assets/adaptive-icon.png')}
+        source={
+          user.getInfo.image
+            ? {uri: `${user.getInfo.image.link}?token=${auth.getEncodedAuthToken}`}
+            : require('../../../assets/adaptive-icon.png')
+        }
         style={{borderWidth: 2, borderRadius: 24, borderColor: colors.primary, backgroundColor: colors.background}}
       />
       <View

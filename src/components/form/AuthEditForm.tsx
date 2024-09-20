@@ -18,7 +18,7 @@ import EditImage from '../profile/EditImage';
 export const AuthEditForm = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
-  const {loading, user} = useStores();
+  const {loading, user, auth} = useStores();
   const formRef = useRef<MukFormRef<IEdit>>(null);
   const form: IEdit = {email: '', userName: '', userPass: ''};
   const [displayPicker, setDisplayPicker] = useState<string | undefined>(undefined);
@@ -39,7 +39,11 @@ export const AuthEditForm = observer(() => {
         <Pressable style={{borderRadius: 100}} onPress={() => setVisible(true)}>
           <MukImage
             scale={2.4}
-            source={{uri: user.getInfo.image}}
+            source={
+              user.getInfo.image
+                ? {uri: `${user.getInfo.image.link}?token=${auth.getEncodedAuthToken}`}
+                : require('../../../assets/adaptive-icon.png')
+            }
             style={{
               borderWidth: responsiveSize(4),
               borderRadius: 100,

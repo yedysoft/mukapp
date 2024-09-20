@@ -18,10 +18,12 @@ export const _appearances = {
 };
 export type IAppearance = keyof typeof _appearances;
 
-export type IChatType = 'Private' | 'Group';
-export type IContentType = 'Text' | 'Picture' | 'Video' | 'Link' | 'File';
-export type IMessageType = 'Public' | 'Private' | 'Group' | 'Typing';
-export type IUserAuthority = 'Admin' | 'User';
-export type IGender = 'Male' | 'Female' | 'Other';
-export type INotificationType = 'Default' | 'Follow' | 'Message';
-export type IMessageBodyType = 'Error' | 'Warning' | 'Info';
+export type IChatType = 'PRIVATE' | 'GROUP';
+export type IContentType = 'TEXT' | 'PICTURE' | 'VIDEO' | 'LINK' | 'FILE';
+export type IMessageType = 'PUBLIC' | 'PRIVATE' | 'GROUP' | 'TYPING';
+export type IUserAuthority = 'ADMIN' | 'USER';
+export type INotificationType = 'DEFAULT' | 'FOLLOW' | 'MESSAGE';
+export type IMessageBodyType = 'ERROR' | 'WARNING' | 'INFO';
+
+export const _gender = ['MALE', 'FEMALE', 'OTHER'] as const;
+export type IGender = (typeof _gender)[number];

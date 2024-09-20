@@ -78,7 +78,7 @@ class SubscriptionApi {
 
   async sendMessage(data: IMessage): PVoid {
     try {
-      if (data.type === 'Private' || data.type === 'Group') {
+      if (data.type === 'PRIVATE' || data.type === 'GROUP') {
         const id = data.receiverId;
         const chat = stores.user.getChats.some(c => c.id === id);
         if (chat) {
@@ -92,7 +92,7 @@ class SubscriptionApi {
             ...stores.user.getChats,
           ]);
         }
-      } else if (data.type === 'Public') {
+      } else if (data.type === 'PUBLIC') {
         stores.room.set('chat', [data, ...stores.room.getChat]);
       }
       await socket.sendMessage('/send/message', data);
@@ -133,11 +133,11 @@ class SubscriptionApi {
 
   private userMessageTypingListenCallback(message: Message) {
     const t: IMessageTyping = JSON.parse(message.body);
-    if (t.type === 'Private' || t.type === 'Group') {
-      const id = t.type === 'Group' ? t.receiverId : t.senderId;
+    if (t.type === 'PRIVATE' || t.type === 'GROUP') {
+      const id = t.type === 'GROUP' ? t.receiverId : t.senderId;
       const chat = stores.user.getChats.find(c => c.id === id);
       if (chat) {
-        const user: ITypingUser | null = t.type === 'Group' ? {id: t.senderId, typing: t.typing} : null;
+        const user: ITypingUser | null = t.type === 'GROUP' ? {id: t.senderId, typing: t.typing} : null;
         const users = user && chat.typing ? (chat.typing as ITypingUser[]) : [];
         const typing = user ? [user, ...users.filter(u => u.id !== user.id && u.typing)] : t.typing;
         console.log(t, typing);
@@ -152,8 +152,8 @@ class SubscriptionApi {
   private userMessageListenCallback(message: Message) {
     const m: IMessage = JSON.parse(message.body);
     const me = m.senderId === stores.user.getInfo.id;
-    if (m.type === 'Private' || m.type === 'Group') {
-      const id = me || m.type === 'Group' ? m.receiverId : m.senderId;
+    if (m.type === 'PRIVATE' || m.type === 'GROUP') {
+      const id = me || m.type === 'GROUP' ? m.receiverId : m.senderId;
       const chat = stores.user.chats.find(c => c.id === id);
       if (chat) {
         if (me) {

@@ -44,9 +44,9 @@ export default function NotificationListItem({notification, compact}: Props) {
         <MukIcon
           scale={compact ? 0.5 : 0.6}
           icon={
-            notification.category === 'Follow'
+            notification.category === 'FOLLOW'
               ? 'user-plus'
-              : notification.category === 'Message'
+              : notification.category === 'MESSAGE'
               ? 'message-circle'
               : 'info'
           }
@@ -67,7 +67,7 @@ export default function NotificationListItem({notification, compact}: Props) {
           width: compact ? '100%' : undefined,
           justifyContent: 'space-between',
           flexDirection: compact ? 'row-reverse' : 'row',
-          display: notification.category === 'Follow' ? undefined : 'none',
+          display: notification.category === 'FOLLOW' ? undefined : 'none',
         }}
       >
         <MukIconButton

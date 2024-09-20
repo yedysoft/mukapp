@@ -1,5 +1,4 @@
 import MukTabs from '../../components/custom/MukTabs';
-import PlaylistList from './PlaylistList';
 import {MukChat} from '../custom/MukChat';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
@@ -8,14 +7,12 @@ import {useServices} from '../../services';
 import SongList from './SongList';
 import {useTheme} from 'react-native-paper';
 import LeaderboardList from './LeaderboardList';
-import MukLoader from '../loading/MukLoader';
 import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
-import MukButton from "../custom/MukButton";
-import SpotifyIcon from "../spotify/SpotifyIcon";
-import {spotifyOpenUrlBase} from "../../../config";
-import {View} from "react-native";
+import MukButton from '../custom/MukButton';
+import SpotifyIcon from '../spotify/SpotifyIcon';
+import {spotifyOpenUrlBase} from '../../../config';
 
 const RoomTabs = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -41,7 +38,7 @@ const RoomTabs = observer(() => {
               sendMessage={api.subscription.sendMessage}
               messages={room.getChat}
               receiverId={room.getSessionId ?? ''}
-              messageType={'Public'}
+              messageType={'PUBLIC'}
             />
           ),
         },
@@ -53,17 +50,24 @@ const RoomTabs = observer(() => {
               songs={media.getQueue}
               footer={
                 media.getQueue.length === 0 ? (
-                    <MukImage
-                      source={require('../../../assets/noimage-gray.png')}
-                      scale={2}
-                      style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
+                  <MukImage
+                    source={require('../../../assets/noimage-gray.png')}
+                    scale={2}
+                    style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
+                  />
+                ) : (
+                  <MukButton
+                    onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/`)}
+                    scale={0.25}
+                    buttonStyle={{margin: responsiveWidth(16)}}
+                  >
+                    <SpotifyIcon
+                      onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/`)}
+                      color={'white'}
+                      spotifyText={'Open Spotify'}
                     />
-                  ) :
-                  <MukButton onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/`)} scale={0.25}
-                             buttonStyle={{margin: responsiveWidth(16)}}>
-                    <SpotifyIcon onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/`)} color={'white'}
-                                 spotifyText={'Open Spotify'}/>
                   </MukButton>
+                )
               }
             />
           ),

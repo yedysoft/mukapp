@@ -3,14 +3,21 @@ import {IGender, INotificationType} from './enums';
 export type IInfo = {
   id: string;
   userName: string;
-  imageServerId: string;
-  image: string;
+  image?: IImage;
   name: string;
   surname: string;
   coin: number;
   token: number;
   birthday: string | null;
   gender: IGender | null;
+};
+
+export type IImage = {
+  id: string;
+  tempId: string;
+  link: string;
+  temp1: string;
+  nsfw?: boolean;
 };
 
 export type INotification = {

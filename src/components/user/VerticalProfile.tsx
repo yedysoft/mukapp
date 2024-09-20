@@ -19,7 +19,7 @@ export default function VerticalProfile({profile, otherUser}: Props) {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
   const {api} = useServices();
-  const {user} = useStores();
+  const {user, auth} = useStores();
   const [followIcon, setFollowIcon] = useState<string>(
     api.helper.isUserFollows(profile.id) ? 'user-minus' : 'user-plus',
   );
@@ -35,7 +35,11 @@ export default function VerticalProfile({profile, otherUser}: Props) {
     >
       <MukImage
         scale={2.4}
-        source={profile.image ? {uri: profile.image} : require('../../../assets/adaptive-icon.png')}
+        source={
+          profile.image
+            ? {uri: `${profile.image.link}?token=${auth.getEncodedAuthToken}`}
+            : require('../../../assets/adaptive-icon.png')
+        }
         style={{
           borderWidth: responsiveSize(4),
           borderRadius: 100,

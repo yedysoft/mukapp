@@ -23,7 +23,7 @@ class Defaults {
   chat: IChat = {
     id: 'default',
     name: '',
-    type: 'Private',
+    type: 'PRIVATE',
     typing: false,
     messages: [],
   };
@@ -31,8 +31,6 @@ class Defaults {
   info: IInfo = {
     id: 'default',
     userName: '',
-    imageServerId: '',
-    image: '',
     name: '',
     surname: '',
     coin: 0,
@@ -61,8 +59,8 @@ class Defaults {
     receiverId: '',
     date: new Date(),
     content: '',
-    contentType: 'Text',
-    type: 'Public',
+    contentType: 'TEXT',
+    type: 'PUBLIC',
   };
 
   get getNotificationCategories(): NotificationCategory[] {

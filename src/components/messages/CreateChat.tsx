@@ -45,7 +45,7 @@ export default observer(() => {
         chat = {
           id: selectedUser.id,
           name: selectedUser.name + ' ' + selectedUser.surname,
-          type: 'Private',
+          type: 'PRIVATE',
           typing: false,
           messages: [],
         };
@@ -55,7 +55,7 @@ export default observer(() => {
       chat = await api.chat.createGroup({
         id: '',
         name: `${user.getInfo.name}'s Group`,
-        users: selectedUsers.map(u => ({id: u.id, authority: 'User'})),
+        users: selectedUsers.map(u => ({id: u.id, authority: 'USER'})),
       });
     }
     if (chat) {

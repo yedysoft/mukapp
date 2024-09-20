@@ -79,7 +79,7 @@ export default observer(({message, quotedMessage}: Props) => {
         source={require('../../../assets/adaptive-icon.png')}
         scale={0.6}
         style={{
-          display: me || message.type === 'Private' ? 'none' : undefined,
+          display: me || message.type === 'PRIVATE' ? 'none' : undefined,
           backgroundColor: colors.bubble,
           borderRadius: 100,
           marginTop: responsiveWidth(8),
@@ -99,7 +99,7 @@ export default observer(({message, quotedMessage}: Props) => {
         {quotedMessage}
         <Text
           style={{
-            display: me || message.type === 'Private' ? 'none' : undefined,
+            display: me || message.type === 'PRIVATE' ? 'none' : undefined,
             color: api.helper.randomColor(),
             textAlign: 'left',
             fontWeight: '800',

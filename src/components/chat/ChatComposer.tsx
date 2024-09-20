@@ -34,7 +34,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
   };
 
   const handleChange = () => {
-    if (messageType !== 'Public') {
+    if (messageType !== 'PUBLIC') {
       !typingRef.current && sendTyping(true);
       api.helper.sleep(800, 'chat1').then(async () => {
         await sendTyping(false);

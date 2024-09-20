@@ -1,5 +1,5 @@
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukIconButton from '../custom/MukIconButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -82,7 +82,7 @@ const ChatHeader = observer(({id}: {id: string}) => {
   const {api} = useServices();
   const {user} = useStores();
   const chat = user.getChats.find(c => c.id === id) ?? defaults.chat;
-  const isPrivate = chat.type === 'Private';
+  const isPrivate = chat.type === 'PRIVATE';
   const info = useInfo(chat.id, isPrivate);
   const group = useGroup(chat.id, !isPrivate);
   const name = isPrivate ? info.name + ' ' + info.surname : group.name;

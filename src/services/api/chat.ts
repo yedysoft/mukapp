@@ -66,11 +66,11 @@ class ChatApi {
     const me = message.senderId === stores.user.getInfo.id;
     const sended = !!message.id;
     let m = message.content;
-    if (message.contentType === 'Picture') {
+    if (message.contentType === 'PICTURE') {
       m = 'Resim';
-    } else if (message.contentType === 'Video') {
+    } else if (message.contentType === 'VIDEO') {
       m = 'Video';
-    } else if (message.contentType === 'File') {
+    } else if (message.contentType === 'FILE') {
       m = 'Dosya';
     }
     return `${me ? (sended ? '✓ ' : '⏳ ') : ''}${m}`;
