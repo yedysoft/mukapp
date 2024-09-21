@@ -1,8 +1,10 @@
 import {BaseStore} from './base';
+import {IAuthsType} from '../types/enums';
 
 class AuthStore extends BaseStore<AuthStore> {
   loggedIn = false;
   authToken = '';
+  auths: IAuthsType[] = [];
 
   constructor() {
     super();

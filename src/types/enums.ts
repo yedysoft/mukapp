@@ -24,6 +24,8 @@ export type IMessageType = 'PUBLIC' | 'PRIVATE' | 'GROUP' | 'TYPING';
 export type IUserAuthority = 'ADMIN' | 'USER';
 export type INotificationType = 'DEFAULT' | 'FOLLOW' | 'MESSAGE';
 export type IMessageBodyType = 'ERROR' | 'WARNING' | 'INFO';
+export type IDeviceType = 'UNKNOWN' | 'PHONE' | 'TABLET' | 'DESKTOP' | 'TV';
+export type IAuthsType = 'SPOTIFY' | 'GOOGLE' | 'APPLE';
 
 export const _gender = ['MALE', 'FEMALE', 'OTHER'] as const;
 export type IGender = (typeof _gender)[number];

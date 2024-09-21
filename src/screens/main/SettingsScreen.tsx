@@ -4,25 +4,22 @@ import {useServices} from '../../services';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import MukPicker from '../../components/custom/MukPicker';
-import {_languages, IAppearance, ILanguage} from '../../types/enums';
+import {_languages, IAppearance, IAuthsType, ILanguage} from '../../types/enums';
 import {useMemo} from 'react';
 import MukCard from '../../components/custom/MukCard';
 import {responsiveWidth} from '../../utils/util';
 import MukSegmented from '../../components/custom/MukSegmented';
 import {SubLayout} from '../../components/layouts/SubLayout';
+import MukButton from '../../components/custom/MukButton';
+import api from '../../services/api';
 
-/*const objectToDict = (object: any, path: string, t: TranslateService) => {
-  const dict: Record<string, string> = {};
-  Object.keys(object).forEach(k => (dict[k] = t.do(`main.settings.${path}.${k}`)));
-  return dict;
-};*/
+const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
 export const SettingsScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
-  const {ui} = useStores();
+  const {ui, auth, loading} = useStores();
   const {t} = useServices();
 
-  //const ThemeDict = useMemo(() => objectToDict(_appearances, 'theme', t), [ui.getScheme, ui.getLanguage]);
   const LanguageDict = useMemo(
     () => ({..._languages, system: t.do('main.settings.language.system')}),
     [ui.getLanguage],
@@ -49,14 +46,6 @@ export const SettingsScreen = observer(() => {
             },
           ]}
         />
-        {/*
-          <MukPicker<string>
-            items={ThemeDict}
-            name={'appearance'}
-            value={ui.appearance}
-            onValueChange={(_name, value) => ui.set('appearance', value as IAppearance)}
-          />
-        */}
       </MukCard>
       <MukCard title={t.do('main.settings.language.title')}>
         <MukPicker<string>
@@ -65,6 +54,24 @@ export const SettingsScreen = observer(() => {
           value={ui.language}
           onValueChange={(_name, value) => t.setup(value as ILanguage)}
         />
+      </MukCard>
+      <MukCard title={'Bağlı Hesaplar'}>
+        {Object.entries(connectedAccounts).map(([key, name]) => {
+          const isConnected = auth.auths.some(value => value === key);
+          return (
+            <MukButton
+              disabled={loading.clearAuth}
+              label={isConnected ? `${name} hesabının bağlantısını kes` : `${name} hesabını bağla`}
+              onPress={async () => {
+                if (isConnected) {
+                  await api.auths.clearAuth(key as IAuthsType);
+                } else {
+                  await api.auths.connectAccount(key as IAuthsType, name);
+                }
+              }}
+            />
+          );
+        })}
       </MukCard>
     </SubLayout>
   );

@@ -9,6 +9,7 @@ import room from './room';
 import chat from './chat';
 import permission from './permission';
 import main from './main';
+import auths from './auths';
 import {IService, PVoid} from '../../types';
 
 class ApiService implements IService {
@@ -25,6 +26,7 @@ class ApiService implements IService {
   chat = chat;
   permission = permission;
   main = main;
+  auths = auths;
 
   async init(): PVoid {
     if (!this.inited) {

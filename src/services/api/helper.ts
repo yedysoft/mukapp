@@ -5,6 +5,7 @@ import {ImageSourcePropType, Linking} from 'react-native';
 import {PVoid} from '../../types';
 import React, {Children, cloneElement, createRef} from 'react';
 import {stores} from '../../stores';
+import axiosIns from '../axiosIns';
 
 class HelperApi {
   timeoutIds: Map<number | string, NodeJS.Timeout> = new Map<number | string, NodeJS.Timeout>();
@@ -129,6 +130,19 @@ class HelperApi {
       return array;
     }
     return [];
+  }
+
+  async getPublicIp(): Promise<string | null> {
+    let ip: string | null = null;
+    try {
+      const response = await axiosIns.get<{ip: string}>('https://api64.ipify.org?format=json');
+      if (response.status === 200) {
+        ip = response.data.ip;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    return ip;
   }
 
   clearArray(array: any[]) {

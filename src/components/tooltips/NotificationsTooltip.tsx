@@ -15,7 +15,7 @@ export default function NotificationsTooltip({positions, visible, changeVisible}
 
   return (
     <MukTooltip
-      anchor={'bottom'}
+      anchor={'bottom-left'}
       positions={positions}
       visible={visible}
       changeVisible={changeVisible}

@@ -6,6 +6,7 @@ class LoadingStore extends BaseStore<LoadingStore> {
   logout = false;
   register = false;
   forgotPass = false;
+  clearAuth = false;
 
   // Media
   userPlaylist = false;

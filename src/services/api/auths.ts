@@ -1,0 +1,53 @@
+import axiosIns from '../axiosIns';
+import {stores} from '../../stores';
+import {PVoid} from '../../types';
+import {IAuthsType} from '../../types/enums';
+import * as WebBrowser from 'expo-web-browser';
+import media from './media';
+
+class AuthsApi {
+  async clearAuth(type: IAuthsType): PVoid {
+    try {
+      stores.loading.set('clearAuth', true);
+      const response = await axiosIns.delete(`/auths/clearAuth/${type}`);
+      if (response.status === 200) {
+        stores.ui.addInfo('Hesap bağlantısı kaldırıldı.');
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      stores.loading.set('clearAuth', false);
+    }
+  }
+
+  async getAuths(): PVoid {
+    try {
+      const response = await axiosIns.get<IAuthsType[]>('/auths/getAuths');
+      if (response.status === 200) {
+        stores.auth.set('auths', response.data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async connectAccount(key: IAuthsType, name: string): PVoid {
+    let authUrl;
+    if (key === 'SPOTIFY') {
+      authUrl = await media.getAuthUrl();
+    }
+    if (authUrl) {
+      await WebBrowser.openAuthSessionAsync(authUrl);
+      await this.getAuths();
+      if (stores.auth.auths.some(value => value === key)) {
+        stores.ui.addInfo(`${name} hesabınız bağlandı.`);
+      }
+    }
+    if (key === 'SPOTIFY') {
+      stores.media.set('authenticated', true);
+    }
+  }
+}
+
+const auths = new AuthsApi();
+export default auths;

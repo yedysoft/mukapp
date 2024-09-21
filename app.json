@@ -26,13 +26,25 @@
       "expo-localization"
     ],
     "ios": {
-      "supportsTablet": true
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to your camera to take photos.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to select photos."
+      },
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yedy.dip",
+      "buildNumber": "4"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "NOTIFICATIONS"
+      ],
       "versionCode": 10,
       "softwareKeyboardLayoutMode": "resize",
       "package": "com.yedy.muk",

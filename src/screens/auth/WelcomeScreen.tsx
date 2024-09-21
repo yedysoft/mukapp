@@ -12,7 +12,7 @@ import {useServices} from '../../services';
 
 export const WelcomeScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
-  const {t} = useServices();
+  const {t, api} = useServices();
   const navigation = useNavigation<AuthStackNavProp>();
 
   return (
@@ -29,6 +29,12 @@ export const WelcomeScreen = observer(() => {
           textStyle={{color: colors.secondary, fontWeight: '600'}}
           label={t.do('auth.register.title')}
           onPress={() => navigation.navigate('Register')}
+        />
+        <MukButton
+          buttonStyle={{backgroundColor: colors.primary}}
+          textStyle={{color: colors.light, fontWeight: '600'}}
+          label={'Spotify İle Giriş Yap'}
+          onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify')}
         />
       </View>
     </AuthLayout>

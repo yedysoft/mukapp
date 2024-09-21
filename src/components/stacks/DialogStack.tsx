@@ -10,15 +10,13 @@ const DialogStack = observer(() => {
   const {media} = useStores();
 
   const handleAuth = async () => {
-    const authUrl = await api.media.getAuthUrl();
-    authUrl && (await api.helper.openURL(authUrl));
-    media.set('authenticated', true);
+    await api.auths.connectAccount('SPOTIFY', 'Spotify');
   };
 
   const handlePremium = async () => {
-    const authUrl = 'https://www.spotify.com/premium'
+    const authUrl = 'https://www.spotify.com/premium';
     authUrl && (await api.helper.openURL(authUrl));
-    media.set('authenticated', true);
+    media.set('spotifyPremiumNeeded', false);
   };
 
   return (

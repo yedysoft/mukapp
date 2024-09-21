@@ -1,9 +1,5 @@
 import {StatusBar} from 'expo-status-bar';
 import {PaperProvider} from 'react-native-paper';
-import 'react-native-gesture-handler';
-import 'text-encoding';
-//import 'expo-dev-client';
-import './src/services/xhrInterceptors';
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import {AppNavigation} from './src/navigation/AppNavigation';
@@ -20,6 +16,9 @@ import notification from './src/services/notification';
 import listeners from './src/services/listeners';
 import * as SystemUI from 'expo-system-ui';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import 'react-native-gesture-handler';
+import 'text-encoding';
+//import 'expo-dev-client';
 
 const initializeApp = async () => {
   await hydrateStores();

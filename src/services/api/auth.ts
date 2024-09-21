@@ -1,4 +1,4 @@
-import {IForgot, ILogin, IRegister} from '../../types/auth';
+import {IForgot, ILogin, ILoginHistory, IRegister} from '../../types/auth';
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import socket from './socket';
@@ -7,6 +7,12 @@ import {MessageBody, PVoid} from '../../types';
 import room from './room';
 import subscription from './subscription';
 import chat from './chat';
+import helper from './helper';
+import {IDeviceType} from '../../types/enums';
+import {Platform} from 'react-native';
+import * as Device from 'expo-device';
+import {DeviceType} from 'expo-device';
+import auths from './auths';
 
 class AuthApi {
   async forgotPass(form: IForgot): PVoid {
@@ -64,11 +70,13 @@ class AuthApi {
   async checkToken(): PVoid {
     try {
       const opt = await axiosIns.options('/auth/checkToken');
-      if (opt.status && opt.status === 200) {
+      if (opt.status === 200) {
         await user.getInfo();
+        await this.saveLoginHistory();
         await socket.connect();
-        await user.getAllNotifications(stores.user.getInfo.id);
+        await user.getAllNotifications();
         await chat.getChats();
+        await auths.getAuths();
         await subscription.globalSubscribes();
         stores.auth.set('loggedIn', true);
       }
@@ -77,8 +85,26 @@ class AuthApi {
     }
   }
 
+  async saveLoginHistory(): PVoid {
+    try {
+      const ipAddress = await helper.getPublicIp();
+      const deviceType: IDeviceType = Device.deviceType ? (DeviceType[Device.deviceType] as IDeviceType) : 'UNKNOWN';
+      const deviceBrand = Device.brand;
+      const deviceModel = Device.modelName;
+      const operatingSystem = `${Platform.OS} ${Device.osVersion}`;
+
+      const data: ILoginHistory = {ipAddress, deviceType, deviceBrand, deviceModel, operatingSystem};
+      const response = await axiosIns.post('/login-history/saveHistory', data);
+      if (response.status === 200) {
+        console.log('Giriş bilgileri kaydedildi:', data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   private clearAuth() {
-    stores.auth.set('authToken', '');
+    stores.auth.setMany({loggedIn: false, authToken: ''});
     stores.room.set('config', {id: '', name: '', roomId: ''});
     stores.user.setMany({notifications: [], chats: []});
   }

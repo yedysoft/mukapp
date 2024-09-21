@@ -1,4 +1,4 @@
-import {IGender} from './enums';
+import {IDeviceType, IGender} from './enums';
 
 export type ILogin = {
   name: string;
@@ -30,4 +30,12 @@ export type IEdit = {
   birthday?: string;
   gender?: IGender;
   telNumber?: string;
+};
+
+export type ILoginHistory = {
+  ipAddress: string | null;
+  deviceType: IDeviceType;
+  deviceBrand: string | null;
+  deviceModel: string | null;
+  operatingSystem: string;
 };

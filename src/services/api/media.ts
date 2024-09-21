@@ -17,7 +17,9 @@ class MediaApi {
   async getAuthUrl(): Promise<string> {
     try {
       const response = await axiosIns.get<string>('/media/getAuthUrl');
-      return response.data;
+      if (response.status === 200) {
+        return response.data;
+      }
     } catch (e: any) {
       console.log(e);
     }
