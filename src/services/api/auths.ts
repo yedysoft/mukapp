@@ -37,7 +37,9 @@ class AuthsApi {
       authUrl = await media.getAuthUrl();
     }
     if (authUrl) {
-      await WebBrowser.openAuthSessionAsync(authUrl);
+      const params = new URLSearchParams(authUrl.split('?')[1]);
+      const redirectUri = params.get('redirect_uri');
+      await WebBrowser.openAuthSessionAsync(authUrl, redirectUri);
       await this.getAuths();
       if (stores.auth.auths.some(value => value === key)) {
         stores.ui.addInfo(`${name} hesabınız bağlandı.`);

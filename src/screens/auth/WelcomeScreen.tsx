@@ -30,9 +30,9 @@ export const WelcomeScreen = observer(() => {
           label={t.do('auth.register.title')}
           onPress={() => navigation.navigate('Register')}
         />
+
         <MukButton
-          buttonStyle={{backgroundColor: colors.primary}}
-          textStyle={{color: colors.light, fontWeight: '600'}}
+          textStyle={{fontWeight: '600'}}
           label={'Spotify İle Giriş Yap'}
           onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify')}
         />
