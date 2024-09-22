@@ -44,8 +44,10 @@ class AuthApi {
       stores.loading.set('login', true);
       this.clearAuth();
       const response = await axiosIns.post<string>('/auth/login', form);
-      stores.auth.set('authToken', response.data);
-      await this.checkToken();
+      if (response.status === 200) {
+        stores.auth.set('authToken', response.data);
+        await this.checkToken();
+      }
     } catch (e) {
       console.log(e);
     } finally {
