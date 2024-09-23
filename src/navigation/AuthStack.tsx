@@ -9,18 +9,19 @@ type AuthStackScreens = {
   Login: undefined;
   Forgot: undefined;
   Register: undefined;
+  NewPassScreen: undefined;
 };
 export type AuthStackNavProp = StackNavigationProp<AuthStackScreens, 'Welcome'>;
 
 const Auth = createStackNavigator<AuthStackScreens>();
 
-export default function AuthStack() {
+export default () => {
   return (
-    <Auth.Navigator initialRouteName={'Welcome'}>
+    <Auth.Navigator initialRouteName={'Login'}>
       <Auth.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}} />
       <Auth.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
       <Auth.Screen name="Forgot" component={ForgotScreen} options={{headerShown: false}} />
       <Auth.Screen name="Register" component={RegisterScreen} options={{headerShown: false}} />
     </Auth.Navigator>
   );
-}
+};

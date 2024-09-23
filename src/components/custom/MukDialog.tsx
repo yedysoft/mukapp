@@ -44,7 +44,12 @@ export default function MukDialog({children, visible, onReject, onAccept, name}:
           {children}
         </Dialog.Content>
         <Dialog.Actions
-          style={{gap: responsiveWidth(16), paddingBottom: responsiveWidth(20), paddingHorizontal: responsiveWidth(24), justifyContent: 'space-between'}}
+          style={{
+            gap: responsiveWidth(16),
+            paddingBottom: responsiveWidth(20),
+            paddingHorizontal: responsiveWidth(24),
+            justifyContent: 'space-between',
+          }}
         >
           <MukButton
             onPress={onDismiss}

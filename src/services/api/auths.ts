@@ -39,7 +39,15 @@ class AuthsApi {
     if (authUrl) {
       const params = new URLSearchParams(authUrl.split('?')[1]);
       const redirectUri = params.get('redirect_uri');
-      await WebBrowser.openAuthSessionAsync(authUrl, redirectUri);
+      console.log(redirectUri);
+      await WebBrowser.openAuthSessionAsync(authUrl, redirectUri, {
+        toolbarColor: stores.ui.getTheme.colors.primary,
+        controlsColor: stores.ui.getTheme.colors.primary,
+        secondaryToolbarColor: 'red',
+        enableBarCollapsing: false,
+        enableDefaultShareMenuItem: false,
+        readerMode: false,
+      });
       await this.getAuths();
       if (stores.auth.auths.some(value => value === key)) {
         stores.ui.addInfo(`${name} hesabınız bağlandı.`);

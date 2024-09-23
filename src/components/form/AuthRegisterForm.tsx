@@ -13,8 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
-import MukPicker from '../custom/MukPicker';
-import MukDatePicker from '../custom/MukDatePicker';
+import {_gender} from '../../types/enums';
 
 export const AuthRegisterForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -22,7 +21,6 @@ export const AuthRegisterForm = observer(() => {
   const {api, t} = useServices();
   const {loading} = useStores();
   const [step, setStep] = useState(0);
-  const [displayPicker, setDisplayPicker] = useState<string | undefined>(undefined);
   const formRef = useRef<MukFormRef<IRegister>>(null);
   const formData: IRegister = {email: '', userName: '', userPass: ''};
 
@@ -53,22 +51,19 @@ export const AuthRegisterForm = observer(() => {
           <MukTextInput
             name={'birthday'}
             label={t.do('auth.register.birthday')}
-            //showKeyboard={false}
-            //readOnly={true}
-            visible={step === 0}
+            isPicker={true}
+            pickerType={'date'}
             preValidate={'required'}
-            //onFocus={() => setDisplayPicker('birthday')}
-            //onBlur={() => setDisplayPicker(undefined)}
+            datePickerMinMax={{max: new Date().getFullYear() - 17}}
+            visible={step === 0}
           />
           <MukTextInput
             name={'gender'}
             label={t.do('auth.register.gender')}
-            showKeyboard={false}
-            readOnly={true}
-            visible={step === 0}
+            isPicker={true}
+            pickerItems={api.helper.arrayToMap<string>(_gender, 'gender')}
             preValidate={'required'}
-            //onFocus={() => setDisplayPicker('gender')}
-            //onBlur={() => setDisplayPicker(undefined)}
+            visible={step === 0}
             nextPage={() => setStep(step + 1)}
           />
           <MukTextInput
@@ -97,7 +92,7 @@ export const AuthRegisterForm = observer(() => {
             label={t.do('auth.register.password')}
             secureTextEntry={true}
             preValidate={'required'}
-            validate={[value => value.length >= 8 && value.length <= 32]}
+            validate={[value => String(value).length >= 8 && String(value).length <= 32]}
             validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
             visible={step === 2}
           />
@@ -107,11 +102,12 @@ export const AuthRegisterForm = observer(() => {
             secureTextEntry={true}
             preValidate={'required'}
             validate={[
-              value => value.length >= 8 && value.length <= 32,
+              value => String(value).length >= 8 && String(value).length <= 32,
               value => value === formRef.current?.formData('userPass'),
             ]}
             validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
             visible={step === 2}
+            isFormElement={false}
           />
         </MukForm>
       </View>
@@ -139,36 +135,6 @@ export const AuthRegisterForm = observer(() => {
             }
           }}
         />
-      </View>
-      <View
-        style={{
-          display: displayPicker ? undefined : 'none',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          height: responsiveHeight(160),
-          marginTop: responsiveHeight(-100),
-        }}
-      >
-        {displayPicker === 'birthday' ? (
-          <MukDatePicker
-            name={'birthday'}
-            value={formRef.current ? (formRef.current.formData('birthday') as string) : ''}
-            onValueChange={() => {}}
-          />
-        ) : (
-          displayPicker === 'gender' && (
-            <MukPicker<string>
-              name={'gender'}
-              items={[
-                t.do('auth.register.genders.male'),
-                t.do('auth.register.genders.female'),
-                t.do('auth.register.genders.other'),
-              ]}
-              value={formRef.current ? (formRef.current.formData('gender') as string) : ''}
-              onValueChange={() => {}}
-            />
-          )
-        )}
       </View>
     </SafeAreaView>
   );

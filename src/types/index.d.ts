@@ -136,6 +136,21 @@ type LangDialog<T> = {
   spotify: LangDialogContent<T>;
   spotifyPremium: LangDialogContent<T>;
 };
+type LangEnum<T> = {
+  gender: {
+    MALE: T;
+    FEMALE: T;
+    OTHER: T;
+  };
+};
+type LangForm<T> = {
+  newPass: {
+    title: T;
+    newPass: T;
+    reNewPass: T;
+    submit: T;
+  };
+};
 export type MukLang = {
   error: LangError<string>;
   header: LangHeader<string>;
@@ -144,7 +159,15 @@ export type MukLang = {
   roomConfig: LangRoomConfig<string>;
   notification: LangNotification<string>;
   dialog: LangDialog<string>;
+  enum: LangEnum<string>;
+  form: LangForm<string>;
 };
+type LangPaths<T, P extends string = ''> = T extends object
+  ? {
+      [K in keyof T]: K extends string ? LangPaths<T[K], `${P}${P extends '' ? '' : '.'}${K}`> : never;
+    }[keyof T]
+  : P;
+export type MukLangPaths = LangPaths<MukLang>;
 
 // System
 export type MukColors = {

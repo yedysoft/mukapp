@@ -87,7 +87,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
         style={{alignSelf: user.quotedMessage ? 'flex-end' : 'center'}}
         onPress={() => {
           if (inputRef.current) {
-            const value = inputRef.current.inputValue().trim();
+            const value = (inputRef.current.inputValue() as string).trim();
             if (inputRef.current.validateInput(value)) {
               sendMessage({
                 ...message,

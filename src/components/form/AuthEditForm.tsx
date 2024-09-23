@@ -6,14 +6,13 @@ import React, {useRef, useState} from 'react';
 import {IEdit} from '../../types/auth';
 import {useServices} from '../../services';
 import {Pressable, View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
-import MukPicker from '../custom/MukPicker';
-import MukDatePicker from '../custom/MukDatePicker';
 import MukImage from '../custom/MukImage';
 import EditImage from '../profile/EditImage';
+import {_gender} from '../../types/enums';
 
 export const AuthEditForm = observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -21,7 +20,6 @@ export const AuthEditForm = observer(() => {
   const {loading, user, auth} = useStores();
   const formRef = useRef<MukFormRef<IEdit>>(null);
   const form: IEdit = {email: '', userName: '', userPass: ''};
-  const [displayPicker, setDisplayPicker] = useState<string | undefined>(undefined);
   const [visible, setVisible] = useState(false);
 
   const onSubmit = () => formRef.current?.validateInputs() && api.auth.register(formRef.current?.formData() as IEdit);
@@ -64,7 +62,7 @@ export const AuthEditForm = observer(() => {
           label={t.do('auth.register.password')}
           secureTextEntry={true}
           preValidate={'required'}
-          validate={[value => value.length >= 8 && value.length <= 32]}
+          validate={[value => String(value).length >= 8 && String(value).length <= 32]}
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
         />
         <MukTextInput
@@ -73,10 +71,11 @@ export const AuthEditForm = observer(() => {
           secureTextEntry={true}
           preValidate={'required'}
           validate={[
-            value => value.length >= 8 && value.length <= 32,
+            value => String(value).length >= 8 && String(value).length <= 32,
             value => value === formRef.current?.formData('userPass'),
           ]}
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
+          isFormElement={false}
         />
         <MukTextInput
           name={'telNumber'}
@@ -87,20 +86,17 @@ export const AuthEditForm = observer(() => {
         <MukTextInput
           name={'gender'}
           label={t.do('auth.register.gender')}
-          selectionColor={colors.background}
-          showKeyboard={false}
+          isPicker={true}
+          pickerItems={api.helper.arrayToMap<string>(_gender, 'gender')}
           preValidate={'required'}
-          onFocus={() => setDisplayPicker('gender')}
-          onBlur={() => setDisplayPicker(undefined)}
         />
         <MukTextInput
           name={'birthday'}
           label={t.do('auth.register.birthday')}
-          selectionColor={colors.background}
-          showKeyboard={false}
+          isPicker={true}
+          pickerType={'date'}
           preValidate={'required'}
-          onFocus={() => setDisplayPicker('birthday')}
-          onBlur={() => setDisplayPicker(undefined)}
+          datePickerMinMax={{max: new Date().getFullYear() - 17}}
         />
       </MukForm>
       <MukButton
@@ -109,32 +105,6 @@ export const AuthEditForm = observer(() => {
         label={t.do('auth.edit.submit')}
         onPress={onSubmit}
       />
-      <View
-        style={{
-          display: displayPicker ? undefined : 'none',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          height: responsiveHeight(160),
-          //marginTop: responsiveHeight(-100),
-        }}
-      >
-        {displayPicker === 'birthday' ? (
-          <MukDatePicker name={'birthday'} value={form.birthday} onValueChange={() => {}} />
-        ) : (
-          displayPicker === 'gender' && (
-            <MukPicker<string>
-              name={'gender'}
-              items={[
-                t.do('auth.register.genders.male'),
-                t.do('auth.register.genders.female'),
-                t.do('auth.register.genders.other'),
-              ]}
-              value={form.gender?.toString()}
-              onValueChange={() => {}}
-            />
-          )
-        )}
-      </View>
       <EditImage setVisible={setVisible} isVisible={visible} />
     </View>
   );

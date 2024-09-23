@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {Text, useTheme} from 'react-native-paper';
+import {Divider, Text, useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
@@ -40,10 +40,16 @@ export const AuthLoginForm = observer(() => {
               label={t.do('auth.login.password')}
               secureTextEntry={true}
               preValidate={'required'}
-              validate={[value => value.length >= 3 && value.length <= 32]}
+              validate={[value => String(value).length >= 3 && String(value).length <= 32]}
               validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
             />
           </MukForm>
+          <Divider />
+          <MukButton
+            textStyle={{fontWeight: '600'}}
+            label={'Spotify İle Giriş Yap'}
+            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify')}
+          />
           <MukButton
             buttonStyle={{
               backgroundColor: 'transparent',

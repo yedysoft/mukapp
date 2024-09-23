@@ -8,7 +8,6 @@ import {useTheme} from 'react-native-paper';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
-import SpotifyLogo from "../spotify/SpotifyLogo";
 
 type Props = {
   playlists: IPlaylist[];
@@ -25,11 +24,11 @@ const PlaylistList = observer(({playlists}: Props) => {
     !loading.getPlaylistTracks && api.media.getPlaylistTracks(item.id, item.tracks.count > 0);
   };
 
-  const handleSearch = (_name: string, value: string) => {
+  const handleSearch = (_name: string, value: string | number) => {
     api.helper.sleep(500, 'searchSong').then(() => {
       if (media.getSearchValue !== value) {
         !loading.getPlaylistTracks &&
-          api.media.getPlaylistTracks('search', false, value, media.getSearchValue !== value);
+          api.media.getPlaylistTracks('search', false, String(value), media.getSearchValue !== value);
       }
     });
   };

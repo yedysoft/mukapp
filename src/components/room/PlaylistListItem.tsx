@@ -5,10 +5,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
 import {MukColors, MukTheme} from '../../types';
-import MukIcon from '../custom/MukIcon';
-import SpotifyLogo from "../spotify/SpotifyLogo";
-import SpotifyIcon from "../spotify/SpotifyIcon";
-import {stores} from "../../stores";
+import SpotifyIcon from '../spotify/SpotifyIcon';
 
 type Props = {
   onPress?: () => void;
@@ -20,7 +17,7 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
   const {colors} = useTheme<MukTheme>();
   const styles = makeStyles(colors, active);
   const {api} = useServices();
-  const isSearch = playlist.id === 'search'
+  const isSearch = playlist.id === 'search';
 
   return (
     <TouchableOpacity
@@ -34,7 +31,7 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
           justifyContent: 'space-between',
           paddingVertical: responsiveWidth(8),
           paddingRight: responsiveWidth(8),
-          paddingLeft: responsiveWidth(isSearch ? 8 : 0)
+          paddingLeft: responsiveWidth(isSearch ? 8 : 0),
         },
         styles.shadow,
       ]}
@@ -42,7 +39,12 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
       {isSearch ? (
         <SpotifyIcon color={'green'} scale={2.5} /> /*<MukIcon icon={playlist.images[0].url as string} scale={1.8}/>*/
       ) : (
-        <MukImage radius={false} scale={1.8} source={api.helper.getImageUrl(playlist.images, 1.8)} style={{marginLeft: responsiveWidth(8)}} />
+        <MukImage
+          radius={false}
+          scale={1.8}
+          source={api.helper.getImageUrl(playlist.images, 1.8)}
+          style={{marginLeft: responsiveWidth(8)}}
+        />
       )}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         {!isSearch && <SpotifyIcon />}

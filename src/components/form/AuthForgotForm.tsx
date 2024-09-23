@@ -38,7 +38,7 @@ export const AuthForgotForm = observer(() => {
             name={'name'}
             label={t.do('auth.forgot.email')}
             preValidate={'required'}
-            validate={[value => value.length >= 3]}
+            validate={[value => String(value).length >= 3]}
             validationMessage={['En az 3 karakter olmalıdır.']}
           />
         </MukForm>

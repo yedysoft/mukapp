@@ -5,7 +5,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
-import {useServices} from "../../services";
+import {useServices} from '../../services';
 
 type Props = {
   style?: StyleProp<ViewStyle>;

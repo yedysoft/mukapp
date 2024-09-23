@@ -1,6 +1,14 @@
 import AuthStack from './AuthStack';
 import {observer} from 'mobx-react';
-import {stores} from '../stores';
+import {useStores} from '../stores';
 import MainDrawer from './MainDrawer';
+import NewPassScreen from '../screens/auth/NewPassScreen';
 
-export const AppNavigation = observer(() => <>{stores.auth.isLoggedIn ? <MainDrawer /> : <AuthStack />}</>);
+export default observer(() => {
+  const {auth} = useStores();
+
+  if (auth.isNeededPassChange) {
+    return <NewPassScreen />;
+  }
+  return <>{auth.isLoggedIn ? <MainDrawer /> : <AuthStack />}</>;
+});

@@ -7,20 +7,19 @@ import {
   NativeSyntheticEvent,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import {Text, useTheme} from 'react-native-paper';
 import {services, useServices} from '../../services';
+import {MukTheme} from '../../types';
 
 type Props<T extends string | number> = {
   name: string;
   items: Record<T, string> | T[];
   value?: T;
   itemHeight?: number;
-  onValueChange?: (name: string, value: T) => void;
+  onValueChange?: (name: string, value: T, prettyValue?: string) => void;
 };
 
 const checkValue = <T extends string | number>(value: T | undefined, items: T[]): T => {
@@ -49,7 +48,7 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
   const itemsIsArray = Array.isArray(items);
   const itemsArray = itemsIsArray ? items : Object.keys(items).map(k => k as T);
   value = checkValue<T>(tempValue, itemsArray);
-  console.log('MukPickerCompRender', name, tempValue, value);
+  console.log('CustomPickerCompRender', name, tempValue, value);
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
@@ -59,7 +58,7 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
   const {api} = useServices();
 
   const styles = useMemo(
-    () => pickerStyles(itemHeight, visibleItemCount, api.helper.hexToRgba(colors.secondary, 0.1)),
+    () => pickerStyles(itemHeight, visibleItemCount, api.helper.addOpacityToColor(colors.secondary, 0.1)),
     [itemHeight, visibleItemCount, colors],
   );
 
@@ -73,7 +72,7 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
     ];
     const scale = scrollY.interpolate({
       inputRange,
-      outputRange: [0.8, 0.9, 1.1, 0.9, 0.8],
+      outputRange: [0.7, 0.8, 1.0, 0.8, 0.7],
     });
     const rotateX = scrollY.interpolate({
       inputRange,
@@ -123,7 +122,7 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
         listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
       }
     }
-    onValueChange && onValueChange(name, val);
+    onValueChange && onValueChange(name, val, itemsIsArray ? undefined : items[val]);
   };
 
   useEffect(() => {
@@ -132,10 +131,14 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
     }
   }, [tempValue, value]);
 
+  useEffect(() => {
+    onValueChange && value && onValueChange(name, value, itemsIsArray ? undefined : items[value]);
+  }, []);
+
   return (
-    <View style={{height: itemHeight * visibleItemCount}}>
+    <View style={{height: itemHeight * visibleItemCount, paddingHorizontal: responsiveWidth(8)}}>
       <Animated.FlatList
-        style={{height: itemHeight * visibleItemCount, width: responsiveWidth(80)}}
+        style={{height: itemHeight * visibleItemCount}}
         ref={listRef}
         initialScrollIndex={modifiedItems.indexOf(value) - (visibleItemCount - 1) / 2}
         data={modifiedItems}

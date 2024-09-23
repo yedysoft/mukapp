@@ -39,3 +39,8 @@ export type ILoginHistory = {
   deviceModel: string | null;
   operatingSystem: string;
 };
+
+export type IPassChange = {
+  oldPass: string;
+  newPass: string;
+};

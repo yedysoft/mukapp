@@ -44,7 +44,7 @@ class RoomApi {
     }
   }
 
-  async getRooms(role: string, useLoading: (boolean | undefined) = true): PVoid {
+  async getRooms(role: string, useLoading: boolean | undefined = true): PVoid {
     useLoading && stores.loading.set('roomList', true);
     try {
       const response = await axiosIns.get(`/custom/getPlaces/${role}`);

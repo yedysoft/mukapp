@@ -2,10 +2,11 @@ import {Buffer} from 'buffer';
 import {IArtist, IImage, IPlaylist} from '../../types/media';
 import {responsiveScale} from '../../utils/util';
 import {ImageSourcePropType, Linking} from 'react-native';
-import {PVoid} from '../../types';
+import {MukLangPaths, PVoid} from '../../types';
 import React, {Children, cloneElement, createRef} from 'react';
 import {stores} from '../../stores';
 import axiosIns from '../axiosIns';
+import translate from '../translate';
 
 class HelperApi {
   timeoutIds: Map<number | string, NodeJS.Timeout> = new Map<number | string, NodeJS.Timeout>();
@@ -154,6 +155,65 @@ class HelperApi {
   isUrl(url: string) {
     const urlRegex = /^(https?|ftp|file):\/\/[^\s/$.?#].\S*$/;
     return urlRegex.test(url);
+  }
+
+  hexToRgb(hex: string): {r: number; g: number; b: number} | null {
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+
+    const regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
+    const result = regex.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
+  }
+
+  parseRgb(rgb: string): {r: number; g: number; b: number} | null {
+    const regex = /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/;
+    const result = regex.exec(rgb);
+    return result
+      ? {
+          r: parseInt(result[1], 10),
+          g: parseInt(result[2], 10),
+          b: parseInt(result[3], 10),
+        }
+      : null;
+  }
+
+  parseRgba(rgba: string): {r: number; g: number; b: number; a: number} | null {
+    const regex = /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0|1|0?\.\d+)\)$/;
+    const result = regex.exec(rgba);
+    return result
+      ? {
+          r: parseInt(result[1], 10),
+          g: parseInt(result[2], 10),
+          b: parseInt(result[3], 10),
+          a: parseFloat(result[4]),
+        }
+      : null;
+  }
+
+  addOpacityToColor(color: string, opacity: number): string {
+    let rgb;
+    if (color.startsWith('#')) {
+      rgb = this.hexToRgb(color);
+    } else if (color.startsWith('rgb(')) {
+      rgb = this.parseRgb(color);
+    } else if (color.startsWith('rgba(')) {
+      const rgba = this.parseRgba(color);
+      if (rgba) {
+        rgb = {r: rgba.r, g: rgba.g, b: rgba.b};
+        opacity *= rgba.a;
+      }
+    }
+    if (!rgb) {
+      throw new Error(`Geçersiz renk formatı: ${color}`);
+    }
+    return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
   }
 
   hexToRgba(hex: string, a?: number): string {
@@ -308,6 +368,13 @@ class HelperApi {
     const hexColor = `#${hexR}${hexG}${hexB}`;
 
     return hexColor;
+  }
+
+  arrayToMap<T extends string | number>(values: readonly T[], name: string): Record<T, string> {
+    return values.reduce((acc, value) => {
+      acc[value] = translate.do(`enum.${name}.${value}` as MukLangPaths);
+      return acc;
+    }, {} as Record<T, string>);
   }
 }
 

@@ -5,14 +5,14 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {useServices} from '../../services';
 import {IQueueTrack, ITrack} from '../../types/media';
-import {stores, useStores} from '../../stores';
+import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import VoteButton from './VoteButton';
 import AddButton from './AddButton';
 import {MukTheme} from '../../types';
 import {useState} from 'react';
 import {spotifyOpenUrlBase} from '../../../config';
-import SpotifyIcon from "../spotify/SpotifyIcon";
+import SpotifyIcon from '../spotify/SpotifyIcon';
 
 type Props = {
   song: IQueueTrack | ITrack;
@@ -35,10 +35,7 @@ export default observer(({song, itemType, disabled}: Props) => {
   };
 
   return (
-    <MukListItem
-      style={{alignItems: 'center', gap: 0}}
-      disabled={disabled}
-    >
+    <MukListItem style={{alignItems: 'center', gap: 0}} disabled={disabled}>
       <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)} radius={false} />
       <View style={{gap: responsiveWidth(4), maxWidth: responsiveWidth(240)}}>
         {title ? (
@@ -47,10 +44,26 @@ export default observer(({song, itemType, disabled}: Props) => {
           </Text>
         ) : (
           <>
-            <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary, marginLeft: responsiveWidth(8)}}>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: responsiveSize(18),
+                fontWeight: '500',
+                color: colors.secondary,
+                marginLeft: responsiveWidth(8),
+              }}
+            >
               {song.name}
             </Text>
-            <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '300', color: colors.secondary, marginLeft: responsiveWidth(8)}}>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: responsiveSize(14),
+                fontWeight: '300',
+                color: colors.secondary,
+                marginLeft: responsiveWidth(8),
+              }}
+            >
               {api.helper.getArtist(song.artists)}
             </Text>
             <SpotifyIcon onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/track/${song.id}`)} />

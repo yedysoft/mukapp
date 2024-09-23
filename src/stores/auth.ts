@@ -3,6 +3,7 @@ import {IAuthsType} from '../types/enums';
 
 class AuthStore extends BaseStore<AuthStore> {
   loggedIn = false;
+  isNeededPassChange = false;
   authToken = '';
   auths: IAuthsType[] = [];
 

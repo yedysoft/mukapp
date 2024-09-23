@@ -13,7 +13,7 @@ import BlockedScreen from '../screens/main/social/BlockedScreen';
 import EditScreen from '../screens/main/EditScreen';
 import {PsScreen} from '../screens/main/PsScreen';
 import {IChat} from '../types/chat';
-import {MainHeader} from "../components/header/MainHeader";
+import {MainHeader} from '../components/header/MainHeader';
 
 export type MainStackScreens = {
   Main: undefined;

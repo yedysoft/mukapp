@@ -17,6 +17,7 @@ class UIStore extends BaseStore<UIStore> {
   window: ScaledSize = Dimensions.get('window');
   screen: ScaledSize = Dimensions.get('screen');
   keyboardHeight = 0;
+  pickerViewVisible = false;
 
   constructor() {
     super();

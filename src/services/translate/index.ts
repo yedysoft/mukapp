@@ -1,7 +1,7 @@
-import * as Localization from 'expo-localization';
-import {I18n, Scope, TranslateOptions} from 'i18n-js';
+import {getLocales} from 'expo-localization';
+import {I18n, TranslateOptions} from 'i18n-js';
 import * as translations from './translations';
-import {IService, PVoid} from '../../types';
+import {IService, MukLangPaths, PVoid} from '../../types';
 import {ILanguage} from '../../types/enums';
 import ui from '../../stores/ui';
 
@@ -16,7 +16,7 @@ class TranslateService implements IService {
     }
   }
 
-  do(scope: Scope, options?: TranslateOptions | undefined) {
+  do(scope: MukLangPaths, options?: TranslateOptions | undefined) {
     return this.i18n.t(scope, options);
   }
 
@@ -24,7 +24,7 @@ class TranslateService implements IService {
     if (language) {
       ui.set('language', language);
     }
-    ui.set('systemLanguage', Localization.locale);
+    ui.set('systemLanguage', getLocales()[0].languageCode ?? 'tr');
     this.i18n.enableFallback = true;
     this.i18n.locale = ui.getLanguage;
   }

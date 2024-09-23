@@ -3,7 +3,7 @@ import {ScrollView, StyleProp, ViewStyle} from 'react-native';
 import {stores} from '../../stores';
 import {services, useServices} from '../../services';
 import {MukTextInputRef} from './MukTextInput';
-import {genericMemo} from '../../utils/util';
+import {genericMemo, responsiveWidth} from '../../utils/util';
 
 type Props<T> = {
   children: ReactNode;
@@ -19,7 +19,7 @@ export type MukFormRef<T> = {
 
 const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
   <T,>({children, onSubmit, data, style}: Props<T>, ref: ForwardedRef<MukFormRef<T>>) => {
-    console.log('MukFormCompRender', data);
+    console.log('CustomFormCompRender', data);
     const {api, t} = useServices();
     const form = useRef<T>(data);
 
@@ -27,7 +27,7 @@ const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
       form.current = data;
     }, [data]);
 
-    const handleOnChange = (name: string, value: string) => {
+    const handleOnChange = (name: string, value: string | number) => {
       form.current = {...form.current, [name]: value};
     };
 
@@ -35,16 +35,18 @@ const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
       const last = index + 1 === array.length;
       const props = {
         key: index,
-        returnKeyType: last ? 'done' : 'next',
-        returnKeyLabel: last ? 'Accept' : 'Next',
-        onSubmitEditing: last
+        returnKeyType: child.props.multiline ? undefined : last ? 'done' : 'next',
+        returnKeyLabel: child.props.multiline ? undefined : last ? 'Accept' : 'Next',
+        onSubmitEditing: child.props.multiline
+          ? undefined
+          : last
           ? onSubmit
           : () => {
               child.props.nextPage && child.props.nextPage();
               array[index + 1].ref.current?.focus();
             },
-        blurOnSubmit: last,
-        defaultValue: data && data[child.props.name as keyof T],
+        blurOnSubmit: child.props.multiline ? false : last,
+        defaultValue: data && data[child.props.name as keyof T] && String(data[child.props.name as keyof T]),
         onCustomChange: handleOnChange,
       };
       return cloneElement(child, {...child.props, ...props}) as any;
@@ -72,7 +74,7 @@ const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
       formData: getFormData,
     }));
 
-    return <ScrollView contentContainerStyle={style}>{refChildrens}</ScrollView>;
+    return <ScrollView contentContainerStyle={[{gap: responsiveWidth(10)}, style]}>{refChildrens}</ScrollView>;
   },
 );
 

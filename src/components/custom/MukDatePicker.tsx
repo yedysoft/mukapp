@@ -10,7 +10,7 @@ type Props = {
   value?: string;
   minYear?: number;
   maxYear?: number;
-  onValueChange?: (name: string, value: string) => void;
+  onValueChange?: (name: string, value: string, prettyValue?: string) => void;
 };
 
 const nowYear = new Date().getFullYear();
@@ -28,10 +28,14 @@ const strToDate = (str: string | undefined): DateType => {
   return {day: 1, month: 1, year: nowYear - 18};
 };
 
-const dateToStr = (date: DateType): string => {
+const dateToStr = (date: DateType, format: 'day.month.Year' | 'year-month-day'): string => {
   const day = services.api.helper.formatNumberWithLength(date.day, 2);
   const month = services.api.helper.formatNumberWithLength(date.month, 2);
-  return `${day}.${month}.${date.year}`;
+  if (format === 'day.month.Year') {
+    return `${day}.${month}.${date.year}`;
+  } else {
+    return `${date.year}-${month}-${day}`;
+  }
 };
 
 const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onValueChange}: Props) => {
@@ -45,7 +49,7 @@ const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onVa
 
   const handleValueChanged = (key: string, value: number) => {
     date = {...date, [key]: value};
-    onValueChange && onValueChange(name, dateToStr(date));
+    onValueChange && onValueChange(name, dateToStr(date, 'year-month-day'), dateToStr(date, 'day.month.Year'));
   };
 
   return (

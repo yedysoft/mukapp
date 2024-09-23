@@ -2,7 +2,7 @@ import {StatusBar} from 'expo-status-bar';
 import {PaperProvider} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import {AppNavigation} from './src/navigation/AppNavigation';
+import AppNavigation from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stopPersists, stores} from './src/stores';
 import {initServices, services} from './src/services';
@@ -11,18 +11,17 @@ import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
 import {NavigationContainer, Theme} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
-import appearance from './src/services/appearance';
 import notification from './src/services/notification';
 import listeners from './src/services/listeners';
 import * as SystemUI from 'expo-system-ui';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import 'react-native-gesture-handler';
 import 'text-encoding';
+import {navigationRef} from './src/navigation/RootNavigation';
 //import 'expo-dev-client';
 
 const initializeApp = async () => {
   await hydrateStores();
-  appearance.load();
   listeners.load();
   await initServices();
   await notification.load();
@@ -32,7 +31,6 @@ const initializeApp = async () => {
 
 const deinitializeApp = async () => {
   stopPersists();
-  appearance.unload();
   listeners.unload();
   notification.unload();
   await services.api.room.closeRoom();
@@ -54,7 +52,7 @@ export default observer(() => {
 
   return (
     <AppProvider>
-      <NavigationContainer theme={stores.ui.getTheme as unknown as Theme}>
+      <NavigationContainer ref={navigationRef} theme={stores.ui.getTheme as unknown as Theme}>
         <PaperProvider
           theme={stores.ui.getTheme}
           settings={{

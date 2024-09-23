@@ -23,7 +23,7 @@ const RoomListItem = observer(({roomData}: Props) => {
   const {room} = useStores();
 
   const openRoom = async () => {
-    if(room.getSessionId !== roomData.sessionId) {
+    if (room.getSessionId !== roomData.sessionId) {
       await api.room.openRoom(roomData.sessionId, roomData.streamerId);
     }
     if (room.isLive) {

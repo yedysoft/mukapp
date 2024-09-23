@@ -75,16 +75,29 @@ class AuthApi {
       if (opt.status === 200) {
         await user.getInfo();
         await this.saveLoginHistory();
-        await socket.connect();
         await user.getAllNotifications();
         await chat.getChats();
         await auths.getAuths();
+        await socket.connect();
         await subscription.globalSubscribes();
-        stores.auth.set('loggedIn', true);
+        const isNeededPassChange = await this.isNeededPassChange();
+        stores.auth.setMany({isNeededPassChange: isNeededPassChange, loggedIn: !isNeededPassChange});
       }
     } catch (e: any) {
       console.log(e);
     }
+  }
+
+  async isNeededPassChange(): Promise<boolean> {
+    try {
+      const response = await axiosIns.get<boolean>('/user/isNeededPassChange');
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    return false;
   }
 
   async saveLoginHistory(): PVoid {

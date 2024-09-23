@@ -1,22 +1,38 @@
-import {HelperText, Text, useTheme} from 'react-native-paper';
-import {Platform, StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle} from 'react-native';
+import {
+  Keyboard,
+  KeyboardType,
+  NativeSyntheticEvent,
+  Platform,
+  Pressable,
+  StyleProp,
+  TextInput,
+  TextInputProps,
+  TextInputSubmitEditingEventData,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
-import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import CustomPickerView from './CustomPickerView';
+import MukPicker from './MukPicker';
+import MukDatePicker from './MukDatePicker';
+import {Text, useTheme} from 'react-native-paper';
+import {MukTheme} from '../../types';
 
 type Validates = 'required';
 
-type ValidateFunction = (value: string) => boolean;
+type ValidateFunction = (value: string | number) => boolean;
 
 type Props = TextInputProps & {
   name: string;
   visible?: boolean;
   showError?: boolean;
   label?: string;
-  onCustomChange?: (name: string, value: string) => void;
+  onCustomChange?: (name: string, value: string | number) => void;
   viewStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<TextStyle>;
   preValidate?: Validates | Validates[];
@@ -25,11 +41,16 @@ type Props = TextInputProps & {
   showKeyboard?: boolean;
   quotedMessage?: ReactNode;
   nextPage?: () => void;
+  isFormElement?: boolean;
+  isPicker?: boolean;
+  pickerType?: 'normal' | 'date';
+  pickerItems?: Record<string | number, string> | (string | number)[];
+  datePickerMinMax?: {min?: number; max?: number};
 };
 
 export type MukTextInputRef = {
-  validateInput: (text: string) => boolean;
-  inputValue: () => string;
+  validateInput: (text: string | number) => boolean;
+  inputValue: () => string | number;
   focus: () => void;
   clear: () => void;
 };
@@ -50,6 +71,11 @@ const MukTextInputComp = observer(
         validationMessage,
         showKeyboard,
         quotedMessage,
+        isFormElement = true,
+        isPicker,
+        pickerType = 'normal',
+        pickerItems,
+        datePickerMinMax,
         ...rest
       }: Props,
       ref,
@@ -69,31 +95,52 @@ const MukTextInputComp = observer(
         value.current !== validInputValue && (value.current = validInputValue);
       }, [validInputValue]);
 
+      ///Picker
+      const [pickerVisible, setPickerVisible] = useState(false);
+      const [pickerPretty, setPickerPretty] = useState<string | undefined>();
+      const pickerValue = useRef<string | number>('');
+      const pickerChangeVisible = (open: boolean) => {
+        ui.set('pickerViewVisible', open);
+        setPickerVisible(open);
+      };
+
+      const handleValueChange = (_name: string, value: string | number, prettyValue?: string) => {
+        pickerValue.current = value;
+        handleChangeText(String(value));
+        setPickerPretty(prettyValue);
+      };
+      ///Picker
+
       const handleChangeText = (text: string) => {
-        showError && validateInput(text);
         value.current = text;
-        if (text && isEmpty) {
+        const v = getValue();
+        showError && validateInput(v);
+        if (v && isEmpty) {
           setIsEmpty(false);
-        } else if (!text) {
+        } else if (!v) {
           setIsEmpty(true);
         }
-        onCustomChange && onCustomChange(name, text);
+        onCustomChange && isFormElement && onCustomChange(name, v);
         rest.onChangeText && rest.onChangeText(text);
       };
 
       const handleFocus = (e: any) => {
-        showError && validateInput(value.current);
+        showError && validateInput(getValue());
+        if (isPicker) {
+          Keyboard.dismiss();
+          pickerChangeVisible(true);
+        }
         rest.onFocus && rest.onFocus(e);
       };
 
       const changeError = (text: string | null) => showError && error !== text && setError(text);
 
-      const validateInput = (text: string | undefined): boolean => {
+      const validateInput = (text: string | number | undefined): boolean => {
         if (!text) {
           text = '';
         }
         if (preValidate) {
-          if (preValidate === 'required' && (text.length === 0 || text.trim().length === 0)) {
+          if (preValidate === 'required' && (String(text).length === 0 || String(text).trim().length === 0)) {
             changeError(t.do('error.required'));
             return false;
           }
@@ -111,9 +158,28 @@ const MukTextInputComp = observer(
         return true;
       };
 
-      const getValue = () => value.current ?? '';
+      const getValue = () => {
+        if (isPicker) {
+          return pickerValue.current;
+        }
+        if (value.current) {
+          const numberTypes: KeyboardType[] = ['number-pad', 'numeric', 'decimal-pad'];
+          if (rest.keyboardType && numberTypes.some(t => t === rest.keyboardType)) {
+            return Number(value.current);
+          }
+        }
+        return value.current ?? '';
+      };
 
-      const focusInput = () => inputRef.current?.focus();
+      const focusInput = () => {
+        console.log('test');
+        if (isPicker) {
+          Keyboard.dismiss();
+          pickerChangeVisible(true);
+        } else {
+          inputRef.current?.focus();
+        }
+      };
 
       const clearInput = () => {
         inputRef.current?.clear();
@@ -132,26 +198,29 @@ const MukTextInputComp = observer(
           style={[
             {
               flexDirection: 'column',
-              minHeight:
-                (!!error || !isEmpty) && label
-                  ? responsiveWidth(Platform.OS === 'ios' ? 80 : 92)
-                  : responsiveWidth(Platform.OS === 'ios' ? 60 : 64),
+
               display: visible ? undefined : 'none',
+              width: '100%',
             },
             viewStyle,
           ]}
         >
-          <View
+          <Pressable
             style={{
               flexDirection: 'column',
               gap: responsiveWidth(quotedMessage ? 0 : 4),
             }}
+            onPress={focusInput}
           >
             <Text
               style={{
+                position: 'absolute',
                 display: label ? (isEmpty ? 'none' : undefined) : 'none',
                 color: colors.outlineVariant,
-                fontSize: responsiveSize(15),
+                left: responsiveWidth(12),
+                top: responsiveWidth(4),
+                fontSize: responsiveSize(13),
+                zIndex: 1400,
               }}
             >
               {label}
@@ -162,8 +231,8 @@ const MukTextInputComp = observer(
                 paddingBottom: 0,
                 backgroundColor: colors.shadow,
                 display: quotedMessage ? undefined : 'none',
-                borderTopRightRadius: 12,
-                borderTopLeftRadius: 12,
+                borderTopRightRadius: 16,
+                borderTopLeftRadius: 16,
               }}
             >
               {quotedMessage}
@@ -171,14 +240,17 @@ const MukTextInputComp = observer(
             <TextInput
               ref={inputRef}
               {...rest}
+              defaultValue={isPicker ? undefined : rest.defaultValue}
+              editable={isPicker ? false : rest.editable}
               placeholder={label ?? rest.placeholder}
               autoCapitalize={rest.autoCapitalize ?? 'none'}
-              value={undefined}
+              value={pickerPretty}
               selectionColor={rest.selectionColor ?? colors.primary}
               placeholderTextColor={colors.outlineVariant}
-              showSoftInputOnFocus={showKeyboard}
+              showSoftInputOnFocus={!isPicker && showKeyboard}
               onChangeText={handleChangeText}
               onFocus={handleFocus}
+              onPress={focusInput}
               style={[
                 {
                   width: '100%',
@@ -187,28 +259,56 @@ const MukTextInputComp = observer(
                   textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
                   paddingHorizontal: responsiveWidth(16),
                   paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 16 : 12),
-                  borderRadius: 12,
-                  borderTopLeftRadius: quotedMessage ? 0 : 12,
-                  borderTopRightRadius: quotedMessage ? 0 : 12,
+                  borderRadius: 16,
+                  borderTopLeftRadius: quotedMessage ? 0 : 16,
+                  borderTopRightRadius: quotedMessage ? 0 : 16,
                 },
                 style,
               ]}
             />
-          </View>
-          <HelperText
-            type={'error'}
-            visible={!!error}
-            style={{color: colors.error, display: error ? undefined : 'none'}}
+          </Pressable>
+          <Text
+            style={{
+              color: colors.error,
+              display: error ? undefined : 'none',
+              fontSize: responsiveSize(13),
+              paddingLeft: responsiveWidth(8),
+            }}
           >
             * {error}
-          </HelperText>
+          </Text>
+          {isPicker && pickerType ? (
+            <CustomPickerView
+              visible={pickerVisible}
+              changeVisible={pickerChangeVisible}
+              buttonOnPress={() => {
+                if (rest.onSubmitEditing) {
+                  pickerChangeVisible(false);
+                  rest.onSubmitEditing({} as NativeSyntheticEvent<TextInputSubmitEditingEventData>);
+                }
+              }}
+              buttonIcon={rest.returnKeyType === 'done' ? 'check' : 'arrow-right'}
+            >
+              {pickerType === 'normal' && pickerItems ? (
+                <MukPicker name={name} items={pickerItems} value={value.current} onValueChange={handleValueChange} />
+              ) : (
+                <MukDatePicker
+                  name={name}
+                  minYear={datePickerMinMax?.min}
+                  maxYear={datePickerMinMax?.max}
+                  value={value.current}
+                  onValueChange={handleValueChange}
+                />
+              )}
+            </CustomPickerView>
+          ) : undefined}
         </View>
       );
     },
   ),
 );
 
-const MukTextInput = genericMemo(MukTextInputComp, (prevProps, nextProps) =>
+const CustomTextInput = genericMemo(MukTextInputComp, (prevProps, nextProps) =>
   services.api.helper.isEqual(prevProps, nextProps),
 );
-export default MukTextInput;
+export default CustomTextInput;

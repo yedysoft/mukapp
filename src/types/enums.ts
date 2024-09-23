@@ -1,13 +1,13 @@
 export const _languages = {
   system: 'System',
   tr: 'Türkçe',
-  en: 'English',
+  /*en: 'English',
   de: 'Deutsch',
   ru: 'Русский',
   ar: 'عربي',
   fr: 'Français',
   it: 'Italiano',
-  es: 'Español',
+  es: 'Español',*/
 };
 export type ILanguage = keyof typeof _languages;
 

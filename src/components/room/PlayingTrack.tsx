@@ -11,8 +11,8 @@ import {useNavigation} from '@react-navigation/native';
 import {MukColors, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {spotifyOpenUrlBase} from '../../../config';
-import SpotifyIcon from "../spotify/SpotifyIcon";
-import {useEffect} from "react";
+import SpotifyIcon from '../spotify/SpotifyIcon';
+import {useEffect} from 'react';
 
 type Props = {
   compact?: boolean;
@@ -25,12 +25,14 @@ export default observer(({compact}: Props) => {
   const {api} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
-  const iconColor = api.helper.isColorLight(dominantColor) ? 'black' : 'white'
+  const iconColor = api.helper.isColorLight(dominantColor) ? 'black' : 'white';
   const navigation = useNavigation<MainStackNavProp>();
 
   useEffect(() => {
-    (media.getPlaylists && !media.getPlayingTrack.uri) && api.helper.openURL(`${spotifyOpenUrlBase}/playlist/${media.getPlaylists[1].id}`) //TODO: SPOTİDE PLAY EKLENİNCE KALDIRILACAK
-  }, [media.getPlaylists])
+    media.getPlaylists &&
+      !media.getPlayingTrack.uri &&
+      api.helper.openURL(`${spotifyOpenUrlBase}/playlist/${media.getPlaylists[1].id}`); //TODO: SPOTİDE PLAY EKLENİNCE KALDIRILACAK
+  }, [media.getPlaylists]);
 
   return (
     <View
@@ -74,7 +76,7 @@ export default observer(({compact}: Props) => {
               color: textColor ?? colors.secondary,
               backgroundColor: !media.getPlayingTrack.name ? colors.shadow : undefined,
               minWidth: !media.getPlayingTrack.name ? 180 : undefined,
-              marginLeft: responsiveWidth(8)
+              marginLeft: responsiveWidth(8),
             }}
           >
             {media.getPlayingTrack.name}
@@ -88,17 +90,21 @@ export default observer(({compact}: Props) => {
               backgroundColor: !api.helper.getArtist(media.getPlayingTrack.artists) ? colors.shadow : undefined,
               maxWidth: !api.helper.getArtist(media.getPlayingTrack.artists) ? 120 : undefined,
               marginLeft: responsiveWidth(8),
-              marginTop: responsiveWidth(4)
+              marginTop: responsiveWidth(4),
             }}
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}
           </Text>
-          {media.getPlayingTrack.name &&
-              <SpotifyIcon color={iconColor} onPress={(e: any) => {
+          {media.getPlayingTrack.name && (
+            <SpotifyIcon
+              color={iconColor}
+              onPress={(e: any) => {
                 e.stopPropagation();
-                media.getPlayingTrack.id && api.helper.openURL(`${spotifyOpenUrlBase}/track/${media.getPlayingTrack.id}`);
-              }}/>
-          }
+                media.getPlayingTrack.id &&
+                  api.helper.openURL(`${spotifyOpenUrlBase}/track/${media.getPlayingTrack.id}`);
+              }}
+            />
+          )}
         </View>
         {compact && (
           <MukIconButton
