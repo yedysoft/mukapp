@@ -33,11 +33,6 @@ type LangAuth<T> = {
     surname: T;
     birthday: T;
     gender: T;
-    genders: {
-      male: T;
-      female: T;
-      other: T;
-    };
     email: T;
     username: T;
     phone: T;

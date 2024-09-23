@@ -44,12 +44,7 @@ export const AuthLoginForm = observer(() => {
               validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
             />
           </MukForm>
-          <Divider />
-          <MukButton
-            textStyle={{fontWeight: '600'}}
-            label={'Spotify İle Giriş Yap'}
-            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify')}
-          />
+
           <MukButton
             buttonStyle={{
               backgroundColor: 'transparent',
@@ -60,6 +55,12 @@ export const AuthLoginForm = observer(() => {
             loading={loading.getLogin}
             label={t.do('auth.login.changePassword')}
             onPress={() => navigation.navigate('Forgot')}
+          />
+          <Divider />
+          <MukButton
+            textStyle={{fontWeight: '600'}}
+            label={'Spotify İle Giriş Yap'}
+            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify')}
           />
         </View>
       </View>

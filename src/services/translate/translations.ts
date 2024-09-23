@@ -1,6 +1,6 @@
 import {MukLang} from '../../types';
 
-export const tr: MukLang = {
+const tr: MukLang = {
   error: {
     required: 'Gerekli',
     notValidInputs: 'Gerekli alanları doldurun',
@@ -24,11 +24,6 @@ export const tr: MukLang = {
       surname: 'Soyad',
       birthday: 'Doğum Günü',
       gender: 'Cinsiyet',
-      genders: {
-        male: 'Kadın',
-        female: 'Erkek',
-        other: 'Diğer',
-      },
       email: 'Email',
       username: 'Kullanıcı Adı',
       phone: 'Telefon',
@@ -153,3 +148,5 @@ export const tr: MukLang = {
     },
   },
 };
+
+export {tr};
