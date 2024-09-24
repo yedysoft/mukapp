@@ -18,7 +18,7 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import 'react-native-gesture-handler';
 import 'text-encoding';
 import {navigationRef} from './src/navigation/RootNavigation';
-//import 'expo-dev-client';
+import 'expo-dev-client';
 
 const initializeApp = async () => {
   await hydrateStores();
