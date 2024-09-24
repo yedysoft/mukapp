@@ -19,6 +19,7 @@ import 'react-native-gesture-handler';
 import 'text-encoding';
 import {navigationRef} from './src/navigation/RootNavigation';
 import 'expo-dev-client';
+import {Linking} from 'react-native';
 
 const initializeApp = async () => {
   await hydrateStores();
@@ -26,6 +27,18 @@ const initializeApp = async () => {
   await initServices();
   await notification.load();
   await services.api.permission.getNotification();
+  const url = await Linking.getInitialURL();
+  if (url) {
+    if (url.startsWith('https://api.yedysoft.com/muk/media/auth')) {
+      const params = new URLSearchParams(url.split('?')[1]);
+      const code = params.get('code');
+      const state = params.get('state');
+      if (code && state && state === 'login') {
+        stores.auth.set('authToken', code);
+        await services.api.auths.getAuths();
+      }
+    }
+  }
   await services.api.auth.checkToken();
 };
 

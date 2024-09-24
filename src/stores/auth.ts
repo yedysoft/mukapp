@@ -19,10 +19,6 @@ class AuthStore extends BaseStore<AuthStore> {
   get getAuthToken() {
     return this.authToken;
   }
-
-  get getEncodedAuthToken() {
-    return encodeURIComponent(this.authToken);
-  }
 }
 
 const auth = new AuthStore();

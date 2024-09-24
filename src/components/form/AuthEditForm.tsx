@@ -39,7 +39,7 @@ export const AuthEditForm = observer(() => {
             scale={2.4}
             source={
               user.getInfo.image
-                ? {uri: `${user.getInfo.image.link}?token=${auth.getEncodedAuthToken}`}
+                ? {uri: `${user.getInfo.image.link}?token=${auth.getAuthToken}`}
                 : require('../../../assets/adaptive-icon.png')
             }
             style={{

@@ -4,6 +4,7 @@ import {PVoid} from '../../types';
 import {IAuthsType} from '../../types/enums';
 import * as WebBrowser from 'expo-web-browser';
 import media from './media';
+import {Linking} from 'react-native';
 
 class AuthsApi {
   async clearAuth(type: IAuthsType): PVoid {
@@ -41,27 +42,41 @@ class AuthsApi {
       if (authUrl) {
         const params = new URLSearchParams(authUrl.split('?')[1]);
         const redirectUri = params.get('redirect_uri');
-        await WebBrowser.openAuthSessionAsync(authUrl, redirectUri, {
+        await WebBrowser.openBrowserAsync(authUrl, {
           toolbarColor: stores.ui.getTheme.colors.primary,
           controlsColor: stores.ui.getTheme.colors.primary,
-          secondaryToolbarColor: 'red',
           enableBarCollapsing: false,
           enableDefaultShareMenuItem: false,
           readerMode: false,
         });
-        await this.getAuths();
-        if (stores.auth.auths.some(value => value === key)) {
-          stores.ui.addInfo(`${name} hesabınız bağlandı.`);
-        }
-      }
-      if (key === 'SPOTIFY') {
-        stores.media.set('authenticated', true);
+        console.log(sub);
+        sub.remove();
       }
     } catch (e) {
       console.log(e);
     } finally {
       stores.loading.set('connectAccount', false);
     }
+  }
+
+  let  redirectSubscription = "";
+  private async waitForRedirect(redirectUri: string | null | undefined) {
+    return new Promise(resolve => {
+      const redirectHandler = ({url}) => {
+        if (redirectUri && url.startsWith(redirectUri)) {
+          const params = new URLSearchParams(url.split('?')[1]);
+          const code = params.get('code');
+          const state = params.get('state');
+          if (code && state && state === 'login') {
+            resolve({type: 'error', token: code});
+          } else {
+            resolve({type: 'error', token: null});
+          }
+        }
+      };
+
+      redirectSubscription = Linking.addEventListener('url', redirectHandler);
+    });
   }
 }
 

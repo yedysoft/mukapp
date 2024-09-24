@@ -16,7 +16,7 @@ export default function HorizontalUser() {
         scale={1.5}
         source={
           user.getInfo.image
-            ? {uri: `${user.getInfo.image.link}?token=${auth.getEncodedAuthToken}`}
+            ? {uri: `${user.getInfo.image.link}?token=${auth.getAuthToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
         style={{borderWidth: 2, borderRadius: 24, borderColor: colors.primary, backgroundColor: colors.background}}

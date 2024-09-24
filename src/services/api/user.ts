@@ -5,7 +5,6 @@ import media from './media';
 import {IQueueTrack} from '../../types/media';
 import {IBlockedUser, IFollowUser, IInfo, INotification, ISearchUser} from '../../types/user';
 import {IPassChange} from '../../types/auth';
-import * as RootNavigation from '../../navigation/RootNavigation';
 
 class UserApi {
   async getInfo(): PVoid {
@@ -212,7 +211,6 @@ class UserApi {
       stores.loading.set('passChange', true);
       const response = await axiosIns.post<MessageBody>('/user/passChange', form);
       if (response.status === 200) {
-        RootNavigation.navigate('Main', {screen: 'Settings'});
         stores.ui.addMessage(response.data);
       }
     } catch (e) {

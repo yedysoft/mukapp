@@ -37,7 +37,7 @@ export default function VerticalProfile({profile, otherUser}: Props) {
         scale={2.4}
         source={
           profile.image
-            ? {uri: `${profile.image.link}?token=${auth.getEncodedAuthToken}`}
+            ? {uri: `${profile.image.link}?token=${auth.getAuthToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
         style={{
