@@ -32,29 +32,35 @@ class AuthsApi {
   }
 
   async connectAccount(key: IAuthsType, name: string): PVoid {
-    let authUrl;
-    if (key === 'SPOTIFY') {
-      authUrl = await media.getAuthUrl();
-    }
-    if (authUrl) {
-      const params = new URLSearchParams(authUrl.split('?')[1]);
-      const redirectUri = params.get('redirect_uri');
-      console.log(redirectUri);
-      await WebBrowser.openAuthSessionAsync(authUrl, redirectUri, {
-        toolbarColor: stores.ui.getTheme.colors.primary,
-        controlsColor: stores.ui.getTheme.colors.primary,
-        secondaryToolbarColor: 'red',
-        enableBarCollapsing: false,
-        enableDefaultShareMenuItem: false,
-        readerMode: false,
-      });
-      await this.getAuths();
-      if (stores.auth.auths.some(value => value === key)) {
-        stores.ui.addInfo(`${name} hesabınız bağlandı.`);
+    try {
+      stores.loading.set('connectAccount', true);
+      let authUrl;
+      if (key === 'SPOTIFY') {
+        authUrl = await media.getAuthUrl();
       }
-    }
-    if (key === 'SPOTIFY') {
-      stores.media.set('authenticated', true);
+      if (authUrl) {
+        const params = new URLSearchParams(authUrl.split('?')[1]);
+        const redirectUri = params.get('redirect_uri');
+        await WebBrowser.openAuthSessionAsync(authUrl, redirectUri, {
+          toolbarColor: stores.ui.getTheme.colors.primary,
+          controlsColor: stores.ui.getTheme.colors.primary,
+          secondaryToolbarColor: 'red',
+          enableBarCollapsing: false,
+          enableDefaultShareMenuItem: false,
+          readerMode: false,
+        });
+        await this.getAuths();
+        if (stores.auth.auths.some(value => value === key)) {
+          stores.ui.addInfo(`${name} hesabınız bağlandı.`);
+        }
+      }
+      if (key === 'SPOTIFY') {
+        stores.media.set('authenticated', true);
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      stores.loading.set('connectAccount', false);
     }
   }
 }

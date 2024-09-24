@@ -2,9 +2,9 @@ import {observer} from 'mobx-react';
 import {Divider, Text, useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
-import {useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import {useServices} from '../../services';
-import {View} from 'react-native';
+import {Linking, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -23,6 +23,15 @@ export const AuthLoginForm = observer(() => {
   const formData: ILogin = {name: 'eto', pass: '123', expoToken: ui.getExpoToken};
 
   const handleSubmit = () => formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);
+
+  useEffect(() => {
+    const sub = Linking.addEventListener('url', url => {
+      console.log(url);
+    });
+    return () => {
+      sub.remove();
+    };
+  }, []);
 
   return (
     <SafeAreaView
@@ -44,7 +53,6 @@ export const AuthLoginForm = observer(() => {
               validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
             />
           </MukForm>
-
           <MukButton
             buttonStyle={{
               backgroundColor: 'transparent',
@@ -60,6 +68,7 @@ export const AuthLoginForm = observer(() => {
           <MukButton
             textStyle={{fontWeight: '600'}}
             label={'Spotify İle Giriş Yap'}
+            loading={loading.connectAccount}
             onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify')}
           />
         </View>

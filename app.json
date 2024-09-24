@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Mük",
-    "slug": "muk_fe",
-    "version": "0.0.10",
+    "slug": "muk",
+    "version": "0.0.11",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -32,9 +32,13 @@
       },
       "supportsTablet": true,
       "bundleIdentifier": "com.yedy.dip",
-      "buildNumber": "4"
+      "buildNumber": "11"
     },
     "android": {
+      "versionCode": 11,
+      "softwareKeyboardLayoutMode": "resize",
+      "package": "com.yedy.muk",
+      "googleServicesFile": "./google-services.json",
       "intentFilters": [
         {
           "action": "VIEW",
@@ -43,7 +47,7 @@
             {
               "scheme": "https",
               "host": "api.yedysoft.com",
-              "pathPattern": "/muk/media/auth/.*"
+              "pathPrefix": "/muk/media/auth"
             }
           ],
           "category": [
@@ -61,25 +65,13 @@
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
         "NOTIFICATIONS"
-      ],
-      "versionCode": 10,
-      "softwareKeyboardLayoutMode": "resize",
-      "package": "com.yedy.muk",
-      "googleServicesFile": "./google-services.json"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "4af63416-aec4-4c25-b38f-3f6335f12c85"
-      }
-    },
     "runtimeVersion": {
       "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/4af63416-aec4-4c25-b38f-3f6335f12c85"
     }
   }
 }
