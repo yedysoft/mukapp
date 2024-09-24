@@ -5,8 +5,11 @@ import {IAuthsType} from '../../types/enums';
 import * as WebBrowser from 'expo-web-browser';
 import media from './media';
 import {Linking} from 'react-native';
+import {EmitterSubscription} from 'react-native/Libraries/vendor/emitter/EventEmitter';
 
 class AuthsApi {
+  redirectSubscription: EmitterSubscription | null = null;
+
   async clearAuth(type: IAuthsType): PVoid {
     try {
       stores.loading.set('clearAuth', true);
@@ -49,8 +52,8 @@ class AuthsApi {
           enableDefaultShareMenuItem: false,
           readerMode: false,
         });
-        console.log(sub);
-        sub.remove();
+        await this.waitForRedirect(redirectUri);
+        this.redirectSubscription && this.redirectSubscription.remove();
       }
     } catch (e) {
       console.log(e);
@@ -59,7 +62,6 @@ class AuthsApi {
     }
   }
 
-  let  redirectSubscription = "";
   private async waitForRedirect(redirectUri: string | null | undefined) {
     return new Promise(resolve => {
       const redirectHandler = ({url}) => {
@@ -68,14 +70,14 @@ class AuthsApi {
           const code = params.get('code');
           const state = params.get('state');
           if (code && state && state === 'login') {
-            resolve({type: 'error', token: code});
+            resolve({type: 'success', token: code});
           } else {
             resolve({type: 'error', token: null});
           }
         }
       };
 
-      redirectSubscription = Linking.addEventListener('url', redirectHandler);
+      this.redirectSubscription = Linking.addEventListener('url', redirectHandler);
     });
   }
 }
