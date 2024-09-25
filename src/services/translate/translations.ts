@@ -17,6 +17,7 @@ const tr: MukLang = {
       changePassword: 'Şifremi Unuttum',
       toRegister: 'Kayıt Ol',
       submit: 'Giriş',
+      spotify: 'Spotify İle Giriş Yap',
     },
     register: {
       title: 'Kayıt Ol',
@@ -98,6 +99,13 @@ const tr: MukLang = {
         title: 'Dil',
         system: 'Sistem',
       },
+      connect: {
+        title: 'Bağlı Hesaplar',
+        spotify: {
+          connect: 'Spotify Hesabını Bağla',
+          disconnect: 'Spotify Hesabının Bağlantısını Kes'
+        }
+      }
     },
     ps: {
       blocked: 'Engellenen Kullanıcılar',
@@ -166,6 +174,7 @@ const en: MukLang = {
       changePassword: 'Forgot Password',
       toRegister: 'Register',
       submit: 'Login',
+      spotify: 'Login With Spotify',
     },
     register: {
       title: 'Register',
@@ -247,6 +256,13 @@ const en: MukLang = {
         title: 'Language',
         system: 'System',
       },
+      connect: {
+        title: 'Connected Accounts',
+        spotify: {
+          connect: 'Connect Spotify Account',
+          disconnect: 'Disconnect Spotify Account'
+        }
+      }
     },
     ps: {
       blocked: 'Blocked Users',

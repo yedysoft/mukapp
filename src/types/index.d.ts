@@ -41,6 +41,7 @@ type LangAuth<T> = {
     changePassword: T;
     toRegister: T;
     submit: T;
+    spotify: T,
   };
   register: {
     title: T;
@@ -122,6 +123,13 @@ type LangMain<T> = {
       title: T;
       system: T;
     };
+    connect: {
+      title: T,
+      spotify: {
+        connect: T,
+        disconnect: T
+      }
+    }
   };
   ps: {
     blocked: T;

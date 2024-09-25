@@ -4,7 +4,7 @@ import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
 import {useServices} from '../../services';
-import {View} from 'react-native';
+import {ActivityIndicator, Pressable, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -13,6 +13,7 @@ import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {ILogin} from '../../types/auth';
+import SpotifyIcon from "../spotify/SpotifyIcon";
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -34,7 +35,7 @@ export const AuthLoginForm = observer(() => {
         </Text>
         <View style={{gap: responsiveWidth(8)}}>
           <MukForm ref={formRef} onSubmit={handleSubmit} data={formData}>
-            <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
+            <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'}/>
             <MukTextInput
               name={'pass'}
               label={t.do('auth.login.password')}
@@ -49,19 +50,26 @@ export const AuthLoginForm = observer(() => {
               backgroundColor: 'transparent',
               padding: 0,
               alignSelf: 'flex-end',
+              marginVertical: responsiveWidth(16)
             }}
             textStyle={{color: colors.outlineVariant, fontWeight: '400', fontSize: responsiveSize(14)}}
             loading={loading.getLogin}
             label={t.do('auth.login.changePassword')}
-            onPress={() => navigation.navigate('Forgot')}
-          />
-          <Divider />
-          <MukButton
-            textStyle={{fontWeight: '600'}}
-            label={'Spotify İle Giriş Yap'}
-            loading={loading.connectAccount}
-            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}
-          />
+            onPress={() => navigation.navigate('Forgot')}/>
+          <Pressable
+            disabled={loading.connectAccount}
+            style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: colors.shadow, borderRadius: 16}}
+            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}>
+            <ActivityIndicator
+              size={responsiveSize(12)}
+              color={colors.primary}
+              style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
+            />
+            <SpotifyIcon scale={1.3} noText/>
+            <Text style={{color: colors.secondary, fontWeight: '400', fontSize: responsiveSize(16)}}>
+              {t.do('auth.login.spotify')}
+            </Text>
+          </Pressable>
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>

@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {useTheme} from 'react-native-paper';
+import {Text, useTheme} from 'react-native-paper';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
@@ -7,11 +7,13 @@ import MukPicker from '../../components/custom/MukPicker';
 import {_languages, IAppearance, IAuthsType, ILanguage} from '../../types/enums';
 import {useMemo} from 'react';
 import MukCard from '../../components/custom/MukCard';
-import {responsiveWidth} from '../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukSegmented from '../../components/custom/MukSegmented';
 import {SubLayout} from '../../components/layouts/SubLayout';
 import MukButton from '../../components/custom/MukButton';
 import api from '../../services/api';
+import {ActivityIndicator, Pressable} from "react-native";
+import SpotifyIcon from "../../components/spotify/SpotifyIcon";
 
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
@@ -55,21 +57,30 @@ export const SettingsScreen = observer(() => {
           onValueChange={(_name, value) => t.setup(value as ILanguage)}
         />
       </MukCard>
-      <MukCard title={'Bağlı Hesaplar'}>
+      <MukCard title={t.do('main.settings.connect.title')} contentStyle={{alignItems: 'flex-start'}}>
         {Object.entries(connectedAccounts).map(([key, name]) => {
           const isConnected = auth.auths.some(value => value === key);
           return (
-            <MukButton
+            <Pressable
               disabled={loading.clearAuth || loading.connectAccount}
-              label={isConnected ? `${name} hesabının bağlantısını kes` : `${name} hesabını bağla`}
+              style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={async () => {
                 if (isConnected) {
                   await api.auths.clearAuth(key as IAuthsType);
                 } else {
                   await api.auths.connectAccount(key as IAuthsType, name);
                 }
-              }}
-            />
+              }}>
+              <ActivityIndicator
+                size={responsiveSize(12)}
+                color={colors.primary}
+                style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
+              />
+              <SpotifyIcon scale={1.3} noText/>
+              <Text style={{color: colors.secondary, fontWeight: '400', fontSize: responsiveSize(16)}}>
+                {t.do(isConnected ? `main.settings.connect.${name.toLowerCase()}.disconnect` : `main.settings.connect.${name.toLowerCase()}.connect` as any)}
+              </Text>
+            </Pressable>
           );
         })}
       </MukCard>

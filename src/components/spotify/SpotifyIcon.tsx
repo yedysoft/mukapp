@@ -11,11 +11,12 @@ type Props = {
   style?: ImageStyle;
   onPress?: (e: any) => void;
   spotifyText?: string;
+  noText?: boolean;
 };
 
 const MIN_WIDTH = 21;
 
-export default function SpotifyIcon({color = 'green', scale, style, onPress, spotifyText}: Props) {
+export default function SpotifyIcon({color = 'green', scale, style, onPress, spotifyText, noText}: Props) {
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
 
@@ -38,10 +39,10 @@ export default function SpotifyIcon({color = 'green', scale, style, onPress, spo
     if (ref.current && (dimensions.width === 0 || dimensions.height === 0)) {
       ref.current.measure((_x, _y, width, height) => {
         (width !== Math.ceil(dimensions.width) || height !== Math.ceil(dimensions.height)) &&
-          setDimensions({
-            width: Math.ceil(width),
-            height: Math.ceil(height),
-          });
+        setDimensions({
+          width: Math.ceil(width),
+          height: Math.ceil(height),
+        });
       });
     }
   };
@@ -68,11 +69,11 @@ export default function SpotifyIcon({color = 'green', scale, style, onPress, spo
         ]}
         onLayout={onLayout}
       />
-      <Text
-        style={{color: color === 'green' ? colors.secondary : color, fontSize: responsiveSize(14), fontWeight: '500'}}
-      >
-        {hasSpotify ? spotifyText ?? 'Play on Spotify' : 'Get Spotify Free'}
-      </Text>
+      {noText ? undefined :
+        <Text style={{color: color === 'green' ? colors.secondary : color, fontSize: responsiveSize(14), fontWeight: '500'}}>
+          {hasSpotify ? spotifyText ?? 'Play on Spotify' : 'Get Spotify Free'}
+        </Text>
+      }
     </Pressable>
   );
 }
