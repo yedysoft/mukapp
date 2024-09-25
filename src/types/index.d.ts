@@ -1,10 +1,25 @@
 import {ThemeBase} from 'react-native-paper/lib/typescript/types';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {MainStackScreens} from '../navigation/MainStack';
-import {IMessageBodyType} from './enums';
+import {IAuthsType, IMessageBodyType} from './enums';
 import {Fonts} from 'react-native-paper/src/types';
+import {IForgot, ILogin, IRegister} from './auth';
 
 // Services
+export interface IAuthApi {
+  forgotPass(form: IForgot): PVoid;
+  register(form: IRegister): PVoid;
+  login(form: ILogin): PVoid;
+  logout(): PVoid;
+  checkToken(): PVoid;
+  isNeededPassChange(): Promise<boolean>;
+  saveLoginHistory(): PVoid;
+}
+export interface IAuthsApi {
+  clearAuth(type: IAuthsType): PVoid;
+  getAuths(): PVoid;
+  connectAccount(key: IAuthsType, name: string, isLogin: boolean): PVoid;
+}
 export interface IService {
   init: () => PVoid;
 }

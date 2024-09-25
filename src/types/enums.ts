@@ -1,8 +1,8 @@
 export const _languages = {
   system: 'System',
   tr: 'Türkçe',
-  /*en: 'English',
-  de: 'Deutsch',
+  en: 'English',
+  /*de: 'Deutsch',
   ru: 'Русский',
   ar: 'عربي',
   fr: 'Français',

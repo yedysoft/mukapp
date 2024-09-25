@@ -3,6 +3,9 @@
     "name": "Mük",
     "slug": "muk",
     "version": "0.0.11",
+    "cli": {
+      "appVersionSource": "nativeVersion"
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",

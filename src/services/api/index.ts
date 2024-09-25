@@ -1,6 +1,5 @@
 import helper from './helper';
 import socket from './socket';
-import auth from './auth';
 import user from './user';
 import media from './media';
 import subscription from './subscription';
@@ -9,7 +8,7 @@ import room from './room';
 import chat from './chat';
 import permission from './permission';
 import main from './main';
-import auths from './auths';
+import auths, {auth} from './auths';
 import {IService, PVoid} from '../../types';
 
 class ApiService implements IService {

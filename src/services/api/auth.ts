@@ -3,7 +3,7 @@ import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
 import socket from './socket';
 import user from './user';
-import {MessageBody, PVoid} from '../../types';
+import {IAuthApi, IAuthsApi, MessageBody, PVoid} from '../../types';
 import room from './room';
 import subscription from './subscription';
 import chat from './chat';
@@ -12,9 +12,14 @@ import {IDeviceType} from '../../types/enums';
 import {Platform} from 'react-native';
 import * as Device from 'expo-device';
 import {DeviceType} from 'expo-device';
-import auths from './auths';
 
-class AuthApi {
+export class AuthApi implements IAuthApi {
+  private authsApi: IAuthsApi;
+
+  constructor(authsApi: IAuthsApi) {
+    this.authsApi = authsApi;
+  }
+
   async forgotPass(form: IForgot): PVoid {
     try {
       stores.loading.set('forgotPass', true);
@@ -77,7 +82,7 @@ class AuthApi {
         await this.saveLoginHistory();
         await user.getAllNotifications();
         await chat.getChats();
-        await auths.getAuths();
+        await this.authsApi.getAuths();
         await socket.connect();
         await subscription.globalSubscribes();
         const isNeededPassChange = await this.isNeededPassChange();
@@ -125,5 +130,4 @@ class AuthApi {
   }
 }
 
-const auth = new AuthApi();
-export default auth;
+export default AuthApi;

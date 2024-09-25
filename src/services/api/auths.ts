@@ -1,13 +1,13 @@
 import axiosIns from '../axiosIns';
 import {stores} from '../../stores';
-import {PVoid} from '../../types';
+import {IAuthApi, IAuthsApi, PVoid} from '../../types';
 import {IAuthsType} from '../../types/enums';
 import * as WebBrowser from 'expo-web-browser';
 import media from './media';
 import {authRedirectUrl} from '../../../config';
-import auth from './auth';
+import {AuthApi} from './auth';
 
-class AuthsApi {
+export class AuthsApi implements IAuthsApi {
   async clearAuth(type: IAuthsType): PVoid {
     try {
       stores.loading.set('clearAuth', true);
@@ -78,5 +78,6 @@ class AuthsApi {
   }
 }
 
-const auths = new AuthsApi();
+const auths: IAuthsApi = new AuthsApi();
+export const auth: IAuthApi = new AuthApi(auths);
 export default auths;

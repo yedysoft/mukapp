@@ -5,11 +5,11 @@ import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
 import {IPassChange} from '../../types/auth';
 import {useServices} from '../../services';
-import {View} from 'react-native';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -22,12 +22,12 @@ export default observer(() => {
     formRef.current?.validateInputs() && api.user.passChange(formRef.current?.formData() as IPassChange);
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         flexDirection: 'column',
         gap: responsiveWidth(16),
-        paddingBottom: responsiveWidth(32),
+        paddingTop: responsiveHeight(32),
       }}
     >
       <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
@@ -60,6 +60,6 @@ export default observer(() => {
         label={t.do('form.newPass.submit')}
         onPress={onSubmit}
       />
-    </View>
+    </SafeAreaView>
   );
 });

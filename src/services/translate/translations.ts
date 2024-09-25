@@ -149,4 +149,153 @@ const tr: MukLang = {
   },
 };
 
-export {tr};
+const en: MukLang = {
+  error: {
+    required: 'Required',
+    notValidInputs: 'Fill in the required fields',
+    soon: 'Coming Soon!',
+  },
+  header: {
+    blank: '',
+  },
+  auth: {
+    login: {
+      title: 'Login',
+      username: 'Username',
+      password: 'Password',
+      changePassword: 'Forgot Password',
+      toRegister: 'Register',
+      submit: 'Login',
+    },
+    register: {
+      title: 'Register',
+      name: 'First Name',
+      surname: 'Last Name',
+      birthday: 'Birthday',
+      gender: 'Gender',
+      email: 'Email',
+      username: 'Username',
+      phone: 'Phone',
+      password: 'Password',
+      repassword: 'Repeat Password',
+      next: 'Next',
+      prev: 'Back',
+      toLogin: 'Login',
+      submit: 'Sign Up',
+    },
+    forgot: {
+      title: 'Reset Password',
+      email: 'Email',
+      back: 'Back',
+      submit: 'Reset',
+    },
+    edit: {
+      submit: 'Confirm Changes',
+    },
+  },
+  main: {
+    room: {
+      blank: '',
+    },
+    social: {
+      newChat: 'New Chat',
+      typing: 'is typing...',
+    },
+    home: {
+      places: 'Places',
+      streamers: 'Streamers',
+    },
+    notifications: {
+      blank: '',
+    },
+    premium: {
+      blank: '',
+    },
+    profile: {
+      votes: 'Votes',
+      followers: 'Followers',
+      following: 'Following',
+    },
+    shop: {
+      blank: '',
+    },
+    side: {
+      profile: 'Profile',
+      notifications: 'Notifications',
+      search: 'Search',
+      premium: 'Premium',
+      tasks: 'Tasks',
+      settings: 'Settings',
+      ps: 'Privacy & Security',
+    },
+    search: {
+      placeholder: 'Search User',
+      follows: 'Follows You',
+    },
+    task: {
+      blank: '',
+    },
+    settings: {
+      title: 'Settings',
+      theme: {
+        title: 'Theme',
+        system: 'System',
+        light: 'Light',
+        dark: 'Dark',
+      },
+      language: {
+        title: 'Language',
+        system: 'System',
+      },
+    },
+    ps: {
+      blocked: 'Blocked Users',
+    },
+  },
+  roomConfig: {
+    name: 'Room Name',
+    submit: 'Create Room',
+  },
+  notification: {
+    accept: 'Accept',
+    reject: 'Reject',
+  },
+  dialog: {
+    default: {
+      title: '',
+      content: '',
+      reject: 'Cancel',
+      accept: 'Confirm',
+    },
+    spotify: {
+      title: 'Authorization Required',
+      content: 'To proceed, Spotify authorization is required. Would you like to authorize now?',
+      reject: 'Remind Me',
+      accept: 'Authorize',
+    },
+    spotifyPremium: {
+      title: 'Get Spotify Premium to Create Room',
+      content:
+        'Spotify Premium allows you to play any song, podcast episode, or audiobook ad-free and with better sound quality. Go to spotify.com/premium for a free trial.',
+      reject: 'Remind Me',
+      accept: 'Get Premium',
+    },
+  },
+  enum: {
+    gender: {
+      MALE: 'Male',
+      FEMALE: 'Female',
+      OTHER: 'Other',
+    },
+  },
+  form: {
+    newPass: {
+      title: 'Create Password',
+      newPass: 'New Password',
+      reNewPass: 'Repeat New Password',
+      submit: 'Save',
+    },
+  },
+};
+
+export {tr, en};
