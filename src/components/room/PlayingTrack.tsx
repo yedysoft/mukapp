@@ -31,6 +31,7 @@ export default observer(({compact}: Props) => {
   useEffect(() => {
     media.getPlaylists &&
       !media.getPlayingTrack.uri &&
+      media.getPlaylists[1] &&
       api.helper.openURL(`${spotifyOpenUrlBase}/playlist/${media.getPlaylists[1].id}`); //TODO: SPOTİDE PLAY EKLENİNCE KALDIRILACAK
   }, [media.getPlaylists]);
 

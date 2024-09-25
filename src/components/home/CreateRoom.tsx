@@ -83,7 +83,7 @@ const CreateRoom = observer(() => {
             </MukForm>
           </View>
         </View>
-        <MukButton label={t.do('roomConfig.submit')} onPress={() => createRoom()} />
+        <MukButton label={t.do('roomConfig.submit')} onPress={createRoom} />
       </MukBottomSheet>
     </>
   );
