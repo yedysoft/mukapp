@@ -7,7 +7,7 @@ import {observer} from 'mobx-react';
 import {NavButton} from './NavButton';
 import Token from '../user/Token';
 import Coin from '../user/Coin';
-import {MukTheme} from '../../types';
+import {MukLangPaths, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
@@ -70,7 +70,7 @@ export default observer(() => {
         <ChatHeader id={params?.chat.id} />
       ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (
         <Text style={{fontSize: responsiveSize(28), color: colors.secondary, fontWeight: '300'}}>
-          {t.do(`main.side.${route.name.toLowerCase()}`)}
+          {t.do(`main.side.${route.name.toLowerCase()}` as MukLangPaths)}
         </Text>
       ) : null}
     </SafeAreaView>

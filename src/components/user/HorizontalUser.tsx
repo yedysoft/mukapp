@@ -10,6 +10,9 @@ import {MukTheme} from '../../types';
 export default function HorizontalUser() {
   const {colors} = useTheme<MukTheme>();
   const {user, auth} = useStores();
+
+  console.log(user.getInfo);
+
   return (
     <View style={{flexDirection: 'row', gap: responsiveWidth(12), padding: responsiveWidth(16), overflow: 'hidden'}}>
       <MukImage

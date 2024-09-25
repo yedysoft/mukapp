@@ -172,7 +172,6 @@ const MukTextInputComp = observer(
       };
 
       const focusInput = () => {
-        console.log('test');
         if (isPicker) {
           Keyboard.dismiss();
           pickerChangeVisible(true);
