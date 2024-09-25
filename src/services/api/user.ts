@@ -144,7 +144,7 @@ class UserApi {
     const topListVoteMusic: {topVoted: IQueueTrack[]; countTopVoted: number} = {topVoted: [], countTopVoted: 0};
     try {
       stores.loading.set('votes', true);
-      const response = await axiosIns.get(`/user-info/getTopListVoteMusic/${userId}`);
+      const response = await axiosIns.get(`/vote/getTopListVoteMusic/${userId}`);
       topListVoteMusic.topVoted = media.getQueueTracks(response.data.map((d: any, _: number) => d));
       topListVoteMusic.countTopVoted = response.data
         .map((d: any, _: number) => d.total)
@@ -209,10 +209,7 @@ class UserApi {
   async passChange(form: IPassChange): PVoid {
     try {
       stores.loading.set('passChange', true);
-      const response = await axiosIns.post<MessageBody>('/user/passChange', form);
-      if (response.status === 200) {
-        stores.ui.addMessage(response.data);
-      }
+      await axiosIns.post<MessageBody>('/user/passChange', form);
     } catch (e) {
       console.log(e);
     } finally {

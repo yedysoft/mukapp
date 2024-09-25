@@ -69,7 +69,7 @@ class UIStore extends BaseStore<UIStore> {
   }
 
   addMessage(body: MessageBody, interval = 2000) {
-    this.set('messages', [...this.messages, {id: this.id++, interval: interval, body: body}]);
+    this.set('messages', v => [...v, {id: this.id++, interval: interval, body: body}]);
   }
 
   addError(message: string, code?: number) {
@@ -85,14 +85,11 @@ class UIStore extends BaseStore<UIStore> {
   }
 
   delMessage(id: number) {
-    this.set(
-      'messages',
-      this.messages.filter(e => e.id !== id),
-    );
+    this.set('messages', v => v.filter(e => e.id !== id));
   }
 
   toggleReload() {
-    this.set('reloadToggle', !this.reloadToggle);
+    this.set('reloadToggle', v => !v);
   }
 }
 
