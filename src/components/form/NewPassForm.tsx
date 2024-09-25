@@ -19,7 +19,8 @@ export default observer(() => {
   const formData: IPassChange = {oldPass: 'temp', newPass: ''};
 
   const onSubmit = () =>
-    formRef.current?.validateInputs() && api.user.passChange(formRef.current?.formData() as IPassChange);
+    formRef.current?.validateInputs() &&
+    api.user.passChange(formRef.current?.formData() as IPassChange).then(api.auth.checkToken);
 
   return (
     <SafeAreaView
