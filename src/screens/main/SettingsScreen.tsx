@@ -60,7 +60,7 @@ export const SettingsScreen = observer(() => {
           const isConnected = auth.auths.some(value => value === key);
           return (
             <MukButton
-              disabled={loading.clearAuth}
+              disabled={loading.clearAuth || loading.connectAccount}
               label={isConnected ? `${name} hesabının bağlantısını kes` : `${name} hesabını bağla`}
               onPress={async () => {
                 if (isConnected) {

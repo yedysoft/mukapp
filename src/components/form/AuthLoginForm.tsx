@@ -60,7 +60,7 @@ export const AuthLoginForm = observer(() => {
             textStyle={{fontWeight: '600'}}
             label={'Spotify İle Giriş Yap'}
             loading={loading.connectAccount}
-            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify')}
+            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}
           />
         </View>
       </View>

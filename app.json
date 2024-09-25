@@ -48,11 +48,6 @@
               "scheme": "https",
               "host": "api.yedysoft.com",
               "pathPrefix": "/muk/auths/login"
-            },
-            {
-              "scheme": "https",
-              "host": "api.yedysoft.com",
-              "pathPrefix": "/muk/media/auth"
             }
           ],
           "category": [

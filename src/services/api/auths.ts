@@ -33,7 +33,7 @@ class AuthsApi {
     }
   }
 
-  async connectAccount(key: IAuthsType, name: string, isLogin: boolean): PVoid {
+  async connectAccount(key: IAuthsType, name: string, isLogin = false): PVoid {
     try {
       stores.loading.set('connectAccount', true);
       let authUrl;
@@ -50,6 +50,7 @@ class AuthsApi {
           enableDefaultShareMenuItem: false,
           readerMode: false,
         });
+        console.log(result);
         if (result.type === 'success') {
           if (isLogin) {
             const params = new URLSearchParams(result.url.split('?')[1]);
