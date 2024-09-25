@@ -11,3 +11,5 @@ export const restUrl = `${prefix}://${host}`;
 export const wsUrl = `${prefixws}://${host}/ws`;
 
 export const spotifyOpenUrlBase = 'https://open.spotify.com';
+
+export const authRedirectUrl = 'https://api.yedysoft.com/muk/auths/login';

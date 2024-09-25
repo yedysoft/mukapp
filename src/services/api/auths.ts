@@ -4,12 +4,10 @@ import {PVoid} from '../../types';
 import {IAuthsType} from '../../types/enums';
 import * as WebBrowser from 'expo-web-browser';
 import media from './media';
-import {Linking} from 'react-native';
-import {EmitterSubscription} from 'react-native/Libraries/vendor/emitter/EventEmitter';
+import {authRedirectUrl} from '../../../config';
+import auth from './auth';
 
 class AuthsApi {
-  redirectSubscription: EmitterSubscription | null = null;
-
   async clearAuth(type: IAuthsType): PVoid {
     try {
       stores.loading.set('clearAuth', true);
@@ -35,7 +33,7 @@ class AuthsApi {
     }
   }
 
-  async connectAccount(key: IAuthsType, name: string): PVoid {
+  async connectAccount(key: IAuthsType, name: string, isLogin: boolean): PVoid {
     try {
       stores.loading.set('connectAccount', true);
       let authUrl;
@@ -45,40 +43,37 @@ class AuthsApi {
       if (authUrl) {
         const params = new URLSearchParams(authUrl.split('?')[1]);
         const redirectUri = params.get('redirect_uri');
-        await WebBrowser.openBrowserAsync(authUrl, {
+        const result = await WebBrowser.openAuthSessionAsync(authUrl, isLogin ? authRedirectUrl : redirectUri, {
           toolbarColor: stores.ui.getTheme.colors.primary,
           controlsColor: stores.ui.getTheme.colors.primary,
           enableBarCollapsing: false,
           enableDefaultShareMenuItem: false,
           readerMode: false,
         });
-        await this.waitForRedirect(redirectUri);
-        this.redirectSubscription && this.redirectSubscription.remove();
+        if (result.type === 'success') {
+          if (isLogin) {
+            const params = new URLSearchParams(result.url.split('?')[1]);
+            const code = params.get('code');
+            if (code) {
+              stores.auth.set('authToken', code);
+              await auth.checkToken();
+            }
+          } else {
+            await this.getAuths();
+            if (stores.auth.auths.some(value => value === key)) {
+              stores.ui.addInfo(`${name} hesabınız bağlandı.`);
+              if (key === 'SPOTIFY') {
+                stores.media.set('authenticated', true);
+              }
+            }
+          }
+        }
       }
     } catch (e) {
       console.log(e);
     } finally {
       stores.loading.set('connectAccount', false);
     }
-  }
-
-  private async waitForRedirect(redirectUri: string | null | undefined) {
-    return new Promise(resolve => {
-      const redirectHandler = ({url}) => {
-        if (redirectUri && url.startsWith(redirectUri)) {
-          const params = new URLSearchParams(url.split('?')[1]);
-          const code = params.get('code');
-          const state = params.get('state');
-          if (code && state && state === 'login') {
-            resolve({type: 'success', token: code});
-          } else {
-            resolve({type: 'error', token: null});
-          }
-        }
-      };
-
-      this.redirectSubscription = Linking.addEventListener('url', redirectHandler);
-    });
   }
 }
 
