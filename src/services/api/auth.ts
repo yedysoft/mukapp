@@ -78,14 +78,16 @@ export class AuthApi implements IAuthApi {
     try {
       const opt = await axiosIns.options('/auth/checkToken');
       if (opt.status === 200) {
-        await user.getInfo();
-        await this.saveLoginHistory();
-        await user.getAllNotifications();
-        await chat.getChats();
-        await this.authsApi.getAuths();
-        await socket.connect();
-        await subscription.globalSubscribes();
         const isNeededPassChange = await this.isNeededPassChange();
+        if (!isNeededPassChange) {
+          await user.getInfo();
+          await this.saveLoginHistory();
+          await user.getAllNotifications();
+          await chat.getChats();
+          await this.authsApi.getAuths();
+          await socket.connect();
+          await subscription.globalSubscribes();
+        }
         stores.auth.setMany({isNeededPassChange: isNeededPassChange, loggedIn: !isNeededPassChange});
       }
     } catch (e: any) {
