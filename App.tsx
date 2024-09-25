@@ -60,7 +60,7 @@ export default observer(() => {
     };
   }, [stores.ui.getReloadToggle]);
 
-  SystemUI.setBackgroundColorAsync(stores.ui.getTheme.colors.background);
+  SystemUI.setBackgroundColorAsync(stores.ui.getTheme.colors.background).finally();
 
   return (
     <AppProvider>
