@@ -55,8 +55,12 @@ export default observer(() => {
 
   useEffect(() => {
     initializeApp().then(() => setReady(true));
+    const sub = Linking.addEventListener('url', event => {
+      console.log(event);
+    });
     return () => {
       deinitializeApp().then(() => setReady(false));
+      sub.remove();
     };
   }, [stores.ui.getReloadToggle]);
 

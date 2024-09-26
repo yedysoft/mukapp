@@ -32,7 +32,7 @@
         "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to select photos."
       },
       "supportsTablet": true,
-      "bundleIdentifier": "com.yedy.dip",
+      "bundleIdentifier": "com.yedy.muk",
       "buildNumber": "11"
     },
     "android": {
