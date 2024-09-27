@@ -1,16 +1,13 @@
 import {observer} from 'mobx-react';
 import {useStores} from '../../../stores';
-import {useTheme} from 'react-native-paper';
 import {useServices} from '../../../services';
 import SearchList from '../../../components/search/SearchList';
 import {responsiveWidth} from '../../../utils/util';
 import MukTextInput from '../../../components/custom/MukTextInput';
-import {MukTheme} from '../../../types';
 import {useEffect} from 'react';
 import {SubLayout} from '../../../components/layouts/SubLayout';
 
 export const SearchScreen = observer(() => {
-  const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
   const {user} = useStores();
 

@@ -18,7 +18,7 @@ export interface IAuthApi {
 export interface IAuthsApi {
   clearAuth(type: IAuthsType): PVoid;
   getAuths(): PVoid;
-  connectAccount(key: IAuthsType, name: string, isLogin: boolean): PVoid;
+  connectAccount(key: IAuthsType, name: string, isLogin?: boolean): PVoid;
 }
 export interface IService {
   init: () => PVoid;
@@ -41,7 +41,7 @@ type LangAuth<T> = {
     changePassword: T;
     toRegister: T;
     submit: T;
-    spotify: T,
+    spotify: T;
   };
   register: {
     title: T;
@@ -124,12 +124,12 @@ type LangMain<T> = {
       system: T;
     };
     connect: {
-      title: T,
+      title: T;
       spotify: {
-        connect: T,
-        disconnect: T
-      }
-    }
+        connect: T;
+        disconnect: T;
+      };
+    };
   };
   ps: {
     blocked: T;

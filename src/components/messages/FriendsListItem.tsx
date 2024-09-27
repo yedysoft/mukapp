@@ -5,47 +5,58 @@ import MukListItem from '../custom/MukListItem';
 import {IFollowUser} from '../../types/user';
 import {View} from 'react-native';
 import {MukTheme} from '../../types';
+import {observer} from 'mobx-react';
+import {useStores} from '../../stores';
 
 type Props = {
   onPress?: (id: string) => void;
-  friend?: IFollowUser;
+  friend: IFollowUser;
 };
 
-export default function FriendsListItem({onPress, friend}: Props) {
+export default observer(({onPress, friend}: Props) => {
   const {colors} = useTheme<MukTheme>();
+  const {auth} = useStores();
 
   return (
     <MukListItem
-      onPress={() => friend?.id && onPress && onPress(friend?.id)}
+      onPress={() => onPress && onPress(friend.id)}
       style={{
         alignItems: 'center',
-        backgroundColor: friend?.selected ? colors.primary : colors.shadow,
+        backgroundColor: friend.selected ? colors.primary : colors.shadow,
         borderRadius: 16,
       }}
     >
-      <MukImage scale={1} style={{borderRadius: 100}} source={require('../../../assets/adaptive-icon.png')} />
+      <MukImage
+        scale={1}
+        style={{borderRadius: 100}}
+        source={
+          friend.image
+            ? {uri: `${friend.image.link}?token=${auth.getAuthToken}`}
+            : require('../../../assets/adaptive-icon.png')
+        }
+      />
       <View style={{gap: responsiveWidth(4)}}>
         <Text
           numberOfLines={1}
           style={{
             fontSize: responsiveSize(16),
             fontWeight: '400',
-            color: friend?.selected ? colors.background : colors.secondary,
+            color: friend.selected ? colors.background : colors.secondary,
           }}
         >
-          {friend?.name} {friend?.surname}
+          {friend.name} {friend.surname}
         </Text>
         <Text
           numberOfLines={1}
           style={{
             fontSize: responsiveSize(15),
             fontWeight: '300',
-            color: friend?.selected ? colors.background : colors.secondary,
+            color: friend.selected ? colors.background : colors.secondary,
           }}
         >
-          @{friend?.userName}
+          @{friend.userName}
         </Text>
       </View>
     </MukListItem>
   );
-}
+});

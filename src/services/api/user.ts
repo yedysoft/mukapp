@@ -29,8 +29,9 @@ class UserApi {
       const response = await axiosIns.get<IPage<ISearchUser[]>>(
         `/user-info/search/${keyword}?page=${page}&size=${size}&sort=ui.name`,
       );
-      stores.user.set('searched', response.data.content);
-      console.log(response.data.content);
+      if (response.status === 200) {
+        stores.user.set('searched', response.data.content);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -40,8 +41,9 @@ class UserApi {
     try {
       stores.loading.set('following', true);
       const response = await axiosIns.get<IFollowUser[]>(`/user-follower/getFollows/${userId}`);
-      console.log('Follows: ', response.data);
-      stores.user.set('follows', response.data);
+      if (response.status === 200) {
+        stores.user.set('follows', response.data);
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -53,8 +55,9 @@ class UserApi {
     try {
       stores.loading.set('followers', true);
       const response = await axiosIns.get<IFollowUser[]>(`/user-follower/getFollowers/${userId}`);
-      console.log('Followers: ', response.data);
-      stores.user.set('followers', response.data);
+      if (response.status === 200) {
+        stores.user.set('followers', response.data);
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -95,7 +98,10 @@ class UserApi {
   async blockUser(userId: string): PVoid {
     try {
       const response = await axiosIns.get(`/user-blocked/block/${userId}`);
-      console.log('Block: ', response.data);
+      if (response.status === 200) {
+        await this.getBlockedUsers();
+        console.log('Block: ', response.data);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -104,7 +110,10 @@ class UserApi {
   async unblockUser(blockId: string | undefined): PVoid {
     try {
       const response = await axiosIns.get(`/user-blocked/unblock/${blockId}`);
-      console.log('Unblock: ', response.data);
+      if (response.status === 200) {
+        await this.getBlockedUsers();
+        console.log('Unblock: ', response.data);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -113,8 +122,9 @@ class UserApi {
   async getBlockedUsers(): PVoid {
     try {
       const response = await axiosIns.get<IBlockedUser[]>('/user-blocked/getBlockedUsers');
-      console.log('BlockedUsers: ', response.data);
-      stores.user.set('blockedUsers', response.data);
+      if (response.status === 200) {
+        stores.user.set('blockedUsers', response.data);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -123,8 +133,10 @@ class UserApi {
   async unFollow(userId: string): PVoid {
     try {
       const response = await axiosIns.delete(`/user-follower/unFollow/${userId}`);
-      console.log('Unfollow: ', response.data);
-      await this.getFollows(stores.user.getInfo.id);
+      if (response.status === 200) {
+        console.log('Unfollow: ', response.data);
+        await this.getFollows(stores.user.getInfo.id);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -133,8 +145,10 @@ class UserApi {
   async takeOutMyFollowers(userId: string): PVoid {
     try {
       const response = await axiosIns.delete(`/user-follower/takeOutMyFollowers/${userId}`);
-      console.log('takeOutMyFollowers: ', response.data);
-      await this.getFollowers(stores.user.getInfo.id);
+      if (response.status === 200) {
+        console.log('takeOutMyFollowers: ', response.data);
+        await this.getFollowers(stores.user.getInfo.id);
+      }
     } catch (e) {
       console.log(e);
     }

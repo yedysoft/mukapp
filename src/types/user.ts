@@ -33,9 +33,9 @@ export type INotification = {
 export type IFollowUser = {
   id: string;
   userName: string;
-  imagePath: string;
   name: string;
   surname: string;
+  image: IImage | null;
   selected?: boolean;
 };
 
@@ -43,12 +43,12 @@ export type IBlockedUser = {
   blockId: string;
   blockedUserId: string;
   userName: string;
-  imgPath: string;
+  image: IImage | null;
 };
 
 export type ISearchUser = {
   id: string;
-  image: string;
+  image: IImage | null;
   name: string;
   surname: string;
   userName: string;

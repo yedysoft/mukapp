@@ -19,6 +19,10 @@ class UIStore extends BaseStore<UIStore> {
   keyboardHeight = 0;
   pickerViewVisible = false;
 
+  //TODO geçici eklendi
+  name = '';
+  pass = '';
+
   constructor() {
     super();
     this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language']);

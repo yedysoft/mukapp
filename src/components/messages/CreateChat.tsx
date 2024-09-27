@@ -24,7 +24,7 @@ export default observer(() => {
   }, [user.getFollows]);
 
   const selectUser = (id: string) => {
-    setUsers(users.map(u => (u.id === id ? {...u, selected: !u.selected} : u)));
+    setUsers(v => v.map(u => (u.id === id ? {...u, selected: !u.selected} : u)));
   };
 
   const handleOnPress = () => {

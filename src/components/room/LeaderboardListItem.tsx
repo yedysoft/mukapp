@@ -10,15 +10,17 @@ import {MukTheme} from '../../types';
 import {IRoomLeaderboard} from '../../types/room';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {useStores} from '../../stores';
 
 type Props = {
   leader: IRoomLeaderboard;
   index: number;
 };
 
-const LeaderboardListItem = observer(({leader, index}: Props) => {
+export default observer(({leader, index}: Props) => {
   const navigation = useNavigation<MainStackNavProp>();
   const {colors} = useTheme<MukTheme>();
+  const {auth} = useStores();
   let rankColor;
 
   switch (index) {
@@ -69,7 +71,11 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
         )}
         <MukImage
           scale={1}
-          source={leader.imagePath ?? require('../../../assets/adaptive-icon.png')}
+          source={
+            leader.image
+              ? {uri: `${leader.image.link}?token=${auth.getAuthToken}`}
+              : require('../../../assets/adaptive-icon.png')
+          }
           style={{borderRadius: 100, borderWidth: 2, borderColor: rankColor}}
         />
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '600', color: rankColor}}>
@@ -92,5 +98,3 @@ const LeaderboardListItem = observer(({leader, index}: Props) => {
     </MukListItem>
   );
 });
-
-export default LeaderboardListItem;

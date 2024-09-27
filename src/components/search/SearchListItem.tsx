@@ -8,14 +8,18 @@ import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import MukImage from '../custom/MukImage';
+import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   user: ISearchUser;
 };
 
-export default function SearchListItem({user}: Props) {
+export default observer(({user}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {api, t} = useServices();
+  const {auth} = useStores();
+  const {t} = useServices();
   const navigation = useNavigation<MainStackNavProp>();
 
   return (
@@ -23,7 +27,16 @@ export default function SearchListItem({user}: Props) {
       style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}}
       onPress={() => navigation.navigate('Profile', {userId: user.id})}
     >
-      <MukIcon scale={0.8} icon={user.image ?? 'user'} />
+      {user.image ? (
+        <MukImage
+          scale={0.8}
+          style={{marginLeft: responsiveWidth(-5)}}
+          source={{uri: `${user.image.link}?token=${auth.getAuthToken}`}}
+        />
+      ) : (
+        <MukIcon scale={0.8} icon={'user'} />
+      )}
+
       <View style={{flexDirection: 'column', width: '66%', gap: responsiveWidth(4)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), color: colors.secondary, fontWeight: '500'}}>
           {user.name} {user.surname}
@@ -53,4 +66,4 @@ export default function SearchListItem({user}: Props) {
       */}
     </MukListItem>
   );
-}
+});

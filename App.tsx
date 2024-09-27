@@ -19,7 +19,7 @@ import 'react-native-gesture-handler';
 import 'text-encoding';
 import {navigationRef} from './src/navigation/RootNavigation';
 import 'expo-dev-client';
-import {Linking} from 'react-native';
+import {ColorValue, Linking} from 'react-native';
 import {authRedirectUrl} from './config';
 
 const initializeApp = async () => {
@@ -55,16 +55,17 @@ export default observer(() => {
 
   useEffect(() => {
     initializeApp().then(() => setReady(true));
-    const sub = Linking.addEventListener('url', event => {
-      console.log(event);
-    });
     return () => {
       deinitializeApp().then(() => setReady(false));
-      sub.remove();
     };
   }, [stores.ui.getReloadToggle]);
 
-  SystemUI.setBackgroundColorAsync(stores.ui.getTheme.colors.background).finally();
+  const background: ColorValue = stores.ui.getTheme.colors.background;
+  SystemUI.getBackgroundColorAsync().then(async value => {
+    if (value !== background) {
+      await SystemUI.setBackgroundColorAsync(background);
+    }
+  });
 
   return (
     <AppProvider>

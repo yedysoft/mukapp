@@ -1,6 +1,4 @@
-import {useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../../utils/util';
-import {MukTheme} from '../../../types';
 import {useEffect, useState} from 'react';
 import {useStores} from '../../../stores';
 import {useServices} from '../../../services';
@@ -11,7 +9,6 @@ import MukImage from '../../../components/custom/MukImage';
 import {SubLayout} from '../../../components/layouts/SubLayout';
 
 export default function BlockedScreen() {
-  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
   const {user} = useStores();
 

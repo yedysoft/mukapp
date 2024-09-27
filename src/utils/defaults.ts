@@ -31,6 +31,7 @@ class Defaults {
   info: IInfo = {
     id: 'default',
     userName: '',
+    image: null,
     name: '',
     surname: '',
     coin: 0,

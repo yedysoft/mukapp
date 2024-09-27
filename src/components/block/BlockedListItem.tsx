@@ -5,24 +5,30 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import {IBlockedUser} from '../../types/user';
-import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
-import {MainStackNavProp} from '../../navigation/MainStack';
 import MukIconButton from '../custom/MukIconButton';
+import {useStores} from '../../stores';
 
 type Props = {
   item: IBlockedUser;
   onIconPress: (id: string) => void;
 };
 
-const BlockedListItem = observer(({item, onIconPress}: Props) => {
+export default observer(({item, onIconPress}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation<MainStackNavProp>();
+  const {auth} = useStores();
 
   return (
     <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled>
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
-        <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')} />
+        <MukImage
+          scale={1}
+          source={
+            item.image
+              ? {uri: `${item.image.link}?token=${auth.getAuthToken}`}
+              : require('../../../assets/adaptive-icon.png')
+          }
+        />
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '300', color: colors.secondary}}>
           @{item.userName}
         </Text>
@@ -31,5 +37,3 @@ const BlockedListItem = observer(({item, onIconPress}: Props) => {
     </MukListItem>
   );
 });
-
-export default BlockedListItem;

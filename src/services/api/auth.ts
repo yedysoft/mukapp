@@ -13,7 +13,7 @@ import {Platform} from 'react-native';
 import * as Device from 'expo-device';
 import {DeviceType} from 'expo-device';
 
-export class AuthApi implements IAuthApi {
+class AuthApi implements IAuthApi {
   private authsApi: IAuthsApi;
 
   constructor(authsApi: IAuthsApi) {
@@ -61,6 +61,9 @@ export class AuthApi implements IAuthApi {
   }
 
   async logout(): PVoid {
+    if (stores.loading.logout) {
+      return;
+    }
     try {
       stores.loading.set('logout', true);
       await room.closeRoom();

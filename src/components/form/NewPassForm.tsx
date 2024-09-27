@@ -10,6 +10,8 @@ import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {View} from 'react-native';
+import MukIconButton from '../custom/MukIconButton';
 
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -20,7 +22,11 @@ export default observer(() => {
 
   const onSubmit = () =>
     formRef.current?.validateInputs() &&
-    api.user.passChange(formRef.current?.formData() as IPassChange).then(api.auth.checkToken);
+    api.user.passChange(formRef.current?.formData() as IPassChange).then(async () => {
+      loading.set('passChange', true);
+      await api.auth.checkToken();
+      loading.set('passChange', true);
+    });
 
   return (
     <SafeAreaView
@@ -31,9 +37,18 @@ export default observer(() => {
         paddingTop: responsiveHeight(32),
       }}
     >
-      <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
-        {t.do('form.newPass.title')}
-      </Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
+          {t.do('form.newPass.title')}
+        </Text>
+        <MukIconButton icon={'log-out'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
+      </View>
+
       <MukForm ref={formRef} onSubmit={onSubmit} data={formData}>
         <MukTextInput
           name={'newPass'}
@@ -57,7 +72,7 @@ export default observer(() => {
       </MukForm>
       <MukButton
         buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
-        loading={loading.getRegister}
+        loading={loading.passChange}
         label={t.do('form.newPass.submit')}
         onPress={onSubmit}
       />

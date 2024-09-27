@@ -1,6 +1,6 @@
 import {Avatar, Badge, useTheme} from 'react-native-paper';
 import {StyleProp, ViewStyle} from 'react-native';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveScale, responsiveWidth} from '../../utils/util';
 import {MukTheme} from 'src/types';
 
 type Props = {
@@ -36,7 +36,7 @@ export default function MukIcon({badge, icon, color, iconStyle, scale, direction
       <Avatar.Icon
         icon={{source: icon, direction: direction}}
         color={color ? color : colors.secondary}
-        size={responsiveSize(scale ? 64 * scale : 64)}
+        size={responsiveScale(scale)}
         style={[{backgroundColor: 'transparent', marginLeft: responsiveWidth(-5)}, iconStyle]}
       />
     </>

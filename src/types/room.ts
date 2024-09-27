@@ -1,4 +1,5 @@
 import {IPlayingTrack} from './media';
+import {IImage} from './user';
 
 export type IRoom = {
   streamerId: string;
@@ -22,8 +23,8 @@ export type IRoomConfig = {
 };
 
 export type IRoomLeaderboard = {
-  imagePath: string | null;
   userId: string;
   userName: string;
   voteCount: number;
+  image: IImage | null;
 };

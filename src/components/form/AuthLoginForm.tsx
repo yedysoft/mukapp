@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {Divider, Text, useTheme} from 'react-native-paper';
+import {Text, useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
@@ -13,7 +13,7 @@ import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {ILogin} from '../../types/auth';
-import SpotifyIcon from "../spotify/SpotifyIcon";
+import SpotifyIcon from '../spotify/SpotifyIcon';
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -21,9 +21,15 @@ export const AuthLoginForm = observer(() => {
   const {api, t} = useServices();
   const {loading, ui} = useStores();
   const formRef = useRef<MukFormRef<ILogin>>(null);
-  const formData: ILogin = {name: 'eto', pass: '123', expoToken: ui.getExpoToken};
+  const formData: ILogin = {name: ui.name, pass: ui.pass, expoToken: ui.getExpoToken};
 
-  const handleSubmit = () => formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);
+  const handleSubmit = () => {
+    ui.setMany({
+      name: formRef.current?.formData('name') as string,
+      pass: formRef.current?.formData('pass') as string,
+    });
+    formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);
+  };
 
   return (
     <SafeAreaView
@@ -35,7 +41,7 @@ export const AuthLoginForm = observer(() => {
         </Text>
         <View style={{gap: responsiveWidth(8)}}>
           <MukForm ref={formRef} onSubmit={handleSubmit} data={formData}>
-            <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'}/>
+            <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
             <MukTextInput
               name={'pass'}
               label={t.do('auth.login.password')}
@@ -50,22 +56,30 @@ export const AuthLoginForm = observer(() => {
               backgroundColor: 'transparent',
               padding: 0,
               alignSelf: 'flex-end',
-              marginVertical: responsiveWidth(16)
+              marginVertical: responsiveWidth(16),
             }}
             textStyle={{color: colors.outlineVariant, fontWeight: '400', fontSize: responsiveSize(14)}}
             loading={loading.getLogin}
             label={t.do('auth.login.changePassword')}
-            onPress={() => navigation.navigate('Forgot')}/>
+            onPress={() => navigation.navigate('Forgot')}
+          />
           <Pressable
             disabled={loading.connectAccount}
-            style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: colors.shadow, borderRadius: 16}}
-            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}>
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: colors.shadow,
+              borderRadius: 16,
+            }}
+            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}
+          >
             <ActivityIndicator
               size={responsiveSize(12)}
               color={colors.primary}
               style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
             />
-            <SpotifyIcon scale={1.3} noText/>
+            <SpotifyIcon scale={1.3} noText />
             <Text style={{color: colors.secondary, fontWeight: '400', fontSize: responsiveSize(16)}}>
               {t.do('auth.login.spotify')}
             </Text>
