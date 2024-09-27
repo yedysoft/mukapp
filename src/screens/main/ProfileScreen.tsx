@@ -19,7 +19,6 @@ export default observer((props: any) => {
   const otherUser = userId ? user.getInfo.id !== userId : false;
   const otherUserInfo = useInfo(userId, otherUser);
   const info = otherUser ? otherUserInfo : user.getInfo;
-  console.log('RenderProfileScreen', otherUser, userId, info);
 
   const stats = [
     {

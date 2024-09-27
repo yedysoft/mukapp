@@ -28,7 +28,7 @@ class SocketApi {
     });
   }
 
-  async connect(): PVoid {
+  connect = async (): PVoid => {
     return new Promise<void>(resolve => {
       this.client.onConnect = async () => {
         for (const [key, sub] of Object.entries(this.subscribes)) {
@@ -38,15 +38,15 @@ class SocketApi {
       };
       this.client.activate();
     });
-  }
+  };
 
-  async disconnect(): PVoid {
+  disconnect = async (): PVoid => {
     Object.values(this.subscribes).forEach(s => s.unsubscribe);
     await this.client.deactivate({force: true});
     this.subscribes = {};
-  }
+  };
 
-  async subscribe(destination: string, callback?: messageCallbackType, subId?: string, force?: boolean) {
+  subscribe = async (destination: string, callback?: messageCallbackType, subId?: string, force?: boolean) => {
     if (!(destination in this.subscribes) || force) {
       await this.checkConnect();
       if (this.client.connected) {
@@ -60,9 +60,9 @@ class SocketApi {
       }
     }
     return this.subscribes[destination];
-  }
+  };
 
-  async unsubscribe(sub: StompSubscription): PVoid {
+  unsubscribe = async (sub: StompSubscription): PVoid => {
     await this.checkConnect();
     if (this.client.connected) {
       sub.unsubscribe();
@@ -71,9 +71,9 @@ class SocketApi {
         delete this.subscribes[key];
       }
     }
-  }
+  };
 
-  async sendMessage(destination: string, msg?: any): PVoid {
+  sendMessage = async (destination: string, msg?: any): PVoid => {
     await this.checkConnect();
     if (this.client.connected) {
       this.client.publish({
@@ -81,13 +81,13 @@ class SocketApi {
         body: JSON.stringify(msg),
       });
     }
-  }
+  };
 
-  private async checkConnect(): PVoid {
+  private checkConnect = async (): PVoid => {
     if (!this.client.connected) {
       await this.connect();
     }
-  }
+  };
 }
 
 const socket = new SocketApi();

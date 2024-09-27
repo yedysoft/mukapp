@@ -16,11 +16,11 @@ type Props = {
   roomData: IRoom;
 };
 
-const RoomListItem = observer(({roomData}: Props) => {
+export default observer(({roomData}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
-  const {room} = useStores();
+  const {room, auth} = useStores();
 
   const openRoom = async () => {
     if (room.getSessionId !== roomData.sessionId) {
@@ -50,7 +50,11 @@ const RoomListItem = observer(({roomData}: Props) => {
           backgroundColor: roomData.liveSong?.dominantColor,
           borderColor: roomData.liveSong?.dominantColor,
         }}
-        source={require('../../../assets/adaptive-icon.png')}
+        source={
+          roomData.image
+            ? {uri: `${roomData.image.link}?token=${auth.getAuthToken}`}
+            : require('../../../assets/adaptive-icon.png')
+        }
       />
       <View
         style={{
@@ -110,5 +114,3 @@ const RoomListItem = observer(({roomData}: Props) => {
     </MukListItem>
   );
 });
-
-export default RoomListItem;

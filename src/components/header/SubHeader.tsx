@@ -80,7 +80,7 @@ export default observer(() => {
 const ChatHeader = observer(({id}: {id: string}) => {
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
-  const {user} = useStores();
+  const {user, auth} = useStores();
   const chat = user.getChats.find(c => c.id === id) ?? defaults.chat;
   const isPrivate = chat.type === 'PRIVATE';
   const info = useInfo(chat.id, isPrivate);
@@ -92,7 +92,11 @@ const ChatHeader = observer(({id}: {id: string}) => {
     <View style={{gap: responsiveWidth(4)}}>
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(8)}}>
         <MukImage
-          source={require('../../../assets/adaptive-icon.png')}
+          source={
+            info.image
+              ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
+              : require('../../../assets/adaptive-icon.png')
+          }
           scale={0.7}
           style={{
             backgroundColor: colors.bubble,

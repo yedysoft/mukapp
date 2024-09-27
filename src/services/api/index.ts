@@ -27,11 +27,11 @@ class ApiService implements IService {
   main = main;
   auths = auths;
 
-  async init(): PVoid {
+  init = async (): PVoid => {
     if (!this.inited) {
       this.inited = true;
     }
-  }
+  };
 }
 
 const api = new ApiService();

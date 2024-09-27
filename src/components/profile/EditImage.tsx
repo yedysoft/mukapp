@@ -12,16 +12,20 @@ import {useStores} from '../../stores';
 type Props = {
   setVisible: Dispatch<SetStateAction<boolean>>;
   isVisible: boolean;
+  tableName: string;
+  tableId: string;
+  imageIndex?: string;
+  tempId?: string;
 };
 
-export default function EditImage({setVisible, isVisible}: Props) {
+export default function EditImage({setVisible, isVisible, tableName, tableId, imageIndex, tempId}: Props) {
   const {api} = useServices();
   const {user} = useStores();
 
   const saveImage = async (result: ImagePickerResult) => {
     if (result && !result.canceled && result.assets[0] && result.assets[0].type === 'image') {
       const img = result.assets[0];
-      const uploadedImage = await api.image.save(img.uri, img.fileName, null, null);
+      const uploadedImage = await api.image.save(img.uri, img.fileName, tableName, tableId, imageIndex, tempId);
       if (uploadedImage) {
         user.set('info', i => ({...i, image: uploadedImage}));
       }
@@ -60,8 +64,8 @@ export default function EditImage({setVisible, isVisible}: Props) {
           alignItems: 'center',
         }}
       >
-        <MukIconButton onPress={() => takePhoto()} icon={'camera'} />
-        <MukIconButton onPress={() => pickImage()} icon={'folder-search'} />
+        <MukIconButton onPress={takePhoto} icon={'camera'} />
+        <MukIconButton onPress={pickImage} icon={'folder'} />
       </View>
     </MukModal>
   );

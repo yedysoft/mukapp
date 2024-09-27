@@ -11,7 +11,7 @@ import translate from '../translate';
 class HelperApi {
   timeoutIds: Map<number | string, NodeJS.Timeout> = new Map<number | string, NodeJS.Timeout>();
 
-  sleep(ms: number, key?: string | number): PVoid {
+  sleep = async (ms: number, key?: string | number): PVoid => {
     if (key && this.timeoutIds.get(key)) {
       clearTimeout(this.timeoutIds.get(key));
     }
@@ -22,13 +22,13 @@ class HelperApi {
       }, ms);
       key && this.timeoutIds.set(key, timeoutId);
     });
-  }
+  };
 
-  async canOpenURL(url: string): Promise<boolean> {
+  canOpenURL = async (url: string): Promise<boolean> => {
     return Linking.canOpenURL(url); //TODO: infopliste LSApplicationQueriesSchemes ekle
-  }
+  };
 
-  async openURL(url: string): PVoid {
+  openURL = async (url: string): PVoid => {
     try {
       const supported = await this.canOpenURL(url);
       if (supported) {
@@ -39,17 +39,17 @@ class HelperApi {
     } catch (error) {
       console.error('URL açma hatası:', error);
     }
-  }
+  };
 
-  isColorLight(hexColor: any): boolean {
+  isColorLight = (hexColor: any): boolean => {
     const r = parseInt(hexColor.slice(1, 3), 16);
     const g = parseInt(hexColor.slice(3, 5), 16);
     const b = parseInt(hexColor.slice(5, 7), 16);
     const brightness = (r * 299 + g * 587 + b * 114) / 1000;
     return brightness >= 128;
-  }
+  };
 
-  generateChildsWithRefs<T>(children: any): any[] {
+  generateChildsWithRefs = <T>(children: any): any[] => {
     return Children.map(children, (child: any) => {
       if (child.ref) {
         return child;
@@ -58,20 +58,20 @@ class HelperApi {
         return cloneElement(child, {...child.props, ref: childRef});
       }
     });
-  }
+  };
 
-  generateNumberArray(start: number, end: number): number[] {
+  generateNumberArray = (start: number, end: number): number[] => {
     const length = end - start + 1;
     return Array.from({length}, (_, index) => start + index);
-  }
+  };
 
-  formatNumberWithLength(number: number, length: number): string {
+  formatNumberWithLength = (number: number, length: number): string => {
     const numberString = String(number);
     const zerosToAdd = Math.max(0, length - numberString.length);
     return '0'.repeat(zerosToAdd) + numberString;
-  }
+  };
 
-  isEqual(object1: any, object2: any): boolean {
+  isEqual = (object1: any, object2: any): boolean => {
     if (typeof object1 !== typeof object2) {
       return false;
     }
@@ -98,9 +98,9 @@ class HelperApi {
       }
     }
     return true;
-  }
+  };
 
-  nummer(num: number): string {
+  nummer = (num: number): string => {
     if (num > 1e3 - 1 && num < 1e6) {
       return num / 1e3 + 'K';
     } else if (num > 1e6 - 1 && num < 1e9) {
@@ -114,26 +114,26 @@ class HelperApi {
     } else {
       return num.toString();
     }
-  }
+  };
 
-  msToMinSec(ms: number): string {
+  msToMinSec = (ms: number): string => {
     const minutes: number = Math.floor(ms / 60000);
     const seconds: number = +((ms % 60000) / 1000).toFixed(0);
     return seconds === 60 ? minutes + 1 + ':00' : minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-  }
+  };
 
-  toBase64(text: string): string {
+  toBase64 = (text: string): string => {
     return Buffer.from(text, 'utf-8').toString('base64');
-  }
+  };
 
-  getSafeArray<T>(array: T[] | undefined): T[] {
+  getSafeArray = <T>(array: T[] | undefined): T[] => {
     if (array) {
       return array;
     }
     return [];
-  }
+  };
 
-  async getPublicIp(): Promise<string | null> {
+  getPublicIp = async (): Promise<string | null> => {
     let ip: string | null = null;
     try {
       const response = await axiosIns.get<{ip: string}>('https://api64.ipify.org?format=json');
@@ -144,20 +144,20 @@ class HelperApi {
       console.log(e);
     }
     return ip;
-  }
+  };
 
-  clearArray(array: any[]) {
+  clearArray = (array: any[]) => {
     while (array.length > 0) {
       array.pop();
     }
-  }
+  };
 
-  isUrl(url: string) {
+  isUrl = (url: string) => {
     const urlRegex = /^(https?|ftp|file):\/\/[^\s/$.?#].\S*$/;
     return urlRegex.test(url);
-  }
+  };
 
-  hexToRgb(hex: string): {r: number; g: number; b: number} | null {
+  hexToRgb = (hex: string): {r: number; g: number; b: number} | null => {
     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
 
@@ -170,9 +170,9 @@ class HelperApi {
           b: parseInt(result[3], 16),
         }
       : null;
-  }
+  };
 
-  parseRgb(rgb: string): {r: number; g: number; b: number} | null {
+  parseRgb = (rgb: string): {r: number; g: number; b: number} | null => {
     const regex = /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/;
     const result = regex.exec(rgb);
     return result
@@ -182,9 +182,9 @@ class HelperApi {
           b: parseInt(result[3], 10),
         }
       : null;
-  }
+  };
 
-  parseRgba(rgba: string): {r: number; g: number; b: number; a: number} | null {
+  parseRgba = (rgba: string): {r: number; g: number; b: number; a: number} | null => {
     const regex = /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(0|1|0?\.\d+)\)$/;
     const result = regex.exec(rgba);
     return result
@@ -195,9 +195,9 @@ class HelperApi {
           a: parseFloat(result[4]),
         }
       : null;
-  }
+  };
 
-  addOpacityToColor(color: string, opacity: number): string {
+  addOpacityToColor = (color: string, opacity: number): string => {
     let rgb;
     if (color.startsWith('#')) {
       rgb = this.hexToRgb(color);
@@ -214,9 +214,9 @@ class HelperApi {
       throw new Error(`Geçersiz renk formatı: ${color}`);
     }
     return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
-  }
+  };
 
-  hexToRgba(hex: string, a?: number): string {
+  hexToRgba = (hex: string, a?: number): string => {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
@@ -225,17 +225,17 @@ class HelperApi {
     } else {
       return `rgb(${r},${g},${b})`;
     }
-  }
+  };
 
-  getKeyByValue(object: any, value: string | number) {
+  getKeyByValue = (object: any, value: string | number) => {
     return Object.keys(object).find(k => object[k] === value);
-  }
+  };
 
-  getPercent(min: number, max: number): number {
+  getPercent = (min: number, max: number): number => {
     return max === 0 ? 1 : min / max;
-  }
+  };
 
-  getImageUrl(images: IImage[], scale: number): ImageSourcePropType | undefined {
+  getImageUrl = (images: IImage[], scale: number): ImageSourcePropType | undefined => {
     if (!images || images.length === 0) {
       return undefined;
     }
@@ -254,38 +254,38 @@ class HelperApi {
       }
     }
     return typeof closestImage.url === 'string' ? {uri: closestImage.url} : closestImage.url;
-  }
+  };
 
-  getArtist(artists: IArtist[]): string {
+  getArtist = (artists: IArtist[]): string => {
     if (!artists || artists.length === 0) {
       return '';
     }
     return artists.map((a, _) => a.name).join(', ');
-  }
+  };
 
-  getSelectedPlaylist(playlists: IPlaylist[]): IPlaylist | undefined {
+  getSelectedPlaylist = (playlists: IPlaylist[]): IPlaylist | undefined => {
     if (!playlists || playlists.length === 0) {
       return undefined;
     }
     return playlists.find(p => p.selected);
-  }
+  };
 
-  isUserFollows(userId: string) {
+  isUserFollows = (userId: string) => {
     try {
       return stores.user.getFollows.find(f => f.id === userId);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  calculateDaysBetweenDates(startDate: Date, endDate: Date): number {
+  calculateDaysBetweenDates = (startDate: Date, endDate: Date): number => {
     const oneDay = 24 * 60 * 60 * 1000;
     const startTimestamp = startDate.getTime();
     const endTimestamp = endDate.getTime();
     return Math.round(Math.abs((startTimestamp - endTimestamp) / oneDay));
-  }
+  };
 
-  formatDateTime(value: number | string, type: 'both' | 'date' | 'time') {
+  formatDateTime = (value: number | string, type: 'both' | 'date' | 'time') => {
     const date = new Date(value);
     let d = '';
     let t = '';
@@ -303,7 +303,7 @@ class HelperApi {
       t = date.toLocaleString('tr-tr', {timeZone: 'Europe/Istanbul', hour: '2-digit', minute: '2-digit'});
     }
     return `${d}${type === 'both' ? ' ' : ''}${t}`;
-  }
+  };
 
   dateAgo = (date: Date) => {
     const currentDatetime = new Date();
@@ -327,7 +327,7 @@ class HelperApi {
     return result;
   };
 
-  formatAMPM(date: Date) {
+  formatAMPM = (date: Date) => {
     let hours = date.getHours();
     const minutes = date.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -335,20 +335,20 @@ class HelperApi {
     hours = hours || 12;
     const minutesStr = minutes < 10 ? `0${minutes}` : minutes.toString();
     return `${hours}:${minutesStr} ${ampm}`;
-  }
+  };
 
-  dateFormatted(date: Date) {
+  dateFormatted = (date: Date) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear().toString().slice(-2)}, ${this.formatAMPM(
       date,
     )}`;
-  }
+  };
 
-  luminance(r: number, g: number, b: number): number {
+  luminance = (r: number, g: number, b: number): number => {
     return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-  }
+  };
 
-  randomColor(): string {
+  randomColor = (): string => {
     const bgColor = stores.ui.getTheme.colors.background;
     const bgR = parseInt(bgColor.substring(1, 3), 16);
     const bgG = parseInt(bgColor.substring(3, 5), 16);
@@ -365,17 +365,15 @@ class HelperApi {
     const hexG = g.toString(16).padStart(2, '0');
     const hexB = b.toString(16).padStart(2, '0');
 
-    const hexColor = `#${hexR}${hexG}${hexB}`;
+    return `#${hexR}${hexG}${hexB}`;
+  };
 
-    return hexColor;
-  }
-
-  arrayToMap<T extends string | number>(values: readonly T[], name: string): Record<T, string> {
+  arrayToMap = <T extends string | number>(values: readonly T[], name: string): Record<T, string> => {
     return values.reduce((acc, value) => {
       acc[value] = translate.do(`enum.${name}.${value}` as MukLangPaths);
       return acc;
     }, {} as Record<T, string>);
-  }
+  };
 }
 
 const helper = new HelperApi();

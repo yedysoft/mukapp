@@ -10,15 +10,18 @@ import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat, ILastMessage} from '../../types/chat';
 import useInfo from '../../hooks/useInfo';
 import useGroup from '../../hooks/useGroup';
+import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   chat: IChat;
 };
 
-export default function MessagesListItem({chat}: Props) {
+export default observer(({chat}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
+  const {auth} = useStores();
   const lastMessage: ILastMessage = api.chat.getLastMessage(chat.messages);
   const isPrivate = chat.type === 'PRIVATE';
   const info = useInfo(chat.id, isPrivate);
@@ -35,7 +38,11 @@ export default function MessagesListItem({chat}: Props) {
       <MukImage
         scale={0.8}
         style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}}
-        source={require('../../../assets/adaptive-icon.png')}
+        source={
+          info.image
+            ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
+            : require('../../../assets/adaptive-icon.png')
+        }
       />
       <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8), paddingVertical: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -69,4 +76,4 @@ export default function MessagesListItem({chat}: Props) {
       </View>
     </MukListItem>
   );
-}
+});

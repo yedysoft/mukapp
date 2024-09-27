@@ -3,7 +3,7 @@ import {PVoid} from '../../types';
 import {NotificationPermissionsStatus} from 'expo-notifications/src/NotificationPermissions.types';
 
 class PermissionApi {
-  async getNotification(): PVoid {
+  getNotification = async (): PVoid => {
     try {
       const {status}: NotificationPermissionsStatus = await Notifications.getPermissionsAsync();
       if (status !== 'denied' && status !== 'granted') {
@@ -12,7 +12,7 @@ class PermissionApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 }
 
 const permission = new PermissionApi();

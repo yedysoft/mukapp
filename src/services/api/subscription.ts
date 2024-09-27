@@ -11,7 +11,7 @@ import {INotification} from '../../types/user';
 class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
 
-  async globalSubscribes(): PVoid {
+  globalSubscribes = async (): PVoid => {
     try {
       await socket.subscribe('/user/info/coin', this.coinCallback);
       await socket.subscribe('/user/info/token', this.tokenCallback);
@@ -23,9 +23,9 @@ class SubscriptionApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async roomSubscribes(): PVoid {
+  roomSubscribes = async (): PVoid => {
     try {
       const sessionId = stores.room.getSessionId;
       if (sessionId) {
@@ -43,9 +43,9 @@ class SubscriptionApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async roomUnsubscribes(): PVoid {
+  roomUnsubscribes = async (): PVoid => {
     try {
       for (const sub of this.roomSubs) {
         await socket.unsubscribe(sub);
@@ -54,29 +54,29 @@ class SubscriptionApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   // Send Messages
 
-  async getQueue(): PVoid {
+  getQueue = async (): PVoid => {
     try {
       const sessionId = stores.room.getSessionId;
       sessionId && (await socket.sendMessage(`/send/room/${sessionId}/getQueue`));
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async voteMusic(data: IVote): PVoid {
+  voteMusic = async (data: IVote): PVoid => {
     try {
       const sessionId = stores.room.getSessionId;
       sessionId && (await socket.sendMessage(`/send/room/${sessionId}/voteMusic`, data));
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async sendMessage(data: IMessage): PVoid {
+  sendMessage = async (data: IMessage): PVoid => {
     try {
       if (data.type === 'PRIVATE' || data.type === 'GROUP') {
         const id = data.receiverId;
@@ -99,39 +99,39 @@ class SubscriptionApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async sendMessageTyping(data: IMessageTyping): PVoid {
+  sendMessageTyping = async (data: IMessageTyping): PVoid => {
     try {
       await socket.sendMessage('/send/message/typing', data);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   // Callbacks
 
-  private coinCallback(message: Message) {
+  private coinCallback = (message: Message) => {
     const coin = JSON.parse(message.body);
     stores.user.set('info', {...stores.user.getInfo, coin: coin});
-  }
+  };
 
-  private tokenCallback(message: Message) {
+  private tokenCallback = (message: Message) => {
     const token = JSON.parse(message.body);
     stores.user.set('info', {...stores.user.getInfo, token: token});
-  }
+  };
 
-  private errorCallback(message: Message) {
+  private errorCallback = (message: Message) => {
     const err: MessageBody = JSON.parse(message.body);
     stores.ui.addMessage(err);
-  }
+  };
 
-  private notificationCallback(message: Message) {
+  private notificationCallback = (message: Message) => {
     const notification: INotification = JSON.parse(message.body);
     stores.user.set('notifications', [notification, ...stores.user.getNotifications]);
-  }
+  };
 
-  private userMessageTypingListenCallback(message: Message) {
+  private userMessageTypingListenCallback = (message: Message) => {
     const t: IMessageTyping = JSON.parse(message.body);
     if (t.type === 'PRIVATE' || t.type === 'GROUP') {
       const id = t.type === 'GROUP' ? t.receiverId : t.senderId;
@@ -147,9 +147,9 @@ class SubscriptionApi {
         );
       }
     }
-  }
+  };
 
-  private userMessageListenCallback(message: Message) {
+  private userMessageListenCallback = (message: Message) => {
     const m: IMessage = JSON.parse(message.body);
     const me = m.senderId === stores.user.getInfo.id;
     if (m.type === 'PRIVATE' || m.type === 'GROUP') {
@@ -186,9 +186,9 @@ class SubscriptionApi {
         ]);
       }
     }
-  }
+  };
 
-  private publicMessageListenCallback(message: Message) {
+  private publicMessageListenCallback = (message: Message) => {
     const m: IMessage = JSON.parse(message.body);
     const some = stores.room.chat.some(cm => cm.tempId === m.tempId && !cm.id);
     if (some) {
@@ -199,24 +199,24 @@ class SubscriptionApi {
     } else {
       stores.room.set('chat', [m, ...stores.room.getChat]);
     }
-  }
+  };
 
-  private playingTrackCallback(message: Message) {
+  private playingTrackCallback = (message: Message) => {
     const oldId = stores.media.getPlayingTrack.id;
     media.setPlayingTrack(JSON.parse(message.body)).then(async () => {
       if (oldId !== stores.media.getPlayingTrack.id) {
         await subscription.getQueue();
       }
     });
-  }
+  };
 
-  private queueCallback(message: Message) {
+  private queueCallback = (message: Message) => {
     message && media.setQueue(JSON.parse(message.body));
-  }
+  };
 
-  private voteResultCallback(message: Message) {
+  private voteResultCallback = (message: Message) => {
     message && media.setVoteResult(JSON.parse(message.body));
-  }
+  };
 }
 
 const subscription = new SubscriptionApi();

@@ -18,7 +18,7 @@ type Props = {
 
 export default observer(({message, quotedMessage}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {user} = useStores();
+  const {user, auth} = useStores();
   const {api} = useServices();
   const me = message.senderId === user.getInfo.id;
   const i = useInfo(message.senderId, !me);
@@ -76,7 +76,11 @@ export default observer(({message, quotedMessage}: Props) => {
         ]}
       />
       <MukImage
-        source={require('../../../assets/adaptive-icon.png')}
+        source={
+          info.image
+            ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
+            : require('../../../assets/adaptive-icon.png')
+        }
         scale={0.6}
         style={{
           display: me || message.type === 'PRIVATE' ? 'none' : undefined,

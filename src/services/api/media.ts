@@ -14,7 +14,7 @@ import helper from './helper';
 import {PVoid} from '../../types';
 
 class MediaApi {
-  async getAuthUrl(): Promise<string> {
+  getAuthUrl = async (): Promise<string> => {
     try {
       const response = await axiosIns.get<string>('/media/getAuthUrl');
       if (response.status === 200) {
@@ -24,9 +24,9 @@ class MediaApi {
       console.log(e);
     }
     return '';
-  }
+  };
 
-  private async searchTracks(q: string, offset = 0, limit = 10): Promise<ISearchResult> {
+  private searchTracks = async (q: string, offset = 0, limit = 10): Promise<ISearchResult> => {
     let result: ISearchResult = {tracks: [], total: 0};
     try {
       stores.media.set('searchValue', q);
@@ -36,9 +36,9 @@ class MediaApi {
       console.log(e);
     }
     return result;
-  }
+  };
 
-  async getCurrentUserPlaylists(): PVoid {
+  getCurrentUserPlaylists = async (): PVoid => {
     try {
       stores.loading.set('userPlaylist', true);
       const response = await axiosIns.get<IPlaylist[]>('/media/getCurrentUserPlaylists');
@@ -56,9 +56,9 @@ class MediaApi {
     } finally {
       stores.loading.set('userPlaylist', false);
     }
-  }
+  };
 
-  async getPlaylistTracks(playlistId: string, isSelect?: boolean, q?: string, searching?: boolean): PVoid {
+  getPlaylistTracks = async (playlistId: string, isSelect?: boolean, q?: string, searching?: boolean): PVoid => {
     try {
       stores.loading.set('playlistTracks', true);
       const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
@@ -96,9 +96,9 @@ class MediaApi {
     } finally {
       stores.loading.set('playlistTracks', false);
     }
-  }
+  };
 
-  async setPlayingTrack(data: any): PVoid {
+  setPlayingTrack = async (data: any): PVoid => {
     try {
       const playingTrack = await this.getPlayingTrack(data);
       if (playingTrack) {
@@ -107,9 +107,9 @@ class MediaApi {
     } catch (e: any) {
       console.log(e);
     }
-  }
+  };
 
-  async getPlayingTrack(data: any): Promise<IPlayingTrack | null> {
+  getPlayingTrack = async (data: any): Promise<IPlayingTrack | null> => {
     let playingTrack: IPlayingTrack | null = null;
     try {
       if (data && data !== '') {
@@ -124,9 +124,9 @@ class MediaApi {
       console.log(e);
     }
     return playingTrack;
-  }
+  };
 
-  async setQueue(data: any): PVoid {
+  setQueue = async (data: any): PVoid => {
     try {
       const queue: IQueueTrack[] = this.getQueueTracks(data);
       queue.sort((a, b) => b.voteCount - a.voteCount);
@@ -134,9 +134,9 @@ class MediaApi {
     } catch (e: any) {
       console.log(e);
     }
-  }
+  };
 
-  async setVoteResult(data: IVoteResult): PVoid {
+  setVoteResult = async (data: IVoteResult): PVoid => {
     try {
       if (stores.media.getQueue.length > 0) {
         const updatedItems = stores.media.getQueue.map((t, _) =>
@@ -148,9 +148,9 @@ class MediaApi {
     } catch (e: any) {
       console.log(e);
     }
-  }
+  };
 
-  private getArtists(state: any): IArtist[] {
+  private getArtists = (state: any): IArtist[] => {
     return state
       ? state.map((artist: any, _: number) => ({
           id: artist.id,
@@ -158,9 +158,9 @@ class MediaApi {
           name: artist.name,
         }))
       : [];
-  }
+  };
 
-  private getImages(state: any): IImage[] {
+  private getImages = (state: any): IImage[] => {
     return state
       ? state.map((image: any, _: number) => ({
           url: image.url,
@@ -168,13 +168,13 @@ class MediaApi {
           width: image.width,
         }))
       : [];
-  }
+  };
 
-  private getTracks(state: any): ITrack[] {
+  private getTracks = (state: any): ITrack[] => {
     return state ? state.map((data: any, _: number) => this.getTrack(data)) : [];
-  }
+  };
 
-  getQueueTracks(state: any): IQueueTrack[] {
+  getQueueTracks = (state: any): IQueueTrack[] => {
     return state
       ? state.map((data: any, _: number) => {
           const track: IQueueTrack = this.getTrack(data.track) as IQueueTrack;
@@ -182,9 +182,9 @@ class MediaApi {
           return track;
         })
       : [];
-  }
+  };
 
-  private getTrack(state: any): ITrack {
+  private getTrack = (state: any): ITrack => {
     return {
       id: state.id,
       uri: state.uri,
@@ -193,7 +193,7 @@ class MediaApi {
       images: this.getImages(state.album.images),
       duration: state.durationMs,
     };
-  }
+  };
 }
 
 const media = new MediaApi();

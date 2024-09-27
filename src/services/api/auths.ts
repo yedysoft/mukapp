@@ -8,7 +8,7 @@ import {authRedirectUrl} from '../../../config';
 import AuthApi from './auth';
 
 export class AuthsApi implements IAuthsApi {
-  async clearAuth(type: IAuthsType): PVoid {
+  clearAuth = async (type: IAuthsType): PVoid => {
     try {
       stores.loading.set('clearAuth', true);
       const response = await axiosIns.delete(`/auths/clearAuth/${type}`);
@@ -20,9 +20,9 @@ export class AuthsApi implements IAuthsApi {
     } finally {
       stores.loading.set('clearAuth', false);
     }
-  }
+  };
 
-  async getAuths(): PVoid {
+  getAuths = async (): PVoid => {
     try {
       const response = await axiosIns.get<IAuthsType[]>('/auths/getAuths');
       if (response.status === 200) {
@@ -31,9 +31,9 @@ export class AuthsApi implements IAuthsApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async connectAccount(key: IAuthsType, name: string, isLogin = false): PVoid {
+  connectAccount = async (key: IAuthsType, name: string, isLogin = false): PVoid => {
     try {
       stores.loading.set('connectAccount', true);
       let authUrl;
@@ -75,7 +75,7 @@ export class AuthsApi implements IAuthsApi {
     } finally {
       stores.loading.set('connectAccount', false);
     }
-  }
+  };
 }
 
 const auths: IAuthsApi = new AuthsApi();

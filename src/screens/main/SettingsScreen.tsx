@@ -10,10 +10,9 @@ import MukCard from '../../components/custom/MukCard';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukSegmented from '../../components/custom/MukSegmented';
 import {SubLayout} from '../../components/layouts/SubLayout';
-import MukButton from '../../components/custom/MukButton';
 import api from '../../services/api';
-import {ActivityIndicator, Pressable} from "react-native";
-import SpotifyIcon from "../../components/spotify/SpotifyIcon";
+import {ActivityIndicator, Pressable} from 'react-native';
+import SpotifyIcon from '../../components/spotify/SpotifyIcon';
 
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
@@ -70,15 +69,20 @@ export const SettingsScreen = observer(() => {
                 } else {
                   await api.auths.connectAccount(key as IAuthsType, name);
                 }
-              }}>
+              }}
+            >
               <ActivityIndicator
                 size={responsiveSize(12)}
                 color={colors.primary}
                 style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
               />
-              <SpotifyIcon scale={1.3} noText/>
+              <SpotifyIcon scale={1.3} noText />
               <Text style={{color: colors.secondary, fontWeight: '400', fontSize: responsiveSize(16)}}>
-                {t.do(isConnected ? `main.settings.connect.${name.toLowerCase()}.disconnect` : `main.settings.connect.${name.toLowerCase()}.connect` as any)}
+                {t.do(
+                  isConnected
+                    ? `main.settings.connect.${name.toLowerCase()}.disconnect`
+                    : (`main.settings.connect.${name.toLowerCase()}.connect` as any),
+                )}
               </Text>
             </Pressable>
           );

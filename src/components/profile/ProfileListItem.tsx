@@ -8,6 +8,7 @@ import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
+import {useStores} from '../../stores';
 
 type Props = {
   item: ISearchUser;
@@ -18,6 +19,7 @@ type Props = {
 const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
+  const {auth} = useStores();
 
   return (
     <MukListItem
@@ -28,7 +30,14 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
       }}
     >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
-        <MukImage scale={1} source={require('../../../assets/adaptive-icon.png')} />
+        <MukImage
+          scale={1}
+          source={
+            item.image
+              ? {uri: `${item.image.link}?token=${auth.getAuthToken}`}
+              : require('../../../assets/adaptive-icon.png')
+          }
+        />
         <View style={{justifyContent: 'center', gap: responsiveWidth(4)}}>
           <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.secondary}}>
             {item.name} {item.surname}

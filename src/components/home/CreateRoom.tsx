@@ -1,5 +1,5 @@
 import MukFAB from '../../components/custom/MukFAB';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import MukButton from '../custom/MukButton';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
@@ -8,19 +8,21 @@ import {useStores} from '../../stores';
 import MukTextInput from '../custom/MukTextInput';
 import {IRoomConfig} from '../../types/room';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
-import {View} from 'react-native';
+import {Pressable, View} from 'react-native';
 import MukImage from '../custom/MukImage';
 import {Text, useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import MukBottomSheet, {MukBottomSheetRef} from '../custom/MukBottomSheet';
+import EditImage from '../profile/EditImage';
 
-const CreateRoom = observer(() => {
+export default observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const {api, t} = useServices();
-  const {room, user} = useStores();
+  const {room, user, auth} = useStores();
+  const [visible, setVisible] = useState(false);
   const formRef = useRef<MukFormRef<IRoomConfig>>(null);
   const sheetRef = useRef<MukBottomSheetRef>(null);
   const form: IRoomConfig | null = room.getConfig;
@@ -49,7 +51,16 @@ const CreateRoom = observer(() => {
       {!room.isLive ? <MukFAB onPress={handleOnPress} /> : null}
       <MukBottomSheet ref={sheetRef}>
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
-          <MukImage scale={2} source={require('../../../assets/adaptive-icon.png')} />
+          <Pressable onPress={() => form?.id && setVisible(true)}>
+            <MukImage
+              scale={2}
+              source={
+                form && form.image
+                  ? {uri: `${form.image.link}?token=${auth.getAuthToken}`}
+                  : require('../../../assets/adaptive-icon.png')
+              }
+            />
+          </Pressable>
           <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', gap: responsiveWidth(8)}}>
             <View style={{gap: responsiveWidth(4)}}>
               <Text
@@ -85,8 +96,9 @@ const CreateRoom = observer(() => {
         </View>
         <MukButton label={t.do('roomConfig.submit')} onPress={createRoom} />
       </MukBottomSheet>
+      {form?.id && (
+        <EditImage setVisible={setVisible} isVisible={visible} tableName={'ROOM_CONFIG'} tableId={form.id} />
+      )}
     </>
   );
 });
-
-export default CreateRoom;

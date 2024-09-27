@@ -7,7 +7,7 @@ import {IPage, PVoid} from '../../types';
 import media from './media';
 
 class RoomApi {
-  async createRoom(config: IRoomConfig): PVoid {
+  createRoom = async (config: IRoomConfig): PVoid => {
     try {
       stores.user.getInfo.id && (config.roomId = stores.user.getInfo.id);
       await this.saveConfig(config);
@@ -17,9 +17,9 @@ class RoomApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async openRoom(sessionId: string, streamerId: string): PVoid {
+  openRoom = async (sessionId: string, streamerId: string): PVoid => {
     try {
       await this.closeRoom(sessionId);
       stores.room.setMany({sessionId: sessionId, streamerId: streamerId});
@@ -27,9 +27,9 @@ class RoomApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async closeRoom(sessionId?: string): PVoid {
+  closeRoom = async (sessionId?: string): PVoid => {
     try {
       if (stores.room.isLive && (!sessionId || sessionId !== stores.room.getSessionId)) {
         if (stores.room.isAdmin) {
@@ -42,52 +42,57 @@ class RoomApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async getRooms(role: string, useLoading: boolean | undefined = true): PVoid {
+  getRooms = async (role: string, useLoading: boolean | undefined = true): PVoid => {
     useLoading && stores.loading.set('roomList', true);
     try {
       const response = await axiosIns.get(`/custom/getPlaces/${role}`);
-      const rooms: IRoom[] = [];
-      for (const r of response.data) {
-        const room: IRoom = {
-          streamerId: r.streamerId,
-          sessionId: r.sessionId,
-          roomName: r.roomName,
-          streamerName: r.streamerName,
-          population: r.population,
-          isLive: r.isLive,
-          liveSong: await media.getPlayingTrack(r.liveSong),
-        };
-        rooms.push(room);
+      if (response.status === 200) {
+        const rooms: IRoom[] = [];
+        for (const r of response.data) {
+          const room: IRoom = {
+            streamerId: r.streamerId,
+            sessionId: r.sessionId,
+            roomName: r.roomName,
+            streamerName: r.streamerName,
+            population: r.population,
+            isLive: r.isLive,
+            liveSong: await media.getPlayingTrack(r.liveSong),
+            image: r.image,
+          };
+          rooms.push(room);
+        }
+        stores.room.set(role === 'PLACE' ? 'places' : 'users', rooms);
       }
-      stores.room.set(role === 'PLACE' ? 'places' : 'users', rooms);
     } catch (e: any) {
       console.log(e);
     } finally {
       stores.loading.set('roomList', false);
     }
-  }
+  };
 
-  async setConfig(): PVoid {
+  setConfig = async (): PVoid => {
     try {
       const response = await axiosIns.get<IRoomConfig>(`/room-config/getByRoomId/${stores.user.getInfo.id}`);
-      stores.room.set('config', response.data);
+      if (response.status === 200) {
+        stores.room.set('config', response.data);
+      }
     } catch (e: any) {
       console.log(e);
     }
-  }
+  };
 
-  async saveConfig(config: IRoomConfig): PVoid {
+  saveConfig = async (config: IRoomConfig): PVoid => {
     try {
       const response = await axiosIns.post<IRoomConfig>('/room-config/saveConfig', config);
       stores.room.set('config', response.data);
     } catch (e: any) {
       console.log(e);
     }
-  }
+  };
 
-  async setLeaderboard(): PVoid {
+  setLeaderboard = async (): PVoid => {
     try {
       stores.loading.set('leaderboard', true);
       const response = await axiosIns.get<IPage<IRoomLeaderboard[]>>(
@@ -99,7 +104,7 @@ class RoomApi {
     } finally {
       stores.loading.set('leaderboard', false);
     }
-  }
+  };
 }
 
 const room = new RoomApi();

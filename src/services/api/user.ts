@@ -7,24 +7,24 @@ import {IBlockedUser, IFollowUser, IInfo, INotification, ISearchUser} from '../.
 import {IPassChange} from '../../types/auth';
 
 class UserApi {
-  async getInfo(): PVoid {
+  getInfo = async (): PVoid => {
     try {
       const response = await axiosIns.get<IInfo>('/user-info/getInfo');
       stores.user.set('info', response.data);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async addCoin(quantity: number): PVoid {
+  addCoin = async (quantity: number): PVoid => {
     try {
       await axiosIns.get(`/test/addCoin/${stores.user.getInfo.id}/${quantity}`);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async searchUser(keyword: string, page = 0, size = 10): PVoid {
+  searchUser = async (keyword: string, page = 0, size = 10): PVoid => {
     try {
       const response = await axiosIns.get<IPage<ISearchUser[]>>(
         `/user-info/search/${keyword}?page=${page}&size=${size}&sort=ui.name`,
@@ -35,9 +35,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async getFollows(userId: string): PVoid {
+  getFollows = async (userId: string): PVoid => {
     try {
       stores.loading.set('following', true);
       const response = await axiosIns.get<IFollowUser[]>(`/user-follower/getFollows/${userId}`);
@@ -49,9 +49,9 @@ class UserApi {
     } finally {
       stores.loading.set('following', false);
     }
-  }
+  };
 
-  async getFollowers(userId: string): PVoid {
+  getFollowers = async (userId: string): PVoid => {
     try {
       stores.loading.set('followers', true);
       const response = await axiosIns.get<IFollowUser[]>(`/user-follower/getFollowers/${userId}`);
@@ -63,18 +63,19 @@ class UserApi {
     } finally {
       stores.loading.set('followers', false);
     }
-  }
+  };
 
-  async sendFollowRequest(userId: string): PVoid {
+  sendFollowRequest = async (userId: string): PVoid => {
     try {
       await axiosIns.get(`/follow-request/${userId}`);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async acceptFollowRequest(requestId: string, notificationId?: string): PVoid {
+  acceptFollowRequest = async (requestId: any, notificationId?: string): PVoid => {
     try {
+      console.log(requestId);
       const response = await axiosIns.get(`/follow-request/accept/${requestId}`);
       if (response.status === 200) {
         notificationId && (await this.deleteNotification(notificationId));
@@ -82,9 +83,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async rejectFollowRequest(requestId: string, notificationId?: string): PVoid {
+  rejectFollowRequest = async (requestId: string, notificationId?: string): PVoid => {
     try {
       const response = await axiosIns.delete(`/follow-request/reject/${requestId}`);
       if (response.status === 200) {
@@ -93,9 +94,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async blockUser(userId: string): PVoid {
+  blockUser = async (userId: string): PVoid => {
     try {
       const response = await axiosIns.get(`/user-blocked/block/${userId}`);
       if (response.status === 200) {
@@ -105,9 +106,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async unblockUser(blockId: string | undefined): PVoid {
+  unblockUser = async (blockId: string | undefined): PVoid => {
     try {
       const response = await axiosIns.get(`/user-blocked/unblock/${blockId}`);
       if (response.status === 200) {
@@ -117,9 +118,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async getBlockedUsers(): PVoid {
+  getBlockedUsers = async (): PVoid => {
     try {
       const response = await axiosIns.get<IBlockedUser[]>('/user-blocked/getBlockedUsers');
       if (response.status === 200) {
@@ -128,9 +129,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async unFollow(userId: string): PVoid {
+  unFollow = async (userId: string): PVoid => {
     try {
       const response = await axiosIns.delete(`/user-follower/unFollow/${userId}`);
       if (response.status === 200) {
@@ -140,9 +141,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async takeOutMyFollowers(userId: string): PVoid {
+  takeOutMyFollowers = async (userId: string): PVoid => {
     try {
       const response = await axiosIns.delete(`/user-follower/takeOutMyFollowers/${userId}`);
       if (response.status === 200) {
@@ -152,9 +153,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async getTopListVoteMusic(userId: string | null): PVoid {
+  getTopListVoteMusic = async (userId: string | null): PVoid => {
     const topListVoteMusic: {topVoted: IQueueTrack[]; countTopVoted: number} = {topVoted: [], countTopVoted: 0};
     try {
       stores.loading.set('votes', true);
@@ -169,9 +170,9 @@ class UserApi {
       stores.user.setMany({topVoted: topListVoteMusic.topVoted, countTopVoted: topListVoteMusic.countTopVoted});
       stores.loading.set('votes', false);
     }
-  }
+  };
 
-  async getAllNotifications(): PVoid {
+  getAllNotifications = async (): PVoid => {
     try {
       const response = await axiosIns.get<INotification[]>('/notification/getAllNotifications');
       if (response.status === 200) {
@@ -180,24 +181,20 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async deleteNotification(notificationId: string): PVoid {
+  deleteNotification = async (notificationId: string): PVoid => {
     try {
       const response = await axiosIns.delete(`/notification/deleteNotification/${notificationId}`);
       if (response.status === 200) {
-        stores.user.set(
-          'notifications',
-          stores.user.getNotifications.filter(n => n.id !== notificationId),
-        );
+        stores.user.set('notifications', v => v.filter(n => n.id !== notificationId));
       }
-      console.log('Delete Notification: ', response.data);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async updateReaded(): PVoid {
+  updateReaded = async (): PVoid => {
     try {
       const unreaded = stores.user.getNotifications.filter(n => !n.readed);
       if (unreaded.length > 0) {
@@ -218,9 +215,9 @@ class UserApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  async passChange(form: IPassChange): PVoid {
+  passChange = async (form: IPassChange): PVoid => {
     try {
       stores.loading.set('passChange', true);
       await axiosIns.post<MessageBody>('/user/passChange', form);
@@ -229,7 +226,7 @@ class UserApi {
     } finally {
       stores.loading.set('passChange', false);
     }
-  }
+  };
 }
 
 const user = new UserApi();

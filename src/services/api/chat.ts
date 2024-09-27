@@ -6,7 +6,7 @@ import translate from '../translate';
 import main from './main';
 
 class ChatApi {
-  async createGroup(group: IGroup): Promise<IChat | null> {
+  createGroup = async (group: IGroup): Promise<IChat | null> => {
     let chat: IChat | null = null;
     try {
       const response = await axiosIns.post<IChat>('/message-group/createGroup', group);
@@ -18,9 +18,9 @@ class ChatApi {
       console.log(e);
     }
     return chat;
-  }
+  };
 
-  async getChats(): PVoid {
+  getChats = async (): PVoid => {
     try {
       const response = await axiosIns.get<IChat[]>('/message/getChats');
       if (response.status === 200) {
@@ -29,9 +29,9 @@ class ChatApi {
     } catch (e: any) {
       console.log(e);
     }
-  }
+  };
 
-  getLastMessage(messages: IMessage[]): ILastMessage {
+  getLastMessage = (messages: IMessage[]): ILastMessage => {
     let message: IMessage | null = null;
     if (messages && messages.length > 0) {
       const temp = [...messages];
@@ -39,9 +39,9 @@ class ChatApi {
       message = temp[0];
     }
     return message ? {date: message.date, message: this.getMessageByContentType(message)} : {date: '', message: ''};
-  }
+  };
 
-  getTyping(chat: IChat) {
+  getTyping = (chat: IChat) => {
     if (chat.typing) {
       if (typeof chat.typing === 'boolean') {
         return translate.do('main.social.typing');
@@ -60,9 +60,9 @@ class ChatApi {
     } else {
       return '';
     }
-  }
+  };
 
-  private getMessageByContentType(message: IMessage) {
+  private getMessageByContentType = (message: IMessage) => {
     const me = message.senderId === stores.user.getInfo.id;
     const sended = !!message.id;
     let m = message.content;
@@ -74,7 +74,7 @@ class ChatApi {
       m = 'Dosya';
     }
     return `${me ? (sended ? '✓ ' : '⏳ ') : ''}${m}`;
-  }
+  };
 }
 
 const chat = new ChatApi();

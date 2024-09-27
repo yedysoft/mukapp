@@ -20,7 +20,7 @@ class AuthApi implements IAuthApi {
     this.authsApi = authsApi;
   }
 
-  async forgotPass(form: IForgot): PVoid {
+  forgotPass = async (form: IForgot): PVoid => {
     try {
       stores.loading.set('forgotPass', true);
       const response = await axiosIns.post<MessageBody>('/auth/forgotPass', form);
@@ -30,9 +30,9 @@ class AuthApi implements IAuthApi {
     } finally {
       stores.loading.set('forgotPass', false);
     }
-  }
+  };
 
-  async register(form: IRegister): PVoid {
+  register = async (form: IRegister): PVoid => {
     try {
       stores.loading.set('register', true);
       const response = await axiosIns.post<MessageBody>('/auth/register', form);
@@ -42,9 +42,9 @@ class AuthApi implements IAuthApi {
     } finally {
       stores.loading.set('register', false);
     }
-  }
+  };
 
-  async login(form: ILogin): PVoid {
+  login = async (form: ILogin): PVoid => {
     try {
       stores.loading.set('login', true);
       this.clearAuth();
@@ -58,9 +58,9 @@ class AuthApi implements IAuthApi {
     } finally {
       stores.loading.set('login', false);
     }
-  }
+  };
 
-  async logout(): PVoid {
+  logout = async (): PVoid => {
     if (stores.loading.logout) {
       return;
     }
@@ -75,9 +75,9 @@ class AuthApi implements IAuthApi {
     } finally {
       stores.loading.set('logout', false);
     }
-  }
+  };
 
-  async checkToken(): PVoid {
+  checkToken = async (): PVoid => {
     try {
       const opt = await axiosIns.options('/auth/checkToken');
       if (opt.status === 200) {
@@ -96,9 +96,9 @@ class AuthApi implements IAuthApi {
     } catch (e: any) {
       console.log(e);
     }
-  }
+  };
 
-  async isNeededPassChange(): Promise<boolean> {
+  isNeededPassChange = async (): Promise<boolean> => {
     try {
       const response = await axiosIns.get<boolean>('/user/isNeededPassChange');
       if (response.status === 200) {
@@ -108,9 +108,9 @@ class AuthApi implements IAuthApi {
       console.log(e);
     }
     return false;
-  }
+  };
 
-  async saveLoginHistory(): PVoid {
+  saveLoginHistory = async (): PVoid => {
     try {
       const ipAddress = await helper.getPublicIp();
       const deviceType: IDeviceType = Device.deviceType ? (DeviceType[Device.deviceType] as IDeviceType) : 'UNKNOWN';
@@ -126,13 +126,13 @@ class AuthApi implements IAuthApi {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  private clearAuth() {
+  private clearAuth = () => {
     stores.auth.setMany({loggedIn: false, authToken: ''});
     stores.room.set('config', {id: '', name: '', roomId: ''});
     stores.user.setMany({notifications: [], chats: []});
-  }
+  };
 }
 
 export default AuthApi;

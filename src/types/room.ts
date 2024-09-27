@@ -9,6 +9,7 @@ export type IRoom = {
   liveSong: IPlayingTrack | null;
   population: number;
   isLive: boolean;
+  image: IImage | null;
 };
 
 export type IRoomSession = {
@@ -20,6 +21,7 @@ export type IRoomConfig = {
   id: string;
   roomId: string;
   name: string;
+  image: IImage | null;
 };
 
 export type IRoomLeaderboard = {

@@ -105,7 +105,7 @@ export const AuthEditForm = observer(() => {
         label={t.do('auth.edit.submit')}
         onPress={onSubmit}
       />
-      <EditImage setVisible={setVisible} isVisible={visible} />
+      <EditImage setVisible={setVisible} isVisible={visible} tableName={'S_USER'} tableId={user.getInfo.id} />
     </View>
   );
 });
