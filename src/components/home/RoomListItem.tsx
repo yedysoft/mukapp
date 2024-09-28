@@ -47,8 +47,11 @@ export default observer(({roomData}: Props) => {
       <MukImage
         scale={2}
         style={{
+          marginVertical: 8,
+          marginLeft: 8,
+          borderWidth: 0.5,
           backgroundColor: roomData.liveSong?.dominantColor,
-          borderColor: roomData.liveSong?.dominantColor,
+          borderColor: colors.secondary,
         }}
         source={
           roomData.image

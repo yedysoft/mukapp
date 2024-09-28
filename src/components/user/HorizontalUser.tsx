@@ -6,15 +6,19 @@ import Coin from './Coin';
 import Token from './Token';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
+import {observer} from 'mobx-react';
 
-export default function HorizontalUser() {
+export default observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {user, auth} = useStores();
 
-  console.log(user.getInfo);
-
   return (
-    <View style={{flexDirection: 'row', gap: responsiveWidth(12), padding: responsiveWidth(16), overflow: 'hidden'}}>
+    <View
+      style={{
+        flexDirection: 'row',
+        gap: responsiveWidth(8),
+      }}
+    >
       <MukImage
         scale={1.5}
         source={
@@ -22,20 +26,25 @@ export default function HorizontalUser() {
             ? {uri: `${user.getInfo.image.link}?token=${auth.getAuthToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
-        style={{borderWidth: 2, borderRadius: 24, borderColor: colors.primary, backgroundColor: colors.background}}
+        style={{
+          marginLeft: responsiveWidth(16),
+          borderWidth: 2,
+          borderRadius: 24,
+          borderColor: colors.primary,
+          backgroundColor: colors.background,
+        }}
       />
       <View
         style={{
+          flex: 1,
           flexDirection: 'column',
+          marginRight: responsiveWidth(4),
           paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 8 : 4),
           gap: responsiveWidth(Platform.OS === 'ios' ? 12 : 8),
         }}
       >
         <View style={{gap: responsiveWidth(1)}}>
-          <Text
-            numberOfLines={1}
-            style={{color: colors.secondary, fontSize: responsiveSize(18), maxWidth: '90%', fontWeight: '500'}}
-          >
+          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '500'}}>
             {user.getInfo.name} {user.getInfo.surname}
           </Text>
           <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '300'}}>
@@ -49,4 +58,4 @@ export default function HorizontalUser() {
       </View>
     </View>
   );
-}
+});

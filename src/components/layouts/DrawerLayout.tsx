@@ -8,15 +8,13 @@ type Props = {
   children?: ReactNode;
 };
 
-export default function DrawerLayout({children}: Props) {
+export default ({children}: Props) => {
   const {colors} = useTheme<MukTheme>();
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
         backgroundColor: colors.background,
         paddingVertical: responsiveWidth(8),
       }}
@@ -24,4 +22,4 @@ export default function DrawerLayout({children}: Props) {
       {children}
     </SafeAreaView>
   );
-}
+};

@@ -7,7 +7,7 @@ type Props = {
   menu: MukMenu[];
 };
 
-export default function MenuList({menu}: Props) {
+export default ({menu}: Props) => {
   return (
     <FlatList
       data={menu}
@@ -17,4 +17,4 @@ export default function MenuList({menu}: Props) {
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
     />
   );
-}
+};

@@ -35,7 +35,7 @@ export default function MukIcon({badge, icon, color, iconStyle, scale, direction
       )}
       <Avatar.Icon
         icon={{source: icon, direction: direction}}
-        color={color ? color : colors.secondary}
+        color={color ?? colors.secondary}
         size={responsiveScale(scale)}
         style={[{backgroundColor: 'transparent', marginLeft: responsiveWidth(-5)}, iconStyle]}
       />

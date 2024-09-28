@@ -5,7 +5,7 @@ import MenuFooter from '../../components/menu/MenuFooter';
 import {MukMenu} from '../../types';
 import {useServices} from '../../services';
 
-const SideScreen = () => {
+export default () => {
   const {t} = useServices();
 
   const menu: MukMenu[] = [
@@ -56,5 +56,3 @@ const SideScreen = () => {
     </DrawerLayout>
   );
 };
-
-export default SideScreen;

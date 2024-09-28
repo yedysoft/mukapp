@@ -2,25 +2,23 @@ import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {IEdit} from '../../types/auth';
 import {useServices} from '../../services';
-import {Pressable, View} from 'react-native';
+import {View} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
-import EditImage from '../profile/EditImage';
 import {_gender} from '../../types/enums';
 
-export const AuthEditForm = observer(() => {
+export default observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
   const {loading, user, auth} = useStores();
   const formRef = useRef<MukFormRef<IEdit>>(null);
   const form: IEdit = {email: '', userName: '', userPass: ''};
-  const [visible, setVisible] = useState(false);
 
   const onSubmit = () => formRef.current?.validateInputs() && api.auth.register(formRef.current?.formData() as IEdit);
 
@@ -34,23 +32,23 @@ export const AuthEditForm = observer(() => {
       }}
     >
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <Pressable style={{borderRadius: 100}} onPress={() => setVisible(true)}>
-          <MukImage
-            scale={2.4}
-            source={
-              user.getInfo.image
-                ? {uri: `${user.getInfo.image.link}?token=${auth.getAuthToken}`}
-                : require('../../../assets/adaptive-icon.png')
-            }
-            style={{
-              borderWidth: responsiveSize(4),
-              borderRadius: 100,
-              aspectRatio: 1,
-              borderColor: colors.primary,
-              backgroundColor: 'transparent',
-            }}
-          />
-        </Pressable>
+        <MukImage
+          isEdit={true}
+          tableName={'S_USER'}
+          tableId={user.getInfo.id}
+          setImage={image => user.set('info', v => ({...v, image}))}
+          scale={2.4}
+          source={
+            user.getInfo.image
+              ? {uri: `${user.getInfo.image.link}?token=${auth.getAuthToken}`}
+              : require('../../../assets/adaptive-icon.png')
+          }
+          style={{
+            borderWidth: responsiveSize(4),
+            borderColor: colors.primary,
+            borderRadius: 100,
+          }}
+        />
       </View>
       <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
         <MukTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
@@ -105,7 +103,6 @@ export const AuthEditForm = observer(() => {
         label={t.do('auth.edit.submit')}
         onPress={onSubmit}
       />
-      <EditImage setVisible={setVisible} isVisible={visible} tableName={'S_USER'} tableId={user.getInfo.id} />
     </View>
   );
 });

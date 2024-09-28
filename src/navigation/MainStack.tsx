@@ -8,7 +8,7 @@ import TaskScreen from '../screens/main/TaskScreen';
 import PremiumScreen from '../screens/main/PremiumScreen';
 import {SearchScreen} from '../screens/main/social/SearchScreen';
 import {NotificationsScreen} from '../screens/main/NotificationsScreen';
-import {SettingsScreen} from '../screens/main/SettingsScreen';
+import SettingsScreen from '../screens/main/SettingsScreen';
 import BlockedScreen from '../screens/main/social/BlockedScreen';
 import EditScreen from '../screens/main/EditScreen';
 import {PsScreen} from '../screens/main/PsScreen';
@@ -33,7 +33,7 @@ export type MainStackNavProp = StackNavigationProp<MainStackScreens, 'Main'>;
 
 const Main = createStackNavigator<MainStackScreens>();
 
-export default function MainStack() {
+export default () => {
   return (
     <Main.Navigator initialRouteName={'Main'}>
       <Main.Screen name="Main" component={BottomTabs} options={{headerShown: true, header: () => <MainHeader />}} />
@@ -54,4 +54,4 @@ export default function MainStack() {
       </Main.Group>
     </Main.Navigator>
   );
-}
+};

@@ -16,7 +16,7 @@ import SpotifyIcon from '../../components/spotify/SpotifyIcon';
 
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
-export const SettingsScreen = observer(() => {
+export default observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {ui, auth, loading} = useStores();
   const {t} = useServices();

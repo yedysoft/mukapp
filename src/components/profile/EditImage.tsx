@@ -7,7 +7,7 @@ import MukModal from '../custom/MukModal';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
 import {ImagePickerResult} from 'expo-image-picker/src/ImagePicker.types';
-import {useStores} from '../../stores';
+import {IImage} from '../../types/user';
 
 type Props = {
   setVisible: Dispatch<SetStateAction<boolean>>;
@@ -16,18 +16,18 @@ type Props = {
   tableId: string;
   imageIndex?: string;
   tempId?: string;
+  setImage?: (image: IImage) => void;
 };
 
-export default function EditImage({setVisible, isVisible, tableName, tableId, imageIndex, tempId}: Props) {
+export default function EditImage({setVisible, isVisible, tableName, tableId, imageIndex, tempId, setImage}: Props) {
   const {api} = useServices();
-  const {user} = useStores();
 
   const saveImage = async (result: ImagePickerResult) => {
     if (result && !result.canceled && result.assets[0] && result.assets[0].type === 'image') {
       const img = result.assets[0];
       const uploadedImage = await api.image.save(img.uri, img.fileName, tableName, tableId, imageIndex, tempId);
-      if (uploadedImage) {
-        user.set('info', i => ({...i, image: uploadedImage}));
+      if (uploadedImage && setImage) {
+        setImage(uploadedImage);
       }
     }
   };
