@@ -1,4 +1,4 @@
-const live = false;
+const live = true;
 
 const host: string = live ? 'api.yedysoft.com/muk' : '192.168.1.33:8002';
 
