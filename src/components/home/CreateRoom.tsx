@@ -20,13 +20,13 @@ export default observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const {api, t} = useServices();
-  const {room, user, auth} = useStores();
+  const {room, user, auth, loading} = useStores();
   const formRef = useRef<MukFormRef<IRoomConfig>>(null);
   const sheetRef = useRef<MukBottomSheetRef>(null);
-  const form: IRoomConfig | null = room.getConfig;
+  const form: IRoomConfig = room.getConfig;
 
   useEffect(() => {
-    !room.getConfig?.id && api.room.setConfig();
+    !room.getConfig.roomId && api.room.setConfig();
   }, [room.getConfig]);
 
   const handleOnPress = () => {
@@ -51,12 +51,12 @@ export default observer(() => {
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
           <MukImage
             scale={2}
-            isEdit={!!form?.id}
+            isEdit={!!form.id}
             tableName={'ROOM_CONFIG'}
-            tableId={form?.id}
+            tableId={form.id}
             setImage={image => room.set('config', v => v && {...v, image})}
             source={
-              form && form.image
+              form.image
                 ? {uri: `${form.image.link}?token=${auth.getAuthToken}`}
                 : require('../../../assets/adaptive-icon.png')
             }
@@ -98,7 +98,7 @@ export default observer(() => {
             </MukForm>
           </View>
         </View>
-        <MukButton label={t.do('roomConfig.submit')} onPress={createRoom} />
+        <MukButton loading={loading.createRoom} label={t.do('roomConfig.submit')} onPress={createRoom} />
       </MukBottomSheet>
     </>
   );

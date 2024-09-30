@@ -9,13 +9,15 @@ import media from './media';
 class RoomApi {
   createRoom = async (config: IRoomConfig): PVoid => {
     try {
-      stores.user.getInfo.id && (config.roomId = stores.user.getInfo.id);
+      stores.loading.set('createRoom', true);
       await this.saveConfig(config);
       const response = await axiosIns.get<IRoomSession>(`/room-session/start/${stores.user.getInfo.id}`);
       const session: IRoomSession = response.data;
       await this.openRoom(session.sessionId, session.id);
     } catch (e) {
       console.log(e);
+    } finally {
+      stores.loading.set('createRoom', false);
     }
   };
 
@@ -68,13 +70,13 @@ class RoomApi {
     } catch (e: any) {
       console.log(e);
     } finally {
-      stores.loading.set('roomList', false);
+      useLoading && stores.loading.set('roomList', false);
     }
   };
 
   setConfig = async (): PVoid => {
     try {
-      const response = await axiosIns.get<IRoomConfig>(`/room-config/getByRoomId/${stores.user.getInfo.id}`);
+      const response = await axiosIns.get<IRoomConfig>('/room-config/findByRoomId');
       if (response.status === 200) {
         stores.room.set('config', response.data);
       }
@@ -86,7 +88,9 @@ class RoomApi {
   saveConfig = async (config: IRoomConfig): PVoid => {
     try {
       const response = await axiosIns.post<IRoomConfig>('/room-config/saveConfig', config);
-      stores.room.set('config', response.data);
+      if (response.status === 200) {
+        stores.room.set('config', response.data);
+      }
     } catch (e: any) {
       console.log(e);
     }

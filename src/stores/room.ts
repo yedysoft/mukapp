@@ -2,13 +2,14 @@ import {BaseStore} from './base';
 import user from './user';
 import {IRoom, IRoomConfig, IRoomLeaderboard} from '../types/room';
 import {IMessage} from '../types/chat';
+import defaults from '../utils/defaults';
 
 class RoomStore extends BaseStore<RoomStore> {
   streamerId: string | null = null;
   sessionId: string | null = null;
   live = false;
   chat: IMessage[] = [];
-  config: IRoomConfig | null = null;
+  config: IRoomConfig = defaults.config;
   places: IRoom[] = [];
   users: IRoom[] = [];
   leaderboard: IRoomLeaderboard[] = [];

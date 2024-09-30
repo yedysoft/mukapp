@@ -56,6 +56,7 @@ axiosIns.interceptors.response.use(
         console.error(config.url, status, response.statusText, data);
       }
     } else {
+      console.log(config.url);
       if (error.code === 'ECONNABORTED') {
         stores.ui.addError('İstek zaman aşımına uğradı', 408);
       } else {

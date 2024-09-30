@@ -28,7 +28,7 @@ export default observer(() => {
 
   return (
     <SubLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
-      <MukCard title={t.do('main.settings.theme.title')}>
+      <MukCard key={'theme'} title={t.do('main.settings.theme.title')}>
         <MukSegmented
           value={ui.appearance}
           onValueChange={value => ui.set('appearance', value as IAppearance)}
@@ -48,7 +48,7 @@ export default observer(() => {
           ]}
         />
       </MukCard>
-      <MukCard title={t.do('main.settings.language.title')}>
+      <MukCard key={'language'} title={t.do('main.settings.language.title')}>
         <MukPicker<string>
           items={LanguageDict}
           name={'language'}
@@ -56,7 +56,7 @@ export default observer(() => {
           onValueChange={(_name, value) => t.setup(value as ILanguage)}
         />
       </MukCard>
-      <MukCard title={t.do('main.settings.connect.title')} contentStyle={{alignItems: 'flex-start'}}>
+      <MukCard key={'accounts'} title={t.do('main.settings.connect.title')} contentStyle={{alignItems: 'flex-start'}}>
         {Object.entries(connectedAccounts).map(([key, name]) => {
           const isConnected = auth.auths.some(value => value === key);
           return (

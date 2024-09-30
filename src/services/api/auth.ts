@@ -12,6 +12,7 @@ import {IDeviceType} from '../../types/enums';
 import {Platform} from 'react-native';
 import * as Device from 'expo-device';
 import {DeviceType} from 'expo-device';
+import defaults from '../../utils/defaults';
 
 class AuthApi implements IAuthApi {
   private authsApi: IAuthsApi;
@@ -130,7 +131,7 @@ class AuthApi implements IAuthApi {
 
   private clearAuth = () => {
     stores.auth.setMany({loggedIn: false, authToken: ''});
-    stores.room.set('config', {id: '', name: '', roomId: ''});
+    stores.room.set('config', defaults.config);
     stores.user.setMany({notifications: [], chats: []});
   };
 }

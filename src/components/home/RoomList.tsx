@@ -22,11 +22,7 @@ export default observer(({type}: Props) => {
   const handleRefresh = () => !loading.getRoomList && api.room.getRooms(type);
 
   useEffect(() => {
-    const intervalId = setInterval(async () => {
-      //assign interval to a variable to clear it.
-      await api.room.getRooms(type, false);
-    }, 6000);
-    return () => clearInterval(intervalId);
+    api.room.getRooms(type, false);
   }, []);
 
   return (

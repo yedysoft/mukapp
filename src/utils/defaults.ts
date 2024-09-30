@@ -5,6 +5,7 @@ import {IChat, IGroup, IMessage} from '../types/chat';
 import {NotificationCategory} from 'expo-notifications/src/Notifications.types';
 import {INotificationType} from '../types/enums';
 import {IServer} from '../types/main';
+import {IRoomConfig} from '../types/room';
 
 class Defaults {
   playingTrack: IPlayingTrack = {
@@ -51,7 +52,12 @@ class Defaults {
     users: [],
   };
 
-  positions: Positions = {width: 0, height: 0, pageX: 0, pageY: 0};
+  positions: Positions = {
+    width: 0,
+    height: 0,
+    pageX: 0,
+    pageY: 0,
+  };
 
   message: IMessage = {
     id: '',
@@ -62,6 +68,13 @@ class Defaults {
     content: '',
     contentType: 'TEXT',
     type: 'PUBLIC',
+  };
+
+  config: IRoomConfig = {
+    id: '',
+    roomId: '',
+    name: '',
+    image: null,
   };
 
   get getNotificationCategories(): NotificationCategory[] {

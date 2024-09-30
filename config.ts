@@ -1,6 +1,6 @@
-const live = true;
+const live = false;
 
-const host: string = live ? 'api.yedysoft.com/muk' : '10.198.7.186:8002';
+const host: string = live ? 'api.yedysoft.com/muk' : '192.168.1.33:8002';
 
 const prefix = live ? 'https' : 'http';
 

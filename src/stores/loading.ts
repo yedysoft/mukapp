@@ -17,6 +17,7 @@ class LoadingStore extends BaseStore<LoadingStore> {
   // Room
   leaderboard = false;
   roomList = false;
+  createRoom = false;
 
   // Profile
   votes = false;

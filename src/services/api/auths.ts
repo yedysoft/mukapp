@@ -13,6 +13,7 @@ export class AuthsApi implements IAuthsApi {
       stores.loading.set('clearAuth', true);
       const response = await axiosIns.delete(`/auths/clearAuth/${type}`);
       if (response.status === 200) {
+        await this.getAuths();
         stores.ui.addInfo('Hesap bağlantısı kaldırıldı.');
       }
     } catch (e) {
