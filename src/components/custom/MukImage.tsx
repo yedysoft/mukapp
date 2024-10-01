@@ -1,36 +1,67 @@
-import {Image, ImageResizeMode, ImageSourcePropType, ImageStyle, Pressable, View} from 'react-native';
-import {responsiveScale} from '../../utils/util';
+import {ActivityIndicator, ImageSourcePropType, ImageStyle, Pressable, StyleProp, ViewStyle} from 'react-native';
+import {responsiveScale, responsiveSize} from '../../utils/util';
 import React, {useState} from 'react';
 import EditImage, {IEditImage} from '../profile/EditImage';
 import MukIcon from './MukIcon';
+import {Image} from 'expo-image';
+import {ImageContentFit} from 'expo-image/src/Image.types';
 
 type Props = {
   source?: ImageSourcePropType;
-  resizeMode?: ImageResizeMode;
-  style?: ImageStyle;
+  resizeMode?: ImageContentFit;
+  style?: StyleProp<ViewStyle>;
+  imageStyle?: StyleProp<ImageStyle>;
   scale?: number;
   radius?: boolean;
   onPress?: () => void;
   edit?: IEditImage;
 };
 
-export default function MukImage({source, resizeMode = 'contain', style, scale, radius = true, onPress, edit}: Props) {
+export default function MukImage({
+  source,
+  resizeMode = 'contain',
+  style,
+  imageStyle,
+  scale,
+  radius = true,
+  onPress,
+  edit,
+}: Props) {
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleOnPress = () => {
-    onPress && onPress();
-    setVisible(true);
+    if (!loading) {
+      onPress && onPress();
+      edit && setVisible(true);
+    }
   };
 
-  if (source) {
-    return (
-      <Pressable style={{borderRadius: radius ? 16 : 2}} onPress={handleOnPress}>
-        {edit && (
-          <MukIcon scale={0.5} icon={'edit'} iconStyle={{zIndex: 1400, position: 'absolute', right: 0, bottom: 0}} />
-        )}
+  return (
+    <Pressable
+      style={[
+        {
+          backgroundColor: 'transparent',
+          width: responsiveScale(scale),
+          height: responsiveScale(scale),
+          aspectRatio: 1,
+          borderRadius: radius ? 16 : 2,
+          justifyContent: 'center',
+        },
+        style,
+      ]}
+      onPress={handleOnPress}
+    >
+      {edit && !loading && (
+        <MukIcon scale={0.5} icon={'edit'} iconStyle={{zIndex: 1400, position: 'absolute', right: 0, bottom: 0}} />
+      )}
+      {loading ? (
+        <ActivityIndicator size={responsiveSize(48)} />
+      ) : (
         <Image
           source={source}
-          resizeMode={resizeMode}
+          contentFit={resizeMode}
+          cachePolicy={'memory-disk'}
           style={[
             {
               backgroundColor: 'transparent',
@@ -39,26 +70,11 @@ export default function MukImage({source, resizeMode = 'contain', style, scale, 
               aspectRatio: 1,
               borderRadius: radius ? 16 : 2,
             },
-            style,
+            imageStyle,
           ]}
         />
-        {edit && <EditImage setVisible={setVisible} isVisible={visible} edit={edit} />}
-      </Pressable>
-    );
-  } else {
-    return (
-      <View
-        style={[
-          {
-            backgroundColor: 'transparent',
-            width: responsiveScale(scale),
-            height: responsiveScale(scale),
-            aspectRatio: 1,
-            borderRadius: radius ? 16 : 2,
-          },
-          style,
-        ]}
-      />
-    );
-  }
+      )}
+      {edit && <EditImage setVisible={setVisible} isVisible={visible} edit={edit} setLoading={setLoading} />}
+    </Pressable>
+  );
 }

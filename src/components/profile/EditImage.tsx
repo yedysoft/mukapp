@@ -21,25 +21,33 @@ type Props = {
   setVisible: Dispatch<SetStateAction<boolean>>;
   isVisible: boolean;
   edit: IEditImage;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function EditImage({setVisible, isVisible, edit}: Props) {
+export default function EditImage({setVisible, isVisible, edit, setLoading}: Props) {
   const {api} = useServices();
 
   const saveImage = async (result: ImagePickerResult) => {
-    if (result && !result.canceled && result.assets[0] && result.assets[0].type === 'image') {
-      const img = result.assets[0];
-      const uploadedImage = await api.image.save(
-        img.uri,
-        img.fileName,
-        edit.tableName,
-        edit.tableId,
-        edit.imageIndex,
-        edit.tempId,
-      );
-      if (uploadedImage) {
-        edit.setImage(uploadedImage);
+    try {
+      setLoading(true);
+      if (result && !result.canceled && result.assets[0] && result.assets[0].type === 'image') {
+        const img = result.assets[0];
+        const uploadedImage = await api.image.save(
+          img.uri,
+          img.fileName,
+          edit.tableName,
+          edit.tableId,
+          edit.imageIndex,
+          edit.tempId,
+        );
+        if (uploadedImage) {
+          edit.setImage(uploadedImage);
+        }
       }
+    } catch (ex) {
+      console.log(ex);
+    } finally {
+      setLoading(false);
     }
   };
 
