@@ -9,25 +9,36 @@ import {useServices} from '../../services';
 import {ImagePickerResult} from 'expo-image-picker/src/ImagePicker.types';
 import {IImage} from '../../types/user';
 
-type Props = {
-  setVisible: Dispatch<SetStateAction<boolean>>;
-  isVisible: boolean;
+export type IEditImage = {
   tableName: string;
   tableId: string;
   imageIndex?: string;
   tempId?: string;
-  setImage?: (image: IImage) => void;
+  setImage: (image: IImage) => void;
 };
 
-export default function EditImage({setVisible, isVisible, tableName, tableId, imageIndex, tempId, setImage}: Props) {
+type Props = {
+  setVisible: Dispatch<SetStateAction<boolean>>;
+  isVisible: boolean;
+  edit: IEditImage;
+};
+
+export default function EditImage({setVisible, isVisible, edit}: Props) {
   const {api} = useServices();
 
   const saveImage = async (result: ImagePickerResult) => {
     if (result && !result.canceled && result.assets[0] && result.assets[0].type === 'image') {
       const img = result.assets[0];
-      const uploadedImage = await api.image.save(img.uri, img.fileName, tableName, tableId, imageIndex, tempId);
-      if (uploadedImage && setImage) {
-        setImage(uploadedImage);
+      const uploadedImage = await api.image.save(
+        img.uri,
+        img.fileName,
+        edit.tableName,
+        edit.tableId,
+        edit.imageIndex,
+        edit.tempId,
+      );
+      if (uploadedImage) {
+        edit.setImage(uploadedImage);
       }
     }
   };

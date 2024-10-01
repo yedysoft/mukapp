@@ -74,7 +74,7 @@ class RoomApi {
     }
   };
 
-  setConfig = async (): PVoid => {
+  findByRoomId = async (): PVoid => {
     try {
       const response = await axiosIns.get<IRoomConfig>('/room-config/findByRoomId');
       if (response.status === 200) {
@@ -87,6 +87,7 @@ class RoomApi {
 
   saveConfig = async (config: IRoomConfig): PVoid => {
     try {
+      console.log(config);
       const response = await axiosIns.post<IRoomConfig>('/room-config/saveConfig', config);
       if (response.status === 200) {
         stores.room.set('config', response.data);

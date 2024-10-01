@@ -33,10 +33,11 @@ export default observer(() => {
     >
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <MukImage
-          isEdit={true}
-          tableName={'S_USER'}
-          tableId={user.getInfo.id}
-          setImage={image => user.set('info', v => ({...v, image}))}
+          edit={{
+            tableName: 'S_USER',
+            tableId: user.getInfo.id,
+            setImage: image => user.set('info', v => ({...v, image})),
+          }}
           scale={2.4}
           source={
             user.getInfo.image

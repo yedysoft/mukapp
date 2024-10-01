@@ -46,6 +46,7 @@ export default observer(({roomData}: Props) => {
     >
       <MukImage
         scale={2}
+        resizeMode={'cover'}
         style={{
           marginVertical: 8,
           marginLeft: 8,

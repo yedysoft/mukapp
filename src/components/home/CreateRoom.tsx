@@ -26,7 +26,7 @@ export default observer(() => {
   const form: IRoomConfig = room.getConfig;
 
   useEffect(() => {
-    !room.getConfig.roomId && api.room.setConfig();
+    !room.getConfig.roomId && api.room.findByRoomId();
   }, [room.getConfig]);
 
   const handleOnPress = () => {
@@ -50,11 +50,17 @@ export default observer(() => {
       <MukBottomSheet ref={sheetRef}>
         <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
           <MukImage
+            edit={
+              form.id
+                ? {
+                    tableName: 'ROOM_CONFIG',
+                    tableId: form.id,
+                    setImage: image => room.set('config', v => ({...v, image})),
+                  }
+                : undefined
+            }
             scale={2}
-            isEdit={!!form.id}
-            tableName={'ROOM_CONFIG'}
-            tableId={form.id}
-            setImage={image => room.set('config', v => v && {...v, image})}
+            resizeMode={'cover'}
             source={
               form.image
                 ? {uri: `${form.image.link}?token=${auth.getAuthToken}`}
