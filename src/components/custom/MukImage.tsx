@@ -64,10 +64,8 @@ export default function MukImage({
           cachePolicy={'memory-disk'}
           style={[
             {
-              backgroundColor: 'transparent',
-              width: responsiveScale(scale),
-              height: responsiveScale(scale),
-              aspectRatio: 1,
+              width: '100%',
+              height: '100%',
               borderRadius: radius ? 16 : 2,
             },
             imageStyle,

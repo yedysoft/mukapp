@@ -25,7 +25,7 @@ class UIStore extends BaseStore<UIStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language']);
+    this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language', 'name', 'pass']);
   }
 
   get getScheme(): 'light' | 'dark' {

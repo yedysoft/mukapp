@@ -19,7 +19,6 @@ export default observer(() => {
           width: '100%',
           marginTop: responsiveWidth(64),
           zIndex: 1400,
-          overflow: 'hidden',
         }}
       >
         {ui.getMessages.map((e, _) => (
