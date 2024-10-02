@@ -44,8 +44,6 @@ const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, n
     api.helper.openURL(Platform.OS === 'ios' ? 'https://spotify.link/h5TbcGLLkhb' : 'https://spotify.link/T1vKH6Kr9ib');
   };
 
-  console.log('asf', height);
-
   return (
     <Pressable onPress={hasSpotify ? onPress : getSpotify} style={{flexDirection: 'row', alignItems: 'center'}}>
       <Image
