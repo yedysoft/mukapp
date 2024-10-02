@@ -4,8 +4,9 @@ import {TooltipScreenProps} from '../../types';
 import {useEffect} from 'react';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
-export default function NotificationsTooltip({positions, visible, changeVisible}: TooltipScreenProps) {
+const NotificationsTooltip = observer(({positions, visible, changeVisible}: TooltipScreenProps) => {
   const {api} = useServices();
   const {ui} = useStores();
 
@@ -24,4 +25,6 @@ export default function NotificationsTooltip({positions, visible, changeVisible}
       <NotificationList compact />
     </MukTooltip>
   );
-}
+});
+
+export default (props: TooltipScreenProps) => <NotificationsTooltip {...props} />;

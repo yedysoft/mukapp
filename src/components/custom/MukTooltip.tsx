@@ -1,6 +1,15 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
 import {Portal, useTheme} from 'react-native-paper';
-import {BackHandler, NativeEventSubscription, Pressable, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import {
+  BackHandler,
+  Keyboard,
+  NativeEventSubscription,
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import defaults from '../../utils/defaults';
 import {MukColors, MukTheme, Positions} from '../../types';
 import {useRoute} from '@react-navigation/native';
@@ -21,7 +30,8 @@ type Props = {
     | 'left-top'
     | 'left-bottom'
     | 'right-top'
-    | 'right-bottom';
+    | 'right-bottom'
+    | 'on-top';
   style?: StyleProp<ViewStyle>;
 };
 
@@ -75,12 +85,12 @@ export default observer(
         };
       } else if (anchor === 'top-right') {
         return {
-          top: positions.pageY - tooltipPosition.height + DEFAULT_PADDING,
+          top: positions.pageY - tooltipPosition.height - DEFAULT_PADDING,
           left: positions.pageX,
         };
       } else if (anchor === 'top-left') {
         return {
-          top: positions.pageY - tooltipPosition.height + DEFAULT_PADDING,
+          top: positions.pageY - tooltipPosition.height - DEFAULT_PADDING,
           left: positions.pageX - tooltipPosition.width + positions.width,
         };
       } else if (anchor === 'bottom-right') {
@@ -93,11 +103,17 @@ export default observer(
           top: positions.pageY + positions.height + DEFAULT_PADDING,
           left: positions.pageX + positions.width - tooltipPosition.width,
         };
+      } else if (anchor === 'on-top') {
+        return {
+          top: positions.pageY + positions.height - tooltipPosition.height,
+          left: positions.pageX + positions.width - tooltipPosition.width,
+        };
       }
     };
 
     const closeModal = () => {
       changeVisible(false);
+      Keyboard.dismiss();
       return true;
     };
 

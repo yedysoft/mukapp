@@ -19,7 +19,7 @@ export type MainStackScreens = {
   Main: undefined;
   Room: undefined;
   Chat: {chat: IChat};
-  Profile: {userId?: string};
+  Profile: {userId: string};
   Search: undefined;
   Notifications: undefined;
   Task: undefined;

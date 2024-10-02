@@ -1,11 +1,9 @@
-import {useTheme} from 'react-native-paper';
 import SearchListItem from './SearchListItem';
 import {FlatList, View} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import {ReactElement} from 'react';
 import {ISearchUser} from '../../types/user';
 import MukImage from '../custom/MukImage';
-import {MukTheme} from '../../types';
 
 type Props = {
   list?: ISearchUser[];
@@ -13,20 +11,18 @@ type Props = {
 };
 
 export default function SearchList({list, header}: Props) {
-  const {colors} = useTheme<MukTheme>();
-
   return (
     <FlatList
       ListHeaderComponent={header}
-      ListFooterComponent={
-        <View style={{alignItems: 'center', display: list?.length === 0 ? 'flex' : 'none', opacity: 0.1}}>
+      ListEmptyComponent={
+        <View style={{alignItems: 'center', opacity: 0.1}}>
           <MukImage scale={2} source={require('../../../assets/noimage-gray.png')} />
         </View>
       }
       contentContainerStyle={{paddingHorizontal: responsiveWidth(16), gap: responsiveWidth(8)}}
       scrollEnabled
       data={list}
-      renderItem={({item}) => <SearchListItem user={item} />}
+      renderItem={({item, index}) => <SearchListItem key={index} user={item} />}
     />
   );
 }

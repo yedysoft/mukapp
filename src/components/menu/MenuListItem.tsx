@@ -25,7 +25,7 @@ export default function MenuListItem({item}: Props) {
 
   return (
     <MukListItem
-      onPress={() => (item.disabled ? soonTitle() : navigation.navigate(item.route as any))}
+      onPress={() => (item.disabled ? soonTitle() : navigation.navigate(item.route, item.params))}
       style={{
         alignItems: 'center',
         paddingVertical: responsiveWidth(2),

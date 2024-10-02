@@ -16,11 +16,12 @@ import {_gender} from '../../types/enums';
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
   const {api, t} = useServices();
-  const {loading, user, auth} = useStores();
+  const {loading, user, auth, ui} = useStores();
   const formRef = useRef<MukFormRef<IEdit>>(null);
-  const form: IEdit = {email: '', userName: '', userPass: ''};
+  const {name, surname, gender, birthday} = user.getInfo;
+  const form: IEdit = {name, surname, gender, birthday};
 
-  const onSubmit = () => formRef.current?.validateInputs() && api.auth.register(formRef.current?.formData() as IEdit);
+  const onSubmit = () => formRef.current?.validateInputs() && api.user.editInfo(formRef.current?.formData() as IEdit);
 
   return (
     <View
@@ -31,7 +32,9 @@ export default observer(() => {
         paddingBottom: responsiveWidth(32),
       }}
     >
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View
+        style={{display: ui.isKeyboardVisible ? 'none' : undefined, justifyContent: 'center', alignItems: 'center'}}
+      >
         <MukImage
           edit={{
             tableName: 'S_USER',
@@ -54,34 +57,6 @@ export default observer(() => {
       <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
         <MukTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
         <MukTextInput name={'surname'} label={t.do('auth.register.surname')} preValidate={'required'} />
-        <MukTextInput name={'userName'} label={t.do('auth.register.username')} preValidate={'required'} />
-        <MukTextInput name={'email'} label={t.do('auth.register.email')} inputMode={'email'} preValidate={'required'} />
-        <MukTextInput
-          name={'userPass'}
-          label={t.do('auth.register.password')}
-          secureTextEntry={true}
-          preValidate={'required'}
-          validate={[value => String(value).length >= 8 && String(value).length <= 32]}
-          validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
-        />
-        <MukTextInput
-          name={'repass'}
-          label={t.do('auth.register.repassword')}
-          secureTextEntry={true}
-          preValidate={'required'}
-          validate={[
-            value => String(value).length >= 8 && String(value).length <= 32,
-            value => value === formRef.current?.formData('userPass'),
-          ]}
-          validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
-          isFormElement={false}
-        />
-        <MukTextInput
-          name={'telNumber'}
-          label={t.do('auth.register.phone')}
-          inputMode={'tel'}
-          preValidate={'required'}
-        />
         <MukTextInput
           name={'gender'}
           label={t.do('auth.register.gender')}
@@ -99,8 +74,8 @@ export default observer(() => {
         />
       </MukForm>
       <MukButton
-        buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
-        loading={loading.getRegister}
+        buttonStyle={{paddingVertical: responsiveWidth(16)}}
+        loading={loading.editInfo}
         label={t.do('auth.edit.submit')}
         onPress={onSubmit}
       />

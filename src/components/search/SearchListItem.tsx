@@ -36,7 +36,6 @@ export default observer(({user}: Props) => {
       ) : (
         <MukIcon scale={0.8} icon={'user'} />
       )}
-
       <View style={{flexDirection: 'column', width: '66%', gap: responsiveWidth(4)}}>
         <Text numberOfLines={1} style={{fontSize: responsiveSize(16), color: colors.secondary, fontWeight: '500'}}>
           {user.name} {user.surname}

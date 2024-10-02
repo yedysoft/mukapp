@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
+import MukIconButton from '../custom/MukIconButton';
 
 type Props = {
   item: ISearchUser;
@@ -16,7 +17,7 @@ type Props = {
   otherUser?: boolean;
 };
 
-const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
+export default observer(({item, onIconPress, otherUser}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const {auth} = useStores();
@@ -24,10 +25,7 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
   return (
     <MukListItem
       style={{alignItems: 'center', justifyContent: 'space-between'}}
-      onPress={() => {
-        console.log('ProfileListItem', {userId: item.id});
-        navigation.navigate('Profile', {userId: item.id});
-      }}
+      onPress={() => navigation.push('Profile', {userId: item.id})}
     >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <MukImage
@@ -47,17 +45,13 @@ const ProfileListItem = observer(({item, onIconPress, otherUser}: Props) => {
           </Text>
         </View>
       </View>
-      {/*
-        <MukIconButton
-          scale={0.4}
-          icon={'user-minus'}
-          color={colors.secondary}
-          style={{display: otherUser ? 'none' : 'flex'}}
-          onPress={() => onIconPress(item.id)}
-        />
-      */}
+      <MukIconButton
+        scale={0.4}
+        icon={'user-minus'}
+        color={colors.secondary}
+        style={{display: otherUser ? 'none' : 'flex'}}
+        onPress={() => onIconPress(item.id)}
+      />
     </MukListItem>
   );
 });
-
-export default ProfileListItem;

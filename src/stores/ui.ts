@@ -95,6 +95,10 @@ class UIStore extends BaseStore<UIStore> {
   toggleReload() {
     this.set('reloadToggle', v => !v);
   }
+
+  get isKeyboardVisible() {
+    return this.keyboardHeight > 0 || this.pickerViewVisible;
+  }
 }
 
 const ui = new UIStore();

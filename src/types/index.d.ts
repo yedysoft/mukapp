@@ -216,6 +216,7 @@ export type MukMenu = {
   icon: IconSource;
   label: string;
   route: keyof MainStackScreens;
+  params?: any;
   disabled?: boolean;
 };
 export type PVoid = Promise<void>;

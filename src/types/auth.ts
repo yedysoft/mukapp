@@ -22,14 +22,10 @@ export type IRegister = {
 };
 
 export type IEdit = {
-  userName: string;
-  email: string;
-  userPass: string;
-  name?: string;
-  surname?: string;
-  birthday?: string;
-  gender?: IGender;
-  telNumber?: string;
+  name: string;
+  surname: string;
+  birthday: string | null;
+  gender: IGender | null;
 };
 
 export type ILoginHistory = {

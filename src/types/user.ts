@@ -10,6 +10,8 @@ export type IInfo = {
   token: number;
   birthday: string | null;
   gender: IGender | null;
+  isFollower: boolean;
+  isFollows: boolean;
 };
 
 export type IImage = {

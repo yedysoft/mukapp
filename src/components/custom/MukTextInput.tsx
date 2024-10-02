@@ -80,7 +80,6 @@ const MukTextInputComp = observer(
       }: Props,
       ref,
     ) => {
-      console.log('MukTextInputCompRender', name);
       const inputRef = useRef<TextInput>(null);
       const {colors} = useTheme<MukTheme>();
       const {ui} = useStores();
@@ -89,6 +88,7 @@ const MukTextInputComp = observer(
       const [error, setError] = useState<string | null>(null);
       const [isEmpty, setIsEmpty] = useState<boolean>(!validInputValue);
       const value = useRef<string | undefined>(validInputValue);
+      console.log('MukTextInputCompRender', value.current);
 
       useEffect(() => {
         isEmpty !== !validInputValue && setIsEmpty(!validInputValue);
@@ -249,7 +249,7 @@ const MukTextInputComp = observer(
               showSoftInputOnFocus={!isPicker && showKeyboard}
               onChangeText={handleChangeText}
               onFocus={handleFocus}
-              onPress={focusInput}
+              onPressOut={isPicker ? focusInput : rest.onPressOut}
               style={[
                 {
                   width: '100%',
@@ -289,13 +289,19 @@ const MukTextInputComp = observer(
               buttonIcon={rest.returnKeyType === 'done' ? 'check' : 'arrow-right'}
             >
               {pickerType === 'normal' && pickerItems ? (
-                <MukPicker name={name} items={pickerItems} value={value.current} onValueChange={handleValueChange} />
+                <MukPicker
+                  name={name}
+                  items={pickerItems}
+                  value={getValue()}
+                  itemWidth={'auto'}
+                  onValueChange={handleValueChange}
+                />
               ) : (
                 <MukDatePicker
                   name={name}
                   minYear={datePickerMinMax?.min}
                   maxYear={datePickerMinMax?.max}
-                  value={value.current}
+                  value={getValue() as string}
                   onValueChange={handleValueChange}
                 />
               )}

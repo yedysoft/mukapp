@@ -1,111 +1,11 @@
 import MukFAB from '../../components/custom/MukFAB';
-import React, {useEffect, useRef} from 'react';
-import MukButton from '../custom/MukButton';
-import {useServices} from '../../services';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
 import {observer} from 'mobx-react';
+import RoomConfigTooltip from '../tooltips/RoomConfigTooltip';
 import {useStores} from '../../stores';
-import MukTextInput from '../custom/MukTextInput';
-import {IRoomConfig} from '../../types/room';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
-import {View} from 'react-native';
-import MukImage from '../custom/MukImage';
-import {Text, useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
-import MukForm, {MukFormRef} from '../custom/MukForm';
-import {MainStackNavProp} from '../../navigation/MainStack';
-import MukBottomSheet, {MukBottomSheetRef} from '../custom/MukBottomSheet';
 
 export default observer(() => {
-  const {colors} = useTheme<MukTheme>();
-  const navigation = useNavigation<MainStackNavProp>();
-  const {api, t} = useServices();
-  const {room, user, auth, loading} = useStores();
-  const formRef = useRef<MukFormRef<IRoomConfig>>(null);
-  const sheetRef = useRef<MukBottomSheetRef>(null);
-  const form: IRoomConfig = room.getConfig;
+  const {room} = useStores();
 
-  useEffect(() => {
-    !room.getConfig.roomId && api.room.findByRoomId();
-  }, [room.getConfig]);
-
-  const handleOnPress = () => {
-    sheetRef.current?.open();
-  };
-
-  const createRoom = async () => {
-    if (formRef.current?.validateInputs()) {
-      await api.room.createRoom(formRef.current?.formData() as IRoomConfig);
-      sheetRef.current?.close();
-      if (room.isLive) {
-        sheetRef.current?.close(true);
-        navigation.navigate('Room');
-      }
-    }
-  };
-
-  return (
-    <>
-      {!room.isLive ? <MukFAB onPress={handleOnPress} /> : null}
-      <MukBottomSheet ref={sheetRef}>
-        <View style={{flexDirection: 'row', gap: responsiveWidth(16)}}>
-          <MukImage
-            edit={
-              form.id
-                ? {
-                    tableName: 'ROOM_CONFIG',
-                    tableId: form.id,
-                    setImage: image => room.set('config', v => ({...v, image})),
-                  }
-                : undefined
-            }
-            scale={2}
-            resizeMode={'cover'}
-            source={
-              form.image
-                ? {uri: `${form.image.link}?token=${auth.getAuthToken}`}
-                : require('../../../assets/adaptive-icon.png')
-            }
-            style={{
-              borderWidth: responsiveSize(1),
-              borderColor: colors.primary,
-            }}
-          />
-          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', gap: responsiveWidth(8)}}>
-            <View style={{gap: responsiveWidth(4)}}>
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontSize: responsiveSize(16),
-                  fontWeight: '400',
-                  color: colors.secondary,
-                }}
-              >
-                {user.getInfo.name} {user.getInfo.surname}
-              </Text>
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontSize: responsiveSize(16),
-                  fontWeight: '400',
-                  color: colors.secondary,
-                }}
-              >
-                @{user.getInfo.userName}
-              </Text>
-            </View>
-            <MukForm ref={formRef} onSubmit={createRoom} data={form}>
-              <MukTextInput
-                name={'name'}
-                selectionColor={colors.primary}
-                label={t.do('roomConfig.name')}
-                preValidate={'required'}
-              />
-            </MukForm>
-          </View>
-        </View>
-        <MukButton loading={loading.createRoom} label={t.do('roomConfig.submit')} onPress={createRoom} />
-      </MukBottomSheet>
-    </>
-  );
+  return <>{!room.isLive ? <MukFAB tooltip={RoomConfigTooltip} /> : null}</>;
 });

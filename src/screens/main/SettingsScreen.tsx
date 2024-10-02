@@ -61,6 +61,7 @@ export default observer(() => {
           const isConnected = auth.auths.some(value => value === key);
           return (
             <Pressable
+              key={key}
               disabled={loading.clearAuth || loading.connectAccount}
               style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={async () => {

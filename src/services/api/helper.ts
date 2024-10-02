@@ -82,7 +82,7 @@ class HelperApi {
       return false;
     }
     for (const key in object1) {
-      if (!object2.hasOwnProperty(key)) {
+      if (!Object.prototype.hasOwnProperty.call(object2, key)) {
         return false;
       }
       if (typeof object1[key] === 'function' && typeof object2[key] === 'function') {
@@ -268,14 +268,6 @@ class HelperApi {
       return undefined;
     }
     return playlists.find(p => p.selected);
-  };
-
-  isUserFollows = (userId: string) => {
-    try {
-      return stores.user.getFollows.find(f => f.id === userId);
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   calculateDaysBetweenDates = (startDate: Date, endDate: Date): number => {

@@ -1,7 +1,8 @@
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
   FlatList,
+  LayoutChangeEvent,
   ListRenderItemInfo,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -19,6 +20,7 @@ type Props<T extends string | number> = {
   items: Record<T, string> | T[];
   value?: T;
   itemHeight?: number;
+  itemWidth?: number | 'auto';
   onValueChange?: (name: string, value: T, prettyValue?: string) => void;
 };
 
@@ -32,23 +34,29 @@ const checkValue = <T extends string | number>(value: T | undefined, items: T[])
   return value;
 };
 
-const pickerStyles = (itemHeight: number, visibleItemCount: number, color: string) =>
+const pickerStyles = (itemHeight: number, visibleItemCount: number, color: string, width: number) =>
   StyleSheet.create({
     indicator: {
       position: 'absolute',
       top: itemHeight * ((visibleItemCount - 1) / 2),
-      width: responsiveWidth(80),
+      width: width,
       height: responsiveWidth(1),
       backgroundColor: color,
     },
   });
 
-const MukPickerComp = <T extends string | number>({name, items, value, onValueChange, itemHeight = 30}: Props<T>) => {
+const MukPickerComp = <T extends string | number>({
+  name,
+  items,
+  value,
+  onValueChange,
+  itemHeight = 30,
+  itemWidth = responsiveWidth(70),
+}: Props<T>) => {
   const tempValue = value;
   const itemsIsArray = Array.isArray(items);
   const itemsArray = itemsIsArray ? items : Object.keys(items).map(k => k as T);
   value = checkValue<T>(tempValue, itemsArray);
-  console.log('CustomPickerCompRender', name, tempValue, value);
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
@@ -56,10 +64,17 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...itemsArray, ...emptyItems], [itemsArray, emptyItems]);
   const {api} = useServices();
+  const [width, setWidth] = useState<number>(0);
 
   const styles = useMemo(
-    () => pickerStyles(itemHeight, visibleItemCount, api.helper.addOpacityToColor(colors.secondary, 0.1)),
-    [itemHeight, visibleItemCount, colors],
+    () =>
+      pickerStyles(
+        itemHeight,
+        visibleItemCount,
+        api.helper.addOpacityToColor(colors.secondary, 0.1),
+        itemWidth === 'auto' ? width : itemWidth,
+      ),
+    [itemHeight, visibleItemCount, colors, width, itemWidth],
   );
 
   const renderItem = ({item, index}: ListRenderItemInfo<T>) => {
@@ -89,6 +104,7 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
           }}
         >
           <Text
+            numberOfLines={1}
             style={{
               fontSize: responsiveSize(16),
               fontWeight: '600',
@@ -125,6 +141,12 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
     onValueChange && onValueChange(name, val, itemsIsArray ? undefined : items[val]);
   };
 
+  const handleOnLayout = (event: LayoutChangeEvent) => {
+    if (itemWidth === 'auto' && width !== event.nativeEvent.layout.width) {
+      setWidth(event.nativeEvent.layout.width);
+    }
+  };
+
   useEffect(() => {
     if (tempValue !== value && value) {
       gotoItem(value, true);
@@ -136,7 +158,14 @@ const MukPickerComp = <T extends string | number>({name, items, value, onValueCh
   }, []);
 
   return (
-    <View style={{height: itemHeight * visibleItemCount, paddingHorizontal: responsiveWidth(8)}}>
+    <View
+      style={{
+        height: itemHeight * visibleItemCount,
+        width: itemWidth === 'auto' ? undefined : itemWidth,
+        paddingHorizontal: responsiveWidth(8),
+      }}
+      onLayout={handleOnLayout}
+    >
       <Animated.FlatList
         style={{height: itemHeight * visibleItemCount}}
         ref={listRef}

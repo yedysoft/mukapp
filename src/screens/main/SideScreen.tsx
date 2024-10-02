@@ -4,15 +4,19 @@ import MenuList from '../../components/menu/MenuList';
 import MenuFooter from '../../components/menu/MenuFooter';
 import {MukMenu} from '../../types';
 import {useServices} from '../../services';
+import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
-export default () => {
+export default observer(() => {
   const {t} = useServices();
+  const {user} = useStores();
 
   const menu: MukMenu[] = [
     {
       icon: 'user',
       label: t.do('main.side.profile'),
       route: 'Profile',
+      params: {userId: user.getInfo.id},
     },
     {
       icon: 'bell',
@@ -55,4 +59,4 @@ export default () => {
       <MenuFooter />
     </DrawerLayout>
   );
-};
+});

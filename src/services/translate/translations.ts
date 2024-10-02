@@ -103,9 +103,9 @@ const tr: MukLang = {
         title: 'Bağlı Hesaplar',
         spotify: {
           connect: 'Spotify Hesabını Bağla',
-          disconnect: 'Spotify Hesabının Bağlantısını Kes'
-        }
-      }
+          disconnect: 'Spotify Hesabının Bağlantısını Kes',
+        },
+      },
     },
     ps: {
       blocked: 'Engellenen Kullanıcılar',
@@ -260,9 +260,9 @@ const en: MukLang = {
         title: 'Connected Accounts',
         spotify: {
           connect: 'Connect Spotify Account',
-          disconnect: 'Disconnect Spotify Account'
-        }
-      }
+          disconnect: 'Disconnect Spotify Account',
+        },
+      },
     },
     ps: {
       blocked: 'Blocked Users',

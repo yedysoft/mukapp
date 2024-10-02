@@ -4,7 +4,7 @@ import {IPage, MessageBody, PVoid} from '../../types';
 import media from './media';
 import {IQueueTrack} from '../../types/media';
 import {IBlockedUser, IFollowUser, IInfo, INotification, ISearchUser} from '../../types/user';
-import {IPassChange} from '../../types/auth';
+import {IEdit, IPassChange} from '../../types/auth';
 
 class UserApi {
   getInfo = async (): PVoid => {
@@ -135,7 +135,6 @@ class UserApi {
     try {
       const response = await axiosIns.delete(`/user-follower/unFollow/${userId}`);
       if (response.status === 200) {
-        console.log('Unfollow: ', response.data);
         await this.getFollows(stores.user.getInfo.id);
       }
     } catch (e) {
@@ -147,7 +146,6 @@ class UserApi {
     try {
       const response = await axiosIns.delete(`/user-follower/takeOutMyFollowers/${userId}`);
       if (response.status === 200) {
-        console.log('takeOutMyFollowers: ', response.data);
         await this.getFollowers(stores.user.getInfo.id);
       }
     } catch (e) {
@@ -227,6 +225,22 @@ class UserApi {
       stores.loading.set('passChange', false);
     }
   };
+
+  async editInfo(info: IEdit): PVoid {
+    try {
+      stores.loading.set('editInfo', true);
+      const response = await axiosIns.post<IInfo>('/user-info/editInfo', info);
+      if (response.status === 200) {
+        console.log(response.data);
+        stores.user.set('info', response.data);
+        stores.ui.addInfo('Kayıt başarılı.');
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      stores.loading.set('editInfo', false);
+    }
+  }
 }
 
 const user = new UserApi();

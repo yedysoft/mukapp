@@ -1,5 +1,5 @@
 import {IconButton, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveScale, responsiveWidth} from '../../utils/util';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {Pressable, StyleProp, View, ViewStyle} from 'react-native';
 import React, {ReactNode, useRef, useState} from 'react';
@@ -40,7 +40,7 @@ export default function MukIconButton({
     setTooltipVisible(open);
   };
 
-  const getMeasure = () => {
+  const handleOnLayout = () => {
     if (tooltip && ref.current) {
       ref.current.measure((_x, _y, width, height, pageX, pageY) => {
         setPositions({width: width, height: height, pageX: pageX, pageY: pageY});
@@ -48,13 +48,13 @@ export default function MukIconButton({
     }
   };
 
-  const onPressHandle = () => {
-    setTooltipVisible(!tooltipVisible);
+  const handleOnPress = () => {
+    tooltip && setTooltipVisible(!tooltipVisible);
     onPress && onPress();
   };
 
   return (
-    <Pressable ref={ref} style={style} onPress={onPressHandle} onPressIn={getMeasure}>
+    <Pressable ref={ref} style={style} onPress={handleOnPress} onLayout={handleOnLayout}>
       <View
         style={{
           display: defaultBadge ? undefined : 'none',
@@ -83,7 +83,7 @@ export default function MukIconButton({
         icon={icon ? icon : 'blank'}
         iconColor={color ? color : colors.secondary}
         style={{margin: 0}}
-        size={responsiveSize(scale ? 64 * scale : 64)}
+        size={responsiveScale(scale)}
       />
       {tooltip && tooltip({positions: positions, visible: tooltipVisible, changeVisible: tooltipChangeVisible})}
     </Pressable>

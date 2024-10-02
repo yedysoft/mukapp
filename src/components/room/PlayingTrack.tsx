@@ -12,7 +12,6 @@ import {MukColors, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {spotifyOpenUrlBase} from '../../../config';
 import SpotifyIcon from '../spotify/SpotifyIcon';
-import {useEffect} from 'react';
 
 type Props = {
   compact?: boolean;
@@ -28,12 +27,12 @@ export default observer(({compact}: Props) => {
   const iconColor = api.helper.isColorLight(dominantColor) ? 'black' : 'white';
   const navigation = useNavigation<MainStackNavProp>();
 
-  useEffect(() => {
+  /*useEffect(() => {
     media.getPlaylists &&
       !media.getPlayingTrack.uri &&
       media.getPlaylists[1] &&
       api.helper.openURL(`${spotifyOpenUrlBase}/playlist/${media.getPlaylists[1].id}`); //TODO: SPOTİDE PLAY EKLENİNCE KALDIRILACAK
-  }, [media.getPlaylists]);
+  }, [media.getPlaylists]);*/
 
   return (
     <View

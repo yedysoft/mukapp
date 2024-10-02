@@ -15,28 +15,25 @@ type Props = {
 
 export default function ProfileList({items, header, onIconPress, otherUser, tabIndex}: Props) {
   return (
-    <>
-      {items.length > 0 ? (
-        <FlatList
-          data={items}
-          ListHeaderComponent={header}
-          renderItem={({item, index}) =>
-            tabIndex !== 0 ? (
-              <ProfileListItem onIconPress={onIconPress} key={index} item={item} otherUser={otherUser} />
-            ) : (
-              <SongListItem song={item} itemType={'vote'} />
-            )
-          }
-          scrollEnabled
-          contentContainerStyle={{paddingVertical: responsiveWidth(8), paddingBottom: responsiveHeight(360)}}
-        />
-      ) : (
+    <FlatList
+      data={items}
+      ListHeaderComponent={header}
+      renderItem={({item, index}) =>
+        tabIndex !== 0 ? (
+          <ProfileListItem onIconPress={onIconPress} key={index} item={item} otherUser={otherUser} />
+        ) : (
+          <SongListItem song={item} itemType={'vote'} />
+        )
+      }
+      scrollEnabled
+      ListEmptyComponent={
         <MukImage
           source={require('../../../assets/noimage-gray.png')}
           scale={2}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
         />
-      )}
-    </>
+      }
+      contentContainerStyle={{paddingVertical: responsiveWidth(8), paddingBottom: responsiveHeight(360)}}
+    />
   );
 }

@@ -26,8 +26,6 @@ export default observer(() => {
   const {api, t} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
-  //const currentLanguage = useRef(ui.language);
-  //const langChanged = useMemo(() => ui.language !== currentLanguage.current, [ui.language]);
 
   return (
     <SafeAreaView
@@ -45,7 +43,6 @@ export default observer(() => {
           icon={'chevron-left'}
           scale={0.7}
           onPress={() => {
-            //route.name === 'Settings' && langChanged && ui.toggleReload();
             navigation.goBack();
             route.name === 'Chat' && user.set('quotedMessage', null);
           }}
@@ -59,7 +56,7 @@ export default observer(() => {
           textColor={textColor}
           style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}}
         />
-      ) : route.name === 'Profile' && !(route.params as any)?.userId ? (
+      ) : route.name === 'Profile' && params.userId === user.getInfo.id ? (
         <MukIconButton
           style={{justifyContent: 'flex-end', marginRight: responsiveWidth(-8)}}
           icon={'edit'}

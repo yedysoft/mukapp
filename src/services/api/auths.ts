@@ -4,7 +4,6 @@ import {IAuthsApi, PVoid} from '../../types';
 import {IAuthsType} from '../../types/enums';
 import * as WebBrowser from 'expo-web-browser';
 import media from './media';
-import {authRedirectUrl} from '../../../config';
 import AuthApi from './auth';
 
 export class AuthsApi implements IAuthsApi {
@@ -42,16 +41,13 @@ export class AuthsApi implements IAuthsApi {
         authUrl = await media.getAuthUrl();
       }
       if (authUrl) {
-        const params = new URLSearchParams(authUrl.split('?')[1]);
-        const redirectUri = params.get('redirect_uri');
-        const result = await WebBrowser.openAuthSessionAsync(authUrl, isLogin ? authRedirectUrl : redirectUri, {
+        const result = await WebBrowser.openAuthSessionAsync(authUrl, isLogin ? 'muk://login' : 'muk://auth', {
           toolbarColor: stores.ui.getTheme.colors.primary,
           controlsColor: stores.ui.getTheme.colors.primary,
           enableBarCollapsing: false,
           enableDefaultShareMenuItem: false,
           readerMode: false,
         });
-        console.log(result);
         if (result.type === 'success') {
           if (isLogin) {
             const params = new URLSearchParams(result.url.split('?')[1]);

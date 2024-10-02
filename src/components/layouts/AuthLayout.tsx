@@ -18,7 +18,7 @@ export default observer(({children, style}: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(-32) : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(-32) : 0}
       style={{flex: 1}}
     >
       <View

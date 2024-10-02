@@ -5,24 +5,21 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {IInfo} from '../../types/user';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
-import {useState} from 'react';
 import {MukTheme} from '../../types';
 import {useNavigation} from '@react-navigation/native';
 import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   profile: IInfo;
   otherUser?: boolean;
 };
 
-export default function VerticalProfile({profile, otherUser}: Props) {
+export default observer(({profile, otherUser}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation();
   const {api} = useServices();
   const {user, auth} = useStores();
-  const [followIcon, setFollowIcon] = useState<string>(
-    api.helper.isUserFollows(profile.id) ? 'user-minus' : 'user-plus',
-  );
 
   return (
     <View
@@ -72,13 +69,10 @@ export default function VerticalProfile({profile, otherUser}: Props) {
             <MukIconButton
               color={colors.secondary}
               scale={0.4}
-              icon={followIcon}
-              onPress={() => {
-                api.helper.isUserFollows(profile.id)
-                  ? api.user.unFollow(profile.id)
-                  : api.user.sendFollowRequest(profile.id);
-                setFollowIcon('user-check');
-              }}
+              icon={profile.isFollows ? 'user-minus' : 'user-plus'}
+              onPress={() =>
+                profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id)
+              }
             />
             <MukIconButton
               scale={0.4}
@@ -96,4 +90,4 @@ export default function VerticalProfile({profile, otherUser}: Props) {
       </View>
     </View>
   );
-}
+});

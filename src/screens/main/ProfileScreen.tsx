@@ -1,6 +1,6 @@
 import VerticalProfile from '../../components/user/VerticalProfile';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
-import {useEffect, useState} from 'react';
+import {useCallback, useState} from 'react';
 import ProfileStats from '../../components/profile/ProfileStats';
 import ProfileList from '../../components/profile/ProfileList';
 import {View} from 'react-native';
@@ -10,13 +10,15 @@ import {observer} from 'mobx-react';
 import MukLoader from '../../components/loading/MukLoader';
 import {SubLayout} from '../../components/layouts/SubLayout';
 import useInfo from '../../hooks/useInfo';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
 
-export default observer((props: any) => {
-  const userId = props.route.params?.userId;
+export default observer(() => {
+  const route = useRoute();
+  const {userId} = route.params as {userId: string};
   const {api, t} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
-  const otherUser = userId ? user.getInfo.id !== userId : false;
+  const otherUser = user.getInfo.id !== userId;
   const otherUserInfo = useInfo(userId, otherUser);
   const info = otherUser ? otherUserInfo : user.getInfo;
 
@@ -35,15 +37,17 @@ export default observer((props: any) => {
     },
   ];
 
-  useEffect(() => {
-    const id = info.id;
-    if (id !== 'default') {
-      setActiveIndex(0);
-      api.user.getFollows(id);
-      api.user.getFollowers(id);
-      api.user.getTopListVoteMusic(id);
-    }
-  }, [info]);
+  useFocusEffect(
+    useCallback(() => {
+      const id = info.id;
+      if (id !== 'default') {
+        setActiveIndex(0);
+        api.user.getFollows(id);
+        api.user.getFollowers(id);
+        api.user.getTopListVoteMusic(id);
+      }
+    }, [info.id]),
+  );
 
   return (
     <SubLayout style={{gap: responsiveHeight(16)}}>

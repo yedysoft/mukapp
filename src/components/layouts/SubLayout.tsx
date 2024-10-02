@@ -1,14 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  StyleProp,
-  TouchableWithoutFeedback,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {KeyboardAvoidingView, Platform, StyleProp, View, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
@@ -25,26 +17,24 @@ export const SubLayout = observer(({children, style}: Props) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(140) : responsiveWidth(94)}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(140) : 0}
       style={{flex: 1}}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View
-          style={[
-            {
-              flex: 1,
-              flexDirection: 'column',
-              width: ui.windowWidth,
-              backgroundColor: colors.background,
-              paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
-            },
-            style,
-          ]}
-        >
-          {children}
-        </View>
-      </TouchableWithoutFeedback>
+      <View
+        style={[
+          {
+            flex: 1,
+            flexDirection: 'column',
+            width: ui.windowWidth,
+            backgroundColor: colors.background,
+            paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
+          },
+          style,
+        ]}
+      >
+        {children}
+      </View>
     </KeyboardAvoidingView>
   );
 });
