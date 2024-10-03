@@ -8,11 +8,9 @@ import {IEdit, IPassChange} from '../../types/auth';
 
 class UserApi {
   getInfo = async (): PVoid => {
-    try {
-      const response = await axiosIns.get<IInfo>('/user-info/getInfo');
+    const response = await axiosIns.get<IInfo>('/user-info/getInfo');
+    if (response.status === 200) {
       stores.user.set('info', response.data);
-    } catch (e) {
-      console.log(e);
     }
   };
 

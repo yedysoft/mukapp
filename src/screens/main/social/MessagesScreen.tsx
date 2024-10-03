@@ -1,8 +1,10 @@
 import {MainLayout} from '../../../components/layouts/MainLayout';
 import {observer} from 'mobx-react';
 import MessagesList from '../../../components/messages/MessagesList';
-import CreateChat from '../../../components/messages/CreateChat';
 import {useStores} from '../../../stores';
+import CreateChatTooltip from '../../../components/tooltips/CreateChatTooltip';
+import MukFAB from '../../../components/custom/MukFAB';
+import React from 'react';
 
 export default observer(() => {
   const {user} = useStores();
@@ -14,7 +16,7 @@ export default observer(() => {
   return (
     <MainLayout>
       <MessagesList chats={orderedChats} />
-      <CreateChat />
+      <MukFAB tooltip={CreateChatTooltip} icon={'message-square'} />
     </MainLayout>
   );
 });

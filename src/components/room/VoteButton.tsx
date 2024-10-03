@@ -1,21 +1,17 @@
-import {useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
-import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
+import {GestureResponderEvent, StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import MukBadge from '../custom/MukBadge';
-import {MukTheme} from '../../types';
 
 type Props = {
-  onPress?: () => void;
+  onPress?: (event: GestureResponderEvent) => void;
   badge?: number;
   style?: StyleProp<ViewStyle>;
   isLoading?: boolean;
   disabled?: boolean;
 };
 
-export default function VoteButton({onPress, badge, style, isLoading, disabled}: Props) {
-  const {colors} = useTheme<MukTheme>();
-
+export default ({onPress, badge, style, isLoading, disabled}: Props) => {
   return (
     <TouchableOpacity disabled={disabled} onPress={onPress} style={style}>
       <MukBadge
@@ -43,4 +39,4 @@ export default function VoteButton({onPress, badge, style, isLoading, disabled}:
       />*/}
     </TouchableOpacity>
   );
-}
+};

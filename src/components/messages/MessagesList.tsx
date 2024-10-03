@@ -14,24 +14,21 @@ export default function MessagesList({chats}: Props) {
   const {colors} = useTheme<MukTheme>();
 
   return (
-    <>
-      {chats.length > 0 ? (
-        <FlatList
-          data={chats}
-          renderItem={({item, index}) => <MessagesListItem key={index} chat={item} />}
-          scrollEnabled
-          contentContainerStyle={{
-            paddingVertical: responsiveWidth(8),
-            backgroundColor: colors.background,
-          }}
-        />
-      ) : (
+    <FlatList
+      data={chats}
+      renderItem={({item, index}) => <MessagesListItem key={index} chat={item} />}
+      scrollEnabled
+      contentContainerStyle={{
+        paddingVertical: responsiveWidth(8),
+        backgroundColor: colors.background,
+      }}
+      ListEmptyComponent={
         <MukImage
           source={require('../../../assets/noimage-gray.png')}
-          scale={2}
+          scale={3}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
         />
-      )}
-    </>
+      }
+    />
   );
 }

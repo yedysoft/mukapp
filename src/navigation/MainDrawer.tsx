@@ -12,8 +12,8 @@ export default observer(() => {
   return (
     <Main.Navigator
       id={'MainDrawer'}
-      backBehavior="none"
-      initialRouteName="DrawerMain"
+      backBehavior={'none'}
+      initialRouteName={'DrawerMain'}
       screenOptions={{
         drawerType: 'slide',
         drawerStyle: {},
@@ -24,7 +24,7 @@ export default observer(() => {
       drawerContent={() => <SideScreen />}
     >
       <Main.Screen
-        name="DrawerMain"
+        name={'DrawerMain'}
         component={MainStack}
         options={({route}) => {
           const routeName = getFocusedRouteNameFromRoute(route) ?? 'Items';

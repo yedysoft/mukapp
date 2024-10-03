@@ -5,9 +5,7 @@ import {useStores} from '../../stores';
 import {useEffect, useState} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
-import {useTheme} from 'react-native-paper';
 import LeaderboardList from './LeaderboardList';
-import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
 import MukButton from '../custom/MukButton';
@@ -15,14 +13,14 @@ import SpotifyIcon from '../spotify/SpotifyIcon';
 import {spotifyOpenUrlBase} from '../../../config';
 
 const RoomTabs = observer(() => {
-  const {colors} = useTheme<MukTheme>();
+  //const {colors} = useTheme<MukTheme>();
   const [tabIndex, setTabIndex] = useState(1);
   const {api} = useServices();
   const {media, room, loading} = useStores();
-  const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists);
+  //const selectedPlaylist = api.helper.getSelectedPlaylist(media.getPlaylists);
 
   useEffect(() => {
-    api.media.getCurrentUserPlaylists();
+    //api.media.getCurrentUserPlaylists();
     api.room.setLeaderboard();
   }, []);
 

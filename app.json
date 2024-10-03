@@ -3,7 +3,7 @@
     "scheme": "muk",
     "name": "Mük",
     "slug": "muk",
-    "version": "0.0.11",
+    "version": "0.0.10",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -29,14 +29,17 @@
     "ios": {
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to your camera to take photos.",
-        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to select photos."
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to select photos.",
+        "LSApplicationQueriesSchemes": [
+          "spotify"
+        ]
       },
       "supportsTablet": true,
       "bundleIdentifier": "com.yedy.muk",
-      "buildNumber": "11"
+      "buildNumber": "10"
     },
     "android": {
-      "versionCode": 11,
+      "versionCode": 10,
       "softwareKeyboardLayoutMode": "resize",
       "package": "com.yedy.muk",
       "googleServicesFile": "./google-services.json",
@@ -49,6 +52,18 @@
               "scheme": "https",
               "host": "api.yedysoft.com",
               "pathPrefix": "/muk/auths/login"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        },
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "spotify"
             }
           ],
           "category": [

@@ -12,6 +12,7 @@ import {IDeviceType} from '../../types/enums';
 import {Platform} from 'react-native';
 import * as Device from 'expo-device';
 import {DeviceType} from 'expo-device';
+import * as RootNavigation from '../../navigation/RootNavigation';
 import defaults from '../../utils/defaults';
 
 class AuthApi implements IAuthApi {
@@ -71,6 +72,7 @@ class AuthApi implements IAuthApi {
       await socket.disconnect();
       this.clearAuth();
       await this.checkToken();
+      RootNavigation.reset('Login');
     } catch (e) {
       console.log(e);
     } finally {
@@ -93,6 +95,9 @@ class AuthApi implements IAuthApi {
           await subscription.globalSubscribes();
         }
         stores.auth.setMany({isNeededPassChange: isNeededPassChange, loggedIn: !isNeededPassChange});
+        if (isNeededPassChange) {
+          RootNavigation.reset('NewPassScreen');
+        }
       }
     } catch (e: any) {
       console.log(e);
@@ -130,9 +135,9 @@ class AuthApi implements IAuthApi {
   };
 
   private clearAuth = () => {
-    stores.auth.setMany({loggedIn: false, authToken: ''});
+    stores.auth.setMany({loggedIn: false, isNeededPassChange: false, authToken: ''});
     stores.room.set('config', defaults.config);
-    stores.user.setMany({notifications: [], chats: []});
+    stores.user.setMany({notifications: [], chats: [], info: defaults.info});
   };
 }
 

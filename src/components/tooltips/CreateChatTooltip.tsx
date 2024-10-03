@@ -1,23 +1,23 @@
-import MukFAB from '../../components/custom/MukFAB';
-import {useEffect, useRef, useState} from 'react';
-import MukButton from '../custom/MukButton';
+import MukTooltip from '../custom/MukTooltip';
+import {TooltipScreenProps} from '../../types';
+import React, {useEffect, useState} from 'react';
 import {useServices} from '../../services';
-import {useNavigation} from '@react-navigation/native';
-import {observer} from 'mobx-react';
-import FriendsList from './FriendsList';
 import {useStores} from '../../stores';
-import {MainStackNavProp} from '../../navigation/MainStack';
-import {IChat} from '../../types/chat';
-import {IFollowUser} from '../../types/user';
-import MukBottomSheet, {MukBottomSheetRef} from '../custom/MukBottomSheet';
+import {observer} from 'mobx-react';
+import {View} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
+import MukButton from '../custom/MukButton';
+import {useNavigation} from '@react-navigation/native';
+import {MainStackNavProp} from '../../navigation/MainStack';
+import {IFollowUser} from '../../types/user';
+import {IChat} from '../../types/chat';
+import FriendsList from '../messages/FriendsList';
 
-export default observer(() => {
+const CreateChatTooltip = observer(({positions, visible, changeVisible}: TooltipScreenProps) => {
   const navigation = useNavigation<MainStackNavProp>();
   const {t, api} = useServices();
   const {user, ui} = useStores();
   const [users, setUsers] = useState<(IFollowUser & {selected: boolean})[]>([]);
-  const sheetRef = useRef<MukBottomSheetRef>(null);
 
   useEffect(() => {
     setUsers(user.getFollows.map(u => ({...u, selected: false})));
@@ -25,11 +25,6 @@ export default observer(() => {
 
   const selectUser = (id: string) => {
     setUsers(v => v.map(u => (u.id === id ? {...u, selected: !u.selected} : u)));
-  };
-
-  const handleOnPress = () => {
-    user.getInfo.id && api.user.getFollows(user.getInfo.id);
-    sheetRef.current?.open();
   };
 
   const createChat = async () => {
@@ -59,7 +54,7 @@ export default observer(() => {
       });
     }
     if (chat) {
-      sheetRef.current?.close(true);
+      changeVisible(false);
       navigation.navigate('Chat', {chat: chat});
     } else {
       ui.addWarning('En az 1 kullanıcı seçmelisiniz.');
@@ -67,19 +62,30 @@ export default observer(() => {
   };
 
   return (
-    <>
-      <MukFAB onPress={handleOnPress} icon={'message-square'} />
-      <MukBottomSheet
-        ref={sheetRef}
+    <MukTooltip
+      anchor={'on-top'}
+      positions={positions}
+      visible={visible}
+      changeVisible={changeVisible}
+      style={{width: ui.windowWidth - responsiveWidth(32), maxHeight: ui.windowHeight / 2}}
+    >
+      <View
         style={{
+          flex: 1,
           gap: responsiveWidth(16),
           justifyContent: 'space-between',
-          paddingVertical: responsiveWidth(16),
+          padding: responsiveWidth(16),
         }}
       >
         <FriendsList friends={users} onPress={selectUser} />
-        <MukButton label={t.do('main.social.newChat')} onPress={createChat} />
-      </MukBottomSheet>
-    </>
+        <MukButton
+          buttonStyle={{paddingVertical: responsiveWidth(16)}}
+          label={t.do('main.social.newChat')}
+          onPress={createChat}
+        />
+      </View>
+    </MukTooltip>
   );
 });
+
+export default (props: TooltipScreenProps) => <CreateChatTooltip {...props} />;

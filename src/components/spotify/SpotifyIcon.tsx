@@ -1,4 +1,4 @@
-import {Image, ImageStyle, LayoutChangeEvent, Platform, Pressable, Text} from 'react-native';
+import {GestureResponderEvent, Image, ImageStyle, LayoutChangeEvent, Platform, Pressable, Text} from 'react-native';
 import {memo, useEffect, useMemo, useState} from 'react';
 import {responsiveSize} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
@@ -9,7 +9,7 @@ type Props = {
   color?: 'green' | 'white' | 'black';
   scale?: number;
   style?: ImageStyle;
-  onPress?: (e: any) => void;
+  onPress?: () => void;
   spotifyText?: string;
   noText?: boolean;
 };
@@ -35,17 +35,21 @@ const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, n
   const onLayout = (event: LayoutChangeEvent) => {
     const newHeight = Math.ceil(event.nativeEvent.layout.height);
     if (Math.abs(newHeight - height) > 1) {
-      console.log(newHeight, height);
       setHeight(newHeight);
     }
   };
 
-  const getSpotify = () => {
-    api.helper.openURL(Platform.OS === 'ios' ? 'https://spotify.link/h5TbcGLLkhb' : 'https://spotify.link/T1vKH6Kr9ib');
+  const handleOnPress = (event: GestureResponderEvent) => {
+    event.stopPropagation();
+    hasSpotify && onPress && onPress();
+    !hasSpotify &&
+      api.helper.openURL(
+        Platform.OS === 'ios' ? 'https://spotify.link/h5TbcGLLkhb' : 'https://spotify.link/T1vKH6Kr9ib',
+      );
   };
 
   return (
-    <Pressable onPress={hasSpotify ? onPress : getSpotify} style={{flexDirection: 'row', alignItems: 'center'}}>
+    <Pressable onPress={handleOnPress} style={{flexDirection: 'row', alignItems: 'center'}}>
       <Image
         source={icons[color]}
         resizeMode={'contain'}
@@ -61,7 +65,7 @@ const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, n
         ]}
         onLayout={onLayout}
       />
-      {noText ? undefined : (
+      {!noText && (
         <Text
           style={{color: color === 'green' ? colors.secondary : color, fontSize: responsiveSize(14), fontWeight: '500'}}
         >

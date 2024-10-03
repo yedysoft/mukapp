@@ -35,7 +35,7 @@ export default observer(({song, itemType, disabled}: Props) => {
   };
 
   return (
-    <MukListItem style={{alignItems: 'center', gap: 0}} disabled={disabled}>
+    <MukListItem style={{alignItems: 'center', gap: 0}} disabled={disabled} onPress={() => {}}>
       <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)} radius={false} />
       <View style={{gap: responsiveWidth(4), maxWidth: responsiveWidth(240)}}>
         {title ? (
@@ -76,11 +76,12 @@ export default observer(({song, itemType, disabled}: Props) => {
           isLoading={!media.getPlayingTrack.voteable}
           badge={'voteCount' in song ? song.voteCount : undefined}
           style={{position: 'absolute', right: responsiveWidth(16)}}
-          onPress={() =>
+          onPress={event => {
+            event.stopPropagation();
             media.getPlayingTrack.voteable
               ? api.subscription.voteMusic({musicUri: song.uri, userId: user.getInfo.id})
-              : ui.addError('Oylamak için sıradaki şarkının çalmasını bekle', 1021)
-          }
+              : ui.addError('Oylamak için sıradaki şarkının çalmasını bekle', 1021);
+          }}
         />
       ) : itemType === 'add' ? (
         <AddButton

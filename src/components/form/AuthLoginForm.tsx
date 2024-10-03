@@ -4,7 +4,7 @@ import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
 import {useServices} from '../../services';
-import {ActivityIndicator, Pressable, View} from 'react-native';
+import {ActivityIndicator, Linking, Pressable, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -23,12 +23,14 @@ export const AuthLoginForm = observer(() => {
   const formRef = useRef<MukFormRef<ILogin>>(null);
   const formData: ILogin = {name: ui.name, pass: ui.pass, expoToken: ui.getExpoToken};
 
-  const handleSubmit = () => {
-    ui.setMany({
+  const handleSubmit = async () => {
+    const test = await Linking.canOpenURL('exp://');
+    console.log(test);
+    /* ui.setMany({
       name: formRef.current?.formData('name') as string,
       pass: formRef.current?.formData('pass') as string,
     });
-    formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);
+    formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);*/
   };
 
   return (
