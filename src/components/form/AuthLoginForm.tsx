@@ -24,7 +24,10 @@ export const AuthLoginForm = observer(() => {
   const formData: ILogin = {name: ui.name, pass: ui.pass, expoToken: ui.getExpoToken};
 
   const handleSubmit = async () => {
-    const test = await Linking.canOpenURL('exp://');
+    const test = await Linking.canOpenURL('spotify://spotify');
+    if (test) {
+      await Linking.openURL('spotify:track:6cWUL9R0iV2rhVrpqEEQqb');
+    }
     console.log(test);
     /* ui.setMany({
       name: formRef.current?.formData('name') as string,
