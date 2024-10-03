@@ -1,9 +1,9 @@
-import {GestureResponderEvent, Image, ImageStyle, LayoutChangeEvent, Platform, Pressable, Text} from 'react-native';
-import {memo, useEffect, useMemo, useState} from 'react';
+import {GestureResponderEvent, Image, ImageStyle, LayoutChangeEvent, Pressable, Text} from 'react-native';
+import {memo, useMemo, useState} from 'react';
 import {responsiveSize} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
-import {services, useServices} from '../../services';
+import {services} from '../../services';
 
 type Props = {
   color?: 'green' | 'white' | 'black';
@@ -23,14 +23,8 @@ const icons = {
 
 const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, noText}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {api} = useServices();
   const WIDTH = useMemo(() => (scale ? 21 * scale : 21), [scale]);
   const [height, setHeight] = useState(0);
-  const [hasSpotify, setHasSpotify] = useState(false);
-
-  useEffect(() => {
-    api.helper.canOpenURL('spotify://').then(r => setHasSpotify(r));
-  }, []);
 
   const onLayout = (event: LayoutChangeEvent) => {
     const newHeight = Math.ceil(event.nativeEvent.layout.height);
@@ -41,11 +35,7 @@ const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, n
 
   const handleOnPress = (event: GestureResponderEvent) => {
     event.stopPropagation();
-    hasSpotify && onPress && onPress();
-    !hasSpotify &&
-      api.helper.openURL(
-        Platform.OS === 'ios' ? 'https://spotify.link/h5TbcGLLkhb' : 'https://spotify.link/T1vKH6Kr9ib',
-      );
+    onPress && onPress();
   };
 
   return (
@@ -69,7 +59,7 @@ const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, n
         <Text
           style={{color: color === 'green' ? colors.secondary : color, fontSize: responsiveSize(14), fontWeight: '500'}}
         >
-          {hasSpotify ? spotifyText ?? 'Play on Spotify' : 'Get Spotify Free'}
+          {spotifyText ?? 'Play on Spotify'}
         </Text>
       )}
     </Pressable>

@@ -35,7 +35,7 @@ export default observer(({song, itemType, disabled}: Props) => {
   };
 
   return (
-    <MukListItem style={{alignItems: 'center', gap: 0}} disabled={disabled} onPress={() => {}}>
+    <MukListItem style={{alignItems: 'center', gap: 0}} disabled={disabled}>
       <MukImage scale={1.3} source={api.helper.getImageUrl(song.images, 1.3)} radius={false} />
       <View style={{gap: responsiveWidth(4), maxWidth: responsiveWidth(240)}}>
         {title ? (

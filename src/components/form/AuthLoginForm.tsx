@@ -24,10 +24,12 @@ export const AuthLoginForm = observer(() => {
   const formData: ILogin = {name: ui.name, pass: ui.pass, expoToken: ui.getExpoToken};
 
   const handleSubmit = async () => {
-    const test = await Linking.canOpenURL('spotify://spotify');
-    if (test) {
-      await Linking.openURL('spotify:track:6cWUL9R0iV2rhVrpqEEQqb');
-    }
+    const test = await Linking.canOpenURL('market://details?id=com.spotify.music&referrer=');
+
+    const track = 'https://open.spotify.com/track/28Aau4tlztDlgKJQXrWhZR';
+    const a = `https://spotify.link/content_linking?~campaign=com.yedy.muk&$deeplink_path=${track}`;
+    const b = `market://details?id=com.spotify.music&referrer${a}`;
+    await Linking.openURL(a);
     console.log(test);
     /* ui.setMany({
       name: formRef.current?.formData('name') as string,

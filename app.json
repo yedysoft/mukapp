@@ -58,17 +58,6 @@
             "BROWSABLE",
             "DEFAULT"
           ]
-        },
-        {
-          "action": "VIEW",
-          "data": [
-            {
-              "scheme": "spotify"
-            }
-          ],
-          "category": [
-            "BROWSABLE"
-          ]
         }
       ],
       "adaptiveIcon": {
