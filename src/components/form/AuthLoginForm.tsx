@@ -23,19 +23,12 @@ export const AuthLoginForm = observer(() => {
   const formRef = useRef<MukFormRef<ILogin>>(null);
   const formData: ILogin = {name: ui.name, pass: ui.pass, expoToken: ui.getExpoToken};
 
-  const handleSubmit = async () => {
-    /* const test = await Linking.canOpenURL('market://details?id=com.spotify.music&referrer=');
-
-    const track = 'https://open.spotify.com/track/28Aau4tlztDlgKJQXrWhZR';
-    const a = `https://spotify.link/content_linking?~campaign=com.yedy.muk&$deeplink_path=${track}`;
-    const b = `market://details?id=com.spotify.music&referrer${a}`;
-    await Linking.openURL(a);
-    console.log(test);*/
-    /* ui.setMany({
+  const handleSubmit = () => {
+    ui.setMany({
       name: formRef.current?.formData('name') as string,
       pass: formRef.current?.formData('pass') as string,
     });
-    formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);*/
+    formRef.current?.validateInputs() && api.auth.login(formRef.current?.formData() as ILogin);
   };
 
   return (
