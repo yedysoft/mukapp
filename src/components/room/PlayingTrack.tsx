@@ -1,6 +1,6 @@
 import {Text, useTheme} from 'react-native-paper';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukImage from '../../components/custom/MukImage';
 import MukProgressBar from '../../components/custom/MukProgressBar';
 import {observer} from 'mobx-react';
@@ -10,7 +10,6 @@ import MukIconButton from '../custom/MukIconButton';
 import {useNavigation} from '@react-navigation/native';
 import {MukColors, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
-import {spotifyOpenUrlBase} from '../../../config';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 
 type Props = {
@@ -20,7 +19,7 @@ type Props = {
 export default observer(({compact}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const styles = makeStyles(colors);
-  const {media, ui} = useStores();
+  const {media} = useStores();
   const {api} = useServices();
   const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
@@ -37,26 +36,22 @@ export default observer(({compact}: Props) => {
   return (
     <View
       style={{
-        width: ui.windowWidth,
-        height: responsiveWidth(compact ? 112 : 300),
-        justifyContent: compact ? 'flex-start' : 'flex-end',
         padding: responsiveWidth(compact ? 8 : 16),
-        position: compact ? 'absolute' : 'relative',
-        bottom: 0,
+        paddingTop: compact ? undefined : 48,
         backgroundColor: dominantColor ?? colors.background,
         gap: responsiveWidth(4),
+        flexDirection: 'column',
       }}
     >
       <TouchableOpacity
-        disabled={!media.getPlayingTrack.id && !compact}
-        onPress={() => compact && navigation.navigate('Room')}
+        disabled={!compact}
+        onPress={compact ? () => navigation.navigate('Room') : undefined}
         style={{
           flexDirection: 'row',
-          marginBottom: responsiveHeight(compact ? 8 : 0),
         }}
       >
         <MukImage
-          scale={compact ? 1.15 : 2}
+          scale={compact ? 1.4 : 2}
           style={{backgroundColor: colors.shadow}}
           source={api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}
           radius={false}
@@ -64,8 +59,7 @@ export default observer(({compact}: Props) => {
         <View
           style={{
             flexDirection: 'column',
-            justifyContent: 'flex-end',
-            maxWidth: responsiveWidth(compact ? 264 : 236),
+            flex: 1,
           }}
         >
           <Text
@@ -75,8 +69,9 @@ export default observer(({compact}: Props) => {
               fontWeight: '500',
               color: textColor ?? colors.secondary,
               backgroundColor: !media.getPlayingTrack.name ? colors.shadow : undefined,
-              minWidth: !media.getPlayingTrack.name ? 180 : undefined,
+              maxWidth: !media.getPlayingTrack.name ? 180 : undefined,
               marginLeft: responsiveWidth(8),
+              marginBottom: !media.getPlayingTrack.name ? responsiveWidth(4) : undefined,
             }}
           >
             {media.getPlayingTrack.name}
@@ -90,19 +85,16 @@ export default observer(({compact}: Props) => {
               backgroundColor: !api.helper.getArtist(media.getPlayingTrack.artists) ? colors.shadow : undefined,
               maxWidth: !api.helper.getArtist(media.getPlayingTrack.artists) ? 120 : undefined,
               marginLeft: responsiveWidth(8),
-              marginTop: responsiveWidth(4),
             }}
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}
           </Text>
-          {media.getPlayingTrack.name && (
+          {media.getPlayingTrack.id && (
             <SpotifyIcon
               color={iconColor}
-              onPress={(e: any) => {
-                e.stopPropagation();
-                media.getPlayingTrack.id &&
-                  api.helper.openURL(`${spotifyOpenUrlBase}/track/${media.getPlayingTrack.id}`);
-              }}
+              onPress={() =>
+                media.getPlayingTrack.id && api.helper.openURL(`spotify:track:${media.getPlayingTrack.id}`)
+              }
             />
           )}
         </View>
@@ -112,7 +104,7 @@ export default observer(({compact}: Props) => {
             icon={'x-circle'}
             scale={0.5}
             color={textColor ?? colors.secondary}
-            style={{position: 'absolute', right: 0, top: responsiveWidth(8)}}
+            style={{justifyContent: 'center'}}
           />
         )}
       </TouchableOpacity>
@@ -121,7 +113,6 @@ export default observer(({compact}: Props) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            width: '100%',
           }}
         >
           <Text style={{color: textColor ?? colors.secondary}}>
@@ -132,7 +123,7 @@ export default observer(({compact}: Props) => {
           </Text>
         </View>
       )}
-      <View style={styles.shadow}>
+      <View style={[styles.shadow]}>
         <MukProgressBar
           color={textColor ?? colors.primary}
           progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)}

@@ -1,7 +1,7 @@
 import {IconButton, useTheme} from 'react-native-paper';
 import {responsiveScale, responsiveWidth} from '../../utils/util';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
-import {Pressable, StyleProp, View, ViewStyle} from 'react-native';
+import {GestureResponderEvent, Pressable, StyleProp, View, ViewStyle} from 'react-native';
 import React, {ReactNode, useRef, useState} from 'react';
 import MukBadge from './MukBadge';
 import defaults from '../../utils/defaults';
@@ -43,12 +43,25 @@ export default function MukIconButton({
   const handleOnLayout = () => {
     if (tooltip && ref.current) {
       ref.current.measure((_x, _y, width, height, pageX, pageY) => {
-        setPositions({width: width, height: height, pageX: pageX, pageY: pageY});
+        if (
+          width &&
+          height &&
+          pageX &&
+          pageY &&
+          (positions.width !== width ||
+            positions.height !== height ||
+            positions.pageX !== pageX ||
+            positions.pageY !== pageY)
+        ) {
+          setPositions({width: width, height: height, pageX: pageX, pageY: pageY});
+        }
       });
     }
   };
 
-  const handleOnPress = () => {
+  const handleOnPress = (event: GestureResponderEvent) => {
+    event.stopPropagation();
+    handleOnLayout();
     tooltip && setTooltipVisible(!tooltipVisible);
     onPress && onPress();
   };

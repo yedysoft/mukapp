@@ -111,10 +111,10 @@ export default observer(({message, quotedMessage}: Props) => {
         >
           {info.name} {info.surname}
         </Text>
-        <Text style={{color: me ? colors.light : colors.secondary, textAlign: 'left'}}>{message.content}</Text>
+        <Text style={{color: me ? colors.background : colors.secondary, textAlign: 'left'}}>{message.content}</Text>
         <Text
           style={{
-            color: me ? colors.light : colors.secondary,
+            color: me ? colors.background : colors.secondary,
             textAlign: 'right',
             fontSize: 10,
             fontWeight: '300',

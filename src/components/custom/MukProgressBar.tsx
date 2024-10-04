@@ -16,7 +16,7 @@ export default function MukProgressBar({progress, color, style}: Props) {
     <ProgressBar
       progress={progress}
       color={color}
-      style={[{height: responsiveHeight(4), borderRadius: 100, width: '100%', backgroundColor: colors.backdrop}, style]}
+      style={[{height: responsiveHeight(4), borderRadius: 100, backgroundColor: colors.shadow}, style]}
     />
   );
 }

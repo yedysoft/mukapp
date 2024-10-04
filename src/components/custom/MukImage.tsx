@@ -1,4 +1,13 @@
-import {ActivityIndicator, ImageSourcePropType, ImageStyle, Pressable, StyleProp, View, ViewStyle} from 'react-native';
+import {
+  ActivityIndicator,
+  GestureResponderEvent,
+  ImageSourcePropType,
+  ImageStyle,
+  StyleProp,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {responsiveScale, responsiveSize} from '../../utils/util';
 import React, {useState} from 'react';
 import EditImage, {IEditImage} from '../profile/EditImage';
@@ -17,6 +26,7 @@ type Props = {
   scale?: number;
   radius?: boolean;
   onPress?: () => void;
+  disabled?: boolean;
   edit?: IEditImage;
 };
 
@@ -28,6 +38,7 @@ export default function MukImage({
   scale,
   radius = true,
   onPress,
+  disabled,
   edit,
 }: Props) {
   const {colors} = useTheme<MukTheme>();
@@ -35,7 +46,8 @@ export default function MukImage({
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleOnPress = () => {
+  const handleOnPress = (event?: GestureResponderEvent) => {
+    event?.stopPropagation();
     if (!loading) {
       onPress && onPress();
       edit && setVisible(true);
@@ -59,7 +71,7 @@ export default function MukImage({
           }}
         />
       )}
-      <Pressable
+      <TouchableOpacity
         style={[
           {
             backgroundColor: 'transparent',
@@ -72,6 +84,7 @@ export default function MukImage({
           },
           style,
         ]}
+        disabled={(!edit && !onPress) || disabled}
         onPress={handleOnPress}
       >
         {loading ? (
@@ -91,7 +104,7 @@ export default function MukImage({
           />
         )}
         {edit && <EditImage setVisible={setVisible} isVisible={visible} edit={edit} setLoading={setLoading} />}
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }

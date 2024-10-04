@@ -37,10 +37,8 @@ export default observer(({roomData}: Props) => {
       style={{
         opacity: roomData.isLive ? 1 : 0.5,
         backgroundColor: colors.shadow,
+        paddingVertical: responsiveWidth(16),
         borderRadius: 16,
-        paddingHorizontal: 0,
-        paddingVertical: 0,
-        paddingRight: responsiveWidth(16),
       }}
       onPress={() => openRoom()}
     >
@@ -48,8 +46,6 @@ export default observer(({roomData}: Props) => {
         scale={2}
         resizeMode={'cover'}
         style={{
-          marginVertical: 8,
-          marginLeft: 8,
           borderWidth: 0.5,
           backgroundColor: roomData.liveSong?.dominantColor,
           borderColor: colors.secondary,
@@ -62,17 +58,15 @@ export default observer(({roomData}: Props) => {
       />
       <View
         style={{
-          justifyContent: 'space-between',
-          paddingBottom: responsiveWidth(4),
-          paddingTop: responsiveWidth(16),
+          flexDirection: 'column',
           flex: 1,
         }}
       >
-        <View style={{gap: responsiveWidth(8)}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400', color: colors.secondary}}>
+        <View style={{flex: 1, flexDirection: 'column'}}>
+          <Text style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary}}>
             {roomData.roomName}
           </Text>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '400', color: colors.secondary}}>
+          <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '200', color: colors.secondary}}>
             @{roomData.streamerName}
           </Text>
         </View>
@@ -81,39 +75,47 @@ export default observer(({roomData}: Props) => {
             display: roomData.liveSong ? undefined : 'none',
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'flex-start',
-            overflow: 'hidden',
-            maxWidth: '100%',
+            gap: responsiveWidth(4),
           }}
         >
-          <MukIcon icon={'speaker'} scale={0.5} color={colors.tertiary} iconStyle={{padding: 0}} />
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(14)}}>
-            {roomData.liveSong?.name}
-          </Text>
-          <Text> • </Text>
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(14)}}>
-            {roomData.liveSong ? api.helper.getArtist(roomData.liveSong.artists) : ''}
-          </Text>
-        </View>
-        {/*
+          <MukIcon
+            icon={'speaker'}
+            scale={0.5}
+            color={roomData.liveSong?.isPlaying ? colors.tertiary : api.helper.addOpacityToColor(colors.secondary, 0.5)}
+          />
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
+              display: roomData.liveSong ? undefined : 'none',
+              flexDirection: 'column',
+              flex: 1,
             }}
           >
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <MukIcon icon={'bar-chart-2'} scale={0.5} />
-              <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
-            </View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <MukIcon icon={'users'} scale={0.5} />
-              <Text style={{fontSize: responsiveSize(14)}}>1.234</Text>
-            </View>
-            <MukIconButton scale={0.3} icon={'heart'} color={colors.tertiary} />
+            <Text
+              numberOfLines={1}
+              style={{
+                color: colors.secondary,
+                fontSize: responsiveSize(14),
+                maxWidth: !roomData.liveSong?.name ? 180 : undefined,
+                backgroundColor: !roomData.liveSong?.name ? colors.shadow : undefined,
+                marginBottom: !roomData.liveSong?.name ? responsiveWidth(4) : undefined,
+              }}
+            >
+              {roomData.liveSong?.name}
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={{
+                color: colors.secondary,
+                fontSize: responsiveSize(14),
+                maxWidth: roomData.liveSong && !api.helper.getArtist(roomData.liveSong.artists) ? 120 : undefined,
+                backgroundColor:
+                  roomData.liveSong && !api.helper.getArtist(roomData.liveSong.artists) ? colors.shadow : undefined,
+              }}
+            >
+              {roomData.liveSong ? api.helper.getArtist(roomData.liveSong.artists) : ''}
+            </Text>
           </View>
-        */}
+        </View>
       </View>
     </MukListItem>
   );

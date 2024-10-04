@@ -1,10 +1,10 @@
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
-import {GestureResponderEvent, StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
+import {StyleProp, View, ViewStyle} from 'react-native';
 import MukBadge from '../custom/MukBadge';
 
 type Props = {
-  onPress?: (event: GestureResponderEvent) => void;
+  onPress?: () => void;
   badge?: number;
   style?: StyleProp<ViewStyle>;
   isLoading?: boolean;
@@ -13,17 +13,20 @@ type Props = {
 
 export default ({onPress, badge, style, isLoading, disabled}: Props) => {
   return (
-    <TouchableOpacity disabled={disabled} onPress={onPress} style={style}>
+    <View style={style}>
       <MukBadge
         badge={badge}
         style={{
           position: 'absolute',
-          right: responsiveWidth(-8),
-          bottom: responsiveWidth(24),
+          right: responsiveWidth(0),
+          top: responsiveWidth(8),
         }}
       />
       <MukImage
         scale={0.6}
+        disabled={disabled}
+        onPress={onPress}
+        style={style}
         source={
           !isLoading
             ? require('../../../assets/vote/vote-filled.png')
@@ -32,11 +35,6 @@ export default ({onPress, badge, style, isLoading, disabled}: Props) => {
             : require('../../../assets/vote/vote-outlined.png')
         }
       />
-      {/*<MukMask
-        progress={'100%'}
-        mask={<MukImage scale={.6} source={require('../../../assets/vote/vote-filled.png')} />}
-        masked={<MukImage scale={.6} source={require('../../../assets/vote/vote-outlined.png')} />}
-      />*/}
-    </TouchableOpacity>
+    </View>
   );
 };

@@ -142,7 +142,7 @@ const MukPickerComp = <T extends string | number>({
   };
 
   const handleOnLayout = (event: LayoutChangeEvent) => {
-    if (itemWidth === 'auto' && width !== event.nativeEvent.layout.width) {
+    if (itemWidth === 'auto' && event.nativeEvent.layout.width && width !== event.nativeEvent.layout.width) {
       setWidth(event.nativeEvent.layout.width);
     }
   };

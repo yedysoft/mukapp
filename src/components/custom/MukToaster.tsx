@@ -68,7 +68,6 @@ export default observer(({message}: Props) => {
           minHeight: responsiveWidth(60),
           maxHeight: responsiveWidth(96),
           flexDirection: 'row',
-          zIndex: 1400,
         }}
       >
         {getMessageIcon()}

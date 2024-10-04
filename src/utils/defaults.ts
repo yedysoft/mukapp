@@ -39,6 +39,8 @@ class Defaults {
     token: 0,
     birthday: null,
     gender: null,
+    isFollows: false,
+    isFollower: false,
   };
 
   server: IServer = {

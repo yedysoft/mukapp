@@ -1,6 +1,5 @@
 import {Buffer} from 'buffer';
 import {IArtist, IImage, IPlaylist} from '../../types/media';
-import {responsiveScale} from '../../utils/util';
 import {ImageSourcePropType, Linking} from 'react-native';
 import {MukLangPaths, PVoid} from '../../types';
 import React, {Children, cloneElement, createRef} from 'react';
@@ -30,12 +29,7 @@ class HelperApi {
 
   openURL = async (url: string): PVoid => {
     try {
-      const supported = await this.canOpenURL(url);
-      if (supported) {
-        await Linking.openURL(url);
-      } else {
-        console.error(`Açılamayan URL: ${url}`);
-      }
+      await Linking.openURL(url);
     } catch (error) {
       console.error('URL açma hatası:', error);
     }
@@ -239,8 +233,8 @@ class HelperApi {
     if (!images || images.length === 0) {
       return undefined;
     }
-    let closestImage = images[0];
-    if (images.length > 1) {
+    const closestImage = images[0];
+    /*if (images.length > 1) {
       const width = responsiveScale(scale);
       const height = responsiveScale(scale);
       let closestDistance = Math.abs(images[0].width - width) + Math.abs(images[0].height - height);
@@ -252,7 +246,7 @@ class HelperApi {
           closestDistance = distance;
         }
       }
-    }
+    }*/
     return typeof closestImage.url === 'string' ? {uri: closestImage.url} : closestImage.url;
   };
 

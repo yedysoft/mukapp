@@ -1,11 +1,11 @@
-import {StatusBar} from 'expo-status-bar';
-import {PaperProvider} from 'react-native-paper';
+import {StatusBar, StatusBarStyle} from 'expo-status-bar';
+import {PaperProvider, useTheme} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import AppNavigation from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
-import {hydrateStores, stopPersists, stores} from './src/stores';
-import {initServices, services} from './src/services';
+import {hydrateStores, stopPersists, stores, useStores} from './src/stores';
+import {initServices, services, useServices} from './src/services';
 import MukSplashScreen from './src/screens/auth/MukSplashScreen';
 import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
@@ -21,6 +21,7 @@ import {navigationRef} from './src/navigation/RootNavigation';
 import 'expo-dev-client';
 import {ColorValue, Linking} from 'react-native';
 import {authRedirectUrl} from './config';
+import {MukTheme} from './src/types';
 
 const initializeApp = async () => {
   await hydrateStores();
@@ -50,17 +51,18 @@ const deinitializeApp = async () => {
 };
 
 export default observer(() => {
-  console.log('RenderApp', stores.ui.getLanguage);
+  const {ui} = useStores();
   const [ready, setReady] = useState(false);
+  console.log('RenderApp', ui.getLanguage);
 
   useEffect(() => {
     initializeApp().then(() => setReady(true));
     return () => {
       deinitializeApp().then(() => setReady(false));
     };
-  }, [stores.ui.getReloadToggle]);
+  }, [ui.getReloadToggle]);
 
-  const background: ColorValue = stores.ui.getTheme.colors.background;
+  const background: ColorValue = ui.getTheme.colors.background;
   SystemUI.getBackgroundColorAsync().then(async value => {
     if (value !== background) {
       await SystemUI.setBackgroundColorAsync(background);
@@ -69,19 +71,34 @@ export default observer(() => {
 
   return (
     <AppProvider>
-      <NavigationContainer ref={navigationRef} theme={stores.ui.getTheme as unknown as Theme}>
+      <NavigationContainer ref={navigationRef} theme={ui.getTheme as unknown as Theme}>
         <PaperProvider
-          theme={stores.ui.getTheme}
+          theme={ui.getTheme}
           settings={{
             icon: props => <>{['reply'].includes(props.name) ? <FontAwesome6 {...props} /> : <Feather {...props} />}</>,
           }}
         >
-          <StatusBar backgroundColor={stores.ui.getTheme.colors.background} style={stores.ui.getStatusBarStyle} />
+          <CustomStatusBar />
+          {!ready ? <MukSplashScreen /> : <AppNavigation />}
           <MessageStack />
           <DialogStack />
-          {!ready ? <MukSplashScreen /> : <AppNavigation />}
         </PaperProvider>
       </NavigationContainer>
     </AppProvider>
+  );
+});
+
+const CustomStatusBar = observer(() => {
+  const {ui, media, room} = useStores();
+  const {api} = useServices();
+  const {colors} = useTheme<MukTheme>();
+  const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
+  const style: StatusBarStyle = api.helper.isColorLight(dominantColor) ? 'dark' : 'light';
+
+  return (
+    <StatusBar
+      backgroundColor={room.isLive ? dominantColor : colors.background}
+      style={room.isLive ? style : ui.getStatusBarStyle}
+    />
   );
 });

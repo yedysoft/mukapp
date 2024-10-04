@@ -1,5 +1,5 @@
 import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import MukIconButton from '../custom/MukIconButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -33,6 +33,7 @@ export default observer(() => {
         backgroundColor: 'transparent',
         paddingHorizontal: responsiveWidth(8),
         paddingRight: responsiveWidth(24),
+        paddingTop: responsiveHeight(16),
         flexDirection: 'row',
         justifyContent: route.name === 'Chat' ? 'flex-start' : 'space-between',
         alignItems: 'center',

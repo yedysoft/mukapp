@@ -39,7 +39,7 @@ const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, n
   };
 
   return (
-    <Pressable onPress={handleOnPress} style={{flexDirection: 'row', alignItems: 'center'}}>
+    <Pressable disabled={!onPress} onPress={handleOnPress} style={{flexDirection: 'row', alignItems: 'center'}}>
       <Image
         source={icons[color]}
         resizeMode={'contain'}

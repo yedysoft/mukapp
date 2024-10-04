@@ -73,7 +73,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
           />
         </View>
         <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(8)}}>
-          <View style={{gap: responsiveWidth(4)}}>
+          <View>
             <Text
               numberOfLines={1}
               style={{
@@ -87,8 +87,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
             <Text
               numberOfLines={1}
               style={{
-                fontSize: responsiveSize(16),
-                fontWeight: '400',
+                fontSize: responsiveSize(12),
                 color: colors.secondary,
               }}
             >

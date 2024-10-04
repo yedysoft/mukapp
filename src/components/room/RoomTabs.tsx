@@ -10,7 +10,6 @@ import MukImage from '../custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
 import MukButton from '../custom/MukButton';
 import SpotifyIcon from '../spotify/SpotifyIcon';
-import {spotifyOpenUrlBase} from '../../../config';
 
 const RoomTabs = observer(() => {
   //const {colors} = useTheme<MukTheme>();
@@ -55,15 +54,11 @@ const RoomTabs = observer(() => {
                   />
                 ) : (
                   <MukButton
-                    onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/`)}
+                    onPress={() => api.helper.openURL('spotify://')}
                     scale={0.25}
                     buttonStyle={{margin: responsiveWidth(16)}}
                   >
-                    <SpotifyIcon
-                      onPress={() => api.helper.openURL(`${spotifyOpenUrlBase}/`)}
-                      color={'white'}
-                      spotifyText={'Open Spotify'}
-                    />
+                    <SpotifyIcon color={'black'} spotifyText={'Open Spotify'} />
                   </MukButton>
                 )
               }

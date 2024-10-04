@@ -32,12 +32,24 @@ const MukFAB = observer(({onPress, style, icon, scale = 1, tooltip}: Props) => {
   const handleOnLayout = () => {
     if (tooltip && ref.current) {
       ref.current.measure((_x, _y, width, height, pageX, pageY) => {
-        setPositions({width: width, height: height, pageX: pageX, pageY: pageY});
+        if (
+          width &&
+          height &&
+          pageX &&
+          pageY &&
+          (positions.width !== width ||
+            positions.height !== height ||
+            positions.pageX !== pageX ||
+            positions.pageY !== pageY)
+        ) {
+          setPositions({width: width, height: height, pageX: pageX, pageY: pageY});
+        }
       });
     }
   };
 
   const handleOnPress = () => {
+    handleOnLayout();
     tooltip && setTooltipVisible(!tooltipVisible);
     onPress && onPress();
   };
@@ -48,7 +60,7 @@ const MukFAB = observer(({onPress, style, icon, scale = 1, tooltip}: Props) => {
       onLayout={handleOnLayout}
       style={{
         position: 'absolute',
-        bottom: room.isLive ? responsiveWidth(120) : responsiveWidth(16),
+        bottom: room.isLive ? responsiveWidth(128) : responsiveWidth(16),
         right: responsiveWidth(16),
       }}
     >

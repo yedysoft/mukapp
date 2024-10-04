@@ -1,4 +1,4 @@
-import {Animated, FlatList, ListRenderItemInfo} from 'react-native';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import ChatBubble from './ChatBubble';
 import {IMessage} from '../../types/chat';
@@ -20,22 +20,6 @@ export default function ChatList({data}: Props) {
   const listRef = useRef<FlatList>(null);
   const {colors} = useTheme<MukTheme>();
   const [fabVisible, setFabVisible] = useState(false);
-
-  const opacityAnimation = useRef(new Animated.Value(1)).current;
-  const opacityStyle = {opacity: opacityAnimation};
-  const animateOpacity = () => {
-    Animated.timing(opacityAnimation, {
-      toValue: 0,
-      duration: 1500,
-      useNativeDriver: true,
-    }).start(() => {
-      Animated.timing(opacityAnimation, {
-        toValue: 1,
-        duration: 1500,
-        useNativeDriver: true,
-      }).start();
-    });
-  };
 
   const handleRenderItem = useCallback(
     ({item, index}: ListRenderItemInfo<IMessage>) => {

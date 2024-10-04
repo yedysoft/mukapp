@@ -51,7 +51,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
   const onLayout = () => {
     if (ref.current && visible) {
       ref.current.measure((_x, _y, width, height) => {
-        if (dimensions.width !== width || dimensions.height !== height) {
+        if (width && height && (dimensions.width !== width || dimensions.height !== height)) {
           setDimensions({width: width, height: height});
         }
       });
@@ -132,8 +132,6 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
     return <></>;
   }
 
-  console.log('tooltip', viewLocation(), positions, dimensions);
-
   return (
     <Portal>
       <View
@@ -141,6 +139,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
           display: visible ? undefined : 'none',
           backgroundColor: colors.background,
           opacity: renderCheck ? 0 : 0.25,
+          zIndex: 1398,
         }}
       >
         <Pressable style={{width: '100%', height: '100%'}} onPress={closeModal} />
@@ -157,6 +156,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
             borderWidth: 0.5,
             borderColor: colors.backdrop,
             opacity: renderCheck ? 0 : 1,
+            zIndex: 1399,
           },
           styles.shadow,
           style,

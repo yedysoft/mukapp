@@ -59,8 +59,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         gap: responsiveWidth(4),
-        padding: responsiveWidth(16),
-        paddingRight: responsiveWidth(8),
+        padding: responsiveWidth(12),
         width: ui.windowWidth,
       }}
     >

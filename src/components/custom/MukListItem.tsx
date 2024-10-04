@@ -25,12 +25,10 @@ export default function MukListItem({onPress, children, style, disabled}: Props)
       <TouchableOpacity
         style={[
           {
-            width: '100%',
             flexDirection: 'row',
             gap: responsiveWidth(16),
             paddingHorizontal: responsiveWidth(16),
             paddingVertical: responsiveWidth(8),
-            overflow: 'hidden',
             borderBottomWidth: 1,
             borderColor: colors.shadow,
           },
