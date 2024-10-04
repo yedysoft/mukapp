@@ -3,10 +3,6 @@
 
 # dependencies
 node_modules/
-android/
-ios/
-package-lock.json
-yarn.lock
 
 # Expo
 .expo/

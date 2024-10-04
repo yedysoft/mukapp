@@ -4,7 +4,7 @@ import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
 import {useServices} from '../../services';
-import {ActivityIndicator, Linking, Pressable, View} from 'react-native';
+import {ActivityIndicator, Pressable, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -24,13 +24,13 @@ export const AuthLoginForm = observer(() => {
   const formData: ILogin = {name: ui.name, pass: ui.pass, expoToken: ui.getExpoToken};
 
   const handleSubmit = async () => {
-    const test = await Linking.canOpenURL('market://details?id=com.spotify.music&referrer=');
+    /* const test = await Linking.canOpenURL('market://details?id=com.spotify.music&referrer=');
 
     const track = 'https://open.spotify.com/track/28Aau4tlztDlgKJQXrWhZR';
     const a = `https://spotify.link/content_linking?~campaign=com.yedy.muk&$deeplink_path=${track}`;
     const b = `market://details?id=com.spotify.music&referrer${a}`;
     await Linking.openURL(a);
-    console.log(test);
+    console.log(test);*/
     /* ui.setMany({
       name: formRef.current?.formData('name') as string,
       pass: formRef.current?.formData('pass') as string,
