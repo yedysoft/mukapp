@@ -1,10 +1,9 @@
 import {Text, useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 import {observer} from 'mobx-react';
-import {useStores} from '../../stores';
 
 type Props = {
   title?: string;
@@ -14,10 +13,9 @@ type Props = {
 
 export default observer(({title, children, style}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {ui} = useStores();
 
   return (
-    <View style={[{flexDirection: 'column', width: ui.windowWidth, gap: responsiveHeight(4)}, style]}>
+    <View style={[{flex: 1, flexDirection: 'column', gap: responsiveWidth(4)}, style]}>
       <Text
         style={{
           fontSize: responsiveSize(24),

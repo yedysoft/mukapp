@@ -1,5 +1,5 @@
 import {Text, useTheme} from 'react-native-paper';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukImage from '../../components/custom/MukImage';
 import MukProgressBar from '../../components/custom/MukProgressBar';
@@ -11,6 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import {MukColors, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import SpotifyIcon from '../spotify/SpotifyIcon';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type Props = {
   compact?: boolean;
@@ -25,6 +26,7 @@ export default observer(({compact}: Props) => {
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
   const iconColor = api.helper.isColorLight(dominantColor) ? 'black' : 'white';
   const navigation = useNavigation<MainStackNavProp>();
+  const insets = useSafeAreaInsets();
 
   /*useEffect(() => {
     media.getPlaylists &&
@@ -37,7 +39,7 @@ export default observer(({compact}: Props) => {
     <View
       style={{
         padding: responsiveWidth(compact ? 8 : 16),
-        paddingTop: compact ? undefined : 48,
+        paddingTop: compact ? undefined : insets.top + responsiveWidth(Platform.OS === 'ios' ? 4 : 32),
         backgroundColor: dominantColor ?? colors.background,
         gap: responsiveWidth(4),
         flexDirection: 'column',
@@ -89,14 +91,7 @@ export default observer(({compact}: Props) => {
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}
           </Text>
-          {media.getPlayingTrack.id && (
-            <SpotifyIcon
-              color={iconColor}
-              onPress={() =>
-                media.getPlayingTrack.id && api.helper.openURL(`spotify:track:${media.getPlayingTrack.id}`)
-              }
-            />
-          )}
+          {media.getPlayingTrack.id && <SpotifyIcon color={iconColor} id={media.getPlayingTrack.id} />}
         </View>
         {compact && (
           <MukIconButton
@@ -141,7 +136,7 @@ const makeStyles = (colors: MukColors) =>
         width: 0,
         height: 0,
       },
-      shadowOpacity: 1,
+      shadowOpacity: 0.1,
       shadowRadius: 8,
       elevation: 5,
     },

@@ -4,16 +4,16 @@ import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
 import {useServices} from '../../services';
-import {ActivityIndicator, Pressable, View} from 'react-native';
+import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {ILogin} from '../../types/auth';
 import SpotifyIcon from '../spotify/SpotifyIcon';
+import YedyText from '../custom/YedyText';
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -32,13 +32,11 @@ export const AuthLoginForm = observer(() => {
   };
 
   return (
-    <SafeAreaView
-      style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', paddingTop: responsiveHeight(32)}}
-    >
+    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={{gap: responsiveHeight(48)}}>
-        <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
+        <YedyText fontType={'bold'} style={{fontSize: responsiveSize(32)}}>
           {t.do('auth.login.title')}
-        </Text>
+        </YedyText>
         <View style={{gap: responsiveWidth(8)}}>
           <MukForm ref={formRef} onSubmit={handleSubmit} data={formData}>
             <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
@@ -63,7 +61,7 @@ export const AuthLoginForm = observer(() => {
             label={t.do('auth.login.changePassword')}
             onPress={() => navigation.navigate('Forgot')}
           />
-          <Pressable
+          <TouchableOpacity
             disabled={loading.connectAccount}
             style={{
               flexDirection: 'row',
@@ -79,11 +77,11 @@ export const AuthLoginForm = observer(() => {
               color={colors.primary}
               style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
             />
-            <SpotifyIcon scale={1.3} noText />
+            <SpotifyIcon scale={1.3} noText disabled />
             <Text style={{color: colors.secondary, fontWeight: '400', fontSize: responsiveSize(16)}}>
               {t.do('auth.login.spotify')}
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -101,6 +99,6 @@ export const AuthLoginForm = observer(() => {
           onPress={handleSubmit}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 });

@@ -11,7 +11,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukSegmented from '../../components/custom/MukSegmented';
 import {SubLayout} from '../../components/layouts/SubLayout';
 import api from '../../services/api';
-import {ActivityIndicator, Pressable} from 'react-native';
+import {ActivityIndicator, TouchableOpacity} from 'react-native';
 import SpotifyIcon from '../../components/spotify/SpotifyIcon';
 
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
@@ -58,9 +58,9 @@ export default observer(() => {
       </MukCard>
       <MukCard key={'accounts'} title={t.do('main.settings.connect.title')} contentStyle={{alignItems: 'flex-start'}}>
         {Object.entries(connectedAccounts).map(([key, name]) => {
-          const isConnected = auth.auths.some(value => value === key);
+          const isConnected = auth.auths.some(value => value.type === key);
           return (
-            <Pressable
+            <TouchableOpacity
               key={key}
               disabled={loading.clearAuth || loading.connectAccount}
               style={{flexDirection: 'row', alignItems: 'center'}}
@@ -75,9 +75,12 @@ export default observer(() => {
               <ActivityIndicator
                 size={responsiveSize(12)}
                 color={colors.primary}
-                style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
+                style={{
+                  display: loading.clearAuth || loading.connectAccount ? undefined : 'none',
+                  marginRight: responsiveWidth(8),
+                }}
               />
-              <SpotifyIcon scale={1.3} noText />
+              <SpotifyIcon scale={1.3} noText disabled />
               <Text style={{color: colors.secondary, fontWeight: '400', fontSize: responsiveSize(16)}}>
                 {t.do(
                   isConnected
@@ -85,7 +88,7 @@ export default observer(() => {
                     : (`main.settings.connect.${name.toLowerCase()}.connect` as any),
                 )}
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           );
         })}
       </MukCard>

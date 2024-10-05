@@ -4,7 +4,6 @@ import MainStack from './MainStack';
 import {observer} from 'mobx-react';
 import {useStores} from '../stores';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
-import {responsiveHeight} from '../utils/util';
 
 const Main = createDrawerNavigator();
 export default observer(() => {
@@ -17,7 +16,7 @@ export default observer(() => {
       initialRouteName={'DrawerMain'}
       screenOptions={{
         drawerType: 'slide',
-        drawerStyle: {paddingTop: responsiveHeight(8)},
+        drawerStyle: {},
         drawerContentContainerStyle: {},
         drawerPosition: 'left',
         swipeEdgeWidth: ui.windowWidth / 4,

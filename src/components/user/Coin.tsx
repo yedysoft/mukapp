@@ -18,12 +18,8 @@ const Coin = observer(({style, textColor}: Props) => {
   const {user} = useStores();
 
   return (
-    <View style={[{flexDirection: 'row', alignItems: 'center'}, style]}>
-      <MukImage
-        scale={0.32}
-        style={{marginRight: responsiveWidth(8)}}
-        source={require('../../../assets/wallet/coin.png')}
-      />
+    <View style={[{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(4)}, style]}>
+      <MukImage scale={0.32} source={require('../../../assets/wallet/coin.png')} />
       <Text
         numberOfLines={1}
         style={{

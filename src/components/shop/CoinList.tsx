@@ -1,9 +1,7 @@
-import {useTheme} from 'react-native-paper';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import CoinGridItem from './CoinGridItem';
 import {useServices} from '../../services';
-import {MukTheme} from '../../types';
 
 type Props = {
   coins: {
@@ -14,7 +12,6 @@ type Props = {
 };
 
 export default function CoinList({coins}: Props) {
-  const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
 
   return (
@@ -25,11 +22,10 @@ export default function CoinList({coins}: Props) {
       )}
       scrollEnabled
       horizontal
-      style={{height: responsiveWidth(420)}}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
-        padding: responsiveWidth(20),
-        gap: responsiveWidth(24),
+        gap: responsiveWidth(12),
+        padding: responsiveWidth(12),
       }}
     />
   );

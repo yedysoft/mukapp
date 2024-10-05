@@ -1,7 +1,6 @@
 import {useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import MukIconButton from '../custom/MukIconButton';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import MukLogo from '../custom/MukLogo';
 import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
@@ -11,20 +10,23 @@ import Coin from '../user/Coin';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
+import {Platform, View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const MainHeader = observer(() => {
   const {colors} = useTheme<MukTheme>();
   const navigation = useNavigation<MainStackNavProp>();
   const route = useRoute();
   const {user} = useStores();
+  const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView
+    <View
       style={{
         backgroundColor: colors.background,
         paddingHorizontal: responsiveWidth(8),
-        paddingTop: responsiveHeight(16),
-        paddingBottom: responsiveHeight(-16),
+        paddingTop: responsiveWidth(16) + (Platform.OS === 'ios' ? 0 : insets.top),
+        paddingBottom: responsiveWidth(-16),
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -46,6 +48,6 @@ export const MainHeader = observer(() => {
           />
         )}
       </NavButton>
-    </SafeAreaView>
+    </View>
   );
 });

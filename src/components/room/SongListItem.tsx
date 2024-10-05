@@ -34,7 +34,7 @@ export default observer(({song, itemType, disabled}: Props) => {
   };
 
   return (
-    <MukListItem style={{flex: 1, gap: responsiveWidth(8)}} disabled={disabled}>
+    <MukListItem style={{flex: 1, gap: responsiveWidth(8)}} disabled={true}>
       <MukImage scale={1.4} source={api.helper.getImageUrl(song.images, 1.4)} radius={false} />
       {title ? (
         <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400', color: colors.tertiary}}>
@@ -64,7 +64,7 @@ export default observer(({song, itemType, disabled}: Props) => {
           >
             {api.helper.getArtist(song.artists)}
           </Text>
-          <SpotifyIcon onPress={() => api.helper.openURL(`spotify:track:${song.id}`)} />
+          <SpotifyIcon id={song.id} />
         </View>
       )}
       {itemType === 'vote' ? (

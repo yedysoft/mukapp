@@ -1,4 +1,4 @@
-import {IDeviceType, IGender} from './enums';
+import {IAuthsType, IDeviceType, IGender} from './enums';
 
 export type ILogin = {
   name: string;
@@ -39,4 +39,9 @@ export type ILoginHistory = {
 export type IPassChange = {
   oldPass: string;
   newPass: string;
+};
+
+export type IAuths = {
+  accountId: string;
+  type: IAuthsType;
 };

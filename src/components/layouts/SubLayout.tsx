@@ -4,7 +4,8 @@ import {KeyboardAvoidingView, Platform, StyleProp, View, ViewStyle} from 'react-
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
-import {responsiveHeight, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type Props = {
   children: ReactNode;
@@ -14,11 +15,12 @@ type Props = {
 export const SubLayout = observer(({children, style}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {ui} = useStores();
+  const insets = useSafeAreaInsets();
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(140) : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveWidth(100) : 0}
       style={{flex: 1}}
     >
       <View
@@ -28,7 +30,7 @@ export const SubLayout = observer(({children, style}: Props) => {
             flexDirection: 'column',
             width: ui.windowWidth,
             backgroundColor: colors.background,
-            paddingTop: responsiveWidth(Platform.OS === 'ios' ? 0 : 8),
+            paddingBottom: insets.bottom,
           },
           style,
         ]}

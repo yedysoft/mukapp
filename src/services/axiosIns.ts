@@ -3,6 +3,7 @@ import {restUrl} from '../../config';
 import {MessageBody} from '../types';
 import {stores} from '../stores';
 import socket from './api/socket';
+import defaults from '../utils/defaults';
 
 const axiosIns = axios.create({
   baseURL: restUrl,
@@ -38,7 +39,10 @@ axiosIns.interceptors.response.use(
           stores.ui.addMessage(err);
         }
         socket.disconnect().then(() => {
-          stores.auth.setMany({loggedIn: false, authToken: ''});
+          stores.auth.setMany({loggedIn: false, isNeededPassChange: false, authToken: ''});
+          stores.user.setMany({notifications: [], chats: [], info: defaults.info});
+          stores.room.setMany({config: defaults.config, sessionId: null, streamerId: null, chat: []});
+          stores.media.setMany({playingTrack: defaults.playingTrack, queue: [], playlists: [], searchValue: ''});
         });
       } else if (status === 500) {
         const err: MessageBody = data;

@@ -1,16 +1,19 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'react-native-paper';
-import {MainHeader} from '../components/header/MainHeader';
 import ShopScreen from '../screens/main/ShopScreen';
 import {responsiveHeight} from '../utils/util';
 import HomeScreen from '../screens/main/HomeScreen';
 import {MukTheme} from '../types';
 import Feather from 'react-native-vector-icons/Feather';
 import MessagesScreen from '../screens/main/social/MessagesScreen';
+import {observer} from 'mobx-react';
+import {useStores} from '../stores';
 
 const Bottom = createBottomTabNavigator();
-export default function BottomTabs() {
+export default observer(() => {
   const {colors} = useTheme<MukTheme>();
+  const {ui} = useStores();
+  const keyboardVisible = ui.isKeyboardVisible;
 
   return (
     <Bottom.Navigator
@@ -18,6 +21,7 @@ export default function BottomTabs() {
       screenOptions={() => ({
         tabBarShowLabel: false,
         tabBarStyle: {
+          display: keyboardVisible ? 'none' : undefined,
           height: responsiveHeight(80),
           backgroundColor: colors.background,
           borderTopWidth: 0,
@@ -72,4 +76,4 @@ export default function BottomTabs() {
       />
     </Bottom.Navigator>
   );
-}
+});

@@ -23,16 +23,8 @@ class HelperApi {
     });
   };
 
-  canOpenURL = async (url: string): Promise<boolean> => {
-    return Linking.canOpenURL(url); //TODO: infopliste LSApplicationQueriesSchemes ekle
-  };
-
   openURL = async (url: string): PVoid => {
-    try {
-      await Linking.openURL(url);
-    } catch (error) {
-      console.error('URL açma hatası:', error);
-    }
+    await Linking.openURL(url);
   };
 
   isColorLight = (hexColor: any): boolean => {
@@ -250,7 +242,7 @@ class HelperApi {
     return typeof closestImage.url === 'string' ? {uri: closestImage.url} : closestImage.url;
   };
 
-  getArtist = (artists: IArtist[]): string => {
+  getArtist = (artists: IArtist[] | undefined): string => {
     if (!artists || artists.length === 0) {
       return '';
     }

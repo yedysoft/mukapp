@@ -1,5 +1,5 @@
 import {useTheme} from 'react-native-paper';
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import MukTextInput, {MukTextInputRef} from '../custom/MukTextInput';
@@ -22,7 +22,7 @@ type Props = {
 
 export default observer(({sendMessage, receiverId, messageType}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {user, ui} = useStores();
+  const {user} = useStores();
   const {api} = useServices();
   const inputRef = useRef<MukTextInputRef>(null);
   const typingRef = useRef<boolean>();
@@ -57,10 +57,9 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
       style={{
         flexDirection: 'row',
         alignItems: 'flex-start',
-        justifyContent: 'space-between',
         gap: responsiveWidth(4),
         padding: responsiveWidth(12),
-        width: ui.windowWidth,
+        paddingBottom: Platform.OS === 'ios' ? 0 : undefined,
       }}
     >
       <MukTextInput
@@ -71,7 +70,6 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
         textAlignVertical={'top'}
         showError={false}
         preValidate={'required'}
-        style={{paddingTop: responsiveWidth(16)}}
         viewStyle={{flex: 1}}
         quotedMessage={
           user.quotedMessage ? (

@@ -1,5 +1,5 @@
 import {FlatList} from 'react-native';
-import {responsiveHeight, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {ReactElement} from 'react';
 import ProfileListItem from './ProfileListItem';
 import SongListItem from '../room/SongListItem';
@@ -22,7 +22,7 @@ export default function ProfileList({items, header, onIconPress, otherUser, tabI
         tabIndex !== 0 ? (
           <ProfileListItem onIconPress={onIconPress} key={index} item={item} otherUser={otherUser} />
         ) : (
-          <SongListItem song={item} itemType={'vote'} />
+          <SongListItem song={item} itemType={'vote'} disabled />
         )
       }
       scrollEnabled
@@ -33,7 +33,6 @@ export default function ProfileList({items, header, onIconPress, otherUser, tabI
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
         />
       }
-      contentContainerStyle={{paddingVertical: responsiveWidth(8), paddingBottom: responsiveHeight(360)}}
     />
   );
 }

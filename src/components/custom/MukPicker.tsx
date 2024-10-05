@@ -51,7 +51,7 @@ const MukPickerComp = <T extends string | number>({
   value,
   onValueChange,
   itemHeight = 30,
-  itemWidth = responsiveWidth(70),
+  itemWidth = 'auto',
 }: Props<T>) => {
   const tempValue = value;
   const itemsIsArray = Array.isArray(items);
@@ -148,13 +148,13 @@ const MukPickerComp = <T extends string | number>({
   };
 
   useEffect(() => {
-    if (tempValue !== value && value) {
+    if (tempValue && value && tempValue !== value) {
       gotoItem(value, true);
     }
   }, [tempValue, value]);
 
   useEffect(() => {
-    onValueChange && value && onValueChange(name, value, itemsIsArray ? undefined : items[value]);
+    onValueChange && tempValue && value && onValueChange(name, value, itemsIsArray ? undefined : items[value]);
   }, []);
 
   return (

@@ -42,8 +42,8 @@ const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
           : last
           ? onSubmit
           : () => {
-              child.props.nextPage && child.props.nextPage();
               array[index + 1].ref.current?.focus();
+              child.props.nextPage && child.props.nextPage();
             },
         blurOnSubmit: child.props.multiline ? false : last,
         defaultValue: data && data[child.props.name as keyof T] && String(data[child.props.name as keyof T]),

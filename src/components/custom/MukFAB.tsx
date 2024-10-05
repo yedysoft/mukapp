@@ -6,6 +6,7 @@ import {observer} from 'mobx-react';
 import {MukColors, MukTheme, Positions, TooltipScreenProps} from '../../types';
 import {ReactNode, useRef, useState} from 'react';
 import defaults from '../../utils/defaults';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type Props = {
   onPress?: () => void;
@@ -19,6 +20,7 @@ const MukFAB = observer(({onPress, style, icon, scale = 1, tooltip}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const styles = makeStyles(colors);
   const {room} = useStores();
+  const insets = useSafeAreaInsets();
 
   // Tooltip için gerekenler
   const ref = useRef<View>(null);
@@ -60,7 +62,7 @@ const MukFAB = observer(({onPress, style, icon, scale = 1, tooltip}: Props) => {
       onLayout={handleOnLayout}
       style={{
         position: 'absolute',
-        bottom: room.isLive ? responsiveWidth(128) : responsiveWidth(16),
+        bottom: insets.bottom + responsiveWidth(room.isLive ? 128 : 16),
         right: responsiveWidth(16),
       }}
     >

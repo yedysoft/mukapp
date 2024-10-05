@@ -88,7 +88,6 @@ const MukTextInputComp = observer(
       const [error, setError] = useState<string | null>(null);
       const [isEmpty, setIsEmpty] = useState<boolean>(!validInputValue);
       const value = useRef<string | undefined>(validInputValue);
-      console.log('MukTextInputCompRender', value.current);
 
       useEffect(() => {
         isEmpty !== !validInputValue && setIsEmpty(!validInputValue);
@@ -98,7 +97,7 @@ const MukTextInputComp = observer(
       ///Picker
       const [pickerVisible, setPickerVisible] = useState(false);
       const [pickerPretty, setPickerPretty] = useState<string | undefined>();
-      const pickerValue = useRef<string | number>('');
+      const pickerValue = useRef<string | number>(validInputValue as string);
       const pickerChangeVisible = (open: boolean) => {
         ui.set('pickerViewVisible', open);
         setPickerVisible(open);
@@ -289,13 +288,7 @@ const MukTextInputComp = observer(
               buttonIcon={rest.returnKeyType === 'done' ? 'check' : 'arrow-right'}
             >
               {pickerType === 'normal' && pickerItems ? (
-                <MukPicker
-                  name={name}
-                  items={pickerItems}
-                  value={getValue()}
-                  itemWidth={'auto'}
-                  onValueChange={handleValueChange}
-                />
+                <MukPicker name={name} items={pickerItems} value={getValue()} onValueChange={handleValueChange} />
               ) : (
                 <MukDatePicker
                   name={name}

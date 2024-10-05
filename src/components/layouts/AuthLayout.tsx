@@ -1,10 +1,10 @@
 import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {responsiveHeight, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {KeyboardAvoidingView, Platform, StyleProp, View, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
 import {observer} from 'mobx-react';
-import {useStores} from '../../stores';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type Props = {
   children: ReactNode;
@@ -13,23 +13,23 @@ type Props = {
 
 export default observer(({children, style}: Props) => {
   const {colors} = useTheme<MukTheme>();
-  const {ui} = useStores();
+  const insets = useSafeAreaInsets();
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveHeight(-32) : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? responsiveWidth(44) : 0}
       style={{flex: 1}}
     >
       <View
         style={[
           {
-            paddingBottom: responsiveWidth(16),
             flex: 1,
             flexDirection: 'column',
-            width: ui.windowWidth,
             backgroundColor: colors.background,
             paddingHorizontal: responsiveWidth(20),
+            paddingTop: responsiveWidth(32) + (Platform.OS === 'ios' ? 0 : insets.top),
+            paddingBottom: insets.bottom + (Platform.OS === 'ios' ? 0 : responsiveWidth(20)),
           },
           style,
         ]}

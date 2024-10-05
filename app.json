@@ -24,6 +24,16 @@
           }
         }
       ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Product-Sans-Bold.ttf",
+            "./assets/fonts/Product-Sans-Regular.ttf",
+            "./assets/fonts/Product-Sans-Italic.ttf"
+          ]
+        }
+      ],
       "expo-localization"
     ],
     "ios": {

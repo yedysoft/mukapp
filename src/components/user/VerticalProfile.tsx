@@ -9,11 +9,14 @@ import {MukTheme} from '../../types';
 import {useNavigation} from '@react-navigation/native';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import SpotifyIcon from '../spotify/SpotifyIcon';
 
 type Props = {
   profile: IInfo;
   otherUser?: boolean;
 };
+
+const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
 export default observer(({profile, otherUser}: Props) => {
   const {colors} = useTheme<MukTheme>();
@@ -65,6 +68,11 @@ export default observer(({profile, otherUser}: Props) => {
           >
             @{profile.userName}
           </Text>
+          {Object.entries(connectedAccounts).map(([key, _name]) => {
+            const a = auth.auths.find(value => value.type === key);
+            return a ? <SpotifyIcon key={key} id={a.accountId} type={'user'} noText /> : undefined;
+          })}
+
           <View style={{flexDirection: 'row', display: otherUser ? undefined : 'none'}}>
             <MukIconButton
               color={colors.secondary}

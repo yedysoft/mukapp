@@ -8,7 +8,6 @@ import {useServices} from '../../services';
 import {View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
@@ -28,9 +27,7 @@ export const AuthRegisterForm = observer(() => {
     formRef.current?.validateInputs() && api.auth.register(formRef.current?.formData() as IRegister);
 
   return (
-    <SafeAreaView
-      style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', paddingTop: responsiveHeight(32)}}
-    >
+    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={{gap: responsiveHeight(48)}}>
         <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
           {t.do('auth.register.title')}
@@ -67,15 +64,15 @@ export const AuthRegisterForm = observer(() => {
             nextPage={() => setStep(step + 1)}
           />
           <MukTextInput
-            name={'email'}
-            label={t.do('auth.register.email')}
-            inputMode={'email'}
+            name={'userName'}
+            label={t.do('auth.register.username')}
             preValidate={'required'}
             visible={step === 1}
           />
           <MukTextInput
-            name={'userName'}
-            label={t.do('auth.register.username')}
+            name={'email'}
+            label={t.do('auth.register.email')}
+            inputMode={'email'}
             preValidate={'required'}
             visible={step === 1}
           />
@@ -136,6 +133,6 @@ export const AuthRegisterForm = observer(() => {
           }}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 });

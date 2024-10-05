@@ -2,6 +2,7 @@ import React, {memo, useMemo, useRef, useState} from 'react';
 import {View} from 'react-native';
 import MukPicker from './MukPicker';
 import {services, useServices} from '../../services';
+import {responsiveWidth} from '../../utils/util';
 
 type DateType = {day: number; month: number; year: number};
 
@@ -58,9 +59,27 @@ const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onVa
 
   return (
     <View style={{flexDirection: 'row'}}>
-      <MukPicker<number> name="day" items={days} value={date.current.day} onValueChange={handleValueChanged} />
-      <MukPicker<number> name="month" items={months} value={date.current.month} onValueChange={handleValueChanged} />
-      <MukPicker<number> name="year" items={years} value={date.current.year} onValueChange={handleValueChanged} />
+      <MukPicker<number>
+        name="day"
+        items={days}
+        value={value ? date.current.day : undefined}
+        itemWidth={responsiveWidth(70)}
+        onValueChange={handleValueChanged}
+      />
+      <MukPicker<number>
+        name="month"
+        items={months}
+        value={value ? date.current.month : undefined}
+        itemWidth={responsiveWidth(70)}
+        onValueChange={handleValueChanged}
+      />
+      <MukPicker<number>
+        name="year"
+        items={years}
+        value={value ? date.current.year : undefined}
+        itemWidth={responsiveWidth(70)}
+        onValueChange={handleValueChanged}
+      />
     </View>
   );
 };

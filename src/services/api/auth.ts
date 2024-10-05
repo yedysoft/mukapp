@@ -136,8 +136,9 @@ class AuthApi implements IAuthApi {
 
   private clearAuth = () => {
     stores.auth.setMany({loggedIn: false, isNeededPassChange: false, authToken: ''});
-    stores.room.set('config', defaults.config);
     stores.user.setMany({notifications: [], chats: [], info: defaults.info});
+    stores.room.setMany({config: defaults.config, sessionId: null, streamerId: null, chat: []});
+    stores.media.setMany({playingTrack: defaults.playingTrack, queue: [], playlists: [], searchValue: ''});
   };
 }
 

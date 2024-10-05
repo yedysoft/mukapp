@@ -5,7 +5,7 @@ import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
 import {IEdit} from '../../types/auth';
 import {useServices} from '../../services';
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
@@ -29,7 +29,7 @@ export default observer(() => {
         flex: 1,
         flexDirection: 'column',
         gap: responsiveWidth(16),
-        paddingBottom: responsiveWidth(32),
+        paddingBottom: Platform.OS === 'ios' ? undefined : responsiveWidth(20),
       }}
     >
       <View

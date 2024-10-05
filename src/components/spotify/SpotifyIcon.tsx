@@ -1,17 +1,20 @@
-import {GestureResponderEvent, Image, ImageStyle, LayoutChangeEvent, Pressable, Text} from 'react-native';
+import {GestureResponderEvent, Image, ImageStyle, LayoutChangeEvent, Platform, Pressable, Text} from 'react-native';
 import {memo, useMemo, useState} from 'react';
 import {responsiveSize} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
-import {services} from '../../services';
+import {services, useServices} from '../../services';
 
 type Props = {
   color?: 'green' | 'white' | 'black';
+  disabled?: boolean;
   scale?: number;
   style?: ImageStyle;
   onPress?: () => void;
   spotifyText?: string;
   noText?: boolean;
+  id?: string;
+  type?: 'track' | 'user';
 };
 
 const MIN_WIDTH = 21;
@@ -21,8 +24,19 @@ const icons = {
   white: require('../../../assets/spotify/icon_white.png'),
 };
 
-const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, noText}: Props) => {
+const SpotifyIconComp = ({
+  color = 'green',
+  disabled,
+  scale,
+  style,
+  onPress,
+  spotifyText,
+  noText,
+  id,
+  type = 'track',
+}: Props) => {
   const {colors} = useTheme<MukTheme>();
+  const {api} = useServices();
   const WIDTH = useMemo(() => (scale ? 21 * scale : 21), [scale]);
   const [height, setHeight] = useState(0);
 
@@ -35,11 +49,29 @@ const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, n
 
   const handleOnPress = (event: GestureResponderEvent) => {
     event.stopPropagation();
+    const url = id ? `spotify:${type}:${id}` : 'spotify://';
+    api.helper
+      .openURL(url)
+      .catch(() =>
+        api.helper.openURL(
+          Platform.OS === 'ios' ? 'https://spotify.link/h5TbcGLLkhb' : 'https://spotify.link/T1vKH6Kr9ib',
+        ),
+      );
     onPress && onPress();
   };
 
   return (
-    <Pressable disabled={!onPress} onPress={handleOnPress} style={{flexDirection: 'row', alignItems: 'center'}}>
+    <Pressable
+      disabled={disabled}
+      onPress={disabled ? undefined : handleOnPress}
+      style={{
+        margin: height / 2,
+        gap: height / 2,
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+      }}
+    >
       <Image
         source={icons[color]}
         resizeMode={'contain'}
@@ -49,7 +81,6 @@ const SpotifyIconComp = ({color = 'green', scale, style, onPress, spotifyText, n
             minWidth: MIN_WIDTH,
             width: WIDTH,
             height: 940 / (939 / WIDTH),
-            margin: height / 2,
           },
           style,
         ]}

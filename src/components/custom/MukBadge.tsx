@@ -3,13 +3,14 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
+import {observer} from 'mobx-react';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   badge?: number;
 };
-export default function MukBadge({style, textStyle, badge}: Props) {
+export default observer(({style, textStyle, badge}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {ui} = useStores();
 
@@ -43,4 +44,4 @@ export default function MukBadge({style, textStyle, badge}: Props) {
       </Text>
     </View>
   );
-}
+});

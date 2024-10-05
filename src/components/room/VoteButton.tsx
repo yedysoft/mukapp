@@ -18,8 +18,9 @@ export default ({onPress, badge, style, isLoading, disabled}: Props) => {
         badge={badge}
         style={{
           position: 'absolute',
-          right: responsiveWidth(0),
-          top: responsiveWidth(8),
+          right: responsiveWidth(-6),
+          top: responsiveWidth(16),
+          opacity: 0.8,
         }}
       />
       <MukImage

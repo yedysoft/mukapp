@@ -1,5 +1,4 @@
 import {Text, useTheme} from 'react-native-paper';
-import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
@@ -17,71 +16,51 @@ type Props = {
   index: number;
 };
 
+const rankColors: {[key: number]: string} = {
+  1: YedyPalette.orange_dark,
+  2: YedyPalette.gray500_dark,
+  3: YedyPalette.brown_dark,
+};
+
 export default observer(({leader, index}: Props) => {
   const navigation = useNavigation<MainStackNavProp>();
   const {colors} = useTheme<MukTheme>();
   const {auth} = useStores();
-  let rankColor;
-
-  switch (index) {
-    case 1:
-      rankColor = YedyPalette.orange_dark;
-      break;
-    case 2:
-      rankColor = YedyPalette.gray500_dark;
-      break;
-    case 3:
-      rankColor = YedyPalette.brown_dark;
-      break;
-    default:
-      rankColor = colors.secondary;
-  }
+  const rankColor = rankColors[index] ?? colors.secondary;
 
   return (
     <MukListItem
       style={{
         alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: index === 0 ? colors.backdrop : colors.background,
       }}
       onPress={() => navigation.navigate('Profile', {userId: leader.userId})}
     >
-      <View
-        style={{
-          justifyContent: 'center',
-          gap: responsiveWidth(16),
-          maxWidth: responsiveWidth(240),
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        {index === 0 ? null : (
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: responsiveSize(28),
-              fontWeight: '900',
-              color: rankColor,
-              minWidth: responsiveWidth(40),
-              textAlign: 'center',
-            }}
-          >
-            {index}
-          </Text>
-        )}
-        <MukImage
-          scale={1}
-          source={
-            leader.image
-              ? {uri: `${leader.image.link}?token=${auth.getAuthToken}`}
-              : require('../../../assets/adaptive-icon.png')
-          }
-          style={{borderRadius: 100, borderWidth: 2, borderColor: rankColor}}
-        />
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '600', color: rankColor}}>
-          {leader.userName}
+      {index === 0 ? null : (
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: responsiveSize(28),
+            fontWeight: '900',
+            color: rankColor,
+            minWidth: responsiveWidth(40),
+            textAlign: 'center',
+          }}
+        >
+          {index}
         </Text>
-      </View>
+      )}
+      <MukImage
+        scale={1}
+        source={
+          leader.image
+            ? {uri: `${leader.image.link}?token=${auth.getAuthToken}`}
+            : require('../../../assets/adaptive-icon.png')
+        }
+        style={{borderRadius: 100, borderWidth: 2, borderColor: rankColor}}
+      />
+      <Text numberOfLines={1} style={{flex: 1, fontSize: responsiveSize(16), fontWeight: '600', color: rankColor}}>
+        {leader.userName}
+      </Text>
       <MukBadge
         badge={leader.voteCount}
         style={{

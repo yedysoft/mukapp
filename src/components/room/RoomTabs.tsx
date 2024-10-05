@@ -11,7 +11,7 @@ import {responsiveWidth} from '../../utils/util';
 import MukButton from '../custom/MukButton';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 
-const RoomTabs = observer(() => {
+export default observer(() => {
   //const {colors} = useTheme<MukTheme>();
   const [tabIndex, setTabIndex] = useState(1);
   const {api} = useServices();
@@ -113,5 +113,3 @@ const RoomTabs = observer(() => {
     />
   );
 });
-
-export default RoomTabs;

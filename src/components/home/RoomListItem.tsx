@@ -72,7 +72,6 @@ export default observer(({roomData}: Props) => {
         </View>
         <View
           style={{
-            display: roomData.liveSong ? undefined : 'none',
             flexDirection: 'row',
             alignItems: 'center',
             gap: responsiveWidth(4),
@@ -85,7 +84,6 @@ export default observer(({roomData}: Props) => {
           />
           <View
             style={{
-              display: roomData.liveSong ? undefined : 'none',
               flexDirection: 'column',
               flex: 1,
             }}
@@ -112,7 +110,7 @@ export default observer(({roomData}: Props) => {
                   roomData.liveSong && !api.helper.getArtist(roomData.liveSong.artists) ? colors.shadow : undefined,
               }}
             >
-              {roomData.liveSong ? api.helper.getArtist(roomData.liveSong.artists) : ''}
+              {api.helper.getArtist(roomData.liveSong?.artists)}
             </Text>
           </View>
         </View>

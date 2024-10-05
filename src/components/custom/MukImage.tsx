@@ -75,7 +75,6 @@ export default function MukImage({
         style={[
           {
             backgroundColor: 'transparent',
-            width: responsiveScale(scale),
             height: responsiveScale(scale),
             aspectRatio: 1,
             borderRadius: radius ? 16 : 2,
@@ -90,18 +89,7 @@ export default function MukImage({
         {loading ? (
           <ActivityIndicator size={responsiveSize(48)} />
         ) : (
-          <Image
-            source={source}
-            contentFit={resizeMode}
-            cachePolicy={'memory-disk'}
-            style={[
-              {
-                width: '100%',
-                height: '100%',
-              },
-              imageStyle,
-            ]}
-          />
+          <Image source={source} contentFit={resizeMode} cachePolicy={'memory-disk'} style={[{flex: 1}, imageStyle]} />
         )}
         {edit && <EditImage setVisible={setVisible} isVisible={visible} edit={edit} setLoading={setLoading} />}
       </TouchableOpacity>

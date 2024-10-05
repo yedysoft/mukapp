@@ -9,6 +9,7 @@ import {MukTheme, Positions, TooltipScreenProps} from '../../types';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<ViewStyle>;
   icon?: IconSource;
   color?: string;
   scale?: number;
@@ -20,6 +21,7 @@ type Props = {
 };
 export default function MukIconButton({
   style,
+  iconStyle,
   icon,
   color,
   scale,
@@ -95,7 +97,7 @@ export default function MukIconButton({
         disabled={disabled}
         icon={icon ? icon : 'blank'}
         iconColor={color ? color : colors.secondary}
-        style={{margin: 0}}
+        style={[{margin: 0}, iconStyle]}
         size={responsiveScale(scale)}
       />
       {tooltip && tooltip({positions: positions, visible: tooltipVisible, changeVisible: tooltipChangeVisible})}

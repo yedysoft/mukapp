@@ -5,6 +5,7 @@ import {IAuthsType} from '../../types/enums';
 import * as WebBrowser from 'expo-web-browser';
 import media from './media';
 import AuthApi from './auth';
+import {IAuths} from '../../types/auth';
 
 export class AuthsApi implements IAuthsApi {
   clearAuth = async (type: IAuthsType): PVoid => {
@@ -24,7 +25,7 @@ export class AuthsApi implements IAuthsApi {
 
   getAuths = async (): PVoid => {
     try {
-      const response = await axiosIns.get<IAuthsType[]>('/auths/getAuths');
+      const response = await axiosIns.get<IAuths[]>('/auths/getAuths');
       if (response.status === 200) {
         stores.auth.set('auths', response.data);
       }
@@ -58,7 +59,7 @@ export class AuthsApi implements IAuthsApi {
             }
           } else {
             await this.getAuths();
-            if (stores.auth.auths.some(value => value === key)) {
+            if (stores.auth.auths.some(value => value.type === key)) {
               stores.ui.addInfo(`${name} hesabınız bağlandı.`);
               if (key === 'SPOTIFY') {
                 stores.media.set('authenticated', true);

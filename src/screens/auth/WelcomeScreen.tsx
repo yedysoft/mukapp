@@ -12,7 +12,7 @@ import {useServices} from '../../services';
 
 export const WelcomeScreen = observer(() => {
   const {colors} = useTheme<MukTheme>();
-  const {t, api} = useServices();
+  const {t} = useServices();
   const navigation = useNavigation<AuthStackNavProp>();
 
   return (

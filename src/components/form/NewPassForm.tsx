@@ -1,17 +1,17 @@
 import {observer} from 'mobx-react';
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
 import {IPassChange} from '../../types/auth';
 import {useServices} from '../../services';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {View} from 'react-native';
 import MukIconButton from '../custom/MukIconButton';
+import YedyText from '../custom/YedyText';
 
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -29,26 +29,18 @@ export default observer(() => {
     });
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        gap: responsiveWidth(16),
-        paddingTop: responsiveHeight(32),
-      }}
-    >
+    <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(16)}}>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}
       >
-        <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
+        <YedyText fontType={'bold'} style={{fontSize: responsiveSize(32)}}>
           {t.do('form.newPass.title')}
-        </Text>
+        </YedyText>
         <MukIconButton icon={'log-out'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
       </View>
-
       <MukForm ref={formRef} onSubmit={onSubmit} data={formData}>
         <MukTextInput
           name={'newPass'}
@@ -76,6 +68,6 @@ export default observer(() => {
         label={t.do('form.newPass.submit')}
         onPress={onSubmit}
       />
-    </SafeAreaView>
+    </View>
   );
 });

@@ -22,8 +22,8 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
   const {ui} = useStores();
 
   return (
-    <View style={{flex: 1, flexDirection: 'column', width: ui.windowWidth}}>
-      <View style={{flex: 1, flexDirection: 'row', width: '100%', maxHeight: responsiveWidth(60)}}>
+    <View style={{flex: 1}}>
+      <View style={{flex: 1, flexDirection: 'row', maxHeight: responsiveWidth(60)}}>
         {tabs.map((tab, i) => {
           return (
             <Pressable
@@ -33,7 +33,6 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
               }}
               style={{
                 flex: 2,
-                flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: activeIndex === i ? theme.colors.primary : theme.colors.backdrop,
@@ -48,7 +47,7 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
           );
         })}
       </View>
-      <View style={{flex: 1, flexDirection: 'column', width: '100%'}}>
+      <View style={{flex: 1, flexDirection: 'column'}}>
         {activeIndex ? tabs[activeIndex].children : tabs[0].children}
       </View>
     </View>

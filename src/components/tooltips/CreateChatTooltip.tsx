@@ -20,6 +20,10 @@ const CreateChatTooltip = observer(({positions, visible, changeVisible}: Tooltip
   const [users, setUsers] = useState<(IFollowUser & {selected: boolean})[]>([]);
 
   useEffect(() => {
+    api.user.getFollows(user.getInfo.id);
+  }, []);
+
+  useEffect(() => {
     setUsers(user.getFollows.map(u => ({...u, selected: false})));
   }, [user.getFollows]);
 

@@ -5,7 +5,6 @@ import ChatComposer from '../chat/ChatComposer';
 import {View} from 'react-native';
 import {IMessage} from '../../types/chat';
 import {IMessageType} from '../../types/enums';
-import {useStores} from '../../stores';
 
 type Props = {
   sendMessage: (data: IMessage) => PVoid;
@@ -15,10 +14,8 @@ type Props = {
 };
 
 export const MukChat = observer(({sendMessage, messages, receiverId, messageType}: Props) => {
-  const {ui} = useStores();
-
   return (
-    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', width: ui.windowWidth}}>
+    <View style={{flex: 1, flexDirection: 'column'}}>
       <ChatList data={messages} />
       <ChatComposer sendMessage={sendMessage} receiverId={receiverId} messageType={messageType} />
     </View>

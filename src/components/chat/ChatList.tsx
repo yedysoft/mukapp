@@ -60,6 +60,7 @@ export default function ChatList({data}: Props) {
     <>
       <FlatList
         ref={listRef}
+        style={{flex: 1}}
         scrollEnabled
         snapToEnd
         contentContainerStyle={{

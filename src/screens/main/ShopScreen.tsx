@@ -1,17 +1,20 @@
-import {useTheme} from 'react-native-paper';
 import {MainLayout} from '../../components/layouts/MainLayout';
 import {responsiveHeight} from '../../utils/util';
 import ShopCarousel from '../../components/shop/ShopCarousel';
 import ShopCoins from '../../components/shop/ShopCoins';
-import {MukTheme} from '../../types';
+import {ScrollView} from 'react-native';
 
 export default function ShopScreen() {
-  const {colors} = useTheme<MukTheme>();
-
   return (
     <MainLayout style={{gap: responsiveHeight(16)}}>
-      <ShopCarousel />
-      <ShopCoins />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{flex: 1}}
+        contentContainerStyle={{flexDirection: 'column'}}
+      >
+        <ShopCarousel />
+        <ShopCoins />
+      </ScrollView>
     </MainLayout>
   );
 }
