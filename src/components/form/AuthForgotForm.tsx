@@ -48,6 +48,7 @@ export const AuthForgotForm = observer(() => {
             paddingHorizontal: responsiveWidth(32),
             paddingVertical: responsiveWidth(16),
           }}
+          textStyle={{color: colors.secondary}}
           disabled={loading.getForgotPass}
           label={t.do('auth.forgot.back')}
           onPress={() => navigation.navigate('Login')}

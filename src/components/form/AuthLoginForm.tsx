@@ -56,7 +56,7 @@ export const AuthLoginForm = observer(() => {
               alignSelf: 'flex-end',
               marginVertical: responsiveWidth(16),
             }}
-            textStyle={{fontSize: responsiveSize(14)}}
+            textStyle={{fontSize: responsiveSize(14), color: colors.outlineVariant}}
             loading={loading.getLogin}
             label={t.do('auth.login.changePassword')}
             onPress={() => navigation.navigate('Forgot')}
@@ -85,6 +85,7 @@ export const AuthLoginForm = observer(() => {
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <MukButton
           buttonStyle={{backgroundColor: 'transparent', padding: 0}}
+          textStyle={{color: colors.outlineVariant}}
           disabled={loading.getLogin}
           label={t.do('auth.login.toRegister')}
           onPress={() => navigation.navigate('Register')}
