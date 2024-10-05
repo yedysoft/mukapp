@@ -24,7 +24,7 @@ export default () => {
     ) {
       setResult({isLive: room.isLive, dominantColor, isColorLight});
     }
-  }, [media.getPlayingTrack.dominantColor, room.isLive]);
+  }, [media.getPlayingTrack.dominantColor, room.isLive, colors.background]);
 
   return result;
 };
