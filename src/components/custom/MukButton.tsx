@@ -1,8 +1,9 @@
 import {ActivityIndicator, StyleProp, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {ReactNode} from 'react';
 import {MukTheme, PureFunc} from '../../types';
+import YedyText from './YedyText';
 
 type Props = {
   buttonStyle?: StyleProp<ViewStyle>;
@@ -36,13 +37,13 @@ export default function MukButton({buttonStyle, disabled, loading, onPress, labe
     >
       <ActivityIndicator
         size={responsiveSize(12)}
-        color={colors.background}
+        color={colors.dark}
         style={{display: loading ? undefined : 'none', marginRight: responsiveWidth(8)}}
       />
       {children}
-      <Text style={[{fontSize: responsiveSize(16), fontWeight: 'bold', color: colors.background}, textStyle]}>
+      <YedyText fontType={'bold'} fontSize={16} style={[{color: colors.dark}, textStyle]}>
         {label}
-      </Text>
+      </YedyText>
     </TouchableOpacity>
   );
 }

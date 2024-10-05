@@ -1,18 +1,19 @@
 import {observer} from 'mobx-react';
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import React, {useRef, useState} from 'react';
 import {IRegister} from '../../types/auth';
 import {useServices} from '../../services';
 import {View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {_gender} from '../../types/enums';
+import YedyText from '../custom/YedyText';
 
 export const AuthRegisterForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -29,9 +30,9 @@ export const AuthRegisterForm = observer(() => {
   return (
     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={{gap: responsiveHeight(48)}}>
-        <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
+        <YedyText fontType={'bold'} fontSize={32}>
           {t.do('auth.register.title')}
-        </Text>
+        </YedyText>
         <MukForm ref={formRef} onSubmit={onSubmit} data={formData}>
           <MukTextInput
             name={'name'}
@@ -115,7 +116,7 @@ export const AuthRegisterForm = observer(() => {
             paddingHorizontal: step === 0 ? 0 : responsiveWidth(32),
             paddingVertical: step === 0 ? 0 : responsiveWidth(16),
           }}
-          textStyle={{color: step === 0 ? colors.outlineVariant : colors.secondary, fontWeight: '400'}}
+          textStyle={{color: step === 0 ? colors.outlineVariant : colors.secondary}}
           disabled={loading.getRegister}
           label={step === 0 ? t.do('auth.register.toLogin') : t.do('auth.register.prev')}
           onPress={() => (step === 0 ? navigation.navigate('Login') : setStep(step - 1))}

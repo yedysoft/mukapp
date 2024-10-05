@@ -22,6 +22,14 @@ class UserApi {
     }
   };
 
+  addToken = async (quantity: number): PVoid => {
+    try {
+      await axiosIns.get(`/test/addToken/${stores.user.getInfo.id}/${quantity}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   searchUser = async (keyword: string, page = 0, size = 10): PVoid => {
     try {
       const response = await axiosIns.get<IPage<ISearchUser[]>>(

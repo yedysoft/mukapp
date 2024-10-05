@@ -10,10 +10,11 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
-import {Text, useTheme} from 'react-native-paper';
+import {genericMemo, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
 import {services, useServices} from '../../services';
 import {MukTheme} from '../../types';
+import YedyText from './YedyText';
 
 type Props<T extends string | number> = {
   name: string;
@@ -103,18 +104,18 @@ const MukPickerComp = <T extends string | number>({
             transform: [{scale}, {rotateX}],
           }}
         >
-          <Text
+          <YedyText
             numberOfLines={1}
+            fontType={'bold'}
+            fontSize={16}
             style={{
-              fontSize: responsiveSize(16),
-              fontWeight: '600',
               textAlign: 'center',
               textAlignVertical: 'center',
               color: value === item ? colors.secondary : colors.outlineVariant,
             }}
           >
             {itemsIsArray ? String(item) : items[item]}
-          </Text>
+          </YedyText>
         </Animated.View>
       </Pressable>
     );

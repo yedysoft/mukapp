@@ -1,17 +1,18 @@
 import {observer} from 'mobx-react';
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
 import {IForgot} from '../../types/auth';
 import {useServices} from '../../services';
 import {View} from 'react-native';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
+import YedyText from '../custom/YedyText';
 
 export const AuthForgotForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -27,9 +28,9 @@ export const AuthForgotForm = observer(() => {
   return (
     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={{gap: responsiveHeight(48)}}>
-        <Text style={{fontSize: responsiveSize(32), fontWeight: '300', color: colors.secondary}}>
+        <YedyText fontType={'bold'} fontSize={32}>
           {t.do('auth.forgot.title')}
-        </Text>
+        </YedyText>
         <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
           <MukTextInput
             name={'name'}
@@ -47,7 +48,6 @@ export const AuthForgotForm = observer(() => {
             paddingHorizontal: responsiveWidth(32),
             paddingVertical: responsiveWidth(16),
           }}
-          textStyle={{color: colors.secondary, fontWeight: '400'}}
           disabled={loading.getForgotPass}
           label={t.do('auth.forgot.back')}
           onPress={() => navigation.navigate('Login')}

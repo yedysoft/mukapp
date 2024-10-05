@@ -7,7 +7,7 @@ import {observer} from 'mobx-react';
 import {View} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IRoomConfig} from '../../types/room';
 import {MukBottomSheetRef} from '../custom/MukBottomSheet';
+import YedyText from '../custom/YedyText';
 
 const RoomConfigTooltip = observer(({positions, visible, changeVisible}: TooltipScreenProps) => {
   const {colors} = useTheme<MukTheme>();
@@ -74,25 +75,12 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
         </View>
         <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(8)}}>
           <View>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: responsiveSize(16),
-                fontWeight: '400',
-                color: colors.secondary,
-              }}
-            >
+            <YedyText numberOfLines={1} fontType={'bold'}>
               {user.getInfo.name} {user.getInfo.surname}
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: responsiveSize(12),
-                color: colors.secondary,
-              }}
-            >
+            </YedyText>
+            <YedyText numberOfLines={1} fontSize={12}>
               @{user.getInfo.userName}
-            </Text>
+            </YedyText>
           </View>
           <MukForm ref={formRef} onSubmit={createRoom} data={form}>
             <MukTextInput

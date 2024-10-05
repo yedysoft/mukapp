@@ -1,4 +1,4 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {Animated, PanResponder, View} from 'react-native';
 import {MukTheme} from '../../types';
 import {getAnimatedValue, responsiveWidth} from '../../utils/util';
@@ -10,6 +10,7 @@ import useInfo from '../../hooks/useInfo';
 import {useServices} from '../../services';
 import {ReactNode, useRef} from 'react';
 import MukIcon from '../custom/MukIcon';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   message: IMessage;
@@ -101,27 +102,28 @@ export default observer(({message, quotedMessage}: Props) => {
         }}
       >
         {quotedMessage}
-        <Text
+        <YedyText
+          visible={!me && message.type !== 'PRIVATE'}
+          fontType={'bold'}
           style={{
-            display: me || message.type === 'PRIVATE' ? 'none' : undefined,
             color: api.helper.randomColor(),
             textAlign: 'left',
-            fontWeight: '800',
           }}
         >
           {info.name} {info.surname}
-        </Text>
-        <Text style={{color: me ? colors.background : colors.secondary, textAlign: 'left'}}>{message.content}</Text>
-        <Text
+        </YedyText>
+        <YedyText style={{color: me ? colors.background : colors.secondary, textAlign: 'left'}}>
+          {message.content}
+        </YedyText>
+        <YedyText
+          fontSize={10}
           style={{
             color: me ? colors.background : colors.secondary,
             textAlign: 'right',
-            fontSize: 10,
-            fontWeight: '300',
           }}
         >
           {time} {me ? (sended ? '✓' : '⏳') : ''}
-        </Text>
+        </YedyText>
       </View>
     </Animated.View>
   );

@@ -5,7 +5,7 @@ import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
 import {IPassChange} from '../../types/auth';
 import {useServices} from '../../services';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
@@ -36,7 +36,7 @@ export default observer(() => {
           justifyContent: 'space-between',
         }}
       >
-        <YedyText fontType={'bold'} style={{fontSize: responsiveSize(32)}}>
+        <YedyText fontType={'bold'} fontSize={32}>
           {t.do('form.newPass.title')}
         </YedyText>
         <MukIconButton icon={'log-out'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
@@ -63,7 +63,7 @@ export default observer(() => {
         />
       </MukForm>
       <MukButton
-        buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
+        buttonStyle={{paddingVertical: responsiveWidth(16)}}
         loading={loading.passChange}
         label={t.do('form.newPass.submit')}
         onPress={onSubmit}

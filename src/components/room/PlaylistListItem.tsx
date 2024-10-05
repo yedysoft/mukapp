@@ -1,11 +1,12 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
 import {MukColors, MukTheme} from '../../types';
 import SpotifyIcon from '../spotify/SpotifyIcon';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   onPress?: () => void;
@@ -48,17 +49,9 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
       )}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         {!isSearch && <SpotifyIcon />}
-        <Text
-          numberOfLines={1}
-          style={{
-            maxWidth: responsiveWidth(120),
-            fontSize: responsiveSize(14),
-            fontWeight: '400',
-            color: colors.secondary,
-          }}
-        >
+        <YedyText numberOfLines={1} fontSize={14} style={{maxWidth: responsiveWidth(120)}}>
           {playlist.name}
-        </Text>
+        </YedyText>
       </View>
     </TouchableOpacity>
   );

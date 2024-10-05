@@ -1,33 +1,26 @@
 import {StyleProp, View, ViewStyle} from 'react-native';
 import MukImage from '../custom/MukImage';
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {MukTheme} from '../../types';
+import YedyText from '../custom/YedyText';
+import {useServices} from '../../services';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
-  customValue?: string;
+  customValue?: number;
 };
 
 const Token = observer(({style, customValue}: Props) => {
-  const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
+  const {api} = useServices();
 
   return (
-    <View style={[{flexDirection: 'row', alignItems: 'center', display: 'none'}, style]}>
-      <MukImage
-        scale={0.32}
-        style={{marginRight: responsiveWidth(8)}}
-        source={require('../../../assets/wallet/token.png')}
-      />
-      <Text
-        numberOfLines={1}
-        style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '600', textAlign: 'left'}}
-      >
-        {customValue ?? user.getInfo.token}
-      </Text>
+    <View style={[{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(4)}, style]}>
+      <MukImage scale={0.32} source={require('../../../assets/wallet/token.png')} />
+      <YedyText numberOfLines={1} fontType={'bold'} fontSize={18}>
+        {api.helper.nummer(customValue ?? user.getInfo.token)}
+      </YedyText>
     </View>
   );
 });

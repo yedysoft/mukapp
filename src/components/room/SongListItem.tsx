@@ -1,7 +1,7 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {useServices} from '../../services';
 import {IQueueTrack, ITrack} from '../../types/media';
@@ -12,6 +12,7 @@ import AddButton from './AddButton';
 import {MukTheme} from '../../types';
 import {useState} from 'react';
 import SpotifyIcon from '../spotify/SpotifyIcon';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   song: IQueueTrack | ITrack;
@@ -37,33 +38,17 @@ export default observer(({song, itemType, disabled}: Props) => {
     <MukListItem style={{flex: 1, gap: responsiveWidth(8)}} disabled={true}>
       <MukImage scale={1.4} source={api.helper.getImageUrl(song.images, 1.4)} radius={false} />
       {title ? (
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(18), fontWeight: '400', color: colors.tertiary}}>
+        <YedyText numberOfLines={1} fontSize={18} style={{color: colors.tertiary}}>
           {title}
-        </Text>
+        </YedyText>
       ) : (
         <View style={{flex: 1, flexDirection: 'column'}}>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: responsiveSize(18),
-              fontWeight: '500',
-              color: colors.secondary,
-              marginLeft: responsiveWidth(8),
-            }}
-          >
+          <YedyText numberOfLines={1} fontType={'bold'} fontSize={18} style={{marginLeft: responsiveWidth(8)}}>
             {song.name}
-          </Text>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: responsiveSize(14),
-              fontWeight: '300',
-              color: colors.secondary,
-              marginLeft: responsiveWidth(8),
-            }}
-          >
+          </YedyText>
+          <YedyText numberOfLines={1} fontSize={14} style={{marginLeft: responsiveWidth(8)}}>
             {api.helper.getArtist(song.artists)}
-          </Text>
+          </YedyText>
           <SpotifyIcon id={song.id} />
         </View>
       )}

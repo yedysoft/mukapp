@@ -1,5 +1,5 @@
 import VerticalProfile from '../../components/user/VerticalProfile';
-import {responsiveHeight, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {useCallback, useState} from 'react';
 import ProfileStats from '../../components/profile/ProfileStats';
 import ProfileList from '../../components/profile/ProfileList';
@@ -50,9 +50,9 @@ export default observer(() => {
   );
 
   return (
-    <SubLayout style={{gap: responsiveHeight(16)}}>
+    <SubLayout style={{}}>
       {!stores.loading.getVotes ? (
-        <View style={{gap: responsiveWidth(4)}}>
+        <View style={{flex: 1, gap: responsiveWidth(4)}}>
           <VerticalProfile profile={info} otherUser={otherUser} />
           <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
           <ProfileList

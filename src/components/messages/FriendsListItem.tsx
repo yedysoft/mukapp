@@ -1,12 +1,13 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {IFollowUser} from '../../types/user';
 import {View} from 'react-native';
 import {MukTheme} from '../../types';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   onPress?: (id: string) => void;
@@ -36,26 +37,17 @@ export default observer(({onPress, friend}: Props) => {
         }
       />
       <View style={{gap: responsiveWidth(4)}}>
-        <Text
+        <YedyText
           numberOfLines={1}
-          style={{
-            fontSize: responsiveSize(16),
-            fontWeight: '400',
-            color: friend.selected ? colors.background : colors.secondary,
-          }}
+          fontType={'bold'}
+          fontSize={16}
+          style={{color: friend.selected ? colors.dark : colors.secondary}}
         >
           {friend.name} {friend.surname}
-        </Text>
-        <Text
-          numberOfLines={1}
-          style={{
-            fontSize: responsiveSize(15),
-            fontWeight: '300',
-            color: friend.selected ? colors.background : colors.secondary,
-          }}
-        >
+        </YedyText>
+        <YedyText numberOfLines={1} fontSize={14} style={{color: friend.selected ? colors.dark : colors.secondary}}>
           @{friend.userName}
-        </Text>
+        </YedyText>
       </View>
     </MukListItem>
   );

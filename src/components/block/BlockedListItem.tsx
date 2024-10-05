@@ -1,13 +1,14 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import {IBlockedUser} from '../../types/user';
 import {MukTheme} from '../../types';
 import MukIconButton from '../custom/MukIconButton';
 import {useStores} from '../../stores';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   item: IBlockedUser;
@@ -29,9 +30,7 @@ export default observer(({item, onIconPress}: Props) => {
               : require('../../../assets/adaptive-icon.png')
           }
         />
-        <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '300', color: colors.secondary}}>
-          @{item.userName}
-        </Text>
+        <YedyText numberOfLines={1}>@{item.userName}</YedyText>
       </View>
       <MukIconButton scale={0.4} icon={'circle'} color={colors.secondary} onPress={() => onIconPress(item.blockId)} />
     </MukListItem>

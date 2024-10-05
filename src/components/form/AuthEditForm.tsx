@@ -56,7 +56,7 @@ export default observer(() => {
       </View>
       <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
         <MukTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
-        <MukTextInput name={'surname'} label={t.do('auth.register.surname')} preValidate={'required'} />
+        <MukTextInput name={'surname'} label={t.do('auth.register.surname')} />
         <MukTextInput
           name={'gender'}
           label={t.do('auth.register.gender')}

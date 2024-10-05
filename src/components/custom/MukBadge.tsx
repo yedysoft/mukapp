@@ -1,9 +1,10 @@
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/util';
 import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import YedyText from './YedyText';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -29,19 +30,14 @@ export default observer(({style, textStyle, badge}: Props) => {
         style,
       ]}
     >
-      <Text
+      <YedyText
         numberOfLines={1}
-        style={[
-          {
-            color: ui.getScheme === 'light' ? colors.background : colors.tertiary,
-            fontWeight: 'bold',
-            fontSize: responsiveSize(14),
-          },
-          textStyle,
-        ]}
+        fontType={'bold'}
+        fontSize={14}
+        style={[{color: ui.getScheme === 'light' ? colors.background : colors.tertiary}, textStyle]}
       >
         {badge}
-      </Text>
+      </YedyText>
     </View>
   );
 });

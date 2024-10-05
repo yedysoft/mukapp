@@ -1,4 +1,4 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
@@ -10,6 +10,7 @@ import {IRoomLeaderboard} from '../../types/room';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   leader: IRoomLeaderboard;
@@ -36,18 +37,18 @@ export default observer(({leader, index}: Props) => {
       onPress={() => navigation.navigate('Profile', {userId: leader.userId})}
     >
       {index === 0 ? null : (
-        <Text
+        <YedyText
           numberOfLines={1}
+          fontType={'bold'}
+          fontSize={28}
           style={{
-            fontSize: responsiveSize(28),
-            fontWeight: '900',
             color: rankColor,
             minWidth: responsiveWidth(40),
             textAlign: 'center',
           }}
         >
           {index}
-        </Text>
+        </YedyText>
       )}
       <MukImage
         scale={1}
@@ -58,9 +59,9 @@ export default observer(({leader, index}: Props) => {
         }
         style={{borderRadius: 100, borderWidth: 2, borderColor: rankColor}}
       />
-      <Text numberOfLines={1} style={{flex: 1, fontSize: responsiveSize(16), fontWeight: '600', color: rankColor}}>
+      <YedyText numberOfLines={1} fontType={'bold'} fontSize={16} style={{flex: 1, color: rankColor}}>
         {leader.userName}
-      </Text>
+      </YedyText>
       <MukBadge
         badge={leader.voteCount}
         style={{

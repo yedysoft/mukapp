@@ -1,10 +1,11 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {MukTheme} from '../../types';
 import {TouchableOpacity, View} from 'react-native';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import YedyText from './YedyText';
 
 type Props = {
   activeIndex?: number;
@@ -45,11 +46,7 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
                 borderRadius: 32,
               }}
             >
-              <Text
-                style={{color: i === activeIndex ? colors.background : colors.secondary, fontSize: responsiveSize(15)}}
-              >
-                {tab.label}
-              </Text>
+              <YedyText style={{color: i === activeIndex ? colors.background : colors.secondary}}>{tab.label}</YedyText>
             </TouchableOpacity>
           );
         })}

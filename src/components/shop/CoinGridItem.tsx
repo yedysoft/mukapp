@@ -1,8 +1,9 @@
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/util';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {MukTheme} from '../../types';
 import {useServices} from '../../services';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   onPress?: () => void;
@@ -29,7 +30,6 @@ export default function CoinGridItem({onPress, coin}: Props) {
           alignItems: 'center',
           borderRadius: 16,
           flexDirection: 'column',
-          flex: 1,
           gap: responsiveWidth(8),
         },
         styles.shadow,
@@ -49,26 +49,12 @@ export default function CoinGridItem({onPress, coin}: Props) {
           padding: responsiveWidth(8),
         }}
       >
-        <Text
-          numberOfLines={1}
-          style={{
-            fontSize: responsiveSize(15),
-            fontWeight: '800',
-            color: colors.secondary,
-          }}
-        >
+        <YedyText numberOfLines={1} fontType={'bold'}>
           {api.helper.nummer(coin.value)}
-        </Text>
-        <Text
-          numberOfLines={1}
-          style={{
-            fontSize: responsiveSize(15),
-            fontWeight: '800',
-            color: colors.secondary,
-          }}
-        >
+        </YedyText>
+        <YedyText numberOfLines={1} fontType={'bold'}>
           {coin.price} ₺
-        </Text>
+        </YedyText>
       </View>
     </TouchableOpacity>
   );

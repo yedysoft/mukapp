@@ -1,7 +1,8 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
+import YedyText from './YedyText';
 
 type Props = {
   value: string;
@@ -45,15 +46,9 @@ export default function MukSegmented({value, onValueChange, buttons, style}: Pro
               style,
             ]}
           >
-            <Text
-              style={{
-                fontSize: responsiveSize(15),
-                fontWeight: '400',
-                color: button.value === value ? colors.background : colors.secondary,
-              }}
-            >
+            <YedyText style={{color: button.value === value ? colors.background : colors.secondary}}>
               {button.label}
-            </Text>
+            </YedyText>
           </TouchableOpacity>
         );
       })}

@@ -1,8 +1,9 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {ReactNode} from 'react';
+import YedyText from './YedyText';
 
 type Props = {
   cardStyle?: StyleProp<ViewStyle>;
@@ -37,18 +38,9 @@ export default function MukCard({title, cardStyle, contentStyle, titleStyle, chi
             width: '100%',
           }}
         >
-          <Text
-            style={[
-              {
-                color: colors.secondary,
-                fontSize: responsiveSize(18),
-                fontWeight: '600',
-              },
-              titleStyle,
-            ]}
-          >
+          <YedyText fontType={'bold'} fontSize={18} style={titleStyle}>
             {title}
-          </Text>
+          </YedyText>
         </View>
       )}
       <View

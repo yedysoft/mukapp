@@ -96,8 +96,8 @@ export default function MukIconButton({
       <IconButton
         disabled={disabled}
         icon={icon ? icon : 'blank'}
-        iconColor={color ? color : colors.secondary}
-        style={[{margin: 0}, iconStyle]}
+        iconColor={tooltipVisible ? colors.dark : color ? color : colors.secondary}
+        style={[{backgroundColor: tooltipVisible ? colors.primary : 'transparent', margin: 0}, iconStyle]}
         size={responsiveScale(scale)}
       />
       {tooltip && tooltip({positions: positions, visible: tooltipVisible, changeVisible: tooltipChangeVisible})}

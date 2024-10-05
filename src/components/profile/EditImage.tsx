@@ -55,9 +55,9 @@ export default function EditImage({setVisible, isVisible, edit, setLoading}: Pro
     setVisible(false);
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images,
-      aspect: [3, 4],
+      aspect: [1, 1],
       allowsEditing: true,
-      quality: 0.1,
+      quality: 0.3,
     });
     await saveImage(result);
   };
@@ -66,9 +66,9 @@ export default function EditImage({setVisible, isVisible, edit, setLoading}: Pro
     setVisible(false);
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
-      aspect: [3, 4],
+      aspect: [1, 1],
       allowsEditing: true,
-      quality: 0.1,
+      quality: 0.3,
     });
     await saveImage(result);
   };

@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
@@ -13,6 +13,7 @@ import {SubLayout} from '../../components/layouts/SubLayout';
 import api from '../../services/api';
 import {ActivityIndicator, TouchableOpacity} from 'react-native';
 import SpotifyIcon from '../../components/spotify/SpotifyIcon';
+import YedyText from '../../components/custom/YedyText';
 
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
@@ -81,13 +82,13 @@ export default observer(() => {
                 }}
               />
               <SpotifyIcon scale={1.3} noText disabled />
-              <Text style={{color: colors.secondary, fontWeight: '400', fontSize: responsiveSize(16)}}>
+              <YedyText fontSize={16}>
                 {t.do(
                   isConnected
                     ? `main.settings.connect.${name.toLowerCase()}.disconnect`
                     : (`main.settings.connect.${name.toLowerCase()}.connect` as any),
                 )}
-              </Text>
+              </YedyText>
             </TouchableOpacity>
           );
         })}

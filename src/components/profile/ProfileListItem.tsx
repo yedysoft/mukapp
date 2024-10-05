@@ -1,7 +1,7 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import {ISearchUser} from '../../types/user';
@@ -10,6 +10,7 @@ import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import MukIconButton from '../custom/MukIconButton';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   item: ISearchUser;
@@ -37,12 +38,12 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
           }
         />
         <View style={{justifyContent: 'center', gap: responsiveWidth(4)}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '500', color: colors.secondary}}>
+          <YedyText numberOfLines={1} fontType={'bold'} fontSize={16}>
             {item.name} {item.surname}
-          </Text>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '300', color: colors.secondary}}>
+          </YedyText>
+          <YedyText numberOfLines={1} fontSize={14}>
             @{item.userName}
-          </Text>
+          </YedyText>
         </View>
       </View>
       <MukIconButton

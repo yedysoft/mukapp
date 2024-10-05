@@ -1,8 +1,9 @@
 import {TouchableOpacity} from 'react-native';
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/util';
 import {Dispatch, SetStateAction} from 'react';
 import {MukTheme} from '../../types';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   stat: {
@@ -31,16 +32,12 @@ export default function ProfileStatsItem({stat, index, activeIndex, setActiveInd
         gap: responsiveWidth(4),
       }}
     >
-      <Text
-        style={{fontSize: responsiveSize(20), fontWeight: '500', color: active ? colors.background : colors.secondary}}
-      >
+      <YedyText fontType={'bold'} fontSize={20} style={{color: active ? colors.dark : colors.secondary}}>
         {stat.value}
-      </Text>
-      <Text
-        style={{fontSize: responsiveSize(14), fontWeight: '300', color: active ? colors.background : colors.secondary}}
-      >
+      </YedyText>
+      <YedyText fontSize={14} style={{color: active ? colors.dark : colors.secondary}}>
         {stat.label}
-      </Text>
+      </YedyText>
     </TouchableOpacity>
   );
 }

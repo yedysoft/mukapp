@@ -1,4 +1,4 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import {IQuotedMessage} from '../../types/chat';
@@ -9,6 +9,7 @@ import {TouchableOpacity} from 'react-native';
 import {useServices} from '../../services';
 import {StyleProp} from 'react-native/Libraries/StyleSheet/StyleSheet';
 import {ViewStyle} from 'react-native/Libraries/StyleSheet/StyleSheetTypes';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   quotedMessage: IQuotedMessage | null | undefined;
@@ -42,19 +43,19 @@ export default observer(({quotedMessage, onPress, style}: Props) => {
         style,
       ]}
     >
-      <Text
+      <YedyText
         numberOfLines={1}
+        fontType={'bold'}
         style={{
           color: api.helper.randomColor(),
           textAlign: 'left',
-          fontWeight: '800',
         }}
       >
         {info.name} {info.surname}
-      </Text>
-      <Text numberOfLines={3} style={{color: colors.secondary, textAlign: 'left'}}>
+      </YedyText>
+      <YedyText numberOfLines={3} style={{textAlign: 'left'}}>
         {quotedMessage?.content}
-      </Text>
+      </YedyText>
     </TouchableOpacity>
   );
 });

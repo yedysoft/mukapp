@@ -1,5 +1,5 @@
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import MukIcon from '../custom/MukIcon';
 import Token from '../user/Token';
@@ -7,6 +7,7 @@ import MukProgressBar from '../custom/MukProgressBar';
 import MukButton from '../custom/MukButton';
 import {useState} from 'react';
 import {MukTheme} from '../../types';
+import YedyText from '../custom/YedyText';
 
 export default function TasksListItem() {
   const {colors} = useTheme<MukTheme>();
@@ -24,14 +25,14 @@ export default function TasksListItem() {
       <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
         <MukIcon scale={0.8} color={colors.outline} icon={'align-left'} />
         <View style={{gap: responsiveWidth(4), width: responsiveWidth(240)}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(16), fontWeight: '600'}}>
+          <YedyText numberOfLines={1} fontType={'bold'} fontSize={16}>
             Task Title (1/3)
-          </Text>
-          <Text numberOfLines={2} style={{fontSize: responsiveSize(14)}}>
+          </YedyText>
+          <YedyText numberOfLines={2} fontSize={14}>
             Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-          </Text>
+          </YedyText>
         </View>
-        <Token customValue={'10'} />
+        <Token customValue={10} />
       </View>
       {isCompleted ? (
         <MukButton label={'Tamamlandı'} onPress={() => console.log('tamamlandi')} />

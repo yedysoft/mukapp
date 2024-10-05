@@ -4,7 +4,6 @@ import {MukTheme} from '../../types';
 import {Pressable, View} from 'react-native';
 import MukIcon from './MukIcon';
 import {responsiveWidth} from '../../utils/util';
-import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 
 type Props = {
@@ -18,8 +17,7 @@ type Props = {
 };
 
 export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
-  const theme = useTheme<MukTheme>();
-  const {ui} = useStores();
+  const {colors} = useTheme<MukTheme>();
 
   return (
     <View style={{flex: 1}}>
@@ -35,12 +33,12 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
                 flex: 2,
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: activeIndex === i ? theme.colors.primary : theme.colors.backdrop,
+                backgroundColor: activeIndex === i ? colors.primary : colors.backdrop,
               }}
             >
               <MukIcon
                 scale={activeIndex === i ? 0.8 : 0.7}
-                color={activeIndex === i ? theme.colors.background : theme.colors.outlineVariant}
+                color={activeIndex === i ? colors.dark : colors.outlineVariant}
                 icon={tab.icon ? tab.icon : 'blank'}
               />
             </Pressable>

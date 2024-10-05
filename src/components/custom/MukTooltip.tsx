@@ -40,7 +40,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
   const event = useRef<NativeEventSubscription | null>(null);
   const [dimensions, setDimensions] = useState<{width: number; height: number}>({width: 0, height: 0});
   const styles = makeStyles(colors);
-  const DEFAULT_PADDING = responsiveWidth(16);
+  const DEFAULT_PADDING = responsiveWidth(12);
   const renderCheck = dimensions.height === 0 && dimensions.width === 0;
 
   const route = useRoute();

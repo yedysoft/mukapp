@@ -1,10 +1,11 @@
-import {Dialog, Text, useTheme} from 'react-native-paper';
+import {Dialog, useTheme} from 'react-native-paper';
 import {ReactNode, useState} from 'react';
 import MukButton from './MukButton';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {StyleSheet, View} from 'react-native';
 import {MukColors, MukTheme, PVoid} from '../../types';
 import {useServices} from '../../services';
+import YedyText from './YedyText';
 
 type Props = {
   children?: ReactNode;
@@ -38,9 +39,7 @@ export default function MukDialog({children, visible, onReject, onAccept, name}:
           {t.do(`dialog.${name ?? 'default'}.title`)}
         </Dialog.Title>
         <Dialog.Content style={{paddingBottom: responsiveWidth(24)}}>
-          <Text style={{color: colors.secondary, fontSize: responsiveSize(14)}}>
-            {t.do(`dialog.${name ?? 'default'}.content`)}
-          </Text>
+          <YedyText fontSize={14}>{t.do(`dialog.${name ?? 'default'}.content`)}</YedyText>
           {children}
         </Dialog.Content>
         <Dialog.Actions
@@ -56,7 +55,7 @@ export default function MukDialog({children, visible, onReject, onAccept, name}:
             label={t.do(`dialog.${name ?? 'default'}.reject`)}
             buttonStyle={{backgroundColor: colors.shadow}}
             scale={0.8}
-            textStyle={{color: colors.secondary, fontSize: responsiveSize(14), fontWeight: '600'}}
+            textStyle={{fontSize: responsiveSize(14)}}
           />
           <MukButton
             loading={loading}
@@ -67,7 +66,7 @@ export default function MukDialog({children, visible, onReject, onAccept, name}:
             label={t.do(`dialog.${name ?? 'default'}.accept`)}
             buttonStyle={{backgroundColor: colors.primary}}
             scale={0.8}
-            textStyle={{color: colors.background, fontSize: responsiveSize(14), fontWeight: '600'}}
+            textStyle={{fontSize: responsiveSize(14)}}
           />
         </Dialog.Actions>
       </Dialog>

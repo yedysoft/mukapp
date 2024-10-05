@@ -1,9 +1,10 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useState} from 'react';
 import {MukColors, MukTheme} from '../../types';
 import {SubLayout} from '../../components/layouts/SubLayout';
+import YedyText from '../../components/custom/YedyText';
 
 const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) => {
   const {colors} = useTheme<MukTheme>();
@@ -25,7 +26,7 @@ const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) 
       ]}
       onPress={onPress}
     >
-      <Text>Test Premium</Text>
+      <YedyText>Test Premium</YedyText>
     </TouchableOpacity>
   );
 };

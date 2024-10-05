@@ -1,5 +1,5 @@
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/util';
 import MukIconButton from '../custom/MukIconButton';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
@@ -16,6 +16,7 @@ import useGroup from '../../hooks/useGroup';
 import MukImage from '../custom/MukImage';
 import defaults from '../../utils/defaults';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import YedyText from '../custom/YedyText';
 
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -31,7 +32,7 @@ export default observer(() => {
   return (
     <View
       style={{
-        paddingLeft: responsiveWidth(8),
+        paddingHorizontal: responsiveWidth(8),
         paddingRight: responsiveWidth(12),
         paddingBottom: responsiveWidth(Platform.OS === 'ios' ? 8 : 12),
         paddingTop: responsiveWidth(Platform.OS === 'ios' ? 8 : 12) + (Platform.OS === 'ios' ? 0 : insets.top),
@@ -53,7 +54,7 @@ export default observer(() => {
         />
       </NavButton>
       {route.name === 'Task' ? (
-        <Token style={{justifyContent: 'flex-end', width: responsiveWidth(56), marginRight: responsiveWidth(-8)}} />
+        <Token />
       ) : route.name === 'Room' ? (
         <Coin textColor={textColor} />
       ) : route.name === 'Profile' && params.userId === user.getInfo.id ? (
@@ -61,16 +62,9 @@ export default observer(() => {
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
       ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (
-        <Text
-          numberOfLines={1}
-          style={{
-            fontSize: responsiveSize(28),
-            color: colors.secondary,
-            fontWeight: '300',
-          }}
-        >
+        <YedyText numberOfLines={1} fontType={'bold'} fontSize={28}>
           {t.do(`main.side.${route.name.toLowerCase()}` as MukLangPaths)}
-        </Text>
+        </YedyText>
       ) : null}
     </View>
   );
@@ -109,18 +103,12 @@ const ChatHeader = observer(({id}: {id: string}) => {
         }}
       />
       <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
-        <Text style={{fontWeight: '500', fontSize: responsiveSize(18), color: colors.secondary}}>
+        <YedyText fontType={'bold'} fontSize={18}>
           {chat.name ? chat.name : name}
-        </Text>
-        <Text
-          style={{
-            fontSize: responsiveSize(12),
-            color: colors.primary,
-            display: typingMessage ? undefined : 'none',
-          }}
-        >
+        </YedyText>
+        <YedyText fontSize={12} visible={!!typingMessage} style={{color: colors.primary}}>
           {typingMessage}
-        </Text>
+        </YedyText>
       </View>
     </View>
   );

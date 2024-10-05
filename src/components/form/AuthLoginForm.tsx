@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukTextInput from '../custom/MukTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
@@ -34,7 +34,7 @@ export const AuthLoginForm = observer(() => {
   return (
     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={{gap: responsiveHeight(48)}}>
-        <YedyText fontType={'bold'} style={{fontSize: responsiveSize(32)}}>
+        <YedyText fontType={'bold'} fontSize={32}>
           {t.do('auth.login.title')}
         </YedyText>
         <View style={{gap: responsiveWidth(8)}}>
@@ -56,7 +56,7 @@ export const AuthLoginForm = observer(() => {
               alignSelf: 'flex-end',
               marginVertical: responsiveWidth(16),
             }}
-            textStyle={{color: colors.outlineVariant, fontWeight: '400', fontSize: responsiveSize(14)}}
+            textStyle={{fontSize: responsiveSize(14)}}
             loading={loading.getLogin}
             label={t.do('auth.login.changePassword')}
             onPress={() => navigation.navigate('Forgot')}
@@ -78,16 +78,13 @@ export const AuthLoginForm = observer(() => {
               style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
             />
             <SpotifyIcon scale={1.3} noText disabled />
-            <Text style={{color: colors.secondary, fontWeight: '400', fontSize: responsiveSize(16)}}>
-              {t.do('auth.login.spotify')}
-            </Text>
+            <YedyText fontSize={16}>{t.do('auth.login.spotify')}</YedyText>
           </TouchableOpacity>
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <MukButton
           buttonStyle={{backgroundColor: 'transparent', padding: 0}}
-          textStyle={{color: colors.outlineVariant, fontWeight: '400'}}
           disabled={loading.getLogin}
           label={t.do('auth.login.toRegister')}
           onPress={() => navigation.navigate('Register')}

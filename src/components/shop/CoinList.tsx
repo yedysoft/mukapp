@@ -1,7 +1,6 @@
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import CoinGridItem from './CoinGridItem';
-import {useServices} from '../../services';
 
 type Props = {
   coins: {
@@ -9,17 +8,14 @@ type Props = {
     source: number;
     price: number;
   }[];
+  onPress: (value: number) => void;
 };
 
-export default function CoinList({coins}: Props) {
-  const {api} = useServices();
-
+export default function CoinList({coins, onPress}: Props) {
   return (
     <FlatList
       data={coins}
-      renderItem={({item, index}) => (
-        <CoinGridItem key={index} onPress={() => api.user.addCoin(item.value)} coin={item} />
-      )}
+      renderItem={({item, index}) => <CoinGridItem key={index} onPress={() => onPress(item.value)} coin={item} />}
       scrollEnabled
       horizontal
       showsHorizontalScrollIndicator={false}

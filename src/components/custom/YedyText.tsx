@@ -9,6 +9,7 @@ type fontTypes = 'reqular' | 'bold' | 'italic';
 type Props = TextProps & {
   visible?: boolean;
   fontType?: fontTypes;
+  fontSize?: number;
 };
 
 const fonts: Record<fontTypes, string> = {
@@ -17,7 +18,7 @@ const fonts: Record<fontTypes, string> = {
   italic: 'ProductSans-Italic',
 };
 
-export default observer(({visible = true, fontType = 'reqular', ...rest}: Props) => {
+export default observer(({visible = true, fontType = 'reqular', fontSize = 15, ...rest}: Props) => {
   const {colors} = useTheme<MukTheme>();
 
   return (
@@ -25,7 +26,7 @@ export default observer(({visible = true, fontType = 'reqular', ...rest}: Props)
       {...rest}
       style={[
         {
-          fontSize: responsiveSize(15),
+          fontSize: responsiveSize(fontSize),
           fontFamily: fonts[fontType],
           color: colors.secondary,
           display: visible ? undefined : 'none',

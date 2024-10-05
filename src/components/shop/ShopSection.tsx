@@ -1,9 +1,8 @@
-import {Text, useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
-import {MukTheme} from '../../types';
+import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   title?: string;
@@ -12,20 +11,19 @@ type Props = {
 };
 
 export default observer(({title, children, style}: Props) => {
-  const {colors} = useTheme<MukTheme>();
-
   return (
-    <View style={[{flex: 1, flexDirection: 'column', gap: responsiveWidth(4)}, style]}>
-      <Text
-        style={{
-          fontSize: responsiveSize(24),
-          color: colors.secondary,
-          fontWeight: '400',
-          paddingLeft: responsiveWidth(20),
-        }}
-      >
+    <View
+      style={[
+        {
+          flexDirection: 'column',
+          gap: responsiveWidth(4),
+        },
+        style,
+      ]}
+    >
+      <YedyText fontType={'bold'} fontSize={24} style={{paddingLeft: responsiveWidth(20)}}>
         {title}
-      </Text>
+      </YedyText>
       {children}
     </View>
   );

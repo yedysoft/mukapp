@@ -8,20 +8,20 @@ import {
   TextInput,
   TextInputProps,
   TextInputSubmitEditingEventData,
-  TextStyle,
   View,
   ViewStyle,
 } from 'react-native';
 import {forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
-import {genericMemo, responsiveSize, responsiveWidth} from '../../utils/util';
+import {genericMemo, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import CustomPickerView from './CustomPickerView';
 import MukPicker from './MukPicker';
 import MukDatePicker from './MukDatePicker';
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
+import YedyText from './YedyText';
 
 type Validates = 'required';
 
@@ -34,7 +34,6 @@ type Props = TextInputProps & {
   label?: string;
   onCustomChange?: (name: string, value: string | number) => void;
   viewStyle?: StyleProp<ViewStyle>;
-  style?: StyleProp<TextStyle>;
   preValidate?: Validates | Validates[];
   validate?: ValidateFunction[];
   validationMessage?: string[];
@@ -65,7 +64,6 @@ const MukTextInputComp = observer(
         label,
         onCustomChange,
         viewStyle,
-        style,
         preValidate,
         validate,
         validationMessage,
@@ -210,19 +208,20 @@ const MukTextInputComp = observer(
             }}
             onPress={focusInput}
           >
-            <Text
+            <YedyText
+              visible={!isEmpty && !!label}
+              fontSize={Platform.OS === 'ios' ? 11 : 13}
               style={{
                 position: 'absolute',
                 display: label ? (isEmpty ? 'none' : undefined) : 'none',
                 color: colors.outlineVariant,
-                left: responsiveWidth(12),
+                left: responsiveWidth(10),
                 top: responsiveWidth(4),
-                fontSize: responsiveSize(13),
                 zIndex: 1400,
               }}
             >
               {label}
-            </Text>
+            </YedyText>
             <View
               style={{
                 padding: responsiveWidth(8),
@@ -251,7 +250,7 @@ const MukTextInputComp = observer(
               onPressOut={isPicker ? focusInput : rest.onPressOut}
               style={[
                 {
-                  width: '100%',
+                  fontFamily: 'ProductSans-Regular',
                   color: colors.secondary,
                   backgroundColor: colors.shadow,
                   textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
@@ -261,20 +260,20 @@ const MukTextInputComp = observer(
                   borderTopLeftRadius: quotedMessage ? 0 : 16,
                   borderTopRightRadius: quotedMessage ? 0 : 16,
                 },
-                style,
+                rest.style,
               ]}
             />
           </Pressable>
-          <Text
+          <YedyText
+            fontSize={13}
+            visible={!!error}
             style={{
               color: colors.error,
-              display: error ? undefined : 'none',
-              fontSize: responsiveSize(13),
               paddingLeft: responsiveWidth(8),
             }}
           >
             * {error}
-          </Text>
+          </YedyText>
           {isPicker && pickerType ? (
             <CustomPickerView
               visible={pickerVisible}

@@ -11,24 +11,21 @@ type Props = {
 
 export default function FriendsList({friends, onPress}: Props) {
   return (
-    <>
-      {friends.length > 0 ? (
-        <FlatList
-          data={friends}
-          renderItem={({item, index}) => <FriendsListItem key={index} friend={item} onPress={onPress} />}
-          scrollEnabled
-          contentContainerStyle={{
-            paddingVertical: responsiveWidth(8),
-            gap: responsiveWidth(8),
-          }}
-        />
-      ) : (
+    <FlatList
+      data={friends}
+      renderItem={({item, index}) => <FriendsListItem key={index} friend={item} onPress={onPress} />}
+      scrollEnabled
+      contentContainerStyle={{
+        paddingVertical: responsiveWidth(8),
+        gap: responsiveWidth(8),
+      }}
+      ListEmptyComponent={
         <MukImage
           source={require('../../../assets/noimage-gray.png')}
           scale={2}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
         />
-      )}
-    </>
+      }
+    />
   );
 }

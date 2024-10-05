@@ -1,6 +1,6 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import MukImage from '../../components/custom/MukImage';
 import MukProgressBar from '../../components/custom/MukProgressBar';
 import {observer} from 'mobx-react';
@@ -12,6 +12,7 @@ import {MukColors, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   compact?: boolean;
@@ -64,11 +65,11 @@ export default observer(({compact}: Props) => {
             flex: 1,
           }}
         >
-          <Text
+          <YedyText
             numberOfLines={1}
+            fontType={'bold'}
+            fontSize={compact ? 16 : 20}
             style={{
-              fontSize: responsiveSize(compact ? 18 : 20),
-              fontWeight: '500',
               color: textColor ?? colors.secondary,
               backgroundColor: !media.getPlayingTrack.name ? colors.shadow : undefined,
               maxWidth: !media.getPlayingTrack.name ? 180 : undefined,
@@ -77,12 +78,11 @@ export default observer(({compact}: Props) => {
             }}
           >
             {media.getPlayingTrack.name}
-          </Text>
-          <Text
+          </YedyText>
+          <YedyText
             numberOfLines={1}
+            fontSize={compact ? 14 : 16}
             style={{
-              fontSize: responsiveSize(compact ? 14 : 16),
-              fontWeight: '300',
               color: textColor ?? colors.secondary,
               backgroundColor: !api.helper.getArtist(media.getPlayingTrack.artists) ? colors.shadow : undefined,
               maxWidth: !api.helper.getArtist(media.getPlayingTrack.artists) ? 120 : undefined,
@@ -90,7 +90,7 @@ export default observer(({compact}: Props) => {
             }}
           >
             {api.helper.getArtist(media.getPlayingTrack.artists)}
-          </Text>
+          </YedyText>
           {media.getPlayingTrack.id && <SpotifyIcon color={iconColor} id={media.getPlayingTrack.id} />}
         </View>
         {compact && (
@@ -110,12 +110,12 @@ export default observer(({compact}: Props) => {
             justifyContent: 'space-between',
           }}
         >
-          <Text style={{color: textColor ?? colors.secondary}}>
+          <YedyText style={{color: textColor ?? colors.secondary}}>
             {api.helper.msToMinSec(media.getPlayingTrack.progress)}
-          </Text>
-          <Text style={{color: textColor ?? colors.secondary}}>
+          </YedyText>
+          <YedyText style={{color: textColor ?? colors.secondary}}>
             {api.helper.msToMinSec(media.getPlayingTrack.duration - media.getPlayingTrack.progress)}
-          </Text>
+          </YedyText>
         </View>
       )}
       <View style={[styles.shadow]}>

@@ -1,13 +1,14 @@
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
 import {useEffect} from 'react';
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/util';
 import {useServices} from '../../services';
 import {Pressable, View} from 'react-native';
 import {useStores} from '../../stores';
 import {MukMessage, MukTheme} from '../../types';
 import {observer} from 'mobx-react-lite';
 import MukIcon from './MukIcon';
+import YedyText from './YedyText';
 
 type Props = {
   message: MukMessage;
@@ -81,25 +82,12 @@ export default observer(({message}: Props) => {
             justifyContent: 'center',
           }}
         >
-          <Text
-            style={{
-              color: colors.text,
-              fontSize: responsiveSize(18),
-              fontWeight: 'bold',
-              marginBottom: responsiveWidth(4),
-            }}
-          >
+          <YedyText fontType={'bold'} fontSize={18} style={{color: colors.text, marginBottom: responsiveWidth(4)}}>
             {getMessageTitle()}
-          </Text>
-          <Text
-            numberOfLines={2}
-            style={{
-              color: colors.text,
-              fontSize: responsiveSize(16),
-            }}
-          >
+          </YedyText>
+          <YedyText numberOfLines={2} fontSize={16} style={{color: colors.text}}>
             {message.body.message}
-          </Text>
+          </YedyText>
         </View>
       </Animated.View>
     </Pressable>

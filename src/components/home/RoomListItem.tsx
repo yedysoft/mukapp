@@ -1,7 +1,7 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {IRoom} from '../../types/room';
@@ -11,6 +11,7 @@ import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import MukIcon from '../custom/MukIcon';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   roomData: IRoom;
@@ -37,18 +38,21 @@ export default observer(({roomData}: Props) => {
       style={{
         opacity: roomData.isLive ? 1 : 0.5,
         backgroundColor: colors.shadow,
-        paddingVertical: responsiveWidth(16),
+        paddingVertical: 0,
+        paddingHorizontal: 0,
         borderRadius: 16,
+        gap: responsiveWidth(12),
       }}
       onPress={() => openRoom()}
     >
       <MukImage
-        scale={2}
+        scale={1.7}
         resizeMode={'cover'}
         style={{
-          borderWidth: 0.5,
           backgroundColor: roomData.liveSong?.dominantColor,
-          borderColor: colors.secondary,
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0,
+          paddingLeft: 0,
         }}
         source={
           roomData.image
@@ -60,15 +64,17 @@ export default observer(({roomData}: Props) => {
         style={{
           flexDirection: 'column',
           flex: 1,
+          paddingVertical: responsiveWidth(8),
+          paddingRight: responsiveWidth(8),
         }}
       >
         <View style={{flex: 1, flexDirection: 'column'}}>
-          <Text style={{fontSize: responsiveSize(18), fontWeight: '500', color: colors.secondary}}>
+          <YedyText fontType={'bold'} fontSize={18}>
             {roomData.roomName}
-          </Text>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(14), fontWeight: '200', color: colors.secondary}}>
+          </YedyText>
+          <YedyText numberOfLines={1} fontSize={14}>
             @{roomData.streamerName}
-          </Text>
+          </YedyText>
         </View>
         <View
           style={{
@@ -88,30 +94,27 @@ export default observer(({roomData}: Props) => {
               flex: 1,
             }}
           >
-            <Text
+            <YedyText
               numberOfLines={1}
+              fontSize={14}
               style={{
-                color: colors.secondary,
-                fontSize: responsiveSize(14),
                 maxWidth: !roomData.liveSong?.name ? 180 : undefined,
                 backgroundColor: !roomData.liveSong?.name ? colors.shadow : undefined,
                 marginBottom: !roomData.liveSong?.name ? responsiveWidth(4) : undefined,
               }}
             >
               {roomData.liveSong?.name}
-            </Text>
-            <Text
+            </YedyText>
+            <YedyText
               numberOfLines={1}
+              fontSize={13}
               style={{
-                color: colors.secondary,
-                fontSize: responsiveSize(14),
-                maxWidth: roomData.liveSong && !api.helper.getArtist(roomData.liveSong.artists) ? 120 : undefined,
-                backgroundColor:
-                  roomData.liveSong && !api.helper.getArtist(roomData.liveSong.artists) ? colors.shadow : undefined,
+                maxWidth: !api.helper.getArtist(roomData.liveSong?.artists) ? 120 : undefined,
+                backgroundColor: !api.helper.getArtist(roomData.liveSong?.artists) ? colors.shadow : undefined,
               }}
             >
               {api.helper.getArtist(roomData.liveSong?.artists)}
-            </Text>
+            </YedyText>
           </View>
         </View>
       </View>

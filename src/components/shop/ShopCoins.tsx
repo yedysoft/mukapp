@@ -39,10 +39,15 @@ const coins = [
   },
 ];
 
-export default function ShopCoins() {
+type Props = {
+  title: string;
+  onPress: (value: number) => void;
+};
+
+export default function ShopCoins({title, onPress}: Props) {
   return (
-    <ShopSection title={'Get Coin'}>
-      <CoinList coins={coins} />
+    <ShopSection title={title}>
+      <CoinList coins={coins} onPress={onPress} />
     </ShopSection>
   );
 }

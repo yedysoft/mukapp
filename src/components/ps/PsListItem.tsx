@@ -1,8 +1,9 @@
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/util';
 import {MukTheme} from '../../types';
 import MukListItem from '../custom/MukListItem';
 import {useServices} from '../../services';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   label?: string;
@@ -24,7 +25,7 @@ export default function PsListItem({label, onPress}: Props) {
         alignItems: 'center',
       }}
     >
-      <Text style={{fontSize: responsiveSize(18), fontWeight: '400', color: colors.secondary}}>{label}</Text>
+      <YedyText fontSize={18}>{label}</YedyText>
     </MukListItem>
   );
 }

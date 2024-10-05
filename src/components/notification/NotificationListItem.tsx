@@ -1,5 +1,5 @@
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
@@ -9,6 +9,7 @@ import {useServices} from '../../services';
 import MukIconButton from '../custom/MukIconButton';
 import {View} from 'react-native';
 import MukIcon from '../custom/MukIcon';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   notification: INotification;
@@ -51,16 +52,9 @@ export default function NotificationListItem({notification, compact}: Props) {
               : 'info'
           }
         />
-        <Text
-          numberOfLines={2}
-          style={{
-            color: colors.secondary,
-            fontSize: responsiveSize(compact ? 14 : 16),
-            maxWidth: compact ? '70%' : '100%',
-          }}
-        >
+        <YedyText numberOfLines={2} fontSize={compact ? 14 : 16} style={{maxWidth: compact ? '70%' : '100%'}}>
           {notification.content}
-        </Text>
+        </YedyText>
       </View>
       <View
         style={{

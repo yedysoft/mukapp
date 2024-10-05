@@ -1,9 +1,9 @@
-import {GestureResponderEvent, Image, ImageStyle, LayoutChangeEvent, Platform, Pressable, Text} from 'react-native';
+import {GestureResponderEvent, Image, ImageStyle, LayoutChangeEvent, Platform, Pressable} from 'react-native';
 import {memo, useMemo, useState} from 'react';
-import {responsiveSize} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import {services, useServices} from '../../services';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   color?: 'green' | 'white' | 'black';
@@ -86,13 +86,9 @@ const SpotifyIconComp = ({
         ]}
         onLayout={onLayout}
       />
-      {!noText && (
-        <Text
-          style={{color: color === 'green' ? colors.secondary : color, fontSize: responsiveSize(14), fontWeight: '500'}}
-        >
-          {spotifyText ?? 'Play on Spotify'}
-        </Text>
-      )}
+      <YedyText visible={!noText} fontSize={14} style={{color: color === 'green' ? colors.secondary : color}}>
+        {spotifyText ?? 'Play on Spotify'}
+      </YedyText>
     </Pressable>
   );
 };

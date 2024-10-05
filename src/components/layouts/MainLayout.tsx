@@ -6,7 +6,6 @@ import PlayingTrack from '../room/PlayingTrack';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
 import {responsiveHeight} from '../../utils/util';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type Props = {
   children: ReactNode;
@@ -16,7 +15,6 @@ type Props = {
 export const MainLayout = observer(({children, style}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {room} = useStores();
-  const insets = useSafeAreaInsets();
 
   return (
     <KeyboardAvoidingView
@@ -30,7 +28,6 @@ export const MainLayout = observer(({children, style}: Props) => {
             flex: 1,
             flexDirection: 'column',
             backgroundColor: colors.background,
-            paddingBottom: insets.bottom,
           },
           style,
         ]}

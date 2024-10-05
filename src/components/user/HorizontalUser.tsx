@@ -1,12 +1,12 @@
-import {Platform, View} from 'react-native';
+import {View} from 'react-native';
 import MukImage from '../custom/MukImage';
-import {Text, useTheme} from 'react-native-paper';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {useTheme} from 'react-native-paper';
+import {responsiveWidth} from '../../utils/util';
 import Coin from './Coin';
-import Token from './Token';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
 import {observer} from 'mobx-react';
+import YedyText from '../custom/YedyText';
 
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
@@ -38,22 +38,25 @@ export default observer(() => {
         style={{
           flex: 1,
           flexDirection: 'column',
+          justifyContent: 'space-between',
           marginRight: responsiveWidth(4),
-          paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 8 : 4),
-          gap: responsiveWidth(Platform.OS === 'ios' ? 12 : 8),
+          paddingVertical: responsiveWidth(4),
+          gap: responsiveWidth(4),
         }}
       >
-        <View style={{gap: responsiveWidth(1)}}>
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '500'}}>
+        <View>
+          <YedyText numberOfLines={1} fontType={'bold'} fontSize={18}>
             {user.getInfo.name} {user.getInfo.surname}
-          </Text>
-          <Text numberOfLines={1} style={{color: colors.secondary, fontSize: responsiveSize(18), fontWeight: '300'}}>
+          </YedyText>
+          <YedyText numberOfLines={1} fontSize={16}>
             @{user.getInfo.userName}
-          </Text>
+          </YedyText>
         </View>
-        <View style={{flexDirection: 'column', justifyContent: 'flex-end', gap: responsiveWidth(4)}}>
+        <View style={{flexDirection: 'column', gap: responsiveWidth(2)}}>
           <Coin />
-          <Token />
+          {
+            //<Token/>
+          }
         </View>
       </View>
     </View>

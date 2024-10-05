@@ -1,6 +1,6 @@
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import MukImage from '../../components/custom/MukImage';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
@@ -12,6 +12,7 @@ import useInfo from '../../hooks/useInfo';
 import useGroup from '../../hooks/useGroup';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import YedyText from '../custom/YedyText';
 
 type Props = {
   chat: IChat;
@@ -46,33 +47,22 @@ export default observer(({chat}: Props) => {
       />
       <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8), paddingVertical: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Text numberOfLines={1} style={{fontSize: responsiveSize(17), fontWeight: '500', color: colors.secondary}}>
+          <YedyText numberOfLines={1} fontType={'bold'} fontSize={17}>
             {chat.name ? chat.name : name}
-          </Text>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: responsiveSize(13),
-              position: 'absolute',
-              right: 0,
-              color: colors.secondary,
-              fontWeight: '300',
-            }}
-          >
+          </YedyText>
+          <YedyText numberOfLines={1} fontSize={13}>
             {datetime}
-          </Text>
+          </YedyText>
         </View>
-        <Text
+        <YedyText
           numberOfLines={1}
           style={{
             flex: 1,
-            fontSize: responsiveSize(15),
-            fontWeight: '300',
             color: typingMessage ? colors.primary : colors.secondary,
           }}
         >
           {typingMessage ? typingMessage : lastMessage.message}
-        </Text>
+        </YedyText>
       </View>
     </MukListItem>
   );
