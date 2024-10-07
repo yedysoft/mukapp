@@ -21,7 +21,7 @@ import {navigationRef} from './src/navigation/RootNavigation';
 import 'expo-dev-client';
 import {ColorValue, Linking} from 'react-native';
 import {authRedirectUrl} from './config';
-import {CustomStatusBar} from './src/navigation/CustomStatusBar';
+import CustomStatusBar from './src/navigation/CustomStatusBar';
 
 const initializeApp = async () => {
   await Font.loadAsync({

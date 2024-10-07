@@ -11,28 +11,34 @@ import {useStores} from '../stores';
 import * as NavigationBar from 'expo-navigation-bar';
 import {Platform} from 'react-native';
 import {NavigationBarButtonStyle} from 'expo-navigation-bar/src/NavigationBar.types';
-import useDominantColor from '../hooks/useDominantColor';
 import {YedyPalette} from '../themes/YedyPalette';
+import {useServices} from '../services';
 
 const Bottom = createBottomTabNavigator();
 export default observer(() => {
   const {colors} = useTheme<MukTheme>();
-  const {ui} = useStores();
+  const {ui, room, media} = useStores();
+  const {api} = useServices();
   const keyboardVisible = ui.isKeyboardVisible;
-  const {isLive, dominantColor, isColorLight} = useDominantColor();
+  const dominantColor = media.getDominantColor ?? colors.background;
+  const barColor = room.isLive && !room.isRoomPageOn ? dominantColor : colors.background;
+  const isColorLight = api.helper.isColorLight(barColor);
   const style: NavigationBarButtonStyle = isColorLight ? 'dark' : 'light';
 
   const getIconColor = (focused: boolean) => {
     if (focused) {
-      return isLive && isColorLight ? YedyPalette.green_dark : colors.primary;
+      return room.isLive && isColorLight ? YedyPalette.green_dark : colors.primary;
     }
-    return isLive ? (isColorLight ? colors.dark : colors.light) : colors.outlineVariant;
+    return room.isLive ? (isColorLight ? colors.dark : colors.light) : colors.outlineVariant;
   };
 
   if (Platform.OS === 'android') {
-    NavigationBar.setBackgroundColorAsync(dominantColor).then(
-      async () => await NavigationBar.setButtonStyleAsync(style),
-    );
+    NavigationBar.getBackgroundColorAsync().then(async value => {
+      if (value !== barColor) {
+        await NavigationBar.setBackgroundColorAsync(barColor);
+        await NavigationBar.setButtonStyleAsync(style);
+      }
+    });
   }
 
   return (
@@ -43,7 +49,7 @@ export default observer(() => {
         tabBarStyle: {
           display: keyboardVisible ? 'none' : undefined,
           height: responsiveHeight(80),
-          backgroundColor: isLive ? dominantColor : colors.background,
+          backgroundColor: barColor,
           borderTopWidth: 0,
         },
         headerShown: false,

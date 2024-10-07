@@ -6,22 +6,21 @@ import {StatusBar, StatusBarStyle} from 'expo-status-bar';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Platform, View} from 'react-native';
-import useDominantColor from '../hooks/useDominantColor';
+import {useServices} from '../services';
 
-export const CustomStatusBar = observer(() => {
-  const {ui} = useStores();
+export default observer(() => {
+  const {ui, room, media} = useStores();
+  const {api} = useServices();
   const {colors} = useTheme<MukTheme>();
   const insets = useSafeAreaInsets();
-  const {isLive, dominantColor, isColorLight} = useDominantColor();
+  const dominantColor = media.getDominantColor ?? colors.background;
+  const statusBarColor = room.isLive && room.isRoomPageOn ? dominantColor : colors.background;
+  const isColorLight = api.helper.isColorLight(statusBarColor);
   const style: StatusBarStyle = isColorLight ? 'dark' : 'light';
-  const statusBarColor = isLive ? dominantColor : colors.background;
 
   return (
     <>
-      <StatusBar
-        backgroundColor={isLive ? dominantColor : colors.background}
-        style={isLive ? style : ui.getStatusBarStyle}
-      />
+      <StatusBar backgroundColor={statusBarColor} style={room.isLive ? style : ui.getStatusBarStyle} />
       {Platform.OS === 'ios' && (
         <View
           style={{

@@ -20,7 +20,7 @@ export default ({children}: Props) => {
         backgroundColor: colors.background,
         paddingVertical: responsiveWidth(8),
         paddingTop: responsiveWidth(16) + (Platform.OS === 'ios' ? 0 : insets.top),
-        paddingBottom: insets.bottom,
+        paddingBottom: insets.bottom + (Platform.OS === 'ios' ? 0 : responsiveWidth(16)),
       }}
     >
       {children}

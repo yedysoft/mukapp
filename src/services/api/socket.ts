@@ -18,8 +18,8 @@ class SocketApi {
         }),
       forceBinaryWSFrames: true,
       reconnectDelay: 3000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
+      heartbeatIncoming: 10000,
+      heartbeatOutgoing: 10000,
       debug: str =>
         !str.includes('Received data') && !str.includes('playingTrack') && console.debug('Socket Debug:', str),
       onWebSocketError: event => console.log('onWebSocketError:', event),
@@ -36,7 +36,11 @@ class SocketApi {
         }
         resolve();
       };
-      this.client.activate();
+      if (this.client.active) {
+        resolve();
+      } else {
+        this.client.activate();
+      }
     });
   };
 

@@ -55,11 +55,11 @@ export default observer(({song, itemType, disabled}: Props) => {
       {itemType === 'vote' ? (
         <VoteButton
           disabled={disabled}
-          isLoading={!media.getPlayingTrack.voteable}
+          isLoading={!media.getVoteable}
           badge={'voteCount' in song ? song.voteCount : undefined}
           style={{justifyContent: 'center'}}
           onPress={() => {
-            media.getPlayingTrack.voteable
+            media.getVoteable
               ? api.subscription.voteMusic({musicUri: song.uri, userId: user.getInfo.id})
               : ui.addError('Oylamak için sıradaki şarkının çalmasını bekle', 1021);
           }}

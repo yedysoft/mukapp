@@ -1,6 +1,7 @@
 import {BaseStore} from './base';
 import {IPlaylist, IQueueTrack} from '../types/media';
 import defaults from '../utils/defaults';
+import {computed} from 'mobx';
 
 class MediaStore extends BaseStore<MediaStore> {
   authenticated = true;
@@ -21,6 +22,14 @@ class MediaStore extends BaseStore<MediaStore> {
 
   get getPlayingTrack() {
     return this.playingTrack;
+  }
+
+  get getDominantColor() {
+    return computed(() => this.playingTrack.dominantColor).get();
+  }
+
+  get getVoteable() {
+    return computed(() => this.playingTrack.voteable).get();
   }
 
   get getQueue() {

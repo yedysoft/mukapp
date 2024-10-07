@@ -13,6 +13,7 @@ class RoomStore extends BaseStore<RoomStore> {
   places: IRoom[] = [];
   users: IRoom[] = [];
   leaderboard: IRoomLeaderboard[] = [];
+  isRoomPageOn = false;
 
   constructor() {
     super();

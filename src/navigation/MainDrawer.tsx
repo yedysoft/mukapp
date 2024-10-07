@@ -28,7 +28,7 @@ export default observer(() => {
         component={MainStack}
         options={({route}) => {
           const routeName = getFocusedRouteNameFromRoute(route) ?? 'Items';
-          return {headerShown: false, swipeEnabled: !['Chat'].includes(routeName)};
+          return {headerShown: false, swipeEnabled: !['Chat', 'Room'].includes(routeName)};
         }}
       />
     </Main.Navigator>

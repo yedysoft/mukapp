@@ -7,6 +7,7 @@ import {IVote} from '../../types/media';
 import {MessageBody, PVoid} from '../../types';
 import {IMessage, IMessageTyping, ITypingUser} from '../../types/chat';
 import {INotification} from '../../types/user';
+import {IRoom} from '../../types/room';
 
 class SubscriptionApi {
   private roomSubs: StompSubscription[] = [];
@@ -19,6 +20,9 @@ class SubscriptionApi {
       await socket.subscribe('/user/notification', this.notificationCallback);
       await socket.subscribe('/user/message', this.userMessageListenCallback);
       await socket.subscribe('/user/message/typing', this.userMessageTypingListenCallback);
+      await socket.subscribe('/room/add', this.addRoomCallback);
+      await socket.subscribe('/room/delete', this.deleteRoomCallback);
+      await socket.subscribe('/room/update', this.updateRoomCallback);
       await socket.subscribe('/live/user');
     } catch (e) {
       console.log(e);
@@ -201,13 +205,12 @@ class SubscriptionApi {
     }
   };
 
-  private playingTrackCallback = (message: Message) => {
+  private playingTrackCallback = async (message: Message) => {
     const oldId = stores.media.getPlayingTrack.id;
-    media.setPlayingTrack(JSON.parse(message.body)).then(async () => {
-      if (oldId !== stores.media.getPlayingTrack.id) {
-        await subscription.getQueue();
-      }
-    });
+    await media.setPlayingTrack(JSON.parse(message.body));
+    if (oldId !== stores.media.getPlayingTrack.id) {
+      await subscription.getQueue();
+    }
   };
 
   private queueCallback = (message: Message) => {
@@ -216,6 +219,22 @@ class SubscriptionApi {
 
   private voteResultCallback = (message: Message) => {
     message && media.setVoteResult(JSON.parse(message.body));
+  };
+
+  private addRoomCallback = (message: Message) => {
+    const room: IRoom = JSON.parse(message.body);
+    stores.room.set('users', v => [room, ...v]);
+  };
+
+  private updateRoomCallback = async (message: Message) => {
+    const room: IRoom = JSON.parse(message.body);
+    room.liveSong = await media.getPlayingTrack(room.liveSong);
+    stores.room.set('users', v => v.map(a => (a.streamerId === room.streamerId ? room : a)));
+  };
+
+  private deleteRoomCallback = (message: Message) => {
+    const id: string = JSON.parse(message.body);
+    stores.room.set('users', v => v.filter(a => a.sessionId !== id));
   };
 }
 

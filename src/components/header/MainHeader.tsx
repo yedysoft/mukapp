@@ -13,7 +13,7 @@ import MukLogo from '../custom/MukLogo';
 
 export const MainHeader = observer(() => {
   const navigation = useNavigation<MainStackNavProp>();
-  const {user, ui} = useStores();
+  const {user} = useStores();
   const insets = useSafeAreaInsets();
   const route = useRoute();
   const tabName =

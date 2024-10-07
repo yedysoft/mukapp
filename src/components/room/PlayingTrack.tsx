@@ -103,6 +103,7 @@ export default observer(({compact}: Props) => {
           />
         )}
       </TouchableOpacity>
+
       {!compact && (
         <View
           style={{

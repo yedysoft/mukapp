@@ -87,18 +87,16 @@ class HelperApi {
   };
 
   nummer = (num: number): string => {
-    if (num > 1e3 - 1 && num < 1e6) {
-      return num / 1e3 + 'K';
-    } else if (num > 1e6 - 1 && num < 1e9) {
-      return num / 1e6 + 'M';
-    } else if (num > 1e9 - 1 && num < 1e12) {
-      return num / 1e9 + 'B';
-    } else if (num > 1e12) {
-      return num / 1e12 + 'T';
-    } else if (num < 9e2) {
-      return num.toString();
+    if (num >= 1e3 && num < 1e6) {
+      return (num / 1e3).toFixed(2) + 'K';
+    } else if (num >= 1e6 && num < 1e9) {
+      return (num / 1e6).toFixed(2) + 'M';
+    } else if (num >= 1e9 && num < 1e12) {
+      return (num / 1e9).toFixed(2) + 'B';
+    } else if (num >= 1e12) {
+      return (num / 1e12).toFixed(2) + 'T';
     } else {
-      return num.toString();
+      return num.toString(); // 100, 500 gibi sayılar için
     }
   };
 

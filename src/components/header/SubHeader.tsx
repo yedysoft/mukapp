@@ -26,7 +26,7 @@ export default observer(() => {
   const params: any = route.params;
   const {media, user} = useStores();
   const {api, t} = useServices();
-  const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
+  const dominantColor = media.getDominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
 
   return (
