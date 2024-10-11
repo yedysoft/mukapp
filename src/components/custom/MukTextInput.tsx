@@ -16,9 +16,9 @@ import {services, useServices} from '../../services';
 import {genericMemo, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
-import CustomPickerView from './CustomPickerView';
-import MukPicker from './MukPicker';
-import MukDatePicker from './MukDatePicker';
+import CustomPickerView from './YedyPickerView';
+import YedyPicker from './YedyPicker';
+import YedyDatePicker from './YedyDatePicker';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import YedyText from './YedyText';
@@ -287,9 +287,9 @@ const MukTextInputComp = observer(
               buttonIcon={rest.returnKeyType === 'done' ? 'check' : 'arrow-right'}
             >
               {pickerType === 'normal' && pickerItems ? (
-                <MukPicker name={name} items={pickerItems} value={getValue()} onValueChange={handleValueChange} />
+                <YedyPicker name={name} items={pickerItems} value={getValue()} onValueChange={handleValueChange} />
               ) : (
-                <MukDatePicker
+                <YedyDatePicker
                   name={name}
                   minYear={datePickerMinMax?.min}
                   maxYear={datePickerMinMax?.max}

@@ -11,19 +11,14 @@ export type IForgot = {
 };
 
 export type IRegister = {
-  userName: string;
+  name: string;
   email: string;
+  userName: string;
   userPass: string;
-  name?: string;
-  surname?: string;
-  birthday?: string;
-  gender?: IGender;
-  telNumber?: string;
 };
 
 export type IEdit = {
   name: string;
-  surname: string;
   birthday: string | null;
   gender: IGender | null;
 };

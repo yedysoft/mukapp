@@ -22,7 +22,6 @@ const tr: MukLang = {
     register: {
       title: 'Kayıt Ol',
       name: 'Ad',
-      surname: 'Soyad',
       birthday: 'Doğum Günü',
       gender: 'Cinsiyet',
       email: 'Email',
@@ -37,7 +36,7 @@ const tr: MukLang = {
     },
     forgot: {
       title: 'Şifre Sıfırla',
-      email: 'Email',
+      email: 'Kullanıcı adı, Email yada Şifre',
       back: 'Geri',
       submit: 'Sıfırla',
     },
@@ -178,8 +177,7 @@ const en: MukLang = {
     },
     register: {
       title: 'Register',
-      name: 'First Name',
-      surname: 'Last Name',
+      name: 'Name',
       birthday: 'Birthday',
       gender: 'Gender',
       email: 'Email',
@@ -194,7 +192,7 @@ const en: MukLang = {
     },
     forgot: {
       title: 'Reset Password',
-      email: 'Email',
+      email: 'Username, Email yada Password',
       back: 'Back',
       submit: 'Reset',
     },

@@ -10,7 +10,6 @@ import {
   IVoteResult,
 } from '../../types/media';
 import axiosIns from '../axiosIns';
-import helper from './helper';
 import {PVoid} from '../../types';
 
 class MediaApi {
@@ -31,7 +30,9 @@ class MediaApi {
     try {
       stores.media.set('searchValue', q);
       const response = await axiosIns.get<ISearchResult>(`/media/searchTracks?q=${q}&offset=${offset}&limit=${limit}`);
-      result = response.data;
+      if (response.status === 200) {
+        result = response.data;
+      }
     } catch (e: any) {
       console.log(e);
     }
@@ -63,6 +64,8 @@ class MediaApi {
       stores.loading.set('playlistTracks', true);
       const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
       let total: number;
+      let clear = false;
+      let tracks: ITrack[] = [];
       if (
         !isSelect &&
         playlist &&
@@ -72,25 +75,35 @@ class MediaApi {
         if (playlist.id === 'search' && (q || q === '')) {
           stores.media.set('searchValue', q);
           if (searching || q === '') {
-            helper.clearArray(playlist.tracks.items);
+            clear = true;
           }
           if (q) {
             const result = await this.searchTracks(q, searching ? 0 : offset);
             total = result.total;
-            playlist.tracks.items.push(...this.getTracks(result.tracks));
+            tracks = this.getTracks(result.tracks);
           }
         } else if (playlist.id !== 'search') {
           const response = await axiosIns.get(`/media/getPlaylistTracks/${playlistId}?limit=10&offset=${offset}`);
-          const tracks = this.getTracks(response.data.map((d: any, _: number) => d.track));
-          playlist.tracks.items.push(...tracks);
+          if (response.status === 200) {
+            tracks = this.getTracks(response.data.map((d: any, _: number) => d.track));
+          }
         }
       }
-      const playlists = stores.media.getPlaylists.map((p, _) =>
-        p.id === playlistId
-          ? {...p, selected: true, tracks: {...p.tracks, total: total ?? p.tracks.total, count: p.tracks.items.length}}
-          : {...p, selected: false},
-      ); // TODO OBSERVER HATASI DÜZELTİLECEK
-      stores.media.set('playlists', playlists);
+      stores.media.set('playlists', v =>
+        v.map((p, _) =>
+          p.id === playlistId
+            ? {
+                ...p,
+                selected: true,
+                tracks: {
+                  items: clear ? [] : [...p.tracks.items, ...tracks],
+                  total: total ?? p.tracks.total,
+                  count: p.tracks.items.length + tracks.length,
+                },
+              }
+            : {...p, selected: false},
+        ),
+      );
     } catch (e: any) {
       console.log(e);
     } finally {

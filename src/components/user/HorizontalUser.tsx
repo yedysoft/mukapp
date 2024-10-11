@@ -46,11 +46,9 @@ export default observer(() => {
       >
         <View>
           <YedyText numberOfLines={1} fontType={'bold'} fontSize={18}>
-            {user.getInfo.name} {user.getInfo.surname}
+            {user.getInfo.name}
           </YedyText>
-          <YedyText numberOfLines={1} fontSize={16}>
-            @{user.getInfo.userName}
-          </YedyText>
+          <YedyText numberOfLines={1}>@{user.getInfo.userName}</YedyText>
         </View>
         <View style={{flexDirection: 'column', gap: responsiveWidth(2)}}>
           <Coin />

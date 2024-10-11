@@ -18,8 +18,8 @@ export default observer(() => {
   const {api, t} = useServices();
   const {loading, user, auth, ui} = useStores();
   const formRef = useRef<MukFormRef<IEdit>>(null);
-  const {name, surname, gender, birthday} = user.getInfo;
-  const form: IEdit = {name, surname, gender, birthday};
+  const {name, gender, birthday} = user.getInfo;
+  const form: IEdit = {name, gender, birthday};
 
   const onSubmit = () => formRef.current?.validateInputs() && api.user.editInfo(formRef.current?.formData() as IEdit);
 
@@ -56,7 +56,12 @@ export default observer(() => {
       </View>
       <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
         <MukTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
-        <MukTextInput name={'surname'} label={t.do('auth.register.surname')} />
+        <MukTextInput
+          name={'telNumber'}
+          label={t.do('auth.register.phone')}
+          inputMode={'tel'}
+          preValidate={'required'}
+        />
         <MukTextInput
           name={'gender'}
           label={t.do('auth.register.gender')}

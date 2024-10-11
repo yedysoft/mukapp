@@ -1,5 +1,5 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import {Portal, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {
   BackHandler,
   Keyboard,
@@ -14,6 +14,7 @@ import defaults from '../../utils/defaults';
 import {MukColors, MukTheme, Positions} from '../../types';
 import {useRoute} from '@react-navigation/native';
 import {responsiveWidth} from '../../utils/util';
+import YedyPortal from './YedyPortal';
 
 type Props = {
   children: ReactNode;
@@ -133,7 +134,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
   }
 
   return (
-    <Portal>
+    <YedyPortal>
       <View
         style={{
           display: visible ? undefined : 'none',
@@ -165,7 +166,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
       >
         {children}
       </View>
-    </Portal>
+    </YedyPortal>
   );
 };
 

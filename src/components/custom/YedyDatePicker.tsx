@@ -1,6 +1,6 @@
 import React, {memo, useMemo, useRef, useState} from 'react';
 import {View} from 'react-native';
-import MukPicker from './MukPicker';
+import YedyPicker from './YedyPicker';
 import {services, useServices} from '../../services';
 import {responsiveWidth} from '../../utils/util';
 
@@ -39,7 +39,7 @@ const dateToStr = (date: DateType, format: 'day.month.Year' | 'year-month-day'):
   }
 };
 
-const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onValueChange}: Props) => {
+const DatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onValueChange}: Props) => {
   const {api} = useServices();
   const date = useRef<DateType>(strToDate(value));
   const [changedLastDay, setChangedLastDay] = useState<boolean>(false);
@@ -59,21 +59,21 @@ const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onVa
 
   return (
     <View style={{flexDirection: 'row'}}>
-      <MukPicker<number>
+      <YedyPicker<number>
         name="day"
         items={days}
         value={value ? date.current.day : undefined}
         itemWidth={responsiveWidth(70)}
         onValueChange={handleValueChanged}
       />
-      <MukPicker<number>
+      <YedyPicker<number>
         name="month"
         items={months}
         value={value ? date.current.month : undefined}
         itemWidth={responsiveWidth(70)}
         onValueChange={handleValueChanged}
       />
-      <MukPicker<number>
+      <YedyPicker<number>
         name="year"
         items={years}
         value={value ? date.current.year : undefined}
@@ -84,5 +84,7 @@ const MukDatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onVa
   );
 };
 
-const MukDatePicker = memo(MukDatePickerComp);
-export default MukDatePicker;
+const YedyDatePicker = memo(DatePickerComp, (prevProps, nextProps) =>
+  services.api.helper.isEqual(prevProps, nextProps),
+);
+export default YedyDatePicker;

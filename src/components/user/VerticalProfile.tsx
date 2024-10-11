@@ -50,7 +50,7 @@ export default observer(({profile, otherUser}: Props) => {
       />
       <View style={{flex: 1, flexDirection: 'column'}}>
         <YedyText fontType={'bold'} fontSize={24}>
-          {profile.name} {profile.surname}
+          {profile.name}
         </YedyText>
         <YedyText fontSize={16}>@{profile.userName}</YedyText>
         <View style={{flexDirection: 'row', marginLeft: -8, gap: responsiveWidth(4)}}>

@@ -3,13 +3,13 @@ import {observer} from 'mobx-react';
 import {responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukToaster from '../custom/MukToaster';
-import {Portal} from 'react-native-paper';
+import YedyPortal from '../custom/YedyPortal';
 
 export default observer(() => {
   const {ui} = useStores();
 
   return (
-    <Portal>
+    <YedyPortal>
       <View
         style={{
           flex: 1,
@@ -25,6 +25,6 @@ export default observer(() => {
           <MukToaster key={e.id} message={e} />
         ))}
       </View>
-    </Portal>
+    </YedyPortal>
   );
 });

@@ -46,7 +46,7 @@ const pickerStyles = (itemHeight: number, visibleItemCount: number, color: strin
     },
   });
 
-const MukPickerComp = <T extends string | number>({
+const PickerComp = <T extends string | number>({
   name,
   items,
   value,
@@ -193,7 +193,5 @@ const MukPickerComp = <T extends string | number>({
   );
 };
 
-const MukPicker = genericMemo(MukPickerComp, (prevProps, nextProps) =>
-  services.api.helper.isEqual(prevProps, nextProps),
-);
-export default MukPicker;
+const YedyPicker = genericMemo(PickerComp, (prevProps, nextProps) => services.api.helper.isEqual(prevProps, nextProps));
+export default YedyPicker;

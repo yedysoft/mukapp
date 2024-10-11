@@ -27,7 +27,7 @@ export default observer(({chat}: Props) => {
   const isPrivate = chat.type === 'PRIVATE';
   const info = useInfo(chat.id, isPrivate);
   const group = useGroup(chat.id, chat.type === 'GROUP');
-  const name = isPrivate ? info.name + ' ' + info.surname : group.name;
+  const name = isPrivate ? info.name : group.name;
   const typingMessage = api.chat.getTyping(chat);
   const dateString = lastMessage.date.toString() === '' ? new Date().toString() : lastMessage.date.toString();
   const date = api.helper.formatDateTime(dateString, 'date');

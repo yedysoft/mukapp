@@ -34,7 +34,6 @@ class Defaults {
     userName: '',
     image: null,
     name: '',
-    surname: '',
     coin: 0,
     token: 0,
     birthday: null,

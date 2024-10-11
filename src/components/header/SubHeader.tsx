@@ -78,7 +78,7 @@ const ChatHeader = observer(({id}: {id: string}) => {
   const isPrivate = chat.type === 'PRIVATE';
   const info = useInfo(chat.id, isPrivate);
   const group = useGroup(chat.id, !isPrivate);
-  const name = isPrivate ? info.name + ' ' + info.surname : group.name;
+  const name = isPrivate ? info.name : group.name;
   const typingMessage = api.chat.getTyping(chat);
 
   return (

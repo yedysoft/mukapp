@@ -51,7 +51,7 @@ export default observer(({quotedMessage, onPress, style}: Props) => {
           textAlign: 'left',
         }}
       >
-        {info.name} {info.surname}
+        {info.name}
       </YedyText>
       <YedyText numberOfLines={3} style={{textAlign: 'left'}}>
         {quotedMessage?.content}

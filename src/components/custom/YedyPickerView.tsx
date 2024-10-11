@@ -2,8 +2,9 @@ import React, {ReactNode, useEffect, useRef} from 'react';
 import {BackHandler, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import MukIconButton from './MukIconButton';
 import {responsiveWidth} from '../../utils/util';
-import {Portal, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
+import YedyPortal from './YedyPortal';
 
 type Props = {
   children: ReactNode;
@@ -34,7 +35,7 @@ export default ({children, visible, changeVisible, buttonOnPress, buttonIcon, st
   }, [visible]);
 
   return (
-    <Portal>
+    <YedyPortal>
       <View style={[{display: visible ? undefined : 'none'}, StyleSheet.absoluteFill]} onTouchStart={closeModal} />
       <View
         style={[
@@ -72,6 +73,6 @@ export default ({children, visible, changeVisible, buttonOnPress, buttonIcon, st
           />
         ) : undefined}
       </View>
-    </Portal>
+    </YedyPortal>
   );
 };

@@ -1,10 +1,10 @@
 const live = true;
 
-const host: string = live ? 'api.yedysoft.com/muk' : '192.168.1.33:8002';
+const host: string = live ? 'api.yedysoft.com/muk' : 'api.yedysoft.com/muktest';
 
-const prefix = live ? 'https' : 'http';
+const prefix = live ? 'https' : 'https';
 
-const prefixws = live ? 'wss' : 'ws';
+const prefixws = live ? 'wss' : 'wss';
 
 export const restUrl = `${prefix}://${host}`;
 

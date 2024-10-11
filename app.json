@@ -17,6 +17,12 @@
     ],
     "plugins": [
       [
+        "react-native-iap",
+        {
+          "paymentProvider": "both"
+        }
+      ],
+      [
         "expo-build-properties",
         {
           "android": {

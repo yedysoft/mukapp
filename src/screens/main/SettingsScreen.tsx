@@ -3,7 +3,7 @@ import {useTheme} from 'react-native-paper';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
-import MukPicker from '../../components/custom/MukPicker';
+import YedyPicker from '../../components/custom/YedyPicker';
 import {_languages, IAppearance, IAuthsType, ILanguage} from '../../types/enums';
 import {useMemo} from 'react';
 import MukCard from '../../components/custom/MukCard';
@@ -50,7 +50,7 @@ export default observer(() => {
         />
       </MukCard>
       <MukCard key={'language'} title={t.do('main.settings.language.title')}>
-        <MukPicker<string>
+        <YedyPicker<string>
           items={LanguageDict}
           name={'language'}
           value={ui.language}

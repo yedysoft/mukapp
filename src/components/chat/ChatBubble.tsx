@@ -110,7 +110,7 @@ export default observer(({message, quotedMessage}: Props) => {
             textAlign: 'left',
           }}
         >
-          {info.name} {info.surname}
+          {info.name}
         </YedyText>
         <YedyText style={{color: me ? colors.background : colors.secondary, textAlign: 'left'}}>
           {message.content}

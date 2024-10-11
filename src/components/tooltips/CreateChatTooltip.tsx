@@ -43,7 +43,7 @@ const CreateChatTooltip = observer(({positions, visible, changeVisible}: Tooltip
       } else {
         chat = {
           id: selectedUser.id,
-          name: selectedUser.name + ' ' + selectedUser.surname,
+          name: selectedUser.name,
           type: 'PRIVATE',
           typing: false,
           messages: [],

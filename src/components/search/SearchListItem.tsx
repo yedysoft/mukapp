@@ -39,7 +39,7 @@ export default observer(({user}: Props) => {
       )}
       <View style={{flex: 1, flexDirection: 'column'}}>
         <YedyText numberOfLines={1} fontType={'bold'} fontSize={16}>
-          {user.name} {user.surname}
+          {user.name}
         </YedyText>
         <YedyText numberOfLines={1} fontSize={14}>
           @{user.userName}

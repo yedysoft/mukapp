@@ -46,7 +46,6 @@ type LangAuth<T> = {
   register: {
     title: T;
     name: T;
-    surname: T;
     birthday: T;
     gender: T;
     email: T;

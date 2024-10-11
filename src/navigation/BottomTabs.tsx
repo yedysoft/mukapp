@@ -1,7 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'react-native-paper';
 import ShopScreen from '../screens/main/ShopScreen';
-import {responsiveHeight} from '../utils/util';
+import {responsiveHeight, responsiveSize} from '../utils/util';
 import HomeScreen from '../screens/main/HomeScreen';
 import {MukTheme} from '../types';
 import Feather from 'react-native-vector-icons/Feather';
@@ -59,7 +59,9 @@ export default observer(() => {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => <Feather name="shopping-bag" size={30} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => (
+            <Feather name="shopping-bag" size={responsiveSize(40)} color={getIconColor(focused)} />
+          ),
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Shop'}),
@@ -69,7 +71,7 @@ export default observer(() => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => <Feather name="grid" size={30} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <Feather name="grid" size={responsiveSize(40)} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Home'}),
@@ -80,7 +82,9 @@ export default observer(() => {
         name="Messages"
         component={MessagesScreen}
         options={{
-          tabBarIcon: ({focused}) => <Feather name="message-circle" size={30} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => (
+            <Feather name="message-circle" size={responsiveSize(40)} color={getIconColor(focused)} />
+          ),
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Messages'}),

@@ -43,7 +43,7 @@ export default observer(({onPress, friend}: Props) => {
           fontSize={16}
           style={{color: friend.selected ? colors.dark : colors.secondary}}
         >
-          {friend.name} {friend.surname}
+          {friend.name}
         </YedyText>
         <YedyText numberOfLines={1} fontSize={14} style={{color: friend.selected ? colors.dark : colors.secondary}}>
           @{friend.userName}

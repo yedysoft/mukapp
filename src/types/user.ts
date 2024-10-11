@@ -5,7 +5,6 @@ export type IInfo = {
   userName: string;
   image: IImage | null;
   name: string;
-  surname: string;
   coin: number;
   token: number;
   birthday: string | null;
@@ -36,7 +35,6 @@ export type IFollowUser = {
   id: string;
   userName: string;
   name: string;
-  surname: string;
   image: IImage | null;
   selected?: boolean;
 };
@@ -50,10 +48,9 @@ export type IBlockedUser = {
 
 export type ISearchUser = {
   id: string;
-  image: IImage | null;
-  name: string;
-  surname: string;
   userName: string;
+  name: string;
+  image: IImage | null;
   isFollower: boolean;
   isFollows: boolean;
 };

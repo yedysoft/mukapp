@@ -39,7 +39,7 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
         />
         <View style={{justifyContent: 'center', gap: responsiveWidth(4)}}>
           <YedyText numberOfLines={1} fontType={'bold'} fontSize={16}>
-            {item.name} {item.surname}
+            {item.name}
           </YedyText>
           <YedyText numberOfLines={1} fontSize={14}>
             @{item.userName}

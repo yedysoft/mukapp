@@ -3,7 +3,7 @@ import {useStores} from '../../stores';
 import MukDialog from '../custom/MukDialog';
 import React from 'react';
 import {useServices} from '../../services';
-import {Portal} from 'react-native-paper';
+import {View} from 'react-native';
 
 const DialogStack = observer(() => {
   const {api} = useServices();
@@ -20,7 +20,7 @@ const DialogStack = observer(() => {
   };
 
   return (
-    <Portal>
+    <View>
       <MukDialog
         visible={!media.getAuthenticated}
         onReject={() => media.set('authenticated', true)}
@@ -33,7 +33,7 @@ const DialogStack = observer(() => {
         onAccept={handlePremium}
         name={'spotifyPremium'}
       />
-    </Portal>
+    </View>
   );
 });
 

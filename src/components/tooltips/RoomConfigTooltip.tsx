@@ -76,7 +76,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
         <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(8)}}>
           <View>
             <YedyText numberOfLines={1} fontType={'bold'}>
-              {user.getInfo.name} {user.getInfo.surname}
+              {user.getInfo.name}
             </YedyText>
             <YedyText numberOfLines={1} fontSize={12}>
               @{user.getInfo.userName}

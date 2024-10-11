@@ -3,11 +3,11 @@ import {responsiveWidth} from '../../utils/util';
 import {Dispatch, SetStateAction} from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import {MediaTypeOptions} from 'expo-image-picker';
-import MukModal from '../custom/MukModal';
 import MukIconButton from '../custom/MukIconButton';
 import {useServices} from '../../services';
 import {ImagePickerResult} from 'expo-image-picker/src/ImagePicker.types';
 import {IImage} from '../../types/user';
+import YedyModal from '../custom/YedyModal';
 
 export type IEditImage = {
   tableName: string;
@@ -74,7 +74,7 @@ export default function EditImage({setVisible, isVisible, edit, setLoading}: Pro
   };
 
   return (
-    <MukModal visible={isVisible} onDismiss={() => setVisible(false)}>
+    <YedyModal visible={isVisible} changeVisible={() => setVisible(false)}>
       <View
         style={{
           width: responsiveWidth(300),
@@ -86,6 +86,6 @@ export default function EditImage({setVisible, isVisible, edit, setLoading}: Pro
         <MukIconButton onPress={takePhoto} icon={'camera'} />
         <MukIconButton onPress={pickImage} icon={'folder'} />
       </View>
-    </MukModal>
+    </YedyModal>
   );
 }
