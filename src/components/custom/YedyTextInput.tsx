@@ -47,15 +47,15 @@ type Props = TextInputProps & {
   datePickerMinMax?: {min?: number; max?: number};
 };
 
-export type MukTextInputRef = {
+export type YedyTextInputRef = {
   validateInput: (text: string | number) => boolean;
   inputValue: () => string | number;
   focus: () => void;
   clear: () => void;
 };
 
-const MukTextInputComp = observer(
-  forwardRef<MukTextInputRef, Props>(
+const TextInputComp = observer(
+  forwardRef<YedyTextInputRef, Props>(
     (
       {
         name,
@@ -305,7 +305,7 @@ const MukTextInputComp = observer(
   ),
 );
 
-const CustomTextInput = genericMemo(MukTextInputComp, (prevProps, nextProps) =>
+const YedyTextInput = genericMemo(TextInputComp, (prevProps, nextProps) =>
   services.api.helper.isEqual(prevProps, nextProps),
 );
-export default CustomTextInput;
+export default YedyTextInput;

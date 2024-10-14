@@ -1,5 +1,6 @@
 import axiosIns from '../axiosIns';
 import {IImage} from '../../types/user';
+import {stores} from '../../stores';
 
 class ImageApi {
   save = async (
@@ -39,10 +40,13 @@ class ImageApi {
   delete = async (id: string): Promise<boolean> => {
     let isDeleted = false;
     try {
+      stores.loading.set('deleteImage', true);
       const response = await axiosIns.delete<IImage>(`/file/deleteFile/${id}`);
       isDeleted = response.status === 200;
     } catch (e) {
       console.log(e);
+    } finally {
+      stores.loading.set('deleteImage', false);
     }
     return isDeleted;
   };

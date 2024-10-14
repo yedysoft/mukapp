@@ -3,7 +3,7 @@ import {useStores} from '../../../stores';
 import {useServices} from '../../../services';
 import SearchList from '../../../components/search/SearchList';
 import {responsiveWidth} from '../../../utils/util';
-import MukTextInput from '../../../components/custom/MukTextInput';
+import YedyTextInput from '../../../components/custom/YedyTextInput';
 import {useEffect} from 'react';
 import {SubLayout} from '../../../components/layouts/SubLayout';
 
@@ -30,7 +30,7 @@ export const SearchScreen = observer(() => {
       <SearchList
         list={user.getSearched}
         header={
-          <MukTextInput
+          <YedyTextInput
             placeholder={t.do('main.search.placeholder')}
             name={'search'}
             onCustomChange={handleSearch}

@@ -24,6 +24,7 @@ class LoadingStore extends BaseStore<LoadingStore> {
   followers = false;
   following = false;
   editInfo = false;
+  deleteImage = false;
 
   // Chat
   chats = false;

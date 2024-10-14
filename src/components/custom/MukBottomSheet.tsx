@@ -1,10 +1,11 @@
-import {Portal, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {Animated, PanResponder, Platform, Pressable, StyleProp, View, ViewStyle} from 'react-native';
 import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import {forwardRef, ReactNode, useImperativeHandle, useRef, useState} from 'react';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
+import YedyPortal from './YedyPortal';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -114,7 +115,7 @@ export default observer(
     }));
 
     return (
-      <Portal>
+      <YedyPortal>
         <Animated.View
           style={[
             {
@@ -187,7 +188,7 @@ export default observer(
             {children}
           </View>
         </Animated.View>
-      </Portal>
+      </YedyPortal>
     );
   }),
 );

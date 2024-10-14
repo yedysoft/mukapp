@@ -9,14 +9,14 @@ import {
   ViewStyle,
 } from 'react-native';
 import {responsiveScale, responsiveSize} from '../../utils/util';
-import React, {useState} from 'react';
-import EditImage, {IEditImage} from '../profile/EditImage';
+import React, {useRef, useState} from 'react';
+import EditImage, {IEditImage} from '../modals/EditImage';
 import {Image} from 'expo-image';
 import {ImageContentFit} from 'expo-image/src/Image.types';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
 import {useServices} from '../../services';
-import MukIconButton from './MukIconButton';
+import YedyIconButton, {YedyIconButtonRef} from './YedyIconButton';
 
 type Props = {
   source?: ImageSourcePropType;
@@ -43,24 +43,24 @@ export default function MukImage({
 }: Props) {
   const {colors} = useTheme<MukTheme>();
   const {api} = useServices();
-  const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const ref = useRef<YedyIconButtonRef>(null);
 
   const handleOnPress = (event?: GestureResponderEvent) => {
     event?.stopPropagation();
-    if (!loading) {
-      onPress && onPress();
-      edit && setVisible(true);
-    }
+    onPress && onPress();
+    ref.current?.openModalOrTooltip();
   };
 
   return (
     <View>
       {edit && !loading && (
-        <MukIconButton
+        <YedyIconButton
+          ref={ref}
           scale={0.33}
           icon={'edit'}
-          onPress={handleOnPress}
+          modal={EditImage}
+          tooltipOrModalData={{edit: edit, setLoading: setLoading}}
           style={{
             backgroundColor: api.helper.addOpacityToColor(colors.primary, 0.7),
             borderRadius: 100,
@@ -87,11 +87,10 @@ export default function MukImage({
         onPress={handleOnPress}
       >
         {loading ? (
-          <ActivityIndicator size={responsiveSize(48)} />
+          <ActivityIndicator size={responsiveSize(48)} color={colors.secondary} />
         ) : (
           <Image source={source} contentFit={resizeMode} cachePolicy={'memory-disk'} style={[{flex: 1}, imageStyle]} />
         )}
-        {edit && <EditImage setVisible={setVisible} isVisible={visible} edit={edit} setLoading={setLoading} />}
       </TouchableOpacity>
     </View>
   );

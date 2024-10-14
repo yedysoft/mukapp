@@ -6,7 +6,7 @@ import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {INotification} from '../../types/user';
 import {useServices} from '../../services';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import {View} from 'react-native';
 import MukIcon from '../custom/MukIcon';
 import YedyText from '../custom/YedyText';
@@ -64,7 +64,7 @@ export default function NotificationListItem({notification, compact}: Props) {
           display: notification.category === 'FOLLOW' ? undefined : 'none',
         }}
       >
-        <MukIconButton
+        <YedyIconButton
           style={{
             backgroundColor: compact ? colors.primary : colors.background,
             width: compact ? '48%' : undefined,
@@ -77,7 +77,7 @@ export default function NotificationListItem({notification, compact}: Props) {
           icon={'check-circle'}
           onPress={() => notification && api.user.acceptFollowRequest(notification.data.value, notification.id)}
         />
-        <MukIconButton
+        <YedyIconButton
           style={{
             backgroundColor: compact ? colors.tertiary : colors.background,
             width: compact ? '48%' : undefined,

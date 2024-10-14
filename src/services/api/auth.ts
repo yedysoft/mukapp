@@ -87,6 +87,7 @@ class AuthApi implements IAuthApi {
         const isNeededPassChange = await this.isNeededPassChange();
         if (!isNeededPassChange) {
           await user.getInfo();
+          await this.updateExpoToken();
           await this.saveLoginHistory();
           await user.getAllNotifications();
           await chat.getChats();
@@ -100,6 +101,16 @@ class AuthApi implements IAuthApi {
         }
       }
     } catch (e: any) {
+      console.log(e);
+    }
+  };
+
+  updateExpoToken = async (): PVoid => {
+    try {
+      if (stores.ui.getExpoToken) {
+        await axiosIns.post('/user-info/updateExpoToken', stores.ui.getExpoToken);
+      }
+    } catch (e) {
       console.log(e);
     }
   };

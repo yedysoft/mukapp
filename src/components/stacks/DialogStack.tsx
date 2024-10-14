@@ -1,11 +1,9 @@
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import MukDialog from '../custom/MukDialog';
 import React from 'react';
 import {useServices} from '../../services';
-import {View} from 'react-native';
 
-const DialogStack = observer(() => {
+export default observer(() => {
   const {api} = useServices();
   const {media} = useStores();
 
@@ -19,22 +17,5 @@ const DialogStack = observer(() => {
     media.set('spotifyPremiumNeeded', false);
   };
 
-  return (
-    <View>
-      <MukDialog
-        visible={!media.getAuthenticated}
-        onReject={() => media.set('authenticated', true)}
-        onAccept={handleAuth}
-        name={'spotify'}
-      />
-      <MukDialog
-        visible={media.spotifyPremiumNeeded}
-        onReject={() => media.set('spotifyPremiumNeeded', false)}
-        onAccept={handlePremium}
-        name={'spotifyPremium'}
-      />
-    </View>
-  );
+  return <></>;
 });
-
-export default DialogStack;

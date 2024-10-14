@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
-import MukTextInput from '../custom/MukTextInput';
+import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
 import {IRegister} from '../../types/auth';
@@ -32,15 +32,15 @@ export const AuthRegisterForm = observer(() => {
           {t.do('auth.register.title')}
         </YedyText>
         <MukForm ref={formRef} onSubmit={onSubmit} data={formData}>
-          <MukTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
-          <MukTextInput name={'userName'} label={t.do('auth.register.username')} preValidate={'required'} />
-          <MukTextInput
+          <YedyTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
+          <YedyTextInput name={'userName'} label={t.do('auth.register.username')} preValidate={'required'} />
+          <YedyTextInput
             name={'email'}
             label={t.do('auth.register.email')}
             inputMode={'email'}
             preValidate={'required'}
           />
-          <MukTextInput
+          <YedyTextInput
             name={'userPass'}
             label={t.do('auth.register.password')}
             secureTextEntry={true}
@@ -48,7 +48,7 @@ export const AuthRegisterForm = observer(() => {
             validate={[value => String(value).length >= 8 && String(value).length <= 32]}
             validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
           />
-          <MukTextInput
+          <YedyTextInput
             name={'repass'}
             label={t.do('auth.register.repassword')}
             secureTextEntry={true}

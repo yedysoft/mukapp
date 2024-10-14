@@ -1,4 +1,4 @@
-import MukTooltip from '../custom/MukTooltip';
+import MukTooltip from '../custom/YedyTooltip';
 import {MukTheme, TooltipScreenProps} from '../../types';
 import React, {useEffect, useRef} from 'react';
 import {useServices} from '../../services';
@@ -9,7 +9,7 @@ import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
 import {useTheme} from 'react-native-paper';
 import MukForm, {MukFormRef} from '../custom/MukForm';
-import MukTextInput from '../custom/MukTextInput';
+import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
@@ -54,6 +54,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
             edit={
               form.id
                 ? {
+                    id: form.image?.id,
                     tableName: 'ROOM_CONFIG',
                     tableId: form.id,
                     setImage: image => room.set('config', v => ({...v, image})),
@@ -83,7 +84,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
             </YedyText>
           </View>
           <MukForm ref={formRef} onSubmit={createRoom} data={form}>
-            <MukTextInput
+            <YedyTextInput
               name={'name'}
               selectionColor={colors.primary}
               label={t.do('roomConfig.name')}

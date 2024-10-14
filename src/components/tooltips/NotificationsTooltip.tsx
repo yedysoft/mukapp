@@ -1,5 +1,5 @@
 import NotificationList from '../notification/NotificationList';
-import MukTooltip from '../custom/MukTooltip';
+import MukTooltip from '../custom/YedyTooltip';
 import {TooltipScreenProps} from '../../types';
 import {useEffect} from 'react';
 import {useServices} from '../../services';

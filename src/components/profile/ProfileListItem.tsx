@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import YedyText from '../custom/YedyText';
 
 type Props = {
@@ -46,7 +46,7 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
           </YedyText>
         </View>
       </View>
-      <MukIconButton
+      <YedyIconButton
         scale={0.4}
         icon={'user-minus'}
         color={colors.secondary}

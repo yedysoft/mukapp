@@ -54,7 +54,7 @@ export default observer(({user}: Props) => {
         </YedyText>
       </View>
       {/*
-        <MukIconButton
+        <YedyIconButton
           color={colors.secondary}
           scale={0.4}
           icon={user.isFollows ? 'user-minus' : 'user-plus'}

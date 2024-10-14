@@ -1,4 +1,4 @@
-import {ActivityIndicator, StyleProp, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
+import {ActivityIndicator, StyleProp, StyleSheet, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {ReactNode} from 'react';
@@ -14,10 +14,23 @@ type Props = {
   children?: ReactNode;
   scale?: number;
   textStyle?: StyleProp<TextStyle>;
+  visible?: boolean;
 };
 
-export default function MukButton({buttonStyle, disabled, loading, onPress, label, children, scale, textStyle}: Props) {
+export default function MukButton({
+  buttonStyle,
+  disabled,
+  loading,
+  onPress,
+  label,
+  children,
+  scale,
+  textStyle,
+  visible = true,
+}: Props) {
   const {colors} = useTheme<MukTheme>();
+  const flattenedTextStyle = StyleSheet.flatten(textStyle) || {};
+  const textColor = flattenedTextStyle.color || colors.dark; // Eğer `textStyle?.color` varsa al, yoksa default olarak `colors.dark` al
 
   return (
     <TouchableOpacity
@@ -25,6 +38,7 @@ export default function MukButton({buttonStyle, disabled, loading, onPress, labe
       onPress={loading ? () => {} : onPress}
       style={[
         {
+          display: visible ? undefined : 'none',
           flexDirection: 'row',
           backgroundColor: colors.primary,
           padding: responsiveWidth(20 * (scale ?? 1)),
@@ -37,11 +51,15 @@ export default function MukButton({buttonStyle, disabled, loading, onPress, labe
     >
       <ActivityIndicator
         size={responsiveSize(12)}
-        color={colors.dark}
+        color={textColor}
         style={{display: loading ? undefined : 'none', marginRight: responsiveWidth(8)}}
       />
       {children}
-      <YedyText fontType={'bold'} fontSize={16} style={[{color: colors.dark}, textStyle]}>
+      <YedyText
+        fontType={'bold'}
+        fontSize={16}
+        style={[{color: colors.dark, marginLeft: children ? responsiveWidth(8) : undefined}, textStyle]}
+      >
         {label}
       </YedyText>
     </TouchableOpacity>

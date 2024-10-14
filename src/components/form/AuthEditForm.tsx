@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
-import MukTextInput from '../custom/MukTextInput';
+import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
 import {IEdit} from '../../types/auth';
@@ -37,6 +37,7 @@ export default observer(() => {
       >
         <MukImage
           edit={{
+            id: user.getInfo.image?.id,
             tableName: 'S_USER',
             tableId: user.getInfo.id,
             setImage: image => user.set('info', v => ({...v, image})),
@@ -55,21 +56,21 @@ export default observer(() => {
         />
       </View>
       <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
-        <MukTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
-        <MukTextInput
+        <YedyTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
+        <YedyTextInput
           name={'telNumber'}
           label={t.do('auth.register.phone')}
           inputMode={'tel'}
           preValidate={'required'}
         />
-        <MukTextInput
+        <YedyTextInput
           name={'gender'}
           label={t.do('auth.register.gender')}
           isPicker={true}
           pickerItems={api.helper.arrayToMap<string>(_gender, 'gender')}
           preValidate={'required'}
         />
-        <MukTextInput
+        <YedyTextInput
           name={'birthday'}
           label={t.do('auth.register.birthday')}
           isPicker={true}

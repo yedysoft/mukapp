@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../utils/util';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
 import {MukTheme} from '../../types';
@@ -21,8 +21,8 @@ export default function MenuFooter() {
         paddingHorizontal: responsiveWidth(16),
       }}
     >
-      <MukIconButton icon={'log-out'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
-      <MukIconButton
+      <YedyIconButton icon={'log-out'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
+      <YedyIconButton
         icon={toggleTheme === 'light' ? 'moon' : 'sun'}
         color={colors.secondary}
         onPress={() => ui.set('appearance', toggleTheme)}

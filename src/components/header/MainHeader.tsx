@@ -1,5 +1,5 @@
 import {responsiveWidth} from '../../utils/util';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import NotificationsTooltip from '../tooltips/NotificationsTooltip';
@@ -33,14 +33,14 @@ export const MainHeader = observer(() => {
       }}
     >
       <NavButton>
-        <MukIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
+        <YedyIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       </NavButton>
       <MukLogo />
       {tabName === 'Shop kapandı' ? ( // logo ortalamadığı için kapandı
         <Coin />
       ) : (
         <NavButton>
-          <MukIconButton
+          <YedyIconButton
             defaultBadge={user.getNotifications.some(n => !n.readed)}
             icon={'bell'}
             scale={0.45}

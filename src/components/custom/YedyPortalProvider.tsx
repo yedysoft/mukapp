@@ -40,7 +40,7 @@ export default ({children}: Props) => {
     <PortalContext.Provider value={{addPortal, removePortal}}>
       {children}
       {portals.map(portal => (
-        <View key={portal.key} style={StyleSheet.absoluteFill} pointerEvents={'box-none'} collapsable>
+        <View key={portal.key} style={StyleSheet.absoluteFill} pointerEvents={'box-none'} collapsable={false}>
           {portal.component}
         </View>
       ))}

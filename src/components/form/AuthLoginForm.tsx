@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
-import MukTextInput from '../custom/MukTextInput';
+import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
 import {useServices} from '../../services';
@@ -21,7 +21,7 @@ export const AuthLoginForm = observer(() => {
   const {api, t} = useServices();
   const {loading, ui} = useStores();
   const formRef = useRef<MukFormRef<ILogin>>(null);
-  const formData: ILogin = {name: ui.name, pass: ui.pass, expoToken: ui.getExpoToken};
+  const formData: ILogin = {name: ui.name, pass: ui.pass};
 
   const handleSubmit = () => {
     ui.setMany({
@@ -39,8 +39,8 @@ export const AuthLoginForm = observer(() => {
         </YedyText>
         <View style={{gap: responsiveWidth(8)}}>
           <MukForm ref={formRef} onSubmit={handleSubmit} data={formData}>
-            <MukTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
-            <MukTextInput
+            <YedyTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
+            <YedyTextInput
               name={'pass'}
               label={t.do('auth.login.password')}
               secureTextEntry={true}

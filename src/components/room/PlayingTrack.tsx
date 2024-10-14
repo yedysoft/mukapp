@@ -6,7 +6,7 @@ import MukProgressBar from '../../components/custom/MukProgressBar';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import {useNavigation} from '@react-navigation/native';
 import {MukColors, MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
@@ -94,7 +94,7 @@ export default observer(({compact}: Props) => {
           {media.getPlayingTrack.id && <SpotifyIcon color={iconColor} id={media.getPlayingTrack.id} />}
         </View>
         {compact && (
-          <MukIconButton
+          <YedyIconButton
             onPress={api.room.closeRoom}
             icon={'x-circle'}
             scale={0.5}

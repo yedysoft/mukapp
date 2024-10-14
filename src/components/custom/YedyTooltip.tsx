@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import defaults from '../../utils/defaults';
 import {MukColors, MukTheme, Positions} from '../../types';
-import {useRoute} from '@react-navigation/native';
 import {responsiveWidth} from '../../utils/util';
 import YedyPortal from './YedyPortal';
 
@@ -44,16 +43,16 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
   const DEFAULT_PADDING = responsiveWidth(12);
   const renderCheck = dimensions.height === 0 && dimensions.width === 0;
 
-  const route = useRoute();
+  /*const route = useRoute();
   useEffect(() => {
     closeModal();
-  }, [route]);
+  }, [route]);*/
 
   const onLayout = () => {
     if (ref.current && visible) {
       ref.current.measure((_x, _y, width, height) => {
         if (width && height && (dimensions.width !== width || dimensions.height !== height)) {
-          setDimensions({width: width, height: height});
+          setDimensions({width, height});
         }
       });
     }
@@ -62,12 +61,12 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
   const viewLocation = (): StyleProp<ViewStyle> => {
     if (anchor === 'auto') {
       return {
-        top: positions.pageY + positions.height,
+        top: positions.bottom,
         left: positions.pageX + positions.width - dimensions.width,
       };
     } else if (anchor === 'left-top') {
       return {
-        top: positions.pageY - dimensions.height + positions.height,
+        top: positions.bottom - dimensions.height,
         left: positions.pageX - dimensions.width + DEFAULT_PADDING,
       };
     } else if (anchor === 'left-bottom') {
@@ -77,13 +76,13 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
       };
     } else if (anchor === 'right-top') {
       return {
-        top: positions.pageY - dimensions.height + positions.height,
-        left: positions.pageX + positions.width + DEFAULT_PADDING,
+        top: positions.bottom - dimensions.height,
+        left: positions.right + DEFAULT_PADDING,
       };
     } else if (anchor === 'right-bottom') {
       return {
         top: positions.pageY,
-        left: positions.pageX + positions.width + DEFAULT_PADDING,
+        left: positions.right + DEFAULT_PADDING,
       };
     } else if (anchor === 'top-right') {
       return {
@@ -93,22 +92,22 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
     } else if (anchor === 'top-left') {
       return {
         top: positions.pageY - dimensions.height - DEFAULT_PADDING,
-        left: positions.pageX - dimensions.width + positions.width,
+        left: positions.right - dimensions.width,
       };
     } else if (anchor === 'bottom-right') {
       return {
-        top: positions.pageY + positions.height + DEFAULT_PADDING,
+        top: positions.bottom + DEFAULT_PADDING,
         left: positions.pageX,
       };
     } else if (anchor === 'bottom-left') {
       return {
-        top: positions.pageY + positions.height + DEFAULT_PADDING,
-        left: positions.pageX + positions.width - dimensions.width,
+        top: positions.bottom + DEFAULT_PADDING,
+        left: positions.right - dimensions.width,
       };
     } else if (anchor === 'on-top') {
       return {
-        top: positions.pageY + positions.height - dimensions.height,
-        left: positions.pageX + positions.width - dimensions.width,
+        top: positions.bottom - dimensions.height,
+        left: positions.right - dimensions.width,
       };
     }
   };
@@ -121,6 +120,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
 
   useEffect(() => {
     if (visible) {
+      Keyboard.dismiss();
       event.current?.remove();
       event.current = BackHandler.addEventListener('hardwareBackPress', closeModal);
     } else {

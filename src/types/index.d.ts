@@ -222,16 +222,21 @@ export type PVoid = Promise<void>;
 export type PureFunc = () => void;
 
 // Components
+export type ModalScreenProps = {
+  visible: boolean;
+  changeVisible: (open: boolean) => void;
+  data?: any;
+};
 export type Positions = {
   width: number;
   height: number;
   pageX: number;
   pageY: number;
+  right: number;
+  bottom: number;
 };
-export type TooltipScreenProps = {
+export type TooltipScreenProps = ModalScreenProps & {
   positions: Positions;
-  visible: boolean;
-  changeVisible: (open: boolean) => void;
 };
 
 // Message

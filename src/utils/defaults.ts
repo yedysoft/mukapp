@@ -58,6 +58,8 @@ class Defaults {
     height: 0,
     pageX: 0,
     pageY: 0,
+    bottom: 0,
+    right: 0,
   };
 
   message: IMessage = {

@@ -3,7 +3,7 @@ import {responsiveWidth} from '../../utils/util';
 import PlaylistListItem from './PlaylistListItem';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
-import MukTextInput from '../custom/MukTextInput';
+import YedyTextInput from '../custom/YedyTextInput';
 import {useTheme} from 'react-native-paper';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
@@ -51,7 +51,7 @@ const PlaylistList = observer(({playlists}: Props) => {
         }}
       />
       {playlistId === 'search' && (
-        <MukTextInput
+        <YedyTextInput
           name={'search'}
           onCustomChange={handleSearch}
           placeholder={'Search'}

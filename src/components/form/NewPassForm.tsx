@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
-import MukTextInput from '../custom/MukTextInput';
+import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
 import {IPassChange} from '../../types/auth';
@@ -10,7 +10,7 @@ import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import {MukTheme} from '../../types';
 import {View} from 'react-native';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import YedyText from '../custom/YedyText';
 
 export default observer(() => {
@@ -39,10 +39,10 @@ export default observer(() => {
         <YedyText fontType={'bold'} fontSize={32}>
           {t.do('form.newPass.title')}
         </YedyText>
-        <MukIconButton icon={'log-out'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
+        <YedyIconButton icon={'log-out'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
       </View>
       <MukForm ref={formRef} onSubmit={onSubmit} data={formData}>
-        <MukTextInput
+        <YedyTextInput
           name={'newPass'}
           label={t.do('form.newPass.newPass')}
           secureTextEntry={true}
@@ -50,7 +50,7 @@ export default observer(() => {
           validate={[value => String(value).length >= 8 && String(value).length <= 32]}
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.']}
         />
-        <MukTextInput
+        <YedyTextInput
           name={'repass'}
           label={t.do('form.newPass.reNewPass')}
           secureTextEntry={true}

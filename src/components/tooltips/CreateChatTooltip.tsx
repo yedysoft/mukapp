@@ -1,4 +1,4 @@
-import MukTooltip from '../custom/MukTooltip';
+import MukTooltip from '../custom/YedyTooltip';
 import {TooltipScreenProps} from '../../types';
 import React, {useEffect, useState} from 'react';
 import {useServices} from '../../services';

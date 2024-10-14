@@ -1,6 +1,6 @@
 import React, {ReactNode, useEffect, useRef} from 'react';
 import {BackHandler, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import MukIconButton from './MukIconButton';
+import YedyIconButton from './YedyIconButton';
 import {responsiveWidth} from '../../utils/util';
 import {useTheme} from 'react-native-paper';
 import {MukTheme} from '../../types';
@@ -54,7 +54,7 @@ export default ({children, visible, changeVisible, buttonOnPress, buttonIcon, st
       >
         {children}
         {buttonOnPress ? (
-          <MukIconButton
+          <YedyIconButton
             style={{
               alignSelf: 'flex-end',
               backgroundColor: colors.background,

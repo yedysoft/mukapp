@@ -3,7 +3,7 @@ import MukImage from '../custom/MukImage';
 import {useTheme} from 'react-native-paper';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {IInfo} from '../../types/user';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import {useServices} from '../../services';
 import {MukTheme} from '../../types';
 import {useNavigation} from '@react-navigation/native';
@@ -60,7 +60,7 @@ export default observer(({profile, otherUser}: Props) => {
           })}
         </View>
         <View style={{flexDirection: 'row', gap: responsiveWidth(4), display: otherUser ? undefined : 'none'}}>
-          <MukIconButton
+          <YedyIconButton
             color={colors.secondary}
             scale={0.4}
             icon={profile.isFollows ? 'user-minus' : 'user-plus'}
@@ -69,7 +69,7 @@ export default observer(({profile, otherUser}: Props) => {
               navigation.goBack();
             }}
           />
-          <MukIconButton
+          <YedyIconButton
             scale={0.4}
             icon={'slash'}
             color={colors.tertiary}

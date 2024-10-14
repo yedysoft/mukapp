@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
-import MukTextInput from '../custom/MukTextInput';
+import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
 import {IForgot} from '../../types/auth';
@@ -32,7 +32,7 @@ export const AuthForgotForm = observer(() => {
           {t.do('auth.forgot.title')}
         </YedyText>
         <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
-          <MukTextInput
+          <YedyTextInput
             name={'name'}
             label={t.do('auth.forgot.email')}
             preValidate={'required'}

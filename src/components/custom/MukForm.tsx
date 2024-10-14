@@ -2,7 +2,7 @@ import React, {cloneElement, ForwardedRef, forwardRef, ReactNode, useEffect, use
 import {ScrollView, StyleProp, ViewStyle} from 'react-native';
 import {stores} from '../../stores';
 import {services, useServices} from '../../services';
-import {MukTextInputRef} from './MukTextInput';
+import {YedyTextInputRef} from './YedyTextInput';
 import {genericMemo, responsiveWidth} from '../../utils/util';
 
 type Props<T> = {
@@ -31,7 +31,7 @@ const MukFormComp = forwardRef<MukFormRef<any>, Props<any>>(
       form.current = {...form.current, [name]: value};
     };
 
-    const refChildrens = api.helper.generateChildsWithRefs<MukTextInputRef>(children).map((child, index, array) => {
+    const refChildrens = api.helper.generateChildsWithRefs<YedyTextInputRef>(children).map((child, index, array) => {
       const last = index + 1 === array.length;
       const props = {
         key: index,

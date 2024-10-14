@@ -2,7 +2,7 @@ import {useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import Token from '../user/Token';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import Coin from '../user/Coin';
 import {MukTheme} from '../../types';
 
@@ -21,7 +21,7 @@ export default function TokenExchange() {
       }}
     >
       <Token style={{width: '30%', justifyContent: 'flex-start'}} />
-      <MukIconButton scale={1} style={{}} icon={'refresh-cw'} onPress={() => console.log('convert')} />
+      <YedyIconButton scale={1} style={{}} icon={'refresh-cw'} onPress={() => console.log('convert')} />
       <Coin style={{width: '30%', justifyContent: 'flex-end'}} />
     </View>
   );

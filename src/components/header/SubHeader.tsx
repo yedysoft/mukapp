@@ -1,6 +1,6 @@
 import {useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../utils/util';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import {NavButton} from './NavButton';
@@ -43,7 +43,7 @@ export default observer(() => {
       }}
     >
       <NavButton>
-        <MukIconButton
+        <YedyIconButton
           icon={'chevron-left'}
           scale={0.7}
           onPress={() => {
@@ -58,7 +58,7 @@ export default observer(() => {
       ) : route.name === 'Room' ? (
         <Coin textColor={textColor} />
       ) : route.name === 'Profile' && params.userId === user.getInfo.id ? (
-        <MukIconButton icon={'edit'} scale={0.4} onPress={() => navigation.navigate('Edit')} />
+        <YedyIconButton icon={'edit'} scale={0.4} onPress={() => navigation.navigate('Edit')} />
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
       ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (

@@ -1,4 +1,4 @@
-const live = true;
+const live = false;
 
 const host: string = live ? 'api.yedysoft.com/muk' : 'api.yedysoft.com/muktest';
 

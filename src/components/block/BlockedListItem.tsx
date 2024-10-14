@@ -6,7 +6,7 @@ import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import {IBlockedUser} from '../../types/user';
 import {MukTheme} from '../../types';
-import MukIconButton from '../custom/MukIconButton';
+import YedyIconButton from '../custom/YedyIconButton';
 import {useStores} from '../../stores';
 import YedyText from '../custom/YedyText';
 
@@ -32,7 +32,7 @@ export default observer(({item, onIconPress}: Props) => {
         />
         <YedyText numberOfLines={1}>@{item.userName}</YedyText>
       </View>
-      <MukIconButton scale={0.4} icon={'circle'} color={colors.secondary} onPress={() => onIconPress(item.blockId)} />
+      <YedyIconButton scale={0.4} icon={'circle'} color={colors.secondary} onPress={() => onIconPress(item.blockId)} />
     </MukListItem>
   );
 });

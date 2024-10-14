@@ -22,6 +22,7 @@ import 'expo-dev-client';
 import {ColorValue, Linking} from 'react-native';
 import {authRedirectUrl} from './config';
 import CustomStatusBar from './src/navigation/CustomStatusBar';
+import YedyPortalProvider from './src/components/custom/YedyPortalProvider';
 
 const initializeApp = async () => {
   await Font.loadAsync({
@@ -48,7 +49,6 @@ const initializeApp = async () => {
 };
 
 const deinitializeApp = async () => {
-  await Font.unloadAllAsync();
   stopPersists();
   listeners.unload();
   notification.unload();
@@ -84,10 +84,12 @@ export default observer(() => {
             icon: props => <>{['reply'].includes(props.name) ? <FontAwesome6 {...props} /> : <Feather {...props} />}</>,
           }}
         >
-          <CustomStatusBar />
-          {!ready ? <MukSplashScreen /> : <AppNavigation />}
-          <MessageStack />
-          <DialogStack />
+          <YedyPortalProvider>
+            <CustomStatusBar />
+            {!ready ? <MukSplashScreen /> : <AppNavigation />}
+            <MessageStack />
+            <DialogStack />
+          </YedyPortalProvider>
         </PaperProvider>
       </NavigationContainer>
     </AppProvider>

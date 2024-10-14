@@ -2,8 +2,8 @@ import {useTheme} from 'react-native-paper';
 import {Platform, View} from 'react-native';
 import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
-import MukTextInput, {MukTextInputRef} from '../custom/MukTextInput';
-import MukIconButton from '../custom/MukIconButton';
+import YedyTextInput, {YedyTextInputRef} from '../custom/YedyTextInput';
+import YedyIconButton from '../custom/YedyIconButton';
 import {IMessage} from '../../types/chat';
 import {useRef} from 'react';
 import {useStores} from '../../stores';
@@ -24,7 +24,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
   const {colors} = useTheme<MukTheme>();
   const {user} = useStores();
   const {api} = useServices();
-  const inputRef = useRef<MukTextInputRef>(null);
+  const inputRef = useRef<YedyTextInputRef>(null);
   const typingRef = useRef<boolean>();
   const message = {
     ...defaults.message,
@@ -62,7 +62,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
         paddingBottom: Platform.OS === 'ios' ? 0 : undefined,
       }}
     >
-      <MukTextInput
+      <YedyTextInput
         ref={inputRef}
         name={'composer'}
         onChange={handleChange}
@@ -77,7 +77,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
           ) : undefined
         }
       />
-      <MukIconButton
+      <YedyIconButton
         icon={'send'}
         scale={0.5}
         color={colors.secondary}
