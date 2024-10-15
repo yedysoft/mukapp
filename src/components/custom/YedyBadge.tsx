@@ -19,23 +19,19 @@ export default observer(({style, textStyle, badge, defaultBadge}: Props) => {
     <View
       style={[
         {
-          backgroundColor: ui.getScheme === 'light' ? colors.tertiary : colors.secondary,
-          minWidth: responsiveWidth(16),
+          position: 'absolute',
+          backgroundColor: colors.tertiary,
           display: badge || defaultBadge ? undefined : 'none',
-          paddingHorizontal: responsiveWidth(8),
-          paddingVertical: responsiveWidth(3),
+          paddingHorizontal: responsiveWidth(6),
+          paddingVertical: responsiveWidth(2),
           borderRadius: 100,
+          right: responsiveWidth(4),
           zIndex: 1400,
         },
         style,
       ]}
     >
-      <YedyText
-        numberOfLines={1}
-        fontType={'bold'}
-        fontSize={14}
-        style={[{color: ui.getScheme === 'light' ? colors.background : colors.tertiary}, textStyle]}
-      >
+      <YedyText numberOfLines={1} fontType={'bold'} fontSize={14} style={[{color: colors.light}, textStyle]}>
         {badge}
       </YedyText>
     </View>

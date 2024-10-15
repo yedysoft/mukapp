@@ -25,6 +25,7 @@ export default observer(({onPress, style, icon, scale = 1, visible, tooltip, mod
       style={{
         display: visible ? undefined : 'none',
         position: 'absolute',
+        zIndex: 1300,
         right: responsiveWidth(16),
       }}
     >

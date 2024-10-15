@@ -20,7 +20,7 @@ const Coin = observer(({style, textColor}: Props) => {
   return (
     <View style={[{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(4)}, style]}>
       <MukImage scale={0.32} source={require('../../../assets/wallet/coin.png')} />
-      <View style={{flex: 1}}>
+      <View>
         <YedyText numberOfLines={1} fontType={'bold'} fontSize={18} style={{color: textColor ?? colors.secondary}}>
           {api.helper.nummer(user.getInfo.coin)}
         </YedyText>

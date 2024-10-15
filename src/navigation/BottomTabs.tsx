@@ -58,7 +58,7 @@ export default observer(() => {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'shopping'} scale={40} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'shopping'} scale={0.6} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Shop'}),
@@ -68,7 +68,7 @@ export default observer(() => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'grid'} scale={40} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'view-grid'} scale={0.6} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Home'}),
@@ -79,7 +79,7 @@ export default observer(() => {
         name="Messages"
         component={MessagesScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'android-messages'} scale={40} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'android-messages'} scale={0.6} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Messages'}),

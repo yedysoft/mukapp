@@ -105,7 +105,7 @@ const EditImage = observer(({visible, changeVisible, data}: ModalScreenProps) =>
           onPress={takePhoto}
           label={'Fotoğraf Çek'}
         >
-          <YedyIcon icon="camera" scale={0.6} color={colors.primary} />
+          <YedyIcon icon={'camera'} scale={0.4} color={colors.primary} />
         </MukButton>
         <MukButton
           disabled={loading.deleteImage}
@@ -120,7 +120,7 @@ const EditImage = observer(({visible, changeVisible, data}: ModalScreenProps) =>
           onPress={pickImage}
           label={'Fotoğraflarımdan Seç'}
         >
-          <YedyIcon icon="image" scale={0.6} color={colors.info} />
+          <YedyIcon icon={'file-image-plus'} scale={0.4} color={colors.info} />
         </MukButton>
         <MukButton
           loading={loading.deleteImage}
@@ -136,7 +136,7 @@ const EditImage = observer(({visible, changeVisible, data}: ModalScreenProps) =>
           onPress={deleteImage}
           label={'Fotoğrafı Kaldır'}
         >
-          <YedyIcon icon="image" scale={0.6} color={colors.error} />
+          <YedyIcon icon={'file-image-remove'} scale={0.4} color={colors.error} />
         </MukButton>
       </View>
     </YedyModal>

@@ -3,15 +3,16 @@ import YedyIconButton from '../custom/YedyIconButton';
 import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import NotificationsTooltip from '../tooltips/NotificationsTooltip';
-import {NavButton} from './NavButton';
 import Coin from '../user/Coin';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {Platform, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MukLogo from '../custom/MukLogo';
+import useTheme from '../../hooks/useTheme';
 
-export const MainHeader = observer(() => {
+export default observer(() => {
+  const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {user} = useStores();
   const insets = useSafeAreaInsets();
@@ -22,6 +23,7 @@ export const MainHeader = observer(() => {
   return (
     <View
       style={{
+        backgroundColor: colors.background,
         paddingHorizontal: responsiveWidth(8),
         //paddingRight: tabName === 'Shop' ? responsiveWidth(12) : undefined,
         paddingTop: responsiveWidth(8) + (Platform.OS === 'ios' ? 0 : insets.top),
@@ -32,21 +34,12 @@ export const MainHeader = observer(() => {
         gap: responsiveWidth(4),
       }}
     >
-      <NavButton>
-        <YedyIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
-      </NavButton>
+      <YedyIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       <MukLogo />
       {tabName === 'Shop kapandı' ? ( // logo ortalamadığı için kapandı
         <Coin />
       ) : (
-        <NavButton>
-          <YedyIconButton
-            defaultBadge={user.getNotifications.some(n => !n.readed)}
-            icon={'bell'}
-            scale={0.45}
-            tooltip={NotificationsTooltip}
-          />
-        </NavButton>
+        <YedyIconButton defaultBadge icon={'bell'} scale={0.5} tooltip={NotificationsTooltip} />
       )}
     </View>
   );

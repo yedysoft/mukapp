@@ -88,15 +88,15 @@ class HelperApi {
 
   nummer = (num: number): string => {
     if (num >= 1e3 && num < 1e6) {
-      return (num / 1e3).toFixed(2) + 'K';
+      return parseFloat((num / 1e3).toFixed(2)).toString() + 'K';
     } else if (num >= 1e6 && num < 1e9) {
-      return (num / 1e6).toFixed(2) + 'M';
+      return parseFloat((num / 1e6).toFixed(2)).toString() + 'M';
     } else if (num >= 1e9 && num < 1e12) {
-      return (num / 1e9).toFixed(2) + 'B';
+      return parseFloat((num / 1e9).toFixed(2)).toString() + 'B';
     } else if (num >= 1e12) {
-      return (num / 1e12).toFixed(2) + 'T';
+      return parseFloat((num / 1e12).toFixed(2)).toString() + 'T';
     } else {
-      return num.toString(); // 100, 500 gibi sayılar için
+      return parseFloat(num.toFixed(2)).toString(); // 100, 500 gibi sayılar için
     }
   };
 

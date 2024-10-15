@@ -3,7 +3,6 @@ import {responsiveWidth} from '../../utils/util';
 import YedyIconButton from '../custom/YedyIconButton';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import {NavButton} from './NavButton';
 import Token from '../user/Token';
 import Coin from '../user/Coin';
 import {MukLangPaths} from '../../types';
@@ -32,6 +31,7 @@ export default observer(() => {
   return (
     <View
       style={{
+        backgroundColor: colors.background,
         paddingHorizontal: responsiveWidth(8),
         paddingRight: responsiveWidth(12),
         paddingBottom: responsiveWidth(Platform.OS === 'ios' ? 8 : 12),
@@ -42,23 +42,21 @@ export default observer(() => {
         justifyContent: 'space-between',
       }}
     >
-      <NavButton>
-        <YedyIconButton
-          icon={'chevron-left'}
-          scale={0.7}
-          onPress={() => {
-            navigation.goBack();
-            route.name === 'Chat' && user.set('quotedMessage', null);
-          }}
-          color={route.name === 'Room' ? textColor : colors.secondary}
-        />
-      </NavButton>
+      <YedyIconButton
+        icon={'chevron-left'}
+        scale={0.6}
+        onPress={() => {
+          navigation.goBack();
+          route.name === 'Chat' && user.set('quotedMessage', null);
+        }}
+        color={route.name === 'Room' ? textColor : colors.secondary}
+      />
       {route.name === 'Task' ? (
         <Token />
       ) : route.name === 'Room' ? (
         <Coin textColor={textColor} />
       ) : route.name === 'Profile' && params.userId === user.getInfo.id ? (
-        <YedyIconButton icon={'account-edit'} scale={0.4} onPress={() => navigation.navigate('Edit')} />
+        <YedyIconButton icon={'account-edit'} scale={0.5} onPress={() => navigation.navigate('Edit')} />
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
       ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (

@@ -4,6 +4,7 @@ import defaults from '../../utils/defaults';
 import {ModalScreenProps, Positions, TooltipScreenProps, YedyIconName} from '../../types';
 import YedyIcon from './YedyIcon';
 import useTheme from '../../hooks/useTheme';
+import {responsiveWidth} from '../../utils/util';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -98,7 +99,14 @@ export default forwardRef<YedyIconButtonRef, Props>(
     return (
       <Pressable
         ref={viewRef}
-        style={style}
+        style={[
+          {
+            backgroundColor: tooltipVisible || modalVisible ? colors.primary : 'transparent',
+            borderRadius: 100,
+            padding: responsiveWidth(4),
+          },
+          style,
+        ]}
         onPressIn={handleOnLayout}
         onPress={handleOnPress}
         onLayout={handleOnLayout}
@@ -110,7 +118,7 @@ export default forwardRef<YedyIconButtonRef, Props>(
           defaultBadge={defaultBadge}
           scale={scale}
           color={color ?? (tooltipVisible || modalVisible ? colors.dark : colors.secondary)}
-          style={[{backgroundColor: tooltipVisible || modalVisible ? colors.primary : 'transparent'}, iconStyle]}
+          style={iconStyle}
         />
         {tooltip &&
           tooltipVisible &&
