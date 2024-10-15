@@ -1,6 +1,5 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
-import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import {ReactNode} from 'react';
 import YedyText from './YedyText';
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export default function MukCard({title, cardStyle, contentStyle, titleStyle, children}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <View

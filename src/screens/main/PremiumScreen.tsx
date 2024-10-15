@@ -1,13 +1,13 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useState} from 'react';
-import {MukColors, MukTheme} from '../../types';
+import {MukColors} from '../../types';
 import {SubLayout} from '../../components/layouts/SubLayout';
 import YedyText from '../../components/custom/YedyText';
 
 const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const styles = makeStyles(colors, active);
 
   return (
@@ -32,7 +32,7 @@ const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) 
 };
 
 export default function PremiumScreen() {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const [selection, setSelection] = useState(1);
 
   return (

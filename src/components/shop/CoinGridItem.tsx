@@ -1,7 +1,6 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {MukTheme} from '../../types';
 import {useServices} from '../../services';
 import YedyText from '../custom/YedyText';
 
@@ -15,7 +14,7 @@ type Props = {
 };
 
 export default function CoinGridItem({onPress, coin}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const styles = makeStyles();
   const {api} = useServices();
 

@@ -4,17 +4,16 @@ import PlaylistListItem from './PlaylistListItem';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
 import YedyTextInput from '../custom/YedyTextInput';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {MukTheme} from '../../types';
 
 type Props = {
   playlists: IPlaylist[];
 };
 
 const PlaylistList = observer(({playlists}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const playlistId = playlists.find(p => p.selected)?.id;
   const {api} = useServices();
   const {loading, media} = useStores();

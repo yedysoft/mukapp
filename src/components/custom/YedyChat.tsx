@@ -13,7 +13,7 @@ type Props = {
   messageType: IMessageType;
 };
 
-export const MukChat = observer(({sendMessage, messages, receiverId, messageType}: Props) => {
+export default observer(({sendMessage, messages, receiverId, messageType}: Props) => {
   return (
     <View style={{flex: 1, flexDirection: 'column'}}>
       <ChatList data={messages} />

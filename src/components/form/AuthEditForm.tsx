@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
@@ -9,12 +9,11 @@ import {Platform, View} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
-import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
 import {_gender} from '../../types/enums';
 
 export default observer(() => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api, t} = useServices();
   const {loading, user, auth, ui} = useStores();
   const formRef = useRef<MukFormRef<IEdit>>(null);
@@ -57,25 +56,18 @@ export default observer(() => {
       </View>
       <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
         <YedyTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
-        <YedyTextInput
-          name={'telNumber'}
-          label={t.do('auth.register.phone')}
-          inputMode={'tel'}
-          preValidate={'required'}
-        />
+        <YedyTextInput name={'telNumber'} label={t.do('auth.register.phone')} inputMode={'tel'} />
         <YedyTextInput
           name={'gender'}
           label={t.do('auth.register.gender')}
           isPicker={true}
           pickerItems={api.helper.arrayToMap<string>(_gender, 'gender')}
-          preValidate={'required'}
         />
         <YedyTextInput
           name={'birthday'}
           label={t.do('auth.register.birthday')}
           isPicker={true}
           pickerType={'date'}
-          preValidate={'required'}
           datePickerMinMax={{max: new Date().getFullYear() - 17}}
         />
       </MukForm>

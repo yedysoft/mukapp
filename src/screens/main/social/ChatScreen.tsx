@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {MukChat} from '../../../components/custom/MukChat';
+import YedyChat from '../../../components/custom/YedyChat';
 import {useServices} from '../../../services';
 import {useStores} from '../../../stores';
 import ChatLayout from '../../../components/layouts/ChatLayout';
@@ -12,7 +12,7 @@ const ChatScreen = observer(({route}: any) => {
 
   return (
     <ChatLayout>
-      <MukChat
+      <YedyChat
         sendMessage={api.subscription.sendMessage}
         messages={messages}
         receiverId={chat.id}

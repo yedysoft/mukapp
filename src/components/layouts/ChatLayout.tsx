@@ -1,8 +1,7 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {ReactNode} from 'react';
 import {KeyboardAvoidingView, Platform, StyleProp, View, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
-import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -12,7 +11,7 @@ type Props = {
 };
 
 export default observer(({children, style}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const insets = useSafeAreaInsets();
 
   return (

@@ -1,7 +1,6 @@
 import {observer} from 'mobx-react';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {useServices} from '../../services';
-import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import YedyPicker from '../../components/custom/YedyPicker';
 import {_languages, IAppearance, IAuthsType, ILanguage} from '../../types/enums';
@@ -18,7 +17,7 @@ import YedyText from '../../components/custom/YedyText';
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
 export default observer(() => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {ui, auth, loading} = useStores();
   const {t} = useServices();
 

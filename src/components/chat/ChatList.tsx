@@ -6,19 +6,18 @@ import React, {useCallback, useRef, useState} from 'react';
 import {useServices} from '../../services';
 import ChatBubbleHeader from './ChatBubbleHeader';
 import ChatQuotedMessage from './ChatQuotedMessage';
-import MukFAB from '../custom/MukFAB';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import YedyFAB from '../custom/YedyFAB';
+import useTheme from '../../hooks/useTheme';
 
 type Props = {
   data: IMessage[];
 };
 
 export default function ChatList({data}: Props) {
+  const {colors} = useTheme();
   const {api} = useServices();
   const tempDate = useRef<string>();
   const listRef = useRef<FlatList>(null);
-  const {colors} = useTheme<MukTheme>();
   const [fabVisible, setFabVisible] = useState(false);
 
   const handleRenderItem = useCallback(
@@ -75,13 +74,13 @@ export default function ChatList({data}: Props) {
           viewableItems[0].index !== 0 ? handleFab(true) : handleFab(false);
         }}
       />
-      <MukFAB
-        icon={'chevrons-down'}
+      <YedyFAB
+        icon={'chevron-down'}
         scale={0.6}
+        visible={fabVisible}
         style={{
           bottom: responsiveWidth(100),
           backgroundColor: colors.secondary,
-          display: fabVisible ? undefined : 'none',
         }}
         onPress={() => listRef.current?.scrollToIndex({index: 0})}
       />

@@ -1,11 +1,10 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
-import MukBadge from '../custom/MukBadge';
+import MukBadge from '../custom/YedyBadge';
 import {YedyPalette} from '../../themes/YedyPalette';
-import {MukTheme} from '../../types';
 import {IRoomLeaderboard} from '../../types/room';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
@@ -25,7 +24,7 @@ const rankColors: {[key: number]: string} = {
 
 export default observer(({leader, index}: Props) => {
   const navigation = useNavigation<MainStackNavProp>();
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {auth} = useStores();
   const rankColor = rankColors[index] ?? colors.secondary;
 

@@ -1,4 +1,4 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import YedyIconButton from '../custom/YedyIconButton';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -6,7 +6,7 @@ import {observer} from 'mobx-react';
 import {NavButton} from './NavButton';
 import Token from '../user/Token';
 import Coin from '../user/Coin';
-import {MukLangPaths, MukTheme} from '../../types';
+import {MukLangPaths} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
@@ -19,7 +19,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import YedyText from '../custom/YedyText';
 
 export default observer(() => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const insets = useSafeAreaInsets();
   const route = useRoute();
@@ -71,7 +71,7 @@ export default observer(() => {
 });
 
 const ChatHeader = observer(({id}: {id: string}) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api} = useServices();
   const {user, auth} = useStores();
   const chat = user.getChats.find(c => c.id === id) ?? defaults.chat;

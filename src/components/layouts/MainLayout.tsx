@@ -1,10 +1,9 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {ReactNode} from 'react';
 import {KeyboardAvoidingView, Platform, StyleProp, View, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
 import PlayingTrack from '../room/PlayingTrack';
 import {useStores} from '../../stores';
-import {MukTheme} from '../../types';
 import {responsiveHeight} from '../../utils/util';
 
 type Props = {
@@ -13,7 +12,7 @@ type Props = {
 };
 
 export const MainLayout = observer(({children, style}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {room} = useStores();
 
   return (

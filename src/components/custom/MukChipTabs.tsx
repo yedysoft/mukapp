@@ -1,6 +1,5 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {ReactNode} from 'react';
-import {MukTheme} from '../../types';
 import {TouchableOpacity, View} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
@@ -17,7 +16,7 @@ type Props = {
 };
 
 export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {ui} = useStores();
 
   return (

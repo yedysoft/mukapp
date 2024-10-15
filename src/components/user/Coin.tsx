@@ -1,10 +1,9 @@
 import {StyleProp, View, ViewStyle} from 'react-native';
 import MukImage from '../custom/MukImage';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {MukTheme} from '../../types';
 import {useServices} from '../../services';
 import YedyText from '../custom/YedyText';
 
@@ -14,7 +13,7 @@ type Props = {
 };
 
 const Coin = observer(({style, textColor}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api} = useServices();
   const {user} = useStores();
 

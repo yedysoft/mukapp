@@ -1,6 +1,5 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
-import {MukTheme} from '../../types';
 import MukListItem from '../custom/MukListItem';
 import {useServices} from '../../services';
 import YedyText from '../custom/YedyText';
@@ -11,7 +10,7 @@ type Props = {
 };
 
 export default function PsListItem({label, onPress}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api, t} = useServices();
 
   return (

@@ -1,21 +1,21 @@
 import Animated, {FadeInUp, FadeOutUp} from 'react-native-reanimated';
 import {useEffect} from 'react';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import {useServices} from '../../services';
 import {Pressable, View} from 'react-native';
 import {useStores} from '../../stores';
-import {MukMessage, MukTheme} from '../../types';
+import {MukMessage, YedyIconName} from '../../types';
 import {observer} from 'mobx-react-lite';
-import MukIcon from './MukIcon';
 import YedyText from './YedyText';
+import YedyIcon from './YedyIcon';
 
 type Props = {
   message: MukMessage;
 };
 
 export default observer(({message}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api} = useServices();
   const {ui} = useStores();
 
@@ -29,15 +29,15 @@ export default observer(({message}: Props) => {
     }
   }, []);
 
-  const getMessageIcon = () => {
+  const getMessageIcon = (): YedyIconName => {
     switch (message.body.type) {
       case 'ERROR':
-        return <MukIcon icon="alert-circle" scale={1} color={colors.text} />;
+        return 'alert-circle';
       case 'WARNING':
-        return <MukIcon icon="alert-triangle" scale={1} color={colors.text} />;
+        return 'alert';
       case 'INFO':
       default:
-        return <MukIcon icon="info" scale={1} color={colors.text} />;
+        return 'information';
     }
   };
 
@@ -54,35 +54,31 @@ export default observer(({message}: Props) => {
   };
 
   return (
-    <Pressable onPress={close}>
+    <Pressable style={{opacity: 0.9}} onPress={close}>
       <Animated.View
         entering={FadeInUp}
         exiting={FadeOutUp}
         style={{
-          width: '90%',
           backgroundColor: colors[message.body.type.toLowerCase() as 'info' | 'error' | 'warning'],
           borderRadius: 16,
           justifyContent: 'center',
           alignItems: 'center',
           alignSelf: 'center',
           padding: responsiveWidth(8),
-          minHeight: responsiveWidth(60),
-          maxHeight: responsiveWidth(96),
           flexDirection: 'row',
         }}
       >
-        {getMessageIcon()}
+        <YedyIcon icon={getMessageIcon()} scale={1} color={colors.text} />
         <View
           style={{
             flex: 1,
             padding: responsiveWidth(8),
-            borderRadius: 16,
             flexDirection: 'column',
-            width: '100%',
             justifyContent: 'center',
+            gap: responsiveWidth(4),
           }}
         >
-          <YedyText fontType={'bold'} fontSize={18} style={{color: colors.text, marginBottom: responsiveWidth(4)}}>
+          <YedyText fontType={'bold'} fontSize={18} style={{color: colors.text}}>
             {getMessageTitle()}
           </YedyText>
           <YedyText numberOfLines={2} fontSize={16} style={{color: colors.text}}>

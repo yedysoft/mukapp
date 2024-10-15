@@ -2,8 +2,7 @@ import React, {ReactNode, useEffect, useRef} from 'react';
 import {BackHandler, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import YedyIconButton from './YedyIconButton';
 import {responsiveWidth} from '../../utils/util';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import YedyPortal from './YedyPortal';
 
 type Props = {
@@ -16,7 +15,7 @@ type Props = {
 };
 
 export default ({children, visible, changeVisible, buttonOnPress, buttonIcon, style}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const event = useRef<NativeEventSubscription | null>(null);
 
   const closeModal = () => {

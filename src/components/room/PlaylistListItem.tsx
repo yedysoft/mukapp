@@ -1,10 +1,10 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
-import {MukColors, MukTheme} from '../../types';
+import {MukColors} from '../../types';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 import YedyText from '../custom/YedyText';
 
@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function PlaylistListItem({onPress, active, playlist}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const styles = makeStyles(colors, active);
   const {api} = useServices();
   const isSearch = playlist.id === 'search';
@@ -38,7 +38,7 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
       ]}
     >
       {isSearch ? (
-        <SpotifyIcon color={'green'} scale={2.5} /> /*<MukIcon icon={playlist.images[0].url as string} scale={1.8}/>*/
+        <SpotifyIcon color={'green'} scale={2.5} /> /*<YedyIcon icon={playlist.images[0].url as string} scale={1.8}/>*/
       ) : (
         <MukImage
           radius={false}

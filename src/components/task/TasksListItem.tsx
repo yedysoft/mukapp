@@ -1,16 +1,15 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
-import MukIcon from '../custom/MukIcon';
+import YedyIcon from '../custom/YedyIcon';
 import Token from '../user/Token';
-import MukProgressBar from '../custom/MukProgressBar';
+import MukProgressBar from '../custom/YedyProgressBar';
 import MukButton from '../custom/MukButton';
 import {useState} from 'react';
-import {MukTheme} from '../../types';
 import YedyText from '../custom/YedyText';
 
 export default function TasksListItem() {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const [isCompleted, setIsCompleted] = useState(false);
 
   return (
@@ -23,7 +22,7 @@ export default function TasksListItem() {
       }}
     >
       <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-        <MukIcon scale={0.8} color={colors.outline} icon={'align-left'} />
+        <YedyIcon scale={0.8} color={colors.outline} icon={'format-horizontal-align-left'} />
         <View style={{gap: responsiveWidth(4), width: responsiveWidth(240)}}>
           <YedyText numberOfLines={1} fontType={'bold'} fontSize={16}>
             Task Title (1/3)

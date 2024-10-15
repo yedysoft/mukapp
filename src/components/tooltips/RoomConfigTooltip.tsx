@@ -1,5 +1,5 @@
 import MukTooltip from '../custom/YedyTooltip';
-import {MukTheme, TooltipScreenProps} from '../../types';
+import {TooltipScreenProps} from '../../types';
 import React, {useEffect, useRef} from 'react';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
@@ -7,7 +7,7 @@ import {observer} from 'mobx-react';
 import {View} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import MukForm, {MukFormRef} from '../custom/MukForm';
 import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
@@ -18,7 +18,7 @@ import {MukBottomSheetRef} from '../custom/MukBottomSheet';
 import YedyText from '../custom/YedyText';
 
 const RoomConfigTooltip = observer(({positions, visible, changeVisible}: TooltipScreenProps) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {api, t} = useServices();
   const {ui, room, user, auth, loading} = useStores();

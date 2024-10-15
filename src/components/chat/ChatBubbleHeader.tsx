@@ -1,5 +1,4 @@
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import React from 'react';
 import {View} from 'react-native';
@@ -11,7 +10,7 @@ type Props = {
 };
 
 export default ({visible, value}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <View

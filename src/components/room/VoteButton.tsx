@@ -1,7 +1,7 @@
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
 import {StyleProp, View, ViewStyle} from 'react-native';
-import MukBadge from '../custom/MukBadge';
+import MukBadge from '../custom/YedyBadge';
 
 type Props = {
   onPress?: () => void;

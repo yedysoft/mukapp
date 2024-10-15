@@ -4,14 +4,13 @@ import MukButton from '../../components/custom/MukButton';
 import MukLogo from '../../components/custom/MukLogo';
 import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import {useNavigation} from '@react-navigation/native';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {useServices} from '../../services';
 
 export const WelcomeScreen = observer(() => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {t} = useServices();
   const navigation = useNavigation<AuthStackNavProp>();
 

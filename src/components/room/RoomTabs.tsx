@@ -1,5 +1,5 @@
 import MukTabs from '../../components/custom/MukTabs';
-import {MukChat} from '../custom/MukChat';
+import YedyChat from '../custom/YedyChat';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useEffect, useState} from 'react';
@@ -12,7 +12,7 @@ import MukButton from '../custom/MukButton';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 
 export default observer(() => {
-  //const {colors} = useTheme<MukTheme>();
+  //const {colors} = useTheme();
   const [tabIndex, setTabIndex] = useState(1);
   const {api} = useServices();
   const {media, room, loading} = useStores();
@@ -29,9 +29,9 @@ export default observer(() => {
       activeIndex={tabIndex}
       tabs={[
         {
-          icon: 'message-circle',
+          icon: 'chat-outline',
           children: (
-            <MukChat
+            <YedyChat
               sendMessage={api.subscription.sendMessage}
               messages={room.getChat}
               receiverId={room.getSessionId ?? ''}
@@ -96,7 +96,7 @@ export default observer(() => {
           ),
         },*/
         {
-          icon: 'award',
+          icon: 'trophy-award',
           children: (
             <LeaderboardList
               loading={loading.getLeaderboard}

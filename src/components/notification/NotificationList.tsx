@@ -1,8 +1,7 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import NotificationListItem from './NotificationListItem';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
-import {MukTheme} from '../../types';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import MukImage from '../custom/MukImage';
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export default observer(({compact}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api} = useServices();
   const {user} = useStores();
 

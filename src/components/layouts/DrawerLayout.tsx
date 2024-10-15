@@ -1,7 +1,6 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {ReactNode} from 'react';
 import {responsiveWidth} from '../../utils/util';
-import {MukTheme} from '../../types';
 import {Platform, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -10,7 +9,7 @@ type Props = {
 };
 
 export default ({children}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const insets = useSafeAreaInsets();
 
   return (

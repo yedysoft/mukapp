@@ -1,18 +1,9 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import {useTheme} from 'react-native-paper';
-import {
-  BackHandler,
-  Keyboard,
-  NativeEventSubscription,
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import useTheme from '../../hooks/useTheme';
+import {BackHandler, Keyboard, NativeEventSubscription, Pressable, StyleProp, View, ViewStyle} from 'react-native';
 import defaults from '../../utils/defaults';
-import {MukColors, MukTheme, Positions} from '../../types';
-import {responsiveWidth} from '../../utils/util';
+import {Positions} from '../../types';
+import {responsiveWidth, shadowStyle} from '../../utils/util';
 import YedyPortal from './YedyPortal';
 
 type Props = {
@@ -35,11 +26,10 @@ type Props = {
 };
 
 export default ({children, positions = defaults.positions, visible, changeVisible, anchor = 'auto', style}: Props) => {
-  const {colors} = useTheme() as MukTheme;
+  const {colors} = useTheme();
   const ref = useRef<View>(null);
   const event = useRef<NativeEventSubscription | null>(null);
   const [dimensions, setDimensions] = useState<{width: number; height: number}>({width: 0, height: 0});
-  const styles = makeStyles(colors);
   const DEFAULT_PADDING = responsiveWidth(12);
   const renderCheck = dimensions.height === 0 && dimensions.width === 0;
 
@@ -159,7 +149,7 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
             opacity: renderCheck ? 0 : 1,
             zIndex: 1399,
           },
-          styles.shadow,
+          shadowStyle(colors.secondary),
           style,
           viewLocation(),
         ]}
@@ -169,17 +159,3 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
     </YedyPortal>
   );
 };
-
-const makeStyles = (colors: MukColors) =>
-  StyleSheet.create({
-    shadow: {
-      shadowColor: colors.secondary,
-      shadowOffset: {
-        width: 0,
-        height: 0,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 4,
-    },
-  });

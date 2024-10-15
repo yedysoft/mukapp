@@ -1,6 +1,5 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import MukImage from '../custom/MukImage';
-import {MukTheme} from '../../types';
 
 type Props = {
   loading: boolean;
@@ -8,7 +7,7 @@ type Props = {
 };
 
 export default function MukLoader({loading, scale}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <MukImage

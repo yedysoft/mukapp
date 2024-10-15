@@ -1,12 +1,11 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
-import MukIcon from '../custom/MukIcon';
+import YedyIcon from '../custom/YedyIcon';
 import {View} from 'react-native';
 import {useServices} from '../../services';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
-import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import MukImage from '../custom/MukImage';
 import {useStores} from '../../stores';
@@ -18,7 +17,7 @@ type Props = {
 };
 
 export default observer(({user}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {auth} = useStores();
   const {t} = useServices();
   const navigation = useNavigation<MainStackNavProp>();
@@ -35,7 +34,7 @@ export default observer(({user}: Props) => {
           source={{uri: `${user.image.link}?token=${auth.getAuthToken}`}}
         />
       ) : (
-        <MukIcon scale={0.8} icon={'user'} />
+        <YedyIcon scale={0.8} icon={'account'} />
       )}
       <View style={{flex: 1, flexDirection: 'column'}}>
         <YedyText numberOfLines={1} fontType={'bold'} fontSize={16}>

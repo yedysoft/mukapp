@@ -1,14 +1,14 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import MukImage from '../../components/custom/MukImage';
-import MukProgressBar from '../../components/custom/MukProgressBar';
+import MukProgressBar from '../custom/YedyProgressBar';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import YedyIconButton from '../custom/YedyIconButton';
 import {useNavigation} from '@react-navigation/native';
-import {MukColors, MukTheme} from '../../types';
+import {MukColors} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default observer(({compact}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const styles = makeStyles(colors);
   const {media} = useStores();
   const {api} = useServices();
@@ -96,7 +96,7 @@ export default observer(({compact}: Props) => {
         {compact && (
           <YedyIconButton
             onPress={api.room.closeRoom}
-            icon={'x-circle'}
+            icon={'close-circle-outline'}
             scale={0.5}
             color={textColor ?? colors.secondary}
             style={{justifyContent: 'center'}}

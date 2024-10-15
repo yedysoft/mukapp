@@ -1,8 +1,7 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import {ReactNode, useEffect} from 'react';
-import {MukTheme} from '../../types';
 import Animated, {useSharedValue, withTiming} from 'react-native-reanimated';
 
 type Props = {
@@ -13,7 +12,7 @@ type Props = {
 };
 
 export default function MukListItem({onPress, children, style, disabled}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   const opacity = useSharedValue(0);
   useEffect(() => {

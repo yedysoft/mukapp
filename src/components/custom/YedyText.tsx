@@ -1,6 +1,5 @@
 import {Text, TextProps} from 'react-native';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import {observer} from 'mobx-react';
 import {responsiveSize} from '../../utils/util';
 
@@ -19,7 +18,7 @@ const fonts: Record<fontTypes, string> = {
 };
 
 export default observer(({visible = true, fontType = 'reqular', fontSize = 15, ...rest}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <Text

@@ -1,18 +1,18 @@
-import {useTheme} from 'react-native-paper';
 import {responsiveWidth} from '../../utils/util';
 import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
-import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import YedyText from './YedyText';
+import useTheme from '../../hooks/useTheme';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   badge?: number;
+  defaultBadge?: boolean;
 };
-export default observer(({style, textStyle, badge}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+export default observer(({style, textStyle, badge, defaultBadge}: Props) => {
+  const {colors} = useTheme();
   const {ui} = useStores();
 
   return (
@@ -21,7 +21,7 @@ export default observer(({style, textStyle, badge}: Props) => {
         {
           backgroundColor: ui.getScheme === 'light' ? colors.tertiary : colors.secondary,
           minWidth: responsiveWidth(16),
-          display: badge ? 'flex' : 'none',
+          display: badge || defaultBadge ? undefined : 'none',
           paddingHorizontal: responsiveWidth(8),
           paddingVertical: responsiveWidth(3),
           borderRadius: 100,

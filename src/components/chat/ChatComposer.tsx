@@ -1,6 +1,5 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {Platform, View} from 'react-native';
-import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import YedyTextInput, {YedyTextInputRef} from '../custom/YedyTextInput';
 import YedyIconButton from '../custom/YedyIconButton';
@@ -21,7 +20,7 @@ type Props = {
 };
 
 export default observer(({sendMessage, receiverId, messageType}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {user} = useStores();
   const {api} = useServices();
   const inputRef = useRef<YedyTextInputRef>(null);

@@ -1,17 +1,16 @@
 import {observer} from 'mobx-react';
 import {useStores} from '../stores';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../types';
 import {StatusBar, StatusBarStyle} from 'expo-status-bar';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Platform, View} from 'react-native';
 import {useServices} from '../services';
+import useTheme from '../hooks/useTheme';
 
 export default observer(() => {
   const {ui, room, media} = useStores();
   const {api} = useServices();
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const insets = useSafeAreaInsets();
   const dominantColor = media.getDominantColor ?? colors.background;
   const statusBarColor = room.isLive && room.isRoomPageOn ? dominantColor : colors.background;

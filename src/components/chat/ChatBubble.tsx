@@ -1,6 +1,5 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {Animated, PanResponder, View} from 'react-native';
-import {MukTheme} from '../../types';
 import {getAnimatedValue, responsiveWidth} from '../../utils/util';
 import MukImage from '../custom/MukImage';
 import {IMessage} from '../../types/chat';
@@ -9,7 +8,7 @@ import {observer} from 'mobx-react';
 import useInfo from '../../hooks/useInfo';
 import {useServices} from '../../services';
 import {ReactNode, useRef} from 'react';
-import MukIcon from '../custom/MukIcon';
+import YedyIcon from '../custom/YedyIcon';
 import YedyText from '../custom/YedyText';
 
 type Props = {
@@ -18,7 +17,7 @@ type Props = {
 };
 
 export default observer(({message, quotedMessage}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {user, auth} = useStores();
   const {api} = useServices();
   const me = message.senderId === user.getInfo.id;
@@ -67,11 +66,11 @@ export default observer(({message, quotedMessage}: Props) => {
       ]}
       {...panResponder.panHandlers}
     >
-      <MukIcon
+      <YedyIcon
         icon={'reply'}
         scale={0.5}
         color={colors.secondary}
-        iconStyle={[
+        style={[
           {padding: 0, position: 'absolute', alignSelf: 'center', transform: [{rotateY: me ? '180deg' : '0deg'}]},
           me ? {right: responsiveWidth(-44)} : {left: responsiveWidth(-44)},
         ]}

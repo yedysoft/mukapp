@@ -1,4 +1,4 @@
-import {PixelRatio, Platform} from 'react-native';
+import {PixelRatio, Platform, StyleProp, ViewStyle} from 'react-native';
 import React, {memo} from 'react';
 import {stores} from '../stores';
 
@@ -15,6 +15,17 @@ const responsiveWidth = (size: number): number => normalize(size, 'width');
 const responsiveHeight = (size: number): number => normalize(size, 'height');
 const responsiveSize = (size: number): number => responsiveWidth(size);
 
+const shadowStyle = (shadowColor: string): StyleProp<ViewStyle> => ({
+  shadowColor,
+  shadowOffset: {
+    width: 0,
+    height: 0,
+  },
+  shadowOpacity: 0.5,
+  shadowRadius: 8,
+  elevation: 6,
+});
+
 const genericMemo: <T extends React.ComponentType<any>>(
   component: T,
   propsAreEqual?: (prevProps: React.ComponentProps<T>, nextProps: React.ComponentProps<T>) => boolean,
@@ -22,4 +33,4 @@ const genericMemo: <T extends React.ComponentType<any>>(
 
 const getAnimatedValue = (value: any): number => value.__getValue() as number;
 
-export {responsiveScale, responsiveWidth, responsiveHeight, responsiveSize, genericMemo, getAnimatedValue};
+export {responsiveScale, responsiveWidth, responsiveHeight, responsiveSize, shadowStyle, genericMemo, getAnimatedValue};

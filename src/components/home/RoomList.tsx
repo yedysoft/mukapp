@@ -1,9 +1,8 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {FlatList} from 'react-native';
 import RoomListItem from './RoomListItem';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
-import {MukTheme} from '../../types';
 import MukImage from '../custom/MukImage';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export default observer(({type}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api} = useServices();
   const {loading, room} = useStores();
   const rooms = type === 'PLACE' ? room.getPlaces : room.getUsers;

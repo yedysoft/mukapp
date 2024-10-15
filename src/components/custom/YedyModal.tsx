@@ -1,19 +1,10 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import {
-  BackHandler,
-  Keyboard,
-  NativeEventSubscription,
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {BackHandler, Keyboard, NativeEventSubscription, Pressable, StyleProp, View, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {MukColors, MukTheme} from '../../types';
 import YedyPortal from './YedyPortal';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
+import {shadowStyle} from '../../utils/util';
 
 type Props = {
   children: ReactNode;
@@ -23,9 +14,8 @@ type Props = {
 };
 
 export default observer(({children, visible, changeVisible, style}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {ui} = useStores();
-  const styles = makeStyles(colors);
   const ref = useRef<View>(null);
   const event = useRef<NativeEventSubscription | null>(null);
   const [dimensions, setDimensions] = useState<{width: number; height: number}>({width: 0, height: 0});
@@ -93,7 +83,7 @@ export default observer(({children, visible, changeVisible, style}: Props) => {
             marginVertical: (ui.windowHeight - dimensions.height) / 2,
             opacity: renderCheck ? 0 : 1,
           },
-          styles.shadow,
+          shadowStyle(colors.secondary),
           style,
         ]}
       >
@@ -102,17 +92,3 @@ export default observer(({children, visible, changeVisible, style}: Props) => {
     </YedyPortal>
   );
 });
-
-const makeStyles = (colors: MukColors) =>
-  StyleSheet.create({
-    shadow: {
-      shadowColor: colors.secondary,
-      shadowOffset: {
-        width: 0,
-        height: 0,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 4,
-    },
-  });

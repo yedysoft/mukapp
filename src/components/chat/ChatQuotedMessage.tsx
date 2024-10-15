@@ -1,5 +1,4 @@
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import {IQuotedMessage} from '../../types/chat';
 import {useStores} from '../../stores';
@@ -18,7 +17,7 @@ type Props = {
 };
 
 export default observer(({quotedMessage, onPress, style}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {user} = useStores();
   const {api} = useServices();
   const me = quotedMessage?.senderId === user.getInfo.id;

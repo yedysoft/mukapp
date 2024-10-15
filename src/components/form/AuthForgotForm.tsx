@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
@@ -10,13 +10,12 @@ import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
-import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import YedyText from '../custom/YedyText';
 
 export const AuthForgotForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api, t} = useServices();
   const {loading} = useStores();
   const formRef = useRef<MukFormRef<IForgot>>(null);

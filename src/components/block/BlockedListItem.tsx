@@ -1,11 +1,10 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import {IBlockedUser} from '../../types/user';
-import {MukTheme} from '../../types';
 import YedyIconButton from '../custom/YedyIconButton';
 import {useStores} from '../../stores';
 import YedyText from '../custom/YedyText';
@@ -16,7 +15,7 @@ type Props = {
 };
 
 export default observer(({item, onIconPress}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {auth} = useStores();
 
   return (

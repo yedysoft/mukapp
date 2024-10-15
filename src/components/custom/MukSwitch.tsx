@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function MukSwitch({disabled, style, value, onValueChange}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <Switch disabled={disabled} style={style} value={value} onValueChange={onValueChange} color={colors.primary} />

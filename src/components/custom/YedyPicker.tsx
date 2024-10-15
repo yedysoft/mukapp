@@ -11,9 +11,8 @@ import {
   View,
 } from 'react-native';
 import {genericMemo, responsiveWidth} from '../../utils/util';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {services, useServices} from '../../services';
-import {MukTheme} from '../../types';
 import YedyText from './YedyText';
 
 type Props<T extends string | number> = {
@@ -61,7 +60,7 @@ const PickerComp = <T extends string | number>({
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...itemsArray, ...emptyItems], [itemsArray, emptyItems]);
   const {api} = useServices();

@@ -1,8 +1,7 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import MukSwitch from '../custom/MukSwitch';
-import {MukTheme} from 'src/types';
 import YedyText from '../custom/YedyText';
 
 type Props = {
@@ -10,7 +9,7 @@ type Props = {
 };
 
 const RoomSettingsListItem = observer(({setting}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled={true}>

@@ -1,10 +1,9 @@
 import {View} from 'react-native';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import MukLogo from '../../components/custom/MukLogo';
 
 export default function MukSplashScreen() {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <View

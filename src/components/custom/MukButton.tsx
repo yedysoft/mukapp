@@ -1,8 +1,8 @@
 import {ActivityIndicator, StyleProp, StyleSheet, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {ReactNode} from 'react';
-import {MukTheme, PureFunc} from '../../types';
+import {PureFunc} from '../../types';
 import YedyText from './YedyText';
 
 type Props = {
@@ -28,7 +28,7 @@ export default function MukButton({
   textStyle,
   visible = true,
 }: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const flattenedTextStyle = StyleSheet.flatten(textStyle) || {};
   const textColor = flattenedTextStyle.color || colors.dark; // Eğer `textStyle?.color` varsa al, yoksa default olarak `colors.dark` al
 

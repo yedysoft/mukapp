@@ -1,4 +1,4 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
@@ -8,9 +8,8 @@ import {IRoom} from '../../types/room';
 import {useServices} from '../../services';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
-import MukIcon from '../custom/MukIcon';
+import YedyIcon from '../custom/YedyIcon';
 import YedyText from '../custom/YedyText';
 
 type Props = {
@@ -18,7 +17,7 @@ type Props = {
 };
 
 export default observer(({roomData}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
   const {room, auth} = useStores();
@@ -83,7 +82,7 @@ export default observer(({roomData}: Props) => {
             gap: responsiveWidth(4),
           }}
         >
-          <MukIcon
+          <YedyIcon
             icon={'speaker'}
             scale={0.5}
             color={roomData.liveSong?.isPlaying ? colors.tertiary : api.helper.addOpacityToColor(colors.secondary, 0.5)}

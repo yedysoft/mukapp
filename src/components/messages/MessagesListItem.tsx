@@ -1,11 +1,10 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {useServices} from '../../services';
-import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat, ILastMessage} from '../../types/chat';
 import useInfo from '../../hooks/useInfo';
@@ -19,7 +18,7 @@ type Props = {
 };
 
 export default observer(({chat}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
   const {auth} = useStores();

@@ -1,9 +1,7 @@
-import {ThemeBase} from 'react-native-paper/lib/typescript/types';
-import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {MainStackScreens} from '../navigation/MainStack';
 import {IAuthsType, IMessageBodyType} from './enums';
-import {Fonts} from 'react-native-paper/src/types';
 import {IForgot, ILogin, IRegister} from './auth';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 // Services
 export interface IAuthApi {
@@ -187,6 +185,7 @@ type LangPaths<T, P extends string = ''> = T extends object
 export type MukLangPaths = LangPaths<MukLang>;
 
 // System
+export type YedyIconName = keyof typeof MaterialCommunityIcons.glyphMap;
 export type MukColors = {
   primary: string;
   secondary: string;
@@ -205,14 +204,11 @@ export type MukColors = {
   dark: string;
   dialog: string;
 };
-export type MukTheme = ThemeBase & {
-  version: 2;
-  isV3: false;
+export type MukTheme = {
   colors: MukColors;
-  fonts: Fonts;
 };
 export type MukMenu = {
-  icon: IconSource;
+  icon: YedyIconName;
   label: string;
   route: keyof MainStackScreens;
   params?: any;

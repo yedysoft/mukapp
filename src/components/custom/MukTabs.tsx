@@ -1,23 +1,23 @@
-import {useTheme} from 'react-native-paper';
 import {ReactNode} from 'react';
-import {MukTheme} from '../../types';
+import {YedyIconName} from '../../types';
 import {Pressable, View} from 'react-native';
-import MukIcon from './MukIcon';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
+import useTheme from '../../hooks/useTheme';
+import YedyIcon from './YedyIcon';
 
 type Props = {
   activeIndex?: number;
   onChangeIndex?: (index: number) => void;
   tabs: {
-    icon?: string;
+    icon?: YedyIconName;
     label?: string;
     children?: ReactNode;
   }[];
 };
 
 export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <View style={{flex: 1}}>
@@ -36,10 +36,10 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
                 backgroundColor: activeIndex === i ? colors.primary : colors.backdrop,
               }}
             >
-              <MukIcon
+              <YedyIcon
                 scale={activeIndex === i ? 0.8 : 0.7}
                 color={activeIndex === i ? colors.dark : colors.outlineVariant}
-                icon={tab.icon ? tab.icon : 'blank'}
+                icon={tab.icon ?? 'blank'}
               />
             </Pressable>
           );

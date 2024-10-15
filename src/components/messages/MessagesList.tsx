@@ -1,5 +1,4 @@
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import {IChat} from '../../types/chat';
 import {FlatList} from 'react-native';
 import MessagesListItem from './MessagesListItem';
@@ -11,7 +10,7 @@ type Props = {
 };
 
 export default function MessagesList({chats}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <FlatList

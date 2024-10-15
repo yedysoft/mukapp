@@ -1,4 +1,4 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
@@ -9,7 +9,6 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import VoteButton from './VoteButton';
 import AddButton from './AddButton';
-import {MukTheme} from '../../types';
 import {useState} from 'react';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 import YedyText from '../custom/YedyText';
@@ -21,7 +20,7 @@ type Props = {
 };
 
 export default observer(({song, itemType, disabled}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api, t} = useServices();
   const {user, media, ui} = useStores();
 

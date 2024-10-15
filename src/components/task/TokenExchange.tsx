@@ -1,13 +1,12 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import Token from '../user/Token';
 import YedyIconButton from '../custom/YedyIconButton';
 import Coin from '../user/Coin';
-import {MukTheme} from '../../types';
 
 export default function TokenExchange() {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <View

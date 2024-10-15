@@ -1,7 +1,6 @@
 import {GestureResponderEvent, Image, ImageStyle, LayoutChangeEvent, Platform, Pressable} from 'react-native';
 import {memo, useMemo, useState} from 'react';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import {services, useServices} from '../../services';
 import YedyText from '../custom/YedyText';
 
@@ -35,7 +34,7 @@ const SpotifyIconComp = ({
   id,
   type = 'track',
 }: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api} = useServices();
   const WIDTH = useMemo(() => (scale ? 21 * scale : 21), [scale]);
   const [height, setHeight] = useState(0);

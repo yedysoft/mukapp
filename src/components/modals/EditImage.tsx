@@ -5,13 +5,13 @@ import {useServices} from '../../services';
 import {ImagePickerResult} from 'expo-image-picker/src/ImagePicker.types';
 import {IImage} from '../../types/user';
 import YedyModal from '../custom/YedyModal';
-import {ModalScreenProps, MukTheme} from '../../types';
-import MukIcon from '../custom/MukIcon';
+import {ModalScreenProps} from '../../types';
+import YedyIcon from '../custom/YedyIcon';
 import {responsiveWidth} from '../../utils/util';
 import MukButton from '../custom/MukButton';
 import React from 'react';
 import {observer} from 'mobx-react';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {useStores} from '../../stores';
 
 export type IEditImage = {
@@ -24,7 +24,7 @@ export type IEditImage = {
 };
 
 const EditImage = observer(({visible, changeVisible, data}: ModalScreenProps) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api} = useServices();
   const {loading} = useStores();
 
@@ -105,7 +105,7 @@ const EditImage = observer(({visible, changeVisible, data}: ModalScreenProps) =>
           onPress={takePhoto}
           label={'Fotoğraf Çek'}
         >
-          <MukIcon icon="camera" scale={0.6} color={colors.primary} />
+          <YedyIcon icon="camera" scale={0.6} color={colors.primary} />
         </MukButton>
         <MukButton
           disabled={loading.deleteImage}
@@ -120,7 +120,7 @@ const EditImage = observer(({visible, changeVisible, data}: ModalScreenProps) =>
           onPress={pickImage}
           label={'Fotoğraflarımdan Seç'}
         >
-          <MukIcon icon="image" scale={0.6} color={colors.info} />
+          <YedyIcon icon="image" scale={0.6} color={colors.info} />
         </MukButton>
         <MukButton
           loading={loading.deleteImage}
@@ -136,7 +136,7 @@ const EditImage = observer(({visible, changeVisible, data}: ModalScreenProps) =>
           onPress={deleteImage}
           label={'Fotoğrafı Kaldır'}
         >
-          <MukIcon icon="image" scale={0.6} color={colors.error} />
+          <YedyIcon icon="image" scale={0.6} color={colors.error} />
         </MukButton>
       </View>
     </YedyModal>

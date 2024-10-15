@@ -1,10 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useTheme} from 'react-native-paper';
 import ShopScreen from '../screens/main/ShopScreen';
-import {responsiveHeight, responsiveSize} from '../utils/util';
+import {responsiveHeight} from '../utils/util';
 import HomeScreen from '../screens/main/HomeScreen';
-import {MukTheme} from '../types';
-import Feather from 'react-native-vector-icons/Feather';
 import MessagesScreen from '../screens/main/social/MessagesScreen';
 import {observer} from 'mobx-react';
 import {useStores} from '../stores';
@@ -13,10 +10,12 @@ import {Platform} from 'react-native';
 import {NavigationBarButtonStyle} from 'expo-navigation-bar/src/NavigationBar.types';
 import {YedyPalette} from '../themes/YedyPalette';
 import {useServices} from '../services';
+import useTheme from '../hooks/useTheme';
+import YedyIcon from '../components/custom/YedyIcon';
 
 const Bottom = createBottomTabNavigator();
 export default observer(() => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {ui, room, media} = useStores();
   const {api} = useServices();
   const keyboardVisible = ui.isKeyboardVisible;
@@ -59,9 +58,7 @@ export default observer(() => {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => (
-            <Feather name="shopping-bag" size={responsiveSize(40)} color={getIconColor(focused)} />
-          ),
+          tabBarIcon: ({focused}) => <YedyIcon icon={'shopping'} scale={40} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Shop'}),
@@ -71,7 +68,7 @@ export default observer(() => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => <Feather name="grid" size={responsiveSize(40)} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'grid'} scale={40} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Home'}),
@@ -82,9 +79,7 @@ export default observer(() => {
         name="Messages"
         component={MessagesScreen}
         options={{
-          tabBarIcon: ({focused}) => (
-            <Feather name="message-circle" size={responsiveSize(40)} color={getIconColor(focused)} />
-          ),
+          tabBarIcon: ({focused}) => <YedyIcon icon={'android-messages'} scale={40} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Messages'}),

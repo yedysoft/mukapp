@@ -1,6 +1,5 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {Animated, PanResponder, Platform, Pressable, StyleProp, View, ViewStyle} from 'react-native';
-import {MukTheme} from '../../types';
 import {useStores} from '../../stores';
 import {forwardRef, ReactNode, useImperativeHandle, useRef, useState} from 'react';
 import {responsiveWidth} from '../../utils/util';
@@ -19,7 +18,7 @@ export type MukBottomSheetRef = {
 
 export default observer(
   forwardRef<MukBottomSheetRef, Props>(({style, children}: Props, ref) => {
-    const {colors} = useTheme<MukTheme>();
+    const {colors} = useTheme();
     const {ui} = useStores();
     const BOTTOM_SHEET_MAX_HEIGHT = ui.windowHeight * 0.5;
     const BOTTOM_SHEET_MIN_HEIGHT = 0;

@@ -1,4 +1,4 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {View} from 'react-native';
 import MukImage from '../../components/custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
@@ -6,7 +6,6 @@ import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
-import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import YedyIconButton from '../custom/YedyIconButton';
@@ -19,7 +18,7 @@ type Props = {
 };
 
 export default observer(({item, onIconPress, otherUser}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {auth} = useStores();
 

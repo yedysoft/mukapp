@@ -1,11 +1,10 @@
 import {View} from 'react-native';
 import MukImage from '../custom/MukImage';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {IInfo} from '../../types/user';
 import YedyIconButton from '../custom/YedyIconButton';
 import {useServices} from '../../services';
-import {MukTheme} from '../../types';
 import {useNavigation} from '@react-navigation/native';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
@@ -20,7 +19,7 @@ type Props = {
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
 export default observer(({profile, otherUser}: Props) => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const navigation = useNavigation();
   const {api} = useServices();
   const {user, auth} = useStores();

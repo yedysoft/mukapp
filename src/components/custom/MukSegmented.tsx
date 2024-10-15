@@ -1,6 +1,5 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {MukTheme} from '../../types';
 import {responsiveWidth} from '../../utils/util';
 import YedyText from './YedyText';
 
@@ -15,7 +14,7 @@ type Props = {
 };
 
 export default function MukSegmented({value, onValueChange, buttons, style}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
 
   return (
     <View

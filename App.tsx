@@ -1,4 +1,3 @@
-import {PaperProvider} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import AppNavigation from './src/navigation/AppNavigation';
@@ -8,13 +7,11 @@ import {initServices, services} from './src/services';
 import MukSplashScreen from './src/screens/auth/MukSplashScreen';
 import MessageStack from './src/components/stacks/MessageStack';
 import DialogStack from './src/components/stacks/DialogStack';
-import {NavigationContainer, Theme} from '@react-navigation/native';
-import Feather from 'react-native-vector-icons/Feather';
+import {NavigationContainer} from '@react-navigation/native';
 import notification from './src/services/notification';
 import listeners from './src/services/listeners';
 import * as SystemUI from 'expo-system-ui';
 import * as Font from 'expo-font';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import 'react-native-gesture-handler';
 import 'text-encoding';
 import {navigationRef} from './src/navigation/RootNavigation';
@@ -77,20 +74,13 @@ export default observer(() => {
 
   return (
     <AppProvider>
-      <NavigationContainer ref={navigationRef} theme={ui.getTheme as unknown as Theme}>
-        <PaperProvider
-          theme={ui.getTheme}
-          settings={{
-            icon: props => <>{['reply'].includes(props.name) ? <FontAwesome6 {...props} /> : <Feather {...props} />}</>,
-          }}
-        >
-          <YedyPortalProvider>
-            <CustomStatusBar />
-            {!ready ? <MukSplashScreen /> : <AppNavigation />}
-            <MessageStack />
-            <DialogStack />
-          </YedyPortalProvider>
-        </PaperProvider>
+      <NavigationContainer ref={navigationRef}>
+        <YedyPortalProvider>
+          <CustomStatusBar />
+          {!ready ? <MukSplashScreen /> : <AppNavigation />}
+          <MessageStack />
+          <DialogStack />
+        </YedyPortalProvider>
       </NavigationContainer>
     </AppProvider>
   );

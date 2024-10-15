@@ -1,18 +1,7 @@
-import {adaptNavigationTheme, MD2DarkTheme, MD2LightTheme} from 'react-native-paper';
-import {DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationLightTheme} from '@react-navigation/native';
 import {MukTheme} from '../types';
 
-const {LightTheme, DarkTheme} = adaptNavigationTheme({
-  reactNavigationLight: NavigationLightTheme,
-  reactNavigationDark: NavigationDarkTheme,
-});
-
 const CombinedLightTheme: MukTheme = {
-  ...MD2LightTheme,
-  ...LightTheme,
   colors: {
-    ...MD2LightTheme.colors,
-    ...LightTheme.colors,
     primary: '#48D904',
     secondary: '#041014',
     tertiary: 'rgba(255, 55, 95, 1)',
@@ -33,11 +22,7 @@ const CombinedLightTheme: MukTheme = {
 };
 
 const CombinedDarkTheme: MukTheme = {
-  ...MD2DarkTheme,
-  ...DarkTheme,
   colors: {
-    ...MD2DarkTheme.colors,
-    ...DarkTheme.colors,
     primary: '#48D904',
     secondary: '#ffffff',
     tertiary: 'rgba(255, 55, 95, 1)',

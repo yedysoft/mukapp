@@ -13,8 +13,7 @@ import React, {useRef, useState} from 'react';
 import EditImage, {IEditImage} from '../modals/EditImage';
 import {Image} from 'expo-image';
 import {ImageContentFit} from 'expo-image/src/Image.types';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import {useServices} from '../../services';
 import YedyIconButton, {YedyIconButtonRef} from './YedyIconButton';
 
@@ -41,15 +40,15 @@ export default function MukImage({
   disabled,
   edit,
 }: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api} = useServices();
   const [loading, setLoading] = useState(false);
   const ref = useRef<YedyIconButtonRef>(null);
 
   const handleOnPress = (event?: GestureResponderEvent) => {
     event?.stopPropagation();
-    onPress && onPress();
     ref.current?.openModalOrTooltip();
+    onPress && onPress();
   };
 
   return (

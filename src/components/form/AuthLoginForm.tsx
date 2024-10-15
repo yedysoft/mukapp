@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import {useRef} from 'react';
@@ -9,7 +9,6 @@ import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/uti
 import {useStores} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
 import MukForm, {MukFormRef} from '../custom/MukForm';
-import {MukTheme} from '../../types';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {ILogin} from '../../types/auth';
 import SpotifyIcon from '../spotify/SpotifyIcon';
@@ -17,7 +16,7 @@ import YedyText from '../custom/YedyText';
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {api, t} = useServices();
   const {loading, ui} = useStores();
   const formRef = useRef<MukFormRef<ILogin>>(null);

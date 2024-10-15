@@ -1,10 +1,10 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
-import MukIcon from '../custom/MukIcon';
+import YedyIcon from '../custom/YedyIcon';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
-import {MukMenu, MukTheme} from '../../types';
+import {MukMenu} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useServices} from '../../services';
 import YedyText from '../custom/YedyText';
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function MenuListItem({item}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {t, api} = useServices();
   const [title, setTitle] = useState<{label: string; color: string}>();
@@ -35,7 +35,7 @@ export default function MenuListItem({item}: Props) {
         flex: 1,
       }}
     >
-      <MukIcon scale={0.8} icon={item.icon} color={title?.color ?? colors.secondary} />
+      <YedyIcon scale={0.8} icon={item.icon} color={title?.color ?? colors.secondary} />
       <YedyText
         fontType={'bold'}
         fontSize={19}

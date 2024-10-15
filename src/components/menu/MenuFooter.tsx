@@ -1,13 +1,12 @@
 import {View} from 'react-native';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import YedyIconButton from '../custom/YedyIconButton';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
-import {MukTheme} from '../../types';
 
 export default function MenuFooter() {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {ui} = useStores();
   const {api} = useServices();
   const toggleTheme = ui.getScheme === 'light' ? 'dark' : 'light';

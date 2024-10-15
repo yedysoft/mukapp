@@ -1,8 +1,7 @@
 import {TouchableOpacity} from 'react-native';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import {Dispatch, SetStateAction} from 'react';
-import {MukTheme} from '../../types';
 import YedyText from '../custom/YedyText';
 
 type Props = {
@@ -16,7 +15,7 @@ type Props = {
 };
 
 export default function ProfileStatsItem({stat, index, activeIndex, setActiveIndex}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const active = index === activeIndex;
 
   return (

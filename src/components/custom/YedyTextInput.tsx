@@ -19,8 +19,7 @@ import {observer} from 'mobx-react';
 import CustomPickerView from './YedyPickerView';
 import YedyPicker from './YedyPicker';
 import YedyDatePicker from './YedyDatePicker';
-import {useTheme} from 'react-native-paper';
-import {MukTheme} from '../../types';
+import useTheme from '../../hooks/useTheme';
 import YedyText from './YedyText';
 
 type Validates = 'required';
@@ -79,7 +78,7 @@ const TextInputComp = observer(
       ref,
     ) => {
       const inputRef = useRef<TextInput>(null);
-      const {colors} = useTheme<MukTheme>();
+      const {colors} = useTheme();
       const {ui} = useStores();
       const {t} = useServices();
       const validInputValue = rest.value ?? rest.defaultValue;

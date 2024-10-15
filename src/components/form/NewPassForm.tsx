@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import YedyTextInput from '../custom/YedyTextInput';
 import MukButton from '../custom/MukButton';
 import React, {useRef} from 'react';
@@ -8,13 +8,12 @@ import {useServices} from '../../services';
 import {responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import MukForm, {MukFormRef} from '../custom/MukForm';
-import {MukTheme} from '../../types';
 import {View} from 'react-native';
 import YedyIconButton from '../custom/YedyIconButton';
 import YedyText from '../custom/YedyText';
 
 export default observer(() => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {loading} = useStores();
   const {api, t} = useServices();
   const formRef = useRef<MukFormRef<IPassChange>>(null);

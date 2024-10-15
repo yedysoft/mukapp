@@ -1,15 +1,14 @@
 import {View} from 'react-native';
 import MukImage from '../custom/MukImage';
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveWidth} from '../../utils/util';
 import Coin from './Coin';
 import {useStores} from '../../stores';
-import {MukTheme} from '../../types';
 import {observer} from 'mobx-react';
 import YedyText from '../custom/YedyText';
 
 export default observer(() => {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const {user, auth} = useStores();
 
   return (

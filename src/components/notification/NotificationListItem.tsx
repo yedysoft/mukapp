@@ -1,14 +1,13 @@
-import {useTheme} from 'react-native-paper';
+import useTheme from '../../hooks/useTheme';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
-import {MukTheme} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {INotification} from '../../types/user';
 import {useServices} from '../../services';
 import YedyIconButton from '../custom/YedyIconButton';
 import {View} from 'react-native';
-import MukIcon from '../custom/MukIcon';
+import YedyIcon from '../custom/YedyIcon';
 import YedyText from '../custom/YedyText';
 
 type Props = {
@@ -17,7 +16,7 @@ type Props = {
 };
 
 export default function NotificationListItem({notification, compact}: Props) {
-  const {colors} = useTheme<MukTheme>();
+  const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {api} = useServices();
 
@@ -42,14 +41,14 @@ export default function NotificationListItem({notification, compact}: Props) {
           alignItems: 'center',
         }}
       >
-        <MukIcon
+        <YedyIcon
           scale={compact ? 0.5 : 0.6}
           icon={
             notification.category === 'FOLLOW'
-              ? 'user-plus'
+              ? 'account'
               : notification.category === 'MESSAGE'
-              ? 'message-circle'
-              : 'info'
+              ? 'chat-outline'
+              : 'information'
           }
         />
         <YedyText numberOfLines={2} fontSize={compact ? 14 : 16} style={{maxWidth: compact ? '70%' : '100%'}}>
@@ -87,7 +86,7 @@ export default function NotificationListItem({notification, compact}: Props) {
           }}
           color={compact ? colors.secondary : colors.tertiary}
           scale={compact ? 0.3 : 0.4}
-          icon={'x-circle'}
+          icon={'close-circle-outline'}
           onPress={() => notification && api.user.rejectFollowRequest(notification.data.value, notification.id)}
         />
       </View>
