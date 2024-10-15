@@ -20,7 +20,7 @@ export default function TokenExchange() {
       }}
     >
       <Token style={{width: '30%', justifyContent: 'flex-start'}} />
-      <YedyIconButton scale={1} style={{}} icon={'refresh-cw'} onPress={() => console.log('convert')} />
+      <YedyIconButton scale={1} icon={'account-convert-outline'} onPress={() => console.log('convert')} />
       <Coin style={{width: '30%', justifyContent: 'flex-end'}} />
     </View>
   );

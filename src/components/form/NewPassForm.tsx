@@ -38,7 +38,7 @@ export default observer(() => {
         <YedyText fontType={'bold'} fontSize={32}>
           {t.do('form.newPass.title')}
         </YedyText>
-        <YedyIconButton icon={'log-out'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
+        <YedyIconButton icon={'logout'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
       </View>
       <MukForm ref={formRef} onSubmit={onSubmit} data={formData}>
         <YedyTextInput

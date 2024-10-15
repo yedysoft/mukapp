@@ -56,7 +56,7 @@ export default observer(({user}: Props) => {
         <YedyIconButton
           color={colors.secondary}
           scale={0.4}
-          icon={user.isFollows ? 'user-minus' : 'user-plus'}
+          icon={user.isFollows ? 'account-minus' : 'account-plus'}
           onPress={() => (user.isFollows ? api.user.unFollow(user.id) : api.user.sendFollowRequest(user.id))}
         />
       */}

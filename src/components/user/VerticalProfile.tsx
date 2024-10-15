@@ -62,7 +62,7 @@ export default observer(({profile, otherUser}: Props) => {
           <YedyIconButton
             color={colors.secondary}
             scale={0.4}
-            icon={profile.isFollows ? 'user-minus' : 'user-plus'}
+            icon={profile.isFollows ? 'account-minus' : 'account-plus'}
             onPress={() => {
               profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id);
               navigation.goBack();
@@ -70,7 +70,7 @@ export default observer(({profile, otherUser}: Props) => {
           />
           <YedyIconButton
             scale={0.4}
-            icon={'slash'}
+            icon={'block-helper'}
             color={colors.tertiary}
             onPress={() => {
               api.user.blockUser(profile.id);

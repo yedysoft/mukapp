@@ -4,13 +4,14 @@ import YedyIconButton from './YedyIconButton';
 import {responsiveWidth} from '../../utils/util';
 import useTheme from '../../hooks/useTheme';
 import YedyPortal from './YedyPortal';
+import {YedyIconName} from '../../types';
 
 type Props = {
   children: ReactNode;
   visible: boolean;
   changeVisible: (open: boolean) => void;
   buttonOnPress?: () => void;
-  buttonIcon?: string;
+  buttonIcon: YedyIconName;
   style?: StyleProp<ViewStyle>;
 };
 

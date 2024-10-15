@@ -13,7 +13,7 @@ export default observer(() => {
 
   const menu: MukMenu[] = [
     {
-      icon: 'user',
+      icon: 'account',
       label: t.do('main.side.profile'),
       route: 'Profile',
       params: {userId: user.getInfo.id},
@@ -24,7 +24,7 @@ export default observer(() => {
       route: 'Notifications',
     },
     {
-      icon: 'search',
+      icon: 'account-search',
       label: t.do('main.side.search'),
       route: 'Search',
     },
@@ -35,7 +35,7 @@ export default observer(() => {
       disabled: true,
     },
     {
-      icon: 'list',
+      icon: 'format-list-checks',
       label: t.do('main.side.tasks'),
       route: 'Task',
       disabled: true,
@@ -46,7 +46,7 @@ export default observer(() => {
       route: 'PS',
     },
     {
-      icon: 'settings',
+      icon: 'cog',
       label: t.do('main.side.settings'),
       route: 'Settings',
     },

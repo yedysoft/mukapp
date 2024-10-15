@@ -58,7 +58,7 @@ export default observer(() => {
       ) : route.name === 'Room' ? (
         <Coin textColor={textColor} />
       ) : route.name === 'Profile' && params.userId === user.getInfo.id ? (
-        <YedyIconButton icon={'edit'} scale={0.4} onPress={() => navigation.navigate('Edit')} />
+        <YedyIconButton icon={'account-edit'} scale={0.4} onPress={() => navigation.navigate('Edit')} />
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
       ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (

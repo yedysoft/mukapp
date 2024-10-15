@@ -47,7 +47,7 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
       </View>
       <YedyIconButton
         scale={0.4}
-        icon={'user-minus'}
+        icon={'account-minus'}
         color={colors.secondary}
         style={{display: otherUser ? 'none' : 'flex'}}
         onPress={() => onIconPress(item.id)}

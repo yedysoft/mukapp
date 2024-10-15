@@ -57,7 +57,7 @@ export default function MukImage({
         <YedyIconButton
           ref={ref}
           scale={0.33}
-          icon={'edit'}
+          icon={'image-edit'}
           modal={EditImage}
           tooltipOrModalData={{edit: edit, setLoading: setLoading}}
           style={{

@@ -277,13 +277,13 @@ const TextInputComp = observer(
             <CustomPickerView
               visible={pickerVisible}
               changeVisible={pickerChangeVisible}
+              buttonIcon={rest.returnKeyType === 'done' ? 'check-bold' : 'arrow-right-thick'}
               buttonOnPress={() => {
                 if (rest.onSubmitEditing) {
                   pickerChangeVisible(false);
                   rest.onSubmitEditing({} as NativeSyntheticEvent<TextInputSubmitEditingEventData>);
                 }
               }}
-              buttonIcon={rest.returnKeyType === 'done' ? 'check' : 'arrow-right'}
             >
               {pickerType === 'normal' && pickerItems ? (
                 <YedyPicker name={name} items={pickerItems} value={getValue()} onValueChange={handleValueChange} />

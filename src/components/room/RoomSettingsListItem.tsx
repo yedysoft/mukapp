@@ -1,7 +1,6 @@
 import useTheme from '../../hooks/useTheme';
 import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
-import MukSwitch from '../custom/MukSwitch';
 import YedyText from '../custom/YedyText';
 
 type Props = {
@@ -16,7 +15,6 @@ const RoomSettingsListItem = observer(({setting}: Props) => {
       <YedyText numberOfLines={1} fontSize={16}>
         Test Setting
       </YedyText>
-      <MukSwitch value={true} onValueChange={() => console.log('switched')} />
     </MukListItem>
   );
 });
