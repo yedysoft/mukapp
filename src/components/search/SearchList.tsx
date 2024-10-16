@@ -3,7 +3,7 @@ import {FlatList, View} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import {ReactElement} from 'react';
 import {ISearchUser} from '../../types/user';
-import MukImage from '../custom/MukImage';
+import {YedyImage} from '../custom';
 
 type Props = {
   list?: ISearchUser[];
@@ -16,7 +16,7 @@ export default function SearchList({list, header}: Props) {
       ListHeaderComponent={header}
       ListEmptyComponent={
         <View style={{alignItems: 'center', opacity: 0.1}}>
-          <MukImage scale={2} source={require('../../../assets/noimage-gray.png')} />
+          <YedyImage scale={2} source={require('../../../assets/noimage-gray.png')} />
         </View>
       }
       contentContainerStyle={{paddingHorizontal: responsiveWidth(16), gap: responsiveWidth(8)}}

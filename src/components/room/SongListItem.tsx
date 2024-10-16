@@ -1,17 +1,14 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {View} from 'react-native';
-import MukImage from '../../components/custom/MukImage';
+import {YedyIconButton, YedyImage, YedyListItem, YedyText} from '../custom';
 import {responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
 import {useServices} from '../../services';
 import {IQueueTrack, ITrack} from '../../types/media';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import VoteButton from './VoteButton';
-import AddButton from './AddButton';
 import {useState} from 'react';
 import SpotifyIcon from '../spotify/SpotifyIcon';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   song: IQueueTrack | ITrack;
@@ -34,18 +31,18 @@ export default observer(({song, itemType, disabled}: Props) => {
   };
 
   return (
-    <MukListItem style={{flex: 1, gap: responsiveWidth(8)}} disabled={true}>
-      <MukImage scale={1.4} source={api.helper.getImageUrl(song.images, 1.4)} radius={false} />
+    <YedyListItem style={{flex: 1, gap: responsiveWidth(8)}} disabled={true}>
+      <YedyImage scale={1.4} source={api.helper.getImageUrl(song.images, 1.4)} radius={false} />
       {title ? (
-        <YedyText numberOfLines={1} fontSize={18} style={{color: colors.tertiary}}>
+        <YedyText numberOfLines={1} size={18} color={colors.tertiary}>
           {title}
         </YedyText>
       ) : (
         <View style={{flex: 1, flexDirection: 'column'}}>
-          <YedyText numberOfLines={1} fontType={'bold'} fontSize={18} style={{marginLeft: responsiveWidth(8)}}>
+          <YedyText numberOfLines={1} type={'bold'} size={18} style={{marginLeft: responsiveWidth(8)}}>
             {song.name}
           </YedyText>
-          <YedyText numberOfLines={1} fontSize={14} style={{marginLeft: responsiveWidth(8)}}>
+          <YedyText numberOfLines={1} size={14} style={{marginLeft: responsiveWidth(8)}}>
             {api.helper.getArtist(song.artists)}
           </YedyText>
           <SpotifyIcon id={song.id} />
@@ -64,12 +61,13 @@ export default observer(({song, itemType, disabled}: Props) => {
           }}
         />
       ) : itemType === 'add' ? (
-        <AddButton
+        <YedyIconButton
+          icon={'plus'}
           onPress={soonTitle}
           color={title ? colors.tertiary : colors.secondary}
           style={{position: 'absolute', right: responsiveWidth(0)}}
         />
       ) : null}
-    </MukListItem>
+    </YedyListItem>
   );
 });

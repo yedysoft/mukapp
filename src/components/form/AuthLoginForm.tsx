@@ -1,25 +1,22 @@
 import {observer} from 'mobx-react';
-import useTheme from '../../hooks/useTheme';
-import YedyTextInput from '../custom/YedyTextInput';
-import MukButton from '../custom/MukButton';
+import {useTheme} from '../../hooks';
+import {YedyButton, YedyForm, YedyFormRef, YedyText, YedyTextInput} from '../custom';
 import {useRef} from 'react';
 import {useServices} from '../../services';
 import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
-import MukForm, {MukFormRef} from '../custom/MukForm';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {ILogin} from '../../types/auth';
 import SpotifyIcon from '../spotify/SpotifyIcon';
-import YedyText from '../custom/YedyText';
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
   const {colors} = useTheme();
   const {api, t} = useServices();
   const {loading, ui} = useStores();
-  const formRef = useRef<MukFormRef<ILogin>>(null);
+  const formRef = useRef<YedyFormRef<ILogin>>(null);
   const formData: ILogin = {name: ui.name, pass: ui.pass};
 
   const handleSubmit = () => {
@@ -33,11 +30,11 @@ export const AuthLoginForm = observer(() => {
   return (
     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={{gap: responsiveHeight(48)}}>
-        <YedyText fontType={'bold'} fontSize={32}>
+        <YedyText type={'bold'} size={32}>
           {t.do('auth.login.title')}
         </YedyText>
         <View style={{gap: responsiveWidth(8)}}>
-          <MukForm ref={formRef} onSubmit={handleSubmit} data={formData}>
+          <YedyForm ref={formRef} onSubmit={handleSubmit} data={formData}>
             <YedyTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
             <YedyTextInput
               name={'pass'}
@@ -47,8 +44,8 @@ export const AuthLoginForm = observer(() => {
               validate={[value => String(value).length >= 3 && String(value).length <= 32]}
               validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
             />
-          </MukForm>
-          <MukButton
+          </YedyForm>
+          <YedyButton
             buttonStyle={{
               backgroundColor: 'transparent',
               padding: 0,
@@ -77,19 +74,19 @@ export const AuthLoginForm = observer(() => {
               style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
             />
             <SpotifyIcon scale={1.3} noText disabled />
-            <YedyText fontSize={16}>{t.do('auth.login.spotify')}</YedyText>
+            <YedyText size={16}>{t.do('auth.login.spotify')}</YedyText>
           </TouchableOpacity>
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-        <MukButton
+        <YedyButton
           buttonStyle={{backgroundColor: 'transparent', padding: 0}}
           textStyle={{color: colors.outlineVariant}}
           disabled={loading.getLogin}
           label={t.do('auth.login.toRegister')}
           onPress={() => navigation.navigate('Register')}
         />
-        <MukButton
+        <YedyButton
           buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
           loading={loading.getLogin}
           label={t.do('auth.login.submit')}

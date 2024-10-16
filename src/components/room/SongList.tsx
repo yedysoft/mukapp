@@ -3,7 +3,7 @@ import {responsiveWidth} from '../../utils/util';
 import SongListItem from './SongListItem';
 import {IQueueTrack, ITrack} from '../../types/media';
 import {ReactElement} from 'react';
-import LoaderView from '../loading/LoaderView';
+import {YedyLoaderView} from '../custom';
 
 type Props = {
   songs: IQueueTrack[] | ITrack[];
@@ -31,7 +31,7 @@ export default function SongList({songs, header, onEndReached, footer, loading, 
         style={{display: loading ? 'none' : 'flex'}}
         contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
       />
-      <LoaderView style={{display: loading ? 'flex' : 'none'}} />
+      <YedyLoaderView style={{display: loading ? 'flex' : 'none'}} />
     </>
   );
 }

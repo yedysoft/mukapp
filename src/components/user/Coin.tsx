@@ -1,11 +1,10 @@
 import {StyleProp, View, ViewStyle} from 'react-native';
-import MukImage from '../custom/MukImage';
-import useTheme from '../../hooks/useTheme';
+import {YedyImage, YedyText} from '../custom';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -19,9 +18,9 @@ const Coin = observer(({style, textColor}: Props) => {
 
   return (
     <View style={[{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(4)}, style]}>
-      <MukImage scale={0.32} source={require('../../../assets/wallet/coin.png')} />
+      <YedyImage scale={0.32} source={require('../../../assets/wallet/coin.png')} />
       <View>
-        <YedyText numberOfLines={1} fontType={'bold'} fontSize={18} style={{color: textColor ?? colors.secondary}}>
+        <YedyText numberOfLines={1} type={'bold'} size={18} color={textColor ?? colors.secondary}>
           {api.helper.nummer(user.getInfo.coin)}
         </YedyText>
       </View>

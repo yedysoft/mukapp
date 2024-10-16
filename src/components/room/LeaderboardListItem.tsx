@@ -1,15 +1,12 @@
-import useTheme from '../../hooks/useTheme';
-import MukImage from '../../components/custom/MukImage';
+import {useTheme} from '../../hooks';
+import {YedyBadge, YedyImage, YedyListItem, YedyText} from '../custom';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
-import MukBadge from '../custom/YedyBadge';
 import {YedyPalette} from '../../themes/YedyPalette';
 import {IRoomLeaderboard} from '../../types/room';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   leader: IRoomLeaderboard;
@@ -29,7 +26,7 @@ export default observer(({leader, index}: Props) => {
   const rankColor = rankColors[index] ?? colors.secondary;
 
   return (
-    <MukListItem
+    <YedyListItem
       style={{
         alignItems: 'center',
       }}
@@ -38,18 +35,15 @@ export default observer(({leader, index}: Props) => {
       {index === 0 ? null : (
         <YedyText
           numberOfLines={1}
-          fontType={'bold'}
-          fontSize={28}
-          style={{
-            color: rankColor,
-            minWidth: responsiveWidth(40),
-            textAlign: 'center',
-          }}
+          type={'bold'}
+          size={28}
+          color={rankColor}
+          style={{minWidth: responsiveWidth(40), textAlign: 'center'}}
         >
           {index}
         </YedyText>
       )}
-      <MukImage
+      <YedyImage
         scale={1}
         source={
           leader.image
@@ -58,10 +52,10 @@ export default observer(({leader, index}: Props) => {
         }
         style={{borderRadius: 100, borderWidth: 2, borderColor: rankColor}}
       />
-      <YedyText numberOfLines={1} fontType={'bold'} fontSize={16} style={{flex: 1, color: rankColor}}>
+      <YedyText numberOfLines={1} type={'bold'} size={16} color={rankColor} style={{flex: 1}}>
         {leader.userName}
       </YedyText>
-      <MukBadge
+      <YedyBadge
         badge={leader.voteCount}
         style={{
           minWidth: responsiveWidth(36),
@@ -74,6 +68,6 @@ export default observer(({leader, index}: Props) => {
         }}
         textStyle={{color: colors.secondary, fontSize: responsiveSize(16)}}
       />
-    </MukListItem>
+    </YedyListItem>
   );
 });

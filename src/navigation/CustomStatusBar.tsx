@@ -5,7 +5,7 @@ import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Platform, View} from 'react-native';
 import {useServices} from '../services';
-import useTheme from '../hooks/useTheme';
+import {useTheme} from '../hooks';
 
 export default observer(() => {
   const {ui, room, media} = useStores();

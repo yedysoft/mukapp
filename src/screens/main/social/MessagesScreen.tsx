@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import MessagesList from '../../../components/messages/MessagesList';
 import {useStores} from '../../../stores';
 import CreateChatTooltip from '../../../components/tooltips/CreateChatTooltip';
-import YedyFAB from '../../../components/custom/YedyFAB';
+import {YedyFAB} from '../../../components/custom';
 import React from 'react';
 import {responsiveWidth} from '../../../utils/util';
 

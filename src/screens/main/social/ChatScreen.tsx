@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react';
-import YedyChat from '../../../components/custom/YedyChat';
+import {YedyChat} from '../../../components/custom';
 import {useServices} from '../../../services';
 import {useStores} from '../../../stores';
 import ChatLayout from '../../../components/layouts/ChatLayout';

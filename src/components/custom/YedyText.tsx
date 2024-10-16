@@ -1,5 +1,5 @@
-import {Text, TextProps} from 'react-native';
-import useTheme from '../../hooks/useTheme';
+import {ColorValue, Text, TextProps} from 'react-native';
+import {useTheme} from '../../hooks';
 import {observer} from 'mobx-react';
 import {responsiveSize} from '../../utils/util';
 
@@ -7,8 +7,9 @@ type fontTypes = 'reqular' | 'bold' | 'italic';
 
 type Props = TextProps & {
   visible?: boolean;
-  fontType?: fontTypes;
-  fontSize?: number;
+  type?: fontTypes;
+  size?: number;
+  color?: ColorValue;
 };
 
 const fonts: Record<fontTypes, string> = {
@@ -17,7 +18,7 @@ const fonts: Record<fontTypes, string> = {
   italic: 'ProductSans-Italic',
 };
 
-export default observer(({visible = true, fontType = 'reqular', fontSize = 15, ...rest}: Props) => {
+export default observer(({visible = true, type = 'reqular', size = 15, color, ...rest}: Props) => {
   const {colors} = useTheme();
 
   return (
@@ -25,9 +26,9 @@ export default observer(({visible = true, fontType = 'reqular', fontSize = 15, .
       {...rest}
       style={[
         {
-          fontSize: responsiveSize(fontSize),
-          fontFamily: fonts[fontType],
-          color: colors.secondary,
+          fontSize: responsiveSize(size),
+          fontFamily: fonts[type],
+          color: color ?? colors.secondary,
           display: visible ? undefined : 'none',
         },
         rest.style,

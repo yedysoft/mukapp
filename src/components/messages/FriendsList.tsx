@@ -2,7 +2,7 @@ import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import FriendsListItem from './FriendsListItem';
 import {IFollowUser} from '../../types/user';
-import MukImage from '../custom/MukImage';
+import {YedyImage} from '../custom';
 
 type Props = {
   friends: IFollowUser[];
@@ -20,7 +20,7 @@ export default function FriendsList({friends, onPress}: Props) {
         gap: responsiveWidth(8),
       }}
       ListEmptyComponent={
-        <MukImage
+        <YedyImage
           source={require('../../../assets/noimage-gray.png')}
           scale={2}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}

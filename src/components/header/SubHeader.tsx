@@ -1,6 +1,6 @@
-import useTheme from '../../hooks/useTheme';
+import {useGroup, useInfo, useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
-import YedyIconButton from '../custom/YedyIconButton';
+import {YedyIconButton, YedyImage, YedyText} from '../custom';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import Token from '../user/Token';
@@ -10,12 +10,8 @@ import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import {Platform, View} from 'react-native';
-import useInfo from '../../hooks/useInfo';
-import useGroup from '../../hooks/useGroup';
-import MukImage from '../custom/MukImage';
 import defaults from '../../utils/defaults';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import YedyText from '../custom/YedyText';
 
 export default observer(() => {
   const {colors} = useTheme();
@@ -33,7 +29,7 @@ export default observer(() => {
       style={{
         backgroundColor: colors.background,
         paddingHorizontal: responsiveWidth(8),
-        paddingRight: responsiveWidth(12),
+        paddingRight: responsiveWidth(16),
         paddingBottom: responsiveWidth(Platform.OS === 'ios' ? 8 : 12),
         paddingTop: responsiveWidth(Platform.OS === 'ios' ? 8 : 12) + (Platform.OS === 'ios' ? 0 : insets.top),
         flexDirection: 'row',
@@ -60,7 +56,7 @@ export default observer(() => {
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
       ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (
-        <YedyText numberOfLines={1} fontType={'bold'} fontSize={28}>
+        <YedyText numberOfLines={1} type={'bold'} size={28}>
           {t.do(`main.side.${route.name.toLowerCase()}` as MukLangPaths)}
         </YedyText>
       ) : null}
@@ -88,7 +84,7 @@ const ChatHeader = observer(({id}: {id: string}) => {
         gap: responsiveWidth(4),
       }}
     >
-      <MukImage
+      <YedyImage
         source={
           info.image
             ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
@@ -101,10 +97,10 @@ const ChatHeader = observer(({id}: {id: string}) => {
         }}
       />
       <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
-        <YedyText fontType={'bold'} fontSize={18}>
+        <YedyText type={'bold'} size={18}>
           {chat.name ? chat.name : name}
         </YedyText>
-        <YedyText fontSize={12} visible={!!typingMessage} style={{color: colors.primary}}>
+        <YedyText size={12} visible={!!typingMessage} color={colors.primary}>
           {typingMessage}
         </YedyText>
       </View>

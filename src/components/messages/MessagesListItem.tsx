@@ -1,17 +1,13 @@
-import useTheme from '../../hooks/useTheme';
-import MukImage from '../../components/custom/MukImage';
+import {useGroup, useInfo, useTheme} from '../../hooks';
+import {YedyImage, YedyListItem, YedyText} from '../custom';
 import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
-import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {useServices} from '../../services';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IChat, ILastMessage} from '../../types/chat';
-import useInfo from '../../hooks/useInfo';
-import useGroup from '../../hooks/useGroup';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   chat: IChat;
@@ -34,8 +30,8 @@ export default observer(({chat}: Props) => {
   const datetime = date === 'Bugün' ? time : date;
 
   return (
-    <MukListItem style={{alignItems: 'center'}} onPress={() => navigation.navigate('Chat', {chat: chat})}>
-      <MukImage
+    <YedyListItem style={{alignItems: 'center'}} onPress={() => navigation.navigate('Chat', {chat: chat})}>
+      <YedyImage
         scale={0.8}
         style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}}
         source={
@@ -46,23 +42,17 @@ export default observer(({chat}: Props) => {
       />
       <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8), paddingVertical: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <YedyText numberOfLines={1} fontType={'bold'} fontSize={17}>
+          <YedyText numberOfLines={1} type={'bold'} size={17}>
             {chat.name ? chat.name : name}
           </YedyText>
-          <YedyText numberOfLines={1} fontSize={13}>
+          <YedyText numberOfLines={1} size={13}>
             {datetime}
           </YedyText>
         </View>
-        <YedyText
-          numberOfLines={1}
-          style={{
-            flex: 1,
-            color: typingMessage ? colors.primary : colors.secondary,
-          }}
-        >
+        <YedyText numberOfLines={1} color={typingMessage ? colors.primary : colors.secondary} style={{flex: 1}}>
           {typingMessage ? typingMessage : lastMessage.message}
         </YedyText>
       </View>
-    </MukListItem>
+    </YedyListItem>
   );
 });

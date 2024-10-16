@@ -1,13 +1,10 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {View} from 'react-native';
-import MukImage from '../../components/custom/MukImage';
+import {YedyIconButton, YedyImage, YedyListItem, YedyText} from '../custom';
 import {responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import {IBlockedUser} from '../../types/user';
-import YedyIconButton from '../custom/YedyIconButton';
 import {useStores} from '../../stores';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   item: IBlockedUser;
@@ -19,9 +16,9 @@ export default observer(({item, onIconPress}: Props) => {
   const {auth} = useStores();
 
   return (
-    <MukListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled>
+    <YedyListItem style={{alignItems: 'center', justifyContent: 'space-between'}} disabled>
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
-        <MukImage
+        <YedyImage
           scale={1}
           source={
             item.image
@@ -32,6 +29,6 @@ export default observer(({item, onIconPress}: Props) => {
         <YedyText numberOfLines={1}>@{item.userName}</YedyText>
       </View>
       <YedyIconButton scale={0.4} icon={'circle'} color={colors.secondary} onPress={() => onIconPress(item.blockId)} />
-    </MukListItem>
+    </YedyListItem>
   );
 });

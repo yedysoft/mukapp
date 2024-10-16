@@ -1,16 +1,13 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
-import YedyIcon from '../custom/YedyIcon';
+import {YedyIcon, YedyImage, YedyListItem, YedyText} from '../custom';
 import {View} from 'react-native';
 import {useServices} from '../../services';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
-import MukImage from '../custom/MukImage';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   user: ISearchUser;
@@ -23,12 +20,12 @@ export default observer(({user}: Props) => {
   const navigation = useNavigation<MainStackNavProp>();
 
   return (
-    <MukListItem
+    <YedyListItem
       style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}}
       onPress={() => navigation.navigate('Profile', {userId: user.id})}
     >
       {user.image ? (
-        <MukImage
+        <YedyImage
           scale={0.8}
           style={{marginLeft: responsiveWidth(-5)}}
           source={{uri: `${user.image.link}?token=${auth.getAuthToken}`}}
@@ -37,17 +34,18 @@ export default observer(({user}: Props) => {
         <YedyIcon scale={0.8} icon={'account'} />
       )}
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <YedyText numberOfLines={1} fontType={'bold'} fontSize={16}>
+        <YedyText numberOfLines={1} type={'bold'} size={16}>
           {user.name}
         </YedyText>
-        <YedyText numberOfLines={1} fontSize={14}>
+        <YedyText numberOfLines={1} size={14}>
           @{user.userName}
         </YedyText>
         <YedyText
           numberOfLines={1}
           visible={user.isFollower}
-          fontSize={12}
-          style={{marginTop: responsiveWidth(4), color: colors.outlineVariant}}
+          size={12}
+          color={colors.outlineVariant}
+          style={{marginTop: responsiveWidth(4)}}
         >
           {t.do('main.search.follows')}
         </YedyText>
@@ -60,6 +58,6 @@ export default observer(({user}: Props) => {
           onPress={() => (user.isFollows ? api.user.unFollow(user.id) : api.user.sendFollowRequest(user.id))}
         />
       */}
-    </MukListItem>
+    </YedyListItem>
   );
 });

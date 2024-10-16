@@ -1,5 +1,5 @@
 import {responsiveWidth} from '../../utils/util';
-import YedyIconButton from '../custom/YedyIconButton';
+import {YedyIconButton, YedyLogo} from '../custom';
 import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import NotificationsTooltip from '../tooltips/NotificationsTooltip';
@@ -8,8 +8,7 @@ import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {Platform, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import MukLogo from '../custom/MukLogo';
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 
 export default observer(() => {
   const {colors} = useTheme();
@@ -34,12 +33,12 @@ export default observer(() => {
         gap: responsiveWidth(4),
       }}
     >
-      <YedyIconButton icon={'menu'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
-      <MukLogo />
+      <YedyIconButton icon={'hamburger'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
+      <YedyLogo />
       {tabName === 'Shop kapandı' ? ( // logo ortalamadığı için kapandı
         <Coin />
       ) : (
-        <YedyIconButton defaultBadge icon={'bell'} scale={0.5} tooltip={NotificationsTooltip} />
+        <YedyIconButton defaultBadge icon={'alarm-bell'} scale={0.5} tooltip={NotificationsTooltip} />
       )}
     </View>
   );

@@ -1,9 +1,8 @@
 import {responsiveWidth} from '../../utils/util';
 import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
-import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
+import {useTheme} from '../../hooks';
 import YedyText from './YedyText';
-import useTheme from '../../hooks/useTheme';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -13,7 +12,6 @@ type Props = {
 };
 export default observer(({style, textStyle, badge, defaultBadge}: Props) => {
   const {colors} = useTheme();
-  const {ui} = useStores();
 
   return (
     <View
@@ -31,9 +29,11 @@ export default observer(({style, textStyle, badge, defaultBadge}: Props) => {
         style,
       ]}
     >
-      <YedyText numberOfLines={1} fontType={'bold'} fontSize={14} style={[{color: colors.light}, textStyle]}>
-        {badge}
-      </YedyText>
+      {!defaultBadge && (
+        <YedyText numberOfLines={1} type={'bold'} size={14} color={colors.light} style={textStyle}>
+          {badge}
+        </YedyText>
+      )}
     </View>
   );
 });

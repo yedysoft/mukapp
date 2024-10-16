@@ -1,10 +1,10 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {BackHandler, Keyboard, NativeEventSubscription, Pressable, StyleProp, View, ViewStyle} from 'react-native';
 import defaults from '../../utils/defaults';
 import {Positions} from '../../types';
 import {responsiveWidth, shadowStyle} from '../../utils/util';
-import YedyPortal from './YedyPortal';
+import YedyPortal from './portal/YedyPortal';
 
 type Props = {
   children: ReactNode;

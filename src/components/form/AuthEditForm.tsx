@@ -1,22 +1,19 @@
 import {observer} from 'mobx-react';
-import useTheme from '../../hooks/useTheme';
-import YedyTextInput from '../custom/YedyTextInput';
-import MukButton from '../custom/MukButton';
+import {useTheme} from '../../hooks';
+import {YedyButton, YedyForm, YedyFormRef, YedyImage, YedyTextInput} from '../custom';
 import React, {useRef} from 'react';
 import {IEdit} from '../../types/auth';
 import {useServices} from '../../services';
 import {Platform, View} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
-import MukForm, {MukFormRef} from '../custom/MukForm';
-import MukImage from '../custom/MukImage';
 import {_gender} from '../../types/enums';
 
 export default observer(() => {
   const {colors} = useTheme();
   const {api, t} = useServices();
   const {loading, user, auth, ui} = useStores();
-  const formRef = useRef<MukFormRef<IEdit>>(null);
+  const formRef = useRef<YedyFormRef<IEdit>>(null);
   const {name, gender, birthday} = user.getInfo;
   const form: IEdit = {name, gender, birthday};
 
@@ -34,7 +31,7 @@ export default observer(() => {
       <View
         style={{display: ui.isKeyboardVisible ? 'none' : undefined, justifyContent: 'center', alignItems: 'center'}}
       >
-        <MukImage
+        <YedyImage
           edit={{
             id: user.getInfo.image?.id,
             tableName: 'S_USER',
@@ -54,7 +51,7 @@ export default observer(() => {
           }}
         />
       </View>
-      <MukForm ref={formRef} onSubmit={onSubmit} data={form}>
+      <YedyForm ref={formRef} onSubmit={onSubmit} data={form}>
         <YedyTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
         <YedyTextInput name={'telNumber'} label={t.do('auth.register.phone')} inputMode={'tel'} />
         <YedyTextInput
@@ -70,8 +67,8 @@ export default observer(() => {
           pickerType={'date'}
           datePickerMinMax={{max: new Date().getFullYear() - 17}}
         />
-      </MukForm>
-      <MukButton
+      </YedyForm>
+      <YedyButton
         buttonStyle={{paddingVertical: responsiveWidth(16)}}
         loading={loading.editInfo}
         label={t.do('auth.edit.submit')}

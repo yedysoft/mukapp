@@ -1,9 +1,9 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {FlatList} from 'react-native';
 import RoomListItem from './RoomListItem';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
-import MukImage from '../custom/MukImage';
+import {YedyImage} from '../custom';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
 import {useEffect} from 'react';
@@ -32,7 +32,7 @@ export default observer(({type}: Props) => {
       renderItem={({item, index}) => <RoomListItem key={index} roomData={item} />}
       scrollEnabled
       ListEmptyComponent={
-        <MukImage
+        <YedyImage
           source={require('../../../assets/noimage-gray.png')}
           scale={3}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
@@ -41,8 +41,8 @@ export default observer(({type}: Props) => {
       contentContainerStyle={{
         paddingVertical: responsiveWidth(8),
         paddingHorizontal: responsiveWidth(16),
-        backgroundColor: colors.background,
         gap: responsiveWidth(8),
+        backgroundColor: colors.background,
       }}
     />
   );

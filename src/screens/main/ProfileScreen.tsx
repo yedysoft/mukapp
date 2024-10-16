@@ -7,9 +7,9 @@ import {View} from 'react-native';
 import {useServices} from '../../services';
 import {stores, useStores} from '../../stores';
 import {observer} from 'mobx-react';
-import MukLoader from '../../components/loading/MukLoader';
+import {YedyLoader} from '../../components/custom';
 import {SubLayout} from '../../components/layouts/SubLayout';
-import useInfo from '../../hooks/useInfo';
+import {useInfo} from '../../hooks';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
 
 export default observer(() => {
@@ -77,7 +77,7 @@ export default observer(() => {
           />
         </View>
       ) : (
-        <MukLoader scale={1} loading={stores.loading.getVotes} />
+        <YedyLoader scale={1} loading={stores.loading.getVotes} />
       )}
     </SubLayout>
   );

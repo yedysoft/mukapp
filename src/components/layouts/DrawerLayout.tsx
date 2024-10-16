@@ -1,4 +1,4 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {ReactNode} from 'react';
 import {responsiveWidth} from '../../utils/util';
 import {Platform, View} from 'react-native';

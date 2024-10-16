@@ -1,13 +1,11 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
-import YedyIcon from '../custom/YedyIcon';
+import {YedyIcon, YedyListItem, YedyText} from '../custom';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
 import {MukMenu} from '../../types';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useServices} from '../../services';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   item: MukMenu;
@@ -25,7 +23,8 @@ export default function MenuListItem({item}: Props) {
   };
 
   return (
-    <MukListItem
+    <YedyListItem
+      animation={false}
       onPress={() => (item.disabled ? soonTitle() : navigation.navigate(item.route, item.params))}
       style={{
         alignItems: 'center',
@@ -35,17 +34,15 @@ export default function MenuListItem({item}: Props) {
         flex: 1,
       }}
     >
-      <YedyIcon scale={0.7} icon={item.icon} color={title?.color ?? colors.secondary} />
+      <YedyIcon scale={0.65} icon={item.icon} color={title?.color ?? colors.secondary} />
       <YedyText
-        fontType={'bold'}
-        fontSize={19}
-        style={{
-          marginLeft: responsiveWidth(-8),
-          color: title?.color ?? colors.secondary,
-        }}
+        type={'bold'}
+        size={19}
+        color={title?.color ?? colors.secondary}
+        style={{marginLeft: responsiveWidth(-8)}}
       >
         {title?.label ?? item.label}
       </YedyText>
-    </MukListItem>
+    </YedyListItem>
   );
 }

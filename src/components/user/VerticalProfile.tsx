@@ -1,15 +1,13 @@
 import {View} from 'react-native';
-import MukImage from '../custom/MukImage';
-import useTheme from '../../hooks/useTheme';
+import {YedyIconButton, YedyImage, YedyText} from '../custom';
+import {useTheme} from '../../hooks';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {IInfo} from '../../types/user';
-import YedyIconButton from '../custom/YedyIconButton';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import SpotifyIcon from '../spotify/SpotifyIcon';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   profile: IInfo;
@@ -32,7 +30,7 @@ export default observer(({profile, otherUser}: Props) => {
         padding: responsiveWidth(8),
       }}
     >
-      <MukImage
+      <YedyImage
         scale={2}
         source={
           profile.image
@@ -48,10 +46,10 @@ export default observer(({profile, otherUser}: Props) => {
         }}
       />
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <YedyText fontType={'bold'} fontSize={24}>
+        <YedyText type={'bold'} size={24}>
           {profile.name}
         </YedyText>
-        <YedyText fontSize={16}>@{profile.userName}</YedyText>
+        <YedyText size={16}>@{profile.userName}</YedyText>
         <View style={{flexDirection: 'row', marginLeft: -8, gap: responsiveWidth(4)}}>
           {Object.entries(connectedAccounts).map(([key, _name]) => {
             const a = auth.auths.find(value => value.type === key);

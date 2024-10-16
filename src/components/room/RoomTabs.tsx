@@ -1,14 +1,11 @@
-import MukTabs from '../../components/custom/MukTabs';
-import YedyChat from '../custom/YedyChat';
+import {YedyButton, YedyChat, YedyImage, YedyTabs} from '../custom';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useEffect, useState} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
 import LeaderboardList from './LeaderboardList';
-import MukImage from '../custom/MukImage';
 import {responsiveWidth} from '../../utils/util';
-import MukButton from '../custom/MukButton';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 
 export default observer(() => {
@@ -24,7 +21,7 @@ export default observer(() => {
   }, []);
 
   return (
-    <MukTabs
+    <YedyTabs
       onChangeIndex={(index: number) => setTabIndex(index)}
       activeIndex={tabIndex}
       tabs={[
@@ -47,19 +44,19 @@ export default observer(() => {
               songs={media.getQueue}
               footer={
                 media.getQueue.length === 0 ? (
-                  <MukImage
+                  <YedyImage
                     source={require('../../../assets/noimage-gray.png')}
                     scale={2}
                     style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
                   />
                 ) : (
-                  <MukButton
+                  <YedyButton
                     onPress={() => api.helper.openURL('spotify://')}
                     scale={0.25}
                     buttonStyle={{margin: responsiveWidth(16)}}
                   >
                     <SpotifyIcon color={'black'} spotifyText={'Open Spotify'} />
-                  </MukButton>
+                  </YedyButton>
                 )
               }
             />
@@ -74,13 +71,13 @@ export default observer(() => {
               header={<PlaylistList playlists={media.getPlaylists} />}
               footer={
                 selectedPlaylist?.tracks.items.length === 0 || media.getPlaylists.length === 0 ? (
-                  <MukImage
+                  <YedyImage
                     source={require('../../../assets/noimage-gray.png')}
                     scale={2}
                     style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
                   />
                 ) : (
-                  <MukLoader loading={loading.getPlaylistTracks} />
+                  <YedyLoader loading={loading.getPlaylistTracks} />
                 )
               }
               songs={selectedPlaylist?.tracks.items ?? []}

@@ -3,7 +3,7 @@ import {responsiveWidth} from '../../utils/util';
 import {ReactElement} from 'react';
 import ProfileListItem from './ProfileListItem';
 import SongListItem from '../room/SongListItem';
-import MukImage from '../custom/MukImage';
+import {YedyImage} from '../custom';
 
 type Props = {
   items: any[];
@@ -27,7 +27,7 @@ export default function ProfileList({items, header, onIconPress, otherUser, tabI
       }
       scrollEnabled
       ListEmptyComponent={
-        <MukImage
+        <YedyImage
           source={require('../../../assets/noimage-gray.png')}
           scale={2}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}

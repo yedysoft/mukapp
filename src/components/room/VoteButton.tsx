@@ -1,7 +1,6 @@
-import MukImage from '../../components/custom/MukImage';
+import {YedyBadge, YedyImage} from '../custom';
 import {responsiveWidth} from '../../utils/util';
 import {StyleProp, View, ViewStyle} from 'react-native';
-import MukBadge from '../custom/YedyBadge';
 
 type Props = {
   onPress?: () => void;
@@ -14,7 +13,7 @@ type Props = {
 export default ({onPress, badge, style, isLoading, disabled}: Props) => {
   return (
     <View style={style}>
-      <MukBadge
+      <YedyBadge
         badge={badge}
         style={{
           position: 'absolute',
@@ -22,7 +21,7 @@ export default ({onPress, badge, style, isLoading, disabled}: Props) => {
           top: responsiveWidth(9),
         }}
       />
-      <MukImage
+      <YedyImage
         scale={0.6}
         disabled={disabled}
         onPress={onPress}

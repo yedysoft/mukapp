@@ -4,7 +4,7 @@ import {useStores} from '../../../stores';
 import {useServices} from '../../../services';
 import {FlatList} from 'react-native';
 import BlockedListItem from '../../../components/block/BlockedListItem';
-import MukImage from '../../../components/custom/MukImage';
+import {YedyImage} from '../../../components/custom';
 import {SubLayout} from '../../../components/layouts/SubLayout';
 import {observer} from 'mobx-react';
 
@@ -28,7 +28,7 @@ export default observer(() => {
         data={user.getBlockedUsers}
         renderItem={({item}) => <BlockedListItem item={item} onIconPress={handleBlock} />}
         ListEmptyComponent={
-          <MukImage
+          <YedyImage
             source={require('../../../../assets/noimage-gray.png')}
             scale={2}
             style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}

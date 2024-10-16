@@ -1,7 +1,7 @@
 import {View} from 'react-native';
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
-import YedyIconButton from '../custom/YedyIconButton';
+import {YedyIconButton} from '../custom';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
 
@@ -22,7 +22,7 @@ export default function MenuFooter() {
     >
       <YedyIconButton icon={'logout'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
       <YedyIconButton
-        icon={toggleTheme === 'light' ? 'moon-full' : 'weather-sunny'}
+        icon={toggleTheme === 'light' ? 'weather-night' : 'weather-sunny'}
         color={colors.secondary}
         onPress={() => ui.set('appearance', toggleTheme)}
         scale={0.5}

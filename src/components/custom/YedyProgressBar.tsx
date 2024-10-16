@@ -1,5 +1,5 @@
 import {Animated, LayoutChangeEvent, StyleProp, View, ViewStyle} from 'react-native';
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 type Props = {
@@ -16,7 +16,6 @@ export default ({progress, color, visible = true, style, fillStyle}: Props) => {
   const {current: fade} = useRef<Animated.Value>(new Animated.Value(0));
   const [width, setWidth] = useState<number>(0);
   const [prevWidth, setPrevWidth] = useState<number>(0);
-  const indeterminateAnimation = useRef<Animated.CompositeAnimation | null>(null);
 
   const startAnimation = useCallback(() => {
     Animated.timing(fade, {
@@ -35,11 +34,6 @@ export default ({progress, color, visible = true, style, fillStyle}: Props) => {
   }, [fade, timer, progress]);
 
   const stopAnimation = useCallback(() => {
-    // Stop indeterminate animation
-    if (indeterminateAnimation.current) {
-      indeterminateAnimation.current.stop();
-    }
-
     Animated.timing(fade, {
       duration: 200,
       toValue: 0,

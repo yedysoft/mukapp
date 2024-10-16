@@ -1,8 +1,8 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
 import {View} from 'react-native';
 import Token from '../user/Token';
-import YedyIconButton from '../custom/YedyIconButton';
+import {YedyIconButton} from '../custom';
 import Coin from '../user/Coin';
 
 export default function TokenExchange() {

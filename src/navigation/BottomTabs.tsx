@@ -10,8 +10,8 @@ import {Platform} from 'react-native';
 import {NavigationBarButtonStyle} from 'expo-navigation-bar/src/NavigationBar.types';
 import {YedyPalette} from '../themes/YedyPalette';
 import {useServices} from '../services';
-import useTheme from '../hooks/useTheme';
-import YedyIcon from '../components/custom/YedyIcon';
+import {useTheme} from '../hooks';
+import {YedyIcon} from '../components/custom';
 
 const Bottom = createBottomTabNavigator();
 export default observer(() => {
@@ -58,7 +58,7 @@ export default observer(() => {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'shopping'} scale={0.6} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'cart'} scale={0.6} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Shop'}),
@@ -68,7 +68,7 @@ export default observer(() => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'view-grid'} scale={0.6} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'view-sequential'} scale={0.6} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Home'}),
@@ -79,7 +79,7 @@ export default observer(() => {
         name="Messages"
         component={MessagesScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'android-messages'} scale={0.6} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'chat'} scale={0.6} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Messages'}),

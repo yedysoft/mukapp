@@ -3,7 +3,7 @@ import React, {forwardRef, ReactNode, useImperativeHandle, useRef, useState} fro
 import defaults from '../../utils/defaults';
 import {ModalScreenProps, Positions, TooltipScreenProps, YedyIconName} from '../../types';
 import YedyIcon from './YedyIcon';
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
 
 type Props = {
@@ -18,6 +18,7 @@ type Props = {
   modal?: ({visible, changeVisible, data}: ModalScreenProps) => ReactNode;
   tooltipOrModalData?: any;
   disabled?: boolean;
+  visible?: boolean;
   defaultBadge?: boolean;
 };
 
@@ -39,6 +40,7 @@ export default forwardRef<YedyIconButtonRef, Props>(
       modal,
       tooltipOrModalData,
       disabled,
+      visible = true,
       defaultBadge,
     }: Props,
     ref,
@@ -101,9 +103,12 @@ export default forwardRef<YedyIconButtonRef, Props>(
         ref={viewRef}
         style={[
           {
+            display: visible ? undefined : 'none',
             backgroundColor: tooltipVisible || modalVisible ? colors.primary : 'transparent',
             borderRadius: 100,
             padding: responsiveWidth(4),
+            alignItems: 'center',
+            justifyContent: 'center',
           },
           style,
         ]}

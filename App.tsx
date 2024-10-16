@@ -5,7 +5,7 @@ import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stopPersists, stores, useStores} from './src/stores';
 import {initServices, services} from './src/services';
 import MukSplashScreen from './src/screens/auth/MukSplashScreen';
-import MessageStack from './src/components/stacks/MessageStack';
+import {YedyMessageStack} from './src/components/custom';
 import DialogStack from './src/components/stacks/DialogStack';
 import notification from './src/services/notification';
 import listeners from './src/services/listeners';
@@ -72,7 +72,7 @@ export default observer(() => {
     <AppProvider>
       <CustomStatusBar />
       {!ready ? <MukSplashScreen /> : <AppNavigation />}
-      <MessageStack />
+      <YedyMessageStack />
       <DialogStack />
     </AppProvider>
   );

@@ -1,22 +1,18 @@
 import {observer} from 'mobx-react';
-import useTheme from '../../hooks/useTheme';
-import YedyTextInput from '../custom/YedyTextInput';
-import MukButton from '../custom/MukButton';
+import {useTheme} from '../../hooks';
+import {YedyButton, YedyForm, YedyFormRef, YedyIconButton, YedyText, YedyTextInput} from '../custom';
 import React, {useRef} from 'react';
 import {IPassChange} from '../../types/auth';
 import {useServices} from '../../services';
 import {responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
-import MukForm, {MukFormRef} from '../custom/MukForm';
 import {View} from 'react-native';
-import YedyIconButton from '../custom/YedyIconButton';
-import YedyText from '../custom/YedyText';
 
 export default observer(() => {
   const {colors} = useTheme();
   const {loading} = useStores();
   const {api, t} = useServices();
-  const formRef = useRef<MukFormRef<IPassChange>>(null);
+  const formRef = useRef<YedyFormRef<IPassChange>>(null);
   const formData: IPassChange = {oldPass: 'temp', newPass: ''};
 
   const onSubmit = () =>
@@ -35,12 +31,12 @@ export default observer(() => {
           justifyContent: 'space-between',
         }}
       >
-        <YedyText fontType={'bold'} fontSize={32}>
+        <YedyText type={'bold'} size={32}>
           {t.do('form.newPass.title')}
         </YedyText>
         <YedyIconButton icon={'logout'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
       </View>
-      <MukForm ref={formRef} onSubmit={onSubmit} data={formData}>
+      <YedyForm ref={formRef} onSubmit={onSubmit} data={formData}>
         <YedyTextInput
           name={'newPass'}
           label={t.do('form.newPass.newPass')}
@@ -60,8 +56,8 @@ export default observer(() => {
           ]}
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
         />
-      </MukForm>
-      <MukButton
+      </YedyForm>
+      <YedyButton
         buttonStyle={{paddingVertical: responsiveWidth(16)}}
         loading={loading.passChange}
         label={t.do('form.newPass.submit')}

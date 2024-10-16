@@ -1,18 +1,15 @@
 import {observer} from 'mobx-react';
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
-import YedyPicker from '../../components/custom/YedyPicker';
+import {YedyCard, YedyPicker, YedySegmented, YedyText} from '../../components/custom';
 import {_languages, IAppearance, IAuthsType, ILanguage} from '../../types/enums';
 import {useMemo} from 'react';
-import MukCard from '../../components/custom/MukCard';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
-import MukSegmented from '../../components/custom/MukSegmented';
 import {SubLayout} from '../../components/layouts/SubLayout';
 import api from '../../services/api';
 import {ActivityIndicator, TouchableOpacity} from 'react-native';
 import SpotifyIcon from '../../components/spotify/SpotifyIcon';
-import YedyText from '../../components/custom/YedyText';
 
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
 
@@ -28,8 +25,8 @@ export default observer(() => {
 
   return (
     <SubLayout style={{gap: responsiveWidth(16), padding: responsiveWidth(16)}}>
-      <MukCard key={'theme'} title={t.do('main.settings.theme.title')}>
-        <MukSegmented
+      <YedyCard title={t.do('main.settings.theme.title')}>
+        <YedySegmented
           value={ui.appearance}
           onValueChange={value => ui.set('appearance', value as IAppearance)}
           buttons={[
@@ -47,16 +44,16 @@ export default observer(() => {
             },
           ]}
         />
-      </MukCard>
-      <MukCard key={'language'} title={t.do('main.settings.language.title')}>
+      </YedyCard>
+      <YedyCard title={t.do('main.settings.language.title')}>
         <YedyPicker<string>
           items={LanguageDict}
           name={'language'}
           value={ui.language}
           onValueChange={(_name, value) => t.setup(value as ILanguage)}
         />
-      </MukCard>
-      <MukCard key={'accounts'} title={t.do('main.settings.connect.title')} contentStyle={{alignItems: 'flex-start'}}>
+      </YedyCard>
+      <YedyCard title={t.do('main.settings.connect.title')} contentStyle={{alignItems: 'flex-start'}}>
         {Object.entries(connectedAccounts).map(([key, name]) => {
           const isConnected = auth.auths.some(value => value.type === key);
           return (
@@ -81,7 +78,7 @@ export default observer(() => {
                 }}
               />
               <SpotifyIcon scale={1.3} noText disabled />
-              <YedyText fontSize={16}>
+              <YedyText size={16}>
                 {t.do(
                   isConnected
                     ? `main.settings.connect.${name.toLowerCase()}.disconnect`
@@ -91,7 +88,7 @@ export default observer(() => {
             </TouchableOpacity>
           );
         })}
-      </MukCard>
+      </YedyCard>
     </SubLayout>
   );
 });

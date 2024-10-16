@@ -1,4 +1,4 @@
-import YedyFAB from '../custom/YedyFAB';
+import {YedyFAB} from '../custom';
 import React from 'react';
 import {observer} from 'mobx-react';
 import RoomConfigTooltip from '../tooltips/RoomConfigTooltip';
@@ -9,10 +9,6 @@ export default observer(() => {
   const {room} = useStores();
 
   return (
-    <>
-      {!room.isLive ? (
-        <YedyFAB icon={'plus'} tooltip={RoomConfigTooltip} style={{bottom: responsiveWidth(16)}} />
-      ) : null}
-    </>
+    <YedyFAB icon={'plus'} visible={!room.isLive} tooltip={RoomConfigTooltip} style={{bottom: responsiveWidth(16)}} />
   );
 });

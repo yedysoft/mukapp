@@ -13,23 +13,23 @@ export default observer(() => {
 
   const menu: MukMenu[] = [
     {
-      icon: 'account',
+      icon: 'account-outline',
       label: t.do('main.side.profile'),
       route: 'Profile',
       params: {userId: user.getInfo.id},
     },
     {
-      icon: 'bell',
+      icon: 'alarm-bell',
       label: t.do('main.side.notifications'),
       route: 'Notifications',
     },
     {
-      icon: 'account-search',
+      icon: 'account-search-outline',
       label: t.do('main.side.search'),
       route: 'Search',
     },
     {
-      icon: 'star',
+      icon: 'account-star-outline',
       label: t.do('main.side.premium'),
       route: 'Premium',
       disabled: true,
@@ -41,12 +41,12 @@ export default observer(() => {
       disabled: true,
     },
     {
-      icon: 'shield',
+      icon: 'shield-key',
       label: t.do('main.side.ps'),
       route: 'PS',
     },
     {
-      icon: 'cog',
+      icon: 'cog-outline',
       label: t.do('main.side.settings'),
       route: 'Settings',
     },

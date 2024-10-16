@@ -1,6 +1,6 @@
 import {View} from 'react-native';
-import useTheme from '../../hooks/useTheme';
-import MukLogo from '../../components/custom/MukLogo';
+import {useTheme} from '../../hooks';
+import {YedyLogo} from '../../components/custom';
 
 export default function MukSplashScreen() {
   const {colors} = useTheme();
@@ -15,7 +15,7 @@ export default function MukSplashScreen() {
         alignItems: 'center',
       }}
     >
-      <MukLogo imageStyle={{width: 40, aspectRatio: 0.5}} />
+      <YedyLogo imageStyle={{width: 40, aspectRatio: 0.5}} />
     </View>
   );
 }

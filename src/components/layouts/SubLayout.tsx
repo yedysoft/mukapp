@@ -1,4 +1,4 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {ReactNode} from 'react';
 import {KeyboardAvoidingView, Platform, StyleProp, View, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';

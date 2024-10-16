@@ -1,9 +1,9 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {IChat} from '../../types/chat';
 import {FlatList} from 'react-native';
 import MessagesListItem from './MessagesListItem';
 import {responsiveWidth} from '../../utils/util';
-import MukImage from '../custom/MukImage';
+import {YedyImage} from '../custom';
 
 type Props = {
   chats: IChat[];
@@ -22,7 +22,7 @@ export default function MessagesList({chats}: Props) {
         backgroundColor: colors.background,
       }}
       ListEmptyComponent={
-        <MukImage
+        <YedyImage
           source={require('../../../assets/noimage-gray.png')}
           scale={3}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}

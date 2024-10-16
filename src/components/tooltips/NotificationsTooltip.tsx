@@ -1,5 +1,5 @@
 import NotificationList from '../notification/NotificationList';
-import MukTooltip from '../custom/YedyTooltip';
+import {YedyTooltip} from '../custom';
 import {TooltipScreenProps} from '../../types';
 import {useEffect} from 'react';
 import {useServices} from '../../services';
@@ -15,7 +15,7 @@ const NotificationsTooltip = observer(({positions, visible, changeVisible}: Tool
   }, [visible]);
 
   return (
-    <MukTooltip
+    <YedyTooltip
       anchor={'bottom-left'}
       positions={positions}
       visible={visible}
@@ -23,7 +23,7 @@ const NotificationsTooltip = observer(({positions, visible, changeVisible}: Tool
       style={{width: ui.windowWidth * 0.6, height: ui.windowHeight * 0.3}}
     >
       <NotificationList compact />
-    </MukTooltip>
+    </YedyTooltip>
   );
 });
 

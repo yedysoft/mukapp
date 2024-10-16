@@ -1,4 +1,4 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import TokenExchange from '../../components/task/TokenExchange';
 import TasksList from '../../components/task/TasksList';

@@ -1,14 +1,11 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
+import {YedyIcon, YedyIconButton, YedyListItem, YedyText} from '../custom';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {INotification} from '../../types/user';
 import {useServices} from '../../services';
-import YedyIconButton from '../custom/YedyIconButton';
 import {View} from 'react-native';
-import YedyIcon from '../custom/YedyIcon';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   notification: INotification;
@@ -21,7 +18,7 @@ export default function NotificationListItem({notification, compact}: Props) {
   const {api} = useServices();
 
   return (
-    <MukListItem
+    <YedyListItem
       style={{
         flexDirection: compact ? 'column' : 'row',
         justifyContent: 'space-between',
@@ -51,7 +48,7 @@ export default function NotificationListItem({notification, compact}: Props) {
               : 'information'
           }
         />
-        <YedyText numberOfLines={2} fontSize={compact ? 14 : 16} style={{maxWidth: compact ? '70%' : '100%'}}>
+        <YedyText numberOfLines={2} size={compact ? 14 : 16} style={{maxWidth: compact ? '70%' : '100%'}}>
           {notification.content}
         </YedyText>
       </View>
@@ -90,6 +87,6 @@ export default function NotificationListItem({notification, compact}: Props) {
           onPress={() => notification && api.user.rejectFollowRequest(notification.data.value, notification.id)}
         />
       </View>
-    </MukListItem>
+    </YedyListItem>
   );
 }

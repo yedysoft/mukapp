@@ -1,16 +1,13 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {View} from 'react-native';
-import MukImage from '../../components/custom/MukImage';
+import {YedyIcon, YedyImage, YedyListItem, YedyText} from '../custom';
 import {responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
 import {useNavigation} from '@react-navigation/native';
 import {IRoom} from '../../types/room';
 import {useServices} from '../../services';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {MainStackNavProp} from '../../navigation/MainStack';
-import YedyIcon from '../custom/YedyIcon';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   roomData: IRoom;
@@ -32,7 +29,7 @@ export default observer(({roomData}: Props) => {
   };
 
   return (
-    <MukListItem
+    <YedyListItem
       disabled={!roomData.isLive}
       style={{
         opacity: roomData.isLive ? 1 : 0.5,
@@ -44,7 +41,7 @@ export default observer(({roomData}: Props) => {
       }}
       onPress={() => openRoom()}
     >
-      <MukImage
+      <YedyImage
         scale={1.7}
         resizeMode={'cover'}
         style={{
@@ -68,10 +65,10 @@ export default observer(({roomData}: Props) => {
         }}
       >
         <View style={{flex: 1, flexDirection: 'column'}}>
-          <YedyText fontType={'bold'} fontSize={18}>
+          <YedyText type={'bold'} size={18}>
             {roomData.roomName}
           </YedyText>
-          <YedyText numberOfLines={1} fontSize={14}>
+          <YedyText numberOfLines={1} size={14}>
             @{roomData.streamerName}
           </YedyText>
         </View>
@@ -95,7 +92,7 @@ export default observer(({roomData}: Props) => {
           >
             <YedyText
               numberOfLines={1}
-              fontSize={14}
+              size={14}
               style={{
                 maxWidth: !roomData.liveSong?.name ? 180 : undefined,
                 backgroundColor: !roomData.liveSong?.name ? colors.shadow : undefined,
@@ -106,7 +103,7 @@ export default observer(({roomData}: Props) => {
             </YedyText>
             <YedyText
               numberOfLines={1}
-              fontSize={13}
+              size={13}
               style={{
                 maxWidth: !api.helper.getArtist(roomData.liveSong?.artists) ? 120 : undefined,
                 backgroundColor: !api.helper.getArtist(roomData.liveSong?.artists) ? colors.shadow : undefined,
@@ -117,6 +114,6 @@ export default observer(({roomData}: Props) => {
           </View>
         </View>
       </View>
-    </MukListItem>
+    </YedyListItem>
   );
 });

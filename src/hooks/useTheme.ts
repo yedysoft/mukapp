@@ -1,17 +1,20 @@
 import {useStores} from '../stores';
 import {useEffect, useState} from 'react';
-import {useServices} from '../services';
+import {autorun} from 'mobx';
 
 export default () => {
   const {ui} = useStores();
-  const {api} = useServices();
   const [theme, setTheme] = useState(ui.getTheme);
 
   useEffect(() => {
-    if (!api.helper.isEqual(theme, ui.getTheme)) {
+    const disposer = autorun(() => {
       setTheme(ui.getTheme);
-    }
-  }, [ui.getTheme]);
+    });
+
+    return () => {
+      disposer();
+    };
+  }, [ui]);
 
   return theme;
 };

@@ -1,4 +1,4 @@
-import MukTooltip from '../custom/YedyTooltip';
+import {YedyButton, YedyForm, YedyFormRef, YedyImage, YedyText, YedyTextInput, YedyTooltip} from '../custom';
 import {TooltipScreenProps} from '../../types';
 import React, {useEffect, useRef} from 'react';
 import {useServices} from '../../services';
@@ -6,24 +6,17 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import {View} from 'react-native';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
-import MukImage from '../custom/MukImage';
-import useTheme from '../../hooks/useTheme';
-import MukForm, {MukFormRef} from '../custom/MukForm';
-import YedyTextInput from '../custom/YedyTextInput';
-import MukButton from '../custom/MukButton';
+import {useTheme} from '../../hooks';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IRoomConfig} from '../../types/room';
-import {MukBottomSheetRef} from '../custom/MukBottomSheet';
-import YedyText from '../custom/YedyText';
 
 const RoomConfigTooltip = observer(({positions, visible, changeVisible}: TooltipScreenProps) => {
   const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {api, t} = useServices();
   const {ui, room, user, auth, loading} = useStores();
-  const formRef = useRef<MukFormRef<IRoomConfig>>(null);
-  const sheetRef = useRef<MukBottomSheetRef>(null);
+  const formRef = useRef<YedyFormRef<IRoomConfig>>(null);
   const form: IRoomConfig = room.getConfig;
 
   useEffect(() => {
@@ -33,15 +26,14 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
   const createRoom = async () => {
     if (formRef.current?.validateInputs()) {
       await api.room.createRoom(formRef.current?.formData() as IRoomConfig);
-      sheetRef.current?.close();
       if (room.isLive) {
-        sheetRef.current?.close(true);
+        changeVisible(false);
         navigation.navigate('Room');
       }
     }
   };
   return (
-    <MukTooltip
+    <YedyTooltip
       anchor={'on-top'}
       positions={positions}
       visible={visible}
@@ -50,7 +42,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
     >
       <View style={{flex: 1, padding: responsiveWidth(16), flexDirection: 'row', gap: responsiveWidth(16)}}>
         <View style={{justifyContent: 'flex-start', alignItems: 'center'}}>
-          <MukImage
+          <YedyImage
             edit={
               form.id
                 ? {
@@ -76,22 +68,22 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
         </View>
         <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(8)}}>
           <View>
-            <YedyText numberOfLines={1} fontType={'bold'}>
+            <YedyText numberOfLines={1} type={'bold'}>
               {user.getInfo.name}
             </YedyText>
-            <YedyText numberOfLines={1} fontSize={12}>
+            <YedyText numberOfLines={1} size={12}>
               @{user.getInfo.userName}
             </YedyText>
           </View>
-          <MukForm ref={formRef} onSubmit={createRoom} data={form}>
+          <YedyForm ref={formRef} onSubmit={createRoom} data={form}>
             <YedyTextInput
               name={'name'}
               selectionColor={colors.primary}
               label={t.do('roomConfig.name')}
               preValidate={'required'}
             />
-          </MukForm>
-          <MukButton
+          </YedyForm>
+          <YedyButton
             buttonStyle={{paddingVertical: responsiveWidth(12)}}
             loading={loading.createRoom}
             label={t.do('roomConfig.submit')}
@@ -99,7 +91,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
           />
         </View>
       </View>
-    </MukTooltip>
+    </YedyTooltip>
   );
 });
 

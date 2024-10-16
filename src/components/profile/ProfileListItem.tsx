@@ -1,15 +1,12 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {View} from 'react-native';
-import MukImage from '../../components/custom/MukImage';
+import {YedyIconButton, YedyImage, YedyListItem, YedyText} from '../custom';
 import {responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
 import {observer} from 'mobx-react';
 import {ISearchUser} from '../../types/user';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
-import YedyIconButton from '../custom/YedyIconButton';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   item: ISearchUser;
@@ -23,12 +20,12 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
   const {auth} = useStores();
 
   return (
-    <MukListItem
+    <YedyListItem
       style={{alignItems: 'center', justifyContent: 'space-between'}}
       onPress={() => navigation.push('Profile', {userId: item.id})}
     >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
-        <MukImage
+        <YedyImage
           scale={1}
           source={
             item.image
@@ -37,10 +34,10 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
           }
         />
         <View style={{justifyContent: 'center', gap: responsiveWidth(4)}}>
-          <YedyText numberOfLines={1} fontType={'bold'} fontSize={16}>
+          <YedyText numberOfLines={1} type={'bold'} size={16}>
             {item.name}
           </YedyText>
-          <YedyText numberOfLines={1} fontSize={14}>
+          <YedyText numberOfLines={1} size={14}>
             @{item.userName}
           </YedyText>
         </View>
@@ -52,6 +49,6 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
         style={{display: otherUser ? 'none' : 'flex'}}
         onPress={() => onIconPress(item.id)}
       />
-    </MukListItem>
+    </YedyListItem>
   );
 });

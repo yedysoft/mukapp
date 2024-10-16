@@ -1,4 +1,4 @@
-import MukTooltip from '../custom/YedyTooltip';
+import {YedyButton, YedyTooltip} from '../custom';
 import {TooltipScreenProps} from '../../types';
 import React, {useEffect, useState} from 'react';
 import {useServices} from '../../services';
@@ -6,7 +6,6 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import {View} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
-import MukButton from '../custom/MukButton';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {IFollowUser} from '../../types/user';
@@ -66,7 +65,7 @@ const CreateChatTooltip = observer(({positions, visible, changeVisible}: Tooltip
   };
 
   return (
-    <MukTooltip
+    <YedyTooltip
       anchor={'on-top'}
       positions={positions}
       visible={visible}
@@ -82,13 +81,13 @@ const CreateChatTooltip = observer(({positions, visible, changeVisible}: Tooltip
         }}
       >
         <FriendsList friends={users} onPress={selectUser} />
-        <MukButton
+        <YedyButton
           buttonStyle={{paddingVertical: responsiveWidth(16)}}
           label={t.do('main.social.newChat')}
           onPress={createChat}
         />
       </View>
-    </MukTooltip>
+    </YedyTooltip>
   );
 });
 

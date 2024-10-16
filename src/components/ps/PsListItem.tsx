@@ -1,8 +1,7 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
+import {YedyListItem, YedyText} from '../custom';
 import {useServices} from '../../services';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   label?: string;
@@ -11,10 +10,10 @@ type Props = {
 
 export default function PsListItem({label, onPress}: Props) {
   const {colors} = useTheme();
-  const {api, t} = useServices();
+  const {api} = useServices();
 
   return (
-    <MukListItem
+    <YedyListItem
       onPress={onPress}
       style={{
         backgroundColor: api.helper.hexToRgba(colors.secondary, 0.03),
@@ -24,7 +23,7 @@ export default function PsListItem({label, onPress}: Props) {
         alignItems: 'center',
       }}
     >
-      <YedyText fontSize={18}>{label}</YedyText>
-    </MukListItem>
+      <YedyText size={18}>{label}</YedyText>
+    </YedyListItem>
   );
 }

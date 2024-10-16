@@ -2,7 +2,7 @@ import {ReactNode} from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
-import YedyText from '../custom/YedyText';
+import {YedyText} from '../custom';
 
 type Props = {
   title?: string;
@@ -21,7 +21,7 @@ export default observer(({title, children, style}: Props) => {
         style,
       ]}
     >
-      <YedyText fontType={'bold'} fontSize={24} style={{paddingLeft: responsiveWidth(20)}}>
+      <YedyText type={'bold'} size={24} style={{paddingLeft: responsiveWidth(20)}}>
         {title}
       </YedyText>
       {children}

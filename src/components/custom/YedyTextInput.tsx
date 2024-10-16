@@ -16,11 +16,11 @@ import {services, useServices} from '../../services';
 import {genericMemo, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
-import CustomPickerView from './YedyPickerView';
-import YedyPicker from './YedyPicker';
-import YedyDatePicker from './YedyDatePicker';
-import useTheme from '../../hooks/useTheme';
 import YedyText from './YedyText';
+import YedyDatePicker from './picker/YedyDatePicker';
+import YedyPicker from './picker/YedyPicker';
+import YedyPickerView from './picker/YedyPickerView';
+import {useTheme} from '../../hooks';
 
 type Validates = 'required';
 
@@ -209,11 +209,10 @@ const TextInputComp = observer(
           >
             <YedyText
               visible={!isEmpty && !!label}
-              fontSize={Platform.OS === 'ios' ? 11 : 13}
+              size={Platform.OS === 'ios' ? 11 : 13}
+              color={colors.outlineVariant}
               style={{
                 position: 'absolute',
-                display: label ? (isEmpty ? 'none' : undefined) : 'none',
-                color: colors.outlineVariant,
                 left: responsiveWidth(10),
                 top: responsiveWidth(4),
                 zIndex: 1400,
@@ -263,18 +262,11 @@ const TextInputComp = observer(
               ]}
             />
           </Pressable>
-          <YedyText
-            fontSize={13}
-            visible={!!error}
-            style={{
-              color: colors.error,
-              paddingLeft: responsiveWidth(8),
-            }}
-          >
+          <YedyText size={13} visible={!!error} color={colors.error} style={{paddingLeft: responsiveWidth(8)}}>
             * {error}
           </YedyText>
           {isPicker && pickerType ? (
-            <CustomPickerView
+            <YedyPickerView
               visible={pickerVisible}
               changeVisible={pickerChangeVisible}
               buttonIcon={rest.returnKeyType === 'done' ? 'check-bold' : 'arrow-right-thick'}
@@ -296,7 +288,7 @@ const TextInputComp = observer(
                   onValueChange={handleValueChange}
                 />
               )}
-            </CustomPickerView>
+            </YedyPickerView>
           ) : undefined}
         </View>
       );

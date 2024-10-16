@@ -1,11 +1,10 @@
 import {View} from 'react-native';
-import MukImage from '../custom/MukImage';
-import useTheme from '../../hooks/useTheme';
+import {YedyImage, YedyText} from '../custom';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
 import Coin from './Coin';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
-import YedyText from '../custom/YedyText';
 
 export default observer(() => {
   const {colors} = useTheme();
@@ -18,7 +17,7 @@ export default observer(() => {
         gap: responsiveWidth(8),
       }}
     >
-      <MukImage
+      <YedyImage
         scale={1.5}
         source={
           user.getInfo.image
@@ -44,7 +43,7 @@ export default observer(() => {
         }}
       >
         <View>
-          <YedyText numberOfLines={1} fontType={'bold'} fontSize={18}>
+          <YedyText numberOfLines={1} type={'bold'} size={18}>
             {user.getInfo.name}
           </YedyText>
           <YedyText numberOfLines={1}>@{user.getInfo.userName}</YedyText>

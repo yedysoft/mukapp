@@ -1,14 +1,12 @@
-import useTheme from '../../hooks/useTheme';
-import {responsiveHeight, responsiveWidth} from '../../utils/util';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {useTheme} from '../../hooks';
+import {responsiveHeight, responsiveWidth, shadowStyle} from '../../utils/util';
+import {TouchableOpacity} from 'react-native';
 import {useState} from 'react';
-import {MukColors} from '../../types';
 import {SubLayout} from '../../components/layouts/SubLayout';
-import YedyText from '../../components/custom/YedyText';
+import {YedyText} from '../../components/custom';
 
 const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) => {
   const {colors} = useTheme();
-  const styles = makeStyles(colors, active);
 
   return (
     <TouchableOpacity
@@ -22,7 +20,7 @@ const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) 
           borderRadius: 16,
           backgroundColor: colors.backdrop,
         },
-        styles.shadow,
+        shadowStyle(colors.primary),
       ]}
       onPress={onPress}
     >
@@ -41,17 +39,3 @@ export default function PremiumScreen() {
     </SubLayout>
   );
 }
-
-const makeStyles = (colors: MukColors, active: boolean) =>
-  StyleSheet.create({
-    shadow: {
-      shadowColor: active ? colors.primary : 'rgb(138,138,138)',
-      shadowOffset: {
-        width: 0,
-        height: active ? 4 : 3,
-      },
-      shadowOpacity: active ? 0.4 : 0.2,
-      shadowRadius: 3,
-      elevation: 0,
-    },
-  });

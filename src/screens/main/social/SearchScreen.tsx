@@ -3,7 +3,7 @@ import {useStores} from '../../../stores';
 import {useServices} from '../../../services';
 import SearchList from '../../../components/search/SearchList';
 import {responsiveWidth} from '../../../utils/util';
-import YedyTextInput from '../../../components/custom/YedyTextInput';
+import {YedyTextInput} from '../../../components/custom';
 import {useEffect} from 'react';
 import {SubLayout} from '../../../components/layouts/SubLayout';
 

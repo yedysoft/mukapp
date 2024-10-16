@@ -1,19 +1,26 @@
-import {PixelRatio, Platform, StyleProp, ViewStyle} from 'react-native';
+import {PixelRatio, StyleProp, ViewStyle} from 'react-native';
 import React, {memo} from 'react';
 import {stores} from '../stores';
 
-const heightMobileUI = Platform.OS === 'ios' ? 896 : 900;
-const widthMobileUI = Platform.OS === 'ios' ? 414 : 450;
+const DESIGN_HEIGHT = 896;
+const DESIGN_WIDTH = 414;
 
-const normalize = (size: number, based: 'width' | 'height'): number => {
-  const newSize: number =
-    size * (based === 'height' ? stores.ui.windowHeight / heightMobileUI : stores.ui.windowWidth / widthMobileUI);
+const normalize = (size: number, based: 'width' | 'height' | 'size'): number => {
+  const heightScale = stores.ui.windowHeight / DESIGN_HEIGHT;
+  const widthScale = stores.ui.windowWidth / DESIGN_WIDTH;
+  const minScale = Math.min(heightScale, widthScale);
+  const scale = based === 'height' ? heightScale : based === 'width' ? widthScale : minScale;
+  const newSize: number = size * scale;
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
-const responsiveScale = (scale: number | undefined): number => responsiveWidth(scale ? 64 * scale : 64);
+
 const responsiveWidth = (size: number): number => normalize(size, 'width');
+
 const responsiveHeight = (size: number): number => normalize(size, 'height');
-const responsiveSize = (size: number): number => responsiveWidth(size);
+
+const responsiveSize = (size: number): number => normalize(size, 'size');
+
+const responsiveScale = (scale: number): number => responsiveSize(scale * 64);
 
 const shadowStyle = (shadowColor: string): StyleProp<ViewStyle> => ({
   shadowColor,

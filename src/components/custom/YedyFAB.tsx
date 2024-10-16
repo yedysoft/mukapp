@@ -1,10 +1,10 @@
 import {responsiveWidth, shadowStyle} from '../../utils/util';
-import {StyleProp, View, ViewStyle} from 'react-native';
+import {StyleProp, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
 import {ModalScreenProps, TooltipScreenProps, YedyIconName} from '../../types';
 import {ReactNode} from 'react';
 import YedyIconButton from './YedyIconButton';
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 
 type Props = {
   onPress?: () => void;
@@ -17,35 +17,33 @@ type Props = {
   tooltipOrModalData?: any;
 };
 
-export default observer(({onPress, style, icon, scale = 1, visible, tooltip, modal, tooltipOrModalData}: Props) => {
-  const {colors} = useTheme();
+export default observer(
+  ({onPress, style, icon, scale = 0.7, visible = true, tooltip, modal, tooltipOrModalData}: Props) => {
+    const {colors} = useTheme();
 
-  return (
-    <View
-      style={{
-        display: visible ? undefined : 'none',
-        position: 'absolute',
-        zIndex: 1300,
-        right: responsiveWidth(16),
-      }}
-    >
+    return (
       <YedyIconButton
         icon={icon}
         color={colors.dark}
         scale={scale}
-        style={[
-          {
-            backgroundColor: colors.primary,
-            borderRadius: 100,
-          },
-          shadowStyle(colors.primary),
-          style,
-        ]}
         onPress={onPress}
         tooltip={tooltip}
         modal={modal}
         tooltipOrModalData={tooltipOrModalData}
+        visible={visible}
+        style={[
+          {
+            position: 'absolute',
+            zIndex: 1400,
+            right: responsiveWidth(16),
+            backgroundColor: colors.primary,
+            width: responsiveWidth(64),
+            aspectRatio: 1,
+          },
+          shadowStyle(colors.primary),
+          style,
+        ]}
       />
-    </View>
-  );
-});
+    );
+  },
+);

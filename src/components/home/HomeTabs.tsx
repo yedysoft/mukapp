@@ -1,14 +1,14 @@
 import RoomList from '../../components/home/RoomList';
 import {useServices} from '../../services';
 import {useState} from 'react';
-import MukChipTabs from '../custom/MukChipTabs';
+import {YedyChipTabs} from '../custom';
 
 export default function () {
   const [tabIndex, setTabIndex] = useState(0);
   const {t} = useServices();
 
   return (
-    <MukChipTabs
+    <YedyChipTabs
       onChangeIndex={(index: number) => setTabIndex(index)}
       activeIndex={tabIndex}
       tabs={[

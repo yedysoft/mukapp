@@ -3,8 +3,8 @@ import {responsiveWidth} from '../../utils/util';
 import PlaylistListItem from './PlaylistListItem';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
-import YedyTextInput from '../custom/YedyTextInput';
-import useTheme from '../../hooks/useTheme';
+import {YedyTextInput} from '../custom';
+import {useTheme} from '../../hooks';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 

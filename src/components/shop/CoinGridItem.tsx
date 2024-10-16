@@ -1,8 +1,8 @@
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks';
 import {responsiveWidth} from '../../utils/util';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {useServices} from '../../services';
-import YedyText from '../custom/YedyText';
+import {YedyText} from '../custom';
 
 type Props = {
   onPress?: () => void;
@@ -15,24 +15,20 @@ type Props = {
 
 export default function CoinGridItem({onPress, coin}: Props) {
   const {colors} = useTheme();
-  const styles = makeStyles();
   const {api} = useServices();
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[
-        {
-          backgroundColor: colors.background,
-          height: responsiveWidth(120),
-          aspectRatio: 1,
-          alignItems: 'center',
-          borderRadius: 16,
-          flexDirection: 'column',
-          gap: responsiveWidth(8),
-        },
-        styles.shadow,
-      ]}
+      style={{
+        backgroundColor: colors.background,
+        height: responsiveWidth(120),
+        aspectRatio: 1,
+        alignItems: 'center',
+        borderRadius: 16,
+        flexDirection: 'column',
+        gap: responsiveWidth(8),
+      }}
     >
       <View style={{flex: 1, width: '100%', padding: responsiveWidth(8)}}>
         <Image resizeMode={'contain'} source={coin.source} style={{width: '100%', height: '100%'}} />
@@ -48,27 +44,13 @@ export default function CoinGridItem({onPress, coin}: Props) {
           padding: responsiveWidth(8),
         }}
       >
-        <YedyText numberOfLines={1} fontType={'bold'}>
+        <YedyText numberOfLines={1} type={'bold'}>
           {api.helper.nummer(coin.value)}
         </YedyText>
-        <YedyText numberOfLines={1} fontType={'bold'}>
+        <YedyText numberOfLines={1} type={'bold'}>
           {coin.price} ₺
         </YedyText>
       </View>
     </TouchableOpacity>
   );
 }
-
-const makeStyles = () =>
-  StyleSheet.create({
-    shadow: {
-      shadowColor: 'rgba(255, 159, 10, 1)',
-      shadowOffset: {
-        width: 0,
-        height: 0,
-      },
-      shadowOpacity: 0.5,
-      shadowRadius: 3,
-      elevation: 5,
-    },
-  });

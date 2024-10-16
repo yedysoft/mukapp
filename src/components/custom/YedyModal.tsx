@@ -2,8 +2,8 @@ import React, {ReactNode, useEffect, useRef, useState} from 'react';
 import {BackHandler, Keyboard, NativeEventSubscription, Pressable, StyleProp, View, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import YedyPortal from './YedyPortal';
-import useTheme from '../../hooks/useTheme';
+import YedyPortal from './portal/YedyPortal';
+import {useTheme} from '../../hooks';
 import {shadowStyle} from '../../utils/util';
 
 type Props = {

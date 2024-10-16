@@ -1,12 +1,10 @@
-import useTheme from '../../hooks/useTheme';
-import MukImage from '../../components/custom/MukImage';
+import {useTheme} from '../../hooks';
+import {YedyImage, YedyListItem, YedyText} from '../custom';
 import {responsiveWidth} from '../../utils/util';
-import MukListItem from '../custom/MukListItem';
 import {IFollowUser} from '../../types/user';
 import {View} from 'react-native';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import YedyText from '../custom/YedyText';
 
 type Props = {
   onPress?: (id: string) => void;
@@ -18,7 +16,7 @@ export default observer(({onPress, friend}: Props) => {
   const {auth} = useStores();
 
   return (
-    <MukListItem
+    <YedyListItem
       onPress={() => onPress && onPress(friend.id)}
       style={{
         alignItems: 'center',
@@ -26,7 +24,7 @@ export default observer(({onPress, friend}: Props) => {
         borderRadius: 16,
       }}
     >
-      <MukImage
+      <YedyImage
         scale={1}
         style={{borderRadius: 100}}
         source={
@@ -36,18 +34,13 @@ export default observer(({onPress, friend}: Props) => {
         }
       />
       <View style={{gap: responsiveWidth(4)}}>
-        <YedyText
-          numberOfLines={1}
-          fontType={'bold'}
-          fontSize={16}
-          style={{color: friend.selected ? colors.dark : colors.secondary}}
-        >
+        <YedyText numberOfLines={1} type={'bold'} size={16} color={friend.selected ? colors.dark : colors.secondary}>
           {friend.name}
         </YedyText>
-        <YedyText numberOfLines={1} fontSize={14} style={{color: friend.selected ? colors.dark : colors.secondary}}>
+        <YedyText numberOfLines={1} size={14} color={friend.selected ? colors.dark : colors.secondary}>
           @{friend.userName}
         </YedyText>
       </View>
-    </MukListItem>
+    </YedyListItem>
   );
 });
