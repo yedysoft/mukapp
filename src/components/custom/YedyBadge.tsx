@@ -43,7 +43,7 @@ export default observer(({style, textStyle, badge, defaultBadge, scale}: Props) 
           type={'bold'}
           size={scale ? scale * 20 : 14}
           color={colors.light}
-          style={[textStyle, {flexShrink: 1}]}
+          style={[textStyle]}
         >
           {api.helper.nummer(badge)}
         </YedyText>

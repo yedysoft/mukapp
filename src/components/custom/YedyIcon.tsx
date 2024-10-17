@@ -1,4 +1,4 @@
-import {StyleProp, TextStyle, View} from 'react-native';
+import {StyleProp, TextStyle} from 'react-native';
 import {responsiveScale} from '../../utils/util';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import YedyBadge from './YedyBadge';
@@ -20,7 +20,7 @@ export default ({badge, defaultBadge, icon, color, style, scale, direction = 'lt
   const rotation = direction === 'rtl' ? [{scaleX: -1}] : [];
 
   return (
-    <View>
+    <>
       {(badge || defaultBadge) && <YedyBadge defaultBadge={defaultBadge} badge={badge} scale={scale} />}
       <MaterialCommunityIcons
         color={color ?? colors.secondary}
@@ -28,6 +28,6 @@ export default ({badge, defaultBadge, icon, color, style, scale, direction = 'lt
         style={[{transform: rotation}, style]}
         name={icon}
       />
-    </View>
+    </>
   );
 };

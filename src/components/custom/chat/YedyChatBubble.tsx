@@ -25,7 +25,7 @@ export default observer(({message, quotedMessage}: Props) => {
   const sended = !!message.id;
   const time = api.helper.formatDateTime(message.date.toString(), 'time');
   const {current: translateX} = useRef(new Animated.Value(0));
-  const MAX_SLIDE_WIDTH = 45;
+  const MAX_SLIDE_WIDTH = responsiveWidth(48);
 
   const {current: panResponder} = useRef(
     PanResponder.create({
@@ -76,10 +76,13 @@ export default observer(({message, quotedMessage}: Props) => {
       <YedyIcon
         icon={'reply'}
         scale={0.5}
-        style={[
-          {padding: 0, position: 'absolute', alignSelf: 'center', transform: [{rotateY: me ? '180deg' : '0deg'}]},
-          me ? {right: responsiveWidth(-44)} : {left: responsiveWidth(-44)},
-        ]}
+        direction={me ? 'ltr' : 'rtl'}
+        style={{
+          position: 'absolute',
+          alignSelf: 'center',
+          right: me ? responsiveWidth(-44) : undefined,
+          left: me ? undefined : responsiveWidth(-44),
+        }}
       />
       <YedyImage
         source={
@@ -98,8 +101,7 @@ export default observer(({message, quotedMessage}: Props) => {
       <View
         style={{
           flexDirection: 'column',
-          alignSelf: 'flex-start',
-          backgroundColor: me ? colors.primary : colors.bubble,
+          backgroundColor: me ? colors.primary : '#233A40',
           padding: responsiveWidth(12),
           maxWidth: responsiveWidth(240),
           borderRadius: 16,
@@ -110,15 +112,10 @@ export default observer(({message, quotedMessage}: Props) => {
         <YedyText visible={!me && message.type !== 'PRIVATE'} type={'bold'} color={api.helper.randomColor()}>
           {info.name}
         </YedyText>
-        <YedyText type={'bold'} color={me ? colors.background : colors.secondary}>
+        <YedyText type={'bold'} color={me ? colors.dark : colors.secondary}>
           {message.content}
         </YedyText>
-        <YedyText
-          type={'bold'}
-          size={10}
-          color={me ? colors.background : colors.secondary}
-          style={{textAlign: 'right'}}
-        >
+        <YedyText type={'bold'} size={10} color={me ? colors.dark : colors.secondary} style={{textAlign: 'right'}}>
           {time} {me ? (sended ? '✓' : '⏳') : ''}
         </YedyText>
       </View>
