@@ -5,17 +5,18 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {navigationRef} from '../navigation/RootNavigation';
 import {NavigationContainer} from '@react-navigation/native';
 import {YedyPortalProvider} from '../components/custom';
+import {observer} from 'mobx-react';
 
-export const AppProvider = ({children}: PropsWithChildren) => {
+export const AppProvider = observer(({children}: PropsWithChildren) => {
   return (
     <SafeAreaProvider>
-      <NavigationContainer ref={navigationRef} theme={stores.ui.getTheme as any}>
-        <StoresProvider>
-          <ServicesProvider>
+      <StoresProvider>
+        <ServicesProvider>
+          <NavigationContainer ref={navigationRef} theme={stores.ui.getTheme as any}>
             <YedyPortalProvider>{children}</YedyPortalProvider>
-          </ServicesProvider>
-        </StoresProvider>
-      </NavigationContainer>
+          </NavigationContainer>
+        </ServicesProvider>
+      </StoresProvider>
     </SafeAreaProvider>
   );
-};
+});

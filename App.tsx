@@ -59,7 +59,7 @@ export default observer(() => {
     return () => {
       deinitializeApp().then(() => setReady(false));
     };
-  }, [ui.getReloadToggle]);
+  }, []);
 
   const background: ColorValue = ui.getTheme.colors.background;
   SystemUI.getBackgroundColorAsync().then(async value => {

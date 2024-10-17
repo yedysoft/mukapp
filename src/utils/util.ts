@@ -2,15 +2,15 @@ import {PixelRatio, StyleProp, ViewStyle} from 'react-native';
 import React, {memo} from 'react';
 import {stores} from '../stores';
 
-const DESIGN_HEIGHT = 896;
-const DESIGN_WIDTH = 414;
-
 const normalize = (size: number, based: 'width' | 'height' | 'size'): number => {
+  const aspectRatio = stores.ui.windowWidth / stores.ui.windowHeight;
+  const DESIGN_HEIGHT = 896;
+  const DESIGN_WIDTH = aspectRatio * DESIGN_HEIGHT;
   const heightScale = stores.ui.windowHeight / DESIGN_HEIGHT;
   const widthScale = stores.ui.windowWidth / DESIGN_WIDTH;
   const minScale = Math.min(heightScale, widthScale);
   const scale = based === 'height' ? heightScale : based === 'width' ? widthScale : minScale;
-  const newSize: number = size * scale;
+  const newSize = size * scale;
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
 

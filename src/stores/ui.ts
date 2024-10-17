@@ -4,6 +4,7 @@ import {StatusBarStyle} from 'expo-status-bar';
 import themes from '../themes';
 import {MessageBody, MukMessage, MukTheme} from '../types';
 import {Dimensions, ScaledSize} from 'react-native';
+import {computed} from 'mobx';
 
 class UIStore extends BaseStore<UIStore> {
   id = 0;
@@ -29,19 +30,19 @@ class UIStore extends BaseStore<UIStore> {
   }
 
   get getScheme(): 'light' | 'dark' {
-    return this.appearance === 'system' ? this.systemScheme : this.appearance;
+    return computed(() => (this.appearance === 'system' ? this.systemScheme : this.appearance)).get();
   }
 
   get getLanguage(): string {
-    return this.language === 'system' ? this.systemLanguage : this.language;
+    return computed(() => (this.language === 'system' ? this.systemLanguage : this.language)).get();
   }
 
   get getStatusBarStyle(): StatusBarStyle {
-    return this.getScheme === 'light' ? 'dark' : 'light';
+    return computed(() => (this.getScheme === 'light' ? 'dark' : 'light')).get();
   }
 
   get getTheme(): MukTheme {
-    return themes[this.getScheme];
+    return computed(() => themes[this.getScheme]).get();
   }
 
   get getExpoToken() {

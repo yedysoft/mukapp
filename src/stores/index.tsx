@@ -1,5 +1,5 @@
 import './_hydration';
-import React, {useState} from 'react';
+import React from 'react';
 import {BaseStore} from './base';
 import ui from './ui';
 import auth from './auth';
@@ -22,15 +22,9 @@ class Stores {
 export const stores = new Stores();
 
 const StoresContext = React.createContext<Stores>(stores);
-export const StoresProvider = ({children}: any) => {
-  const [render, setRender] = useState<{sheme: 'light' | 'dark'; language: string}>({
-    sheme: stores.ui.getScheme,
-    language: stores.ui.getLanguage,
-  });
-  console.log(render);
-
-  return <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>;
-};
+export const StoresProvider = ({children}: any) => (
+  <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>
+);
 
 export const useStores = (): Stores => React.useContext(StoresContext);
 

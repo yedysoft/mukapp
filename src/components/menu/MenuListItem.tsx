@@ -12,6 +12,7 @@ type Props = {
 };
 
 export default function MenuListItem({item}: Props) {
+  console.log('RenderMenuListItem');
   const {colors} = useTheme();
   const navigation = useNavigation<MainStackNavProp>();
   const {t, api} = useServices();
