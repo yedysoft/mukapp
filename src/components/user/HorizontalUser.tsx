@@ -15,6 +15,7 @@ export default observer(() => {
       style={{
         flexDirection: 'row',
         gap: responsiveWidth(8),
+        overflow: 'hidden',
       }}
     >
       <YedyImage

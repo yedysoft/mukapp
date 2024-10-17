@@ -55,9 +55,11 @@ const PickerComp = <T extends string | number>({
 }: Props<T>) => {
   const {colors} = useTheme();
   const tempValue = value;
+
   const itemsIsArray = Array.isArray(items);
   const itemsArray = itemsIsArray ? items : Object.keys(items).map(k => k as T);
   value = checkValue<T>(tempValue, itemsArray);
+  console.log('PickerComp', tempValue, value);
   const visibleItemCount = 5;
   const scrollY = useRef(new Animated.Value(0)).current;
   const listRef = useRef<FlatList>(null);
@@ -126,7 +128,7 @@ const PickerComp = <T extends string | number>({
     }
   };
 
-  const gotoItem = (val: T, scroll: boolean) => {
+  const gotoItem = (val: T, scroll: boolean, justGoItem = false) => {
     if (val) {
       value = val;
       if (listRef.current && scroll) {
@@ -135,7 +137,7 @@ const PickerComp = <T extends string | number>({
         listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
       }
     }
-    onValueChange && onValueChange(name, val, itemsIsArray ? undefined : items[val]);
+    onValueChange && justGoItem && onValueChange(name, val, itemsIsArray ? undefined : items[val]);
   };
 
   const handleOnLayout = (event: LayoutChangeEvent) => {
@@ -145,8 +147,8 @@ const PickerComp = <T extends string | number>({
   };
 
   useEffect(() => {
-    if (tempValue && value && tempValue !== value) {
-      gotoItem(value, true);
+    if ((tempValue || tempValue === '') && value && tempValue !== value) {
+      gotoItem(value, true, tempValue === '');
     }
   }, [tempValue, value]);
 

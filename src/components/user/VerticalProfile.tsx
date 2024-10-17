@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import {YedyIconButton, YedyImage, YedyText} from '../custom';
 import {useTheme} from '../../hooks';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {IInfo} from '../../types/user';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
@@ -31,52 +31,53 @@ export default observer(({profile, otherUser}: Props) => {
       }}
     >
       <YedyImage
-        scale={2}
+        scale={2.3}
         source={
           profile.image
             ? {uri: `${profile.image.link}?token=${auth.getAuthToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
         style={{
-          borderWidth: responsiveSize(4),
+          borderWidth: 2,
           borderRadius: 100,
           aspectRatio: 1,
-          borderColor: colors.primary,
-          backgroundColor: 'transparent',
+          borderColor: colors.outlineVariant,
         }}
       />
-      <View style={{flex: 1, flexDirection: 'column'}}>
-        <YedyText type={'bold'} size={24}>
-          {profile.name}
-        </YedyText>
-        <YedyText size={16}>@{profile.userName}</YedyText>
-        <View style={{flexDirection: 'row', marginLeft: -8, gap: responsiveWidth(4)}}>
-          {Object.entries(connectedAccounts).map(([key, _name]) => {
-            const a = auth.auths.find(value => value.type === key);
-            return a ? <SpotifyIcon key={key} id={a.accountId} type={'user'} noText /> : undefined;
-          })}
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+        <View style={{flexDirection: 'column'}}>
+          <YedyText type={'bold'} size={24}>
+            {profile.name}
+          </YedyText>
+          <YedyText size={16}>@{profile.userName}</YedyText>
         </View>
-        <View style={{flexDirection: 'row', gap: responsiveWidth(4), display: otherUser ? undefined : 'none'}}>
-          <YedyIconButton
-            color={colors.secondary}
-            scale={0.4}
-            icon={profile.isFollows ? 'account-minus' : 'account-plus'}
-            onPress={() => {
-              profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id);
-              navigation.goBack();
-            }}
-          />
-          <YedyIconButton
-            scale={0.4}
-            icon={'block-helper'}
-            color={colors.tertiary}
-            onPress={() => {
-              api.user.blockUser(profile.id);
-              user.set('searched', []);
-              navigation.goBack();
-            }}
-            style={{marginLeft: responsiveWidth(-8)}}
-          />
+        <View style={{flexDirection: 'column'}}>
+          <View style={{flexDirection: 'row', marginLeft: -8, gap: responsiveWidth(4)}}>
+            {Object.entries(connectedAccounts).map(([key, _name]) => {
+              const a = auth.auths.find(value => value.type === key);
+              return a ? <SpotifyIcon key={key} id={a.accountId} type={'user'} noText /> : undefined;
+            })}
+          </View>
+          <View style={{flexDirection: 'row', gap: responsiveWidth(4), display: otherUser ? undefined : 'none'}}>
+            <YedyIconButton
+              icon={profile.isFollows ? 'account-minus' : 'account-plus'}
+              scale={0.45}
+              onPress={() => {
+                profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id);
+                navigation.goBack();
+              }}
+            />
+            <YedyIconButton
+              icon={'block-helper'}
+              scale={0.45}
+              color={colors.tertiary}
+              onPress={() => {
+                api.user.blockUser(profile.id);
+                user.set('searched', []);
+                navigation.goBack();
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>

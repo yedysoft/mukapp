@@ -16,7 +16,6 @@ export default ({onPress, badge, style, isLoading, disabled}: Props) => {
       <YedyBadge
         badge={badge}
         style={{
-          position: 'absolute',
           right: responsiveWidth(-8),
           top: responsiveWidth(9),
         }}

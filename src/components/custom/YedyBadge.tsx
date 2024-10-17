@@ -1,8 +1,8 @@
-import {responsiveWidth} from '../../utils/util';
 import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
 import {useTheme} from '../../hooks';
 import YedyText from './YedyText';
+import {useServices} from '../../services';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -12,26 +12,31 @@ type Props = {
 };
 export default observer(({style, textStyle, badge, defaultBadge}: Props) => {
   const {colors} = useTheme();
+  const {api} = useServices();
 
   return (
     <View
       style={[
         {
           position: 'absolute',
+          zIndex: 1400,
           backgroundColor: colors.tertiary,
           display: badge || defaultBadge ? undefined : 'none',
-          paddingHorizontal: responsiveWidth(6),
-          paddingVertical: responsiveWidth(2),
+          padding: 2,
           borderRadius: 100,
-          right: responsiveWidth(4),
-          zIndex: 1400,
+          borderWidth: 2,
+          borderColor: colors.background,
+          right: defaultBadge ? 0 : -6,
+          top: defaultBadge ? 0 : -6,
+          alignItems: 'center',
+          justifyContent: 'center',
         },
         style,
       ]}
     >
-      {!defaultBadge && (
-        <YedyText numberOfLines={1} type={'bold'} size={14} color={colors.light} style={textStyle}>
-          {badge}
+      {!defaultBadge && badge && (
+        <YedyText numberOfLines={1} type={'bold'} size={14} color={colors.light} style={[textStyle]}>
+          {api.helper.nummer(badge)}
         </YedyText>
       )}
     </View>

@@ -1,5 +1,5 @@
 import './_hydration';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {BaseStore} from './base';
 import ui from './ui';
 import auth from './auth';
@@ -9,6 +9,7 @@ import room from './room';
 import loading from './loading';
 import main from './main';
 import {PVoid} from '../types';
+import {reaction} from 'mobx';
 
 class Stores {
   ui = ui;
@@ -22,9 +23,22 @@ class Stores {
 export const stores = new Stores();
 
 const StoresContext = React.createContext<Stores>(stores);
-export const StoresProvider = ({children}: any) => (
-  <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>
-);
+export const StoresProvider = ({children}: any) => {
+  const [renderKey, setRenderKey] = useState(0);
+
+  useEffect(() => {
+    return reaction(
+      () => ui.getLanguage,
+      () => {
+        setRenderKey(prevKey => prevKey + 1);
+      },
+    );
+  }, [ui]);
+
+  console.log('renderKey', renderKey);
+
+  return <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>;
+};
 
 export const useStores = (): Stores => React.useContext(StoresContext);
 

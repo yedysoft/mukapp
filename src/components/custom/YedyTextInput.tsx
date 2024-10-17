@@ -276,6 +276,7 @@ const TextInputComp = observer(
                   rest.onSubmitEditing({} as NativeSyntheticEvent<TextInputSubmitEditingEventData>);
                 }
               }}
+              onClear={() => handleValueChange('', '', '')}
             >
               {pickerType === 'normal' && pickerItems ? (
                 <YedyPicker name={name} items={pickerItems} value={getValue()} onValueChange={handleValueChange} />

@@ -20,7 +20,11 @@ export default observer(() => {
   const {api} = useServices();
   const keyboardVisible = ui.isKeyboardVisible;
   const dominantColor = media.getDominantColor ?? colors.background;
-  const barColor = room.isLive && !room.isRoomPageOn ? dominantColor : colors.background;
+  const barColor = ui.pickerViewVisible
+    ? colors.dialog
+    : room.isLive && !room.isRoomPageOn
+    ? dominantColor
+    : colors.background;
   const isColorLight = api.helper.isColorLight(barColor);
   const style: NavigationBarButtonStyle = isColorLight ? 'dark' : 'light';
 
@@ -53,6 +57,7 @@ export default observer(() => {
         },
         headerShown: false,
       })}
+      backBehavior={'history'}
     >
       <Bottom.Screen
         name="Shop"

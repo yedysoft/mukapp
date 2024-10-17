@@ -1,4 +1,3 @@
-import {useTheme} from '../../hooks';
 import NotificationListItem from './NotificationListItem';
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
@@ -13,7 +12,6 @@ type Props = {
 };
 
 export default observer(({compact}: Props) => {
-  const {colors} = useTheme();
   const {api} = useServices();
   const {user} = useStores();
 
@@ -22,23 +20,19 @@ export default observer(({compact}: Props) => {
   }, []);
 
   return (
-    <>
-      {user.getNotifications.length > 0 ? (
-        <FlatList
-          style={{}}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
-          scrollEnabled
-          data={user.getNotifications}
-          renderItem={({item, index}) => <NotificationListItem key={index} compact={compact} notification={item} />}
-        />
-      ) : (
+    <FlatList
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
+      scrollEnabled
+      ListEmptyComponent={
         <YedyImage
           source={require('../../../assets/noimage-gray.png')}
           scale={compact ? 1.5 : 2}
           style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
         />
-      )}
-    </>
+      }
+      data={user.getNotifications}
+      renderItem={({item, index}) => <NotificationListItem key={index} compact={compact} notification={item} />}
+    />
   );
 });

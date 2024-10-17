@@ -98,7 +98,7 @@ class UIStore extends BaseStore<UIStore> {
   }
 
   get isKeyboardVisible() {
-    return this.keyboardHeight > 0 || this.pickerViewVisible;
+    return computed(() => this.keyboardHeight > 0 || this.pickerViewVisible).get();
   }
 }
 

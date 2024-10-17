@@ -64,7 +64,7 @@ const SpotifyIconComp = ({
       disabled={disabled}
       onPress={disabled ? undefined : handleOnPress}
       style={{
-        margin: height / 2,
+        padding: height / 2,
         gap: height / 2,
         flexDirection: 'row',
         alignItems: 'center',
