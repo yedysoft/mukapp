@@ -20,8 +20,7 @@ class SocketApi {
       reconnectDelay: 3000,
       heartbeatIncoming: 10000,
       heartbeatOutgoing: 10000,
-      debug: str =>
-        !str.includes('Received data') && !str.includes('playingTrack') && console.debug('Socket Debug:', str),
+      //debug: str => !str.includes('Received data') && !str.includes('playingTrack') && console.debug('Socket Debug:', str),
       onWebSocketError: event => console.log('onWebSocketError:', event),
       onStompError: event => console.log('onStompError:', event),
       onWebSocketClose: event => console.log('onWebSocketClose:', event),

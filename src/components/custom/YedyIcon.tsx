@@ -21,7 +21,7 @@ export default ({badge, defaultBadge, icon, color, style, scale, direction = 'lt
 
   return (
     <View>
-      {(badge || defaultBadge) && <YedyBadge defaultBadge={defaultBadge} badge={badge} />}
+      {(badge || defaultBadge) && <YedyBadge defaultBadge={defaultBadge} badge={badge} scale={scale} />}
       <MaterialCommunityIcons
         color={color ?? colors.secondary}
         size={responsiveScale(scale)}

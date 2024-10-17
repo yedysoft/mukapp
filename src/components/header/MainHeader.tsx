@@ -40,7 +40,7 @@ export default observer(() => {
       ) : (
         <YedyIconButton
           defaultBadge={false}
-          badge={222}
+          badge={912412904}
           icon={'alarm-bell'}
           scale={0.55}
           tooltip={NotificationsTooltip}

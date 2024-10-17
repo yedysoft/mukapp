@@ -81,7 +81,7 @@ const ChatHeader = observer(({id}: {id: string}) => {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: responsiveWidth(4),
+        gap: responsiveWidth(8),
       }}
     >
       <YedyImage
@@ -100,7 +100,7 @@ const ChatHeader = observer(({id}: {id: string}) => {
         <YedyText type={'bold'} size={18}>
           {chat.name ? chat.name : name}
         </YedyText>
-        <YedyText size={12} visible={!!typingMessage} color={colors.primary}>
+        <YedyText type={'bold'} size={12} visible={!!typingMessage} color={colors.primary}>
           {typingMessage}
         </YedyText>
       </View>

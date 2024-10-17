@@ -62,21 +62,21 @@ const DatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onValue
       <YedyPicker<number>
         name="day"
         items={days}
-        value={value ? date.current.day : undefined}
+        value={value ? date.current.day : -1}
         itemWidth={responsiveWidth(70)}
         onValueChange={handleValueChanged}
       />
       <YedyPicker<number>
         name="month"
         items={months}
-        value={value ? date.current.month : undefined}
+        value={value ? date.current.month : -1}
         itemWidth={responsiveWidth(70)}
         onValueChange={handleValueChanged}
       />
       <YedyPicker<number>
         name="year"
         items={years}
-        value={value ? date.current.year : undefined}
+        value={value ? date.current.year : -1}
         itemWidth={responsiveWidth(70)}
         onValueChange={handleValueChanged}
       />

@@ -45,11 +45,16 @@ export default observer(({chat}: Props) => {
           <YedyText numberOfLines={1} type={'bold'} size={17}>
             {chat.name ? chat.name : name}
           </YedyText>
-          <YedyText numberOfLines={1} size={13}>
+          <YedyText numberOfLines={1} type={'bold'} size={13}>
             {datetime}
           </YedyText>
         </View>
-        <YedyText numberOfLines={1} color={typingMessage ? colors.primary : colors.secondary} style={{flex: 1}}>
+        <YedyText
+          numberOfLines={1}
+          type={'bold'}
+          color={typingMessage ? colors.primary : colors.secondary}
+          style={{flex: 1}}
+        >
           {typingMessage ? typingMessage : lastMessage.message}
         </YedyText>
       </View>

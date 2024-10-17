@@ -110,8 +110,15 @@ export default observer(({message, quotedMessage}: Props) => {
         <YedyText visible={!me && message.type !== 'PRIVATE'} type={'bold'} color={api.helper.randomColor()}>
           {info.name}
         </YedyText>
-        <YedyText color={me ? colors.background : colors.secondary}>{message.content}</YedyText>
-        <YedyText size={10} color={me ? colors.background : colors.secondary} style={{textAlign: 'right'}}>
+        <YedyText type={'bold'} color={me ? colors.background : colors.secondary}>
+          {message.content}
+        </YedyText>
+        <YedyText
+          type={'bold'}
+          size={10}
+          color={me ? colors.background : colors.secondary}
+          style={{textAlign: 'right'}}
+        >
           {time} {me ? (sended ? '✓' : '⏳') : ''}
         </YedyText>
       </View>

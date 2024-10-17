@@ -1,5 +1,5 @@
 import YedyToaster from './YedyToaster';
-import {Platform, View} from 'react-native';
+import {View} from 'react-native';
 import {observer} from 'mobx-react';
 import {responsiveWidth} from '../../../utils/util';
 import {useStores} from '../../../stores';
@@ -17,7 +17,7 @@ export default observer(() => {
         style={{
           flexDirection: 'column',
           gap: responsiveWidth(8),
-          paddingTop: responsiveWidth(20) + (Platform.OS === 'ios' ? 0 : insets.top),
+          paddingTop: responsiveWidth(20) + insets.top,
           paddingHorizontal: responsiveWidth(20),
         }}
       >

@@ -3,14 +3,16 @@ import {observer} from 'mobx-react';
 import {useTheme} from '../../hooks';
 import YedyText from './YedyText';
 import {useServices} from '../../services';
+import {responsiveWidth} from '../../utils/util';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   badge?: number;
   defaultBadge?: boolean;
+  scale?: number;
 };
-export default observer(({style, textStyle, badge, defaultBadge}: Props) => {
+export default observer(({style, textStyle, badge, defaultBadge, scale}: Props) => {
   const {colors} = useTheme();
   const {api} = useServices();
 
@@ -22,12 +24,13 @@ export default observer(({style, textStyle, badge, defaultBadge}: Props) => {
           zIndex: 1400,
           backgroundColor: colors.tertiary,
           display: badge || defaultBadge ? undefined : 'none',
-          padding: 2,
+          padding: defaultBadge ? responsiveWidth(scale ? scale * 10 : 5) : responsiveWidth(4),
+          paddingHorizontal: defaultBadge ? undefined : responsiveWidth(8),
           borderRadius: 100,
-          borderWidth: 2,
+          borderWidth: responsiveWidth(2),
           borderColor: colors.background,
-          right: defaultBadge ? 0 : -6,
-          top: defaultBadge ? 0 : -6,
+          right: defaultBadge ? 0 : responsiveWidth(-8),
+          top: defaultBadge ? 0 : responsiveWidth(-8),
           alignItems: 'center',
           justifyContent: 'center',
         },
@@ -35,7 +38,13 @@ export default observer(({style, textStyle, badge, defaultBadge}: Props) => {
       ]}
     >
       {!defaultBadge && badge && (
-        <YedyText numberOfLines={1} type={'bold'} size={14} color={colors.light} style={[textStyle]}>
+        <YedyText
+          numberOfLines={1}
+          type={'bold'}
+          size={scale ? scale * 20 : 14}
+          color={colors.light}
+          style={[textStyle, {flexShrink: 1}]}
+        >
           {api.helper.nummer(badge)}
         </YedyText>
       )}
