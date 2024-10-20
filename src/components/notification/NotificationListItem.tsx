@@ -25,7 +25,8 @@ export default function NotificationListItem({notification, compact}: Props) {
         paddingVertical: responsiveHeight(4),
         paddingHorizontal: responsiveWidth(compact ? 8 : 16),
       }}
-      onPress={() => navigation.navigate('Notifications')}
+      disabled={!compact}
+      onPress={compact ? () => navigation.navigate('Notifications') : undefined}
     >
       <View
         style={{

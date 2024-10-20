@@ -100,6 +100,7 @@ type LangMain<T> = {
     tasks: T;
     settings: T;
     ps: T;
+    edit: T;
   };
   search: {
     placeholder: T;

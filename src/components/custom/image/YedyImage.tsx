@@ -63,7 +63,7 @@ export default ({
           aspectRatio: 1,
           borderRadius: radius ? 16 : 2,
           justifyContent: 'center',
-          overflow: 'hidden',
+          //overflow: 'hidden',
         },
         style,
       ]}
@@ -75,6 +75,7 @@ export default ({
           icon={'image-edit'}
           modal={EditImage}
           tooltipOrModalData={{edit: edit, setLoading: setLoading}}
+          color={colors.dark}
           style={{
             backgroundColor: api.helper.addOpacityToColor(colors.primary, 0.7),
             borderRadius: 100,
@@ -85,7 +86,11 @@ export default ({
           }}
         />
       )}
-      <TouchableOpacity style={{flex: 1}} disabled={(!edit && !onPress) || disabled} onPress={handleOnPress}>
+      <TouchableOpacity
+        style={{flex: 1, borderRadius: radius ? 16 : 2}}
+        disabled={(!edit && !onPress) || disabled}
+        onPress={handleOnPress}
+      >
         {loading ? (
           <ActivityIndicator size={responsiveSize(48)} color={colors.secondary} />
         ) : (

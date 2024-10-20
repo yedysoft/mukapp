@@ -30,13 +30,14 @@ export default observer(() => {
         borderBottomColor: colors.shadow,
       }}
     >
-      <YedyIconButton icon={'hamburger'} scale={0.55} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
+      <YedyIconButton icon={'hamburger'} scale={0.6} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       <YedyLogo />
       <YedyIconButton
-        defaultBadge={true}
-        badge={912412904}
+        //defaultBadge={user.getNotifications.some(n => !n.readed)}
+        defaultBadge={false}
+        badge={343000}
         icon={'alarm-bell'}
-        scale={0.55}
+        scale={0.6}
         tooltip={NotificationsTooltip}
       />
     </View>

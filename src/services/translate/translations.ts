@@ -78,6 +78,7 @@ const tr: MukLang = {
       tasks: 'Görevler',
       settings: 'Ayarlar',
       ps: 'Gizlilik & Güvenlik',
+      edit: 'Düzenle',
     },
     search: {
       placeholder: 'Kullanıcı Ara',
@@ -234,6 +235,7 @@ const en: MukLang = {
       tasks: 'Tasks',
       settings: 'Settings',
       ps: 'Privacy & Security',
+      edit: 'Edit',
     },
     search: {
       placeholder: 'Search User',

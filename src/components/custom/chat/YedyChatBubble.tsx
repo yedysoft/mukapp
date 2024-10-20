@@ -103,8 +103,8 @@ export default observer(({message, quotedMessage}: Props) => {
           flexDirection: 'column',
           backgroundColor: me ? colors.primary : colors.bubble,
           borderRadius: 16,
-          padding: responsiveWidth(12),
           maxWidth: '70%',
+          padding: responsiveWidth(12),
           gap: responsiveWidth(4),
         }}
       >

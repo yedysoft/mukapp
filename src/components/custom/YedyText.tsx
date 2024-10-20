@@ -2,6 +2,7 @@ import {ColorValue, Text, TextProps} from 'react-native';
 import {useTheme} from '../../hooks';
 import {observer} from 'mobx-react';
 import {responsiveSize} from '../../utils/util';
+import {forwardRef} from 'react';
 
 type fontTypes = 'reqular' | 'bold' | 'italic';
 
@@ -18,23 +19,26 @@ const fonts: Record<fontTypes, string> = {
   italic: 'ProductSans-Italic',
 };
 
-export default observer(({visible = true, type = 'reqular', size = 15, color, ...rest}: Props) => {
-  const {colors} = useTheme();
+export default observer(
+  forwardRef<Text, Props>(({visible = true, type = 'reqular', size = 15, color, ...rest}: Props, ref) => {
+    const {colors} = useTheme();
 
-  return (
-    <Text
-      {...rest}
-      style={[
-        {
-          fontSize: responsiveSize(size),
-          fontFamily: fonts[type],
-          color: color ?? colors.secondary,
-          display: visible ? undefined : 'none',
-        },
-        rest.style,
-      ]}
-    >
-      {rest.children}
-    </Text>
-  );
-});
+    return (
+      <Text
+        ref={ref}
+        {...rest}
+        style={[
+          {
+            fontSize: responsiveSize(size),
+            fontFamily: fonts[type],
+            color: color ?? colors.secondary,
+            display: visible ? undefined : 'none',
+          },
+          rest.style,
+        ]}
+      >
+        {rest.children}
+      </Text>
+    );
+  }),
+);

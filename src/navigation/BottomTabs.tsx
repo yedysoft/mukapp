@@ -57,7 +57,6 @@ export default observer(() => {
         headerShown: false,
       }}
       backBehavior={'history'}
-      //sceneContainerStyle={{padding: 60}}
     >
       <Bottom.Screen
         name="Shop"

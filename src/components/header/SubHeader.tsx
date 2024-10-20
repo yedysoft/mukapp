@@ -57,7 +57,7 @@ export default observer(() => {
         <YedyIconButton icon={'account-edit'} scale={0.5} onPress={() => navigation.navigate('Edit')} />
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
-      ) : ['Notifications', 'Search', 'PS', 'Settings'].includes(route.name) ? (
+      ) : ['Notifications', 'Search', 'PS', 'Settings', 'Edit'].includes(route.name) ? (
         <YedyText numberOfLines={1} type={'bold'} size={28}>
           {t.do(`main.side.${route.name.toLowerCase()}` as MukLangPaths)}
         </YedyText>

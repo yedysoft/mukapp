@@ -108,7 +108,6 @@ export default forwardRef<YedyIconButtonRef, Props>(
         style={[
           {
             display: visible ? undefined : 'none',
-            backgroundColor: tooltipVisible || modalVisible ? colors.primary : 'transparent',
             borderRadius: 100,
             padding: responsiveWidth(4),
             alignItems: 'center',
@@ -126,7 +125,7 @@ export default forwardRef<YedyIconButtonRef, Props>(
           badge={badge}
           defaultBadge={defaultBadge}
           scale={scale}
-          color={color ?? (tooltipVisible || modalVisible ? colors.dark : colors.secondary)}
+          color={color ?? (tooltipVisible || modalVisible ? colors.primary : colors.secondary)}
           style={iconStyle}
           directionH={directionH}
           directionV={directionV}
