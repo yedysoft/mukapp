@@ -54,7 +54,20 @@ export default ({
   };
 
   return (
-    <View style={{display: visible ? undefined : 'none'}}>
+    <View
+      style={[
+        {
+          display: visible ? undefined : 'none',
+          backgroundColor: 'transparent',
+          height: responsiveScale(scale),
+          aspectRatio: 1,
+          borderRadius: radius ? 16 : 2,
+          justifyContent: 'center',
+          overflow: 'hidden',
+        },
+        style,
+      ]}
+    >
       {edit && !loading && (
         <YedyIconButton
           ref={ref}
@@ -72,21 +85,7 @@ export default ({
           }}
         />
       )}
-      <TouchableOpacity
-        style={[
-          {
-            backgroundColor: 'transparent',
-            height: responsiveScale(scale),
-            aspectRatio: 1,
-            borderRadius: radius ? 16 : 2,
-            justifyContent: 'center',
-            overflow: 'hidden',
-          },
-          style,
-        ]}
-        disabled={(!edit && !onPress) || disabled}
-        onPress={handleOnPress}
-      >
+      <TouchableOpacity style={{flex: 1}} disabled={(!edit && !onPress) || disabled} onPress={handleOnPress}>
         {loading ? (
           <ActivityIndicator size={responsiveSize(48)} color={colors.secondary} />
         ) : (

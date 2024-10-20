@@ -8,7 +8,7 @@ import {responsiveWidth} from '../../utils/util';
 type Props = {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
-  badge?: number;
+  badge?: number | string;
   defaultBadge?: boolean;
   scale?: number;
 };
@@ -45,7 +45,7 @@ export default observer(({style, textStyle, badge, defaultBadge, scale}: Props) 
           color={colors.light}
           style={[textStyle]}
         >
-          {api.helper.nummer(badge)}
+          {typeof badge === 'number' ? api.helper.nummer(badge) : badge}
         </YedyText>
       )}
     </View>

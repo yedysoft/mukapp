@@ -12,7 +12,7 @@ type Props = {
   icon: YedyIconName;
   color?: string;
   scale?: number;
-  badge?: number;
+  badge?: number | string;
   onPress?: () => void;
   tooltip?: ({positions, visible, changeVisible, data}: TooltipScreenProps) => ReactNode;
   modal?: ({visible, changeVisible, data}: ModalScreenProps) => ReactNode;
@@ -20,6 +20,8 @@ type Props = {
   disabled?: boolean;
   visible?: boolean;
   defaultBadge?: boolean;
+  directionH?: 'ltr' | 'rtl';
+  directionV?: 'ttb' | 'btt';
 };
 
 export type YedyIconButtonRef = {
@@ -42,6 +44,8 @@ export default forwardRef<YedyIconButtonRef, Props>(
       disabled,
       visible = true,
       defaultBadge,
+      directionH,
+      directionV,
     }: Props,
     ref,
   ) => {
@@ -124,6 +128,8 @@ export default forwardRef<YedyIconButtonRef, Props>(
           scale={scale}
           color={color ?? (tooltipVisible || modalVisible ? colors.dark : colors.secondary)}
           style={iconStyle}
+          directionH={directionH}
+          directionV={directionV}
         />
         {tooltip &&
           tooltipVisible &&

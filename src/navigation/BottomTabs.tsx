@@ -1,6 +1,5 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ShopScreen from '../screens/main/ShopScreen';
-import {responsiveHeight} from '../utils/util';
 import HomeScreen from '../screens/main/HomeScreen';
 import MessagesScreen from '../screens/main/social/MessagesScreen';
 import {observer} from 'mobx-react';
@@ -47,23 +46,24 @@ export default observer(() => {
   return (
     <Bottom.Navigator
       initialRouteName="Home"
-      screenOptions={() => ({
+      screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
           display: keyboardVisible ? 'none' : undefined,
-          height: responsiveHeight(80),
           backgroundColor: barColor,
-          borderTopWidth: 0,
+          borderTopWidth: 1,
+          borderTopColor: colors.shadow,
         },
         headerShown: false,
-      })}
+      }}
       backBehavior={'history'}
+      //sceneContainerStyle={{padding: 60}}
     >
       <Bottom.Screen
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'cart'} scale={0.6} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'cart'} scale={0.7} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Shop'}),
@@ -73,7 +73,7 @@ export default observer(() => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'view-sequential'} scale={0.6} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'view-sequential'} scale={0.7} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Home'}),
@@ -84,7 +84,7 @@ export default observer(() => {
         name="Messages"
         component={MessagesScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'chat'} scale={0.6} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'chat'} scale={0.7} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Messages'}),

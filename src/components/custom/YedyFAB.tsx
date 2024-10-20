@@ -12,13 +12,26 @@ type Props = {
   icon: YedyIconName;
   scale?: number;
   visible?: boolean;
+  directionH?: 'ltr' | 'rtl';
+  directionV?: 'ttb' | 'btt';
   tooltip?: ({positions, visible, changeVisible, data}: TooltipScreenProps) => ReactNode;
   modal?: ({visible, changeVisible, data}: ModalScreenProps) => ReactNode;
   tooltipOrModalData?: any;
 };
 
 export default observer(
-  ({onPress, style, icon, scale = 0.7, visible = true, tooltip, modal, tooltipOrModalData}: Props) => {
+  ({
+    onPress,
+    style,
+    icon,
+    scale = 0.7,
+    visible = true,
+    directionH,
+    directionV,
+    tooltip,
+    modal,
+    tooltipOrModalData,
+  }: Props) => {
     const {colors} = useTheme();
 
     return (
@@ -31,6 +44,8 @@ export default observer(
         modal={modal}
         tooltipOrModalData={tooltipOrModalData}
         visible={visible}
+        directionH={directionH}
+        directionV={directionV}
         style={[
           {
             position: 'absolute',

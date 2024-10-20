@@ -1,6 +1,6 @@
 import {MukTheme} from '../types';
 
-const CombinedLightTheme: MukTheme = {
+const LightTheme: MukTheme = {
   colors: {
     primary: '#48D904',
     secondary: '#041014',
@@ -21,7 +21,7 @@ const CombinedLightTheme: MukTheme = {
   },
 };
 
-const CombinedDarkTheme: MukTheme = {
+const DarkTheme: MukTheme = {
   colors: {
     primary: '#48D904',
     secondary: '#ffffff',
@@ -34,7 +34,7 @@ const CombinedDarkTheme: MukTheme = {
     outlineVariant: 'rgba(174, 174, 178, 1)',
     shadow: 'rgba(142, 142, 147, .1)',
     backdrop: 'rgba(44, 44, 46, .1)',
-    bubble: 'rgba(54, 54, 54, 1)',
+    bubble: '#083b47',
     text: 'rgba(242, 242, 247, 1)',
     light: 'rgba(255, 255, 255, 1)',
     dark: 'rgba(0, 0, 0, 1)',
@@ -42,5 +42,5 @@ const CombinedDarkTheme: MukTheme = {
   },
 };
 
-const themes = {light: CombinedLightTheme, dark: CombinedDarkTheme};
+const themes = {light: LightTheme, dark: DarkTheme};
 export default themes;

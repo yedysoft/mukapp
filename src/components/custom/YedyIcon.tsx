@@ -1,4 +1,4 @@
-import {StyleProp, TextStyle} from 'react-native';
+import {StyleProp, TextStyle, View} from 'react-native';
 import {responsiveScale} from '../../utils/util';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import YedyBadge from './YedyBadge';
@@ -6,28 +6,49 @@ import {useTheme} from '../../hooks';
 import {YedyIconName} from '../../types';
 
 type Props = {
-  badge?: number;
+  badge?: number | string;
   defaultBadge?: boolean;
   icon: YedyIconName;
   color?: string;
   style?: StyleProp<TextStyle>;
+  iconStyle?: StyleProp<TextStyle>;
   scale: number;
-  direction?: 'ltr' | 'rtl';
+  directionH?: 'ltr' | 'rtl';
+  directionV?: 'ttb' | 'btt';
 };
 
-export default ({badge, defaultBadge, icon, color, style, scale, direction = 'ltr'}: Props) => {
+export default ({
+  badge,
+  defaultBadge,
+  icon,
+  color,
+  style,
+  iconStyle,
+  scale,
+  directionH = 'ltr',
+  directionV = 'ttb',
+}: Props) => {
   const {colors} = useTheme();
-  const rotation = direction === 'rtl' ? [{scaleX: -1}] : [];
+  const rotationH = directionH === 'rtl' ? {scaleX: -1} : undefined;
+  const rotationV = directionV === 'btt' ? {scaleY: -1} : undefined;
+
+  const transformStyles = [];
+  if (rotationH) {
+    transformStyles.push(rotationH);
+  }
+  if (rotationV) {
+    transformStyles.push(rotationV);
+  }
 
   return (
-    <>
+    <View style={style}>
       {(badge || defaultBadge) && <YedyBadge defaultBadge={defaultBadge} badge={badge} scale={scale} />}
       <MaterialCommunityIcons
         color={color ?? colors.secondary}
         size={responsiveScale(scale)}
-        style={[{transform: rotation}, style]}
+        style={[{transform: transformStyles}, iconStyle]}
         name={icon}
       />
-    </>
+    </View>
   );
 };

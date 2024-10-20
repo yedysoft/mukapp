@@ -1,9 +1,8 @@
 import {responsiveWidth} from '../../utils/util';
 import {YedyIconButton, YedyLogo} from '../custom';
-import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import NotificationsTooltip from '../tooltips/NotificationsTooltip';
-import Coin from '../user/Coin';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {Platform, View} from 'react-native';
@@ -15,37 +14,31 @@ export default observer(() => {
   const navigation = useNavigation<MainStackNavProp>();
   const {user} = useStores();
   const insets = useSafeAreaInsets();
-  const route = useRoute();
-  const tabName =
-    route.params && Object.keys(route.params).some(p => p === 'tab') ? String((route.params as any).tab) : '';
 
   return (
     <View
       style={{
         backgroundColor: colors.background,
-        paddingHorizontal: responsiveWidth(8),
-        //paddingRight: tabName === 'Shop' ? responsiveWidth(12) : undefined,
-        paddingTop: responsiveWidth(8) + (Platform.OS === 'ios' ? 0 : insets.top),
-        paddingBottom: responsiveWidth(8),
+        paddingHorizontal: responsiveWidth(16),
+        paddingTop: responsiveWidth(Platform.OS === 'ios' ? 8 : 16) + (Platform.OS === 'ios' ? 0 : insets.top),
+        paddingBottom: responsiveWidth(16),
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: responsiveWidth(4),
+        borderBottomWidth: 1,
+        borderBottomColor: colors.shadow,
       }}
     >
       <YedyIconButton icon={'hamburger'} scale={0.55} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       <YedyLogo />
-      {tabName === 'Shop kapandı' ? ( // logo ortalamadığı için kapandı
-        <Coin />
-      ) : (
-        <YedyIconButton
-          defaultBadge={false}
-          badge={912412904}
-          icon={'alarm-bell'}
-          scale={0.55}
-          tooltip={NotificationsTooltip}
-        />
-      )}
+      <YedyIconButton
+        defaultBadge={true}
+        badge={912412904}
+        icon={'alarm-bell'}
+        scale={0.55}
+        tooltip={NotificationsTooltip}
+      />
     </View>
   );
 });

@@ -30,12 +30,14 @@ export default observer(() => {
         backgroundColor: colors.background,
         paddingHorizontal: responsiveWidth(8),
         paddingRight: responsiveWidth(16),
-        paddingBottom: responsiveWidth(Platform.OS === 'ios' ? 8 : 12),
+        paddingBottom: responsiveWidth(12),
         paddingTop: responsiveWidth(Platform.OS === 'ios' ? 8 : 12) + (Platform.OS === 'ios' ? 0 : insets.top),
         flexDirection: 'row',
         gap: responsiveWidth(4),
         alignItems: 'center',
         justifyContent: 'space-between',
+        borderBottomWidth: route.name === 'Room' ? 0 : 1,
+        borderBottomColor: colors.shadow,
       }}
     >
       <YedyIconButton

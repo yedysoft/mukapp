@@ -25,6 +25,7 @@ export default observer(() => {
         flex: 1,
         flexDirection: 'column',
         gap: responsiveWidth(16),
+        paddingTop: responsiveWidth(20),
         paddingBottom: Platform.OS === 'ios' ? undefined : responsiveWidth(20),
       }}
     >

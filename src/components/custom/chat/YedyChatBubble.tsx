@@ -65,9 +65,8 @@ export default observer(({message, quotedMessage}: Props) => {
     <Animated.View
       style={[
         {
-          flexDirection: 'row',
+          flexDirection: me ? 'row-reverse' : 'row',
           gap: responsiveWidth(4),
-          justifyContent: me ? 'flex-end' : 'flex-start',
         },
         animatedStyles,
       ]}
@@ -76,8 +75,9 @@ export default observer(({message, quotedMessage}: Props) => {
       <YedyIcon
         icon={'reply'}
         scale={0.5}
-        direction={me ? 'ltr' : 'rtl'}
+        directionH={me ? 'ltr' : 'rtl'}
         style={{
+          backgroundColor: 'red',
           position: 'absolute',
           alignSelf: 'center',
           right: me ? responsiveWidth(-44) : undefined,
@@ -95,16 +95,16 @@ export default observer(({message, quotedMessage}: Props) => {
           display: me || message.type === 'PRIVATE' ? 'none' : undefined,
           backgroundColor: colors.bubble,
           borderRadius: 100,
-          marginTop: responsiveWidth(8),
+          marginTop: responsiveWidth(4),
         }}
       />
       <View
         style={{
           flexDirection: 'column',
-          backgroundColor: me ? colors.primary : '#233A40',
-          padding: responsiveWidth(12),
-          maxWidth: responsiveWidth(240),
+          backgroundColor: me ? colors.primary : colors.bubble,
           borderRadius: 16,
+          padding: responsiveWidth(12),
+          maxWidth: '70%',
           gap: responsiveWidth(4),
         }}
       >
