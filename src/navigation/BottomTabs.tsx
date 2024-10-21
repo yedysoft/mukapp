@@ -11,6 +11,7 @@ import {YedyPalette} from '../themes/YedyPalette';
 import {useServices} from '../services';
 import {useTheme} from '../hooks';
 import {YedyIcon} from '../components/custom';
+import {responsiveWidth} from '../utils/util';
 
 const Bottom = createBottomTabNavigator();
 export default observer(() => {
@@ -51,8 +52,8 @@ export default observer(() => {
         tabBarStyle: {
           display: keyboardVisible ? 'none' : undefined,
           backgroundColor: barColor,
-          borderTopWidth: 1,
-          borderTopColor: colors.shadow,
+          borderTopWidth: 0,
+          height: responsiveWidth(80),
         },
         headerShown: false,
       }}

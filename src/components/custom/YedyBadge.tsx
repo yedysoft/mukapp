@@ -42,7 +42,7 @@ export default observer(({style, textStyle, badge, defaultBadge, scale}: Props) 
           backgroundColor: colors.tertiary,
           display: badge || defaultBadge ? undefined : 'none',
           padding: defaultBadge ? responsiveWidth(scale ? scale * 10 : 5) : responsiveWidth(4),
-          paddingHorizontal: defaultBadge ? undefined : responsiveWidth(8),
+          paddingHorizontal: defaultBadge ? undefined : responsiveWidth(4),
           borderRadius: 100,
           borderWidth: responsiveWidth(2),
           borderColor: colors.background,
@@ -50,7 +50,6 @@ export default observer(({style, textStyle, badge, defaultBadge, scale}: Props) 
           top: defaultBadge ? 0 : responsiveWidth(-8),
           alignItems: 'center',
           justifyContent: 'center',
-          //minWidth: textWidth + responsiveWidth(16),
         },
         style,
       ]}

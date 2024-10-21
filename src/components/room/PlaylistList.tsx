@@ -4,7 +4,6 @@ import PlaylistListItem from './PlaylistListItem';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
 import {YedyTextInput} from '../custom';
-import {useTheme} from '../../hooks';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 
@@ -13,7 +12,6 @@ type Props = {
 };
 
 const PlaylistList = observer(({playlists}: Props) => {
-  const {colors} = useTheme();
   const playlistId = playlists.find(p => p.selected)?.id;
   const {api} = useServices();
   const {loading, media} = useStores();
@@ -23,7 +21,7 @@ const PlaylistList = observer(({playlists}: Props) => {
     !loading.getPlaylistTracks && api.media.getPlaylistTracks(item.id, item.tracks.count > 0);
   };
 
-  const handleSearch = (_name: string, value: string | number) => {
+  const handleSearch = (_name: string, value: string | number | undefined) => {
     api.helper.sleep(500, 'searchSong').then(() => {
       if (media.getSearchValue !== value) {
         !loading.getPlaylistTracks &&

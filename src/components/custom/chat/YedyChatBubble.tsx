@@ -77,7 +77,6 @@ export default observer(({message, quotedMessage}: Props) => {
         scale={0.5}
         directionH={me ? 'ltr' : 'rtl'}
         style={{
-          backgroundColor: 'red',
           position: 'absolute',
           alignSelf: 'center',
           right: me ? responsiveWidth(-44) : undefined,

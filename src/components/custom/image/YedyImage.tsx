@@ -8,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {responsiveScale, responsiveSize} from '../../../utils/util';
+import {responsiveScale, responsiveSize, responsiveWidth} from '../../../utils/util';
 import React, {useRef, useState} from 'react';
 import EditImage, {IEditImage} from './YedyEditImage';
 import {Image} from 'expo-image';
@@ -63,7 +63,7 @@ export default ({
           aspectRatio: 1,
           borderRadius: radius ? 16 : 2,
           justifyContent: 'center',
-          //overflow: 'hidden',
+          overflow: 'hidden',
         },
         style,
       ]}
@@ -81,8 +81,8 @@ export default ({
             borderRadius: 100,
             zIndex: 1400,
             position: 'absolute',
-            right: 4,
-            bottom: 4,
+            right: responsiveWidth(4),
+            bottom: responsiveWidth(4),
           }}
         />
       )}

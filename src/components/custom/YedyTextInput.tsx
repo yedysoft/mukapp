@@ -31,7 +31,7 @@ type Props = TextInputProps & {
   visible?: boolean;
   showError?: boolean;
   label?: string;
-  onCustomChange?: (name: string, value: string | number) => void;
+  onCustomChange?: (name: string, value: string | number | undefined) => void;
   viewStyle?: StyleProp<ViewStyle>;
   preValidate?: Validates | Validates[];
   validate?: ValidateFunction[];
@@ -48,7 +48,7 @@ type Props = TextInputProps & {
 
 export type YedyTextInputRef = {
   validateInput: (text: string | number) => boolean;
-  inputValue: () => string | number;
+  inputValue: () => string | number | undefined;
   focus: () => void;
   clear: () => void;
 };
@@ -89,18 +89,19 @@ const TextInputComp = observer(
       useEffect(() => {
         isEmpty !== !validInputValue && setIsEmpty(!validInputValue);
         value.current !== validInputValue && (value.current = validInputValue);
+        pickerValue.current !== validInputValue && (pickerValue.current = validInputValue);
       }, [validInputValue]);
 
       ///Picker
       const [pickerVisible, setPickerVisible] = useState(false);
       const [pickerPretty, setPickerPretty] = useState<string | undefined>();
-      const pickerValue = useRef<string | number>(validInputValue as string);
+      const pickerValue = useRef<string | number | undefined>(validInputValue);
       const pickerChangeVisible = (open: boolean) => {
         ui.set('pickerViewVisible', open);
         setPickerVisible(open);
       };
 
-      const handleValueChange = (_name: string, value: string | number, prettyValue?: string) => {
+      const handleValueChange = (_name: string, value: string | number | undefined, prettyValue?: string) => {
         pickerValue.current = value;
         handleChangeText(String(value));
         setPickerPretty(prettyValue);
@@ -164,7 +165,7 @@ const TextInputComp = observer(
             return Number(value.current);
           }
         }
-        return value.current ?? '';
+        return value.current;
       };
 
       const focusInput = () => {
@@ -276,7 +277,7 @@ const TextInputComp = observer(
                   rest.onSubmitEditing({} as NativeSyntheticEvent<TextInputSubmitEditingEventData>);
                 }
               }}
-              onClear={() => handleValueChange('', '', '')}
+              onClear={() => handleValueChange('', undefined, undefined)}
             >
               {pickerType === 'normal' && pickerItems ? (
                 <YedyPicker name={name} items={pickerItems} value={getValue()} onValueChange={handleValueChange} />

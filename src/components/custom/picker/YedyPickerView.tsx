@@ -1,5 +1,14 @@
 import React, {ReactNode, useEffect, useRef} from 'react';
-import {BackHandler, Keyboard, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import {
+  BackHandler,
+  Keyboard,
+  NativeEventSubscription,
+  Platform,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import YedyIconButton from '../YedyIconButton';
 import YedyPortal from '../portal/YedyPortal';
 import {responsiveWidth} from '../../../utils/util';
@@ -47,7 +56,7 @@ export default ({children, visible, changeVisible, buttonOnPress, buttonIcon, on
             position: 'absolute',
             display: visible ? undefined : 'none',
             backgroundColor: colors.dialog,
-            bottom: insets.bottom,
+            bottom: 0,
             left: 0,
             right: 0,
             alignItems: 'center',
@@ -64,6 +73,7 @@ export default ({children, visible, changeVisible, buttonOnPress, buttonIcon, on
             alignSelf: 'stretch',
             justifyContent: 'space-between',
             paddingHorizontal: responsiveWidth(16),
+            paddingBottom: Platform.OS === 'ios' ? 0 : insets.bottom,
           }}
         >
           <YedyIconButton

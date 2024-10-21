@@ -54,13 +54,12 @@ const PickerComp = <T extends string | number>({
   itemWidth = 'auto',
 }: Props<T>) => {
   const {colors} = useTheme();
-  const tempValue = value;
-
   const itemsIsArray = Array.isArray(items);
-  const itemsArray = itemsIsArray ? items : Object.keys(items).map(k => k as T);
-  value = checkValue<T>(tempValue, itemsArray);
+  const itemsArray = useMemo(() => (Array.isArray(items) ? items : Object.keys(items).map(k => k as T)), [items]);
+  const pickerValue = useRef<T>(checkValue<T>(value, itemsArray));
+  console.log(name, pickerValue.current, value);
   const visibleItemCount = 5;
-  const scrollY = useRef(new Animated.Value(0)).current;
+  const {current: scrollY} = useRef(new Animated.Value(0));
   const listRef = useRef<FlatList>(null);
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...itemsArray, ...emptyItems], [itemsArray, emptyItems]);
@@ -94,6 +93,7 @@ const PickerComp = <T extends string | number>({
       inputRange,
       outputRange: ['-40deg', '-20deg', '0deg', '20deg', '40deg'],
     });
+
     return (
       <Pressable onPress={() => gotoItem(item, true)}>
         <Animated.View
@@ -122,21 +122,21 @@ const PickerComp = <T extends string | number>({
     const y = event.nativeEvent.contentOffset.y;
     const index = Math.round(y / itemHeight);
     const val = itemsArray[index];
-    if (val !== value) {
+    if (val !== pickerValue.current) {
       gotoItem(val, false);
     }
   };
 
-  const gotoItem = (val: T, scroll: boolean, justGoItem = false) => {
+  const gotoItem = (val: T | undefined, scroll: boolean, justGoItem = false) => {
     if (val) {
-      value = val;
+      pickerValue.current = val;
       if (listRef.current && scroll) {
         const index = modifiedItems.indexOf(val);
         const initialScrollIndex = index - (visibleItemCount - 1) / 2;
         listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
       }
+      onValueChange && !justGoItem && onValueChange(name, val, itemsIsArray ? undefined : items[val]);
     }
-    onValueChange && !justGoItem && onValueChange(name, val, itemsIsArray ? undefined : items[val]);
   };
 
   const handleOnLayout = (event: LayoutChangeEvent) => {
@@ -146,13 +146,16 @@ const PickerComp = <T extends string | number>({
   };
 
   useEffect(() => {
-    if ((tempValue || tempValue === '' || tempValue === -1) && value && tempValue !== value) {
-      gotoItem(value, true, tempValue === '' || tempValue === -1);
+    const newValue = checkValue<T>(value, itemsArray);
+    if (pickerValue.current !== newValue) {
+      console.log('useEffect1', pickerValue.current, newValue);
+      gotoItem(newValue, true, !value || value === -1);
     }
-  }, [tempValue, value]);
+  }, [value]);
 
   useEffect(() => {
-    onValueChange && tempValue && value && onValueChange(name, value, itemsIsArray ? undefined : items[value]);
+    console.log('useEffect2', pickerValue.current, value);
+    gotoItem(value, false, !value || value === -1);
   }, []);
 
   return (
@@ -167,7 +170,7 @@ const PickerComp = <T extends string | number>({
       <Animated.FlatList
         style={{height: itemHeight * visibleItemCount}}
         ref={listRef}
-        initialScrollIndex={modifiedItems.indexOf(value) - (visibleItemCount - 1) / 2}
+        initialScrollIndex={modifiedItems.indexOf(pickerValue.current) - (visibleItemCount - 1) / 2}
         data={modifiedItems}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}

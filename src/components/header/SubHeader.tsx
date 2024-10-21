@@ -23,21 +23,20 @@ export default observer(() => {
   const {api, t} = useServices();
   const dominantColor = media.getDominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
+  const isTextPage = ['Notifications', 'Search', 'PS', 'Settings', 'Edit'].includes(route.name);
 
   return (
     <View
       style={{
         backgroundColor: colors.background,
         paddingHorizontal: responsiveWidth(8),
-        paddingRight: responsiveWidth(16),
+        paddingRight: responsiveWidth(isTextPage ? 24 : 8),
         paddingBottom: responsiveWidth(12),
         paddingTop: responsiveWidth(Platform.OS === 'ios' ? 8 : 12) + (Platform.OS === 'ios' ? 0 : insets.top),
         flexDirection: 'row',
         gap: responsiveWidth(4),
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomWidth: route.name === 'Room' ? 0 : 1,
-        borderBottomColor: colors.shadow,
       }}
     >
       <YedyIconButton
@@ -57,7 +56,7 @@ export default observer(() => {
         <YedyIconButton icon={'account-edit'} scale={0.5} onPress={() => navigation.navigate('Edit')} />
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
-      ) : ['Notifications', 'Search', 'PS', 'Settings', 'Edit'].includes(route.name) ? (
+      ) : isTextPage ? (
         <YedyText numberOfLines={1} type={'bold'} size={28}>
           {t.do(`main.side.${route.name.toLowerCase()}` as MukLangPaths)}
         </YedyText>

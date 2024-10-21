@@ -26,16 +26,12 @@ export default observer(() => {
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: responsiveWidth(4),
-        borderBottomWidth: 1,
-        borderBottomColor: colors.shadow,
       }}
     >
       <YedyIconButton icon={'hamburger'} scale={0.6} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       <YedyLogo />
       <YedyIconButton
-        //defaultBadge={user.getNotifications.some(n => !n.readed)}
-        defaultBadge={false}
-        badge={343000}
+        defaultBadge={user.getNotifications.some(n => !n.readed)}
         icon={'alarm-bell'}
         scale={0.6}
         tooltip={NotificationsTooltip}

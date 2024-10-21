@@ -11,9 +11,9 @@ export const SearchScreen = observer(() => {
   const {api, t} = useServices();
   const {user} = useStores();
 
-  const handleSearch = (_name: string, value: string | number) => {
+  const handleSearch = (_name: string, value: string | number | undefined) => {
     api.helper.sleep(500, 'searchUser').then(() => {
-      if (value !== '') {
+      if (value && value !== '') {
         api.user.searchUser(String(value));
       } else {
         user.set('searched', []);

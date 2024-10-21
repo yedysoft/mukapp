@@ -8,7 +8,7 @@ import YedyButton from '../YedyButton';
 import YedyModal from '../YedyModal';
 import YedyIcon from '../YedyIcon';
 import {ModalScreenProps} from '../../../types';
-import {responsiveWidth} from '../../../utils/util';
+import {responsiveSize, responsiveWidth} from '../../../utils/util';
 import React from 'react';
 import {observer} from 'mobx-react';
 import {useTheme} from '../../../hooks';
@@ -102,11 +102,11 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
             width: '100%',
             justifyContent: 'flex-start',
           }}
-          textStyle={{color: colors.secondary}}
+          textStyle={{color: colors.secondary, fontSize: responsiveSize(19)}}
           onPress={takePhoto}
           label={'Fotoğraf Çek'}
         >
-          <YedyIcon icon={'camera'} scale={0.4} color={colors.primary} />
+          <YedyIcon icon={'camera'} scale={0.5} color={colors.primary} />
         </YedyButton>
         <YedyButton
           disabled={loading.deleteImage}
@@ -117,11 +117,11 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
             width: '100%',
             justifyContent: 'flex-start',
           }}
-          textStyle={{color: colors.secondary}}
+          textStyle={{color: colors.secondary, fontSize: responsiveSize(19)}}
           onPress={pickImage}
           label={'Fotoğraflarımdan Seç'}
         >
-          <YedyIcon icon={'file-image-plus'} scale={0.4} color={colors.info} />
+          <YedyIcon icon={'file-image-plus'} scale={0.5} color={colors.info} />
         </YedyButton>
         <YedyButton
           loading={loading.deleteImage}
@@ -133,11 +133,11 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
             width: '100%',
             justifyContent: 'flex-start',
           }}
-          textStyle={{color: colors.secondary}}
+          textStyle={{color: colors.secondary, fontSize: responsiveSize(19)}}
           onPress={deleteImage}
           label={'Fotoğrafı Kaldır'}
         >
-          <YedyIcon icon={'file-image-remove'} scale={0.4} color={colors.error} />
+          <YedyIcon icon={'file-image-remove'} scale={0.5} color={colors.error} />
         </YedyButton>
       </View>
     </YedyModal>
