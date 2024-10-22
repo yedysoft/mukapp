@@ -4,6 +4,7 @@ import {
   ImageSourcePropType,
   ImageStyle,
   StyleProp,
+  StyleSheet,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -46,7 +47,9 @@ export default ({
   const {api} = useServices();
   const [loading, setLoading] = useState(false);
   const ref = useRef<YedyIconButtonRef>(null);
-
+  const flattenedViewStyle = StyleSheet.flatten(style) || {};
+  const borderRadius = flattenedViewStyle.borderRadius || radius ? 16 : 2;
+  console.log(borderRadius);
   const handleOnPress = (event?: GestureResponderEvent) => {
     event?.stopPropagation();
     ref.current?.openModalOrTooltip();
@@ -63,7 +66,6 @@ export default ({
           aspectRatio: 1,
           borderRadius: radius ? 16 : 2,
           justifyContent: 'center',
-          overflow: 'hidden',
         },
         style,
       ]}
@@ -94,7 +96,12 @@ export default ({
         {loading ? (
           <ActivityIndicator size={responsiveSize(48)} color={colors.secondary} />
         ) : (
-          <Image source={source} contentFit={resizeMode} cachePolicy={'memory-disk'} style={[{flex: 1}, imageStyle]} />
+          <Image
+            source={source}
+            contentFit={resizeMode}
+            cachePolicy={'memory-disk'}
+            style={[{flex: 1, borderRadius}, imageStyle]}
+          />
         )}
       </TouchableOpacity>
     </View>

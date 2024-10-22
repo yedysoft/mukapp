@@ -57,10 +57,10 @@ const PickerComp = <T extends string | number>({
   const itemsIsArray = Array.isArray(items);
   const itemsArray = useMemo(() => (Array.isArray(items) ? items : Object.keys(items).map(k => k as T)), [items]);
   const pickerValue = useRef<T>(checkValue<T>(value, itemsArray));
-  console.log(name, pickerValue.current, value);
   const visibleItemCount = 5;
   const {current: scrollY} = useRef(new Animated.Value(0));
   const listRef = useRef<FlatList>(null);
+  const [selected, setSelected] = useState<T>();
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...itemsArray, ...emptyItems], [itemsArray, emptyItems]);
   const {api} = useServices();
@@ -108,7 +108,7 @@ const PickerComp = <T extends string | number>({
             numberOfLines={1}
             type={'bold'}
             size={16}
-            color={value === item ? colors.secondary : colors.outlineVariant}
+            color={selected === item ? colors.secondary : colors.outlineVariant}
             style={{textAlign: 'center', textAlignVertical: 'center'}}
           >
             {itemsIsArray ? String(item) : items[item]}
@@ -130,10 +130,11 @@ const PickerComp = <T extends string | number>({
   const gotoItem = (val: T | undefined, scroll: boolean, justGoItem = false) => {
     if (val) {
       pickerValue.current = val;
+      setSelected(pickerValue.current);
       if (listRef.current && scroll) {
         const index = modifiedItems.indexOf(val);
         const initialScrollIndex = index - (visibleItemCount - 1) / 2;
-        listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
+        listRef.current.scrollToIndex({index: initialScrollIndex, animated: !justGoItem});
       }
       onValueChange && !justGoItem && onValueChange(name, val, itemsIsArray ? undefined : items[val]);
     }
@@ -148,13 +149,11 @@ const PickerComp = <T extends string | number>({
   useEffect(() => {
     const newValue = checkValue<T>(value, itemsArray);
     if (pickerValue.current !== newValue) {
-      console.log('useEffect1', pickerValue.current, newValue);
       gotoItem(newValue, true, !value || value === -1);
     }
   }, [value]);
 
   useEffect(() => {
-    console.log('useEffect2', pickerValue.current, value);
     gotoItem(value, false, !value || value === -1);
   }, []);
 

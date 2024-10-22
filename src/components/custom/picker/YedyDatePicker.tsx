@@ -14,9 +14,7 @@ type Props = {
   onValueChange?: (name: string, value: string, prettyValue?: string) => void;
 };
 
-const nowYear = new Date().getFullYear();
-
-const strToDate = (str: string | undefined): DateType => {
+const strToDate = (str: string | undefined, maxYear: number): DateType => {
   if (str) {
     const parts = str.split('-');
     if (parts.length === 3) {
@@ -26,8 +24,7 @@ const strToDate = (str: string | undefined): DateType => {
       return {day, month, year};
     }
   }
-  const year = nowYear - 18;
-  return {day: new Date(year, 12, 0).getDate(), month: 12, year};
+  return {day: new Date(maxYear, 12, 0).getDate(), month: 12, year: maxYear};
 };
 
 const dateToStr = (date: DateType, format: 'day.month.Year' | 'year-month-day'): string => {
@@ -40,13 +37,19 @@ const dateToStr = (date: DateType, format: 'day.month.Year' | 'year-month-day'):
   }
 };
 
-const DatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onValueChange}: Props) => {
+const DatePickerComp = ({name, value, minYear = 1950, maxYear = new Date().getFullYear(), onValueChange}: Props) => {
   const {api} = useServices();
-  const date = useRef<DateType>(strToDate(value));
+  const date = useRef<DateType>(strToDate(value, maxYear));
   const [day, setDay] = useState<number>(new Date(date.current.year, date.current.month, 0).getDate());
   const days = useMemo(() => api.helper.generateNumberArray(1, day), [day]);
   const months = useMemo(() => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], []);
   const years = useMemo(() => api.helper.generateNumberArray(minYear, maxYear), [minYear, maxYear]);
+
+  const valueChange = (changed: boolean) => {
+    onValueChange &&
+      changed &&
+      onValueChange(name, dateToStr(date.current, 'year-month-day'), dateToStr(date.current, 'day.month.Year'));
+  };
 
   const handleValueChanged = (key: string, value: number) => {
     const temp = date.current;
@@ -54,37 +57,43 @@ const DatePickerComp = ({name, value, minYear = 1950, maxYear = nowYear, onValue
     const changed = !api.helper.isEqual(temp, date.current);
     const lastDay = new Date(date.current.year, date.current.month, 0).getDate();
     if (lastDay !== day) {
+      if (date.current.day === day && lastDay < day) {
+        date.current.day = lastDay;
+      }
       setDay(lastDay);
     }
-    onValueChange &&
-      changed &&
-      onValueChange(name, dateToStr(date.current, 'year-month-day'), dateToStr(date.current, 'day.month.Year'));
+    valueChange(changed);
   };
 
   useEffect(() => {
-    onValueChange &&
-      value &&
-      onValueChange(name, dateToStr(date.current, 'year-month-day'), dateToStr(date.current, 'day.month.Year'));
+    value && valueChange(true);
   }, []);
+
+  useEffect(() => {
+    const temp = date.current;
+    date.current = strToDate(value, maxYear);
+    const changed = !api.helper.isEqual(temp, date.current);
+    value && valueChange(changed);
+  }, [value, maxYear]);
 
   return (
     <View style={{flexDirection: 'row'}}>
       <YedyPicker<number>
-        name="day"
+        name={'day'}
         items={days}
         value={value ? date.current.day : -1}
         itemWidth={responsiveWidth(70)}
         onValueChange={handleValueChanged}
       />
       <YedyPicker<number>
-        name="month"
+        name={'month'}
         items={months}
         value={value ? date.current.month : -1}
         itemWidth={responsiveWidth(70)}
         onValueChange={handleValueChanged}
       />
       <YedyPicker<number>
-        name="year"
+        name={'year'}
         items={years}
         value={value ? date.current.year : -1}
         itemWidth={responsiveWidth(70)}
