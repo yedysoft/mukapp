@@ -1,10 +1,9 @@
-import {findNodeHandle, StyleProp, Text, TextStyle, View, ViewStyle} from 'react-native';
+import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
 import {useTheme} from '../../hooks';
 import YedyText from './YedyText';
 import {useServices} from '../../services';
 import {responsiveWidth} from '../../utils/util';
-import {useEffect, useRef, useState} from 'react';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -16,22 +15,6 @@ type Props = {
 export default observer(({style, textStyle, badge, defaultBadge, scale}: Props) => {
   const {colors} = useTheme();
   const {api} = useServices();
-  const [textWidth, setTextWidth] = useState(0);
-  const textRef = useRef<Text>(null);
-  console.log(textWidth);
-  useEffect(() => {
-    if (textRef.current) {
-      const handle = findNodeHandle(textRef.current);
-      if (handle) {
-        console.log(handle);
-        // Text'in genişliğini dinamik olarak ölç
-        textRef.current.measure((x, y, width, height, pageX, pageY) => {
-          console.log(x, y, width, height, pageX, pageY);
-          setTextWidth(width);
-        });
-      }
-    }
-  }, [badge]);
 
   return (
     <View
@@ -56,10 +39,9 @@ export default observer(({style, textStyle, badge, defaultBadge, scale}: Props) 
     >
       {!defaultBadge && badge && (
         <YedyText
-          ref={textRef}
           numberOfLines={1}
           type={'bold'}
-          size={scale ? scale * 20 : 14}
+          size={scale ? scale * 18 : 11}
           color={colors.light}
           style={[textStyle]}
         >

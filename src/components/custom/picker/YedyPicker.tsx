@@ -10,7 +10,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {genericMemo, responsiveWidth} from '../../../utils/util';
+import {genericMemo, responsiveHeight, responsiveWidth} from '../../../utils/util';
 import {useTheme} from '../../../hooks';
 import {services, useServices} from '../../../services';
 import YedyText from '../YedyText';
@@ -50,7 +50,7 @@ const PickerComp = <T extends string | number>({
   items,
   value,
   onValueChange,
-  itemHeight = 30,
+  itemHeight = responsiveHeight(30),
   itemWidth = 'auto',
 }: Props<T>) => {
   const {colors} = useTheme();
@@ -60,7 +60,7 @@ const PickerComp = <T extends string | number>({
   const visibleItemCount = 5;
   const {current: scrollY} = useRef(new Animated.Value(0));
   const listRef = useRef<FlatList>(null);
-  const [selected, setSelected] = useState<T>();
+  const [selected, setSelected] = useState<T>(pickerValue.current);
   const emptyItems = useMemo(() => Array((visibleItemCount - 1) / 2).fill(''), [visibleItemCount]);
   const modifiedItems = useMemo(() => [...emptyItems, ...itemsArray, ...emptyItems], [itemsArray, emptyItems]);
   const {api} = useServices();
@@ -107,7 +107,7 @@ const PickerComp = <T extends string | number>({
           <YedyText
             numberOfLines={1}
             type={'bold'}
-            size={16}
+            size={15}
             color={selected === item ? colors.secondary : colors.outlineVariant}
             style={{textAlign: 'center', textAlignVertical: 'center'}}
           >
@@ -134,7 +134,7 @@ const PickerComp = <T extends string | number>({
       if (listRef.current && scroll) {
         const index = modifiedItems.indexOf(val);
         const initialScrollIndex = index - (visibleItemCount - 1) / 2;
-        listRef.current.scrollToIndex({index: initialScrollIndex, animated: !justGoItem});
+        listRef.current.scrollToIndex({index: initialScrollIndex, animated: true});
       }
       onValueChange && !justGoItem && onValueChange(name, val, itemsIsArray ? undefined : items[val]);
     }
@@ -154,7 +154,8 @@ const PickerComp = <T extends string | number>({
   }, [value]);
 
   useEffect(() => {
-    gotoItem(value, false, !value || value === -1);
+    const newValue = checkValue<T>(value, itemsArray);
+    gotoItem(newValue, false, !value || value === -1);
   }, []);
 
   return (

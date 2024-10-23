@@ -1,4 +1,4 @@
-import {FlatList, ListRenderItemInfo} from 'react-native';
+import {FlatList, ListRenderItemInfo, View} from 'react-native';
 import {responsiveWidth} from '../../../utils/util';
 import ChatBubble from './YedyChatBubble';
 import {IMessage} from '../../../types/chat';
@@ -56,16 +56,16 @@ export default ({data}: Props) => {
   const handleFab = (isVisible: boolean) => isVisible !== fabVisible && setFabVisible(isVisible);
 
   return (
-    <>
+    <View style={{flex: 1}}>
       <FlatList
         ref={listRef}
-        style={{flex: 1}}
         scrollEnabled
         snapToEnd
         contentContainerStyle={{
           gap: responsiveWidth(8),
-          padding: responsiveWidth(8),
+          padding: responsiveWidth(12),
         }}
+        disableScrollViewPanResponder
         data={data}
         renderItem={handleRenderItem}
         inverted
@@ -76,14 +76,16 @@ export default ({data}: Props) => {
       />
       <YedyFAB
         icon={'chevron-down'}
-        scale={0.6}
+        scale={0.5}
         visible={fabVisible}
+        color={colors.background}
         style={{
-          bottom: responsiveWidth(100),
+          width: responsiveWidth(40),
+          bottom: responsiveWidth(16),
           backgroundColor: colors.secondary,
         }}
         onPress={() => listRef.current?.scrollToIndex({index: 0})}
       />
-    </>
+    </View>
   );
 };

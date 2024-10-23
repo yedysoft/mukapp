@@ -15,7 +15,7 @@ export default function MukSplashScreen() {
         alignItems: 'center',
       }}
     >
-      <YedyLogo imageStyle={{width: 40, aspectRatio: 0.5}} />
+      <YedyLogo scale={2.3} />
     </View>
   );
 }

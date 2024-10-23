@@ -21,32 +21,30 @@ export default observer(({user}: Props) => {
 
   return (
     <YedyListItem
-      style={{backgroundColor: colors.backdrop, borderRadius: 16, alignItems: 'center'}}
+      style={{
+        backgroundColor: colors.backdrop,
+        paddingHorizontal: responsiveWidth(8),
+        gap: responsiveWidth(8),
+        borderRadius: 16,
+        alignItems: 'center',
+      }}
       onPress={() => navigation.navigate('Profile', {userId: user.id})}
     >
       {user.image ? (
-        <YedyImage
-          scale={0.8}
-          style={{marginLeft: responsiveWidth(-5)}}
-          source={{uri: `${user.image.link}?token=${auth.getAuthToken}`}}
-        />
+        <YedyImage scale={0.7} source={{uri: `${user.image.link}?token=${auth.getAuthToken}`}} />
       ) : (
-        <YedyIcon scale={0.8} icon={'account'} />
+        <YedyIcon scale={0.7} icon={'account'} />
       )}
-      <View style={{flex: 1, flexDirection: 'column'}}>
-        <YedyText numberOfLines={1} type={'bold'} size={16}>
-          {user.name}
-        </YedyText>
-        <YedyText numberOfLines={1} size={14}>
-          @{user.userName}
-        </YedyText>
-        <YedyText
-          numberOfLines={1}
-          visible={user.isFollower}
-          size={12}
-          color={colors.outlineVariant}
-          style={{marginTop: responsiveWidth(4)}}
-        >
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+        <View style={{flex: 1, flexDirection: 'column'}}>
+          <YedyText numberOfLines={1} type={'bold'} size={13}>
+            {user.name}
+          </YedyText>
+          <YedyText numberOfLines={1} size={11}>
+            @{user.userName}
+          </YedyText>
+        </View>
+        <YedyText numberOfLines={1} visible={user.isFollower} size={10} color={colors.outlineVariant}>
           {t.do('main.search.follows')}
         </YedyText>
       </View>

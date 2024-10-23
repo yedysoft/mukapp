@@ -3,7 +3,7 @@ import {IChat} from '../../types/chat';
 import {FlatList} from 'react-native';
 import MessagesListItem from './MessagesListItem';
 import {responsiveWidth} from '../../utils/util';
-import {YedyImage} from '../custom';
+import {YedyEmptyList} from '../custom';
 
 type Props = {
   chats: IChat[];
@@ -21,13 +21,7 @@ export default function MessagesList({chats}: Props) {
         paddingVertical: responsiveWidth(8),
         backgroundColor: colors.background,
       }}
-      ListEmptyComponent={
-        <YedyImage
-          source={require('../../../assets/noimage-gray.png')}
-          scale={3}
-          style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
-        />
-      }
+      ListEmptyComponent={<YedyEmptyList />}
     />
   );
 }

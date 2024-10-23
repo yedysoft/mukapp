@@ -11,7 +11,7 @@ import {YedyPalette} from '../themes/YedyPalette';
 import {useServices} from '../services';
 import {useTheme} from '../hooks';
 import {YedyIcon} from '../components/custom';
-import {responsiveWidth} from '../utils/util';
+import {responsiveHeight} from '../utils/util';
 
 const Bottom = createBottomTabNavigator();
 export default observer(() => {
@@ -53,7 +53,7 @@ export default observer(() => {
           display: keyboardVisible ? 'none' : undefined,
           backgroundColor: barColor,
           borderTopWidth: 0,
-          height: responsiveWidth(80),
+          height: responsiveHeight(60),
         },
         headerShown: false,
       }}
@@ -63,7 +63,7 @@ export default observer(() => {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'cart'} scale={0.7} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'cart'} scale={0.5} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Shop'}),
@@ -73,7 +73,7 @@ export default observer(() => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'view-sequential'} scale={0.7} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'view-sequential'} scale={0.5} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Home'}),
@@ -84,7 +84,7 @@ export default observer(() => {
         name="Messages"
         component={MessagesScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'chat'} scale={0.7} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <YedyIcon icon={'chat'} scale={0.5} color={getIconColor(focused)} />,
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Messages'}),

@@ -34,15 +34,15 @@ export default observer(({song, itemType, disabled}: Props) => {
     <YedyListItem style={{flex: 1, gap: responsiveWidth(8)}} disabled={true}>
       <YedyImage scale={1.4} source={api.helper.getImageUrl(song.images, 1.4)} radius={false} />
       {title ? (
-        <YedyText numberOfLines={1} size={18} color={colors.tertiary}>
+        <YedyText numberOfLines={1} size={15} color={colors.tertiary}>
           {title}
         </YedyText>
       ) : (
         <View style={{flex: 1, flexDirection: 'column'}}>
-          <YedyText numberOfLines={1} type={'bold'} size={18} style={{marginLeft: responsiveWidth(8)}}>
+          <YedyText numberOfLines={1} type={'bold'} size={15} style={{marginLeft: responsiveWidth(8)}}>
             {song.name}
           </YedyText>
-          <YedyText numberOfLines={1} size={14} style={{marginLeft: responsiveWidth(8)}}>
+          <YedyText numberOfLines={1} style={{marginLeft: responsiveWidth(8)}}>
             {api.helper.getArtist(song.artists)}
           </YedyText>
           <SpotifyIcon id={song.id} />
@@ -61,12 +61,7 @@ export default observer(({song, itemType, disabled}: Props) => {
           }}
         />
       ) : itemType === 'add' ? (
-        <YedyIconButton
-          icon={'plus'}
-          onPress={soonTitle}
-          color={title ? colors.tertiary : colors.secondary}
-          style={{position: 'absolute', right: responsiveWidth(0)}}
-        />
+        <YedyIconButton icon={'plus'} onPress={soonTitle} color={title ? colors.tertiary : colors.secondary} />
       ) : null}
     </YedyListItem>
   );

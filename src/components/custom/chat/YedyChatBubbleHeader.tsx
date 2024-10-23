@@ -25,7 +25,7 @@ export default ({visible, value}: Props) => {
         marginBottom: responsiveWidth(8),
       }}
     >
-      <YedyText size={14}>{value}</YedyText>
+      <YedyText>{value}</YedyText>
     </View>
   );
 };

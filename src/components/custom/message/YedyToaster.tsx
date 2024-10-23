@@ -68,20 +68,20 @@ export default observer(({message}: Props) => {
           flexDirection: 'row',
         }}
       >
-        <YedyIcon icon={getMessageIcon()} scale={0.6} color={colors.text} />
+        <YedyIcon icon={getMessageIcon()} scale={0.5} color={colors.text} />
         <View
           style={{
             flex: 1,
-            padding: responsiveWidth(8),
+            paddingHorizontal: responsiveWidth(8),
             flexDirection: 'column',
             justifyContent: 'center',
             gap: responsiveWidth(4),
           }}
         >
-          <YedyText type={'bold'} size={18} color={colors.text}>
+          <YedyText type={'bold'} size={15} color={colors.text}>
             {getMessageTitle()}
           </YedyText>
-          <YedyText numberOfLines={2} size={16} color={colors.text}>
+          <YedyText numberOfLines={2} size={13} color={colors.text}>
             {message.body.message}
           </YedyText>
         </View>

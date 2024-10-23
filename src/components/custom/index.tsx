@@ -14,6 +14,7 @@ export {default as YedyIconButton, type YedyIconButtonRef} from './YedyIconButto
 export {default as YedyImage} from './image/YedyImage';
 export {default as YedyListItem} from './YedyListItem';
 export {default as YedyLogo} from './YedyLogo';
+export {default as YedyEmptyList} from './YedyEmptyList';
 export {default as YedyModal} from './YedyModal';
 export {default as YedyPortal} from './portal/YedyPortal';
 export {default as YedyPortalProvider, usePortal} from './portal/YedyPortalProvider';

@@ -2,7 +2,6 @@ import {
   Keyboard,
   KeyboardType,
   NativeSyntheticEvent,
-  Platform,
   Pressable,
   StyleProp,
   TextInput,
@@ -13,7 +12,7 @@ import {
 } from 'react-native';
 import {forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
-import {genericMemo, responsiveWidth} from '../../utils/util';
+import {genericMemo, responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import YedyText from './YedyText';
@@ -96,8 +95,8 @@ const TextInputComp = observer(
       const [pickerVisible, setPickerVisible] = useState(false);
       const [pickerPretty, setPickerPretty] = useState<string | undefined>();
       const pickerValue = useRef<string | number | undefined>(validInputValue);
-      const pickerChangeVisible = (open: boolean) => {
-        ui.set('pickerViewVisible', open);
+      const pickerChangeVisible = (open: boolean, isNextButton = false) => {
+        !isNextButton && ui.set('pickerViewVisible', open);
         setPickerVisible(open);
       };
 
@@ -210,12 +209,12 @@ const TextInputComp = observer(
           >
             <YedyText
               visible={!isEmpty && !!label}
-              size={Platform.OS === 'ios' ? 11 : 13}
+              size={10}
               color={colors.outlineVariant}
               style={{
                 position: 'absolute',
                 left: responsiveWidth(10),
-                top: responsiveWidth(4),
+                top: responsiveHeight(3),
                 zIndex: 1400,
               }}
             >
@@ -250,11 +249,12 @@ const TextInputComp = observer(
               style={[
                 {
                   fontFamily: 'ProductSans-Regular',
+                  fontSize: responsiveSize(13),
                   color: colors.secondary,
                   backgroundColor: colors.shadow,
                   textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
                   paddingHorizontal: responsiveWidth(16),
-                  paddingVertical: responsiveWidth(Platform.OS === 'ios' ? 16 : 12),
+                  paddingVertical: responsiveHeight(10),
                   borderRadius: 16,
                   borderTopLeftRadius: quotedMessage ? 0 : 16,
                   borderTopRightRadius: quotedMessage ? 0 : 16,

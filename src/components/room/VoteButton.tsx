@@ -21,7 +21,7 @@ export default ({onPress, badge, style, isLoading, disabled}: Props) => {
         }}
       />
       <YedyImage
-        scale={0.6}
+        scale={0.5}
         disabled={disabled}
         onPress={onPress}
         style={style}

@@ -37,7 +37,7 @@ export default ({title, cardStyle, contentStyle, titleStyle, children}: Props) =
             width: '100%',
           }}
         >
-          <YedyText type={'bold'} size={18} style={titleStyle}>
+          <YedyText type={'bold'} size={16} style={titleStyle}>
             {title}
           </YedyText>
         </View>

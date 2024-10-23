@@ -74,7 +74,7 @@ export default observer(({message, quotedMessage}: Props) => {
     >
       <YedyIcon
         icon={'reply'}
-        scale={0.5}
+        scale={0.4}
         directionH={me ? 'ltr' : 'rtl'}
         style={{
           position: 'absolute',

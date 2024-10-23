@@ -1,14 +1,5 @@
 import React, {ReactNode, useEffect, useRef} from 'react';
-import {
-  BackHandler,
-  Keyboard,
-  NativeEventSubscription,
-  Platform,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {BackHandler, Keyboard, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import YedyIconButton from '../YedyIconButton';
 import YedyPortal from '../portal/YedyPortal';
 import {responsiveWidth} from '../../../utils/util';
@@ -73,35 +64,35 @@ export default ({children, visible, changeVisible, buttonOnPress, buttonIcon, on
             alignSelf: 'stretch',
             justifyContent: 'space-between',
             paddingHorizontal: responsiveWidth(16),
-            paddingBottom: Platform.OS === 'ios' ? 0 : insets.bottom,
+            paddingBottom: insets.bottom + responsiveWidth(16),
           }}
         >
           <YedyIconButton
             style={{
               backgroundColor: colors.error,
               borderRadius: 100,
-              width: responsiveWidth(48),
+              width: responsiveWidth(36),
               aspectRatio: 1,
               alignItems: 'center',
               justifyContent: 'center',
             }}
             icon={'delete'}
             color={colors.light}
-            scale={0.5}
+            scale={0.3}
             onPress={onClear}
           />
           <YedyIconButton
             style={{
               backgroundColor: colors.primary,
               borderRadius: 100,
-              width: responsiveWidth(48),
+              width: responsiveWidth(36),
               aspectRatio: 1,
               alignItems: 'center',
               justifyContent: 'center',
             }}
             icon={buttonIcon}
             color={colors.dark}
-            scale={0.5}
+            scale={0.3}
             onPress={buttonOnPress}
           />
         </View>

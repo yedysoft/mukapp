@@ -101,6 +101,7 @@ type LangMain<T> = {
     settings: T;
     ps: T;
     edit: T;
+    blocked: T;
   };
   search: {
     placeholder: T;

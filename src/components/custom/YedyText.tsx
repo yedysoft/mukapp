@@ -20,7 +20,7 @@ const fonts: Record<fontTypes, string> = {
 };
 
 export default observer(
-  forwardRef<Text, Props>(({visible = true, type = 'reqular', size = 15, color, ...rest}: Props, ref) => {
+  forwardRef<Text, Props>(({visible = true, type = 'reqular', size = 12, color, ...rest}: Props, ref) => {
     const {colors} = useTheme();
 
     return (

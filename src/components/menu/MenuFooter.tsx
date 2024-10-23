@@ -20,12 +20,12 @@ export default function MenuFooter() {
         paddingHorizontal: responsiveWidth(16),
       }}
     >
-      <YedyIconButton icon={'logout'} onPress={api.auth.logout} scale={0.6} color={colors.error} />
+      <YedyIconButton icon={'logout'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
       <YedyIconButton
         icon={toggleTheme === 'light' ? 'weather-night' : 'weather-sunny'}
         color={colors.secondary}
         onPress={() => ui.set('appearance', toggleTheme)}
-        scale={0.6}
+        scale={0.5}
       />
     </View>
   );

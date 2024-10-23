@@ -78,7 +78,7 @@ export default observer(() => {
                 }}
               />
               <SpotifyIcon scale={1.3} noText disabled />
-              <YedyText size={16}>
+              <YedyText size={14}>
                 {t.do(
                   isConnected
                     ? `main.settings.connect.${name.toLowerCase()}.disconnect`

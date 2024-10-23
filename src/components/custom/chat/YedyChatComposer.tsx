@@ -78,7 +78,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
       />
       <YedyIconButton
         icon={'send'}
-        scale={0.5}
+        scale={0.4}
         color={colors.secondary}
         style={{alignSelf: user.quotedMessage ? 'flex-end' : 'center'}}
         onPress={() => {

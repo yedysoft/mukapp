@@ -26,7 +26,7 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
     >
       <View style={{flexDirection: 'row', alignItems: 'center', gap: responsiveWidth(16)}}>
         <YedyImage
-          scale={1}
+          scale={0.7}
           source={
             item.image
               ? {uri: `${item.image.link}?token=${auth.getAuthToken}`}
@@ -34,12 +34,10 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
           }
         />
         <View style={{justifyContent: 'center', gap: responsiveWidth(4)}}>
-          <YedyText numberOfLines={1} type={'bold'} size={16}>
+          <YedyText numberOfLines={1} type={'bold'} size={13}>
             {item.name}
           </YedyText>
-          <YedyText numberOfLines={1} size={14}>
-            @{item.userName}
-          </YedyText>
+          <YedyText numberOfLines={1}>@{item.userName}</YedyText>
         </View>
       </View>
       <YedyIconButton

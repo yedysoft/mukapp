@@ -25,7 +25,7 @@ export default observer(({onPress, friend}: Props) => {
       }}
     >
       <YedyImage
-        scale={1}
+        scale={0.6}
         style={{borderRadius: 100}}
         source={
           friend.image
@@ -34,10 +34,10 @@ export default observer(({onPress, friend}: Props) => {
         }
       />
       <View style={{gap: responsiveWidth(4)}}>
-        <YedyText numberOfLines={1} type={'bold'} size={16} color={friend.selected ? colors.dark : colors.secondary}>
+        <YedyText numberOfLines={1} type={'bold'} size={13} color={friend.selected ? colors.dark : colors.secondary}>
           {friend.name}
         </YedyText>
-        <YedyText numberOfLines={1} size={14} color={friend.selected ? colors.dark : colors.secondary}>
+        <YedyText numberOfLines={1} size={11} color={friend.selected ? colors.dark : colors.secondary}>
           @{friend.userName}
         </YedyText>
       </View>

@@ -10,6 +10,7 @@ type Props = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   icon: YedyIconName;
+  color?: string;
   scale?: number;
   visible?: boolean;
   directionH?: 'ltr' | 'rtl';
@@ -24,7 +25,8 @@ export default observer(
     onPress,
     style,
     icon,
-    scale = 0.7,
+    color,
+    scale = 0.5,
     visible = true,
     directionH,
     directionV,
@@ -37,7 +39,7 @@ export default observer(
     return (
       <YedyIconButton
         icon={icon}
-        color={colors.dark}
+        color={color ?? colors.dark}
         scale={scale}
         onPress={onPress}
         tooltip={tooltip}
@@ -52,7 +54,7 @@ export default observer(
             zIndex: 1400,
             right: responsiveWidth(16),
             backgroundColor: colors.primary,
-            width: responsiveWidth(64),
+            width: responsiveWidth(52),
             aspectRatio: 1,
           },
           shadowStyle(colors.primary),

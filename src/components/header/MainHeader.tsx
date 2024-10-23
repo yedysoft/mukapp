@@ -28,12 +28,12 @@ export default observer(() => {
         gap: responsiveWidth(4),
       }}
     >
-      <YedyIconButton icon={'hamburger'} scale={0.6} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
+      <YedyIconButton icon={'hamburger'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       <YedyLogo />
       <YedyIconButton
         defaultBadge={user.getNotifications.some(n => !n.readed)}
         icon={'alarm-bell'}
-        scale={0.6}
+        scale={0.5}
         tooltip={NotificationsTooltip}
       />
     </View>

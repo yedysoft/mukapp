@@ -21,9 +21,10 @@ export default function PsListItem({label, onPress}: Props) {
         paddingHorizontal: responsiveWidth(20),
         paddingVertical: responsiveWidth(20),
         alignItems: 'center',
+        borderBottomWidth: 0,
       }}
     >
-      <YedyText size={18}>{label}</YedyText>
+      <YedyText size={15}>{label}</YedyText>
     </YedyListItem>
   );
 }

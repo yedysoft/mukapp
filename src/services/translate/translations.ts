@@ -79,6 +79,7 @@ const tr: MukLang = {
       settings: 'Ayarlar',
       ps: 'Gizlilik & Güvenlik',
       edit: 'Düzenle',
+      blocked: 'Engellenen Kullanıcılar',
     },
     search: {
       placeholder: 'Kullanıcı Ara',
@@ -236,6 +237,7 @@ const en: MukLang = {
       settings: 'Settings',
       ps: 'Privacy & Security',
       edit: 'Edit',
+      blocked: 'Blocked Users',
     },
     search: {
       placeholder: 'Search User',

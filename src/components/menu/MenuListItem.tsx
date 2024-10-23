@@ -34,10 +34,10 @@ export default function MenuListItem({item}: Props) {
         flex: 1,
       }}
     >
-      <YedyIcon scale={0.65} icon={item.icon} color={title?.color ?? colors.secondary} />
+      <YedyIcon scale={0.5} icon={item.icon} color={title?.color ?? colors.secondary} />
       <YedyText
         type={'bold'}
-        size={19}
+        size={16}
         color={title?.color ?? colors.secondary}
         style={{marginLeft: responsiveWidth(-8)}}
       >

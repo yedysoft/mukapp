@@ -37,7 +37,7 @@ export default function NotificationListItem({notification, compact}: Props) {
         }}
       >
         <YedyIcon
-          scale={compact ? 0.5 : 0.6}
+          scale={compact ? 0.4 : 0.5}
           icon={
             notification.category === 'FOLLOW'
               ? 'account'
@@ -46,7 +46,7 @@ export default function NotificationListItem({notification, compact}: Props) {
               : 'information'
           }
         />
-        <YedyText numberOfLines={2} size={compact ? 14 : 16} style={{flex: 1}}>
+        <YedyText numberOfLines={2} size={compact ? 12 : 14} style={{flex: 1}}>
           {notification.content}
         </YedyText>
       </View>
@@ -66,7 +66,7 @@ export default function NotificationListItem({notification, compact}: Props) {
             borderRadius: 8,
           }}
           color={compact ? colors.dark : colors.primary}
-          scale={compact ? 0.3 : 0.4}
+          scale={compact ? 0.25 : 0.35}
           icon={'check-bold'}
           onPress={() => notification && api.user.acceptFollowRequest(notification.data.value, notification.id)}
         />
@@ -79,7 +79,7 @@ export default function NotificationListItem({notification, compact}: Props) {
             borderRadius: 8,
           }}
           color={compact ? colors.dark : colors.tertiary}
-          scale={compact ? 0.3 : 0.4}
+          scale={compact ? 0.25 : 0.35}
           icon={'close-thick'}
           onPress={() => notification && api.user.rejectFollowRequest(notification.data.value, notification.id)}
         />

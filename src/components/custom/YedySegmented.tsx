@@ -1,7 +1,7 @@
 import {useTheme} from '../../hooks';
 import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {responsiveWidth} from '../../utils/util';
 import YedyText from './YedyText';
+import {responsiveWidth} from '../../utils/util';
 
 type Props = {
   value: string;
@@ -21,7 +21,7 @@ export default ({value, onValueChange, buttons, style}: Props) => {
       style={{
         flexDirection: 'row',
         width: '100%',
-        height: responsiveWidth(40),
+        //height: responsiveHeight(35),
       }}
     >
       {buttons.map((button, i) => {
@@ -31,6 +31,7 @@ export default ({value, onValueChange, buttons, style}: Props) => {
             onPress={() => onValueChange(button.value)}
             style={[
               {
+                paddingVertical: responsiveWidth(8),
                 borderTopRightRadius: i === buttons.length - 1 ? 100 : 0,
                 borderBottomRightRadius: i === buttons.length - 1 ? 100 : 0,
                 borderTopLeftRadius: i === 0 ? 100 : 0,
@@ -45,7 +46,9 @@ export default ({value, onValueChange, buttons, style}: Props) => {
               style,
             ]}
           >
-            <YedyText color={button.value === value ? colors.background : colors.secondary}>{button.label}</YedyText>
+            <YedyText type={'bold'} size={13} color={button.value === value ? colors.dark : colors.secondary}>
+              {button.label}
+            </YedyText>
           </TouchableOpacity>
         );
       })}

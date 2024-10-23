@@ -50,7 +50,7 @@ export default observer(() => {
   );
 
   return (
-    <SubLayout style={{}}>
+    <SubLayout>
       {!stores.loading.getVotes ? (
         <View style={{flex: 1, gap: responsiveWidth(4)}}>
           <VerticalProfile profile={info} otherUser={otherUser} />

@@ -26,15 +26,15 @@ export default function ProfileStatsItem({stat, index, activeIndex, setActiveInd
         alignItems: 'center',
         flex: 1,
         backgroundColor: active ? colors.primary : colors.shadow,
-        paddingVertical: responsiveWidth(16),
+        paddingVertical: responsiveWidth(10),
         borderRadius: 16,
-        gap: responsiveWidth(4),
+        gap: responsiveWidth(2),
       }}
     >
-      <YedyText type={'bold'} size={20} color={active ? colors.dark : colors.secondary}>
+      <YedyText type={'bold'} size={17} color={active ? colors.dark : colors.secondary}>
         {stat.value}
       </YedyText>
-      <YedyText size={14} color={active ? colors.dark : colors.secondary}>
+      <YedyText size={11} color={active ? colors.dark : colors.secondary}>
         {stat.label}
       </YedyText>
     </TouchableOpacity>

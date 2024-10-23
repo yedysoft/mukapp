@@ -3,9 +3,9 @@ import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
-import {YedyImage} from '../custom';
 import {useServices} from '../../services';
 import {useEffect} from 'react';
+import {YedyEmptyList} from '../custom';
 
 type Props = {
   compact: boolean;
@@ -24,13 +24,7 @@ export default observer(({compact}: Props) => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
       scrollEnabled
-      ListEmptyComponent={
-        <YedyImage
-          source={require('../../../assets/noimage-gray.png')}
-          scale={compact ? 1.5 : 2}
-          style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
-        />
-      }
+      ListEmptyComponent={<YedyEmptyList />}
       data={user.getNotifications}
       renderItem={({item, index}) => <NotificationListItem key={index} compact={compact} notification={item} />}
     />

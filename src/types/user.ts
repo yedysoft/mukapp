@@ -11,6 +11,7 @@ export type IInfo = {
   gender: IGender | null;
   isFollower: boolean;
   isFollows: boolean;
+  chatColor?: string;
 };
 
 export type IImage = {

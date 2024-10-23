@@ -3,10 +3,10 @@ import {FlatList} from 'react-native';
 import RoomListItem from './RoomListItem';
 import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
-import {YedyImage} from '../custom';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
 import {useEffect} from 'react';
+import {YedyEmptyList} from '../custom';
 
 type Props = {
   type: 'PLACE' | 'STREAMER';
@@ -31,13 +31,7 @@ export default observer(({type}: Props) => {
       data={rooms}
       renderItem={({item, index}) => <RoomListItem key={index} roomData={item} />}
       scrollEnabled
-      ListEmptyComponent={
-        <YedyImage
-          source={require('../../../assets/noimage-gray.png')}
-          scale={3}
-          style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
-        />
-      }
+      ListEmptyComponent={<YedyEmptyList />}
       contentContainerStyle={{
         paddingVertical: responsiveWidth(8),
         paddingHorizontal: responsiveWidth(16),

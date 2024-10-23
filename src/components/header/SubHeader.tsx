@@ -23,7 +23,7 @@ export default observer(() => {
   const {api, t} = useServices();
   const dominantColor = media.getDominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
-  const isTextPage = ['Notifications', 'Search', 'PS', 'Settings', 'Edit'].includes(route.name);
+  const isTextPage = ['Notifications', 'Search', 'PS', 'Settings', 'Edit', 'Blocked'].includes(route.name);
 
   return (
     <View
@@ -41,7 +41,7 @@ export default observer(() => {
     >
       <YedyIconButton
         icon={'chevron-left'}
-        scale={0.6}
+        scale={0.55}
         onPress={() => {
           navigation.goBack();
           route.name === 'Chat' && user.set('quotedMessage', null);
@@ -53,11 +53,11 @@ export default observer(() => {
       ) : route.name === 'Room' ? (
         <Coin textColor={textColor} />
       ) : route.name === 'Profile' && params.userId === user.getInfo.id ? (
-        <YedyIconButton icon={'account-edit'} scale={0.5} onPress={() => navigation.navigate('Edit')} />
+        <YedyIconButton icon={'account-edit'} scale={0.45} onPress={() => navigation.navigate('Edit')} />
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
       ) : isTextPage ? (
-        <YedyText numberOfLines={1} type={'bold'} size={28}>
+        <YedyText numberOfLines={1} type={'bold'} size={20}>
           {t.do(`main.side.${route.name.toLowerCase()}` as MukLangPaths)}
         </YedyText>
       ) : null}
@@ -91,17 +91,17 @@ const ChatHeader = observer(({id}: {id: string}) => {
             ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
-        scale={0.7}
+        scale={0.5}
         style={{
           backgroundColor: colors.bubble,
           borderRadius: 100,
         }}
       />
       <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
-        <YedyText type={'bold'} size={18}>
+        <YedyText type={'bold'} size={15}>
           {chat.name ? chat.name : name}
         </YedyText>
-        <YedyText type={'bold'} size={12} visible={!!typingMessage} color={colors.primary}>
+        <YedyText type={'bold'} size={10} visible={!!typingMessage} color={colors.primary}>
           {typingMessage}
         </YedyText>
       </View>

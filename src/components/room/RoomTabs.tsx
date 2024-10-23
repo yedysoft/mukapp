@@ -1,4 +1,4 @@
-import {YedyButton, YedyChat, YedyImage, YedyTabs} from '../custom';
+import {YedyButton, YedyChat, YedyEmptyList, YedyTabs} from '../custom';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useEffect, useState} from 'react';
@@ -44,11 +44,7 @@ export default observer(() => {
               songs={media.getQueue}
               footer={
                 media.getQueue.length === 0 ? (
-                  <YedyImage
-                    source={require('../../../assets/noimage-gray.png')}
-                    scale={2}
-                    style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
-                  />
+                  <YedyEmptyList />
                 ) : (
                   <YedyButton
                     onPress={() => api.helper.openURL('spotify://')}
@@ -71,11 +67,7 @@ export default observer(() => {
               header={<PlaylistList playlists={media.getPlaylists} />}
               footer={
                 selectedPlaylist?.tracks.items.length === 0 || media.getPlaylists.length === 0 ? (
-                  <YedyImage
-                    source={require('../../../assets/noimage-gray.png')}
-                    scale={2}
-                    style={{alignSelf: 'center', marginTop: responsiveWidth(16), opacity: 0.1}}
-                  />
+                  <YedyEmptyList />
                 ) : (
                   <YedyLoader loading={loading.getPlaylistTracks} />
                 )

@@ -53,7 +53,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
                   }
                 : undefined
             }
-            scale={2}
+            scale={1.7}
             resizeMode={'cover'}
             source={
               form.image
@@ -84,7 +84,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
             />
           </YedyForm>
           <YedyButton
-            buttonStyle={{paddingVertical: responsiveWidth(12)}}
+            buttonStyle={{paddingVertical: responsiveWidth(10)}}
             loading={loading.createRoom}
             label={t.do('roomConfig.submit')}
             onPress={createRoom}

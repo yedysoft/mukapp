@@ -5,7 +5,7 @@ import React, {useRef} from 'react';
 import {IEdit} from '../../types/auth';
 import {useServices} from '../../services';
 import {Platform, View} from 'react-native';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {_gender} from '../../types/enums';
 
@@ -39,14 +39,14 @@ export default observer(() => {
             tableId: user.getInfo.id,
             setImage: image => user.set('info', v => ({...v, image})),
           }}
-          scale={2.4}
+          scale={2}
           source={
             user.getInfo.image
               ? {uri: `${user.getInfo.image.link}?token=${auth.getAuthToken}`}
               : require('../../../assets/adaptive-icon.png')
           }
           style={{
-            borderWidth: responsiveSize(4),
+            borderWidth: 2,
             borderColor: colors.primary,
             borderRadius: 100,
           }}

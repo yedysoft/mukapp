@@ -21,7 +21,7 @@ export default observer(({title, children, style}: Props) => {
         style,
       ]}
     >
-      <YedyText type={'bold'} size={24} style={{paddingLeft: responsiveWidth(20)}}>
+      <YedyText type={'bold'} size={21} style={{paddingLeft: responsiveWidth(20)}}>
         {title}
       </YedyText>
       {children}

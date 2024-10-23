@@ -42,7 +42,7 @@ export default observer(({roomData}: Props) => {
       onPress={() => openRoom()}
     >
       <YedyImage
-        scale={1.7}
+        scale={1.5}
         resizeMode={'cover'}
         style={{
           backgroundColor: roomData.liveSong?.dominantColor,
@@ -65,10 +65,10 @@ export default observer(({roomData}: Props) => {
         }}
       >
         <View style={{flex: 1, flexDirection: 'column'}}>
-          <YedyText type={'bold'} size={18}>
+          <YedyText type={'bold'} size={15}>
             {roomData.roomName}
           </YedyText>
-          <YedyText numberOfLines={1} size={14}>
+          <YedyText numberOfLines={1} size={11}>
             @{roomData.streamerName}
           </YedyText>
         </View>
@@ -81,7 +81,7 @@ export default observer(({roomData}: Props) => {
         >
           <YedyIcon
             icon={'speaker'}
-            scale={0.5}
+            scale={0.4}
             color={roomData.liveSong?.isPlaying ? colors.tertiary : api.helper.addOpacityToColor(colors.secondary, 0.5)}
           />
           <View
@@ -92,7 +92,6 @@ export default observer(({roomData}: Props) => {
           >
             <YedyText
               numberOfLines={1}
-              size={14}
               style={{
                 maxWidth: !roomData.liveSong?.name ? 180 : undefined,
                 backgroundColor: !roomData.liveSong?.name ? colors.shadow : undefined,
@@ -103,7 +102,7 @@ export default observer(({roomData}: Props) => {
             </YedyText>
             <YedyText
               numberOfLines={1}
-              size={13}
+              size={10}
               style={{
                 maxWidth: !api.helper.getArtist(roomData.liveSong?.artists) ? 120 : undefined,
                 backgroundColor: !api.helper.getArtist(roomData.liveSong?.artists) ? colors.shadow : undefined,

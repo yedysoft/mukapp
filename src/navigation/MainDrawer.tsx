@@ -17,7 +17,7 @@ export default observer(() => {
       initialRouteName={'DrawerMain'}
       screenOptions={{
         drawerType: 'slide',
-        drawerStyle: {width: responsiveWidth(300)},
+        drawerStyle: {width: responsiveWidth(250)},
         drawerContentContainerStyle: {},
         drawerPosition: 'left',
         swipeEdgeWidth: ui.windowWidth / 4,

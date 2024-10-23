@@ -44,10 +44,10 @@ export default function CoinGridItem({onPress, coin}: Props) {
           padding: responsiveWidth(8),
         }}
       >
-        <YedyText numberOfLines={1} type={'bold'}>
+        <YedyText numberOfLines={1} type={'bold'} size={14}>
           {api.helper.nummer(coin.value)}
         </YedyText>
-        <YedyText numberOfLines={1} type={'bold'}>
+        <YedyText numberOfLines={1} type={'bold'} size={14}>
           {coin.price} ₺
         </YedyText>
       </View>

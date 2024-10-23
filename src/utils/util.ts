@@ -2,16 +2,19 @@ import {PixelRatio, StyleProp, ViewStyle} from 'react-native';
 import React, {memo} from 'react';
 import {stores} from '../stores';
 
+const DESIGN_HEIGHT = 780;
+const DESIGN_WIDTH = 360;
+const DESIGN_PIXEL_DENSITY = 3;
+
 const normalize = (size: number, based: 'width' | 'height' | 'size'): number => {
-  const aspectRatio = stores.ui.windowWidth / stores.ui.windowHeight;
-  const DESIGN_HEIGHT = 896;
-  const DESIGN_WIDTH = aspectRatio * DESIGN_HEIGHT;
-  const heightScale = stores.ui.windowHeight / DESIGN_HEIGHT;
-  const widthScale = stores.ui.windowWidth / DESIGN_WIDTH;
+  const devicePixelDensity = PixelRatio.get();
+  const heightScale = stores.ui.screenHeight / DESIGN_HEIGHT;
+  const widthScale = stores.ui.screenWidth / DESIGN_WIDTH;
   const minScale = Math.min(heightScale, widthScale);
   const scale = based === 'height' ? heightScale : based === 'width' ? widthScale : minScale;
-  const newSize = size * scale;
-  return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  const density = devicePixelDensity / DESIGN_PIXEL_DENSITY;
+  const newSize = size * density * scale;
+  return PixelRatio.roundToNearestPixel(newSize);
 };
 
 const responsiveWidth = (size: number): number => normalize(size, 'width');
@@ -29,7 +32,7 @@ const shadowStyle = (shadowColor: string): StyleProp<ViewStyle> => ({
     height: 0,
   },
   shadowOpacity: 0.5,
-  shadowRadius: 8,
+  shadowRadius: 4,
   elevation: 6,
 });
 

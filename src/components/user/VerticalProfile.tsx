@@ -31,7 +31,7 @@ export default observer(({profile, otherUser}: Props) => {
       }}
     >
       <YedyImage
-        scale={2.3}
+        scale={1.9}
         source={
           profile.image
             ? {uri: `${profile.image.link}?token=${auth.getAuthToken}`}
@@ -46,10 +46,10 @@ export default observer(({profile, otherUser}: Props) => {
       />
       <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
         <View style={{flexDirection: 'column'}}>
-          <YedyText type={'bold'} size={24}>
+          <YedyText type={'bold'} size={21}>
             {profile.name}
           </YedyText>
-          <YedyText size={16}>@{profile.userName}</YedyText>
+          <YedyText size={13}>@{profile.userName}</YedyText>
         </View>
         <View style={{flexDirection: 'column'}}>
           <View style={{flexDirection: 'row', marginLeft: -8, gap: responsiveWidth(4)}}>
@@ -61,7 +61,7 @@ export default observer(({profile, otherUser}: Props) => {
           <View style={{flexDirection: 'row', gap: responsiveWidth(4), display: otherUser ? undefined : 'none'}}>
             <YedyIconButton
               icon={profile.isFollows ? 'account-minus' : 'account-plus'}
-              scale={0.45}
+              scale={0.4}
               onPress={() => {
                 profile.isFollows ? api.user.unFollow(profile.id) : api.user.sendFollowRequest(profile.id);
                 navigation.goBack();
@@ -69,7 +69,7 @@ export default observer(({profile, otherUser}: Props) => {
             />
             <YedyIconButton
               icon={'block-helper'}
-              scale={0.45}
+              scale={0.35}
               color={colors.tertiary}
               onPress={() => {
                 api.user.blockUser(profile.id);
