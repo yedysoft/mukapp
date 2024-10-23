@@ -2,6 +2,7 @@ import {
   Keyboard,
   KeyboardType,
   NativeSyntheticEvent,
+  Platform,
   Pressable,
   StyleProp,
   TextInput,
@@ -193,7 +194,6 @@ const TextInputComp = observer(
           style={[
             {
               flexDirection: 'column',
-
               display: visible ? undefined : 'none',
               width: '100%',
             },
@@ -254,7 +254,7 @@ const TextInputComp = observer(
                   backgroundColor: colors.shadow,
                   textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
                   paddingHorizontal: responsiveWidth(16),
-                  paddingVertical: responsiveHeight(10),
+                  paddingVertical: responsiveHeight(Platform.OS === 'ios' ? 16 : 10),
                   borderRadius: 16,
                   borderTopLeftRadius: quotedMessage ? 0 : 16,
                   borderTopRightRadius: quotedMessage ? 0 : 16,
@@ -273,7 +273,7 @@ const TextInputComp = observer(
               buttonIcon={rest.returnKeyType === 'done' ? 'check-bold' : 'arrow-right-thick'}
               buttonOnPress={() => {
                 if (rest.onSubmitEditing) {
-                  pickerChangeVisible(false);
+                  pickerChangeVisible(false, rest.returnKeyType === 'next');
                   rest.onSubmitEditing({} as NativeSyntheticEvent<TextInputSubmitEditingEventData>);
                 }
               }}
