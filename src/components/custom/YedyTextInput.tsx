@@ -252,11 +252,10 @@ const TextInputComp = observer(
               onChangeText={handleChangeText}
               onFocus={handleFocus}
               onPressOut={isPicker ? focusInput : rest.onPressOut}
-              scrollEnabled={rest.scrollEnabled ?? false}
               style={[
                 {
                   fontFamily: 'ProductSans-Regular',
-                  fontSize: responsiveSize(13),
+                  fontSize: responsiveSize(14),
                   color: colors.secondary,
                   backgroundColor: colors.shadow,
                   textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
@@ -266,7 +265,7 @@ const TextInputComp = observer(
                   borderTopLeftRadius: quotedMessage ? 0 : 16,
                   borderTopRightRadius: quotedMessage ? 0 : 16,
                   textAlignVertical: 'center',
-                  maxHeight: responsiveHeight(99),
+                  maxHeight: responsiveHeight(132),
                 },
                 rest.style,
               ]}
