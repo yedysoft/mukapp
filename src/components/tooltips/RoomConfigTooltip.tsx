@@ -38,7 +38,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
       positions={positions}
       visible={visible}
       changeVisible={changeVisible}
-      style={{width: ui.windowWidth - responsiveWidth(32)}}
+      style={{width: ui.windowWidth, borderRadius: 0}}
     >
       <View style={{flex: 1, padding: responsiveWidth(16), flexDirection: 'row', gap: responsiveWidth(16)}}>
         <View style={{justifyContent: 'flex-start', alignItems: 'center'}}>
@@ -84,7 +84,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
             />
           </YedyForm>
           <YedyButton
-            buttonStyle={{paddingVertical: responsiveWidth(10)}}
+            buttonStyle={{paddingVertical: responsiveWidth(12)}}
             loading={loading.createRoom}
             label={t.do('roomConfig.submit')}
             onPress={createRoom}

@@ -52,9 +52,8 @@ export default observer(
           {
             position: 'absolute',
             zIndex: 1400,
-            right: responsiveWidth(16),
             backgroundColor: colors.primary,
-            width: responsiveWidth(52),
+            width: responsiveWidth(scale * 100),
             aspectRatio: 1,
           },
           shadowStyle(colors.primary),

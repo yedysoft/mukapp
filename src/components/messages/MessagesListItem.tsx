@@ -32,7 +32,7 @@ export default observer(({chat}: Props) => {
   return (
     <YedyListItem style={{alignItems: 'center'}} onPress={() => navigation.navigate('Chat', {chat: chat})}>
       <YedyImage
-        scale={0.7}
+        scale={0.75}
         style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}}
         source={
           info.image
@@ -40,12 +40,12 @@ export default observer(({chat}: Props) => {
             : require('../../../assets/adaptive-icon.png')
         }
       />
-      <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(8), paddingVertical: responsiveWidth(8)}}>
+      <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(4), paddingVertical: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
           <YedyText numberOfLines={1} type={'bold'} size={15}>
             {chat.name ? chat.name : name}
           </YedyText>
-          <YedyText numberOfLines={1} type={'bold'}>
+          <YedyText numberOfLines={1} type={'bold'} color={colors.outlineVariant}>
             {datetime}
           </YedyText>
         </View>

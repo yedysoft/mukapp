@@ -20,7 +20,12 @@ export default observer(() => {
       <YedyFAB
         icon={'chat-plus'}
         tooltip={CreateChatTooltip}
-        style={{bottom: responsiveWidth(room.isLive ? 128 : 16)}}
+        style={{
+          bottom: responsiveWidth(room.isLive ? 128 : 16),
+          right: 0,
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0,
+        }}
       />
     </MainLayout>
   );

@@ -8,6 +8,7 @@ import {responsiveWidth} from '../../utils/util';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
+  iconViewStyle?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<TextStyle>;
   icon: YedyIconName;
   color?: string;
@@ -32,6 +33,7 @@ export default forwardRef<YedyIconButtonRef, Props>(
   (
     {
       style,
+      iconViewStyle,
       iconStyle,
       icon,
       color,
@@ -126,7 +128,8 @@ export default forwardRef<YedyIconButtonRef, Props>(
           defaultBadge={defaultBadge}
           scale={scale}
           color={color ?? (tooltipVisible || modalVisible ? colors.primary : colors.secondary)}
-          style={iconStyle}
+          style={iconViewStyle}
+          iconStyle={iconStyle}
           directionH={directionH}
           directionV={directionV}
         />

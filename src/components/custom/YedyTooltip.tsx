@@ -12,6 +12,7 @@ type Props = {
   positions: Positions;
   visible: boolean;
   changeVisible: (open: boolean) => void;
+  shadow?: boolean;
   anchor?:
     | 'auto'
     | 'top-right'
@@ -26,7 +27,15 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export default ({children, positions = defaults.positions, visible, changeVisible, anchor = 'auto', style}: Props) => {
+export default ({
+  children,
+  positions = defaults.positions,
+  visible,
+  changeVisible,
+  shadow = true,
+  anchor = 'auto',
+  style,
+}: Props) => {
   const {colors} = useTheme();
   const ref = useRef<View>(null);
   const event = useRef<NativeEventSubscription | null>(null);
@@ -147,9 +156,9 @@ export default ({children, positions = defaults.positions, visible, changeVisibl
             opacity: renderCheck ? 0 : 1,
             zIndex: 1399,
           },
-          shadowStyle(colors.secondary),
-          style,
+          shadow ? shadowStyle(colors.primary) : {},
           viewLocation(),
+          style,
         ]}
       >
         {children}

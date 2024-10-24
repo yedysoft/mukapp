@@ -1,4 +1,4 @@
-import {StyleProp, TextStyle, View} from 'react-native';
+import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {responsiveScale} from '../../utils/util';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import YedyBadge from './YedyBadge';
@@ -10,7 +10,7 @@ type Props = {
   defaultBadge?: boolean;
   icon: YedyIconName;
   color?: string;
-  style?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<TextStyle>;
   scale: number;
   directionH?: 'ltr' | 'rtl';

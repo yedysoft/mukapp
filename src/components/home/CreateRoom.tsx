@@ -9,6 +9,16 @@ export default observer(() => {
   const {room} = useStores();
 
   return (
-    <YedyFAB icon={'plus'} visible={!room.isLive} tooltip={RoomConfigTooltip} style={{bottom: responsiveWidth(16)}} />
+    <YedyFAB
+      icon={'plus'}
+      visible={!room.isLive}
+      tooltip={RoomConfigTooltip}
+      style={{
+        bottom: responsiveWidth(16),
+        right: 0,
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+      }}
+    />
   );
 });

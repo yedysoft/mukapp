@@ -102,7 +102,7 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
             width: '100%',
             justifyContent: 'flex-start',
           }}
-          textStyle={{color: colors.secondary, fontSize: responsiveSize(16)}}
+          textStyle={{color: colors.secondary, fontSize: responsiveSize(15)}}
           onPress={takePhoto}
           label={'Fotoğraf Çek'}
         >
@@ -117,7 +117,7 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
             width: '100%',
             justifyContent: 'flex-start',
           }}
-          textStyle={{color: colors.secondary, fontSize: responsiveSize(16)}}
+          textStyle={{color: colors.secondary, fontSize: responsiveSize(15)}}
           onPress={pickImage}
           label={'Fotoğraflarımdan Seç'}
         >
@@ -133,7 +133,7 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
             width: '100%',
             justifyContent: 'flex-start',
           }}
-          textStyle={{color: colors.secondary, fontSize: responsiveSize(16)}}
+          textStyle={{color: colors.secondary, fontSize: responsiveSize(15)}}
           onPress={deleteImage}
           label={'Fotoğrafı Kaldır'}
         >

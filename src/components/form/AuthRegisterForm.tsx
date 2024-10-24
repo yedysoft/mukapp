@@ -23,8 +23,8 @@ export const AuthRegisterForm = observer(() => {
 
   return (
     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-      <View style={{gap: responsiveHeight(48)}}>
-        <YedyText type={'bold'} size={32}>
+      <View style={{flex: 1, gap: responsiveHeight(28)}}>
+        <YedyText type={'bold'} size={26}>
           {t.do('auth.register.title')}
         </YedyText>
         <YedyForm ref={formRef} onSubmit={onSubmit} data={formData}>

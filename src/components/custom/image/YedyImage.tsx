@@ -1,7 +1,6 @@
 import {
   ActivityIndicator,
   GestureResponderEvent,
-  ImageSourcePropType,
   ImageStyle,
   StyleProp,
   StyleSheet,
@@ -12,13 +11,12 @@ import {
 import {responsiveScale, responsiveSize, responsiveWidth} from '../../../utils/util';
 import React, {useRef, useState} from 'react';
 import EditImage, {IEditImage} from './YedyEditImage';
-import {Image} from 'expo-image';
-import {ImageContentFit} from 'expo-image/src/Image.types';
+import {Image, ImageContentFit, ImageSource} from 'expo-image';
 import {useTheme} from '../../../hooks';
 import YedyIconButton, {YedyIconButtonRef} from '../YedyIconButton';
 
 type Props = {
-  source?: ImageSourcePropType;
+  source?: ImageSource | number;
   resizeMode?: ImageContentFit;
   style?: StyleProp<ViewStyle>;
   imageStyle?: StyleProp<ImageStyle>;
@@ -63,7 +61,6 @@ export default ({
           height: responsiveScale(scale),
           aspectRatio: 1,
           borderRadius,
-          justifyContent: 'center',
         },
         style,
       ]}
@@ -92,7 +89,7 @@ export default ({
         onPress={handleOnPress}
       >
         {loading ? (
-          <ActivityIndicator size={responsiveSize(48)} color={colors.secondary} />
+          <ActivityIndicator size={responsiveSize(scale * 24)} color={colors.secondary} style={{flex: 1}} />
         ) : (
           <Image source={source} contentFit={resizeMode} cachePolicy={'memory-disk'} style={[{flex: 1}, imageStyle]} />
         )}

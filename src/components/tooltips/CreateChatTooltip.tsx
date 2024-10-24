@@ -70,7 +70,7 @@ const CreateChatTooltip = observer(({positions, visible, changeVisible}: Tooltip
       positions={positions}
       visible={visible}
       changeVisible={changeVisible}
-      style={{width: ui.windowWidth - responsiveWidth(32), maxHeight: ui.windowHeight / 2}}
+      style={{width: ui.windowWidth, borderRadius: 0, maxHeight: ui.windowHeight / 2}}
     >
       <View
         style={{
@@ -80,9 +80,9 @@ const CreateChatTooltip = observer(({positions, visible, changeVisible}: Tooltip
           padding: responsiveWidth(16),
         }}
       >
-        <FriendsList friends={users} onPress={selectUser} />
+        <FriendsList friends={[]} onPress={selectUser} />
         <YedyButton
-          buttonStyle={{paddingVertical: responsiveWidth(16)}}
+          buttonStyle={{paddingVertical: responsiveWidth(12)}}
           label={t.do('main.social.newChat')}
           onPress={createChat}
         />

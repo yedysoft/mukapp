@@ -1,13 +1,11 @@
 import {
   Keyboard,
   KeyboardType,
-  NativeSyntheticEvent,
   Platform,
   Pressable,
   StyleProp,
   TextInput,
   TextInputProps,
-  TextInputSubmitEditingEventData,
   View,
   ViewStyle,
 } from 'react-native';
@@ -19,7 +17,7 @@ import {observer} from 'mobx-react';
 import YedyText from './YedyText';
 import YedyDatePicker from './picker/YedyDatePicker';
 import YedyPicker from './picker/YedyPicker';
-import YedyPickerView from './picker/YedyPickerView';
+import YedyPickerView, {YedyPickerViewRef} from './picker/YedyPickerView';
 import {useTheme} from '../../hooks';
 
 type Validates = 'required';
@@ -47,6 +45,7 @@ type Props = TextInputProps & {
 };
 
 export type YedyTextInputRef = {
+  changeText: (value: string | undefined) => void;
   validateInput: (text: string | number) => boolean;
   inputValue: () => string | number | undefined;
   focus: () => void;
@@ -93,18 +92,20 @@ const TextInputComp = observer(
       }, [validInputValue]);
 
       ///Picker
-      const [pickerVisible, setPickerVisible] = useState(false);
-      const [pickerPretty, setPickerPretty] = useState<string | undefined>();
+      const pickerRef = useRef<YedyPickerViewRef>(null);
       const pickerValue = useRef<string | number | undefined>(validInputValue);
-      const pickerChangeVisible = (open: boolean, isNextButton = false) => {
-        !isNextButton && ui.set('pickerViewVisible', open);
-        setPickerVisible(open);
+      const pickerChangeVisible = (open: boolean) => {
+        if (open) {
+          pickerRef.current?.open();
+        } else {
+          pickerRef.current?.close();
+        }
       };
 
       const handleValueChange = (_name: string, value: string | number | undefined, prettyValue?: string) => {
         pickerValue.current = value;
         handleChangeText(String(value));
-        setPickerPretty(prettyValue);
+        changeText(prettyValue);
       };
       ///Picker
 
@@ -182,7 +183,12 @@ const TextInputComp = observer(
         value.current = '';
       };
 
+      const changeText = (value: string | undefined) => {
+        inputRef.current?.setNativeProps({text: value ?? ''});
+      };
+
       useImperativeHandle(ref, () => ({
+        changeText,
         validateInput,
         inputValue: getValue,
         focus: focusInput,
@@ -233,19 +239,20 @@ const TextInputComp = observer(
               {quotedMessage}
             </View>
             <TextInput
-              ref={inputRef}
               {...rest}
+              ref={inputRef}
               defaultValue={isPicker ? undefined : rest.defaultValue}
               editable={isPicker ? false : rest.editable}
               placeholder={label ?? rest.placeholder}
               autoCapitalize={rest.autoCapitalize ?? 'none'}
-              value={pickerPretty}
+              value={undefined}
               selectionColor={rest.selectionColor ?? colors.primary}
               placeholderTextColor={colors.outlineVariant}
               showSoftInputOnFocus={!isPicker && showKeyboard}
               onChangeText={handleChangeText}
               onFocus={handleFocus}
               onPressOut={isPicker ? focusInput : rest.onPressOut}
+              scrollEnabled={rest.scrollEnabled ?? false}
               style={[
                 {
                   fontFamily: 'ProductSans-Regular',
@@ -258,6 +265,8 @@ const TextInputComp = observer(
                   borderRadius: 16,
                   borderTopLeftRadius: quotedMessage ? 0 : 16,
                   borderTopRightRadius: quotedMessage ? 0 : 16,
+                  textAlignVertical: 'center',
+                  maxHeight: responsiveHeight(99),
                 },
                 rest.style,
               ]}
@@ -268,16 +277,20 @@ const TextInputComp = observer(
           </YedyText>
           {isPicker && pickerType ? (
             <YedyPickerView
-              visible={pickerVisible}
-              changeVisible={pickerChangeVisible}
+              ref={pickerRef}
               buttonIcon={rest.returnKeyType === 'done' ? 'check-bold' : 'arrow-right-thick'}
               buttonOnPress={() => {
                 if (rest.onSubmitEditing) {
-                  pickerChangeVisible(false, rest.returnKeyType === 'next');
-                  rest.onSubmitEditing({} as NativeSyntheticEvent<TextInputSubmitEditingEventData>);
+                  pickerChangeVisible(false);
+                  rest.onSubmitEditing({} as any);
                 }
               }}
               onClear={() => handleValueChange('', undefined, undefined)}
+              onChangeVisible={(v, t) => {
+                if (!(rest.returnKeyType === 'next' && t === 'other' && !v)) {
+                  ui.set('pickerViewVisible', v);
+                }
+              }}
             >
               {pickerType === 'normal' && pickerItems ? (
                 <YedyPicker name={name} items={pickerItems} value={getValue()} onValueChange={handleValueChange} />

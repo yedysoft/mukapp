@@ -30,7 +30,7 @@ export const AuthLoginForm = observer(() => {
   return (
     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={{gap: responsiveHeight(48)}}>
-        <YedyText type={'bold'} size={32}>
+        <YedyText type={'bold'} size={26}>
           {t.do('auth.login.title')}
         </YedyText>
         <View style={{gap: responsiveWidth(8)}}>
@@ -52,7 +52,7 @@ export const AuthLoginForm = observer(() => {
               alignSelf: 'flex-end',
               marginVertical: responsiveWidth(16),
             }}
-            textStyle={{fontSize: responsiveSize(14), color: colors.outlineVariant}}
+            textStyle={{fontSize: responsiveSize(12), color: colors.outlineVariant}}
             loading={loading.getLogin}
             label={t.do('auth.login.changePassword')}
             onPress={() => navigation.navigate('Forgot')}
@@ -74,7 +74,9 @@ export const AuthLoginForm = observer(() => {
               style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
             />
             <SpotifyIcon scale={1.3} noText disabled />
-            <YedyText size={16}>{t.do('auth.login.spotify')}</YedyText>
+            <YedyText type={'bold'} size={13}>
+              {t.do('auth.login.spotify')}
+            </YedyText>
           </TouchableOpacity>
         </View>
       </View>

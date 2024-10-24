@@ -76,12 +76,12 @@ export default ({data}: Props) => {
       />
       <YedyFAB
         icon={'chevron-down'}
-        scale={0.5}
         visible={fabVisible}
         color={colors.background}
         style={{
           width: responsiveWidth(40),
           bottom: responsiveWidth(16),
+          right: responsiveWidth(16),
           backgroundColor: colors.secondary,
         }}
         onPress={() => listRef.current?.scrollToIndex({index: 0})}

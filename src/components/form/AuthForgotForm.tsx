@@ -24,7 +24,7 @@ export const AuthForgotForm = observer(() => {
   return (
     <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={{gap: responsiveHeight(48)}}>
-        <YedyText type={'bold'} size={32}>
+        <YedyText type={'bold'} size={26}>
           {t.do('auth.forgot.title')}
         </YedyText>
         <YedyForm ref={formRef} onSubmit={onSubmit} data={form}>

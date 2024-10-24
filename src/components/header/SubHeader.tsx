@@ -91,7 +91,7 @@ const ChatHeader = observer(({id}: {id: string}) => {
             ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
-        scale={0.5}
+        scale={0.6}
         style={{
           backgroundColor: colors.bubble,
           borderRadius: 100,

@@ -1,6 +1,6 @@
 import {useTheme} from '../../../hooks';
 import {Platform, View} from 'react-native';
-import {responsiveWidth} from '../../../utils/util';
+import {responsiveHeight, responsiveWidth} from '../../../utils/util';
 import YedyIconButton from '../YedyIconButton';
 import YedyTextInput, {YedyTextInputRef} from '../YedyTextInput';
 import {IMessage} from '../../../types/chat';
@@ -55,10 +55,10 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
     <View
       style={{
         flexDirection: 'row',
-        alignItems: 'flex-start',
         gap: responsiveWidth(4),
-        padding: responsiveWidth(12),
-        paddingBottom: Platform.OS === 'ios' ? 0 : undefined,
+        paddingHorizontal: responsiveWidth(12),
+        paddingVertical: responsiveWidth(4),
+        paddingBottom: Platform.OS === 'ios' ? 0 : responsiveWidth(12),
       }}
     >
       <YedyTextInput
@@ -78,9 +78,12 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
       />
       <YedyIconButton
         icon={'send'}
-        scale={0.4}
+        scale={0.5}
         color={colors.secondary}
-        style={{alignSelf: user.quotedMessage ? 'flex-end' : 'center'}}
+        style={{
+          alignSelf: 'flex-end',
+          marginBottom: responsiveHeight(4),
+        }}
         onPress={() => {
           if (inputRef.current) {
             const value = (inputRef.current.inputValue() as string).trim();

@@ -57,7 +57,7 @@ export default ({
       {children}
       <YedyText
         type={'bold'}
-        size={14}
+        size={13}
         color={colors.dark}
         style={[{marginLeft: children ? responsiveWidth(8) : undefined}, textStyle]}
       >
