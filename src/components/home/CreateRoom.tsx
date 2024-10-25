@@ -11,6 +11,7 @@ export default observer(() => {
   return (
     <YedyFAB
       icon={'plus'}
+      scale={0.55}
       visible={!room.isLive}
       tooltip={RoomConfigTooltip}
       style={{

@@ -53,7 +53,6 @@ export const AuthLoginForm = observer(() => {
               marginVertical: responsiveWidth(16),
             }}
             textStyle={{fontSize: responsiveSize(12), color: colors.outlineVariant}}
-            loading={loading.getLogin}
             label={t.do('auth.login.changePassword')}
             onPress={() => navigation.navigate('Forgot')}
           />

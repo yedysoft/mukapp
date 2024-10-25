@@ -72,7 +72,6 @@ class AuthApi implements IAuthApi {
       await socket.disconnect();
       this.clearAuth();
       await this.checkToken();
-      RootNavigation.reset('Login');
     } catch (e) {
       console.log(e);
     } finally {

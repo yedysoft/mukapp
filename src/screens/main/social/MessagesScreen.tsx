@@ -19,6 +19,7 @@ export default observer(() => {
       <MessagesList chats={orderedChats} />
       <YedyFAB
         icon={'chat-plus'}
+        scale={0.55}
         tooltip={CreateChatTooltip}
         style={{
           bottom: responsiveWidth(room.isLive ? 128 : 16),

@@ -31,7 +31,7 @@ export default observer(() => {
           justifyContent: 'space-between',
         }}
       >
-        <YedyText type={'bold'} size={32}>
+        <YedyText type={'bold'} size={26}>
           {t.do('form.newPass.title')}
         </YedyText>
         <YedyIconButton icon={'logout'} onPress={api.auth.logout} scale={0.5} color={colors.error} />

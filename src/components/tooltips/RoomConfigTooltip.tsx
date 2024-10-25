@@ -62,7 +62,7 @@ const RoomConfigTooltip = observer(({positions, visible, changeVisible}: Tooltip
             }
             style={{
               borderWidth: responsiveSize(1),
-              borderColor: colors.primary,
+              borderColor: colors.outlineVariant,
             }}
           />
         </View>

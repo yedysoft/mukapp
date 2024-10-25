@@ -1,5 +1,5 @@
 import {responsiveWidth, shadowStyle} from '../../utils/util';
-import {StyleProp, ViewStyle} from 'react-native';
+import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
 import {ModalScreenProps, TooltipScreenProps, YedyIconName} from '../../types';
 import {ReactNode} from 'react';
@@ -9,6 +9,8 @@ import {useTheme} from '../../hooks';
 type Props = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  iconViewStyle?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<TextStyle>;
   icon: YedyIconName;
   color?: string;
   scale?: number;
@@ -24,6 +26,8 @@ export default observer(
   ({
     onPress,
     style,
+    iconViewStyle,
+    iconStyle,
     icon,
     color,
     scale = 0.5,
@@ -48,6 +52,8 @@ export default observer(
         visible={visible}
         directionH={directionH}
         directionV={directionV}
+        iconStyle={iconStyle}
+        iconViewStyle={iconViewStyle}
         style={[
           {
             position: 'absolute',
