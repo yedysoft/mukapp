@@ -55,6 +55,7 @@ export class AuthsApi implements IAuthsApi {
             const code = params.get('code');
             if (code) {
               stores.auth.set('authToken', code);
+              await auth.saveLoginHistory();
               await auth.checkToken();
             }
           } else {

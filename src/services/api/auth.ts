@@ -53,6 +53,7 @@ class AuthApi implements IAuthApi {
       const response = await axiosIns.post<string>('/auth/login', form);
       if (response.status === 200) {
         stores.auth.set('authToken', response.data);
+        await this.saveLoginHistory();
         await this.checkToken();
       }
     } catch (e) {
@@ -87,7 +88,6 @@ class AuthApi implements IAuthApi {
         if (!isNeededPassChange) {
           await user.getInfo();
           await this.updateExpoToken();
-          await this.saveLoginHistory();
           await user.getAllNotifications();
           await chat.getChats();
           await this.authsApi.getAuths();
