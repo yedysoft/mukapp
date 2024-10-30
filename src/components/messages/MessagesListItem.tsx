@@ -42,16 +42,16 @@ export default observer(({chat}: Props) => {
       />
       <View style={{flex: 1, justifyContent: 'center', gap: responsiveWidth(4), paddingVertical: responsiveWidth(8)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <YedyText numberOfLines={1} type={'bold'} size={15}>
+          <YedyText numberOfLines={1} type={'bold'} size={16}>
             {chat.name ? chat.name : name}
           </YedyText>
-          <YedyText numberOfLines={1} type={'bold'} color={colors.outlineVariant}>
+          <YedyText numberOfLines={1} type={'bold'} size={13} color={colors.outlineVariant}>
             {datetime}
           </YedyText>
         </View>
         <YedyText
           numberOfLines={1}
-          size={14}
+          size={15}
           color={typingMessage ? colors.primary : colors.secondary}
           style={{flex: 1}}
         >

@@ -14,9 +14,9 @@
       "distribution": "internal"
     },
     "production": {
-      "channel": "production",
+      "channel": "main",
       "env": {
-        "APP_ENV": "production"
+        "APP_ENV": "main"
       }
     }
   }

@@ -46,7 +46,7 @@ export default function NotificationListItem({notification, compact}: Props) {
               : 'information'
           }
         />
-        <YedyText numberOfLines={2} size={compact ? 12 : 14} style={{flex: 1}}>
+        <YedyText numberOfLines={2} size={compact ? 12.5 : 14} style={{flex: 1}}>
           {notification.content}
         </YedyText>
       </View>
