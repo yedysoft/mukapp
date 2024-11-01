@@ -48,7 +48,7 @@ class MediaApi {
         id: 'search',
         name: 'Search Songs',
         selected: true,
-        images: [{url: 'search', width: 128, height: 128}],
+        images: [{uri: 'search', width: 128, height: 128}],
         tracks: {items: [], total: 0, count: 0},
       });
       stores.media.set('playlists', playlists);
@@ -176,7 +176,7 @@ class MediaApi {
   private getImages = (state: any): IImage[] => {
     return state
       ? state.map((image: any, _: number) => ({
-          url: image.url,
+          uri: image.url,
           height: image.height,
           width: image.width,
         }))

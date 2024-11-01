@@ -16,7 +16,7 @@ import {useTheme} from '../../../hooks';
 import YedyIconButton, {YedyIconButtonRef} from '../YedyIconButton';
 
 type Props = {
-  source?: ImageSource | number;
+  source?: ImageSource | ImageSource[] | string | number | string[] | null;
   resizeMode?: ImageContentFit;
   style?: StyleProp<ViewStyle>;
   imageStyle?: StyleProp<ImageStyle>;

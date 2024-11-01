@@ -1,11 +1,13 @@
 import {Buffer} from 'buffer';
 import {IArtist, IImage, IPlaylist} from '../../types/media';
-import {ImageSourcePropType, Linking} from 'react-native';
+import {Linking} from 'react-native';
 import {MukLangPaths, PVoid} from '../../types';
 import React, {Children, cloneElement, createRef} from 'react';
 import {stores} from '../../stores';
 import axiosIns from '../axiosIns';
 import translate from '../translate';
+import {ImageSource} from 'expo-image';
+import {responsiveScale} from '../../utils/util';
 
 class HelperApi {
   timeoutIds: Map<number | string, NodeJS.Timeout> = new Map<number | string, NodeJS.Timeout>();
@@ -219,12 +221,15 @@ class HelperApi {
     return max === 0 ? 1 : min / max;
   };
 
-  getImageUrl = (images: IImage[], scale: number): ImageSourcePropType | undefined => {
+  getImageUrl = (images: IImage[], scale: number): ImageSource | ImageSource[] | undefined => {
     if (!images || images.length === 0) {
       return undefined;
     }
-    const closestImage = images[0];
-    /*if (images.length > 1) {
+    if (images.length > 0) {
+      return images as ImageSource[];
+    }
+    let closestImage = images[0];
+    if (images.length > 1) {
       const width = responsiveScale(scale);
       const height = responsiveScale(scale);
       let closestDistance = Math.abs(images[0].width - width) + Math.abs(images[0].height - height);
@@ -236,8 +241,8 @@ class HelperApi {
           closestDistance = distance;
         }
       }
-    }*/
-    return typeof closestImage.url === 'string' ? {uri: closestImage.url} : closestImage.url;
+    }
+    return closestImage as ImageSource;
   };
 
   getArtist = (artists: IArtist[] | undefined): string => {
