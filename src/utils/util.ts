@@ -25,15 +25,15 @@ const responsiveSize = (size: number): number => normalize(size, 'size');
 
 const responsiveScale = (scale: number): number => responsiveSize(scale * 64);
 
-const shadowStyle = (shadowColor: string): StyleProp<ViewStyle> => ({
-  shadowColor,
+const shadowStyle = (shadowColor?: string): StyleProp<ViewStyle> => ({
+  shadowColor: shadowColor ?? stores.ui.getTheme.colors.primary,
   shadowOffset: {
     width: 0,
-    height: 0,
+    height: 2,
   },
-  shadowOpacity: 0.5,
+  shadowOpacity: 0.4,
   shadowRadius: 4,
-  elevation: 6,
+  elevation: 4,
 });
 
 const genericMemo: <T extends React.ComponentType<any>>(

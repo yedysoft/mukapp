@@ -2,8 +2,11 @@ import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import React from 'react';
 import {useServices} from '../../services';
+import {useTheme} from '../../hooks';
+import PremiumNeeded from './dialogs/SpotifyPremiumNeeded';
 
 export default observer(() => {
+  const {colors} = useTheme();
   const {api} = useServices();
   const {media} = useStores();
 
@@ -11,11 +14,9 @@ export default observer(() => {
     await api.auths.connectAccount('SPOTIFY', 'Spotify');
   };
 
-  const handlePremium = async () => {
-    const authUrl = 'https://www.spotify.com/premium';
-    authUrl && (await api.helper.openURL(authUrl));
-    media.set('spotifyPremiumNeeded', false);
-  };
-
-  return <></>;
+  return (
+    <>
+      <PremiumNeeded />
+    </>
+  );
 });

@@ -8,7 +8,7 @@ type Props = {
 
 export default ({zIndex, children}: Props) => {
   const {addPortal, removePortal} = usePortal();
-  const key = useRef<string>(Math.random().toString(36).substring(2, 11)).current;
+  const {current: key} = useRef<string>(Math.random().toString(36).substring(2, 11));
 
   useEffect(() => {
     addPortal(key, children, zIndex);

@@ -114,7 +114,7 @@ export default observer(({compact}: Props) => {
           </YedyText>
         </View>
       )}
-      <View style={shadowStyle(colors.secondary)}>
+      <View style={shadowStyle()}>
         <YedyProgressBar
           color={textColor ?? colors.primary}
           progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)}

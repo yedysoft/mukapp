@@ -20,7 +20,7 @@ const PremiumCard = ({active, onPress}: {active: boolean; onPress: () => void}) 
           borderRadius: 16,
           backgroundColor: colors.backdrop,
         },
-        shadowStyle(colors.primary),
+        shadowStyle(),
       ]}
       onPress={onPress}
     >

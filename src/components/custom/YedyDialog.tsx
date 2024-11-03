@@ -1,22 +1,46 @@
 import React, {ReactNode, useCallback, useEffect, useRef, useState} from 'react';
-import {BackHandler, Keyboard, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import {observer} from 'mobx-react';
-import {useStores} from '../../stores';
-import YedyPortal from './portal/YedyPortal';
 import {useTheme} from '../../hooks';
-import {shadowStyle} from '../../utils/util';
+import {
+  BackHandler,
+  Keyboard,
+  NativeEventSubscription,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
+import {responsiveWidth, shadowStyle} from '../../utils/util';
+import YedyPortal from './portal/YedyPortal';
 import {useFocusEffect} from '@react-navigation/native';
+import {useStores} from '../../stores';
+import YedyText from './YedyText';
+import YedyButton from './YedyButton';
 import {Dimensions} from '../../types';
 
+type DialogButton = {
+  text?: string;
+  textStyle?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
+};
+
+type Dialog = {
+  title?: string;
+  content?: string;
+  buttons?: Array<DialogButton>;
+};
+
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
   visible: boolean;
   changeVisible: (open: boolean) => void;
   shadow?: boolean;
+  dialog?: Dialog;
   style?: StyleProp<ViewStyle>;
 };
 
-export default observer(({children, visible, changeVisible, shadow = true, style}: Props) => {
+export default ({children, visible, changeVisible, shadow = true, dialog, style}: Props) => {
   const {colors} = useTheme();
   const {ui} = useStores();
   const ref = useRef<View>(null);
@@ -27,7 +51,7 @@ export default observer(({children, visible, changeVisible, shadow = true, style
   const onLayout = () => {
     if (ref.current && visible) {
       ref.current.measure((_x, _y, width, height) => {
-        if (width !== dimensions.width || height !== dimensions.height) {
+        if (width && height && (dimensions.width !== width || dimensions.height !== height)) {
           setDimensions({width, height});
         }
       });
@@ -39,6 +63,10 @@ export default observer(({children, visible, changeVisible, shadow = true, style
     Keyboard.dismiss();
     return true;
   };
+
+  const getButton = (button: DialogButton) => (
+    <YedyButton label={button.text} textStyle={button.textStyle} buttonStyle={button.style} onPress={button.onPress} />
+  );
 
   useFocusEffect(useCallback(() => closeModal, []));
 
@@ -81,17 +109,30 @@ export default observer(({children, visible, changeVisible, shadow = true, style
             backgroundColor: colors.dialog,
             borderWidth: 0.5,
             borderColor: colors.backdrop,
-            width: ui.windowWidth * 0.8,
+            opacity: renderCheck ? 0 : 1,
+            width: ui.windowWidth * 0.7,
             marginHorizontal: (ui.windowWidth - dimensions.width) / 2,
             marginVertical: (ui.windowHeight - dimensions.height) / 2,
-            opacity: renderCheck ? 0 : 1,
           },
           shadow ? shadowStyle() : {},
           style,
         ]}
       >
+        {dialog ? (
+          <>
+            {dialog.title && (
+              <YedyText type={'bold'} size={17}>
+                {dialog.title}
+              </YedyText>
+            )}
+            {dialog.content && <YedyText size={15}>{dialog.content}</YedyText>}
+            <View style={{flexDirection: 'row', alignSelf: 'flex-end', gap: responsiveWidth(4)}}>
+              {dialog.buttons && dialog.buttons.map((button: DialogButton) => getButton(button))}
+            </View>
+          </>
+        ) : undefined}
         {children}
       </View>
     </YedyPortal>
   );
-});
+};

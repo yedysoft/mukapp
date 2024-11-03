@@ -62,7 +62,7 @@ export default observer(
             width: responsiveWidth(scale * 100),
             aspectRatio: 1,
           },
-          shadowStyle(colors.primary),
+          shadowStyle(),
           style,
         ]}
       />

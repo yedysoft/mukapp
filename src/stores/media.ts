@@ -4,8 +4,6 @@ import defaults from '../utils/defaults';
 import {computed} from 'mobx';
 
 class MediaStore extends BaseStore<MediaStore> {
-  authenticated = true;
-  spotifyPremiumNeeded = false;
   playingTrack = defaults.playingTrack;
   queue: IQueueTrack[] = [];
   playlists: IPlaylist[] = [];
@@ -14,10 +12,6 @@ class MediaStore extends BaseStore<MediaStore> {
   constructor() {
     super();
     this.makeObservableAndPersistable(this, MediaStore.name, []);
-  }
-
-  get getAuthenticated() {
-    return this.authenticated;
   }
 
   get getPlayingTrack() {

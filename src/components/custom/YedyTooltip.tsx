@@ -1,8 +1,8 @@
 import React, {ReactNode, useCallback, useEffect, useRef, useState} from 'react';
 import {useTheme} from '../../hooks';
-import {BackHandler, Keyboard, NativeEventSubscription, Pressable, StyleProp, View, ViewStyle} from 'react-native';
+import {BackHandler, Keyboard, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import defaults from '../../utils/defaults';
-import {Positions} from '../../types';
+import {Dimensions, Positions} from '../../types';
 import {responsiveWidth, shadowStyle} from '../../utils/util';
 import YedyPortal from './portal/YedyPortal';
 import {useFocusEffect} from '@react-navigation/native';
@@ -39,21 +39,9 @@ export default ({
   const {colors} = useTheme();
   const ref = useRef<View>(null);
   const event = useRef<NativeEventSubscription | null>(null);
-  const [dimensions, setDimensions] = useState<{width: number; height: number}>({width: 0, height: 0});
+  const [dimensions, setDimensions] = useState<Dimensions>({width: 0, height: 0});
   const DEFAULT_PADDING = responsiveWidth(12);
   const renderCheck = dimensions.height === 0 && dimensions.width === 0;
-
-  useFocusEffect(useCallback(() => closeModal, []));
-
-  const onLayout = () => {
-    if (ref.current && visible) {
-      ref.current.measure((_x, _y, width, height) => {
-        if (width && height && (dimensions.width !== width || dimensions.height !== height)) {
-          setDimensions({width, height});
-        }
-      });
-    }
-  };
 
   const viewLocation = (): StyleProp<ViewStyle> => {
     if (anchor === 'auto') {
@@ -109,11 +97,23 @@ export default ({
     }
   };
 
+  const onLayout = () => {
+    if (ref.current && visible) {
+      ref.current.measure((_x, _y, width, height) => {
+        if (width && height && (dimensions.width !== width || dimensions.height !== height)) {
+          setDimensions({width, height});
+        }
+      });
+    }
+  };
+
   const closeModal = () => {
     changeVisible(false);
     Keyboard.dismiss();
     return true;
   };
+
+  useFocusEffect(useCallback(() => closeModal, []));
 
   useEffect(() => {
     if (visible) {
@@ -133,15 +133,16 @@ export default ({
   return (
     <YedyPortal>
       <View
-        style={{
-          display: visible ? undefined : 'none',
-          backgroundColor: colors.background,
-          opacity: renderCheck ? 0 : 0.25,
-          zIndex: 1398,
-        }}
-      >
-        <Pressable style={{width: '100%', height: '100%'}} onPress={closeModal} />
-      </View>
+        style={[
+          {
+            display: visible ? undefined : 'none',
+            backgroundColor: colors.background,
+            opacity: renderCheck ? 0 : 0.25,
+          },
+          StyleSheet.absoluteFill,
+        ]}
+        onTouchStart={closeModal}
+      />
       <View
         ref={ref}
         onLayout={onLayout}
@@ -154,9 +155,8 @@ export default ({
             borderWidth: 0.5,
             borderColor: colors.backdrop,
             opacity: renderCheck ? 0 : 1,
-            zIndex: 1399,
           },
-          shadow ? shadowStyle(colors.primary) : {},
+          shadow ? shadowStyle() : {},
           viewLocation(),
           style,
         ]}

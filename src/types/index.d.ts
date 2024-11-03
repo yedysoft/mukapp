@@ -149,9 +149,8 @@ type LangDialogContent<T> = {
   accept: T;
 };
 type LangDialog<T> = {
-  default: LangDialogContent<T>;
-  spotify: LangDialogContent<T>;
-  spotifyPremium: LangDialogContent<T>;
+  spotifyAuthNeeded: LangDialogContent<T>;
+  spotifyPremiumNeeded: LangDialogContent<T>;
 };
 type LangEnum<T> = {
   gender: {
@@ -220,18 +219,22 @@ export type PVoid = Promise<void>;
 export type PureFunc = () => void;
 
 // Components
-export type ModalScreenProps = {
-  visible: boolean;
-  changeVisible: (open: boolean) => void;
-  data?: any;
-};
-export type Positions = {
+export type Dimensions = {
   width: number;
   height: number;
+};
+export type Positions = Dimensions & {
   pageX: number;
   pageY: number;
   right: number;
   bottom: number;
+};
+export type DialogScreenProps = {
+  visible: boolean;
+  changeVisible: (open: boolean) => void;
+};
+export type ModalScreenProps = DialogScreenProps & {
+  data?: any;
 };
 export type TooltipScreenProps = ModalScreenProps & {
   positions: Positions;

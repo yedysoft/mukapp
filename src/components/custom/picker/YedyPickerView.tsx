@@ -1,4 +1,4 @@
-import React, {forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState} from 'react';
+import React, {forwardRef, ReactNode, useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {BackHandler, Keyboard, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import YedyIconButton from '../YedyIconButton';
 import YedyPortal from '../portal/YedyPortal';
@@ -6,6 +6,7 @@ import {responsiveWidth} from '../../../utils/util';
 import {useTheme} from '../../../hooks';
 import {YedyIconName} from '../../../types';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useFocusEffect} from '@react-navigation/native';
 
 type ChangeType = 'self' | 'other';
 
@@ -32,8 +33,11 @@ export default forwardRef<YedyPickerViewRef, Props>(
 
     const changeVisible = (open: boolean, type: ChangeType = 'other') => {
       setVisible(open);
+      !open && Keyboard.dismiss();
       onChangeVisible && onChangeVisible(open, type);
     };
+
+    useFocusEffect(useCallback(() => changeVisible(false, 'self'), []));
 
     useEffect(() => {
       if (visible) {
