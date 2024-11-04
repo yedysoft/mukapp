@@ -4,6 +4,7 @@ import {MessageBody} from '../types';
 import {stores} from '../stores';
 import socket from './api/socket';
 import defaults from '../utils/defaults';
+import {openDialog} from '../components/stacks/DialogStack';
 
 const axiosIns = axios.create({
   baseURL: restUrl,
@@ -32,7 +33,6 @@ axiosIns.interceptors.response.use(
     const {response, config} = error;
     if (response) {
       const {status, data} = response;
-
       if (status === 401) {
         const err: MessageBody = data;
         if (err) {
@@ -49,10 +49,10 @@ axiosIns.interceptors.response.use(
         console.log(config.url, err);
         if ([1012, 1013, 1014].includes(err.code)) {
           // Spotify yetkilendirmesi gerekiyor
-          stores.media.set('authenticated', false);
+          openDialog('spotifyAuthNeeded');
         } else if (err.code === 1036) {
           // Spotify premium gerekiyor
-          stores.media.set('spotifyPremiumNeeded', true);
+          openDialog('spotifyPremiumNeeded');
         } else {
           stores.ui.addMessage(err);
         }

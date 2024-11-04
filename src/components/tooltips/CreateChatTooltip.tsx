@@ -80,7 +80,7 @@ const CreateChatTooltip = observer(({positions, visible, changeVisible}: Tooltip
           padding: responsiveWidth(16),
         }}
       >
-        <FriendsList friends={[]} onPress={selectUser} />
+        <FriendsList friends={users} onPress={selectUser} />
         <YedyButton
           buttonStyle={{paddingVertical: responsiveWidth(12)}}
           label={t.do('main.social.newChat')}

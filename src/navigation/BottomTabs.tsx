@@ -63,7 +63,9 @@ export default observer(() => {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'cart'} scale={0.5} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => (
+            <YedyIcon icon={focused ? 'cart' : 'cart-outline'} scale={0.5} color={getIconColor(focused)} />
+          ),
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Shop'}),
@@ -73,7 +75,13 @@ export default observer(() => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'view-sequential'} scale={0.5} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => (
+            <YedyIcon
+              icon={focused ? 'view-agenda' : 'view-agenda-outline'}
+              scale={0.5}
+              color={getIconColor(focused)}
+            />
+          ),
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Home'}),
@@ -84,7 +92,9 @@ export default observer(() => {
         name="Messages"
         component={MessagesScreen}
         options={{
-          tabBarIcon: ({focused}) => <YedyIcon icon={'chat'} scale={0.5} color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => (
+            <YedyIcon icon={focused ? 'chat' : 'chat-outline'} scale={0.5} color={getIconColor(focused)} />
+          ),
         }}
         listeners={({navigation}) => ({
           tabPress: () => navigation.navigate('Main', {tab: 'Messages'}),

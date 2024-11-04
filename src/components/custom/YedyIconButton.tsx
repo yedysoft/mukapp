@@ -37,7 +37,7 @@ export default forwardRef<YedyIconButtonRef, Props>(
       iconStyle,
       icon,
       color,
-      scale = 1,
+      scale = 0.5,
       badge,
       onPress,
       tooltip,

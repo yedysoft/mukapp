@@ -41,7 +41,7 @@ export default ({
   const event = useRef<NativeEventSubscription | null>(null);
   const [dimensions, setDimensions] = useState<Dimensions>({width: 0, height: 0});
   const DEFAULT_PADDING = responsiveWidth(12);
-  const renderCheck = dimensions.height === 0 && dimensions.width === 0;
+  const renderCheck = dimensions.height === 0 || dimensions.width === 0;
 
   const viewLocation = (): StyleProp<ViewStyle> => {
     if (anchor === 'auto') {

@@ -5,7 +5,6 @@ import {useEffect, useState} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
 import LeaderboardList from './LeaderboardList';
-import {responsiveWidth} from '../../utils/util';
 import SpotifyIcon from '../spotify/SpotifyIcon';
 
 export default observer(() => {
@@ -48,8 +47,7 @@ export default observer(() => {
                 ) : (
                   <YedyButton
                     onPress={() => api.helper.openURL('spotify://')}
-                    scale={0.25}
-                    buttonStyle={{margin: responsiveWidth(16)}}
+                    buttonStyle={{paddingVertical: 0, paddingHorizontal: 0, gap: 0}}
                   >
                     <SpotifyIcon color={'black'} spotifyText={'Open Spotify'} />
                   </YedyButton>

@@ -59,20 +59,23 @@ export class AuthsApi implements IAuthsApi {
               await auth.checkToken();
             }
           } else {
-            await this.getAuths();
-            if (stores.auth.auths.some(value => value.type === key)) {
-              stores.ui.addInfo(`${name} hesabınız bağlandı.`);
-              if (key === 'SPOTIFY') {
-                stores.media.set('authenticated', true);
-              }
-            }
+            await this.connected(key, name);
           }
+        } else {
+          await this.connected(key, name);
         }
       }
     } catch (e) {
       console.log(e);
     } finally {
       stores.loading.set('connectAccount', false);
+    }
+  };
+
+  private connected = async (key: IAuthsType, name: string) => {
+    await this.getAuths();
+    if (stores.auth.auths.some(value => value.type === key)) {
+      stores.ui.addInfo(`${name} hesabınız bağlandı.`);
     }
   };
 }

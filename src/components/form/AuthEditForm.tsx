@@ -52,7 +52,7 @@ export default observer(() => {
           }}
         />
       </View>
-      <YedyForm ref={formRef} onSubmit={onSubmit} data={form}>
+      <YedyForm ref={formRef} onSubmit={onSubmit} data={form} style={{flex: 1}}>
         <YedyTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
         <YedyTextInput name={'telNumber'} label={t.do('auth.register.phone')} inputMode={'tel'} />
         <YedyTextInput
@@ -69,12 +69,7 @@ export default observer(() => {
           datePickerMinMax={{max: new Date().getFullYear() - 17}}
         />
       </YedyForm>
-      <YedyButton
-        buttonStyle={{paddingVertical: responsiveWidth(16)}}
-        loading={loading.editInfo}
-        label={t.do('auth.edit.submit')}
-        onPress={onSubmit}
-      />
+      <YedyButton loading={loading.editInfo} label={t.do('auth.edit.submit')} onPress={onSubmit} />
     </View>
   );
 });

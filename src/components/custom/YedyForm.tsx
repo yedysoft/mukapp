@@ -10,6 +10,7 @@ type Props<T> = {
   onSubmit: () => void;
   data: T;
   style?: StyleProp<ViewStyle>;
+  contentStyle?: StyleProp<ViewStyle>;
 };
 
 export type YedyFormRef<T> = {
@@ -18,7 +19,7 @@ export type YedyFormRef<T> = {
 };
 
 const FormComp = forwardRef<YedyFormRef<any>, Props<any>>(
-  <T,>({children, onSubmit, data, style}: Props<T>, ref: ForwardedRef<YedyFormRef<T>>) => {
+  <T,>({children, onSubmit, data, style, contentStyle}: Props<T>, ref: ForwardedRef<YedyFormRef<T>>) => {
     console.log('CustomFormCompRender', data);
     const {api, t} = useServices();
     const form = useRef<T>(data);
@@ -74,7 +75,15 @@ const FormComp = forwardRef<YedyFormRef<any>, Props<any>>(
       formData: getFormData,
     }));
 
-    return <ScrollView contentContainerStyle={[{gap: responsiveWidth(10)}, style]}>{refChildrens}</ScrollView>;
+    return (
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={style}
+        contentContainerStyle={[{gap: responsiveWidth(10)}, contentStyle]}
+      >
+        {refChildrens}
+      </ScrollView>
+    );
   },
 );
 

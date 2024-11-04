@@ -97,7 +97,8 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
           disabled={loading.deleteImage}
           buttonStyle={{
             backgroundColor: 'transparent',
-            padding: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
             borderRadius: 0,
             width: '100%',
             justifyContent: 'flex-start',
@@ -112,7 +113,8 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
           disabled={loading.deleteImage}
           buttonStyle={{
             backgroundColor: 'transparent',
-            padding: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
             borderRadius: 0,
             width: '100%',
             justifyContent: 'flex-start',
@@ -128,7 +130,8 @@ const YedyEditImage = observer(({visible, changeVisible, data}: ModalScreenProps
           visible={!!data.edit.id}
           buttonStyle={{
             backgroundColor: 'transparent',
-            padding: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
             borderRadius: 0,
             width: '100%',
             justifyContent: 'flex-start',

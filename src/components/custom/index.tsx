@@ -16,6 +16,7 @@ export {default as YedyListItem} from './YedyListItem';
 export {default as YedyLogo} from './YedyLogo';
 export {default as YedyEmptyList} from './YedyEmptyList';
 export {default as YedyModal} from './YedyModal';
+export {default as YedyDialog, type YedyDialogScreenRef} from './YedyDialog';
 export {default as YedyPortal} from './portal/YedyPortal';
 export {default as YedyPortalProvider, usePortal} from './portal/YedyPortalProvider';
 export {default as YedyProgressBar} from './YedyProgressBar';

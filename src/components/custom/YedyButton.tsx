@@ -12,22 +12,11 @@ type Props = {
   onPress?: PureFunc;
   label?: string;
   children?: ReactNode;
-  scale?: number;
   textStyle?: StyleProp<TextStyle>;
   visible?: boolean;
 };
 
-export default ({
-  buttonStyle,
-  disabled,
-  loading,
-  onPress,
-  label,
-  children,
-  scale,
-  textStyle,
-  visible = true,
-}: Props) => {
+export default ({buttonStyle, disabled, loading, onPress, label, children, textStyle, visible = true}: Props) => {
   const {colors} = useTheme();
   const flattenedTextStyle = StyleSheet.flatten(textStyle) || {};
   const textColor = flattenedTextStyle.color || colors.dark; // Eğer `textStyle?.color` varsa al, yoksa default olarak `colors.dark` al
@@ -41,26 +30,19 @@ export default ({
           display: visible ? undefined : 'none',
           flexDirection: 'row',
           backgroundColor: colors.primary,
-          padding: responsiveWidth(20 * (scale ?? 1)),
+          paddingVertical: responsiveWidth(16),
+          paddingHorizontal: responsiveWidth(28),
           borderRadius: 16,
           justifyContent: 'center',
           alignItems: 'center',
+          gap: responsiveWidth(8),
         },
         buttonStyle,
       ]}
     >
-      <ActivityIndicator
-        size={responsiveSize(12)}
-        color={textColor}
-        style={{display: loading ? undefined : 'none', marginRight: responsiveWidth(8)}}
-      />
+      <ActivityIndicator size={responsiveSize(12)} color={textColor} style={{display: loading ? undefined : 'none'}} />
       {children}
-      <YedyText
-        type={'bold'}
-        size={13}
-        color={colors.dark}
-        style={[{marginLeft: children ? responsiveWidth(8) : undefined}, textStyle]}
-      >
+      <YedyText numberOfLines={1} type={'bold'} size={13} color={colors.dark} style={textStyle}>
         {label}
       </YedyText>
     </TouchableOpacity>

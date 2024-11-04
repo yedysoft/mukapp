@@ -50,7 +50,7 @@ class UIStore extends BaseStore<UIStore> {
   }
 
   get getMessages() {
-    return this.messages.slice(0, 3);
+    return computed(() => this.messages.slice(0, 3)).get();
   }
 
   get getReloadToggle(): boolean {
@@ -74,7 +74,7 @@ class UIStore extends BaseStore<UIStore> {
   }
 
   addMessage(body: MessageBody, interval = 2000) {
-    this.set('messages', v => [...v, {id: this.id++, interval: interval, body: body}]);
+    this.set('messages', v => [...v, {id: this.id++, interval: body.type === 'ERROR' ? 3000 : interval, body: body}]);
   }
 
   addError(message: string, code?: number) {

@@ -124,14 +124,12 @@ const tr: MukLang = {
     spotifyAuthNeeded: {
       title: 'Yetkilendirme Gerekli',
       content: 'Devam etmek için Spotify yetkilendirmesi gerekli. Şimdi yetkilendirmek ister misin?',
-      reject: 'Kapat',
       accept: 'Yetkilendir',
     },
     spotifyPremiumNeeded: {
       title: 'Oda Oluşturmak İçin Spotify Premium Edinin',
       content:
         'Spotify Premium, herhangi bir parçayı, podcast bölümünü veya sesli kitabı reklamsız ve daha iyi ses kalitesiyle oynatmanıza olanak tanır. Ücretsiz denemek için spotify.com/premium adresine gidin.',
-      reject: 'Kapat',
       accept: 'Edin',
     },
   },
@@ -276,14 +274,12 @@ const en: MukLang = {
     spotifyAuthNeeded: {
       title: 'Authorization Required',
       content: 'To proceed, Spotify authorization is required. Would you like to authorize now?',
-      reject: 'Close',
       accept: 'Authorize',
     },
     spotifyPremiumNeeded: {
       title: 'Get Spotify Premium to Create Room',
       content:
         'Spotify Premium allows you to play any song, podcast episode, or audiobook ad-free and with better sound quality. Go to spotify.com/premium for a free trial.',
-      reject: 'Close',
       accept: 'Get Premium',
     },
   },

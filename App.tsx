@@ -5,8 +5,6 @@ import {AppProvider} from './src/utils/Providers';
 import {hydrateStores, stopPersists, stores, useStores} from './src/stores';
 import {initServices, services} from './src/services';
 import MukSplashScreen from './src/screens/auth/MukSplashScreen';
-import {YedyMessageStack} from './src/components/custom';
-import DialogStack from './src/components/stacks/DialogStack';
 import notification from './src/services/notification';
 import listeners from './src/services/listeners';
 import * as SystemUI from 'expo-system-ui';
@@ -72,8 +70,6 @@ export default observer(() => {
     <AppProvider>
       <CustomStatusBar />
       {!ready ? <MukSplashScreen /> : <AppNavigation />}
-      <YedyMessageStack />
-      <DialogStack />
     </AppProvider>
   );
 });

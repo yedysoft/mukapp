@@ -32,7 +32,7 @@ export default observer(() => {
       <YedyLogo />
       <YedyIconButton
         defaultBadge={user.getNotifications.some(n => !n.readed)}
-        icon={'alarm-bell'}
+        icon={'bell'}
         scale={0.5}
         tooltip={NotificationsTooltip}
       />

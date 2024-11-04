@@ -64,7 +64,7 @@ export default observer(({message}: Props) => {
           justifyContent: 'center',
           alignItems: 'center',
           alignSelf: 'center',
-          padding: responsiveWidth(8),
+          padding: responsiveWidth(12),
           flexDirection: 'row',
         }}
       >

@@ -22,7 +22,7 @@ export default observer(({children, visible, changeVisible, shadow = true, style
   const ref = useRef<View>(null);
   const event = useRef<NativeEventSubscription | null>(null);
   const [dimensions, setDimensions] = useState<Dimensions>({width: 0, height: 0});
-  const renderCheck = dimensions.height === 0 && dimensions.width === 0;
+  const renderCheck = dimensions.height === 0 || dimensions.width === 0;
 
   const onLayout = () => {
     if (ref.current && visible) {

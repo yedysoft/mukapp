@@ -22,12 +22,12 @@ export const AuthRegisterForm = observer(() => {
     formRef.current?.validateInputs() && api.auth.register(formRef.current?.formData() as IRegister);
 
   return (
-    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+    <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(20)}}>
       <View style={{flex: 1, gap: responsiveHeight(28)}}>
         <YedyText type={'bold'} size={26}>
           {t.do('auth.register.title')}
         </YedyText>
-        <YedyForm ref={formRef} onSubmit={onSubmit} data={formData}>
+        <YedyForm ref={formRef} onSubmit={onSubmit} data={formData} style={{flex: 1}}>
           <YedyTextInput name={'name'} label={t.do('auth.register.name')} preValidate={'required'} />
           <YedyTextInput name={'userName'} label={t.do('auth.register.username')} preValidate={'required'} />
           <YedyTextInput
@@ -60,18 +60,13 @@ export const AuthRegisterForm = observer(() => {
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <YedyButton
-          buttonStyle={{backgroundColor: 'transparent'}}
+          buttonStyle={{backgroundColor: 'transparent', paddingHorizontal: 0, marginLeft: responsiveWidth(8)}}
           textStyle={{color: colors.outlineVariant}}
           disabled={loading.getRegister}
           label={t.do('auth.register.toLogin')}
           onPress={() => navigation.navigate('Login')}
         />
-        <YedyButton
-          buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
-          loading={loading.getRegister}
-          label={t.do('auth.register.submit')}
-          onPress={onSubmit}
-        />
+        <YedyButton loading={loading.getRegister} label={t.do('auth.register.submit')} onPress={onSubmit} />
       </View>
     </View>
   );

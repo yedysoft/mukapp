@@ -19,7 +19,7 @@ export default observer(() => {
       params: {userId: user.getInfo.id},
     },
     {
-      icon: 'alarm-bell',
+      icon: 'bell-outline',
       label: t.do('main.side.notifications'),
       route: 'Notifications',
     },

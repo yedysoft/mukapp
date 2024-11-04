@@ -3,7 +3,7 @@ import {useTheme} from '../../hooks';
 import {YedyButton, YedyForm, YedyFormRef, YedyText, YedyTextInput} from '../custom';
 import {useRef} from 'react';
 import {useServices} from '../../services';
-import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
@@ -48,48 +48,40 @@ export const AuthLoginForm = observer(() => {
           <YedyButton
             buttonStyle={{
               backgroundColor: 'transparent',
-              padding: 0,
+              paddingVertical: 0,
+              paddingHorizontal: 0,
               alignSelf: 'flex-end',
-              marginVertical: responsiveWidth(16),
+              marginVertical: responsiveWidth(12),
+              marginRight: responsiveWidth(8),
             }}
+            disabled={loading.getLogin || loading.connectAccount}
             textStyle={{fontSize: responsiveSize(12), color: colors.outlineVariant}}
             label={t.do('auth.login.changePassword')}
             onPress={() => navigation.navigate('Forgot')}
           />
-          <TouchableOpacity
-            disabled={loading.connectAccount}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: colors.shadow,
-              borderRadius: 16,
-            }}
+          <YedyButton
+            buttonStyle={{paddingVertical: 0, paddingHorizontal: 0, gap: 0, backgroundColor: colors.shadow}}
+            textStyle={{color: colors.secondary}}
+            label={t.do('auth.login.spotify')}
+            loading={loading.connectAccount}
+            disabled={loading.getLogin}
             onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}
           >
-            <ActivityIndicator
-              size={responsiveSize(12)}
-              color={colors.primary}
-              style={{display: loading.connectAccount ? undefined : 'none', marginRight: responsiveWidth(8)}}
-            />
             <SpotifyIcon scale={1.3} noText disabled />
-            <YedyText type={'bold'} size={13}>
-              {t.do('auth.login.spotify')}
-            </YedyText>
-          </TouchableOpacity>
+          </YedyButton>
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <YedyButton
-          buttonStyle={{backgroundColor: 'transparent', padding: 0}}
+          buttonStyle={{backgroundColor: 'transparent', paddingHorizontal: 0, marginLeft: responsiveWidth(8)}}
           textStyle={{color: colors.outlineVariant}}
-          disabled={loading.getLogin}
+          disabled={loading.getLogin || loading.connectAccount}
           label={t.do('auth.login.toRegister')}
           onPress={() => navigation.navigate('Register')}
         />
         <YedyButton
-          buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
           loading={loading.getLogin}
+          disabled={loading.connectAccount}
           label={t.do('auth.login.submit')}
           onPress={handleSubmit}
         />

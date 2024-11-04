@@ -20,23 +20,24 @@ export default observer(() => {
     api.user.passChange(formRef.current?.formData() as IPassChange).then(async () => {
       loading.set('passChange', true);
       await api.auth.checkToken();
-      loading.set('passChange', true);
+      loading.set('passChange', false);
     });
 
   return (
     <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(16)}}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-      >
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <YedyText type={'bold'} size={26}>
           {t.do('form.newPass.title')}
         </YedyText>
-        <YedyIconButton icon={'logout'} onPress={api.auth.logout} scale={0.5} color={colors.error} />
+        <YedyIconButton
+          icon={'logout'}
+          disabled={loading.passChange}
+          onPress={api.auth.logout}
+          scale={0.5}
+          color={colors.error}
+        />
       </View>
-      <YedyForm ref={formRef} onSubmit={onSubmit} data={formData}>
+      <YedyForm ref={formRef} onSubmit={onSubmit} data={formData} style={{flex: 1}}>
         <YedyTextInput
           name={'newPass'}
           label={t.do('form.newPass.newPass')}
@@ -57,12 +58,7 @@ export default observer(() => {
           validationMessage={['Şifre 8 ile 32 karakter arasında olmalıdır.', 'Şifreler eşleşmiyor.']}
         />
       </YedyForm>
-      <YedyButton
-        buttonStyle={{paddingVertical: responsiveWidth(16)}}
-        loading={loading.passChange}
-        label={t.do('form.newPass.submit')}
-        onPress={onSubmit}
-      />
+      <YedyButton loading={loading.passChange} label={t.do('form.newPass.submit')} onPress={onSubmit} />
     </View>
   );
 });

@@ -2,13 +2,12 @@ import {observer} from 'mobx-react';
 import {useTheme} from '../../hooks';
 import {useServices} from '../../services';
 import {useStores} from '../../stores';
-import {YedyCard, YedyPicker, YedySegmented, YedyText} from '../../components/custom';
+import {YedyButton, YedyCard, YedyPicker, YedySegmented} from '../../components/custom';
 import {_languages, IAppearance, IAuthsType, ILanguage} from '../../types/enums';
 import {useMemo} from 'react';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {SubLayout} from '../../components/layouts/SubLayout';
 import api from '../../services/api';
-import {ActivityIndicator, TouchableOpacity} from 'react-native';
 import SpotifyIcon from '../../components/spotify/SpotifyIcon';
 
 const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
@@ -57,10 +56,14 @@ export default observer(() => {
         {Object.entries(connectedAccounts).map(([key, name]) => {
           const isConnected = auth.auths.some(value => value.type === key);
           return (
-            <TouchableOpacity
+            <YedyButton
               key={key}
-              disabled={loading.clearAuth || loading.connectAccount}
-              style={{flexDirection: 'row', alignItems: 'center'}}
+              buttonStyle={{paddingVertical: 0, paddingHorizontal: 0, gap: 0, backgroundColor: 'transparent'}}
+              textStyle={{color: colors.secondary, fontSize: responsiveSize(14)}}
+              label={t.do(
+                `main.settings.connect.${key.toLowerCase()}.${isConnected ? 'disconnect' : 'connect'}` as any,
+              )}
+              loading={loading.clearAuth || loading.connectAccount}
               onPress={async () => {
                 if (isConnected) {
                   await api.auths.clearAuth(key as IAuthsType);
@@ -69,23 +72,8 @@ export default observer(() => {
                 }
               }}
             >
-              <ActivityIndicator
-                size={responsiveSize(12)}
-                color={colors.primary}
-                style={{
-                  display: loading.clearAuth || loading.connectAccount ? undefined : 'none',
-                  marginRight: responsiveWidth(8),
-                }}
-              />
               <SpotifyIcon scale={1.3} noText disabled />
-              <YedyText size={14}>
-                {t.do(
-                  isConnected
-                    ? `main.settings.connect.${name.toLowerCase()}.disconnect`
-                    : (`main.settings.connect.${name.toLowerCase()}.connect` as any),
-                )}
-              </YedyText>
-            </TouchableOpacity>
+            </YedyButton>
           );
         })}
       </YedyCard>

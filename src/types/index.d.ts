@@ -145,7 +145,6 @@ type LangNotification<T> = {
 type LangDialogContent<T> = {
   title: T;
   content: T;
-  reject: T;
   accept: T;
 };
 type LangDialog<T> = {
@@ -229,11 +228,9 @@ export type Positions = Dimensions & {
   right: number;
   bottom: number;
 };
-export type DialogScreenProps = {
+export type ModalScreenProps = {
   visible: boolean;
   changeVisible: (open: boolean) => void;
-};
-export type ModalScreenProps = DialogScreenProps & {
   data?: any;
 };
 export type TooltipScreenProps = ModalScreenProps & {

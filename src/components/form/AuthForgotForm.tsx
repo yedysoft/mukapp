@@ -22,12 +22,12 @@ export const AuthForgotForm = observer(() => {
     formRef.current?.validateInputs() && api.auth.forgotPass(formRef.current?.formData() as IForgot);
 
   return (
-    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-      <View style={{gap: responsiveHeight(48)}}>
+    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', gap: responsiveWidth(20)}}>
+      <View style={{flex: 1, gap: responsiveHeight(48)}}>
         <YedyText type={'bold'} size={26}>
           {t.do('auth.forgot.title')}
         </YedyText>
-        <YedyForm ref={formRef} onSubmit={onSubmit} data={form}>
+        <YedyForm ref={formRef} onSubmit={onSubmit} data={form} style={{flex: 1}}>
           <YedyTextInput
             name={'name'}
             label={t.do('auth.forgot.email')}
@@ -39,22 +39,13 @@ export const AuthForgotForm = observer(() => {
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <YedyButton
-          buttonStyle={{
-            backgroundColor: colors.backdrop,
-            paddingHorizontal: responsiveWidth(32),
-            paddingVertical: responsiveWidth(16),
-          }}
+          buttonStyle={{backgroundColor: colors.shadow}}
           textStyle={{color: colors.secondary}}
           disabled={loading.getForgotPass}
           label={t.do('auth.forgot.back')}
           onPress={() => navigation.navigate('Login')}
         />
-        <YedyButton
-          buttonStyle={{paddingHorizontal: responsiveWidth(32), paddingVertical: responsiveWidth(16)}}
-          loading={loading.getForgotPass}
-          label={t.do('auth.forgot.submit')}
-          onPress={onSubmit}
-        />
+        <YedyButton loading={loading.getForgotPass} label={t.do('auth.forgot.submit')} onPress={onSubmit} />
       </View>
     </View>
   );

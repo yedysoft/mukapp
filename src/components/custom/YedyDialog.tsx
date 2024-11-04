@@ -17,6 +17,12 @@ import {useStores} from '../../stores';
 import YedyText from './YedyText';
 import YedyButton from './YedyButton';
 import {Dimensions} from '../../types';
+import YedyIconButton from './YedyIconButton';
+
+export type YedyDialogScreenRef = {
+  open: () => void;
+  close: () => void;
+};
 
 type DialogButton = {
   text?: string;
@@ -46,7 +52,7 @@ export default ({children, visible, changeVisible, shadow = true, dialog, style}
   const ref = useRef<View>(null);
   const event = useRef<NativeEventSubscription | null>(null);
   const [dimensions, setDimensions] = useState<Dimensions>({width: 0, height: 0});
-  const renderCheck = dimensions.height === 0 && dimensions.width === 0;
+  const renderCheck = dimensions.height === 0 || dimensions.width === 0;
 
   const onLayout = () => {
     if (ref.current && visible) {
@@ -64,8 +70,14 @@ export default ({children, visible, changeVisible, shadow = true, dialog, style}
     return true;
   };
 
-  const getButton = (button: DialogButton) => (
-    <YedyButton label={button.text} textStyle={button.textStyle} buttonStyle={button.style} onPress={button.onPress} />
+  const getButton = (index: number, button: DialogButton) => (
+    <YedyButton
+      key={index}
+      label={button.text}
+      textStyle={button.textStyle}
+      buttonStyle={button.style}
+      onPress={button.onPress}
+    />
   );
 
   useFocusEffect(useCallback(() => closeModal, []));
@@ -110,7 +122,9 @@ export default ({children, visible, changeVisible, shadow = true, dialog, style}
             borderWidth: 0.5,
             borderColor: colors.backdrop,
             opacity: renderCheck ? 0 : 1,
-            width: ui.windowWidth * 0.7,
+            width: ui.windowWidth * 0.8,
+            gap: responsiveWidth(12),
+            padding: responsiveWidth(16),
             marginHorizontal: (ui.windowWidth - dimensions.width) / 2,
             marginVertical: (ui.windowHeight - dimensions.height) / 2,
           },
@@ -121,13 +135,22 @@ export default ({children, visible, changeVisible, shadow = true, dialog, style}
         {dialog ? (
           <>
             {dialog.title && (
-              <YedyText type={'bold'} size={17}>
-                {dialog.title}
-              </YedyText>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <YedyText type={'bold'} size={19} style={{flex: 1}}>
+                  {dialog.title}
+                </YedyText>
+                <YedyIconButton
+                  icon={'close'}
+                  color={colors.outlineVariant}
+                  scale={0.4}
+                  onPress={closeModal}
+                  style={{padding: 0}}
+                />
+              </View>
             )}
-            {dialog.content && <YedyText size={15}>{dialog.content}</YedyText>}
-            <View style={{flexDirection: 'row', alignSelf: 'flex-end', gap: responsiveWidth(4)}}>
-              {dialog.buttons && dialog.buttons.map((button: DialogButton) => getButton(button))}
+            {dialog.content && <YedyText size={14}>{dialog.content}</YedyText>}
+            <View style={{flexDirection: 'row', alignSelf: 'flex-end', gap: responsiveWidth(8)}}>
+              {dialog.buttons && dialog.buttons.map((button: DialogButton, index) => getButton(index, button))}
             </View>
           </>
         ) : undefined}
