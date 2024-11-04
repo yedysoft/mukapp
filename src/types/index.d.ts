@@ -40,6 +40,7 @@ type LangAuth<T> = {
     toRegister: T;
     submit: T;
     spotify: T;
+    privacyPolicy: T;
   };
   register: {
     title: T;
@@ -55,6 +56,7 @@ type LangAuth<T> = {
     prev: T;
     toLogin: T;
     submit: T;
+    privacyPolicy: T;
   };
   forgot: {
     title: T;
@@ -166,6 +168,9 @@ type LangForm<T> = {
     submit: T;
   };
 };
+type LangPolicy<T> = {
+  privacy: T;
+};
 export type MukLang = {
   error: LangError<string>;
   header: LangHeader<string>;
@@ -176,6 +181,7 @@ export type MukLang = {
   dialog: LangDialog<string>;
   enum: LangEnum<string>;
   form: LangForm<string>;
+  policy: LangPolicy<string>
 };
 type LangPaths<T, P extends string = ''> = T extends object
   ? {
