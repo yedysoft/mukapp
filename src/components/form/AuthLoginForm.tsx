@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {ILogin} from '../../types/auth';
 import SpotifyIcon from '../spotify/SpotifyIcon';
-import PrivacyModal from "../modals/PrivacyModal";
+import PrivacyModal from '../modals/PrivacyModal';
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -20,7 +20,7 @@ export const AuthLoginForm = observer(() => {
   const formRef = useRef<YedyFormRef<ILogin>>(null);
   const formData: ILogin = {name: ui.name, pass: ui.pass};
 
-  const [privacyVisible, setPrivacyVisible] = useState(false)
+  const [privacyVisible, setPrivacyVisible] = useState(false);
 
   const handleSubmit = () => {
     ui.setMany({
@@ -38,7 +38,7 @@ export const AuthLoginForm = observer(() => {
         </YedyText>
         <View style={{gap: responsiveWidth(8)}}>
           <YedyForm ref={formRef} onSubmit={handleSubmit} data={formData}>
-            <YedyTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'}/>
+            <YedyTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
             <YedyTextInput
               name={'pass'}
               label={t.do('auth.login.password')}
@@ -48,22 +48,29 @@ export const AuthLoginForm = observer(() => {
               validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
             />
           </YedyForm>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: responsiveWidth(8), paddingVertical: responsiveWidth(12)}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingHorizontal: responsiveWidth(8),
+              paddingVertical: responsiveWidth(12),
+            }}
+          >
+            <YedyText type={'bold'} color={colors.outlineVariant} style={{flex: 0.65}}>
+              {t.do('auth.login.privacyPolicyStart')}
+              <YedyText style={{textDecorationLine: 'underline'}} onPress={() => setPrivacyVisible(true)}>
+                {t.do('auth.login.privacyPolicy')}
+              </YedyText>
+              {t.do('auth.login.privacyPolicyEnd')}
+            </YedyText>
             <YedyButton
               buttonStyle={{
                 backgroundColor: 'transparent',
                 paddingVertical: 0,
                 paddingHorizontal: 0,
-              }}
-              textStyle={{fontSize: responsiveSize(12), color: colors.outlineVariant, textDecorationLine: 'underline'}}
-              label={t.do('auth.login.privacyPolicy')}
-              onPress={() => setPrivacyVisible(true)}
-            />
-            <YedyButton
-              buttonStyle={{
-                backgroundColor: 'transparent',
-                paddingVertical: 0,
-                paddingHorizontal: 0,
+                flex: 0.35,
+                justifyContent: 'flex-end',
+                alignItems: 'flex-start',
               }}
               disabled={loading.getLogin || loading.connectAccount}
               textStyle={{fontSize: responsiveSize(12), color: colors.outlineVariant}}
@@ -79,7 +86,7 @@ export const AuthLoginForm = observer(() => {
             disabled={loading.getLogin}
             onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}
           >
-            <SpotifyIcon scale={1.3} noText disabled/>
+            <SpotifyIcon scale={1.3} noText disabled />
           </YedyButton>
         </View>
       </View>
@@ -98,7 +105,7 @@ export const AuthLoginForm = observer(() => {
           onPress={handleSubmit}
         />
       </View>
-      <PrivacyModal visible={privacyVisible} changeVisible={(open) => setPrivacyVisible(open)} />
+      <PrivacyModal visible={privacyVisible} changeVisible={open => setPrivacyVisible(open)} />
     </View>
   );
 });
