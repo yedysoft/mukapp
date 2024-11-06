@@ -4,9 +4,6 @@ import HomeScreen from '../screens/main/HomeScreen';
 import MessagesScreen from '../screens/main/social/MessagesScreen';
 import {observer} from 'mobx-react';
 import {useStores} from '../stores';
-import * as NavigationBar from 'expo-navigation-bar';
-import {Platform} from 'react-native';
-import {NavigationBarButtonStyle} from 'expo-navigation-bar/src/NavigationBar.types';
 import {YedyPalette} from '../themes/YedyPalette';
 import {useServices} from '../services';
 import {useTheme} from '../hooks';
@@ -26,7 +23,6 @@ export default observer(() => {
     ? dominantColor
     : colors.background;
   const isColorLight = api.helper.isColorLight(barColor);
-  const style: NavigationBarButtonStyle = isColorLight ? 'dark' : 'light';
 
   const getIconColor = (focused: boolean) => {
     if (focused) {
@@ -34,15 +30,6 @@ export default observer(() => {
     }
     return room.isLive ? (isColorLight ? colors.dark : colors.light) : colors.outlineVariant;
   };
-
-  if (Platform.OS === 'android') {
-    NavigationBar.getBackgroundColorAsync().then(async value => {
-      if (value !== barColor) {
-        await NavigationBar.setBackgroundColorAsync(barColor);
-        await NavigationBar.setButtonStyleAsync(style);
-      }
-    });
-  }
 
   return (
     <Bottom.Navigator

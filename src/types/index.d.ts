@@ -2,6 +2,7 @@ import {MainStackScreens} from '../navigation/MainStack';
 import {IAuthsType, IMessageBodyType} from './enums';
 import {IForgot, ILogin, IRegister} from './auth';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {IImage} from './user';
 
 // Services
 export interface IAuthApi {
@@ -59,6 +60,8 @@ type LangAuth<T> = {
     toLogin: T;
     submit: T;
     privacyPolicy: T;
+    privacyPolicyStart: T;
+    privacyPolicyEnd: T;
   };
   forgot: {
     title: T;
@@ -171,6 +174,7 @@ type LangForm<T> = {
   };
 };
 type LangPolicy<T> = {
+  title: T;
   privacy: T;
 };
 export type MukLang = {
@@ -226,6 +230,10 @@ export type PVoid = Promise<void>;
 export type PureFunc = () => void;
 
 // Components
+export type DialogKey = 'spotifyPremiumNeeded' | 'spotifyAuthNeeded';
+export type ModalKey = 'privacy' | 'editImage';
+export type TooltipKey = 'createChat' | 'createRoom' | 'notifications';
+export type PopupKey = DialogKey | ModalKey | TooltipKey;
 export type Dimensions = {
   width: number;
   height: number;
@@ -236,13 +244,19 @@ export type Positions = Dimensions & {
   right: number;
   bottom: number;
 };
-export type ModalScreenProps = {
-  visible: boolean;
-  changeVisible: (open: boolean) => void;
-  data?: any;
+export type YedyPopupScreenRef = {
+  open: (data?: any) => void;
+  close: () => void;
+  sendPositions?: (positions: Positions) => void;
+  isVisible: boolean;
 };
-export type TooltipScreenProps = ModalScreenProps & {
-  positions: Positions;
+export type IEditImage = {
+  id?: string;
+  tableName: string;
+  tableId: string;
+  imageIndex?: string;
+  tempId?: string;
+  setImage: (image: IImage) => void;
 };
 
 // Message

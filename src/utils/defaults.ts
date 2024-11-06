@@ -4,7 +4,6 @@ import {Positions} from '../types';
 import {IChat, IGroup, IMessage} from '../types/chat';
 import {NotificationCategory} from 'expo-notifications/src/Notifications.types';
 import {INotificationType} from '../types/enums';
-import {IServer} from '../types/main';
 import {IRoomConfig} from '../types/room';
 
 class Defaults {
@@ -40,11 +39,6 @@ class Defaults {
     gender: null,
     isFollows: false,
     isFollower: false,
-  };
-
-  server: IServer = {
-    id: 'default',
-    link: '',
   };
 
   group: IGroup = {

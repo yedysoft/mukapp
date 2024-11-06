@@ -1,4 +1,4 @@
-import YedyImage from '../image/YedyImage';
+import YedyImage from '../YedyImage';
 
 type Props = {
   loading: boolean;

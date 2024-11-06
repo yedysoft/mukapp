@@ -8,12 +8,12 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {responsiveScale, responsiveSize, responsiveWidth} from '../../../utils/util';
+import {responsiveScale, responsiveSize, responsiveWidth} from '../../utils/util';
 import React, {useRef, useState} from 'react';
-import EditImage, {IEditImage} from './YedyEditImage';
 import {Image, ImageContentFit, ImageSource} from 'expo-image';
-import {useTheme} from '../../../hooks';
-import YedyIconButton, {YedyIconButtonRef} from '../YedyIconButton';
+import {useTheme} from '../../hooks';
+import YedyIconButton, {YedyIconButtonRef} from './YedyIconButton';
+import {IEditImage} from '../../types';
 
 type Props = {
   source?: ImageSource | ImageSource[] | string | number | string[] | null;
@@ -48,7 +48,7 @@ export default ({
 
   const handleOnPress = (event?: GestureResponderEvent) => {
     event?.stopPropagation();
-    ref.current?.openModalOrTooltip();
+    ref.current?.openPopup();
     onPress && onPress();
   };
 
@@ -70,8 +70,8 @@ export default ({
           ref={ref}
           scale={0.25}
           icon={'image-edit'}
-          modal={EditImage}
-          tooltipOrModalData={{edit: edit, setLoading: setLoading}}
+          popup={'editImage'}
+          popupData={{edit: edit, setLoading: setLoading}}
           color={colors.dark}
           style={{
             backgroundColor: colors.primary,

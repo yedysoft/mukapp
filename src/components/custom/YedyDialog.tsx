@@ -19,11 +19,6 @@ import YedyButton from './YedyButton';
 import {Dimensions} from '../../types';
 import YedyIconButton from './YedyIconButton';
 
-export type YedyDialogScreenRef = {
-  open: () => void;
-  close: () => void;
-};
-
 type DialogButton = {
   text?: string;
   textStyle?: StyleProp<TextStyle>;
@@ -98,16 +93,14 @@ export default ({children, visible, changeVisible, shadow = true, dialog, style}
   }
 
   return (
-    <YedyPortal>
+    <YedyPortal zIndex={1399}>
       <View
-        style={[
-          {
-            display: visible ? undefined : 'none',
-            backgroundColor: colors.background,
-            opacity: renderCheck ? 0 : 0.25,
-          },
-          StyleSheet.absoluteFill,
-        ]}
+        style={{
+          ...StyleSheet.absoluteFillObject,
+          display: visible ? undefined : 'none',
+          backgroundColor: colors.background,
+          opacity: renderCheck ? 0 : 0.25,
+        }}
         onTouchStart={closeModal}
       />
       <View

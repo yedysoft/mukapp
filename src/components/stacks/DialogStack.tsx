@@ -1,23 +1,14 @@
-import {observer} from 'mobx-react';
 import React from 'react';
 import {SpotifyAuthNeeded, SpotifyPremiumNeeded} from './dialogs';
-import {YedyDialogScreenRef} from '../custom';
+import {useStores} from '../../stores';
 
-type keys = 'spotifyPremiumNeeded' | 'spotifyAuthNeeded';
-const dialogs: Map<keys, YedyDialogScreenRef | null> = new Map<keys, YedyDialogScreenRef | null>();
+export default () => {
+  const {ui} = useStores();
 
-export default observer(() => {
   return (
     <>
-      <SpotifyPremiumNeeded ref={v => dialogs.set('spotifyPremiumNeeded', v)} />
-      <SpotifyAuthNeeded ref={v => dialogs.set('spotifyAuthNeeded', v)} />
+      <SpotifyPremiumNeeded ref={v => ui.setPopup('spotifyPremiumNeeded', v)} />
+      <SpotifyAuthNeeded ref={v => ui.setPopup('spotifyAuthNeeded', v)} />
     </>
   );
-});
-
-export const openDialog = (key: keys) => {
-  const ref = dialogs.get(key);
-  if (ref) {
-    ref.open();
-  }
 };

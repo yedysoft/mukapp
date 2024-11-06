@@ -1,7 +1,6 @@
 import {YedyFAB} from '../custom';
 import React from 'react';
 import {observer} from 'mobx-react';
-import RoomConfigTooltip from '../tooltips/RoomConfigTooltip';
 import {useStores} from '../../stores';
 import {responsiveWidth} from '../../utils/util';
 
@@ -10,10 +9,9 @@ export default observer(() => {
 
   return (
     <YedyFAB
-      icon={'plus'}
-      scale={0.55}
+      icon={'plus-thick'}
       visible={!room.isLive}
-      tooltip={RoomConfigTooltip}
+      popup={'createRoom'}
       style={{
         bottom: responsiveWidth(16),
         right: 0,

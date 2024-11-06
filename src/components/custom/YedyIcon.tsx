@@ -5,14 +5,14 @@ import YedyBadge from './YedyBadge';
 import {useTheme} from '../../hooks';
 import {YedyIconName} from '../../types';
 
-type Props = {
+export type YedyIconProps = {
   badge?: number | string;
   defaultBadge?: boolean;
   icon: YedyIconName;
   color?: string;
   style?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<TextStyle>;
-  scale: number;
+  scale?: number;
   directionH?: 'ltr' | 'rtl';
   directionV?: 'ttb' | 'btt';
 };
@@ -24,10 +24,10 @@ export default ({
   color,
   style,
   iconStyle,
-  scale,
+  scale = 0.5,
   directionH = 'ltr',
   directionV = 'ttb',
-}: Props) => {
+}: YedyIconProps) => {
   const {colors} = useTheme();
   const rotationH = directionH === 'rtl' ? {scaleX: -1} : undefined;
   const rotationV = directionV === 'btt' ? {scaleY: -1} : undefined;

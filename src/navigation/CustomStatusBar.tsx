@@ -6,28 +6,39 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Platform, View} from 'react-native';
 import {useServices} from '../services';
 import {useTheme} from '../hooks';
+import * as NavigationBar from 'expo-navigation-bar';
+import {NavigationBarButtonStyle} from 'expo-navigation-bar';
 
 export default observer(() => {
-  const {ui, room, media} = useStores();
   const {api} = useServices();
   const {colors} = useTheme();
+  const {ui, room, media} = useStores();
   const insets = useSafeAreaInsets();
   const dominantColor = media.getDominantColor ?? colors.background;
+
   const statusBarColor = room.isLive && room.isRoomPageOn ? dominantColor : colors.background;
-  const isColorLight = api.helper.isColorLight(statusBarColor);
-  const style: StatusBarStyle = isColorLight ? 'dark' : 'light';
+  const statusBarstyle: StatusBarStyle = api.helper.isColorLight(statusBarColor) ? 'dark' : 'light';
+
+  const navigationBarColor = ui.pickerViewVisible
+    ? colors.dialog
+    : room.isLive && !room.isRoomPageOn
+    ? dominantColor
+    : colors.background;
+  const navigationBarStyle: NavigationBarButtonStyle = api.helper.isColorLight(navigationBarColor) ? 'dark' : 'light';
+
+  if (Platform.OS === 'android') {
+    NavigationBar.getBackgroundColorAsync().then(async value => {
+      if (value !== navigationBarColor) {
+        await NavigationBar.setBackgroundColorAsync(navigationBarColor);
+        await NavigationBar.setButtonStyleAsync(navigationBarStyle);
+      }
+    });
+  }
 
   return (
     <>
-      <StatusBar backgroundColor={statusBarColor} style={room.isLive ? style : ui.getStatusBarStyle} />
-      {Platform.OS === 'ios' && (
-        <View
-          style={{
-            height: insets.top,
-            backgroundColor: statusBarColor,
-          }}
-        />
-      )}
+      <StatusBar backgroundColor={statusBarColor} style={room.isLive ? statusBarstyle : ui.getStatusBarStyle} />
+      {Platform.OS === 'ios' && <View style={{height: insets.top, backgroundColor: statusBarColor}} />}
     </>
   );
 });

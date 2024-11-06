@@ -9,6 +9,7 @@ import {responsiveHeight, responsiveWidth} from '../../utils/util';
 import {useStores} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
+import PrivacyPolicy from '../ps/PrivacyPolicy';
 
 export const AuthRegisterForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -58,6 +59,7 @@ export const AuthRegisterForm = observer(() => {
           />
         </YedyForm>
       </View>
+      <PrivacyPolicy name={'auth.register'} />
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <YedyButton
           buttonStyle={{backgroundColor: 'transparent', paddingHorizontal: 0, marginLeft: responsiveWidth(8)}}

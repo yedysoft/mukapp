@@ -9,7 +9,7 @@ import {useFocusEffect} from '@react-navigation/native';
 
 type Props = {
   children: ReactNode;
-  positions: Positions;
+  positions?: Positions;
   visible: boolean;
   changeVisible: (open: boolean) => void;
   shadow?: boolean;
@@ -133,14 +133,12 @@ export default ({
   return (
     <YedyPortal>
       <View
-        style={[
-          {
-            display: visible ? undefined : 'none',
-            backgroundColor: colors.background,
-            opacity: renderCheck ? 0 : 0.25,
-          },
-          StyleSheet.absoluteFill,
-        ]}
+        style={{
+          ...StyleSheet.absoluteFillObject,
+          display: visible ? undefined : 'none',
+          backgroundColor: colors.background,
+          opacity: renderCheck ? 0 : 0.25,
+        }}
         onTouchStart={closeModal}
       />
       <View

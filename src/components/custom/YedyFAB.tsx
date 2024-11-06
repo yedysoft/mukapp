@@ -1,71 +1,44 @@
 import {responsiveWidth, shadowStyle} from '../../utils/util';
-import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {observer} from 'mobx-react';
-import {ModalScreenProps, TooltipScreenProps, YedyIconName} from '../../types';
-import {ReactNode} from 'react';
-import YedyIconButton from './YedyIconButton';
+import YedyIconButton, {YedyIconButtonProps} from './YedyIconButton';
 import {useTheme} from '../../hooks';
+import {useServices} from '../../services';
 
-type Props = {
-  onPress?: () => void;
-  style?: StyleProp<ViewStyle>;
-  iconViewStyle?: StyleProp<ViewStyle>;
-  iconStyle?: StyleProp<TextStyle>;
-  icon: YedyIconName;
-  color?: string;
-  scale?: number;
-  visible?: boolean;
-  directionH?: 'ltr' | 'rtl';
-  directionV?: 'ttb' | 'btt';
-  tooltip?: ({positions, visible, changeVisible, data}: TooltipScreenProps) => ReactNode;
-  modal?: ({visible, changeVisible, data}: ModalScreenProps) => ReactNode;
-  tooltipOrModalData?: any;
+type Props = YedyIconButtonProps & {
+  shadow?: boolean;
 };
 
-export default observer(
-  ({
-    onPress,
-    style,
-    iconViewStyle,
-    iconStyle,
-    icon,
-    color,
-    scale = 0.5,
-    visible = true,
-    directionH,
-    directionV,
-    tooltip,
-    modal,
-    tooltipOrModalData,
-  }: Props) => {
-    const {colors} = useTheme();
+export default observer(({scale = 0.5, shadow = true, ...rest}: Props) => {
+  const {colors} = useTheme();
+  const {api} = useServices();
 
-    return (
-      <YedyIconButton
-        icon={icon}
-        color={color ?? colors.dark}
-        scale={scale}
-        onPress={onPress}
-        tooltip={tooltip}
-        modal={modal}
-        tooltipOrModalData={tooltipOrModalData}
-        visible={visible}
-        directionH={directionH}
-        directionV={directionV}
-        iconStyle={iconStyle}
-        iconViewStyle={iconViewStyle}
-        style={[
-          {
-            position: 'absolute',
-            zIndex: 1400,
-            backgroundColor: colors.primary,
-            width: responsiveWidth(scale * 100),
-            aspectRatio: 1,
-          },
-          shadowStyle(),
-          style,
-        ]}
-      />
-    );
-  },
-);
+  return (
+    <YedyIconButton
+      {...rest}
+      scale={scale}
+      color={rest.color ?? colors.dark}
+      iconViewStyle={[
+        {
+          width: responsiveWidth(scale * 85),
+          aspectRatio: 1,
+          backgroundColor: api.helper.addOpacityToColor(colors.dark, 0.1),
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 100,
+        },
+        rest.iconViewStyle,
+      ]}
+      style={[
+        {
+          position: 'absolute',
+          zIndex: 1400,
+          backgroundColor: colors.primary,
+          width: responsiveWidth(scale * 100),
+          aspectRatio: 1,
+        },
+        shadow ? shadowStyle() : {},
+        rest.style,
+      ]}
+    />
+  );
+});

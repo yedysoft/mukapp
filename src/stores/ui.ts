@@ -2,7 +2,7 @@ import {IAppearance, ILanguage} from '../types/enums';
 import {BaseStore} from './base';
 import {StatusBarStyle} from 'expo-status-bar';
 import themes from '../themes';
-import {MessageBody, MukMessage, MukTheme} from '../types';
+import {MessageBody, MukMessage, MukTheme, PopupKey, Positions, YedyPopupScreenRef} from '../types';
 import {Dimensions, ScaledSize} from 'react-native';
 import {computed} from 'mobx';
 
@@ -13,6 +13,7 @@ class UIStore extends BaseStore<UIStore> {
   appearance: IAppearance = 'system';
   language: ILanguage = 'system';
   messages: MukMessage[] = [];
+  popups: Map<PopupKey, YedyPopupScreenRef | null> = new Map<PopupKey, YedyPopupScreenRef | null>();
   expoToken: string | null = null;
   reloadToggle = false;
   window: ScaledSize = Dimensions.get('window');
@@ -53,10 +54,6 @@ class UIStore extends BaseStore<UIStore> {
     return computed(() => this.messages.slice(0, 3)).get();
   }
 
-  get getReloadToggle(): boolean {
-    return this.reloadToggle;
-  }
-
   get screenWidth() {
     return this.screen.width;
   }
@@ -87,6 +84,38 @@ class UIStore extends BaseStore<UIStore> {
 
   addInfo(message: string, code?: number) {
     this.addMessage({code: code ?? 0, message: message, type: 'INFO'}, 2000);
+  }
+
+  getPopupVisible(key: PopupKey) {
+    return computed(() => {
+      console.log('getPopupVisible', key, this.popups.get(key)?.isVisible);
+      return this.popups.get(key)?.isVisible;
+    }).get();
+  }
+
+  setPopup(key: PopupKey, ref: YedyPopupScreenRef | null) {
+    this.popups.set(key, ref);
+  }
+
+  openPopup(key: PopupKey, data?: any) {
+    const ref = this.popups.get(key);
+    if (ref) {
+      ref.open(data);
+    }
+  }
+
+  closePopup(key: PopupKey) {
+    const ref = this.popups.get(key);
+    if (ref) {
+      ref.close();
+    }
+  }
+
+  sendPositionsPopup(key: PopupKey, positions: Positions) {
+    const ref = this.popups.get(key);
+    if (ref && ref.sendPositions) {
+      ref.sendPositions(positions);
+    }
   }
 
   delMessage(id: number) {

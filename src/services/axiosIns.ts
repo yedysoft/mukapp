@@ -35,6 +35,7 @@ axiosIns.interceptors.response.use(
       const {status, data} = response;
       if (status === 401) {
         const err: MessageBody = data;
+        console.log(config.url, err);
         if (err) {
           stores.ui.addMessage(err);
         }
@@ -49,10 +50,10 @@ axiosIns.interceptors.response.use(
         console.log(config.url, err);
         if ([1012, 1013, 1014].includes(err.code)) {
           // Spotify yetkilendirmesi gerekiyor
-          //openDialog('spotifyAuthNeeded');
+          stores.ui.openPopup('spotifyAuthNeeded');
         } else if (err.code === 1036) {
           // Spotify premium gerekiyor
-          //openDialog('spotifyPremiumNeeded');
+          stores.ui.openPopup('spotifyPremiumNeeded');
         } else {
           stores.ui.addMessage(err);
         }

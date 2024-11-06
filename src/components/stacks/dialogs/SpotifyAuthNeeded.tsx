@@ -1,8 +1,9 @@
 import React, {forwardRef, useImperativeHandle, useState} from 'react';
-import {YedyDialog, YedyDialogScreenRef} from '../../custom';
+import {YedyDialog} from '../../custom';
 import {useServices} from '../../../services';
+import {YedyPopupScreenRef} from '../../../types';
 
-export default forwardRef<YedyDialogScreenRef>((_props, ref) => {
+export default forwardRef<YedyPopupScreenRef>((_props, ref) => {
   const {api, t} = useServices();
   const [visible, setVisible] = useState(false);
 

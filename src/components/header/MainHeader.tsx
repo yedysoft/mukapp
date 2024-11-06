@@ -2,7 +2,6 @@ import {responsiveWidth} from '../../utils/util';
 import {YedyIconButton, YedyLogo} from '../custom';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import NotificationsTooltip from '../tooltips/NotificationsTooltip';
 import {MainStackNavProp} from '../../navigation/MainStack';
 import {useStores} from '../../stores';
 import {Platform, View} from 'react-native';
@@ -34,7 +33,7 @@ export default observer(() => {
         defaultBadge={user.getNotifications.some(n => !n.readed)}
         icon={'bell'}
         scale={0.5}
-        tooltip={NotificationsTooltip}
+        popup={'notifications'}
       />
     </View>
   );

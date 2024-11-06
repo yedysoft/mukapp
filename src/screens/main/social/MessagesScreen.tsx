@@ -2,7 +2,6 @@ import {MainLayout} from '../../../components/layouts/MainLayout';
 import {observer} from 'mobx-react';
 import MessagesList from '../../../components/messages/MessagesList';
 import {useStores} from '../../../stores';
-import CreateChatTooltip from '../../../components/tooltips/CreateChatTooltip';
 import {YedyFAB} from '../../../components/custom';
 import React from 'react';
 import {responsiveWidth} from '../../../utils/util';
@@ -19,8 +18,7 @@ export default observer(() => {
       <MessagesList chats={orderedChats} />
       <YedyFAB
         icon={'chat-plus'}
-        scale={0.55}
-        tooltip={CreateChatTooltip}
+        popup={'createChat'}
         style={{
           bottom: responsiveWidth(room.isLive ? 128 : 16),
           right: 0,

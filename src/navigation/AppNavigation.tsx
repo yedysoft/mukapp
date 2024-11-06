@@ -4,6 +4,8 @@ import {useStores} from '../stores';
 import MainDrawer from './MainDrawer';
 import {YedyMessageStack} from '../components/custom';
 import DialogStack from '../components/stacks/DialogStack';
+import ModalStack from '../components/stacks/ModalStack';
+import TooltipStack from '../components/stacks/TooltipStack';
 
 export default observer(() => {
   const {auth} = useStores();
@@ -12,6 +14,8 @@ export default observer(() => {
     <>
       <YedyMessageStack />
       <DialogStack />
+      <ModalStack />
+      <TooltipStack />
       {auth.isLoggedIn ? <MainDrawer /> : <AuthStack />}
     </>
   );

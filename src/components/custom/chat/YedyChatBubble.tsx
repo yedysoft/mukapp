@@ -2,7 +2,7 @@ import {useInfo, useTheme} from '../../../hooks';
 import {Animated, PanResponder, View} from 'react-native';
 import {getAnimatedValue, responsiveWidth} from '../../../utils/util';
 import YedyIcon from '../YedyIcon';
-import YedyImage from '../image/YedyImage';
+import YedyImage from '../YedyImage';
 import YedyText from '../YedyText';
 import {IMessage} from '../../../types/chat';
 import {useStores} from '../../../stores';

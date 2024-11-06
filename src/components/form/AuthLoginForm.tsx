@@ -1,7 +1,7 @@
 import {observer} from 'mobx-react';
 import {useTheme} from '../../hooks';
 import {YedyButton, YedyForm, YedyFormRef, YedyText, YedyTextInput} from '../custom';
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 import {useServices} from '../../services';
 import {View} from 'react-native';
 import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {ILogin} from '../../types/auth';
 import SpotifyIcon from '../spotify/SpotifyIcon';
-import PrivacyModal from '../modals/PrivacyModal';
+import PrivacyPolicy from '../ps/PrivacyPolicy';
 
 export const AuthLoginForm = observer(() => {
   const navigation = useNavigation<AuthStackNavProp>();
@@ -19,8 +19,6 @@ export const AuthLoginForm = observer(() => {
   const {loading, ui} = useStores();
   const formRef = useRef<YedyFormRef<ILogin>>(null);
   const formData: ILogin = {name: ui.name, pass: ui.pass};
-
-  const [privacyVisible, setPrivacyVisible] = useState(false);
 
   const handleSubmit = () => {
     ui.setMany({
@@ -51,18 +49,11 @@ export const AuthLoginForm = observer(() => {
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-between',
               paddingHorizontal: responsiveWidth(8),
               paddingVertical: responsiveWidth(12),
             }}
           >
-            <YedyText type={'bold'} color={colors.outlineVariant} style={{flex: 0.65}}>
-              {t.do('auth.login.privacyPolicyStart')}
-              <YedyText style={{textDecorationLine: 'underline'}} onPress={() => setPrivacyVisible(true)}>
-                {t.do('auth.login.privacyPolicy')}
-              </YedyText>
-              {t.do('auth.login.privacyPolicyEnd')}
-            </YedyText>
+            <PrivacyPolicy name={'auth.login'} style={{flex: 0.65}} />
             <YedyButton
               buttonStyle={{
                 backgroundColor: 'transparent',
@@ -105,7 +96,6 @@ export const AuthLoginForm = observer(() => {
           onPress={handleSubmit}
         />
       </View>
-      <PrivacyModal visible={privacyVisible} changeVisible={open => setPrivacyVisible(open)} />
     </View>
   );
 });
