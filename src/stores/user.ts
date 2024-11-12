@@ -18,43 +18,7 @@ class UserStore extends BaseStore<UserStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UserStore.name, []);
-  }
-
-  get getInfo() {
-    return this.info;
-  }
-
-  get getNotifications() {
-    return this.notifications;
-  }
-
-  get getChats() {
-    return this.chats ?? [];
-  }
-
-  get getSearched() {
-    return this.searched;
-  }
-
-  get getFollows() {
-    return this.follows;
-  }
-
-  get getFollowers() {
-    return this.followers;
-  }
-
-  get getBlockedUsers() {
-    return this.blockedUsers;
-  }
-
-  get getTopVoted() {
-    return this.topVoted;
-  }
-
-  get getCountTopVoted() {
-    return this.countTopVoted;
+    this.makeObservableAndPersistable(this, UserStore.name);
   }
 }
 

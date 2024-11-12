@@ -11,14 +11,6 @@ class AuthStore extends BaseStore<AuthStore> {
     super();
     this.makeObservableAndPersistable(this, AuthStore.name, ['authToken']);
   }
-
-  get isLoggedIn() {
-    return this.loggedIn;
-  }
-
-  get getAuthToken() {
-    return this.authToken;
-  }
 }
 
 const auth = new AuthStore();

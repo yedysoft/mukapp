@@ -248,7 +248,7 @@ export type YedyPopupScreenRef = {
   open: (data?: any) => void;
   close: () => void;
   sendPositions?: (positions: Positions) => void;
-  isVisible: boolean;
+  isVisible?: boolean;
 };
 export type IEditImage = {
   id?: string;

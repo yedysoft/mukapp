@@ -1,4 +1,4 @@
-import {YedyButton, YedyChat, YedyEmptyList, YedyTabs} from '../custom';
+import {YedyButton, YedyChat, YedyTabs} from '../custom';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useEffect, useState} from 'react';
@@ -29,8 +29,8 @@ export default observer(() => {
           children: (
             <YedyChat
               sendMessage={api.subscription.sendMessage}
-              messages={room.getChat}
-              receiverId={room.getSessionId ?? ''}
+              messages={room.chat}
+              receiverId={room.sessionId ?? ''}
               messageType={'PUBLIC'}
             />
           ),
@@ -40,18 +40,14 @@ export default observer(() => {
           children: (
             <SongList
               itemType={'vote'}
-              songs={media.getQueue}
+              songs={media.queue}
               footer={
-                media.getQueue.length === 0 ? (
-                  <YedyEmptyList />
-                ) : (
-                  <YedyButton
-                    onPress={() => api.helper.openURL('spotify://')}
-                    buttonStyle={{paddingVertical: 0, paddingHorizontal: 0, gap: 0}}
-                  >
-                    <SpotifyIcon color={'black'} spotifyText={'Open Spotify'} />
-                  </YedyButton>
-                )
+                <YedyButton
+                  onPress={() => api.helper.openURL('spotify://')}
+                  buttonStyle={{paddingVertical: 0, paddingHorizontal: 0, gap: 0}}
+                >
+                  <SpotifyIcon color={'black'} spotifyText={'Open Spotify'} />
+                </YedyButton>
               }
             />
           ),
@@ -86,9 +82,9 @@ export default observer(() => {
           icon: 'trophy-award',
           children: (
             <LeaderboardList
-              loading={loading.getLeaderboard}
+              loading={loading.leaderboard}
               onRefresh={api.room.setLeaderboard}
-              leaderboard={room.getLeaderboard}
+              leaderboard={room.leaderboard}
             />
           ),
         },

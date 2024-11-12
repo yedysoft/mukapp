@@ -47,7 +47,7 @@ export default observer(({leader, index}: Props) => {
         scale={1}
         source={
           leader.image
-            ? {uri: `${leader.image.link}?token=${auth.getAuthToken}`}
+            ? {uri: `${leader.image.link}?token=${auth.authToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
         style={{borderRadius: 100, borderWidth: 2, borderColor: rankColor}}

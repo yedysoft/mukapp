@@ -16,12 +16,12 @@ export default observer(() => {
   const insets = useSafeAreaInsets();
   const dominantColor = media.getDominantColor ?? colors.background;
 
-  const statusBarColor = room.isLive && room.isRoomPageOn ? dominantColor : colors.background;
+  const statusBarColor = room.live && room.isRoomPageOn ? dominantColor : colors.background;
   const statusBarstyle: StatusBarStyle = api.helper.isColorLight(statusBarColor) ? 'dark' : 'light';
 
   const navigationBarColor = ui.pickerViewVisible
     ? colors.dialog
-    : room.isLive && !room.isRoomPageOn
+    : room.live && !room.isRoomPageOn
     ? dominantColor
     : colors.background;
   const navigationBarStyle: NavigationBarButtonStyle = api.helper.isColorLight(navigationBarColor) ? 'dark' : 'light';
@@ -37,7 +37,7 @@ export default observer(() => {
 
   return (
     <>
-      <StatusBar backgroundColor={statusBarColor} style={room.isLive ? statusBarstyle : ui.getStatusBarStyle} />
+      <StatusBar backgroundColor={statusBarColor} style={room.live ? statusBarstyle : ui.getStatusBarStyle} />
       {Platform.OS === 'ios' && <View style={{height: insets.top, backgroundColor: statusBarColor}} />}
     </>
   );

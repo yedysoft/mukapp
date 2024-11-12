@@ -9,7 +9,7 @@ class MainStore extends BaseStore<MainStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, MainStore.name, []);
+    this.makeObservableAndPersistable(this, MainStore.name);
   }
 
   getInfoById(id: string): IInfo {

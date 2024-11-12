@@ -41,11 +41,11 @@ export const AuthForgotForm = observer(() => {
         <YedyButton
           buttonStyle={{backgroundColor: colors.shadow}}
           textStyle={{color: colors.secondary}}
-          disabled={loading.getForgotPass}
+          disabled={loading.forgotPass}
           label={t.do('auth.forgot.back')}
           onPress={() => navigation.navigate('Login')}
         />
-        <YedyButton loading={loading.getForgotPass} label={t.do('auth.forgot.submit')} onPress={onSubmit} />
+        <YedyButton loading={loading.forgotPass} label={t.do('auth.forgot.submit')} onPress={onSubmit} />
       </View>
     </View>
   );

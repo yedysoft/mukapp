@@ -14,7 +14,7 @@ export default observer(() => {
   const {api, t} = useServices();
   const {loading, user, auth, ui} = useStores();
   const formRef = useRef<YedyFormRef<IEdit>>(null);
-  const {name, gender, birthday} = user.getInfo;
+  const {name, gender, birthday} = user.info;
   const form: IEdit = {name, gender, birthday};
 
   const onSubmit = () => formRef.current?.validateInputs() && api.user.editInfo(formRef.current?.formData() as IEdit);
@@ -34,15 +34,15 @@ export default observer(() => {
       >
         <YedyImage
           edit={{
-            id: user.getInfo.image?.id,
+            id: user.info.image?.id,
             tableName: 'S_USER',
-            tableId: user.getInfo.id,
+            tableId: user.info.id,
             setImage: image => user.set('info', v => ({...v, image})),
           }}
           scale={2}
           source={
-            user.getInfo.image
-              ? {uri: `${user.getInfo.image.link}?token=${auth.getAuthToken}`}
+            user.info.image
+              ? {uri: `${user.info.image.link}?token=${auth.authToken}`}
               : require('../../../assets/adaptive-icon.png')
           }
           style={{

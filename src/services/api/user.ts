@@ -16,7 +16,7 @@ class UserApi {
 
   addCoin = async (quantity: number): PVoid => {
     try {
-      await axiosIns.get(`/test/addCoin/${stores.user.getInfo.id}/${quantity}`);
+      await axiosIns.get(`/test/addCoin/${stores.user.info.id}/${quantity}`);
     } catch (e) {
       console.log(e);
     }
@@ -24,7 +24,7 @@ class UserApi {
 
   addToken = async (quantity: number): PVoid => {
     try {
-      await axiosIns.get(`/test/addToken/${stores.user.getInfo.id}/${quantity}`);
+      await axiosIns.get(`/test/addToken/${stores.user.info.id}/${quantity}`);
     } catch (e) {
       console.log(e);
     }
@@ -141,7 +141,7 @@ class UserApi {
     try {
       const response = await axiosIns.delete(`/user-follower/unFollow/${userId}`);
       if (response.status === 200) {
-        await this.getFollows(stores.user.getInfo.id);
+        await this.getFollows(stores.user.info.id);
       }
     } catch (e) {
       console.log(e);
@@ -152,7 +152,7 @@ class UserApi {
     try {
       const response = await axiosIns.delete(`/user-follower/takeOutMyFollowers/${userId}`);
       if (response.status === 200) {
-        await this.getFollowers(stores.user.getInfo.id);
+        await this.getFollowers(stores.user.info.id);
       }
     } catch (e) {
       console.log(e);
@@ -200,20 +200,14 @@ class UserApi {
 
   updateReaded = async (): PVoid => {
     try {
-      const unreaded = stores.user.getNotifications.filter(n => !n.readed);
+      const unreaded = stores.user.notifications.filter(n => !n.readed);
       if (unreaded.length > 0) {
         const response = await axiosIns.post(
           '/notification/updateReaded',
           unreaded.map(n => n.id),
         );
         if (response.status === 200) {
-          stores.user.set(
-            'notifications',
-            stores.user.getNotifications.map(n => ({
-              ...n,
-              readed: true,
-            })),
-          );
+          stores.user.set('notifications', v => v.map(n => ({...n, readed: true})));
         }
       }
     } catch (e) {

@@ -52,7 +52,7 @@ export default observer(() => {
         <Token />
       ) : route.name === 'Room' ? (
         <Coin textColor={textColor} />
-      ) : route.name === 'Profile' && params.userId === user.getInfo.id ? (
+      ) : route.name === 'Profile' && params.userId === user.info.id ? (
         <YedyIconButton icon={'account-edit'} scale={0.45} onPress={() => navigation.navigate('Edit')} />
       ) : route.name === 'Chat' ? (
         <ChatHeader id={params?.chat.id} />
@@ -69,7 +69,7 @@ const ChatHeader = observer(({id}: {id: string}) => {
   const {colors} = useTheme();
   const {api} = useServices();
   const {user, auth} = useStores();
-  const chat = user.getChats.find(c => c.id === id) ?? defaults.chat;
+  const chat = user.chats.find(c => c.id === id) ?? defaults.chat;
   const isPrivate = chat.type === 'PRIVATE';
   const info = useInfo(chat.id, isPrivate);
   const group = useGroup(chat.id, !isPrivate);
@@ -88,7 +88,7 @@ const ChatHeader = observer(({id}: {id: string}) => {
       <YedyImage
         source={
           info.image
-            ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
+            ? {uri: `${info.image.link}?token=${auth.authToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
         scale={0.6}

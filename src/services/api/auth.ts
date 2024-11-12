@@ -106,8 +106,8 @@ class AuthApi implements IAuthApi {
 
   updateExpoToken = async (): PVoid => {
     try {
-      if (stores.ui.getExpoToken) {
-        await axiosIns.post('/user-info/updateExpoToken', stores.ui.getExpoToken);
+      if (stores.ui.expoToken) {
+        await axiosIns.post('/user-info/updateExpoToken', stores.ui.expoToken);
       }
     } catch (e) {
       console.log(e);

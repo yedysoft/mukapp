@@ -56,7 +56,7 @@ export default observer(({song, itemType, disabled}: Props) => {
           style={{justifyContent: 'center'}}
           onPress={() => {
             media.getVoteable
-              ? api.subscription.voteMusic({musicUri: song.uri, userId: user.getInfo.id})
+              ? api.subscription.voteMusic({musicUri: song.uri, userId: user.info.id})
               : ui.addError('Oylamak için sıradaki şarkının çalmasını bekle', 1021);
           }}
         />

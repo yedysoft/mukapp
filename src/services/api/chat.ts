@@ -10,9 +10,11 @@ class ChatApi {
     let chat: IChat | null = null;
     try {
       const response = await axiosIns.post<IChat>('/message-group/createGroup', group);
-      chat = response.data;
-      if (chat) {
-        stores.user.set('chats', [...stores.user.getChats, chat]);
+      if (response.status === 200) {
+        chat = response.data;
+        if (chat !== null) {
+          stores.user.set('chats', v => [...v, chat as IChat]);
+        }
       }
     } catch (e: any) {
       console.log(e);
@@ -63,7 +65,7 @@ class ChatApi {
   };
 
   private getMessageByContentType = (message: IMessage) => {
-    const me = message.senderId === stores.user.getInfo.id;
+    const me = message.senderId === stores.user.info.id;
     const sended = !!message.id;
     let m = message.content;
     if (message.contentType === 'PICTURE') {

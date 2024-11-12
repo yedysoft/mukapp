@@ -8,7 +8,7 @@ import {responsiveWidth} from '../../../utils/util';
 
 export default observer(() => {
   const {user, room} = useStores();
-  const tempChats = [...user.getChats];
+  const tempChats = [...user.chats];
   const orderedChats = tempChats.sort(
     (a, b) => new Date(b.messages[0]?.date).getTime() - new Date(a.messages[0]?.date).getTime(),
   );
@@ -20,7 +20,7 @@ export default observer(() => {
         icon={'chat-plus'}
         popup={'createChat'}
         style={{
-          bottom: responsiveWidth(room.isLive ? 128 : 16),
+          bottom: responsiveWidth(room.live ? 128 : 16),
           right: 0,
           borderTopRightRadius: 0,
           borderBottomRightRadius: 0,

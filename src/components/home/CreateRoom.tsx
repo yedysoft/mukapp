@@ -10,7 +10,7 @@ export default observer(() => {
   return (
     <YedyFAB
       icon={'plus-thick'}
-      visible={!room.isLive}
+      visible={!room.live}
       popup={'createRoom'}
       style={{
         bottom: responsiveWidth(16),

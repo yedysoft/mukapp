@@ -25,7 +25,7 @@ export default observer(({compact}: Props) => {
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
       scrollEnabled
       ListEmptyComponent={<YedyEmptyList />}
-      data={user.getNotifications}
+      data={user.notifications}
       renderItem={({item, index}) => <NotificationListItem key={index} compact={compact} notification={item} />}
     />
   );

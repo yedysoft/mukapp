@@ -18,21 +18,21 @@ export default observer(() => {
   const {api, t} = useServices();
   const {user} = useStores();
   const [activeIndex, setActiveIndex] = useState(0);
-  const otherUser = user.getInfo.id !== userId;
+  const otherUser = user.info.id !== userId;
   const otherUserInfo = useInfo(userId, otherUser);
-  const info = otherUser ? otherUserInfo : user.getInfo;
+  const info = otherUser ? otherUserInfo : user.info;
 
   const stats = [
     {
-      value: user.getCountTopVoted.toString(),
+      value: user.countTopVoted.toString(),
       label: t.do('main.profile.votes'),
     },
     {
-      value: user.getFollowers.length.toString() ?? '0',
+      value: user.followers.length.toString() ?? '0',
       label: t.do('main.profile.followers'),
     },
     {
-      value: user.getFollows.length.toString() ?? '0',
+      value: user.follows.length.toString() ?? '0',
       label: t.do('main.profile.following'),
     },
   ];
@@ -51,7 +51,7 @@ export default observer(() => {
 
   return (
     <SubLayout>
-      {!stores.loading.getVotes ? (
+      {!stores.loading.votes ? (
         <View style={{flex: 1, gap: responsiveWidth(4)}}>
           <VerticalProfile profile={info} otherUser={otherUser} />
           <ProfileStats stats={stats} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
@@ -67,11 +67,11 @@ export default observer(() => {
             }
             items={
               activeIndex === 0
-                ? user.getTopVoted
+                ? user.topVoted
                 : activeIndex === 1
-                ? user.getFollowers
+                ? user.followers
                 : activeIndex === 2
-                ? user.getFollows
+                ? user.follows
                 : []
             }
           />

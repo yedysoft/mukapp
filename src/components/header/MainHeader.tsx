@@ -30,7 +30,7 @@ export default observer(() => {
       <YedyIconButton icon={'hamburger'} scale={0.5} onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
       <YedyLogo />
       <YedyIconButton
-        defaultBadge={user.getNotifications.some(n => !n.readed)}
+        defaultBadge={user.notifications.some(n => !n.readed)}
         icon={'bell'}
         scale={0.5}
         popup={'notifications'}

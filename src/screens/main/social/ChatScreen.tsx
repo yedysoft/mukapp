@@ -8,7 +8,7 @@ const ChatScreen = observer(({route}: any) => {
   const {api} = useServices();
   const {chat} = route.params;
   const {user} = useStores();
-  const messages = user.getChats.find(c => c.id === chat.id && c.type === chat.type)?.messages ?? [];
+  const messages = user.chats.find(c => c.id === chat.id && c.type === chat.type)?.messages ?? [];
 
   return (
     <ChatLayout>

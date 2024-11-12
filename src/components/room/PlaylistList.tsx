@@ -17,15 +17,15 @@ const PlaylistList = observer(({playlists}: Props) => {
   const {loading, media} = useStores();
 
   const changePlaylist = (item: IPlaylist) => {
-    console.log('!loading.getPlaylistTracks: ', !loading.getPlaylistTracks);
-    !loading.getPlaylistTracks && api.media.getPlaylistTracks(item.id, item.tracks.count > 0);
+    console.log('!loading.getPlaylistTracks: ', !loading.playlistTracks);
+    !loading.playlistTracks && api.media.getPlaylistTracks(item.id, item.tracks.count > 0);
   };
 
   const handleSearch = (_name: string, value: string | number | undefined) => {
     api.helper.sleep(500, 'searchSong').then(() => {
-      if (media.getSearchValue !== value) {
-        !loading.getPlaylistTracks &&
-          api.media.getPlaylistTracks('search', false, String(value), media.getSearchValue !== value);
+      if (media.searchValue !== value) {
+        !loading.playlistTracks &&
+          api.media.getPlaylistTracks('search', false, String(value), media.searchValue !== value);
       }
     });
   };

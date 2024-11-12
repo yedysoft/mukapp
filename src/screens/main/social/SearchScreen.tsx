@@ -28,7 +28,7 @@ export const SearchScreen = observer(() => {
   return (
     <SubLayout>
       <SearchList
-        list={user.getSearched}
+        list={user.searched}
         header={
           <YedyTextInput
             placeholder={t.do('main.search.placeholder')}

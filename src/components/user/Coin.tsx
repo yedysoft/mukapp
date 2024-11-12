@@ -21,7 +21,7 @@ const Coin = observer(({style, textColor}: Props) => {
       <YedyImage scale={0.24} source={require('../../../assets/wallet/coin.png')} />
       <View>
         <YedyText numberOfLines={1} type={'bold'} size={15} color={textColor ?? colors.secondary}>
-          {api.helper.nummer(user.getInfo.coin)}
+          {api.helper.nummer(user.info.coin)}
         </YedyText>
       </View>
     </View>

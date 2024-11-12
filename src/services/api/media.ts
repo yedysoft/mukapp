@@ -62,7 +62,7 @@ class MediaApi {
   getPlaylistTracks = async (playlistId: string, isSelect?: boolean, q?: string, searching?: boolean): PVoid => {
     try {
       stores.loading.set('playlistTracks', true);
-      const playlist = stores.media.getPlaylists.find(p => p.id === playlistId);
+      const playlist = stores.media.playlists.find(p => p.id === playlistId);
       let total: number;
       let clear = false;
       let tracks: ITrack[] = [];
@@ -151,8 +151,8 @@ class MediaApi {
 
   setVoteResult = async (data: IVoteResult): PVoid => {
     try {
-      if (stores.media.getQueue.length > 0) {
-        const updatedItems = stores.media.getQueue.map((t, _) =>
+      if (stores.media.queue.length > 0) {
+        const updatedItems = stores.media.queue.map((t, _) =>
           t.uri === data.musicUri ? {...t, voteCount: data.voteCount} : t,
         );
         updatedItems.sort((a, b) => b.voteCount - a.voteCount);

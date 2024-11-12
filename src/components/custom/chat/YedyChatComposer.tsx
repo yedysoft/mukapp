@@ -27,7 +27,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
   const typingRef = useRef<boolean>();
   const message = {
     ...defaults.message,
-    senderId: user.getInfo.id ?? '',
+    senderId: user.info.id ?? '',
     receiverId: receiverId,
     type: messageType,
   };
@@ -45,7 +45,7 @@ export default observer(({sendMessage, receiverId, messageType}: Props) => {
     typingRef.current = typing;
     await api.subscription.sendMessageTyping({
       typing: typing,
-      senderId: user.getInfo.id,
+      senderId: user.info.id,
       receiverId: receiverId,
       type: messageType,
     });

@@ -19,7 +19,7 @@ const Token = observer(({style, customValue}: Props) => {
       <YedyImage scale={0.24} source={require('../../../assets/wallet/token.png')} />
       <View style={{flex: 1}}>
         <YedyText numberOfLines={1} type={'bold'} size={15}>
-          {api.helper.nummer(customValue ?? user.getInfo.token)}
+          {api.helper.nummer(customValue ?? user.info.token)}
         </YedyText>
       </View>
     </View>

@@ -63,7 +63,7 @@ export const AuthLoginForm = observer(() => {
                 justifyContent: 'flex-end',
                 alignItems: 'flex-start',
               }}
-              disabled={loading.getLogin || loading.connectAccount}
+              disabled={loading.login || loading.connectAccount}
               textStyle={{fontSize: responsiveSize(12), color: colors.outlineVariant}}
               label={t.do('auth.login.changePassword')}
               onPress={() => navigation.navigate('Forgot')}
@@ -74,7 +74,7 @@ export const AuthLoginForm = observer(() => {
             textStyle={{color: colors.secondary}}
             label={t.do('auth.login.spotify')}
             loading={loading.connectAccount}
-            disabled={loading.getLogin}
+            disabled={loading.login}
             onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}
           >
             <SpotifyIcon scale={1.3} noText disabled />
@@ -85,12 +85,12 @@ export const AuthLoginForm = observer(() => {
         <YedyButton
           buttonStyle={{backgroundColor: 'transparent', paddingHorizontal: 0, marginLeft: responsiveWidth(8)}}
           textStyle={{color: colors.outlineVariant}}
-          disabled={loading.getLogin || loading.connectAccount}
+          disabled={loading.login || loading.connectAccount}
           label={t.do('auth.login.toRegister')}
           onPress={() => navigation.navigate('Register')}
         />
         <YedyButton
-          loading={loading.getLogin}
+          loading={loading.login}
           disabled={loading.connectAccount}
           label={t.do('auth.login.submit')}
           onPress={handleSubmit}

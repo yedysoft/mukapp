@@ -16,7 +16,7 @@ export default observer(() => {
       <DialogStack />
       <ModalStack />
       <TooltipStack />
-      {auth.isLoggedIn ? <MainDrawer /> : <AuthStack />}
+      {auth.loggedIn ? <MainDrawer /> : <AuthStack />}
     </>
   );
 });

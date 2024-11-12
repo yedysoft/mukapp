@@ -18,7 +18,7 @@ export default observer(({compact}: Props) => {
   const {colors} = useTheme();
   const {media} = useStores();
   const {api} = useServices();
-  const dominantColor = media.getPlayingTrack.dominantColor ?? colors.background;
+  const dominantColor = media.playingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
   const iconColor = api.helper.isColorLight(dominantColor) ? 'black' : 'white';
   const navigation = useNavigation<MainStackNavProp>();
@@ -26,7 +26,7 @@ export default observer(({compact}: Props) => {
 
   /*useEffect(() => {
     media.getPlaylists &&
-      !media.getPlayingTrack.uri &&
+      !media.playingTrack.uri &&
       media.getPlaylists[1] &&
       api.helper.openURL(`${spotifyOpenUrlBase}/playlist/${media.getPlaylists[1].id}`); //TODO: SPOTİDE PLAY EKLENİNCE KALDIRILACAK
   }, [media.getPlaylists]);*/
@@ -51,7 +51,7 @@ export default observer(({compact}: Props) => {
         <YedyImage
           scale={compact ? 1.4 : 2}
           style={{backgroundColor: colors.shadow}}
-          source={api.helper.getImageUrl(media.getPlayingTrack.images, compact ? 1 : 2)}
+          source={api.helper.getImageUrl(media.playingTrack.images, compact ? 1 : 2)}
           radius={false}
         />
         <View
@@ -66,27 +66,27 @@ export default observer(({compact}: Props) => {
             size={compact ? 16 : 20}
             color={textColor ?? colors.secondary}
             style={{
-              backgroundColor: !media.getPlayingTrack.name ? colors.shadow : undefined,
-              maxWidth: !media.getPlayingTrack.name ? 180 : undefined,
+              backgroundColor: !media.playingTrack.name ? colors.shadow : undefined,
+              maxWidth: !media.playingTrack.name ? 180 : undefined,
               marginLeft: responsiveWidth(8),
-              marginBottom: !media.getPlayingTrack.name ? responsiveWidth(4) : undefined,
+              marginBottom: !media.playingTrack.name ? responsiveWidth(4) : undefined,
             }}
           >
-            {media.getPlayingTrack.name}
+            {media.playingTrack.name}
           </YedyText>
           <YedyText
             numberOfLines={1}
             size={compact ? 14 : 16}
             color={textColor ?? colors.secondary}
             style={{
-              backgroundColor: !api.helper.getArtist(media.getPlayingTrack.artists) ? colors.shadow : undefined,
-              maxWidth: !api.helper.getArtist(media.getPlayingTrack.artists) ? 120 : undefined,
+              backgroundColor: !api.helper.getArtist(media.playingTrack.artists) ? colors.shadow : undefined,
+              maxWidth: !api.helper.getArtist(media.playingTrack.artists) ? 120 : undefined,
               marginLeft: responsiveWidth(8),
             }}
           >
-            {api.helper.getArtist(media.getPlayingTrack.artists)}
+            {api.helper.getArtist(media.playingTrack.artists)}
           </YedyText>
-          {media.getPlayingTrack.id && <SpotifyIcon color={iconColor} id={media.getPlayingTrack.id} />}
+          {media.playingTrack.id && <SpotifyIcon color={iconColor} id={media.playingTrack.id} />}
         </View>
         {compact && (
           <YedyIconButton
@@ -107,17 +107,17 @@ export default observer(({compact}: Props) => {
           }}
         >
           <YedyText color={textColor ?? colors.secondary}>
-            {api.helper.msToMinSec(media.getPlayingTrack.progress)}
+            {api.helper.msToMinSec(media.playingTrack.progress)}
           </YedyText>
           <YedyText color={textColor ?? colors.secondary}>
-            {api.helper.msToMinSec(media.getPlayingTrack.duration - media.getPlayingTrack.progress)}
+            {api.helper.msToMinSec(media.playingTrack.duration - media.playingTrack.progress)}
           </YedyText>
         </View>
       )}
       <View style={shadowStyle()}>
         <YedyProgressBar
           color={textColor ?? colors.primary}
-          progress={api.helper.getPercent(media.getPlayingTrack.progress ?? 0, media.getPlayingTrack.duration)}
+          progress={api.helper.getPercent(media.playingTrack.progress ?? 0, media.playingTrack.duration)}
         />
       </View>
     </View>

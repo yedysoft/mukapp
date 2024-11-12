@@ -29,7 +29,7 @@ export default observer(({item, onIconPress, otherUser}: Props) => {
           scale={0.7}
           source={
             item.image
-              ? {uri: `${item.image.link}?token=${auth.getAuthToken}`}
+              ? {uri: `${item.image.link}?token=${auth.authToken}`}
               : require('../../../assets/adaptive-icon.png')
           }
         />

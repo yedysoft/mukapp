@@ -29,7 +29,7 @@ export default observer(({onPress, friend}: Props) => {
         style={{borderRadius: 100}}
         source={
           friend.image
-            ? {uri: `${friend.image.link}?token=${auth.getAuthToken}`}
+            ? {uri: `${friend.image.link}?token=${auth.authToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
       />

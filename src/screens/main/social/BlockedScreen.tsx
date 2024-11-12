@@ -25,7 +25,7 @@ export default observer(() => {
       <FlatList
         contentContainerStyle={{gap: responsiveWidth(8)}}
         scrollEnabled
-        data={user.getBlockedUsers}
+        data={user.blockedUsers}
         renderItem={({item}) => <BlockedListItem item={item} onIconPress={handleBlock} />}
         ListEmptyComponent={<YedyEmptyList />}
       />

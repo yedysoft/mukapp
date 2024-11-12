@@ -16,9 +16,9 @@ export default observer(({type}: Props) => {
   const {colors} = useTheme();
   const {api} = useServices();
   const {loading, room} = useStores();
-  const rooms = type === 'PLACE' ? room.getPlaces : room.getUsers;
+  const rooms = type === 'PLACE' ? room.places : room.users;
 
-  const handleRefresh = () => !loading.getRoomList && api.room.getRooms(type);
+  const handleRefresh = () => !loading.roomList && api.room.getRooms(type);
 
   useEffect(() => {
     api.room.getRooms(type, false);
@@ -26,7 +26,7 @@ export default observer(({type}: Props) => {
 
   return (
     <FlatList
-      refreshing={loading.getRoomList}
+      refreshing={loading.roomList}
       onRefresh={handleRefresh}
       data={rooms}
       renderItem={({item, index}) => <RoomListItem key={index} roomData={item} />}

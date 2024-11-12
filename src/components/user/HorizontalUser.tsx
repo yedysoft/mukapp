@@ -22,8 +22,8 @@ export default observer(() => {
       <YedyImage
         scale={1.3}
         source={
-          user.getInfo.image
-            ? {uri: `${user.getInfo.image.link}?token=${auth.getAuthToken}`}
+          user.info.image
+            ? {uri: `${user.info.image.link}?token=${auth.authToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
         style={{
@@ -45,10 +45,10 @@ export default observer(() => {
       >
         <View>
           <YedyText numberOfLines={1} type={'bold'} size={15}>
-            {user.getInfo.name}
+            {user.info.name}
           </YedyText>
           <YedyText numberOfLines={1} color={colors.outlineVariant} size={14}>
-            @{user.getInfo.userName}
+            @{user.info.userName}
           </YedyText>
         </View>
         <View style={{flexDirection: 'column', gap: responsiveWidth(2)}}>

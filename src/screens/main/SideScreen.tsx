@@ -16,7 +16,7 @@ export default observer(() => {
       icon: 'account-outline',
       label: t.do('main.side.profile'),
       route: 'Profile',
-      params: {userId: user.getInfo.id},
+      params: {userId: user.info.id},
     },
     {
       icon: 'bell-outline',

@@ -3,7 +3,7 @@ import {responsiveWidth} from '../../utils/util';
 import SongListItem from './SongListItem';
 import {IQueueTrack, ITrack} from '../../types/media';
 import {ReactElement} from 'react';
-import {YedyLoaderView} from '../custom';
+import {YedyEmptyList, YedyLoaderView} from '../custom';
 
 type Props = {
   songs: IQueueTrack[] | ITrack[];
@@ -22,6 +22,7 @@ export default function SongList({songs, header, onEndReached, footer, loading, 
         refreshing={loading}
         onRefresh={onRefresh}
         data={songs}
+        ListEmptyComponent={<YedyEmptyList />}
         ListHeaderComponent={header}
         ListFooterComponent={footer}
         keyExtractor={(item: any, index: number) => item.id + index}

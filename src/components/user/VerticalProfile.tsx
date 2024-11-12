@@ -34,7 +34,7 @@ export default observer(({profile, otherUser}: Props) => {
         scale={1.9}
         source={
           profile.image
-            ? {uri: `${profile.image.link}?token=${auth.getAuthToken}`}
+            ? {uri: `${profile.image.link}?token=${auth.authToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
         style={{

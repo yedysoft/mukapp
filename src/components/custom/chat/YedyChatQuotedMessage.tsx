@@ -19,9 +19,9 @@ export default observer(({quotedMessage, onPress, style}: Props) => {
   const {colors} = useTheme();
   const {user} = useStores();
   const {api} = useServices();
-  const me = quotedMessage?.senderId === user.getInfo.id;
+  const me = quotedMessage?.senderId === user.info.id;
   const i = useInfo(quotedMessage?.senderId, !me);
-  const info = me ? user.getInfo : i;
+  const info = me ? user.info : i;
 
   return (
     <TouchableOpacity

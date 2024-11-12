@@ -19,16 +19,16 @@ export default observer(() => {
   const dominantColor = media.getDominantColor ?? colors.background;
   const barColor = ui.pickerViewVisible
     ? colors.dialog
-    : room.isLive && !room.isRoomPageOn
+    : room.live && !room.isRoomPageOn
     ? dominantColor
     : colors.background;
   const isColorLight = api.helper.isColorLight(barColor);
 
   const getIconColor = (focused: boolean) => {
     if (focused) {
-      return room.isLive && isColorLight ? YedyPalette.green_dark : colors.primary;
+      return room.live && isColorLight ? YedyPalette.green_dark : colors.primary;
     }
-    return room.isLive ? (isColorLight ? colors.dark : colors.light) : colors.outlineVariant;
+    return room.live ? (isColorLight ? colors.dark : colors.light) : colors.outlineVariant;
   };
 
   return (

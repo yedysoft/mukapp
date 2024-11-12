@@ -15,7 +15,6 @@ class UIStore extends BaseStore<UIStore> {
   messages: MukMessage[] = [];
   popups: Map<PopupKey, YedyPopupScreenRef | null> = new Map<PopupKey, YedyPopupScreenRef | null>();
   expoToken: string | null = null;
-  reloadToggle = false;
   window: ScaledSize = Dimensions.get('window');
   screen: ScaledSize = Dimensions.get('screen');
   keyboardHeight = 0;
@@ -27,7 +26,7 @@ class UIStore extends BaseStore<UIStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language', 'name', 'pass']);
+    this.makeObservableAndPersistable(this, UIStore.name, ['appearance', 'language', 'name', 'pass'], ['id', 'popups']);
   }
 
   get getScheme(): 'light' | 'dark' {
@@ -44,10 +43,6 @@ class UIStore extends BaseStore<UIStore> {
 
   get getTheme(): MukTheme {
     return computed(() => themes[this.getScheme]).get();
-  }
-
-  get getExpoToken() {
-    return this.expoToken;
   }
 
   get getMessages() {
@@ -68,6 +63,10 @@ class UIStore extends BaseStore<UIStore> {
 
   get windowHeight() {
     return this.window.height;
+  }
+
+  delMessage(id: number) {
+    this.set('messages', v => v.filter(e => e.id !== id));
   }
 
   addMessage(body: MessageBody, interval = 2000) {
@@ -116,14 +115,6 @@ class UIStore extends BaseStore<UIStore> {
     if (ref && ref.sendPositions) {
       ref.sendPositions(positions);
     }
-  }
-
-  delMessage(id: number) {
-    this.set('messages', v => v.filter(e => e.id !== id));
-  }
-
-  toggleReload() {
-    this.set('reloadToggle', v => !v);
   }
 
   get isKeyboardVisible() {

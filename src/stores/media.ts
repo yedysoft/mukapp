@@ -11,11 +11,7 @@ class MediaStore extends BaseStore<MediaStore> {
 
   constructor() {
     super();
-    this.makeObservableAndPersistable(this, MediaStore.name, []);
-  }
-
-  get getPlayingTrack() {
-    return this.playingTrack;
+    this.makeObservableAndPersistable(this, MediaStore.name);
   }
 
   get getDominantColor() {
@@ -24,18 +20,6 @@ class MediaStore extends BaseStore<MediaStore> {
 
   get getVoteable() {
     return computed(() => this.playingTrack.voteable).get();
-  }
-
-  get getQueue() {
-    return this.queue;
-  }
-
-  get getPlaylists() {
-    return this.playlists;
-  }
-
-  get getSearchValue() {
-    return this.searchValue;
   }
 }
 

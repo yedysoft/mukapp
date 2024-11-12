@@ -20,10 +20,10 @@ export default observer(({roomData}: Props) => {
   const {room, auth} = useStores();
 
   const openRoom = async () => {
-    if (room.getSessionId !== roomData.sessionId) {
+    if (room.sessionId !== roomData.sessionId) {
       await api.room.openRoom(roomData.sessionId, roomData.streamerId);
     }
-    if (room.isLive) {
+    if (room.live) {
       navigation.navigate('Room');
     }
   };
@@ -52,7 +52,7 @@ export default observer(({roomData}: Props) => {
         }}
         source={
           roomData.image
-            ? {uri: `${roomData.image.link}?token=${auth.getAuthToken}`}
+            ? {uri: `${roomData.image.link}?token=${auth.authToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
       />

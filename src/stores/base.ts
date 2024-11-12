@@ -2,12 +2,20 @@ import {hydrateStore, makePersistable, stopPersisting} from 'mobx-persist-store'
 import {makeObservable, observable, runInAction} from 'mobx';
 
 export class BaseStore<T extends Record<string, any>> {
-  protected makeObservableAndPersistable(o: any, name: string, persistProps: (keyof T)[]) {
+  protected makeObservableAndPersistable(
+    o: any,
+    name: string,
+    persistProps: (keyof T)[] = [],
+    notObservableProps: (keyof T)[] = [],
+  ) {
     const props: Record<string, any> = {};
     const observableProps = Object.keys(o);
     for (const property of observableProps) {
-      props[property] = observable;
+      if (!notObservableProps.includes(property)) {
+        props[property] = observable;
+      }
     }
+    console.log(name, Object.keys(props));
     makeObservable(o, props);
 
     makePersistable(o, {

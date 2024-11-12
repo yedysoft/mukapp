@@ -36,7 +36,7 @@ export default observer(({chat}: Props) => {
         style={{borderRadius: 100, borderColor: colors.primary, borderWidth: 1}}
         source={
           info.image
-            ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
+            ? {uri: `${info.image.link}?token=${auth.authToken}`}
             : require('../../../assets/adaptive-icon.png')
         }
       />

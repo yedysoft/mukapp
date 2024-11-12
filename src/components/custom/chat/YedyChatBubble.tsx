@@ -19,9 +19,9 @@ export default observer(({message, quotedMessage}: Props) => {
   const {colors} = useTheme();
   const {user, auth} = useStores();
   const {api} = useServices();
-  const me = message.senderId === user.getInfo.id;
+  const me = message.senderId === user.info.id;
   const i = useInfo(message.senderId, !me);
-  const info = me ? user.getInfo : i;
+  const info = me ? user.info : i;
   const sended = !!message.id;
   const time = api.helper.formatDateTime(message.date.toString(), 'time');
   const {current: translateX} = useRef(new Animated.Value(0));
@@ -86,7 +86,7 @@ export default observer(({message, quotedMessage}: Props) => {
       <YedyImage
         source={
           info.image
-            ? {uri: `${info.image.link}?token=${auth.getAuthToken}`}
+            ? {uri: `${info.image.link}?token=${auth.authToken}`}
             : require('../../../../assets/adaptive-icon.png')
         }
         scale={0.6}

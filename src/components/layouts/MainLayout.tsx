@@ -32,7 +32,7 @@ export const MainLayout = observer(({children, style}: Props) => {
         ]}
       >
         {children}
-        {room.isLive ? <PlayingTrack compact={true} /> : null}
+        {room.live ? <PlayingTrack compact={true} /> : null}
       </View>
     </KeyboardAvoidingView>
   );

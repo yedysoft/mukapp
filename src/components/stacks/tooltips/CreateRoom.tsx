@@ -18,7 +18,7 @@ export default observer(
     const {api, t} = useServices();
     const {ui, room, user, auth, loading} = useStores();
     const formRef = useRef<YedyFormRef<IRoomConfig>>(null);
-    const form: IRoomConfig = room.getConfig;
+    const form: IRoomConfig = room.config;
     const [visible, setVisible] = useState(false);
     const [positions, setPositions] = useState<Positions>();
 
@@ -34,13 +34,13 @@ export default observer(
     }));
 
     useEffect(() => {
-      !room.getConfig.roomId && visible && api.room.findByRoomId();
-    }, [room.getConfig, visible]);
+      !room.config.roomId && visible && api.room.findByRoomId();
+    }, [room.config, visible]);
 
     const createRoom = async () => {
       if (formRef.current?.validateInputs()) {
         await api.room.createRoom(formRef.current?.formData() as IRoomConfig);
-        if (room.isLive) {
+        if (room.live) {
           changeVisible(false);
           navigation.navigate('Room');
         }
@@ -71,7 +71,7 @@ export default observer(
               resizeMode={'cover'}
               source={
                 form.image
-                  ? {uri: `${form.image.link}?token=${auth.getAuthToken}`}
+                  ? {uri: `${form.image.link}?token=${auth.authToken}`}
                   : require('../../../../assets/adaptive-icon.png')
               }
               style={{
@@ -83,10 +83,10 @@ export default observer(
           <View style={{flex: 1, flexDirection: 'column', gap: responsiveWidth(8)}}>
             <View>
               <YedyText numberOfLines={1} type={'bold'} size={13}>
-                {user.getInfo.name}
+                {user.info.name}
               </YedyText>
               <YedyText numberOfLines={1} color={colors.outlineVariant} size={13}>
-                @{user.getInfo.userName}
+                @{user.info.userName}
               </YedyText>
             </View>
             <YedyForm ref={formRef} onSubmit={createRoom} data={form}>

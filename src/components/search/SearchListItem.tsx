@@ -31,7 +31,7 @@ export default observer(({user}: Props) => {
       onPress={() => navigation.navigate('Profile', {userId: user.id})}
     >
       {user.image ? (
-        <YedyImage scale={0.7} source={{uri: `${user.image.link}?token=${auth.getAuthToken}`}} />
+        <YedyImage scale={0.7} source={{uri: `${user.image.link}?token=${auth.authToken}`}} />
       ) : (
         <YedyIcon scale={0.7} icon={'account'} />
       )}

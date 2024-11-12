@@ -64,11 +64,11 @@ export const AuthRegisterForm = observer(() => {
         <YedyButton
           buttonStyle={{backgroundColor: 'transparent', paddingHorizontal: 0, marginLeft: responsiveWidth(8)}}
           textStyle={{color: colors.outlineVariant}}
-          disabled={loading.getRegister}
+          disabled={loading.register}
           label={t.do('auth.register.toLogin')}
           onPress={() => navigation.navigate('Login')}
         />
-        <YedyButton loading={loading.getRegister} label={t.do('auth.register.submit')} onPress={onSubmit} />
+        <YedyButton loading={loading.register} label={t.do('auth.register.submit')} onPress={onSubmit} />
       </View>
     </View>
   );

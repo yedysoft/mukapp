@@ -14,7 +14,7 @@ class SocketApi {
     this.client = new StompJs.Client({
       webSocketFactory: () =>
         new WS(wsUrl, Versions.default.protocolVersions(), {
-          headers: {Origin: 'https://muk.yedysoft.com', Authorization: `Bearer ${stores.auth.getAuthToken}`},
+          headers: {Origin: 'https://muk.yedysoft.com', Authorization: `Bearer ${stores.auth.authToken}`},
         }),
       forceBinaryWSFrames: true,
       reconnectDelay: 3000,

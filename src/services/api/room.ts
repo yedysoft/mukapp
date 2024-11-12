@@ -11,7 +11,7 @@ class RoomApi {
     try {
       stores.loading.set('createRoom', true);
       await this.saveConfig(config);
-      const response = await axiosIns.get<IRoomSession>(`/room-session/start/${stores.user.getInfo.id}`);
+      const response = await axiosIns.get<IRoomSession>(`/room-session/start/${stores.user.info.id}`);
       const session: IRoomSession = response.data;
       await this.openRoom(session.sessionId, session.id);
     } catch (e) {
@@ -33,9 +33,9 @@ class RoomApi {
 
   closeRoom = async (sessionId?: string): PVoid => {
     try {
-      if (stores.room.isLive && (!sessionId || sessionId !== stores.room.getSessionId)) {
+      if (stores.room.live && (!sessionId || sessionId !== stores.room.sessionId)) {
         if (stores.room.isAdmin) {
-          await axiosIns.get(`/room-session/stop/${stores.room.getSessionId}`);
+          await axiosIns.get(`/room-session/stop/${stores.room.sessionId}`);
         }
         await subscription.roomUnsubscribes();
       }

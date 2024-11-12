@@ -32,12 +32,12 @@ export default observer(
     }));
 
     useEffect(() => {
-      api.user.getFollows(user.getInfo.id);
-    }, []);
+      visible && api.user.getFollows(user.info.id);
+    }, [visible]);
 
     useEffect(() => {
-      setUsers(user.getFollows.map(u => ({...u, selected: false})));
-    }, [user.getFollows]);
+      setUsers(user.follows.map(u => ({...u, selected: false})));
+    }, [user.follows]);
 
     const selectUser = (id: string) => {
       setUsers(v => v.map(u => (u.id === id ? {...u, selected: !u.selected} : u)));
@@ -49,7 +49,7 @@ export default observer(
       if (selectedUsers.length === 1) {
         const selectedUser = selectedUsers[0];
         console.log(user);
-        const chatFound = user.getChats.find(c => c.id === selectedUser.id);
+        const chatFound = user.chats.find(c => c.id === selectedUser.id);
         if (chatFound) {
           chat = chatFound;
         } else {
@@ -60,12 +60,12 @@ export default observer(
             typing: false,
             messages: [],
           };
-          user.set('chats', [chat, ...user.getChats]);
+          user.set('chats', v => [chat as IChat, ...v]);
         }
       } else if (selectedUsers.length > 1) {
         chat = await api.chat.createGroup({
           id: '',
-          name: `${user.getInfo.name}'s Group`,
+          name: `${user.info.name}'s Group`,
           users: selectedUsers.map(u => ({id: u.id, authority: 'USER'})),
         });
       }
