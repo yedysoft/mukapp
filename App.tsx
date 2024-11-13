@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import AppNavigation from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
-import {hydrateStores, stopPersists, stores, useStores} from './src/stores';
+import {hydrateStores, stores, useStores} from './src/stores';
 import {initServices, services} from './src/services';
 import MukSplashScreen from './src/screens/auth/MukSplashScreen';
 import notification from './src/services/notification';
@@ -41,7 +41,6 @@ const initializeApp = async () => {
 };
 
 const deinitializeApp = async () => {
-  stopPersists();
   listeners.unload();
   notification.unload();
   await services.api.room.closeRoom();

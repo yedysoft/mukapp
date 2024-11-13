@@ -1,6 +1,5 @@
 import {View} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import {MediaTypeOptions} from 'expo-image-picker';
 import {useServices} from '../../../services';
 import {ImagePickerResult} from 'expo-image-picker/src/ImagePicker.types';
 import YedyButton from '../../custom/YedyButton';
@@ -56,7 +55,7 @@ export default observer(
     const pickImage = async () => {
       changeVisible(false);
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: MediaTypeOptions.Images,
+        mediaTypes: 'images',
         aspect: [1, 1],
         allowsEditing: true,
         quality: 0.3,
@@ -67,7 +66,7 @@ export default observer(
     const takePhoto = async () => {
       changeVisible(false);
       const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: MediaTypeOptions.Images,
+        mediaTypes: 'images',
         aspect: [1, 1],
         allowsEditing: true,
         quality: 0.3,

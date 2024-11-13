@@ -52,14 +52,3 @@ export const hydrateStores = async (): PVoid => {
     }
   }
 };
-
-export const stopPersists = () => {
-  for (const key in stores) {
-    if (Object.prototype.hasOwnProperty.call(stores, key)) {
-      const s = (stores as any)[key] as BaseStore<any>;
-      if (s.stopPersist) {
-        s.stopPersist();
-      }
-    }
-  }
-};

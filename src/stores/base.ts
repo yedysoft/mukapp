@@ -1,4 +1,4 @@
-import {hydrateStore, makePersistable, stopPersisting} from 'mobx-persist-store';
+import {hydrateStore, isHydrated, makePersistable} from 'mobx-persist-store';
 import {makeObservable, observable, runInAction} from 'mobx';
 
 export class BaseStore<T extends Record<string, any>> {
@@ -15,19 +15,14 @@ export class BaseStore<T extends Record<string, any>> {
         props[property] = observable;
       }
     }
-    console.log(name, Object.keys(props));
     makeObservable(o, props);
 
     makePersistable(o, {
       name: name,
       properties: persistProps as (keyof T)[],
     })
-      .then(() => {
-        console.log(name + ' verileri başarıyla geri yüklendi.');
-      })
-      .catch(error => {
-        console.error(name + ' verileri geri yükleme sırasında hata oluştu:', error);
-      });
+      .then(() => console.log(name + ' verileri başarıyla geri yüklendi.'))
+      .catch(error => console.error(name + ' verileri geri yükleme sırasında hata oluştu:', error));
   }
 
   set<K extends keyof T>(what: K, value: T[K] | ((v: T[K]) => T[K])) {
@@ -48,10 +43,8 @@ export class BaseStore<T extends Record<string, any>> {
   }
 
   public async hydrate(): Promise<void> {
-    await hydrateStore(this);
-  }
-
-  public stopPersist() {
-    stopPersisting(this);
+    if (!isHydrated(this)) {
+      await hydrateStore(this);
+    }
   }
 }
