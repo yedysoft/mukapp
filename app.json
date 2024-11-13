@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "scheme": "muk",
     "name": "Mük",
     "slug": "muk",

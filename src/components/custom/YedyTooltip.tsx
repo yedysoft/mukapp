@@ -1,4 +1,4 @@
-import React, {ReactNode, useCallback, useEffect, useRef, useState} from 'react';
+import React, {ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {useTheme} from '../../hooks';
 import {BackHandler, Keyboard, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import defaults from '../../utils/defaults';
@@ -99,7 +99,7 @@ export default ({
 
   const onLayout = () => {
     if (ref.current && visible) {
-      ref.current.measure((_x, _y, width, height) => {
+      ref.current.measureInWindow((_x, _y, width, height) => {
         if (width && height && (dimensions.width !== width || dimensions.height !== height)) {
           setDimensions({width, height});
         }
@@ -112,6 +112,13 @@ export default ({
     Keyboard.dismiss();
     return true;
   };
+
+  useLayoutEffect(() => {
+    /*const {width, height} = ref.current?.getBoundingClientRect();
+    if (width && height && (dimensions.width !== width || dimensions.height !== height)) {
+      setDimensions({width, height});
+    }*/
+  }, [visible]);
 
   useFocusEffect(useCallback(() => closeModal, []));
 

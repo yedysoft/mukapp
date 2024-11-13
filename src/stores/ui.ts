@@ -49,6 +49,10 @@ class UIStore extends BaseStore<UIStore> {
     return computed(() => this.messages.slice(0, 3)).get();
   }
 
+  get isKeyboardVisible() {
+    return computed(() => this.keyboardHeight > 0 || this.pickerViewVisible).get();
+  }
+
   get screenWidth() {
     return this.screen.width;
   }
@@ -115,10 +119,6 @@ class UIStore extends BaseStore<UIStore> {
     if (ref && ref.sendPositions) {
       ref.sendPositions(positions);
     }
-  }
-
-  get isKeyboardVisible() {
-    return computed(() => this.keyboardHeight > 0 || this.pickerViewVisible).get();
   }
 }
 
