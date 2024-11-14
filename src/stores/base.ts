@@ -17,12 +17,14 @@ export class BaseStore<T extends Record<string, any>> {
     }
     makeObservable(o, props);
 
-    makePersistable(o, {
-      name: name,
-      properties: persistProps as (keyof T)[],
-    })
-      .then(() => console.log(name + ' verileri başarıyla geri yüklendi.'))
-      .catch(error => console.error(name + ' verileri geri yükleme sırasında hata oluştu:', error));
+    if (persistProps) {
+      makePersistable(o, {
+        name: name,
+        properties: persistProps as (keyof T)[],
+      })
+        .then(() => console.log(name + ' verileri başarıyla geri yüklendi.'))
+        .catch(error => console.error(name + ' verileri geri yükleme sırasında hata oluştu:', error));
+    }
   }
 
   set<K extends keyof T>(what: K, value: T[K] | ((v: T[K]) => T[K])) {
