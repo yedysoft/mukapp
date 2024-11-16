@@ -1,6 +1,6 @@
 import {ActivityIndicator, StyleProp, StyleSheet, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
 import {useTheme} from '../../hooks';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
 import {ReactNode} from 'react';
 import {PureFunc} from '../../types';
 import YedyText from './YedyText';
@@ -30,7 +30,7 @@ export default ({buttonStyle, disabled, loading, onPress, label, children, textS
           display: visible ? undefined : 'none',
           flexDirection: 'row',
           backgroundColor: colors.primary,
-          paddingVertical: responsiveWidth(16),
+          paddingVertical: responsiveHeight(16),
           paddingHorizontal: responsiveWidth(28),
           borderRadius: 16,
           justifyContent: 'center',

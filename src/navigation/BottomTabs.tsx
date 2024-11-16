@@ -9,8 +9,22 @@ import {useServices} from '../services';
 import {useTheme} from '../hooks';
 import {YedyIcon} from '../components/custom';
 import {responsiveHeight} from '../utils/util';
+import {YedyIconName} from '../types';
 
 const Bottom = createBottomTabNavigator();
+
+type BottomTabItem = {
+  name: 'Shop' | 'Home' | 'Messages';
+  component: any;
+  icon: YedyIconName;
+  focusedIcon: YedyIconName;
+};
+const BottomTabItems: BottomTabItem[] = [
+  {name: 'Shop', component: ShopScreen, icon: 'cart-outline', focusedIcon: 'cart'},
+  {name: 'Home', component: HomeScreen, icon: 'view-agenda-outline', focusedIcon: 'view-agenda'},
+  {name: 'Messages', component: MessagesScreen, icon: 'chat-outline', focusedIcon: 'chat'},
+];
+
 export default observer(() => {
   const {colors} = useTheme();
   const {ui, room, media} = useStores();
@@ -36,6 +50,7 @@ export default observer(() => {
       initialRouteName="Home"
       screenOptions={{
         tabBarShowLabel: false,
+        tabBarLabelPosition: 'below-icon',
         tabBarStyle: {
           display: keyboardVisible ? 'none' : undefined,
           backgroundColor: barColor,
@@ -46,47 +61,21 @@ export default observer(() => {
       }}
       backBehavior={'history'}
     >
-      <Bottom.Screen
-        name="Shop"
-        component={ShopScreen}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <YedyIcon icon={focused ? 'cart' : 'cart-outline'} scale={0.5} color={getIconColor(focused)} />
-          ),
-        }}
-        listeners={({navigation}) => ({
-          tabPress: () => navigation.navigate('Main', {tab: 'Shop'}),
-        })}
-      />
-      <Bottom.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <YedyIcon
-              icon={focused ? 'view-agenda' : 'view-agenda-outline'}
-              scale={0.5}
-              color={getIconColor(focused)}
-            />
-          ),
-        }}
-        listeners={({navigation}) => ({
-          tabPress: () => navigation.navigate('Main', {tab: 'Home'}),
-          beforeRemove: a => console.log(a),
-        })}
-      />
-      <Bottom.Screen
-        name="Messages"
-        component={MessagesScreen}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <YedyIcon icon={focused ? 'chat' : 'chat-outline'} scale={0.5} color={getIconColor(focused)} />
-          ),
-        }}
-        listeners={({navigation}) => ({
-          tabPress: () => navigation.navigate('Main', {tab: 'Messages'}),
-        })}
-      />
+      {BottomTabItems.map(tab => (
+        <Bottom.Screen
+          key={tab.name}
+          name={tab.name}
+          component={tab.component}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <YedyIcon icon={focused ? tab.focusedIcon : tab.icon} scale={0.5} color={getIconColor(focused)} />
+            ),
+          }}
+          listeners={({navigation}) => ({
+            tabPress: () => navigation.navigate('Main', {tab: tab.name}),
+          })}
+        />
+      ))}
     </Bottom.Navigator>
   );
 });
