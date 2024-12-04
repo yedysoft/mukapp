@@ -1,4 +1,4 @@
-import {hydrateStore, isHydrated, makePersistable} from 'mobx-persist-store';
+import {makePersistable} from 'mobx-persist-store';
 import {makeObservable, observable, runInAction} from 'mobx';
 
 export class BaseStore<T extends Record<string, any>> {
@@ -41,12 +41,6 @@ export class BaseStore<T extends Record<string, any>> {
   setMany(obj: {[K in keyof T]?: T[K] | ((v: T[K]) => T[K])}) {
     for (const [k, v] of Object.entries(obj)) {
       this.set(k as keyof T, v as T[keyof T] | ((v: T[keyof T]) => T[keyof T]));
-    }
-  }
-
-  public async hydrate(): Promise<void> {
-    if (!isHydrated(this)) {
-      await hydrateStore(this);
     }
   }
 }

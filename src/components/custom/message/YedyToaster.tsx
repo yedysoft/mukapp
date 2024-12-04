@@ -6,7 +6,7 @@ import {useServices} from '../../../services';
 import {Pressable, View} from 'react-native';
 import {useStores} from '../../../stores';
 import {MukMessage, YedyIconName} from '../../../types';
-import {observer} from 'mobx-react-lite';
+import {observer} from 'mobx-react';
 import YedyIcon from '../YedyIcon';
 import YedyText from '../YedyText';
 

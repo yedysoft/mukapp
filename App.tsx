@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import AppNavigation from './src/navigation/AppNavigation';
 import {AppProvider} from './src/utils/Providers';
-import {hydrateStores, stores, useStores} from './src/stores';
+import {stores, useStores} from './src/stores';
 import {initServices, services} from './src/services';
 import MukSplashScreen from './src/screens/auth/MukSplashScreen';
 import notification from './src/services/notification';
@@ -22,7 +22,6 @@ const initializeApp = async () => {
     'ProductSans-Regular': require('./assets/fonts/Product-Sans-Regular.ttf'),
     'ProductSans-Italic': require('./assets/fonts/Product-Sans-Italic.ttf'),
   });
-  await hydrateStores();
   listeners.load();
   await initServices();
   await notification.load();
