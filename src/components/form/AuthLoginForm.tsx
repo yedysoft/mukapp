@@ -9,7 +9,6 @@ import {useStores} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
 import {AuthStackNavProp} from '../../navigation/AuthStack';
 import {ILogin} from '../../types/auth';
-import SpotifyIcon from '../spotify/SpotifyIcon';
 import PrivacyPolicy from '../ps/PrivacyPolicy';
 
 export const AuthLoginForm = observer(() => {
@@ -36,7 +35,7 @@ export const AuthLoginForm = observer(() => {
         </YedyText>
         <View style={{gap: responsiveWidth(8)}}>
           <YedyForm ref={formRef} onSubmit={handleSubmit} data={formData}>
-            <YedyTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'} />
+            <YedyTextInput name={'name'} label={t.do('auth.login.username')} preValidate={'required'}/>
             <YedyTextInput
               name={'pass'}
               label={t.do('auth.login.password')}
@@ -46,20 +45,13 @@ export const AuthLoginForm = observer(() => {
               validationMessage={['Şifre 3 ile 32 karakter arasında olmalıdır.']}
             />
           </YedyForm>
-          <View
-            style={{
-              flexDirection: 'row',
-              paddingHorizontal: responsiveWidth(8),
-              paddingVertical: responsiveWidth(12),
-            }}
-          >
-            <PrivacyPolicy name={'auth.login'} style={{flex: 0.65}} />
+          <View style={{gap: responsiveWidth(16), paddingTop: responsiveWidth(4), paddingHorizontal: responsiveWidth(4)}}>
+            <PrivacyPolicy name={'auth.login'}/>
             <YedyButton
               buttonStyle={{
                 backgroundColor: 'transparent',
                 paddingVertical: 0,
                 paddingHorizontal: 0,
-                flex: 0.35,
                 justifyContent: 'flex-end',
                 alignItems: 'flex-start',
               }}
@@ -69,16 +61,6 @@ export const AuthLoginForm = observer(() => {
               onPress={() => navigation.navigate('Forgot')}
             />
           </View>
-          <YedyButton
-            buttonStyle={{paddingVertical: 0, paddingHorizontal: 0, gap: 0, backgroundColor: colors.shadow}}
-            textStyle={{color: colors.secondary}}
-            label={t.do('auth.login.spotify')}
-            loading={loading.connectAccount}
-            disabled={loading.login}
-            onPress={() => api.auths.connectAccount('SPOTIFY', 'Spotify', true)}
-          >
-            <SpotifyIcon scale={1.3} noText disabled />
-          </YedyButton>
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>

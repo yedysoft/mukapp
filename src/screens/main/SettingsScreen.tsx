@@ -8,9 +8,8 @@ import {useMemo} from 'react';
 import {responsiveSize, responsiveWidth} from '../../utils/util';
 import {SubLayout} from '../../components/layouts/SubLayout';
 import api from '../../services/api';
-import SpotifyIcon from '../../components/spotify/SpotifyIcon';
 
-const connectedAccounts: Record<string, string> = {SPOTIFY: 'Spotify'};
+const connectedAccounts: Record<string, string> = {YEDY: 'yedy'};
 
 export default observer(() => {
   const {colors} = useTheme();
@@ -71,9 +70,7 @@ export default observer(() => {
                   await api.auths.connectAccount(key as IAuthsType, name);
                 }
               }}
-            >
-              <SpotifyIcon scale={1.3} noText disabled />
-            </YedyButton>
+            />
           );
         })}
       </YedyCard>

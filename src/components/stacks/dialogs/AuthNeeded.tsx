@@ -12,8 +12,7 @@ export default forwardRef<YedyPopupScreenRef>((_props, ref) => {
   };
 
   const handleAccept = async () => {
-    const url = 'https://www.spotify.com/premium';
-    await api.helper.openURL(url);
+    await api.auths.connectAccount('YEDY', 'Yedy');
     changeVisible(false);
   };
 
@@ -27,11 +26,11 @@ export default forwardRef<YedyPopupScreenRef>((_props, ref) => {
       visible={visible}
       changeVisible={changeVisible}
       dialog={{
-        title: t.do('dialog.spotifyPremiumNeeded.title'),
-        content: t.do('dialog.spotifyPremiumNeeded.content'),
+        title: 'Title Auth',
+        content: 'Content Auth',
         buttons: [
           {
-            text: t.do('dialog.spotifyPremiumNeeded.accept'),
+            text: 'Accept',
             onPress: handleAccept,
           },
         ],

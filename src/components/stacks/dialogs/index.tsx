@@ -1,2 +1,2 @@
-export {default as SpotifyPremiumNeeded} from './SpotifyPremiumNeeded';
-export {default as SpotifyAuthNeeded} from './SpotifyAuthNeeded';
+export {default as PremiumNeeded} from './PremiumNeeded';
+export {default as AuthNeeded} from './AuthNeeded';

@@ -40,7 +40,6 @@ type LangAuth<T> = {
     changePassword: T;
     toRegister: T;
     submit: T;
-    spotify: T;
     privacyPolicy: T;
     privacyPolicyStart: T;
     privacyPolicyEnd: T;
@@ -131,7 +130,7 @@ type LangMain<T> = {
     };
     connect: {
       title: T;
-      spotify: {
+      yedy: {
         connect: T;
         disconnect: T;
       };
@@ -154,10 +153,7 @@ type LangDialogContent<T> = {
   content: T;
   accept: T;
 };
-type LangDialog<T> = {
-  spotifyAuthNeeded: LangDialogContent<T>;
-  spotifyPremiumNeeded: LangDialogContent<T>;
-};
+type LangDialog<T> = {};
 type LangEnum<T> = {
   gender: {
     MALE: T;
@@ -230,7 +226,7 @@ export type PVoid = Promise<void>;
 export type PureFunc = () => void;
 
 // Components
-export type DialogKey = 'spotifyPremiumNeeded' | 'spotifyAuthNeeded';
+export type DialogKey = 'premiumNeeded' | 'authNeeded';
 export type ModalKey = 'privacy' | 'editImage';
 export type TooltipKey = 'createChat' | 'createRoom' | 'notifications';
 export type PopupKey = DialogKey | ModalKey | TooltipKey;

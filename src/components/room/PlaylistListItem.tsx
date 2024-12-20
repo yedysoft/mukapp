@@ -4,7 +4,6 @@ import {responsiveWidth} from '../../utils/util';
 import {TouchableOpacity, View} from 'react-native';
 import {IPlaylist} from '../../types/media';
 import {useServices} from '../../services';
-import SpotifyIcon from '../spotify/SpotifyIcon';
 
 type Props = {
   onPress?: () => void;
@@ -31,18 +30,13 @@ export default function PlaylistListItem({onPress, active, playlist}: Props) {
         paddingLeft: responsiveWidth(isSearch ? 8 : 0),
       }}
     >
-      {isSearch ? (
-        <SpotifyIcon color={'green'} scale={2.5} /> /*<YedyIcon icon={playlist.images[0].url as string} scale={1.8}/>*/
-      ) : (
-        <YedyImage
-          radius={false}
-          scale={1.8}
-          source={api.helper.getImageUrl(playlist.images, 1.8)}
-          style={{marginLeft: responsiveWidth(8)}}
-        />
-      )}
+      <YedyImage
+        radius={false}
+        scale={1.8}
+        source={api.helper.getImageUrl(playlist.images, 1.8)}
+        style={{marginLeft: responsiveWidth(8)}}
+      />
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        {!isSearch && <SpotifyIcon />}
         <YedyText numberOfLines={1} size={14} style={{maxWidth: responsiveWidth(120)}}>
           {playlist.name}
         </YedyText>

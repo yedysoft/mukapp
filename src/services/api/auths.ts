@@ -38,7 +38,7 @@ export class AuthsApi implements IAuthsApi {
     try {
       stores.loading.set('connectAccount', true);
       let authUrl;
-      if (key === 'SPOTIFY') {
+      if (key === 'YEDY') {
         authUrl = await media.getAuthUrl();
       }
       if (authUrl) {

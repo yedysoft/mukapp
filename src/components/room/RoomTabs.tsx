@@ -1,11 +1,10 @@
-import {YedyButton, YedyChat, YedyTabs} from '../custom';
+import {YedyChat, YedyTabs} from '../custom';
 import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useEffect, useState} from 'react';
 import {useServices} from '../../services';
 import SongList from './SongList';
 import LeaderboardList from './LeaderboardList';
-import SpotifyIcon from '../spotify/SpotifyIcon';
 
 export default observer(() => {
   //const {colors} = useTheme();
@@ -41,14 +40,6 @@ export default observer(() => {
             <SongList
               itemType={'vote'}
               songs={media.queue}
-              footer={
-                <YedyButton
-                  onPress={() => api.helper.openURL('spotify://')}
-                  buttonStyle={{paddingVertical: 0, paddingHorizontal: 0, gap: 0}}
-                >
-                  <SpotifyIcon color={'black'} spotifyText={'Open Spotify'} />
-                </YedyButton>
-              }
             />
           ),
         },

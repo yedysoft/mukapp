@@ -19,6 +19,7 @@ export default function NotificationListItem({notification, compact}: Props) {
 
   return (
     <YedyListItem
+      animation={false}
       style={{
         flexDirection: compact ? 'column' : 'row',
         gap: responsiveWidth(8),

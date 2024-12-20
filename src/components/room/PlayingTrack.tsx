@@ -7,7 +7,6 @@ import {useStores} from '../../stores';
 import {useServices} from '../../services';
 import {useNavigation} from '@react-navigation/native';
 import {MainStackNavProp} from '../../navigation/MainStack';
-import SpotifyIcon from '../spotify/SpotifyIcon';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type Props = {
@@ -23,13 +22,6 @@ export default observer(({compact}: Props) => {
   const iconColor = api.helper.isColorLight(dominantColor) ? 'black' : 'white';
   const navigation = useNavigation<MainStackNavProp>();
   const insets = useSafeAreaInsets();
-
-  /*useEffect(() => {
-    media.getPlaylists &&
-      !media.playingTrack.uri &&
-      media.getPlaylists[1] &&
-      api.helper.openURL(`${spotifyOpenUrlBase}/playlist/${media.getPlaylists[1].id}`); //TODO: SPOTİDE PLAY EKLENİNCE KALDIRILACAK
-  }, [media.getPlaylists]);*/
 
   return (
     <View
@@ -86,7 +78,6 @@ export default observer(({compact}: Props) => {
           >
             {api.helper.getArtist(media.playingTrack.artists)}
           </YedyText>
-          {media.playingTrack.id && <SpotifyIcon color={iconColor} id={media.playingTrack.id} />}
         </View>
         {compact && (
           <YedyIconButton

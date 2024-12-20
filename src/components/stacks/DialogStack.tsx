@@ -1,5 +1,5 @@
 import React from 'react';
-import {SpotifyAuthNeeded, SpotifyPremiumNeeded} from './dialogs';
+import {PremiumNeeded, AuthNeeded} from './dialogs';
 import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 
@@ -10,8 +10,8 @@ export default observer(() => {
     <>
       {auth.loggedIn && (
         <>
-          <SpotifyPremiumNeeded ref={v => ui.setPopup('spotifyPremiumNeeded', v)} />
-          <SpotifyAuthNeeded ref={v => ui.setPopup('spotifyAuthNeeded', v)} />
+          <PremiumNeeded ref={v => ui.setPopup('premiumNeeded', v)} />
+          <AuthNeeded ref={v => ui.setPopup('authNeeded', v)} />
         </>
       )}
     </>

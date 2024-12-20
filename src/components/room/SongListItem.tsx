@@ -8,7 +8,6 @@ import {useStores} from '../../stores';
 import {observer} from 'mobx-react';
 import VoteButton from './VoteButton';
 import {useState} from 'react';
-import SpotifyIcon from '../spotify/SpotifyIcon';
 
 type Props = {
   song: IQueueTrack | ITrack;
@@ -45,7 +44,6 @@ export default observer(({song, itemType, disabled}: Props) => {
           <YedyText numberOfLines={1} style={{marginLeft: responsiveWidth(8)}}>
             {api.helper.getArtist(song.artists)}
           </YedyText>
-          <SpotifyIcon id={song.id} />
         </View>
       )}
       {itemType === 'vote' ? (

@@ -48,15 +48,6 @@ axiosIns.interceptors.response.use(
       } else if (status === 500) {
         const err: MessageBody = data;
         console.log(config.url, err);
-        if ([1012, 1013, 1014].includes(err.code)) {
-          // Spotify yetkilendirmesi gerekiyor
-          stores.ui.openPopup('spotifyAuthNeeded');
-        } else if (err.code === 1036) {
-          // Spotify premium gerekiyor
-          stores.ui.openPopup('spotifyPremiumNeeded');
-        } else {
-          stores.ui.addMessage(err);
-        }
       } else if (status >= 400) {
         console.error(config.url, status, response.statusText, data);
       }
