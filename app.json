@@ -20,7 +20,7 @@
       [
         "react-native-iap",
         {
-          "paymentProvider": "goolge"
+          "paymentProvider": "both"
         }
       ],
       [
