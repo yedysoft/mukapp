@@ -41,7 +41,8 @@
           ]
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      "./withGradleProperties"
     ],
     "ios": {
       "infoPlist": {
