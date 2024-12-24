@@ -3,7 +3,7 @@ import {PVoid} from '../../types';
 import * as RNI from 'react-native-iap';
 
 class ShopApi {
-  coinSkus: {[key: string]; any} = {
+  coinSkus: Record<string, {value: number; source: number}> = {
     mukcoin10: {value: 10, source: require('../../../assets/shop/coin1.png')},
     mukcoin50: {value: 50, source: require('../../../assets/shop/coin2.png')},
     mukcoin100: {value: 100, source: require('../../../assets/shop/coin3.png')},
@@ -40,10 +40,9 @@ class ShopApi {
   getCoinProducts = async (): PVoid => {
     try {
       const products = await RNI.getProducts({skus: Object.keys(this.coinSkus)});
-      stores.shop.set(
-        'coins',
-        products.map(p => ({...p, ...this.coinSkus[p.productId]})),
-      );
+      console.log(products);
+      const values = products.map(p => ({...p, ...this.coinSkus[p.productId]}));
+      stores.shop.set('coins', values);
     } catch (e) {
       console.log(e);
     }

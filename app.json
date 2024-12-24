@@ -4,7 +4,7 @@
     "scheme": "muk",
     "name": "Mük",
     "slug": "muk",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -53,10 +53,10 @@
       },
       "supportsTablet": true,
       "bundleIdentifier": "com.yedy.muk",
-      "buildNumber": "10"
+      "buildNumber": "11"
     },
     "android": {
-      "versionCode": 10,
+      "versionCode": 11,
       "softwareKeyboardLayoutMode": "resize",
       "package": "com.yedy.muk",
       "googleServicesFile": "./google-services.json",
@@ -82,6 +82,7 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
+        "com.android.vending.BILLING",
         "CAMERA",
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
