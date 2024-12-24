@@ -3,14 +3,11 @@ import {responsiveWidth} from '../../utils/util';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {useServices} from '../../services';
 import {YedyText} from '../custom';
+import {IProduct} from '../../types';
 
 type Props = {
   onPress?: () => void;
-  coin: {
-    value: number;
-    source: number;
-    price: number;
-  };
+  coin: IProduct;
 };
 
 export default function CoinGridItem({onPress, coin}: Props) {
@@ -48,7 +45,7 @@ export default function CoinGridItem({onPress, coin}: Props) {
           {api.helper.nummer(coin.value)}
         </YedyText>
         <YedyText numberOfLines={1} type={'bold'} size={14}>
-          {coin.price} ₺
+          {coin.localizedPrice}
         </YedyText>
       </View>
     </TouchableOpacity>

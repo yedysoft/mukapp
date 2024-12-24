@@ -7,6 +7,7 @@ import media from './media';
 import room from './room';
 import loading from './loading';
 import main from './main';
+import shop from './shop';
 import {reaction} from 'mobx';
 
 class Stores {
@@ -17,6 +18,7 @@ class Stores {
   room = room;
   loading = loading;
   main = main;
+  shop = shop;
 }
 export const stores = new Stores();
 

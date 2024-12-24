@@ -25,6 +25,8 @@ const initializeApp = async () => {
   listeners.load();
   await initServices();
   await notification.load();
+  await services.api.shop.initConnection();
+  await services.api.shop.getCoinProducts();
   await services.api.permission.getNotification();
   const url = await Linking.getInitialURL();
   if (url) {
@@ -42,6 +44,7 @@ const initializeApp = async () => {
 const deinitializeApp = async () => {
   listeners.unload();
   notification.unload();
+  await services.api.shop.endConnection();
   await services.api.room.closeRoom();
   await services.api.socket.disconnect();
 };

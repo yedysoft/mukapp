@@ -3,6 +3,7 @@ import {IAuthsType, IMessageBodyType} from './enums';
 import {IForgot, ILogin, IRegister} from './auth';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {IImage} from './user';
+import {Product} from 'react-native-iap';
 
 // Services
 export interface IAuthApi {
@@ -269,6 +270,10 @@ export type MessageBody = {
 };
 
 // Global
+export type IProduct = Product & {
+  source: number;
+  value: number;
+};
 export type IPage<T> = {
   content: T;
   pageable: IPageable;

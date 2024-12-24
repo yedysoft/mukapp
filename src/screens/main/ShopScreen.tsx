@@ -29,7 +29,7 @@ export default function ShopScreen() {
         contentContainerStyle={{flexDirection: 'column', gap: responsiveHeight(8)}}
       >
         <ShopCarousel />
-        <ShopCoins title={'Get Coins'} onPress={(value: number) => api.user.addCoin(value)} />
+        <ShopCoins title={'Get Coins'} onPress={(value: string) => api.shop.requestPurchase(value)} />
         {
           //<ShopCoins title={'Get Tokens'} onPress={(value: number) => api.user.addToken(value)} />
         }
