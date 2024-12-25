@@ -18,7 +18,6 @@ class ShopApi {
   initConnection = async (): PVoid => {
     try {
       console.log('initConnection', await RNI.initConnection());
-      console.log('getAvailablePurchases', await RNI.getAvailablePurchases());
     } catch (e) {
       console.log(e);
     }

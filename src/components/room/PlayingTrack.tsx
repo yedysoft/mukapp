@@ -19,7 +19,6 @@ export default observer(({compact}: Props) => {
   const {api} = useServices();
   const dominantColor = media.playingTrack.dominantColor ?? colors.background;
   const textColor = api.helper.isColorLight(dominantColor) ? colors.dark : colors.light;
-  const iconColor = api.helper.isColorLight(dominantColor) ? 'black' : 'white';
   const navigation = useNavigation<MainStackNavProp>();
   const insets = useSafeAreaInsets();
 
@@ -27,7 +26,7 @@ export default observer(({compact}: Props) => {
     <View
       style={{
         padding: responsiveWidth(compact ? 8 : 16),
-        paddingTop: compact ? undefined : insets.top + responsiveWidth(Platform.OS === 'ios' ? 4 : 32),
+        paddingTop: compact ? undefined : insets.top + responsiveWidth(Platform.OS === 'ios' ? 16 : 32),
         backgroundColor: dominantColor ?? colors.background,
         gap: responsiveWidth(4),
         flexDirection: 'column',
@@ -43,7 +42,7 @@ export default observer(({compact}: Props) => {
         <YedyImage
           scale={compact ? 1.4 : 2}
           style={{backgroundColor: colors.shadow}}
-          source={api.helper.getImageUrl(media.playingTrack.images, compact ? 1 : 2)}
+          source={api.helper.getImageUrl([...media.playingTrack.images], compact ? 1 : 2)}
           radius={false}
         />
         <View

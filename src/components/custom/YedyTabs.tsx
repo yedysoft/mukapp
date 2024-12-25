@@ -37,7 +37,7 @@ export default observer(({tabs, activeIndex, onChangeIndex}: Props) => {
               }}
             >
               <YedyIcon
-                scale={activeIndex === i ? 0.8 : 0.7}
+                scale={activeIndex === i ? 0.54 : 0.5}
                 color={activeIndex === i ? colors.dark : colors.outlineVariant}
                 icon={tab.icon ?? 'blank'}
               />

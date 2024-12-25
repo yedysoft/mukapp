@@ -225,8 +225,9 @@ class HelperApi {
     if (!images || images.length === 0) {
       return undefined;
     }
+    console.log('images', images);
     if (images.length > 0) {
-      return images as ImageSource[];
+      return [...images] as ImageSource[];
     }
     let closestImage = images[0];
     if (images.length > 1) {

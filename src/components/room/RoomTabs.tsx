@@ -3,7 +3,6 @@ import {observer} from 'mobx-react';
 import {useStores} from '../../stores';
 import {useEffect, useState} from 'react';
 import {useServices} from '../../services';
-import SongList from './SongList';
 import LeaderboardList from './LeaderboardList';
 
 export default observer(() => {
@@ -34,15 +33,7 @@ export default observer(() => {
             />
           ),
         },
-        {
-          icon: 'menu',
-          children: (
-            <SongList
-              itemType={'vote'}
-              songs={media.queue}
-            />
-          ),
-        },
+
         /*{
           icon: 'plus-circle',
           children: (
@@ -70,7 +61,7 @@ export default observer(() => {
           ),
         },*/
         {
-          icon: 'trophy-award',
+          icon: 'account-star-outline',
           children: (
             <LeaderboardList
               loading={loading.leaderboard}

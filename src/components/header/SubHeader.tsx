@@ -28,7 +28,7 @@ export default observer(() => {
   return (
     <View
       style={{
-        backgroundColor: colors.background,
+        backgroundColor: dominantColor,
         paddingHorizontal: responsiveWidth(8),
         paddingRight: responsiveWidth(isTextPage ? 24 : 8),
         paddingBottom: responsiveWidth(12),
