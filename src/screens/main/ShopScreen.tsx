@@ -1,6 +1,5 @@
 import {MainLayout} from '../../components/layouts/MainLayout';
 import {responsiveHeight, responsiveWidth} from '../../utils/util';
-import ShopCarousel from '../../components/shop/ShopCarousel';
 import ShopCoins from '../../components/shop/ShopCoins';
 import {ScrollView, View} from 'react-native';
 import Coin from '../../components/user/Coin';
@@ -28,7 +27,7 @@ export default function ShopScreen() {
         style={{flex: 1}}
         contentContainerStyle={{flexDirection: 'column', gap: responsiveHeight(8)}}
       >
-        <ShopCarousel />
+        {/*<ShopCarousel />*/}
         <ShopCoins title={'Get Coins'} onPress={(value: string) => api.shop.requestPurchase(value)} />
         {
           //<ShopCoins title={'Get Tokens'} onPress={(value: number) => api.user.addToken(value)} />

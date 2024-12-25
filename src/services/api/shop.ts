@@ -1,6 +1,8 @@
+import * as RNI from 'react-native-iap';
+import {ProductPurchase} from 'react-native-iap';
 import {stores} from '../../stores';
 import {PVoid} from '../../types';
-import * as RNI from 'react-native-iap';
+import {Platform} from 'react-native';
 
 class ShopApi {
   coinSkus: Record<string, {value: number; source: number}> = {
@@ -15,7 +17,8 @@ class ShopApi {
 
   initConnection = async (): PVoid => {
     try {
-      await RNI.initConnection();
+      console.log('initConnection', await RNI.initConnection());
+      console.log('getAvailablePurchases', await RNI.getAvailablePurchases());
     } catch (e) {
       console.log(e);
     }
@@ -23,7 +26,7 @@ class ShopApi {
 
   endConnection = async (): PVoid => {
     try {
-      await RNI.endConnection();
+      console.log('endConnection', await RNI.endConnection());
     } catch (e) {
       console.log(e);
     }
@@ -31,7 +34,10 @@ class ShopApi {
 
   requestPurchase = async (sku: string): PVoid => {
     try {
-      await RNI.requestPurchase({sku});
+      const args = Platform.OS === 'ios' ? {sku} : {skus: [sku]};
+      const response = (await RNI.requestPurchase(args)) as ProductPurchase | ProductPurchase[];
+      const purchase = Array.isArray(response) ? response[0] : response;
+      console.log('requestPurchase', purchase);
     } catch (e) {
       console.log(e);
     }
@@ -41,7 +47,7 @@ class ShopApi {
     try {
       const products = await RNI.getProducts({skus: Object.keys(this.coinSkus)});
       console.log('products', products);
-      const values = products.map(p => ({...p, ...this.coinSkus[p.productId]}));
+      const values = products.map(p => ({...p, ...this.coinSkus[p.productId]})).sort((a, b) => a.value - b.value);
       stores.shop.set('coins', values);
     } catch (e) {
       console.log(e);

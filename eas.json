@@ -5,7 +5,7 @@
   },
   "build": {
     "apk": {
-      "channel": "main",
+      "channel": "dev",
       "android": {
         "buildType": "apk"
       }
@@ -18,10 +18,14 @@
       }
     },
     "production": {
-      "channel": "main",
+      "channel": "dev",
       "env": {
-        "APP_ENV": "main"
+        "APP_ENV": "dev"
       }
+    }
+  },
+  "submit": {
+    "production": {
     }
   }
 }

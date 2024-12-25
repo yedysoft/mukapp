@@ -1,14 +1,4 @@
-import {
-  Keyboard,
-  KeyboardType,
-  Platform,
-  Pressable,
-  StyleProp,
-  TextInput,
-  TextInputProps,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {Keyboard, KeyboardType, Pressable, StyleProp, TextInput, TextInputProps, View, ViewStyle} from 'react-native';
 import {forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import {services, useServices} from '../../services';
 import {genericMemo, responsiveHeight, responsiveSize, responsiveWidth} from '../../utils/util';
@@ -260,7 +250,7 @@ const TextInputComp = observer(
                   backgroundColor: colors.shadow,
                   textAlign: ui.getLanguage === 'ar' ? 'right' : 'left',
                   paddingHorizontal: responsiveWidth(16),
-                  paddingVertical: responsiveHeight(Platform.OS === 'ios' ? 16 : 10),
+                  paddingVertical: responsiveHeight(16),
                   borderRadius: 16,
                   borderTopLeftRadius: quotedMessage ? 0 : 16,
                   borderTopRightRadius: quotedMessage ? 0 : 16,
