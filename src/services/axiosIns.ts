@@ -4,7 +4,6 @@ import {MessageBody} from '../types';
 import {stores} from '../stores';
 import socket from './api/socket';
 import defaults from '../utils/defaults';
-//import {openDialog} from '../components/stacks/DialogStack';
 
 const axiosIns = axios.create({
   baseURL: restUrl,
@@ -47,6 +46,9 @@ axiosIns.interceptors.response.use(
         });
       } else if (status === 500) {
         const err: MessageBody = data;
+        if (err) {
+          stores.ui.addMessage(err);
+        }
         console.log(config.url, err);
       } else if (status >= 400) {
         console.error(config.url, status, response.statusText, data);

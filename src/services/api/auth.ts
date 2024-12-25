@@ -90,7 +90,7 @@ class AuthApi implements IAuthApi {
           await this.updateExpoToken();
           await user.getAllNotifications();
           await chat.getChats();
-          await this.authsApi.getAuths();
+          //await this.authsApi.getAuths();
           await socket.connect();
           await subscription.globalSubscribes();
         }

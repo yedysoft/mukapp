@@ -3,7 +3,7 @@ import * as Notifications from 'expo-notifications';
 import defaults from '../utils/defaults';
 import Constants from 'expo-constants';
 
-const subscriptions: Notifications.Subscription[] = [];
+const subscriptions: Notifications.EventSubscription[] = [];
 
 const getExpoPushToken = async (): Promise<string | null> => {
   let token: string | null;
@@ -46,14 +46,9 @@ const load = async () => {
   );
   subscriptions.push(
     Notifications.addNotificationResponseReceivedListener(response => {
-      //console.log('NotificationResponseReceivedListener', response);
+      console.log('NotificationResponseReceivedListener', response);
       response.notification.request.identifier &&
         Notifications.dismissNotificationAsync(response.notification.request.identifier);
-    }),
-  );
-  subscriptions.push(
-    Notifications.addNotificationsDroppedListener(() => {
-      console.log('NotificationsDroppedListener');
     }),
   );
 

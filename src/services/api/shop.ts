@@ -40,7 +40,7 @@ class ShopApi {
   getCoinProducts = async (): PVoid => {
     try {
       const products = await RNI.getProducts({skus: Object.keys(this.coinSkus)});
-      console.log(products);
+      console.log('products', products);
       const values = products.map(p => ({...p, ...this.coinSkus[p.productId]}));
       stores.shop.set('coins', values);
     } catch (e) {
