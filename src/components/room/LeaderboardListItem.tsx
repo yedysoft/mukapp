@@ -1,6 +1,6 @@
 import {useTheme} from '../../hooks';
 import {YedyBadge, YedyImage, YedyListItem, YedyText} from '../custom';
-import {responsiveSize, responsiveWidth} from '../../utils/util';
+import {responsiveWidth} from '../../utils/util';
 import {observer} from 'mobx-react';
 import {YedyPalette} from '../../themes/YedyPalette';
 import {IRoomLeaderboard} from '../../types/room';
@@ -29,22 +29,17 @@ export default observer(({leader, index}: Props) => {
     <YedyListItem
       style={{
         alignItems: 'center',
+        alignContent: 'center',
       }}
       onPress={() => navigation.navigate('Profile', {userId: leader.userId})}
     >
       {index === 0 ? null : (
-        <YedyText
-          numberOfLines={1}
-          type={'bold'}
-          size={28}
-          color={rankColor}
-          style={{minWidth: responsiveWidth(40), textAlign: 'center'}}
-        >
+        <YedyText numberOfLines={1} type={'bold'} size={28} color={rankColor}>
           {index}
         </YedyText>
       )}
       <YedyImage
-        scale={1}
+        scale={0.7}
         source={
           leader.image
             ? {uri: `${leader.image.link}?token=${auth.authToken}`}
@@ -57,16 +52,17 @@ export default observer(({leader, index}: Props) => {
       </YedyText>
       <YedyBadge
         badge={leader.voteCount}
+        scale={1}
         style={{
-          minWidth: responsiveWidth(36),
-          aspectRatio: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: index === 0 ? colors.background : colors.backdrop,
-          borderWidth: 4,
+          position: undefined,
+          backgroundColor: colors.background,
+          borderWidth: responsiveWidth(3),
           borderColor: colors.primary,
+          alignSelf: 'center',
+          top: undefined,
+          right: undefined,
         }}
-        textStyle={{color: colors.secondary, fontSize: responsiveSize(16)}}
+        textStyle={{color: colors.secondary}}
       />
     </YedyListItem>
   );

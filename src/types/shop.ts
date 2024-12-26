@@ -13,4 +13,6 @@ export type IPurchase = {
   transactionDate: number;
   purchaseToken?: string;
   productId: string;
+  regionCode: string;
+  price?: number;
 };

@@ -35,9 +35,7 @@ export default observer(({compact}: Props) => {
       <TouchableOpacity
         disabled={!compact}
         onPress={compact ? () => navigation.navigate('Room') : undefined}
-        style={{
-          flexDirection: 'row',
-        }}
+        style={{flexDirection: 'row'}}
       >
         <YedyImage
           scale={compact ? 1.4 : 2}

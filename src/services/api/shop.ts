@@ -40,6 +40,7 @@ class ShopApi {
       const result = (await RNI.requestPurchase(args)) as ProductPurchase | ProductPurchase[];
       stores.loading.set('processPurchase', true);
       const data = Array.isArray(result) ? result[0] : result;
+      const price = stores.shop.coins.find(v => v.productId === data.productId)?.price;
       const purchase: IPurchase = {
         type: 'PRODUCT',
         operatingSystem: Platform.OS.toUpperCase() as IOperatingSystemType,
@@ -47,6 +48,8 @@ class ShopApi {
         transactionDate: data.transactionDate,
         purchaseToken: data.purchaseToken,
         productId: data.productId,
+        regionCode: await RNI.getStorefront(),
+        price: price ? parseFloat(price) : undefined,
       };
       const response = await axiosIns.post<boolean>('/purchase/processPurchase', purchase);
       if (response.status === 200) {

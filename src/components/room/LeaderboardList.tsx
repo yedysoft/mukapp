@@ -18,7 +18,6 @@ export default function LeaderboardList({leaderboard, onRefresh, loading}: Props
       ListEmptyComponent={<YedyEmptyList />}
       renderItem={({item, index}) => <LeaderboardListItem key={index} index={index} leader={item} />}
       scrollEnabled
-      style={{display: loading ? 'none' : 'flex'}}
       contentContainerStyle={{paddingVertical: responsiveWidth(8)}}
     />
   );
