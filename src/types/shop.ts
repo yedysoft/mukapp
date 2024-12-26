@@ -1,0 +1,16 @@
+import {Product} from 'react-native-iap';
+import {IOperatingSystemType, IPurchaseType} from './enums';
+
+export type IProduct = Product & {
+  source: number;
+  value: number;
+};
+
+export type IPurchase = {
+  type: IPurchaseType;
+  operatingSystem: IOperatingSystemType;
+  transactionId?: string;
+  transactionDate: number;
+  purchaseToken?: string;
+  productId: string;
+};

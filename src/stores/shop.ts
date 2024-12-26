@@ -1,5 +1,5 @@
 import {BaseStore} from './base';
-import {IProduct} from '../types';
+import {IProduct} from '../types/shop';
 
 class ShopStore extends BaseStore<ShopStore> {
   coins: IProduct[] = [];

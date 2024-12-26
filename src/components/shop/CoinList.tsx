@@ -1,7 +1,7 @@
 import {FlatList} from 'react-native';
 import {responsiveWidth} from '../../utils/util';
 import CoinGridItem from './CoinGridItem';
-import {IProduct} from '../../types';
+import {IProduct} from '../../types/shop';
 
 type Props = {
   coins: IProduct[];

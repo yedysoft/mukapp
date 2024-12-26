@@ -26,6 +26,8 @@ export type INotificationType = 'DEFAULT' | 'FOLLOW' | 'MESSAGE';
 export type IMessageBodyType = 'ERROR' | 'WARNING' | 'INFO';
 export type IDeviceType = 'UNKNOWN' | 'PHONE' | 'TABLET' | 'DESKTOP' | 'TV';
 export type IAuthsType = 'YEDY' | 'GOOGLE' | 'APPLE';
+export type IPurchaseType = 'PRODUCT' | 'SUBSCRIPTION';
+export type IOperatingSystemType = 'ANDROID' | 'IOS';
 
 export const _gender = ['MALE', 'FEMALE', 'OTHER'] as const;
 export type IGender = (typeof _gender)[number];

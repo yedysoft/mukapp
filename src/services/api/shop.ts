@@ -3,6 +3,9 @@ import {ProductPurchase} from 'react-native-iap';
 import {stores} from '../../stores';
 import {PVoid} from '../../types';
 import {Platform} from 'react-native';
+import axiosIns from '../axiosIns';
+import {IPurchase} from '../../types/shop';
+import {IOperatingSystemType} from '../../types/enums';
 
 class ShopApi {
   coinSkus: Record<string, {value: number; source: number}> = {
@@ -34,11 +37,38 @@ class ShopApi {
   requestPurchase = async (sku: string): PVoid => {
     try {
       const args = Platform.OS === 'ios' ? {sku} : {skus: [sku]};
-      const response = (await RNI.requestPurchase(args)) as ProductPurchase | ProductPurchase[];
-      const purchase = Array.isArray(response) ? response[0] : response;
-      console.log('requestPurchase', purchase);
+      const result = (await RNI.requestPurchase(args)) as ProductPurchase | ProductPurchase[];
+      stores.loading.set('processPurchase', true);
+      const data = Array.isArray(result) ? result[0] : result;
+      const purchase: IPurchase = {
+        type: 'PRODUCT',
+        operatingSystem: Platform.OS.toUpperCase() as IOperatingSystemType,
+        transactionId: data.transactionId,
+        transactionDate: data.transactionDate,
+        purchaseToken: data.purchaseToken,
+        productId: data.productId,
+      };
+      const response = await axiosIns.post<boolean>('/purchase/processPurchase', purchase);
+      if (response.status === 200) {
+        if (response.data) {
+          console.log(
+            'finishTransaction',
+            await RNI.finishTransaction({
+              purchase: data,
+              isConsumable: true,
+              developerPayloadAndroid: data.developerPayloadAndroid,
+            }),
+          );
+          stores.ui.addInfo('Satın alma işlemi doğrulandı.');
+        } else {
+          stores.ui.addError('Satın alma işlemi doğrulanamadı. Uygulamayı başlangıcında tekrar denenecek.');
+        }
+      }
+      console.log('requestPurchase', data);
     } catch (e) {
       console.log(e);
+    } finally {
+      stores.loading.set('processPurchase', false);
     }
   };
 

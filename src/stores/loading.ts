@@ -26,6 +26,9 @@ class LoadingStore extends BaseStore<LoadingStore> {
   editInfo = false;
   deleteImage = false;
 
+  // Shop
+  processPurchase = false;
+
   constructor() {
     super();
     this.makeObservableAndPersistable(this, LoadingStore.name);

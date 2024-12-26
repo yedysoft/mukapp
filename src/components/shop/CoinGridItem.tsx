@@ -3,7 +3,7 @@ import {responsiveWidth} from '../../utils/util';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {useServices} from '../../services';
 import {YedyText} from '../custom';
-import {IProduct} from '../../types';
+import {IProduct} from '../../types/shop';
 
 type Props = {
   onPress?: () => void;
