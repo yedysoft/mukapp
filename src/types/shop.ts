@@ -10,7 +10,7 @@ export type IPurchase = {
   type: IPurchaseType;
   operatingSystem: IOperatingSystemType;
   transactionId?: string;
-  transactionDate: number;
+  transactionDate: string;
   purchaseToken?: string;
   productId: string;
   regionCode: string;

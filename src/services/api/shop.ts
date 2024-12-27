@@ -1,5 +1,5 @@
 import * as RNI from 'react-native-iap';
-import {ProductPurchase} from 'react-native-iap';
+import {ProductPurchase, Purchase} from 'react-native-iap';
 import {stores} from '../../stores';
 import {PVoid} from '../../types';
 import {Platform} from 'react-native';
@@ -20,7 +20,8 @@ class ShopApi {
 
   initConnection = async (): PVoid => {
     try {
-      console.log('initConnection', await RNI.initConnection());
+      await RNI.initConnection();
+      await this.checkNonCompletedPurchases();
     } catch (e) {
       console.log(e);
     }
@@ -34,18 +35,25 @@ class ShopApi {
     }
   };
 
-  requestPurchase = async (sku: string): PVoid => {
+  checkNonCompletedPurchases = async (): PVoid => {
     try {
-      const args = Platform.OS === 'ios' ? {sku} : {skus: [sku]};
-      const result = (await RNI.requestPurchase(args)) as ProductPurchase | ProductPurchase[];
-      stores.loading.set('processPurchase', true);
-      const data = Array.isArray(result) ? result[0] : result;
+      const purchases = await RNI.getAvailablePurchases();
+      for (const purchase of purchases) {
+        await this.processPurchase(purchase);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  processPurchase = async (data: Purchase): PVoid => {
+    try {
       const price = stores.shop.coins.find(v => v.productId === data.productId)?.price;
       const purchase: IPurchase = {
         type: 'PRODUCT',
         operatingSystem: Platform.OS.toUpperCase() as IOperatingSystemType,
         transactionId: data.transactionId,
-        transactionDate: data.transactionDate,
+        transactionDate: new Date(data.transactionDate).toISOString(),
         purchaseToken: data.purchaseToken,
         productId: data.productId,
         regionCode: await RNI.getStorefront(),
@@ -64,9 +72,21 @@ class ShopApi {
           );
           stores.ui.addInfo('Satın alma işlemi doğrulandı.');
         } else {
-          stores.ui.addError('Satın alma işlemi doğrulanamadı. Uygulamayı başlangıcında tekrar denenecek.');
+          stores.ui.addError('Satın alma işlemi doğrulanamadı. Uygulama başlangıcında tekrar denenecek.');
         }
       }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  requestPurchase = async (sku: string): PVoid => {
+    try {
+      const args = Platform.OS === 'ios' ? {sku} : {skus: [sku]};
+      const result = (await RNI.requestPurchase(args)) as ProductPurchase | ProductPurchase[];
+      stores.loading.set('processPurchase', true);
+      const data = Array.isArray(result) ? result[0] : result;
+      //await this.processPurchase(data);
       console.log('requestPurchase', data);
     } catch (e) {
       console.log(e);
