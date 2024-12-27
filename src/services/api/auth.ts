@@ -14,6 +14,7 @@ import * as Device from 'expo-device';
 import {DeviceType} from 'expo-device';
 import * as RootNavigation from '../../navigation/RootNavigation';
 import defaults from '../../utils/defaults';
+import shop from './shop';
 
 class AuthApi implements IAuthApi {
   private authsApi: IAuthsApi;
@@ -86,6 +87,7 @@ class AuthApi implements IAuthApi {
       if (opt.status === 200) {
         const isNeededPassChange = await this.isNeededPassChange();
         if (!isNeededPassChange) {
+          await shop.checkNonCompletedPurchases();
           await user.getInfo();
           await this.updateExpoToken();
           await user.getAllNotifications();

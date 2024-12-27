@@ -11,6 +11,7 @@ export type IPurchase = {
   operatingSystem: IOperatingSystemType;
   transactionId?: string;
   transactionDate: string;
+  developerPayload?: string;
   purchaseToken?: string;
   productId: string;
   regionCode: string;

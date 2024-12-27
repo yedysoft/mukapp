@@ -21,7 +21,6 @@ class ShopApi {
   initConnection = async (): PVoid => {
     try {
       await RNI.initConnection();
-      await this.checkNonCompletedPurchases();
     } catch (e) {
       console.log(e);
     }
@@ -54,6 +53,7 @@ class ShopApi {
         operatingSystem: Platform.OS.toUpperCase() as IOperatingSystemType,
         transactionId: data.transactionId,
         transactionDate: new Date(data.transactionDate).toISOString(),
+        developerPayload: data.developerPayloadAndroid,
         purchaseToken: data.purchaseToken,
         productId: data.productId,
         regionCode: await RNI.getStorefront(),
@@ -62,14 +62,9 @@ class ShopApi {
       const response = await axiosIns.post<boolean>('/purchase/processPurchase', purchase);
       if (response.status === 200) {
         if (response.data) {
-          console.log(
-            'finishTransaction',
-            await RNI.finishTransaction({
-              purchase: data,
-              isConsumable: true,
-              developerPayloadAndroid: data.developerPayloadAndroid,
-            }),
-          );
+          if (Platform.OS === 'ios') {
+            await RNI.finishTransaction({purchase: data});
+          }
           stores.ui.addInfo('Satın alma işlemi doğrulandı.');
         } else {
           stores.ui.addError('Satın alma işlemi doğrulanamadı. Uygulama başlangıcında tekrar denenecek.');
@@ -86,7 +81,7 @@ class ShopApi {
       const result = (await RNI.requestPurchase(args)) as ProductPurchase | ProductPurchase[];
       stores.loading.set('processPurchase', true);
       const data = Array.isArray(result) ? result[0] : result;
-      //await this.processPurchase(data);
+      await this.processPurchase(data);
       console.log('requestPurchase', data);
     } catch (e) {
       console.log(e);
@@ -97,6 +92,7 @@ class ShopApi {
 
   getCoinProducts = async (): PVoid => {
     try {
+      Platform.OS === 'ios' && (await RNI.clearProductsIOS());
       const products = await RNI.getProducts({skus: Object.keys(this.coinSkus)});
       console.log('products', products);
       const values = products.map(p => ({...p, ...this.coinSkus[p.productId]})).sort((a, b) => a.value - b.value);
