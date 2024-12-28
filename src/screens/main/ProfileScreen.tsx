@@ -17,7 +17,7 @@ export default observer(() => {
   const {userId} = route.params as {userId: string};
   const {api, t} = useServices();
   const {user} = useStores();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const otherUser = user.info.id !== userId;
   const otherUserInfo = useInfo(userId, otherUser);
   const info = otherUser ? otherUserInfo : user.info;
@@ -26,14 +26,17 @@ export default observer(() => {
     {
       value: user.countTopVoted.toString(),
       label: t.do('main.profile.votes'),
+      visible: false,
     },
     {
       value: user.followers.length.toString() ?? '0',
       label: t.do('main.profile.followers'),
+      visible: true,
     },
     {
       value: user.follows.length.toString() ?? '0',
       label: t.do('main.profile.following'),
+      visible: true,
     },
   ];
 
@@ -41,10 +44,10 @@ export default observer(() => {
     useCallback(() => {
       const id = info.id;
       if (id !== 'default') {
-        setActiveIndex(0);
+        setActiveIndex(1);
         api.user.getFollows(id);
         api.user.getFollowers(id);
-        api.user.getTopListVoteMusic(id);
+        //api.user.getTopListVoteMusic(id);
       }
     }, [info.id]),
   );
@@ -66,13 +69,9 @@ export default observer(() => {
                 : undefined
             }
             items={
-              activeIndex === 0
+              /*activeIndex === 0
                 ? user.topVoted
-                : activeIndex === 1
-                ? user.followers
-                : activeIndex === 2
-                ? user.follows
-                : []
+                :*/ activeIndex === 1 ? user.followers : activeIndex === 2 ? user.follows : []
             }
           />
         </View>

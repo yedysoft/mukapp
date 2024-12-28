@@ -29,6 +29,7 @@ export default observer(
       open: () => changeVisible(true),
       close: () => changeVisible(false),
       sendPositions: positions => setPositions(positions),
+      isVisible: visible,
     }));
 
     useEffect(() => {

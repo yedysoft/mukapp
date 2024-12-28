@@ -34,7 +34,7 @@ export default observer(
         positions={positions}
         visible={visible}
         changeVisible={changeVisible}
-        style={{width: ui.windowWidth * 0.6, height: ui.windowHeight * 0.3}}
+        style={{width: ui.windowWidth * 0.5, height: ui.windowHeight * 0.3}}
       >
         <NotificationList compact />
       </YedyTooltip>

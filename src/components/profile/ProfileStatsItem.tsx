@@ -8,6 +8,7 @@ type Props = {
   stat: {
     value: string;
     label: string;
+    visible: boolean;
   };
   index: number;
   activeIndex: number;
@@ -22,6 +23,7 @@ export default function ProfileStatsItem({stat, index, activeIndex, setActiveInd
     <TouchableOpacity
       onPress={() => setActiveIndex(index)}
       style={{
+        display: stat.visible ? undefined : 'none',
         flexDirection: 'column',
         alignItems: 'center',
         flex: 1,

@@ -7,6 +7,7 @@ type Props = {
   stats: {
     value: string;
     label: string;
+    visible: boolean;
   }[];
   activeIndex: number;
   setActiveIndex: Dispatch<SetStateAction<number>>;
