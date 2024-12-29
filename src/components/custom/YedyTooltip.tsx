@@ -113,7 +113,12 @@ export default ({
     return true;
   };
 
-  useFocusEffect(useCallback(() => closeModal, []));
+  useFocusEffect(
+    useCallback(() => {
+      closeModal();
+      return () => {};
+    }, [closeModal]),
+  );
 
   useEffect(() => {
     if (visible) {
