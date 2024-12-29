@@ -1,11 +1,11 @@
-import React, {ReactNode, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {ReactNode, useCallback, useEffect, useRef, useState} from 'react';
 import {useTheme} from '../../hooks';
 import {BackHandler, Keyboard, NativeEventSubscription, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import defaults from '../../utils/defaults';
 import {Dimensions, Positions} from '../../types';
 import {responsiveWidth, shadowStyle} from '../../utils/util';
 import YedyPortal from './portal/YedyPortal';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 type Props = {
   children: ReactNode;
@@ -113,20 +113,7 @@ export default ({
     return true;
   };
 
-  useLayoutEffect(() => {
-    /*const {width, height} = ref.current?.getBoundingClientRect();
-    if (width && height && (dimensions.width !== width || dimensions.height !== height)) {
-      setDimensions({width, height});
-    }*/
-  }, [visible]);
-
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    return navigation.addListener('blur', () => {
-      console.log('blur');
-    });
-  }, [navigation]);
+  useFocusEffect(useCallback(() => closeModal, []));
 
   useEffect(() => {
     if (visible) {
